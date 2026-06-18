@@ -560,3 +560,42 @@ body,.ui{font-family:var(--font-ui)}
 
 /* Crisp rendering */
 body{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;text-rendering:optimizeLegibility}
+
+/* ═══════════════════════════════════════════════════════════
+   HELLOBETTER PALETTE — calm teal/mint wellness scheme
+   (sourced from hellobetter.de — teal primary + warm accents)
+   ═══════════════════════════════════════════════════════════ */
+:root{
+  --app-bg:#F5F7F7;                 /* off-white */
+  --ink:#363B3B;                    /* charcoal text */
+  --ink-soft:#7E9393;               /* muted gray-green */
+  --hb-teal:#26BDA6;                /* primary */
+  --hb-teal-deep:#037D6B;
+  --hb-teal-dark:#005649;
+  --hb-mint:#9EE3D9;
+  --hb-gold:#EBA63A;
+  --hb-peach:#FFC7B2;
+  /* icon-tile accent trio → teal · deep-teal · warm gold */
+  --c-coral:#EBA63A;
+  --c-lilac:#26BDA6;
+  --c-teal:#005649;
+}
+
+/* Primary accent = teal */
+.nav-tab.active .nav-icon{color:var(--hb-teal) !important}
+.nav-tab.active .nav-label{color:var(--hb-teal) !important;font-weight:700}
+.nav-sos .nav-icon,.nav-sos .nav-label{color:#D9795F !important}  /* SOS keeps a warm alert tone */
+.gauge-cap::before{background:var(--hb-teal)}
+
+/* Header brand + small caption tint to teal */
+.app-logo small{color:var(--hb-teal-deep)}
+
+/* XP chip → soft cream/gold (warm accent) */
+.xp-chip{background:#FFF1D6;color:#9A6B16}
+
+/* Desktop/tablet backdrop → soft teal-tinted */
+body.is-framed{
+  background:
+    radial-gradient(1100px 560px at 50% -10%, rgba(38,189,166,.14), transparent 60%),
+    #E6EDED;
+}
