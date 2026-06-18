@@ -664,3 +664,6 @@ body.is-mobile .app-header{padding-top:max(16px,env(safe-area-inset-top))}
   font-weight:700;
 }
 .gauge-num small{font-variant-numeric:normal;letter-spacing:0;font-weight:500}
+
+/* Connect page — align the row icon to the top */
+#ov-connect .card-pad{align-items:flex-start !important}
