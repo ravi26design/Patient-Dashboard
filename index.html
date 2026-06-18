@@ -1,0 +1,1719 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#FAF8F6">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="description" content="RudraHealth AI — OUD Recovery Companion. Patient dashboard.">
+<title>RudraHealth AI — OUD Recovery Companion</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Josefin+Sans:wght@200;300;400;500&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+<!-- ═══ PATIENT APP (mobile-first web app) ═══ -->
+<div id="patient-view">
+<div class="phone" id="phone">
+  <div class="phone-notch"></div><div class="phone-bar"></div>
+  <div class="status-bar"><span class="status-time ui">9:41</span><span class="status-icons">LTE &nbsp; 100%</span></div>
+  <div class="app-header">
+    <div class="app-logo">RudraHealth AI<small>OUD Recovery</small></div>
+    <div class="header-right">
+      
+      <button class="notif-btn" onclick="openOv('notifications')"><i data-lucide="bell"></i><span class="notif-badge">4</span></button>
+      <button class="avatar-btn" onclick="goScreen('profile')">AM</button>
+    </div>
+  </div>
+
+  <div class="screen-area" id="screenArea">
+
+    <!-- ═══ HOME ═══ -->
+    <div class="screen active" id="screen-home">
+      <!-- Recovery Health -->
+      <div class="home-sec">
+        <div>
+          <div class="home-head">
+            <div class="home-title">Recovery Health</div>
+          </div>
+          <div class="gauge">
+            <svg class="gauge-svg" viewBox="0 0 200 116" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <linearGradient id="gaugeGrad" x1="0" y1="0" x2="1" y2="0">
+                  <stop offset="0" stop-color="#C3E2F2"/>
+                  <stop offset="1" stop-color="#5FAFE0"/>
+                </linearGradient>
+              </defs>
+              <path d="M16,100 A84,84 0 0 1 184,100" fill="none" stroke="#DCEDF7" stroke-width="22" stroke-linecap="round"/>
+              <path d="M16,100 A84,84 0 0 1 184,100" fill="none" stroke="url(#gaugeGrad)" stroke-width="22" stroke-linecap="round" pathLength="100" stroke-dasharray="73 100"/>
+            </svg>
+            <div class="gauge-center">
+              <div class="gauge-num">7.3<small>/10</small></div>
+              <div class="gauge-cap">Great!</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Recovery Today -->
+      <div class="home-sec">
+        <div>
+          <div class="home-title" style="margin-bottom:12px">Recovery Today</div>
+          <div class="task-grid">
+            <div class="task" id="focus-card" onclick="confirmFocus(this)">
+              <span class="xp-chip xp-corner">+20 XP</span>
+              <div class="task-ic-wrap">
+                <div class="ic-tile t-coral" id="focus-icon"><i data-lucide="lightbulb"></i></div>
+                <div class="task-check" style="display:none" id="focus-check">&#10003;</div>
+              </div>
+              <div class="task-name" id="focus-label">Insights</div>
+              <div class="task-time" id="focus-time">8:00 AM</div>
+            </div>
+            <div class="task" id="checkin-card" onclick="confirmCheckin(this)">
+              <span class="xp-chip xp-corner">+20 XP</span>
+              <div class="task-ic-wrap">
+                <div class="ic-tile t-lilac" id="checkin-icon"><i data-lucide="pen-line"></i></div>
+                <div class="task-check" style="display:none" id="checkin-check">&#10003;</div>
+              </div>
+              <div class="task-name" id="checkin-label">Reflect</div>
+              <div class="task-time" id="checkin-time">5:00 PM</div>
+            </div>
+            <div class="task" id="connect-card" onclick="confirmConnect(this)">
+              <span class="xp-chip xp-corner">+20 XP</span>
+              <div class="task-ic-wrap">
+                <div class="ic-tile t-teal" id="connect-icon"><i data-lucide="users"></i></div>
+                <div class="task-check" style="display:none" id="connect-check">&#10003;</div>
+              </div>
+              <div class="task-name" id="connect-label">Connect</div>
+              <div class="task-time" id="connect-time">Anytime</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Recovery Treatments -->
+      <div class="home-sec" onclick="goScreen('mat')" style="cursor:pointer">
+        <div>
+          <div class="home-title" style="margin-bottom:8px">Recovery Treatments</div>
+          <div class="tx-row">
+            <div class="ic-tile t-coral"><i data-lucide="pill"></i></div>
+            <div style="flex:1;min-width:0">
+              <div class="tx-name">MOUD Medication</div>
+              <div class="tx-sub">Daily 8:00 AM · Suboxone 8mg/2mg</div>
+            </div>
+            <span class="xp-chip">+50 XP</span>
+            <div style="position:relative;flex-shrink:0">
+              <button id="taken-btn" class="chk-btn" onclick="event.stopPropagation();confirmTaken()">Taken</button>
+              <div id="taken-check" class="chk-done">&#10003;</div>
+            </div>
+          </div>
+          <div class="tx-row">
+            <div class="ic-tile t-lilac"><i data-lucide="user"></i></div>
+            <div style="flex:1;min-width:0">
+              <div class="tx-name">Individual Counseling</div>
+              <div class="tx-sub">Tue, May 20 · 2:00 PM · Dr. Rivera</div>
+            </div>
+            <span class="xp-chip">+40 XP</span>
+            <div style="position:relative;flex-shrink:0">
+              <button id="attended-btn-ci" class="chk-btn" onclick="event.stopPropagation();confirmAttended('ci')">Attended</button>
+              <div id="attended-check-ci" class="chk-done">&#10003;</div>
+            </div>
+          </div>
+          <div class="tx-row">
+            <div class="ic-tile t-teal"><i data-lucide="users"></i></div>
+            <div style="flex:1;min-width:0">
+              <div class="tx-name">Group Counseling</div>
+              <div class="tx-sub">Wed, May 21 · 10:00 AM · L. Thompson</div>
+            </div>
+            <span class="xp-chip">+30 XP</span>
+            <div style="position:relative;flex-shrink:0">
+              <button id="attended-btn-gp" class="chk-btn" onclick="event.stopPropagation();confirmAttended('gp')">Attended</button>
+              <div id="attended-check-gp" class="chk-done">&#10003;</div>
+            </div>
+          </div>
+          <div class="tx-row">
+            <div class="ic-tile t-coral"><i data-lucide="heart-handshake"></i></div>
+            <div style="flex:1;min-width:0">
+              <div class="tx-name">Self-Help</div>
+              <div class="tx-sub">Daily · 7:00 PM · NA Meeting</div>
+            </div>
+            <span class="xp-chip">+25 XP</span>
+            <div style="position:relative;flex-shrink:0">
+              <button id="attended-btn-sh" class="chk-btn" onclick="event.stopPropagation();confirmAttended('sh')">Attended</button>
+              <div id="attended-check-sh" class="chk-done">&#10003;</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Recovery Journey -->
+      <div class="home-sec">
+        <div>
+          <div class="home-title">Recovery Journey</div>
+          <div style="text-align:center;margin:14px 0 16px">
+            <div style="line-height:1">
+              <span style="font-family:'Fraunces',serif;font-size:46px;font-weight:700;color:var(--espresso)">47</span>
+              <span style="font-family:'Cormorant Garamond',serif;font-size:18px;color:var(--muted);margin-left:6px">days</span>
+            </div>
+            <div class="home-title" style="font-weight:500;color:var(--muted);margin-top:6px">Recovery Streak</div>
+          </div>
+          <div class="stat-grid">
+            <div class="stat-tile" style="background:var(--sage-lt)"><div class="stat-num" style="color:var(--sage-dk)">12</div><div class="stat-cap" style="color:var(--sage-dk)">Days · Insights</div></div>
+            <div class="stat-tile" style="background:var(--purple-lt)"><div class="stat-num" style="color:var(--purple-dk)">8</div><div class="stat-cap" style="color:var(--purple-dk)">Days · Improve</div></div>
+            <div class="stat-tile" style="background:var(--blue-lt)"><div class="stat-num" style="color:var(--blue)">15</div><div class="stat-cap" style="color:var(--blue)">Days · Reflect</div></div>
+            <div class="stat-tile" style="background:var(--gold-lt)"><div class="stat-num" style="color:var(--gold-dk)">47</div><div class="stat-cap" style="color:var(--gold-dk)">Days · MOUD</div></div>
+          </div>
+        </div>
+      </div>
+
+
+
+
+      
+
+
+
+
+
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!-- Narcan Status -->
+
+
+      <!-- DTx Module -->
+      
+
+
+
+    </div>
+
+    <!-- ═══ REWARDS SCREEN (Major Gamification Hub) ═══ -->
+    <div class="screen" id="screen-rewards">
+      <div class="card" style="margin-bottom:10px;border-left:3px solid var(--gold)">
+        <div class="card-pad" style="background:var(--gold-lt);text-align:center;padding:16px 14px">
+          <!-- Recovery Flame -->
+          <div class="flame-wrap" style="margin:0 auto 8px;width:72px;height:78px">
+            <div class="flame gold" style="width:44px;height:52px">
+              <div class="flame-inner" style="width:22px;height:26px"></div>
+            </div>
+            <div class="flame-streak" style="font-size:18px;color:var(--espresso);bottom:-6px"></div>
+          </div>
+          <div class="ui" style="font-size:9px;color:var(--muted);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:2px">Level 4 · Bloom</div>
+          <div style="font-family:'Fraunces',serif;font-size:32px;font-weight:700;color:var(--gold-dk)">2,340 XP</div>
+          <div class="pbar" style="margin:8px 20px 0"><div class="pfill" style="width:78%;background:var(--gold)"></div></div>
+          <div class="ui" style="font-size:8px;color:var(--muted);margin-top:4px">660 XP to Level 5 · Flourish</div>
+          <div style="display:flex;justify-content:center;gap:0;margin-top:12px;border-top:1px solid rgba(201,168,76,.2);padding-top:10px">
+            <div style="flex:1;text-align:center;border-right:1px solid rgba(201,168,76,.2)">
+              <div style="font-family:'Fraunces',serif;font-size:22px;font-weight:700;color:var(--gold-dk);line-height:1">47</div>
+              <div class="ui" style="font-size:7px;color:var(--muted);letter-spacing:1px;text-transform:uppercase;margin-top:2px">Recovery Days</div>
+            </div>
+            <div style="flex:1;text-align:center;border-right:1px solid rgba(201,168,76,.2)">
+              <div style="font-family:'Fraunces',serif;font-size:22px;font-weight:700;color:var(--gold-dk);line-height:1">45</div>
+              <div class="ui" style="font-size:7px;color:var(--muted);letter-spacing:1px;text-transform:uppercase;margin-top:2px">Days Active</div>
+            </div>
+            <div style="flex:1;text-align:center">
+              <div style="font-family:'Fraunces',serif;font-size:22px;font-weight:700;color:var(--gold-dk);line-height:1">142</div>
+              <div class="ui" style="font-size:7px;color:var(--muted);letter-spacing:1px;text-transform:uppercase;margin-top:2px">Sessions</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+      <!-- Anonymous Leaderboard -->
+      <div class="section-label" style="display:flex;align-items:center;justify-content:space-between"><span>Anonymous Leaderboard</span><span class="ui" style="font-size:8px;color:var(--sage);letter-spacing:0;text-transform:none">Day 30-90 Tier</span></div>
+      <div class="card"><div style="padding:0">
+        <div class="lb-row"><div class="lb-rank">1</div><div class="lb-av" style="background:var(--sage)">P</div><div style="flex:1"><div class="ui" style="font-size:10px;font-weight:500;color:var(--espresso)">Phoenix123</div><div class="ui" style="font-size:8px;color:var(--muted)">68-day streak · L5 Flourish</div></div><div class="ui" style="font-size:12px;font-weight:600;color:var(--gold)">3,840</div></div>
+        <div class="lb-row"><div class="lb-rank">2</div><div class="lb-av" style="background:var(--purple)">R</div><div style="flex:1"><div class="ui" style="font-size:10px;font-weight:500;color:var(--espresso)">RisingTide</div><div class="ui" style="font-size:8px;color:var(--muted)">52-day streak · L4 Bloom</div></div><div class="ui" style="font-size:12px;font-weight:600;color:var(--gold)">2,960</div></div>
+        <div class="lb-row me"><div class="lb-rank">3</div><div class="lb-av" style="background:var(--rose)">ME</div><div style="flex:1"><div class="ui" style="font-size:10px;font-weight:500;color:var(--espresso)">You (VictoryWarrior)</div><div class="ui" style="font-size:8px;color:var(--gold-dk)">47-day streak · L4 Bloom</div></div><div class="ui" style="font-size:12px;font-weight:600;color:var(--gold)">2,340</div></div>
+        <div class="lb-row"><div class="lb-rank">4</div><div class="lb-av" style="background:var(--blue)">K</div><div style="flex:1"><div class="ui" style="font-size:10px;color:var(--t2)">KindredSpirit</div><div class="ui" style="font-size:8px;color:var(--muted)">39-day streak · L3 Root</div></div><div class="ui" style="font-size:12px;color:var(--muted)">1,810</div></div>
+        <div class="lb-row"><div class="lb-rank">5</div><div class="lb-av" style="background:var(--coral)">N</div><div style="flex:1"><div class="ui" style="font-size:10px;color:var(--t2)">NewDawn44</div><div class="ui" style="font-size:8px;color:var(--muted)">31-day streak · L3 Root</div></div><div class="ui" style="font-size:12px;color:var(--muted)">1,540</div></div>
+      </div></div>
+
+
+
+      <!-- Family Reward Board -->
+      <div class="section-label">Family Reward Board</div>
+      <div class="card" style="border-left:3px solid var(--gold);overflow:visible">
+        <div class="card-pad">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px"><div class="ic-xl" style="background:var(--gold);color:#fff;font-size:10px">MOM</div>
+          <div style="flex:1"><div class="ui" style="font-size:11px;font-weight:500;color:var(--espresso)">Mom's Reward: Dinner at Olive Garden</div><div class="ui" style="font-size:9px;color:var(--gold-dk)">Unlocks at 60-day Recovery Streak!</div></div></div>
+          <div class="pbar"><div class="pfill" style="width:78%;background:var(--gold)"></div></div>
+          <div class="ui" style="font-size:8px;color:var(--muted);margin-top:3px">13 days to go · You're so close!</div>
+        </div>
+      </div>
+
+      <div class="card" style="border-left:3px solid var(--sage)">
+        <div class="card-pad">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px"><div class="ic-xl" style="background:var(--sage);color:#fff;font-size:10px">DAD</div>
+          <div style="flex:1"><div class="ui" style="font-size:11px;font-weight:500;color:var(--espresso)">Dad's Reward: $50 Amazon Gift Card</div><div class="ui" style="font-size:9px;color:var(--sage)">Unlocks at Level 5</div></div></div>
+          <div class="pbar"><div class="pfill" style="width:78%;background:var(--sage)"></div></div>
+          <div class="ui" style="font-size:8px;color:var(--muted);margin-top:3px">660 XP away · Keep earning!</div>
+        </div>
+      </div>
+
+      <div class="card" style="border-left:3px solid var(--purple)">
+        <div class="card-pad">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px"><div class="ic-xl" style="background:var(--purple);color:#fff;font-size:9px">SIS</div>
+          <div style="flex:1"><div class="ui" style="font-size:11px;font-weight:500;color:var(--espresso)">Emily's Reward: Movie Night Together</div><div class="ui" style="font-size:9px;color:var(--purple)">Unlocks at 90 days</div></div></div>
+          <div class="pbar"><div class="pfill" style="width:52%;background:var(--purple)"></div></div>
+          <div class="ui" style="font-size:8px;color:var(--muted);margin-top:3px">43 days to go</div>
+        </div>
+      </div>
+
+      <div class="card" style="border-left:3px solid var(--rose);opacity:.5">
+        <div class="card-pad" style="background:var(--sage-lt)">
+          <div style="display:flex;align-items:center;gap:8px"><div class="ic-xl" style="background:var(--sage);color:#fff;font-size:9px">SP</div>
+          <div style="flex:1"><div class="ui" style="font-size:11px;font-weight:500;color:var(--sage)">Sponsor Mike: Fishing Trip</div><div class="ui" style="font-size:9px;color:var(--sage-dk)">Claimed at 30 days!</div></div>
+          <span class="tag" style="background:var(--sage);color:#fff">Earned</span></div>
+        </div>
+      </div>
+
+      <!-- Gratitude Gifts (Reciprocity Loop) -->
+      <div class="section-label">Gratitude Gifts</div>
+      <div class="gratitude-card">
+        <div style="display:flex;align-items:center;gap:10px">
+          <div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--rose),var(--gold));display:flex;align-items:center;justify-content:center;font-size:16px">💌</div>
+          <div style="flex:1">
+            <div class="ui" style="font-size:10px;font-weight:500;color:var(--espresso)">Send a Thank You to Dad</div>
+            <div class="ui" style="font-size:8px;color:var(--muted)">He pledged a $50 gift card for your L5 milestone</div>
+          </div>
+          <button style="padding:6px 12px;border-radius:2px;border:none;background:var(--rose);color:#fff;font-family:'Josefin Sans',sans-serif;font-size:8px;cursor:pointer;letter-spacing:.5px">Send</button>
+        </div>
+      </div>
+      <div class="gratitude-card" style="opacity:.7">
+        <div style="display:flex;align-items:center;gap:10px">
+          <div style="width:36px;height:36px;border-radius:50%;background:var(--sage-lt);display:flex;align-items:center;justify-content:center;font-size:16px">✅</div>
+          <div style="flex:1">
+            <div class="ui" style="font-size:10px;color:var(--sage)">Sent to Sponsor Mike · 30-Day Milestone</div>
+            <div class="ui" style="font-size:8px;color:var(--muted)">"Thank you for the fishing trip. It meant everything."</div>
+          </div>
+          <span class="tag" style="background:var(--sage-lt);color:var(--sage)">Sent</span>
+        </div>
+      </div>
+
+
+
+
+
+      <!-- Streak Shield Inventory -->
+      <div class="section-label">Streak Shields</div>
+      <div class="card"><div class="card-pad" style="display:flex;align-items:center;gap:12px">
+        <div style="font-size:28px">🛡</div>
+        <div style="flex:1">
+          <div class="ui" style="font-size:11px;font-weight:500;color:var(--espresso)">1 Shield Available</div>
+          <div class="ui" style="font-size:8px;color:var(--muted)">Auto-protects any of your streaks if you miss a day</div>
+          <div class="ui" style="font-size:7px;color:var(--blue);margin-top:2px">Earn 1 new shield for every 7 days of app use</div>
+        </div>
+      </div></div>
+
+      <!-- Achievements Unlocked (Collection Instinct) -->
+      <div class="section-label">Achievements Unlocked · 7 of 24</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:5px;margin-bottom:8px">
+        <div style="text-align:center;background:#fff;border-radius:4px;border:1px solid var(--border);padding:8px 4px"><div class="ic-xl" style="background:var(--gold);color:#fff;margin:0 auto 3px;font-size:8px">30</div><div class="ui" style="font-size:6px;font-weight:500;color:var(--espresso)">30 Day Hero</div></div>
+        <div style="text-align:center;background:#fff;border-radius:4px;border:1px solid var(--border);padding:8px 4px"><div class="ic-xl" style="background:var(--sage);color:#fff;margin:0 auto 3px;font-size:8px">Rx</div><div class="ui" style="font-size:6px;font-weight:500;color:var(--espresso)">MOUD Master</div></div>
+        <div style="text-align:center;background:#fff;border-radius:4px;border:1px solid var(--border);padding:8px 4px"><div class="ic-xl" style="background:var(--purple);color:#fff;margin:0 auto 3px;font-size:8px">AI</div><div class="ui" style="font-size:6px;font-weight:500;color:var(--espresso)">Sage Friend</div></div>
+        <div style="text-align:center;background:#fff;border-radius:4px;border:1px solid var(--border);padding:8px 4px"><div class="ic-xl" style="background:var(--coral);color:#fff;margin:0 auto 3px;font-size:8px">Nx</div><div class="ui" style="font-size:6px;font-weight:500;color:var(--espresso)">Narcan Ready</div></div>
+        <div style="text-align:center;background:#fff;border-radius:4px;border:1px solid var(--border);padding:8px 4px"><div class="ic-xl" style="background:var(--blue);color:#fff;margin:0 auto 3px;font-size:8px">VJ</div><div class="ui" style="font-size:6px;font-weight:500;color:var(--espresso)">Voice Healer</div></div>
+        <div style="text-align:center;background:#fff;border-radius:4px;border:1px solid var(--border);padding:8px 4px"><div class="ic-xl" style="background:var(--rose);color:#fff;margin:0 auto 3px;font-size:8px">FM</div><div class="ui" style="font-size:6px;font-weight:500;color:var(--espresso)">Family Bond</div></div>
+        <div style="text-align:center;background:#fff;border-radius:4px;border:1px solid var(--border);padding:8px 4px"><div class="ic-xl" style="background:var(--gold);color:#fff;margin:0 auto 3px;font-size:8px">7d</div><div class="ui" style="font-size:6px;font-weight:500;color:var(--espresso)">Week Warrior</div></div>
+        <div style="text-align:center;background:#fff;border-radius:4px;border:1px solid var(--border);padding:8px 4px;opacity:.3"><div class="ic-xl" style="background:var(--taupe);color:var(--muted);margin:0 auto 3px;font-size:8px">?</div><div class="ui" style="font-size:6px;color:var(--muted)">90 Days</div></div>
+      </div>
+
+
+
+      <!-- Level Roadmap -->
+      <div class="section-label">Level Roadmap</div>
+      <div class="card"><div class="card-pad" style="padding:10px 14px">
+        <div style="display:flex;align-items:center;gap:8px;padding:6px 0;opacity:.5"><span class="tag" style="background:var(--sage-lt);color:var(--sage)">Done</span><span class="ui" style="font-size:10px;color:var(--t1)">L1 Seed · 100 XP</span><span class="ui" style="font-size:7px;color:var(--sage);font-style:italic">+100 welcome bonus</span></div>
+        <div style="display:flex;align-items:center;gap:8px;padding:6px 0;opacity:.5"><span class="tag" style="background:var(--sage-lt);color:var(--sage)">Done</span><span class="ui" style="font-size:10px;color:var(--t1)">L2 Sprout · 500 XP</span><span class="ui" style="font-size:7px;color:var(--muted)">🔵 Blue Flame</span></div>
+        <div style="display:flex;align-items:center;gap:8px;padding:6px 0;opacity:.5"><span class="tag" style="background:var(--sage-lt);color:var(--sage)">Done</span><span class="ui" style="font-size:10px;color:var(--t1)">L3 Root · 1,200 XP</span><span class="ui" style="font-size:7px;color:var(--muted)">🟣 Purple Flame</span></div>
+        <div style="display:flex;align-items:center;gap:8px;padding:6px 0"><span class="tag" style="background:var(--gold-lt);color:var(--gold)">Now</span><span class="ui" style="font-size:10px;font-weight:500;color:var(--gold-dk)">L4 Bloom · 2,000 XP</span><span class="ui" style="font-size:7px;color:var(--gold)">🟡 Gold Flame</span></div>
+        <div style="display:flex;align-items:center;gap:8px;padding:6px 0;opacity:.4"><span class="tag" style="background:var(--taupe);color:var(--muted)">Next</span><span class="ui" style="font-size:10px;color:var(--t3)">L5 Flourish · 3,000 XP</span><span class="ui" style="font-size:7px;color:var(--muted)">Platinum Flame</span></div>
+        <div style="display:flex;align-items:center;gap:8px;padding:6px 0;opacity:.3"><span class="tag" style="background:var(--taupe);color:var(--muted)">L6</span><span class="ui" style="font-size:10px;color:var(--t4)">L6 Thrive · 5,000 XP</span><span class="ui" style="font-size:7px;color:var(--t4)">💎 Diamond Flame</span></div>
+      </div></div>
+
+    </div>
+
+    <!-- Stub Screens -->
+    <!-- ═══ MOUD SCREEN ═══ -->
+    <!-- ═══ PATTERNS SCREEN ═══ -->
+    <div class="screen" id="screen-mat">
+      <div class="section-label">Recovery Patterns</div>
+
+      <!-- Recovery Health Over Time — always visible -->
+      <div class="card" style="margin-bottom:6px;border-left:3px solid var(--sage)">
+        <div class="card-pad" style="padding:8px 14px">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
+            <div>
+              <div class="ui" style="font-size:11px;font-weight:500;color:var(--espresso)">Recovery Health</div>
+              <div class="ui" style="font-size:8px;color:var(--muted)">Scale: 0 (lowest) · 100 (highest)</div>
+            </div>
+            <div style="display:flex;gap:4px">
+              <button class="rh-tf" id="rhtf-month"   onclick="selectRHTf('month',this)"   style="padding:4px 7px;border-radius:2px;border:1px solid var(--espresso);background:var(--espresso);color:#fff;font-family:'Josefin Sans',sans-serif;font-size:7px;letter-spacing:.5px;cursor:pointer">Past Month</button>
+              <button class="rh-tf" id="rhtf-weekly"  onclick="selectRHTf('weekly',this)"  style="padding:4px 7px;border-radius:2px;border:1px solid var(--border);background:#fff;color:var(--muted);font-family:'Josefin Sans',sans-serif;font-size:7px;letter-spacing:.5px;cursor:pointer">Weekly</button>
+              <button class="rh-tf" id="rhtf-monthly" onclick="selectRHTf('monthly',this)" style="padding:4px 7px;border-radius:2px;border:1px solid var(--border);background:#fff;color:var(--muted);font-family:'Josefin Sans',sans-serif;font-size:7px;letter-spacing:.5px;cursor:pointer">Monthly</button>
+            </div>
+          </div>
+          <div id="rh-scroll-wrapper" style="overflow-x:auto;-webkit-overflow-scrolling:touch">
+            <canvas id="recoveryHealthChart"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <!-- Item Selector -->
+      <div class="card" style="margin-bottom:6px">
+        <div class="card-pad" style="padding:8px 14px">
+          <div class="ui" style="font-size:9px;color:var(--espresso);letter-spacing:1.5px;font-weight:500;text-transform:uppercase;margin-bottom:8px">Select Item to Graph</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:5px">
+            <button class="pattern-item" id="pitem-urge"     onclick="selectPatternItem('urge',this)"     style="padding:7px 4px;border-radius:2px;border:1px solid var(--espresso);background:var(--espresso);color:#fff;font-family:'Josefin Sans',sans-serif;font-size:8px;letter-spacing:.5px;cursor:pointer">Urge</button>
+            <button class="pattern-item" id="pitem-pain"     onclick="selectPatternItem('pain',this)"     style="padding:7px 4px;border-radius:2px;border:1px solid var(--border);background:#fff;color:var(--muted);font-family:'Josefin Sans',sans-serif;font-size:8px;letter-spacing:.5px;cursor:pointer">Pain</button>
+            <button class="pattern-item" id="pitem-stress"   onclick="selectPatternItem('stress',this)"   style="padding:7px 4px;border-radius:2px;border:1px solid var(--border);background:#fff;color:var(--muted);font-family:'Josefin Sans',sans-serif;font-size:8px;letter-spacing:.5px;cursor:pointer">Stressful Events</button>
+            <button class="pattern-item" id="pitem-pleasant" onclick="selectPatternItem('pleasant',this)" style="padding:7px 4px;border-radius:2px;border:1px solid var(--border);background:#fff;color:var(--muted);font-family:'Josefin Sans',sans-serif;font-size:8px;letter-spacing:.5px;cursor:pointer">Pleasant Events</button>
+            <button class="pattern-item" id="pitem-risky"    onclick="selectPatternItem('risky',this)"    style="padding:7px 4px;border-radius:2px;border:1px solid var(--border);background:#fff;color:var(--muted);font-family:'Josefin Sans',sans-serif;font-size:8px;letter-spacing:.5px;cursor:pointer">Risky Situations</button>
+            <button class="pattern-item" id="pitem-sleep"    onclick="selectPatternItem('sleep',this)"    style="padding:7px 4px;border-radius:2px;border:1px solid var(--border);background:#fff;color:var(--muted);font-family:'Josefin Sans',sans-serif;font-size:8px;letter-spacing:.5px;cursor:pointer">Sleep Quality</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Chart Card -->
+      <div class="card">
+        <div class="card-pad" style="padding:8px 14px">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
+            <div>
+              <div class="ui" style="font-size:11px;font-weight:500;color:var(--espresso)" id="pattern-title">Urge</div>
+              <div class="ui" style="font-size:8px;color:var(--muted)">Scale: 1 (lowest) · 5 (highest)</div>
+            </div>
+            <div style="display:flex;gap:4px">
+              <button class="pattern-tf" id="ptf-month"   onclick="selectPatternTf('month',this)"   style="padding:4px 7px;border-radius:2px;border:1px solid var(--espresso);background:var(--espresso);color:#fff;font-family:'Josefin Sans',sans-serif;font-size:7px;letter-spacing:.5px;cursor:pointer">Past Month</button>
+              <button class="pattern-tf" id="ptf-weekly"  onclick="selectPatternTf('weekly',this)"  style="padding:4px 7px;border-radius:2px;border:1px solid var(--border);background:#fff;color:var(--muted);font-family:'Josefin Sans',sans-serif;font-size:7px;letter-spacing:.5px;cursor:pointer">Weekly</button>
+              <button class="pattern-tf" id="ptf-monthly" onclick="selectPatternTf('monthly',this)" style="padding:4px 7px;border-radius:2px;border:1px solid var(--border);background:#fff;color:var(--muted);font-family:'Josefin Sans',sans-serif;font-size:7px;letter-spacing:.5px;cursor:pointer">Monthly</button>
+            </div>
+          </div>
+          <div id="chart-scroll-wrapper" style="overflow-x:auto;-webkit-overflow-scrolling:touch">
+            <canvas id="patternChart"></canvas>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ NARCAN SCREEN ═══ -->
+    <div class="screen" id="screen-narcan">
+      <div class="section-label">Naloxone Hub</div>
+      <div class="card" style="border-left:3px solid var(--coral)"><div class="card-pad" style="background:var(--coral-lt)">
+        <div class="ui" style="font-size:9px;color:var(--coral);letter-spacing:1px;text-transform:uppercase;margin-bottom:4px">Your Narcan Kit</div>
+        <div style="display:flex;align-items:baseline;gap:8px"><span style="font-family:'Fraunces',serif;font-size:28px;font-weight:700;color:var(--coral-dk)">2</span><span class="ui" style="font-size:11px;color:var(--muted)">doses available</span></div>
+        <div class="ui" style="font-size:9px;color:var(--muted);margin-top:3px">Narcan Nasal Spray 4mg · Expires Jun 2027</div>
+      </div></div>
+
+      <div class="card" style="cursor:pointer"><div class="card-pad" style="display:flex;align-items:center;gap:10px"><div class="ic-lg" style="background:var(--sage-lt);color:var(--sage)">FT</div><div style="flex:1"><div class="ui" style="font-size:10px;font-weight:500;color:var(--espresso)">Family Training Status</div><div class="ui" style="font-size:9px;color:var(--sage)">Mom (Sarah) — Trained · Dad — Not yet</div></div></div></div>
+
+      <div class="card" style="cursor:pointer"><div class="card-pad" style="display:flex;align-items:center;gap:10px"><div class="ic-lg" style="background:var(--blue-lt);color:var(--blue)">OD</div><div style="flex:1"><div class="ui" style="font-size:10px;font-weight:500;color:var(--espresso)">OD Response Plan</div><div class="ui" style="font-size:9px;color:var(--muted)">Step-by-step guide for you and your family</div></div></div></div>
+
+      <div class="card" style="cursor:pointer"><div class="card-pad" style="display:flex;align-items:center;gap:10px"><div class="ic-lg" style="background:var(--gold-lt);color:var(--gold-dk)">FN</div><div style="flex:1"><div class="ui" style="font-size:10px;font-weight:500;color:var(--espresso)">Find Free Narcan Near Me</div><div class="ui" style="font-size:9px;color:var(--muted)">Pharmacies, health depts, community orgs</div></div></div></div>
+
+      <div class="card" style="cursor:pointer"><div class="card-pad" style="display:flex;align-items:center;gap:10px"><div class="ic-lg" style="background:var(--purple-lt);color:var(--purple)">FS</div><div style="flex:1"><div class="ui" style="font-size:10px;font-weight:500;color:var(--espresso)">Fentanyl Safety</div><div class="ui" style="font-size:9px;color:var(--muted)">Test strips · Harm reduction education</div></div></div></div>
+
+      <div class="card" style="border-left:3px solid var(--amber)"><div class="card-pad" style="display:flex;align-items:center;gap:10px"><div class="ic-lg" style="background:var(--amber-lt);color:var(--amber)">Rx</div><div style="flex:1"><div class="ui" style="font-size:10px;font-weight:500;color:var(--espresso)">Naloxone Dispensing Record</div><div class="ui" style="font-size:9px;color:var(--amber)">G2216 · Received: 2 doses on Mar 15 · Training: Complete</div><div class="ui" style="font-size:8px;color:var(--muted);margin-top:2px">Take-home supply documented for EMR billing</div></div></div></div>
+
+      <div class="ui" style="font-size:8px;color:var(--muted);text-align:center;margin-top:6px">Narcan status is shared with your care team.</div>
+    </div>
+
+    <!-- ═══ WORKBOOK/LEARN SCREEN ═══ -->
+    <div class="screen" id="screen-workbook">
+      <div class="section-label">OUD Recovery Workbook</div>
+
+      <div class="card" style="border-left:3px solid var(--purple)" onclick="openOv('dtx-module')"><div class="card-pad" style="background:var(--purple-lt)">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">
+          <div class="ic-xl" style="background:var(--purple);color:#fff;font-size:10px">CBT</div>
+          <div style="flex:1"><div class="ui" style="font-size:11px;font-weight:500;color:var(--espresso)">CBT for Substance Use</div><div class="ui" style="font-size:9px;color:var(--muted)">Module 3 of 8 · Functional Analysis</div></div>
+          <span class="tag" style="background:var(--gold-lt);color:var(--gold-dk)">+75 XP</span>
+        </div>
+        <div class="pbar"><div class="pfill" style="width:72%;background:var(--purple)"></div></div>
+        <div class="ui" style="font-size:8px;color:var(--muted);margin-top:3px">72% complete · 14 sessions this month</div>
+      </div></div>
+
+      <div class="section-label">Lesson Modules</div>
+      <div class="card" style="cursor:pointer"><div class="card-pad" style="display:flex;align-items:center;gap:10px"><span class="tag" style="background:var(--sage-lt);color:var(--sage)">Done</span><div style="flex:1"><div class="ui" style="font-size:10px;font-weight:500;color:var(--espresso)">Understanding OUD &amp; Your Brain</div><div class="ui" style="font-size:8px;color:var(--muted)">5 lessons · How opioids rewire reward pathways</div></div><span class="ui" style="font-size:9px;color:var(--sage)">5/5</span></div></div>
+      <div class="card" style="cursor:pointer"><div class="card-pad" style="display:flex;align-items:center;gap:10px"><span class="tag" style="background:var(--sage-lt);color:var(--sage)">Done</span><div style="flex:1"><div class="ui" style="font-size:10px;font-weight:500;color:var(--espresso)">MOUD as Your Ally</div><div class="ui" style="font-size:8px;color:var(--muted)">4 lessons · Why medication-assisted treatment works</div></div><span class="ui" style="font-size:9px;color:var(--sage)">4/4</span></div></div>
+      <div class="card" style="cursor:pointer;border-left:2px solid var(--gold)"><div class="card-pad" style="display:flex;align-items:center;gap:10px"><span class="tag" style="background:var(--gold-lt);color:var(--gold-dk)">Now</span><div style="flex:1"><div class="ui" style="font-size:10px;font-weight:500;color:var(--gold-dk)">Opioid Trigger Map</div><div class="ui" style="font-size:8px;color:var(--muted)">6 lessons · Identify your personal triggers</div></div><span class="ui" style="font-size:9px;color:var(--gold-dk)">3/6</span></div></div>
+      <div class="card" style="cursor:pointer;opacity:.6"><div class="card-pad" style="display:flex;align-items:center;gap:10px"><span class="tag" style="background:var(--taupe);color:var(--muted)">Next</span><div style="flex:1"><div class="ui" style="font-size:10px;color:var(--t3)">Pain Without Opioids</div><div class="ui" style="font-size:8px;color:var(--t4)">5 lessons · Non-opioid pain strategies</div></div></div></div>
+
+      <!-- CBT Cliffhanger (Zeigarnik Effect) -->
+      <div class="cliffhanger">
+        <div style="display:flex;align-items:center;gap:10px;position:relative;z-index:1">
+          <div class="ic-lg" style="background:var(--purple);color:#fff;font-size:8px">?</div>
+          <div style="flex:1">
+            <div class="ui" style="font-size:10px;font-weight:500;color:var(--purple)">Up Next: Why your brain lies to you about pain</div>
+            <div class="ui" style="font-size:8px;color:var(--muted)">Preview Module 4 · Continue tomorrow for +75 XP</div>
+            <div class="ui" style="font-size:7px;color:var(--purple);margin-top:3px;font-style:italic">"The same pathways that made opioids feel essential are the ones telling you..."</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" style="cursor:pointer;opacity:.4"><div class="card-pad" style="display:flex;align-items:center;gap:10px"><span class="tag" style="background:var(--taupe);color:var(--muted)">Locked</span><div style="flex:1"><div class="ui" style="font-size:10px;color:var(--t4)">Rebuilding Relationships</div><div class="ui" style="font-size:8px;color:var(--t4)">4 lessons</div></div></div></div>
+      <div class="card" style="cursor:pointer;opacity:.4"><div class="card-pad" style="display:flex;align-items:center;gap:10px"><span class="tag" style="background:var(--taupe);color:var(--muted)">Locked</span><div style="flex:1"><div class="ui" style="font-size:10px;color:var(--t4)">Understanding Relapse</div><div class="ui" style="font-size:8px;color:var(--t4)">5 lessons</div></div></div></div>
+
+      <div class="ui" style="font-size:8px;color:var(--muted);text-align:center;margin-top:6px">Each lesson earns +15 XP. Completion data syncs to provider.</div>
+    </div>
+
+    <!-- ═══ ACTIVITIES SCREEN ═══ -->
+    <div class="screen" id="screen-tools">
+      <div class="section-label">Recovery Activity History</div>
+      <a href="https://dionysus.psych.wisc.edu/rudrahealth/triggers.html" target="_blank" style="text-decoration:none;display:block">
+        <div class="card" style="cursor:pointer;border-left:3px solid var(--sage);margin-bottom:6px">
+          <div class="card-pad" style="padding:10px 14px;position:relative">
+            <div style="position:absolute;top:6px;right:10px;font-family:'Josefin Sans',sans-serif;font-size:6px;color:var(--gold);font-weight:500;letter-spacing:.3px">+20 XP</div>
+            <div style="display:flex;align-items:center;gap:10px">
+              <div class="ic-lg" style="background:var(--sage-lt);color:var(--sage-dk);flex-shrink:0;font-size:13px">&#9654;</div>
+              <div style="flex:1">
+                <div class="ui" style="font-size:10px;font-weight:500;color:var(--espresso)">Managing Cravings</div>
+                <div class="ui" style="font-size:8px;color:var(--muted);margin-top:2px">Today &middot; Jun 11</div>
+              </div>
+              <span class="tag" style="background:var(--sage-lt);color:var(--sage-dk);flex-shrink:0">Score: 73</span>
+            </div>
+          </div>
+        </div>
+      </a>
+      <a href="https://dionysus.psych.wisc.edu/rudrahealth/reducing_stress.html" target="_blank" style="text-decoration:none;display:block">
+        <div class="card" style="cursor:pointer;border-left:3px solid var(--gold);margin-bottom:6px">
+          <div class="card-pad" style="padding:10px 14px;position:relative">
+            <div style="display:flex;align-items:center;gap:10px">
+              <div class="ic-lg" style="background:var(--gold-lt);color:var(--gold-dk);flex-shrink:0;font-size:13px">&#9654;</div>
+              <div style="flex:1">
+                <div class="ui" style="font-size:10px;font-weight:500;color:var(--espresso)">Coping with Stressors</div>
+                <div class="ui" style="font-size:8px;color:var(--muted);margin-top:2px">Yesterday &middot; Jun 10</div>
+              </div>
+              <span class="tag" style="background:var(--gold-lt);color:var(--gold-dk);flex-shrink:0">Score: 60</span>
+            </div>
+          </div>
+        </div>
+      </a>
+    </div>
+
+    <!-- ═══ CHECK-IN SCREEN ═══ -->
+    <div class="screen" id="screen-checkin">
+      <div class="section-label">Daily Check-In · +30 XP</div>
+      <div class="card"><div class="card-pad">
+        <div class="ui" style="font-size:10px;font-weight:500;color:var(--espresso);margin-bottom:6px">How are you feeling today?</div>
+        <div style="display:flex;gap:6px;margin-bottom:12px">
+          <div style="flex:1;text-align:center;padding:10px 4px;border:1px solid var(--border);border-radius:4px;cursor:pointer"><div style="font-size:18px;margin-bottom:2px">😟</div><div class="ui" style="font-size:7px;color:var(--muted)">Rough</div></div>
+          <div style="flex:1;text-align:center;padding:10px 4px;border:1px solid var(--border);border-radius:4px;cursor:pointer"><div style="font-size:18px;margin-bottom:2px">😐</div><div class="ui" style="font-size:7px;color:var(--muted)">Okay</div></div>
+          <div style="flex:1;text-align:center;padding:10px 4px;border:1px solid var(--sage);background:var(--sage-lt);border-radius:4px;cursor:pointer"><div style="font-size:18px;margin-bottom:2px">🙂</div><div class="ui" style="font-size:7px;color:var(--sage)">Good</div></div>
+          <div style="flex:1;text-align:center;padding:10px 4px;border:1px solid var(--border);border-radius:4px;cursor:pointer"><div style="font-size:18px;margin-bottom:2px">😊</div><div class="ui" style="font-size:7px;color:var(--muted)">Great</div></div>
+        </div>
+        <div class="ui" style="font-size:10px;font-weight:500;color:var(--espresso);margin-bottom:4px">Craving level</div>
+        <input type="range" min="0" max="10" value="3" style="width:100%;accent-color:var(--sage);margin-bottom:12px">
+        <div class="ui" style="font-size:10px;font-weight:500;color:var(--espresso);margin-bottom:4px">Pain level</div>
+        <input type="range" min="0" max="10" value="4" style="width:100%;accent-color:var(--purple);margin-bottom:12px">
+        <div class="ui" style="font-size:10px;font-weight:500;color:var(--espresso);margin-bottom:4px">Sleep quality last night</div>
+        <input type="range" min="1" max="5" value="3" style="width:100%;accent-color:var(--rose);margin-bottom:12px">
+        <div class="ui" style="font-size:10px;font-weight:500;color:var(--espresso);margin-bottom:6px">Any triggers today?</div>
+        <div style="display:flex;flex-wrap:wrap;gap:5px;margin-bottom:12px">
+          <span class="tag" style="background:#fff;border:1px solid var(--border);color:var(--muted);cursor:pointer;padding:5px 10px">Stress</span>
+          <span class="tag" style="background:#fff;border:1px solid var(--border);color:var(--muted);cursor:pointer;padding:5px 10px">Pain</span>
+          <span class="tag" style="background:#fff;border:1px solid var(--border);color:var(--muted);cursor:pointer;padding:5px 10px">Boredom</span>
+          <span class="tag" style="background:#fff;border:1px solid var(--border);color:var(--muted);cursor:pointer;padding:5px 10px">Social</span>
+          <span class="tag" style="background:#fff;border:1px solid var(--border);color:var(--muted);cursor:pointer;padding:5px 10px">Financial</span>
+          <span class="tag" style="background:var(--sage-lt);color:var(--sage-dk);cursor:pointer;padding:5px 10px">None</span>
+        </div>
+        <button style="width:100%;padding:13px;border-radius:2px;border:none;background:var(--espresso);color:var(--cream);font-family:'Josefin Sans',sans-serif;font-size:10px;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer">Submit Check-In · +30 XP</button>
+      </div></div>
+      <div class="ui" style="font-size:8px;color:var(--muted);text-align:center;margin-top:4px">Check-in data syncs to your provider dashboard in real time.</div>
+    </div>
+
+    <!-- ═══ APPOINTMENTS SCREEN ═══ -->
+    <div class="screen" id="screen-appointments">
+      <div class="section-label">Appointments</div>
+      <div class="card"><div class="card-pad">
+        <div class="ui" style="font-size:9px;color:var(--muted);letter-spacing:1px;text-transform:uppercase;margin-bottom:8px">Today — Friday</div>
+        <div style="display:flex;align-items:center;gap:8px;padding:8px 0;border-bottom:1px solid var(--border)"><div style="width:3px;height:28px;border-radius:2px;background:var(--sage)"></div><div style="flex:1"><div class="ui" style="font-size:11px;font-weight:500;color:var(--espresso)">MOUD Clinic Visit</div><div class="ui" style="font-size:9px;color:var(--muted)">10:00 AM · Dr. Rivera · In Person</div></div><button style="padding:6px 12px;border-radius:2px;border:1px solid var(--sage);background:var(--sage-lt);color:var(--sage-dk);font-family:'Josefin Sans',sans-serif;font-size:8px;cursor:pointer;letter-spacing:.5px">Confirm · +25 XP</button></div>
+        <div style="display:flex;align-items:center;gap:8px;padding:8px 0;border-bottom:1px solid var(--border)"><div style="width:3px;height:28px;border-radius:2px;background:var(--purple)"></div><div style="flex:1"><div class="ui" style="font-size:11px;font-weight:500;color:var(--espresso)">Individual Therapy</div><div class="ui" style="font-size:9px;color:var(--muted)">2:00 PM · Dr. Chen · Telehealth</div></div><button style="padding:6px 12px;border-radius:2px;border:1px solid var(--purple);background:var(--purple-lt);color:var(--purple-dk);font-family:'Josefin Sans',sans-serif;font-size:8px;cursor:pointer;letter-spacing:.5px">Confirm · +25 XP</button></div>
+        <div style="display:flex;align-items:center;gap:8px;padding:8px 0"><div style="width:3px;height:28px;border-radius:2px;background:var(--rose)"></div><div style="flex:1"><div class="ui" style="font-size:11px;font-weight:500;color:var(--espresso)">NA Meeting</div><div class="ui" style="font-size:9px;color:var(--muted)">7:00 PM · Community Center · MOUD-Friendly</div></div><button style="padding:6px 12px;border-radius:2px;border:1px solid var(--rose);background:var(--rose-lt);color:var(--rose-dk);font-family:'Josefin Sans',sans-serif;font-size:8px;cursor:pointer;letter-spacing:.5px">Confirm · +25 XP</button></div>
+      </div></div>
+
+      <div class="card"><div class="card-pad">
+        <div class="ui" style="font-size:9px;color:var(--muted);letter-spacing:1px;text-transform:uppercase;margin-bottom:8px">Upcoming</div>
+        <div style="display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:1px solid var(--border)"><div style="width:3px;height:22px;border-radius:2px;background:var(--sage)"></div><div style="flex:1"><div class="ui" style="font-size:10px;color:var(--espresso)">MOUD Clinic</div><div class="ui" style="font-size:8px;color:var(--muted)">Mon, Apr 7 · 10:00 AM</div></div></div>
+        <div style="display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:1px solid var(--border)"><div style="width:3px;height:22px;border-radius:2px;background:var(--blue)"></div><div style="flex:1"><div class="ui" style="font-size:10px;color:var(--espresso)">Drug Court Review</div><div class="ui" style="font-size:8px;color:var(--muted)">Wed, Apr 9 · 1:30 PM</div></div></div>
+        <div style="display:flex;align-items:center;gap:8px;padding:6px 0"><div style="width:3px;height:22px;border-radius:2px;background:var(--purple)"></div><div style="flex:1"><div class="ui" style="font-size:10px;color:var(--espresso)">Group Therapy</div><div class="ui" style="font-size:8px;color:var(--muted)">Thu, Apr 10 · 4:00 PM</div></div></div>
+      </div></div>
+
+      <div class="ui" style="font-size:8px;color:var(--muted);text-align:center">Attendance data syncs to your provider for care coordination.</div>
+    </div>
+
+    <!-- ═══ PROFILE SCREEN ═══ -->
+    <div class="screen" id="screen-profile">
+      <div class="section-label">Profile</div>
+      <div style="text-align:center;margin-bottom:12px">
+        <div style="width:64px;height:64px;border-radius:50%;background:var(--rose-lt);border:3px solid var(--rose);display:flex;align-items:center;justify-content:center;margin:0 auto 8px;font-family:'Josefin Sans',sans-serif;font-size:20px;font-weight:500;color:var(--rose-dk)">AM</div>
+        <div style="font-family:'Cormorant Garamond',serif;font-size:22px;color:var(--espresso)">Alex M.</div>
+        <div class="ui" style="font-size:9px;color:var(--muted)">Clean since January 15, 2026</div>
+        <div style="display:flex;justify-content:center;gap:6px;margin-top:6px">
+          <span class="tag" style="background:var(--gold-lt);color:var(--gold-dk)">Level 4 · Bloom</span>
+          <span class="tag" style="background:var(--sage-lt);color:var(--sage)">2,340 XP</span>
+        </div>
+      </div>
+
+      <div class="card"><div class="card-pad">
+        <div class="ui" style="font-size:9px;color:var(--muted);letter-spacing:1px;text-transform:uppercase;margin-bottom:8px">Medication</div>
+        <div class="ui" style="font-size:11px;color:var(--espresso)">Suboxone 8mg/2mg · Daily · Sublingual</div>
+        <div class="ui" style="font-size:9px;color:var(--muted);margin-top:2px">Prescribed by Dr. Rivera</div>
+      </div></div>
+
+      <div class="card"><div class="card-pad">
+        <div class="ui" style="font-size:9px;color:var(--muted);letter-spacing:1px;text-transform:uppercase;margin-bottom:8px">Care Team</div>
+        <div style="display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:1px solid var(--border)"><div class="ic-lg" style="background:var(--sage-lt);color:var(--sage)">Dr</div><div style="flex:1"><div class="ui" style="font-size:10px;font-weight:500;color:var(--espresso)">Dr. Rivera</div><div class="ui" style="font-size:8px;color:var(--muted)">MOUD Prescriber</div></div></div>
+        <div style="display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:1px solid var(--border)"><div class="ic-lg" style="background:var(--purple-lt);color:var(--purple)">Th</div><div style="flex:1"><div class="ui" style="font-size:10px;font-weight:500;color:var(--espresso)">Dr. Chen</div><div class="ui" style="font-size:8px;color:var(--muted)">Therapist · CBT</div></div></div>
+        <div style="display:flex;align-items:center;gap:8px;padding:6px 0"><div class="ic-lg" style="background:var(--rose-lt);color:var(--rose-dk)">Sp</div><div style="flex:1"><div class="ui" style="font-size:10px;font-weight:500;color:var(--espresso)">Mike R.</div><div class="ui" style="font-size:8px;color:var(--muted)">Sponsor · CPRS</div></div></div>
+        <button onclick="openFindProvider('profile')" style="width:100%;margin-top:8px;padding:10px;border-radius:2px;border:1px dashed var(--blue);background:var(--blue-lt);color:var(--blue);font-family:'Josefin Sans',sans-serif;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer">+ Find a Treatment Provider</button>
+      </div></div>
+
+      <div class="card"><div class="card-pad">
+        <div class="ui" style="font-size:9px;color:var(--muted);letter-spacing:1px;text-transform:uppercase;margin-bottom:8px">Family Connected</div>
+        <div style="display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:1px solid var(--border)"><div class="ic-lg" style="background:var(--gold-lt);color:var(--gold-dk)">MOM</div><div style="flex:1"><div class="ui" style="font-size:10px;color:var(--espresso)">Mom (Sarah M.)</div><div class="ui" style="font-size:8px;color:var(--gold-dk)">1 reward pledged</div></div></div>
+        <div style="display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:1px solid var(--border)"><div class="ic-lg" style="background:var(--sage-lt);color:var(--sage)">DAD</div><div style="flex:1"><div class="ui" style="font-size:10px;color:var(--espresso)">Dad (Tom M.)</div><div class="ui" style="font-size:8px;color:var(--sage)">1 reward pledged</div></div></div>
+        <div style="display:flex;align-items:center;gap:8px;padding:6px 0"><div class="ic-lg" style="background:var(--purple-lt);color:var(--purple)">SIS</div><div style="flex:1"><div class="ui" style="font-size:10px;color:var(--espresso)">Emily M. (Sister)</div><div class="ui" style="font-size:8px;color:var(--purple)">1 reward pledged</div></div></div>
+      </div></div>
+
+      <div class="card" style="cursor:pointer"><div class="card-pad" style="display:flex;align-items:center;gap:10px"><div class="ic-lg" style="background:var(--beige);color:var(--muted)">ST</div><div class="ui" style="font-size:10px;color:var(--muted)">Settings &amp; Preferences</div></div></div>
+      <div class="card" style="cursor:pointer"><div class="card-pad" style="display:flex;align-items:center;gap:10px"><div class="ic-lg" style="background:var(--beige);color:var(--muted)">PR</div><div class="ui" style="font-size:10px;color:var(--muted)">Privacy &amp; Data Sharing</div></div></div>
+    </div>
+
+  </div>
+
+  <!-- ═══ CONNECT OVERLAY ═══ -->
+  <div class="overlay" id="ov-connect" style="background:var(--cream)">
+    <div class="ov-header" style="background:#fff;border-bottom:1px solid var(--border)">
+      <button class="ov-back" style="background:var(--beige);color:var(--espresso)" onclick="closeOv()">&larr;</button>
+      <div>
+        <div class="ui" style="font-size:8px;color:var(--muted);letter-spacing:1px;text-transform:uppercase">Recovery Support &middot; Members Only</div>
+        <div class="ui" style="font-size:12px;font-weight:500;color:var(--espresso)">Connect</div>
+      </div>
+    </div>
+    <div class="ov-body" style="padding-top:10px">
+      <div style="background:linear-gradient(135deg,var(--sage-lt),var(--blue-lt));border-radius:4px;border:1px solid rgba(91,158,111,.2);padding:12px 14px;margin-bottom:8px">
+        <div class="ui" style="font-size:11px;color:var(--t1);line-height:1.5">A private space for RudraHealth AI members to share experiences and support each other in recovery.</div>
+      </div>
+      <div class="card" style="cursor:pointer" onclick="openOv('thread-cravings')">
+        <div class="card-pad" style="display:flex;align-items:center;gap:12px">
+          <div style="width:38px;height:38px;border-radius:8px;background:var(--sage-lt);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0">🌊</div>
+          <div style="flex:1;min-width:0">
+            <div style="font-family:'Cormorant Garamond',serif;font-size:16px;color:var(--espresso);margin-bottom:2px">Coping with Cravings</div>
+            <div class="ui" style="font-size:9px;color:var(--muted);margin-bottom:5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">What triggers your cravings, and what helps?</div>
+            <div style="display:flex;gap:5px;flex-wrap:wrap">
+              <span class="tag" style="background:var(--rose-lt);color:var(--rose-dk)">9 replies</span>
+              <span class="tag" style="background:var(--beige);color:var(--muted)">2h ago</span>
+              <span class="tag" style="background:var(--sage-lt);color:var(--sage)">Active</span>
+            </div>
+          </div>
+          <div style="color:var(--muted);font-size:18px;flex-shrink:0">&#8250;</div>
+        </div>
+      </div>
+      <div class="card" style="cursor:pointer" onclick="openOv('thread-stress')">
+        <div class="card-pad" style="display:flex;align-items:center;gap:12px">
+          <div style="width:38px;height:38px;border-radius:8px;background:var(--purple-lt);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0">🧘</div>
+          <div style="flex:1;min-width:0">
+            <div style="font-family:'Cormorant Garamond',serif;font-size:16px;color:var(--espresso);margin-bottom:2px">Stress Management</div>
+            <div class="ui" style="font-size:9px;color:var(--muted);margin-bottom:5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Finding calm when stress becomes a craving trigger</div>
+            <div style="display:flex;gap:5px;flex-wrap:wrap">
+              <span class="tag" style="background:var(--rose-lt);color:var(--rose-dk)">7 replies</span>
+              <span class="tag" style="background:var(--beige);color:var(--muted)">5h ago</span>
+            </div>
+          </div>
+          <div style="color:var(--muted);font-size:18px;flex-shrink:0">&#8250;</div>
+        </div>
+      </div>
+      <div class="card" style="cursor:pointer" onclick="openOv('thread-family')">
+        <div class="card-pad" style="display:flex;align-items:center;gap:12px">
+          <div style="width:38px;height:38px;border-radius:8px;background:var(--rose-lt);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0">🏠</div>
+          <div style="flex:1;min-width:0">
+            <div style="font-family:'Cormorant Garamond',serif;font-size:16px;color:var(--espresso);margin-bottom:2px">Family Struggles</div>
+            <div class="ui" style="font-size:9px;color:var(--muted);margin-bottom:5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Navigating relationships with family during recovery</div>
+            <div style="display:flex;gap:5px;flex-wrap:wrap">
+              <span class="tag" style="background:var(--rose-lt);color:var(--rose-dk)">7 replies</span>
+              <span class="tag" style="background:var(--beige);color:var(--muted)">1 day ago</span>
+            </div>
+          </div>
+          <div style="color:var(--muted);font-size:18px;flex-shrink:0">&#8250;</div>
+        </div>
+      </div>
+      <div class="card" style="cursor:pointer" onclick="openOv('thread-pain')">
+        <div class="card-pad" style="display:flex;align-items:center;gap:12px">
+          <div style="width:38px;height:38px;border-radius:8px;background:var(--blue-lt);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0">💙</div>
+          <div style="flex:1;min-width:0">
+            <div style="font-family:'Cormorant Garamond',serif;font-size:16px;color:var(--espresso);margin-bottom:2px">Managing Pain</div>
+            <div class="ui" style="font-size:9px;color:var(--muted);margin-bottom:5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Living with chronic pain while staying in recovery</div>
+            <div style="display:flex;gap:5px;flex-wrap:wrap">
+              <span class="tag" style="background:var(--rose-lt);color:var(--rose-dk)">7 replies</span>
+              <span class="tag" style="background:var(--beige);color:var(--muted)">1 day ago</span>
+            </div>
+          </div>
+          <div style="color:var(--muted);font-size:18px;flex-shrink:0">&#8250;</div>
+        </div>
+      </div>
+      <div class="card" style="cursor:pointer" onclick="openOv('thread-friends')">
+        <div class="card-pad" style="display:flex;align-items:center;gap:12px">
+          <div style="width:38px;height:38px;border-radius:8px;background:var(--gold-lt);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0">🤝</div>
+          <div style="flex:1;min-width:0">
+            <div style="font-family:'Cormorant Garamond',serif;font-size:16px;color:var(--espresso);margin-bottom:2px">Making New Friends</div>
+            <div class="ui" style="font-size:9px;color:var(--muted);margin-bottom:5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Building new social connections in sobriety</div>
+            <div style="display:flex;gap:5px;flex-wrap:wrap">
+              <span class="tag" style="background:var(--rose-lt);color:var(--rose-dk)">8 replies</span>
+              <span class="tag" style="background:var(--beige);color:var(--muted)">2 days ago</span>
+            </div>
+          </div>
+          <div style="color:var(--muted);font-size:18px;flex-shrink:0">&#8250;</div>
+        </div>
+      </div>
+      <div style="height:12px"></div>
+    </div>
+  </div>
+
+  <!-- THREAD: COPING WITH CRAVINGS -->
+  <div class="overlay" id="ov-thread-cravings" style="background:var(--cream)">
+    <div class="ov-header" style="background:#fff;border-bottom:1px solid var(--border)">
+      <button class="ov-back" style="background:var(--beige);color:var(--espresso)" onclick="closeTopOv('thread-cravings')">&larr;</button>
+      <div>
+        <div class="ui" style="font-size:8px;color:var(--muted);letter-spacing:1px;text-transform:uppercase">Connect · Recovery Support</div>
+        <div class="ui" style="font-size:12px;font-weight:500;color:var(--espresso)">Coping with Cravings</div>
+      </div>
+    </div>
+    <div class="ov-body" style="padding-top:10px">
+      <div class="card" style="">
+        <div class="card-pad">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
+            <div class="ic-xl" style="background:var(--sage);color:#fff;font-size:11px;font-weight:600;flex-shrink:0">P</div>
+            <div style="flex:1">
+              <div class="ui" style="font-size:10px;font-weight:500;color:var(--espresso)">Phoenix123</div>
+              <div class="ui" style="font-size:8px;color:var(--muted)">Level 5 · Flourish · 2 days ago</div>
+            </div>
+          </div>
+          <div class="ui" style="font-size:12px;color:var(--t1);line-height:1.6">Hey everyone — wanted to start a thread on cravings since I feel like we don't always talk openly about the day-to-day reality of it. For me, evenings are the hardest. After dinner when everything gets quiet, my brain just starts pulling. Anyone else have a time of day that's consistently harder?</div>
+          <div style="display:flex;align-items:center;gap:12px;margin-top:8px">
+            <button style="background:none;border:none;cursor:pointer;font-family:'Josefin Sans',sans-serif;font-size:8px;color:var(--muted);letter-spacing:.5px;padding:0;display:flex;align-items:center;gap:4px">&#10084; 12 &nbsp;Helpful</button>
+          </div>
+        </div>
+      </div>
+      <div class="card" style="">
+        <div class="card-pad">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
+            <div class="ic-xl" style="background:var(--blue);color:#fff;font-size:11px;font-weight:600;flex-shrink:0">K</div>
+            <div style="flex:1">
+              <div class="ui" style="font-size:10px;font-weight:500;color:var(--espresso)">KindredSpirit</div>
+              <div class="ui" style="font-size:8px;color:var(--muted)">Level 3 · Root · 2 days ago</div>
+            </div>
+          </div>
+          <div class="ui" style="font-size:12px;color:var(--t1);line-height:1.6">Evenings too, but also when I drive past my old neighborhood. It's like my body remembers before my brain even registers what's happening. I've been doing the urge surfing exercise in the app — riding it out instead of fighting it. It doesn't make the craving disappear but it makes it feel survivable.</div>
+          <div style="display:flex;align-items:center;gap:12px;margin-top:8px">
+            <button style="background:none;border:none;cursor:pointer;font-family:'Josefin Sans',sans-serif;font-size:8px;color:var(--muted);letter-spacing:.5px;padding:0;display:flex;align-items:center;gap:4px">&#10084; 8 &nbsp;Helpful</button>
+          </div>
+        </div>
+      </div>
+      <div class="card" style="">
+        <div class="card-pad">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
+            <div class="ic-xl" style="background:var(--purple);color:#fff;font-size:11px;font-weight:600;flex-shrink:0">R</div>
+            <div style="flex:1">
+              <div class="ui" style="font-size:10px;font-weight:500;color:var(--espresso)">RisingTide</div>
+              <div class="ui" style="font-size:8px;color:var(--muted)">Level 4 · Bloom · 1 day ago</div>
+            </div>
+          </div>
+          <div class="ui" style="font-size:12px;color:var(--t1);line-height:1.6">Work stress is my biggest trigger. I've started doing a 5-minute check-in with Sage before meetings I know are going to be rough. It's not magic but it takes the edge off enough that I can stay present. The key for me was catching it early — once I'm already in the thick of a craving it's so much harder to pull back.</div>
+          <div style="display:flex;align-items:center;gap:12px;margin-top:8px">
+            <button style="background:none;border:none;cursor:pointer;font-family:'Josefin Sans',sans-serif;font-size:8px;color:var(--muted);letter-spacing:.5px;padding:0;display:flex;align-items:center;gap:4px">&#10084; 14 &nbsp;Helpful</button>
+          </div>
+        </div>
+      </div>
+      <div class="card" style="">
+        <div class="card-pad">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
+            <div class="ic-xl" style="background:var(--coral);color:#fff;font-size:11px;font-weight:600;flex-shrink:0">N</div>
+            <div style="flex:1">
+              <div class="ui" style="font-size:10px;font-weight:500;color:var(--espresso)">NewDawn44</div>
+              <div class="ui" style="font-size:8px;color:var(--muted)">Level 3 · Root · 1 day ago</div>
+            </div>
+          </div>
+          <div class="ui" style="font-size:12px;color:var(--t1);line-height:1.6">I didn't realize how much my cravings were tied to loneliness until I looked at 3 weeks of patterns data. It was so clear once I saw it laid out — strong cravings almost every weekend when I had nothing planned. Now I try to schedule something on Sundays just to have a reason to show up somewhere.</div>
+          <div style="display:flex;align-items:center;gap:12px;margin-top:8px">
+            <button style="background:none;border:none;cursor:pointer;font-family:'Josefin Sans',sans-serif;font-size:8px;color:var(--muted);letter-spacing:.5px;padding:0;display:flex;align-items:center;gap:4px">&#10084; 11 &nbsp;Helpful</button>
+          </div>
+        </div>
+      </div>
+      <div class="card" style="border-color:var(--rose);border-left:3px solid var(--rose);">
+        <div class="card-pad">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
+            <div class="ic-xl" style="background:var(--rose);color:#fff;font-size:9px;font-weight:600;flex-shrink:0">ME</div>
+            <div style="flex:1">
+              <div class="ui" style="font-size:10px;font-weight:500;color:var(--espresso)">VictoryWarrior <span style="color:var(--rose);font-weight:400">(you)</span></div>
+              <div class="ui" style="font-size:8px;color:var(--muted)">Level 4 · Bloom · 22 hours ago</div>
+            </div>
+          </div>
+          <div class="ui" style="font-size:12px;color:var(--t1);line-height:1.6">The Patterns feature was a turning point for me too <span style="color:var(--sage);font-weight:500">@NewDawn44</span>. I noticed my cravings spike after bad nights of sleep. Now I treat poor sleep as an early warning — I'll call my sponsor the next morning before things get hard rather than waiting until I'm already struggling.</div>
+          <div style="display:flex;align-items:center;gap:12px;margin-top:8px">
+            <button style="background:none;border:none;cursor:pointer;font-family:'Josefin Sans',sans-serif;font-size:8px;color:var(--muted);letter-spacing:.5px;padding:0;display:flex;align-items:center;gap:4px">&#10084; 9 &nbsp;Helpful</button>
+          </div>
+        </div>
+      </div>
+      <div class="card" style="">
+        <div class="card-pad">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
+            <div class="ic-xl" style="background:var(--sage);color:#fff;font-size:11px;font-weight:600;flex-shrink:0">P</div>
+            <div style="flex:1">
+              <div class="ui" style="font-size:10px;font-weight:500;color:var(--espresso)">Phoenix123</div>
+              <div class="ui" style="font-size:8px;color:var(--muted)">Level 5 · Flourish · 18 hours ago</div>
+            </div>
+          </div>
+          <div class="ui" style="font-size:12px;color:var(--t1);line-height:1.6">That's such a good reframe <span style="color:var(--rose);font-weight:500">@VictoryWarrior</span> — treating warning signs as a cue to reach out proactively. I've been using the SOS tool a few times too. Just having something structured to focus on in that moment helps break the loop. The breathing exercise especially — I was skeptical but it genuinely works.</div>
+          <div style="display:flex;align-items:center;gap:12px;margin-top:8px">
+            <button style="background:none;border:none;cursor:pointer;font-family:'Josefin Sans',sans-serif;font-size:8px;color:var(--muted);letter-spacing:.5px;padding:0;display:flex;align-items:center;gap:4px">&#10084; 7 &nbsp;Helpful</button>
+          </div>
+        </div>
+      </div>
+      <div class="card" style="">
+        <div class="card-pad">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
+            <div class="ic-xl" style="background:var(--blue);color:#fff;font-size:11px;font-weight:600;flex-shrink:0">K</div>
+            <div style="flex:1">
+              <div class="ui" style="font-size:10px;font-weight:500;color:var(--espresso)">KindredSpirit</div>
+              <div class="ui" style="font-size:8px;color:var(--muted)">Level 3 · Root · 14 hours ago</div>
+            </div>
+          </div>
+          <div class="ui" style="font-size:12px;color:var(--t1);line-height:1.6">Proud of everyone in this thread for talking about this openly. A craving doesn't mean you're weak or that something is wrong with you — it just means your brain is still healing. The craving is not the same as using.</div>
+          <div style="display:flex;align-items:center;gap:12px;margin-top:8px">
+            <button style="background:none;border:none;cursor:pointer;font-family:'Josefin Sans',sans-serif;font-size:8px;color:var(--muted);letter-spacing:.5px;padding:0;display:flex;align-items:center;gap:4px">&#10084; 22 &nbsp;Helpful</button>
+          </div>
+        </div>
+      </div>
+      <div class="card" style="">
+        <div class="card-pad">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
+            <div class="ic-xl" style="background:var(--purple);color:#fff;font-size:11px;font-weight:600;flex-shrink:0">R</div>
+            <div style="flex:1">
+              <div class="ui" style="font-size:10px;font-weight:500;color:var(--espresso)">RisingTide</div>
+              <div class="ui" style="font-size:8px;color:var(--muted)">Level 4 · Bloom · 6 hours ago</div>
+            </div>
+          </div>
+          <div class="ui" style="font-size:12px;color:var(--t1);line-height:1.6">This community is honestly one of the things keeping me going. You all understand this in a way that's hard to explain to people outside of it. 52 days and counting.</div>
+          <div style="display:flex;align-items:center;gap:12px;margin-top:8px">
+            <button style="background:none;border:none;cursor:pointer;font-family:'Josefin Sans',sans-serif;font-size:8px;color:var(--muted);letter-spacing:.5px;padding:0;display:flex;align-items:center;gap:4px">&#10084; 18 &nbsp;Helpful</button>
+          </div>
+        </div>
+      </div>
+      <div class="card" style="">
+        <div class="card-pad">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
+            <div class="ic-xl" style="background:var(--coral);color:#fff;font-size:11px;font-weight:600;flex-shrink:0">N</div>
+            <div style="flex:1">
+              <div class="ui" style="font-size:10px;font-weight:500;color:var(--espresso)">NewDawn44</div>
+              <div class="ui" style="font-size:8px;color:var(--muted)">Level 3 · Root · 2 hours ago</div>
+            </div>
+          </div>
+          <div class="ui" style="font-size:12px;color:var(--t1);line-height:1.6">52 days is incredible <span style="color:var(--purple);font-weight:500">@RisingTide</span> — we're all cheering for you. And for anyone reading this on a hard day: a craving is not a failure. It's just brain chemistry. You don't have to act on it. You can just let it pass. We're here.</div>
+          <div style="display:flex;align-items:center;gap:12px;margin-top:8px">
+            <button style="background:none;border:none;cursor:pointer;font-family:'Josefin Sans',sans-serif;font-size:8px;color:var(--muted);letter-spacing:.5px;padding:0;display:flex;align-items:center;gap:4px">&#10084; 31 &nbsp;Helpful</button>
+          </div>
+        </div>
+      </div>
+      <div style="height:8px"></div>
+    </div>
+      <div style="padding:10px 16px;border-top:1px solid var(--border);background:#fff;display:flex;gap:8px;align-items:center;flex-shrink:0">
+        <div class="ic-xl" style="background:var(--rose);color:#fff;font-size:9px;font-weight:600;flex-shrink:0">ME</div>
+        <div style="flex:1;font-family:'Josefin Sans',sans-serif;font-size:11px;color:var(--muted);background:var(--beige);border-radius:2px;padding:8px 12px;border:1px solid var(--border)">Share your experience...</div>
+        <button style="background:var(--sage);color:#fff;border:none;border-radius:2px;padding:8px 12px;font-family:'Josefin Sans',sans-serif;font-size:8px;font-weight:400;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer">Post</button>
+      </div>
+  </div>
+  <!-- THREAD: STRESS MANAGEMENT -->
+  <div class="overlay" id="ov-thread-stress" style="background:var(--cream)">
+    <div class="ov-header" style="background:#fff;border-bottom:1px solid var(--border)">
+      <button class="ov-back" style="background:var(--beige);color:var(--espresso)" onclick="closeTopOv('thread-stress')">&larr;</button>
+      <div>
+        <div class="ui" style="font-size:8px;color:var(--muted);letter-spacing:1px;text-transform:uppercase">Connect · Recovery Support</div>
+        <div class="ui" style="font-size:12px;font-weight:500;color:var(--espresso)">Stress Management</div>
+      </div>
+    </div>
+    <div class="ov-body" style="padding-top:10px">
+      <div class="card" style="">
+        <div class="card-pad">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
+            <div class="ic-xl" style="background:var(--purple);color:#fff;font-size:11px;font-weight:600;flex-shrink:0">R</div>
+            <div style="flex:1">
+              <div class="ui" style="font-size:10px;font-weight:500;color:var(--espresso)">RisingTide</div>
+              <div class="ui" style="font-size:8px;color:var(--muted)">Level 4 · Bloom · 1 day ago</div>
+            </div>
+          </div>
+          <div class="ui" style="font-size:12px;color:var(--t1);line-height:1.6">Wanted to open a thread on stress because it's my single biggest trigger — more than any place or person. Work pressure especially. Has anyone found things that actually work? Not just in the moment but building a lower baseline over time?</div>
+          <div style="display:flex;align-items:center;gap:12px;margin-top:8px">
+            <button style="background:none;border:none;cursor:pointer;font-family:'Josefin Sans',sans-serif;font-size:8px;color:var(--muted);letter-spacing:.5px;padding:0;display:flex;align-items:center;gap:4px">&#10084; 10 &nbsp;Helpful</button>
+          </div>
+        </div>
+      </div>
+      <div class="card" style="">
+        <div class="card-pad">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
+            <div class="ic-xl" style="background:var(--sage);color:#fff;font-size:11px;font-weight:600;flex-shrink:0">P</div>
+            <div style="flex:1">
+              <div class="ui" style="font-size:10px;font-weight:500;color:var(--espresso)">Phoenix123</div>
+              <div class="ui" style="font-size:8px;color:var(--muted)">Level 5 · Flourish · 1 day ago</div>
+            </div>
+          </div>
+          <div class="ui" style="font-size:12px;color:var(--t1);line-height:1.6">Exercise has been the most consistent thing for me. Even a 20-minute walk when I'm wound up makes a real difference. My nervous system needs somewhere to put the stress, or it just turns into craving. I don't think I fully understood how physical stress is until recovery.</div>
+          <div style="display:flex;align-items:center;gap:12px;margin-top:8px">
+            <button style="background:none;border:none;cursor:pointer;font-family:'Josefin Sans',sans-serif;font-size:8px;color:var(--muted);letter-spacing:.5px;padding:0;display:flex;align-items:center;gap:4px">&#10084; 13 &nbsp;Helpful</button>
+          </div>
+        </div>
+      </div>
+      <div class="card" style="">
+        <div class="card-pad">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
+            <div class="ic-xl" style="background:var(--blue);color:#fff;font-size:11px;font-weight:600;flex-shrink:0">K</div>
+            <div style="flex:1">
+              <div class="ui" style="font-size:10px;font-weight:500;color:var(--espresso)">KindredSpirit</div>
+              <div class="ui" style="font-size:8px;color:var(--muted)">Level 3 · Root · 22 hours ago</div>
+            </div>
+          </div>
+          <div class="ui" style="font-size:12px;color:var(--t1);line-height:1.6">I've started doing the breathing exercises in the app before I even feel stressed — like a daily preventive thing rather than waiting for a crisis. It's made my baseline lower somehow. The 4-7-8 breath especially. Two minutes in the car before I walk into anything difficult.</div>
+          <div style="display:flex;align-items:center;gap:12px;margin-top:8px">
+            <button style="background:none;border:none;cursor:pointer;font-family:'Josefin Sans',sans-serif;font-size:8px;color:var(--muted);letter-spacing:.5px;padding:0;display:flex;align-items:center;gap:4px">&#10084; 9 &nbsp;Helpful</button>
+          </div>
+        </div>
+      </div>
+      <div class="card" style="">
+        <div class="card-pad">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
+            <div class="ic-xl" style="background:var(--coral);color:#fff;font-size:11px;font-weight:600;flex-shrink:0">N</div>
+            <div style="flex:1">
+              <div class="ui" style="font-size:10px;font-weight:500;color:var(--espresso)">NewDawn44</div>
+              <div class="ui" style="font-size:8px;color:var(--muted)">Level 3 · Root · 18 hours ago</div>
+            </div>
+          </div>
+          <div class="ui" style="font-size:12px;color:var(--t1);line-height:1.6">Therapy has been the biggest thing for me. Understanding where my stress response comes from — a lot of it goes back much further than I realized — has made it less automatic. I still get stressed but I don't get hijacked by it as often. It took about 3 months before I noticed the difference.</div>
+          <div style="display:flex;align-items:center;gap:12px;margin-top:8px">
+            <button style="background:none;border:none;cursor:pointer;font-family:'Josefin Sans',sans-serif;font-size:8px;color:var(--muted);letter-spacing:.5px;padding:0;display:flex;align-items:center;gap:4px">&#10084; 16 &nbsp;Helpful</button>
+          </div>
+        </div>
+      </div>
+      <div class="card" style="border-color:var(--rose);border-left:3px solid var(--rose);">
+        <div class="card-pad">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
+            <div class="ic-xl" style="background:var(--rose);color:#fff;font-size:9px;font-weight:600;flex-shrink:0">ME</div>
+            <div style="flex:1">
+              <div class="ui" style="font-size:10px;font-weight:500;color:var(--espresso)">VictoryWarrior <span style="color:var(--rose);font-weight:400">(you)</span></div>
+              <div class="ui" style="font-size:8px;color:var(--muted)">Level 4 · Bloom · 14 hours ago</div>
+            </div>
+          </div>
+          <div class="ui" style="font-size:12px;color:var(--t1);line-height:1.6">I journal. I know it sounds small but getting the stress out of my head and onto paper breaks the loop. I started doing it right after dinner — which is when cravings tend to hit for me anyway — and it helps with both things at once. 10 minutes, no rules about what to write.</div>
+          <div style="display:flex;align-items:center;gap:12px;margin-top:8px">
+            <button style="background:none;border:none;cursor:pointer;font-family:'Josefin Sans',sans-serif;font-size:8px;color:var(--muted);letter-spacing:.5px;padding:0;display:flex;align-items:center;gap:4px">&#10084; 12 &nbsp;Helpful</button>
+          </div>
+        </div>
+      </div>
+      <div class="card" style="">
+        <div class="card-pad">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
+            <div class="ic-xl" style="background:var(--purple);color:#fff;font-size:11px;font-weight:600;flex-shrink:0">R</div>
+            <div style="flex:1">
+              <div class="ui" style="font-size:10px;font-weight:500;color:var(--espresso)">RisingTide</div>
+              <div class="ui" style="font-size:8px;color:var(--muted)">Level 4 · Bloom · 10 hours ago</div>
+            </div>
+          </div>
+          <div class="ui" style="font-size:12px;color:var(--t1);line-height:1.6">That's a great idea about timing it intentionally <span style="color:var(--rose);font-weight:500">@VictoryWarrior</span>. I've been trying to build these practices into a routine rather than reaching for them in crisis mode. The Sage check-in feature is good for that — 5 minutes before something I know will be hard.</div>
+          <div style="display:flex;align-items:center;gap:12px;margin-top:8px">
+            <button style="background:none;border:none;cursor:pointer;font-family:'Josefin Sans',sans-serif;font-size:8px;color:var(--muted);letter-spacing:.5px;padding:0;display:flex;align-items:center;gap:4px">&#10084; 8 &nbsp;Helpful</button>
+          </div>
+        </div>
+      </div>
+      <div class="card" style="">
+        <div class="card-pad">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
+            <div class="ic-xl" style="background:var(--sage);color:#fff;font-size:11px;font-weight:600;flex-shrink:0">P</div>
+            <div style="flex:1">
+              <div class="ui" style="font-size:10px;font-weight:500;color:var(--espresso)">Phoenix123</div>
+              <div class="ui" style="font-size:8px;color:var(--muted)">Level 5 · Flourish · 5 hours ago</div>
+            </div>
+          </div>
+          <div class="ui" style="font-size:12px;color:var(--t1);line-height:1.6">One thing I wish someone told me earlier: stress doesn't have to be dramatic to be dangerous. It's the low-level constant stuff that's worn me down more than the big events. Paying attention to that daily baseline — not just the spikes — has been one of the most important things in my recovery.</div>
+          <div style="display:flex;align-items:center;gap:12px;margin-top:8px">
+            <button style="background:none;border:none;cursor:pointer;font-family:'Josefin Sans',sans-serif;font-size:8px;color:var(--muted);letter-spacing:.5px;padding:0;display:flex;align-items:center;gap:4px">&#10084; 21 &nbsp;Helpful</button>
+          </div>
+        </div>
+      </div>
+      <div style="height:8px"></div>
+    </div>
+      <div style="padding:10px 16px;border-top:1px solid var(--border);background:#fff;display:flex;gap:8px;align-items:center;flex-shrink:0">
+        <div class="ic-xl" style="background:var(--rose);color:#fff;font-size:9px;font-weight:600;flex-shrink:0">ME</div>
+        <div style="flex:1;font-family:'Josefin Sans',sans-serif;font-size:11px;color:var(--muted);background:var(--beige);border-radius:2px;padding:8px 12px;border:1px solid var(--border)">Share your experience...</div>
+        <button style="background:var(--sage);color:#fff;border:none;border-radius:2px;padding:8px 12px;font-family:'Josefin Sans',sans-serif;font-size:8px;font-weight:400;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer">Post</button>
+      </div>
+  </div>
+  <!-- THREAD: FAMILY STRUGGLES -->
+  <div class="overlay" id="ov-thread-family" style="background:var(--cream)">
+    <div class="ov-header" style="background:#fff;border-bottom:1px solid var(--border)">
+      <button class="ov-back" style="background:var(--beige);color:var(--espresso)" onclick="closeTopOv('thread-family')">&larr;</button>
+      <div>
+        <div class="ui" style="font-size:8px;color:var(--muted);letter-spacing:1px;text-transform:uppercase">Connect · Recovery Support</div>
+        <div class="ui" style="font-size:12px;font-weight:500;color:var(--espresso)">Family Struggles</div>
+      </div>
+    </div>
+    <div class="ov-body" style="padding-top:10px">
+      <div class="card" style="">
+        <div class="card-pad">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
+            <div class="ic-xl" style="background:var(--coral);color:#fff;font-size:11px;font-weight:600;flex-shrink:0">N</div>
+            <div style="flex:1">
+              <div class="ui" style="font-size:10px;font-weight:500;color:var(--espresso)">NewDawn44</div>
+              <div class="ui" style="font-size:8px;color:var(--muted)">Level 3 · Root · 2 days ago</div>
+            </div>
+          </div>
+          <div class="ui" style="font-size:12px;color:var(--t1);line-height:1.6">Wanted to open a space to talk about family stuff. I think it's one of the hardest parts of recovery that doesn't always get talked about openly. My family is supportive, but they're also scared. Every time I'm having a hard day I can see the worry in their faces — and it makes me feel like I can't be honest with them.</div>
+          <div style="display:flex;align-items:center;gap:12px;margin-top:8px">
+            <button style="background:none;border:none;cursor:pointer;font-family:'Josefin Sans',sans-serif;font-size:8px;color:var(--muted);letter-spacing:.5px;padding:0;display:flex;align-items:center;gap:4px">&#10084; 14 &nbsp;Helpful</button>
+          </div>
+        </div>
+      </div>
+      <div class="card" style="">
+        <div class="card-pad">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
+            <div class="ic-xl" style="background:var(--blue);color:#fff;font-size:11px;font-weight:600;flex-shrink:0">K</div>
+            <div style="flex:1">
+              <div class="ui" style="font-size:10px;font-weight:500;color:var(--espresso)">KindredSpirit</div>
+              <div class="ui" style="font-size:8px;color:var(--muted)">Level 3 · Root · 2 days ago</div>
+            </div>
+          </div>
+          <div class="ui" style="font-size:12px;color:var(--t1);line-height:1.6">I feel that so much. My parents' fear sometimes comes out as control — checking in constantly, not trusting me to manage my own schedule. I know it comes from love but it's exhausting, and sometimes it actually makes things harder. I haven't figured out how to talk to them about it yet.</div>
+          <div style="display:flex;align-items:center;gap:12px;margin-top:8px">
+            <button style="background:none;border:none;cursor:pointer;font-family:'Josefin Sans',sans-serif;font-size:8px;color:var(--muted);letter-spacing:.5px;padding:0;display:flex;align-items:center;gap:4px">&#10084; 11 &nbsp;Helpful</button>
+          </div>
+        </div>
+      </div>
+      <div class="card" style="">
+        <div class="card-pad">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
+            <div class="ic-xl" style="background:var(--sage);color:#fff;font-size:11px;font-weight:600;flex-shrink:0">P</div>
+            <div style="flex:1">
+              <div class="ui" style="font-size:10px;font-weight:500;color:var(--espresso)">Phoenix123</div>
+              <div class="ui" style="font-size:8px;color:var(--muted)">Level 5 · Flourish · 1 day ago</div>
+            </div>
+          </div>
+          <div class="ui" style="font-size:12px;color:var(--t1);line-height:1.6">Rebuilding trust is the long game and I had to make peace with the fact that I can't rush it. I caused real harm when I was using, and the people who love me carry that. The most useful thing my therapist said: I don't get to set the timeline for their healing. That was hard to hear but it helped.</div>
+          <div style="display:flex;align-items:center;gap:12px;margin-top:8px">
+            <button style="background:none;border:none;cursor:pointer;font-family:'Josefin Sans',sans-serif;font-size:8px;color:var(--muted);letter-spacing:.5px;padding:0;display:flex;align-items:center;gap:4px">&#10084; 19 &nbsp;Helpful</button>
+          </div>
+        </div>
+      </div>
+      <div class="card" style="">
+        <div class="card-pad">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
+            <div class="ic-xl" style="background:var(--purple);color:#fff;font-size:11px;font-weight:600;flex-shrink:0">R</div>
+            <div style="flex:1">
+              <div class="ui" style="font-size:10px;font-weight:500;color:var(--espresso)">RisingTide</div>
+              <div class="ui" style="font-size:8px;color:var(--muted)">Level 4 · Bloom · 1 day ago</div>
+            </div>
+          </div>
+          <div class="ui" style="font-size:12px;color:var(--t1);line-height:1.6">That's a really grounding reframe <span style="color:var(--sage);font-weight:500">@Phoenix123</span>. I've also had to work on not letting family tension become a reason to isolate — that's when I'm most at risk. Now I try to tell someone on my care team when things are rocky at home before it builds up.</div>
+          <div style="display:flex;align-items:center;gap:12px;margin-top:8px">
+            <button style="background:none;border:none;cursor:pointer;font-family:'Josefin Sans',sans-serif;font-size:8px;color:var(--muted);letter-spacing:.5px;padding:0;display:flex;align-items:center;gap:4px">&#10084; 10 &nbsp;Helpful</button>
+          </div>
+        </div>
+      </div>
+      <div class="card" style="border-color:var(--rose);border-left:3px solid var(--rose);">
+        <div class="card-pad">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
+            <div class="ic-xl" style="background:var(--rose);color:#fff;font-size:9px;font-weight:600;flex-shrink:0">ME</div>
+            <div style="flex:1">
+              <div class="ui" style="font-size:10px;font-weight:500;color:var(--espresso)">VictoryWarrior <span style="color:var(--rose);font-weight:400">(you)</span></div>
+              <div class="ui" style="font-size:8px;color:var(--muted)">Level 4 · Bloom · 20 hours ago</div>
+            </div>
+          </div>
+          <div class="ui" style="font-size:12px;color:var(--t1);line-height:1.6">The hardest conversation I've had in recovery was asking my mom to stop bringing up the past every time she got scared. It took multiple tries and it's still not perfect. But things are genuinely better now. Sometimes you have to advocate for the relationship you need, not just accept the one you have.</div>
+          <div style="display:flex;align-items:center;gap:12px;margin-top:8px">
+            <button style="background:none;border:none;cursor:pointer;font-family:'Josefin Sans',sans-serif;font-size:8px;color:var(--muted);letter-spacing:.5px;padding:0;display:flex;align-items:center;gap:4px">&#10084; 15 &nbsp;Helpful</button>
+          </div>
+        </div>
+      </div>
+      <div class="card" style="">
+        <div class="card-pad">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
+            <div class="ic-xl" style="background:var(--coral);color:#fff;font-size:11px;font-weight:600;flex-shrink:0">N</div>
+            <div style="flex:1">
+              <div class="ui" style="font-size:10px;font-weight:500;color:var(--espresso)">NewDawn44</div>
+              <div class="ui" style="font-size:8px;color:var(--muted)">Level 3 · Root · 16 hours ago</div>
+            </div>
+          </div>
+          <div class="ui" style="font-size:12px;color:var(--t1);line-height:1.6">Thank you for sharing that <span style="color:var(--rose);font-weight:500">@VictoryWarrior</span>. I think a lot of us are just trying to survive interactions with family rather than actively shaping them. That reframe — advocating for the relationship you need — is something I'm going to hold onto.</div>
+          <div style="display:flex;align-items:center;gap:12px;margin-top:8px">
+            <button style="background:none;border:none;cursor:pointer;font-family:'Josefin Sans',sans-serif;font-size:8px;color:var(--muted);letter-spacing:.5px;padding:0;display:flex;align-items:center;gap:4px">&#10084; 13 &nbsp;Helpful</button>
+          </div>
+        </div>
+      </div>
+      <div class="card" style="">
+        <div class="card-pad">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
+            <div class="ic-xl" style="background:var(--blue);color:#fff;font-size:11px;font-weight:600;flex-shrink:0">K</div>
+            <div style="flex:1">
+              <div class="ui" style="font-size:10px;font-weight:500;color:var(--espresso)">KindredSpirit</div>
+              <div class="ui" style="font-size:8px;color:var(--muted)">Level 3 · Root · 8 hours ago</div>
+            </div>
+          </div>
+          <div class="ui" style="font-size:12px;color:var(--t1);line-height:1.6">For anyone whose family just doesn't understand and may never fully: it's okay to grieve that. You can love people and also accept their limits. Building community here and elsewhere isn't a consolation prize — it's part of what makes recovery sustainable when family can't carry all of it.</div>
+          <div style="display:flex;align-items:center;gap:12px;margin-top:8px">
+            <button style="background:none;border:none;cursor:pointer;font-family:'Josefin Sans',sans-serif;font-size:8px;color:var(--muted);letter-spacing:.5px;padding:0;display:flex;align-items:center;gap:4px">&#10084; 24 &nbsp;Helpful</button>
+          </div>
+        </div>
+      </div>
+      <div style="height:8px"></div>
+    </div>
+      <div style="padding:10px 16px;border-top:1px solid var(--border);background:#fff;display:flex;gap:8px;align-items:center;flex-shrink:0">
+        <div class="ic-xl" style="background:var(--rose);color:#fff;font-size:9px;font-weight:600;flex-shrink:0">ME</div>
+        <div style="flex:1;font-family:'Josefin Sans',sans-serif;font-size:11px;color:var(--muted);background:var(--beige);border-radius:2px;padding:8px 12px;border:1px solid var(--border)">Share your experience...</div>
+        <button style="background:var(--sage);color:#fff;border:none;border-radius:2px;padding:8px 12px;font-family:'Josefin Sans',sans-serif;font-size:8px;font-weight:400;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer">Post</button>
+      </div>
+  </div>
+  <!-- THREAD: MANAGING PAIN -->
+  <div class="overlay" id="ov-thread-pain" style="background:var(--cream)">
+    <div class="ov-header" style="background:#fff;border-bottom:1px solid var(--border)">
+      <button class="ov-back" style="background:var(--beige);color:var(--espresso)" onclick="closeTopOv('thread-pain')">&larr;</button>
+      <div>
+        <div class="ui" style="font-size:8px;color:var(--muted);letter-spacing:1px;text-transform:uppercase">Connect · Recovery Support</div>
+        <div class="ui" style="font-size:12px;font-weight:500;color:var(--espresso)">Managing Pain</div>
+      </div>
+    </div>
+    <div class="ov-body" style="padding-top:10px">
+      <div class="card" style="">
+        <div class="card-pad">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
+            <div class="ic-xl" style="background:var(--purple);color:#fff;font-size:11px;font-weight:600;flex-shrink:0">R</div>
+            <div style="flex:1">
+              <div class="ui" style="font-size:10px;font-weight:500;color:var(--espresso)">RisingTide</div>
+              <div class="ui" style="font-size:8px;color:var(--muted)">Level 4 · Bloom · 2 days ago</div>
+            </div>
+          </div>
+          <div class="ui" style="font-size:12px;color:var(--t1);line-height:1.6">Wanted to bring up something I haven't seen discussed much — chronic pain in recovery. I have a back injury from before I started using, and the pain is still real. It's complicated because pain was part of why I started in the first place. Is anyone else navigating this?</div>
+          <div style="display:flex;align-items:center;gap:12px;margin-top:8px">
+            <button style="background:none;border:none;cursor:pointer;font-family:'Josefin Sans',sans-serif;font-size:8px;color:var(--muted);letter-spacing:.5px;padding:0;display:flex;align-items:center;gap:4px">&#10084; 17 &nbsp;Helpful</button>
+          </div>
+        </div>
+      </div>
+      <div class="card" style="">
+        <div class="card-pad">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
+            <div class="ic-xl" style="background:var(--sage);color:#fff;font-size:11px;font-weight:600;flex-shrink:0">P</div>
+            <div style="flex:1">
+              <div class="ui" style="font-size:10px;font-weight:500;color:var(--espresso)">Phoenix123</div>
+              <div class="ui" style="font-size:8px;color:var(--muted)">Level 5 · Flourish · 2 days ago</div>
+            </div>
+          </div>
+          <div class="ui" style="font-size:12px;color:var(--t1);line-height:1.6">Yes — lower back pain here too. My doctor and I had a careful conversation about non-opioid management. I'm on a combination of PT, a nerve block, and occasional NSAIDs. It's not perfect but it's manageable. Having a provider who actually understands addiction medicine made all the difference.</div>
+          <div style="display:flex;align-items:center;gap:12px;margin-top:8px">
+            <button style="background:none;border:none;cursor:pointer;font-family:'Josefin Sans',sans-serif;font-size:8px;color:var(--muted);letter-spacing:.5px;padding:0;display:flex;align-items:center;gap:4px">&#10084; 14 &nbsp;Helpful</button>
+          </div>
+        </div>
+      </div>
+      <div class="card" style="">
+        <div class="card-pad">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
+            <div class="ic-xl" style="background:var(--blue);color:#fff;font-size:11px;font-weight:600;flex-shrink:0">K</div>
+            <div style="flex:1">
+              <div class="ui" style="font-size:10px;font-weight:500;color:var(--espresso)">KindredSpirit</div>
+              <div class="ui" style="font-size:8px;color:var(--muted)">Level 3 · Root · 1 day ago</div>
+            </div>
+          </div>
+          <div class="ui" style="font-size:12px;color:var(--t1);line-height:1.6">Heat, stretching, and — surprisingly — the mindfulness exercises in the app. I was skeptical that breathing could touch physical pain, but there's something real in changing your relationship to the sensation rather than just trying to eliminate it. Doesn't fix it, but makes it liveable.</div>
+          <div style="display:flex;align-items:center;gap:12px;margin-top:8px">
+            <button style="background:none;border:none;cursor:pointer;font-family:'Josefin Sans',sans-serif;font-size:8px;color:var(--muted);letter-spacing:.5px;padding:0;display:flex;align-items:center;gap:4px">&#10084; 11 &nbsp;Helpful</button>
+          </div>
+        </div>
+      </div>
+      <div class="card" style="">
+        <div class="card-pad">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
+            <div class="ic-xl" style="background:var(--coral);color:#fff;font-size:11px;font-weight:600;flex-shrink:0">N</div>
+            <div style="flex:1">
+              <div class="ui" style="font-size:10px;font-weight:500;color:var(--espresso)">NewDawn44</div>
+              <div class="ui" style="font-size:8px;color:var(--muted)">Level 3 · Root · 1 day ago</div>
+            </div>
+          </div>
+          <div class="ui" style="font-size:12px;color:var(--t1);line-height:1.6">The hardest part for me is that pain spikes my cravings more than almost anything else. My brain has a very direct wire between 'hurt' and 'want relief.' What helps is naming that connection out loud — when pain flares I say 'this is a craving trigger' and it creates a little distance between the sensation and the urge.</div>
+          <div style="display:flex;align-items:center;gap:12px;margin-top:8px">
+            <button style="background:none;border:none;cursor:pointer;font-family:'Josefin Sans',sans-serif;font-size:8px;color:var(--muted);letter-spacing:.5px;padding:0;display:flex;align-items:center;gap:4px">&#10084; 16 &nbsp;Helpful</button>
+          </div>
+        </div>
+      </div>
+      <div class="card" style="border-color:var(--rose);border-left:3px solid var(--rose);">
+        <div class="card-pad">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
+            <div class="ic-xl" style="background:var(--rose);color:#fff;font-size:9px;font-weight:600;flex-shrink:0">ME</div>
+            <div style="flex:1">
+              <div class="ui" style="font-size:10px;font-weight:500;color:var(--espresso)">VictoryWarrior <span style="color:var(--rose);font-weight:400">(you)</span></div>
+              <div class="ui" style="font-size:8px;color:var(--muted)">Level 4 · Bloom · 22 hours ago</div>
+            </div>
+          </div>
+          <div class="ui" style="font-size:12px;color:var(--t1);line-height:1.6">Exercise has paradoxically helped my pain AND my cravings. I started swimming — low impact, and there's something about the rhythm of it that quiets everything down. It took about 6 weeks to feel any real difference, but now I notice when I've skipped it for a few days.</div>
+          <div style="display:flex;align-items:center;gap:12px;margin-top:8px">
+            <button style="background:none;border:none;cursor:pointer;font-family:'Josefin Sans',sans-serif;font-size:8px;color:var(--muted);letter-spacing:.5px;padding:0;display:flex;align-items:center;gap:4px">&#10084; 13 &nbsp;Helpful</button>
+          </div>
+        </div>
+      </div>
+      <div class="card" style="">
+        <div class="card-pad">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
+            <div class="ic-xl" style="background:var(--purple);color:#fff;font-size:11px;font-weight:600;flex-shrink:0">R</div>
+            <div style="flex:1">
+              <div class="ui" style="font-size:10px;font-weight:500;color:var(--espresso)">RisingTide</div>
+              <div class="ui" style="font-size:8px;color:var(--muted)">Level 4 · Bloom · 12 hours ago</div>
+            </div>
+          </div>
+          <div class="ui" style="font-size:12px;color:var(--t1);line-height:1.6">For anyone dealing with this — please advocate hard for an addiction-aware provider. A lot of general practitioners don't know how to manage pain in people with OUD and will either undertreat out of fear or not understand the risks. You deserve good pain care <em>and</em> good addiction care. Both are possible.</div>
+          <div style="display:flex;align-items:center;gap:12px;margin-top:8px">
+            <button style="background:none;border:none;cursor:pointer;font-family:'Josefin Sans',sans-serif;font-size:8px;color:var(--muted);letter-spacing:.5px;padding:0;display:flex;align-items:center;gap:4px">&#10084; 22 &nbsp;Helpful</button>
+          </div>
+        </div>
+      </div>
+      <div class="card" style="">
+        <div class="card-pad">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
+            <div class="ic-xl" style="background:var(--sage);color:#fff;font-size:11px;font-weight:600;flex-shrink:0">P</div>
+            <div style="flex:1">
+              <div class="ui" style="font-size:10px;font-weight:500;color:var(--espresso)">Phoenix123</div>
+              <div class="ui" style="font-size:8px;color:var(--muted)">Level 5 · Flourish · 4 hours ago</div>
+            </div>
+          </div>
+          <div class="ui" style="font-size:12px;color:var(--t1);line-height:1.6">Seconding this completely. The pain is real and it deserves real treatment. Recovery doesn't mean you have to suffer. It just means the treatment has to be thoughtful. Don't let anyone tell you otherwise.</div>
+          <div style="display:flex;align-items:center;gap:12px;margin-top:8px">
+            <button style="background:none;border:none;cursor:pointer;font-family:'Josefin Sans',sans-serif;font-size:8px;color:var(--muted);letter-spacing:.5px;padding:0;display:flex;align-items:center;gap:4px">&#10084; 18 &nbsp;Helpful</button>
+          </div>
+        </div>
+      </div>
+      <div style="height:8px"></div>
+    </div>
+      <div style="padding:10px 16px;border-top:1px solid var(--border);background:#fff;display:flex;gap:8px;align-items:center;flex-shrink:0">
+        <div class="ic-xl" style="background:var(--rose);color:#fff;font-size:9px;font-weight:600;flex-shrink:0">ME</div>
+        <div style="flex:1;font-family:'Josefin Sans',sans-serif;font-size:11px;color:var(--muted);background:var(--beige);border-radius:2px;padding:8px 12px;border:1px solid var(--border)">Share your experience...</div>
+        <button style="background:var(--sage);color:#fff;border:none;border-radius:2px;padding:8px 12px;font-family:'Josefin Sans',sans-serif;font-size:8px;font-weight:400;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer">Post</button>
+      </div>
+  </div>
+  <!-- THREAD: MAKING NEW FRIENDS -->
+  <div class="overlay" id="ov-thread-friends" style="background:var(--cream)">
+    <div class="ov-header" style="background:#fff;border-bottom:1px solid var(--border)">
+      <button class="ov-back" style="background:var(--beige);color:var(--espresso)" onclick="closeTopOv('thread-friends')">&larr;</button>
+      <div>
+        <div class="ui" style="font-size:8px;color:var(--muted);letter-spacing:1px;text-transform:uppercase">Connect · Recovery Support</div>
+        <div class="ui" style="font-size:12px;font-weight:500;color:var(--espresso)">Making New Friends</div>
+      </div>
+    </div>
+    <div class="ov-body" style="padding-top:10px">
+      <div class="card" style="">
+        <div class="card-pad">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
+            <div class="ic-xl" style="background:var(--blue);color:#fff;font-size:11px;font-weight:600;flex-shrink:0">K</div>
+            <div style="flex:1">
+              <div class="ui" style="font-size:10px;font-weight:500;color:var(--espresso)">KindredSpirit</div>
+              <div class="ui" style="font-size:8px;color:var(--muted)">Level 3 · Root · 3 days ago</div>
+            </div>
+          </div>
+          <div class="ui" style="font-size:12px;color:var(--t1);line-height:1.6">This might sound basic but I genuinely don't know how to make friends anymore. My whole social world was tied up in using — the people, the places, all of it. I don't have a problem staying sober, but I'm lonely in a way I didn't expect and I'm not sure where to start.</div>
+          <div style="display:flex;align-items:center;gap:12px;margin-top:8px">
+            <button style="background:none;border:none;cursor:pointer;font-family:'Josefin Sans',sans-serif;font-size:8px;color:var(--muted);letter-spacing:.5px;padding:0;display:flex;align-items:center;gap:4px">&#10084; 20 &nbsp;Helpful</button>
+          </div>
+        </div>
+      </div>
+      <div class="card" style="">
+        <div class="card-pad">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
+            <div class="ic-xl" style="background:var(--coral);color:#fff;font-size:11px;font-weight:600;flex-shrink:0">N</div>
+            <div style="flex:1">
+              <div class="ui" style="font-size:10px;font-weight:500;color:var(--espresso)">NewDawn44</div>
+              <div class="ui" style="font-size:8px;color:var(--muted)">Level 3 · Root · 3 days ago</div>
+            </div>
+          </div>
+          <div class="ui" style="font-size:12px;color:var(--t1);line-height:1.6">I felt this acutely around the 30-day mark. What helped was NA meetings — not just for the recovery support but because the people there are actually building sober lives and want to know each other. I've made two real friends from my home group. It took a few months of just showing up.</div>
+          <div style="display:flex;align-items:center;gap:12px;margin-top:8px">
+            <button style="background:none;border:none;cursor:pointer;font-family:'Josefin Sans',sans-serif;font-size:8px;color:var(--muted);letter-spacing:.5px;padding:0;display:flex;align-items:center;gap:4px">&#10084; 15 &nbsp;Helpful</button>
+          </div>
+        </div>
+      </div>
+      <div class="card" style="">
+        <div class="card-pad">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
+            <div class="ic-xl" style="background:var(--sage);color:#fff;font-size:11px;font-weight:600;flex-shrink:0">P</div>
+            <div style="flex:1">
+              <div class="ui" style="font-size:10px;font-weight:500;color:var(--espresso)">Phoenix123</div>
+              <div class="ui" style="font-size:8px;color:var(--muted)">Level 5 · Flourish · 2 days ago</div>
+            </div>
+          </div>
+          <div class="ui" style="font-size:12px;color:var(--t1);line-height:1.6">Volunteering changed things for me. I started helping at a food bank on Saturday mornings and now I look forward to it every week. You're working alongside people toward a shared purpose — that's a natural foundation for connection. Nobody knows you're in recovery unless you tell them.</div>
+          <div style="display:flex;align-items:center;gap:12px;margin-top:8px">
+            <button style="background:none;border:none;cursor:pointer;font-family:'Josefin Sans',sans-serif;font-size:8px;color:var(--muted);letter-spacing:.5px;padding:0;display:flex;align-items:center;gap:4px">&#10084; 17 &nbsp;Helpful</button>
+          </div>
+        </div>
+      </div>
+      <div class="card" style="">
+        <div class="card-pad">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
+            <div class="ic-xl" style="background:var(--purple);color:#fff;font-size:11px;font-weight:600;flex-shrink:0">R</div>
+            <div style="flex:1">
+              <div class="ui" style="font-size:10px;font-weight:500;color:var(--espresso)">RisingTide</div>
+              <div class="ui" style="font-size:8px;color:var(--muted)">Level 4 · Bloom · 2 days ago</div>
+            </div>
+          </div>
+          <div class="ui" style="font-size:12px;color:var(--t1);line-height:1.6">I was intentional about picking up a hobby that requires being around the same people regularly — I joined a recreational volleyball league. I'm not good at it, which is actually helpful because it gives everyone something to laugh about. Low stakes, same faces every week, natural reason to keep showing up.</div>
+          <div style="display:flex;align-items:center;gap:12px;margin-top:8px">
+            <button style="background:none;border:none;cursor:pointer;font-family:'Josefin Sans',sans-serif;font-size:8px;color:var(--muted);letter-spacing:.5px;padding:0;display:flex;align-items:center;gap:4px">&#10084; 14 &nbsp;Helpful</button>
+          </div>
+        </div>
+      </div>
+      <div class="card" style="border-color:var(--rose);border-left:3px solid var(--rose);">
+        <div class="card-pad">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
+            <div class="ic-xl" style="background:var(--rose);color:#fff;font-size:9px;font-weight:600;flex-shrink:0">ME</div>
+            <div style="flex:1">
+              <div class="ui" style="font-size:10px;font-weight:500;color:var(--espresso)">VictoryWarrior <span style="color:var(--rose);font-weight:400">(you)</span></div>
+              <div class="ui" style="font-size:8px;color:var(--muted)">Level 4 · Bloom · 1 day ago</div>
+            </div>
+          </div>
+          <div class="ui" style="font-size:12px;color:var(--t1);line-height:1.6">I've been honest with a few people I've gotten close to about being in recovery, and it's gone better than I feared. Not with everyone, and not right away — I've learned to feel out whether someone is safe before sharing. But the friendships where they actually know me are much deeper.</div>
+          <div style="display:flex;align-items:center;gap:12px;margin-top:8px">
+            <button style="background:none;border:none;cursor:pointer;font-family:'Josefin Sans',sans-serif;font-size:8px;color:var(--muted);letter-spacing:.5px;padding:0;display:flex;align-items:center;gap:4px">&#10084; 16 &nbsp;Helpful</button>
+          </div>
+        </div>
+      </div>
+      <div class="card" style="">
+        <div class="card-pad">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
+            <div class="ic-xl" style="background:var(--blue);color:#fff;font-size:11px;font-weight:600;flex-shrink:0">K</div>
+            <div style="flex:1">
+              <div class="ui" style="font-size:10px;font-weight:500;color:var(--espresso)">KindredSpirit</div>
+              <div class="ui" style="font-size:8px;color:var(--muted)">Level 3 · Root · 18 hours ago</div>
+            </div>
+          </div>
+          <div class="ui" style="font-size:12px;color:var(--t1);line-height:1.6">These are all really helpful. I think I've been waiting to feel "ready" before putting myself out there — but maybe that feeling doesn't come first. You build connection by showing up before you feel ready.</div>
+          <div style="display:flex;align-items:center;gap:12px;margin-top:8px">
+            <button style="background:none;border:none;cursor:pointer;font-family:'Josefin Sans',sans-serif;font-size:8px;color:var(--muted);letter-spacing:.5px;padding:0;display:flex;align-items:center;gap:4px">&#10084; 19 &nbsp;Helpful</button>
+          </div>
+        </div>
+      </div>
+      <div class="card" style="">
+        <div class="card-pad">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
+            <div class="ic-xl" style="background:var(--coral);color:#fff;font-size:11px;font-weight:600;flex-shrink:0">N</div>
+            <div style="flex:1">
+              <div class="ui" style="font-size:10px;font-weight:500;color:var(--espresso)">NewDawn44</div>
+              <div class="ui" style="font-size:8px;color:var(--muted)">Level 3 · Root · 10 hours ago</div>
+            </div>
+          </div>
+          <div class="ui" style="font-size:12px;color:var(--t1);line-height:1.6">That's exactly it. Recovery itself taught me that you act your way into a new way of thinking, not the other way around. Same thing with friendship. You show up, you're a little awkward, you come back. Eventually it becomes real.</div>
+          <div style="display:flex;align-items:center;gap:12px;margin-top:8px">
+            <button style="background:none;border:none;cursor:pointer;font-family:'Josefin Sans',sans-serif;font-size:8px;color:var(--muted);letter-spacing:.5px;padding:0;display:flex;align-items:center;gap:4px">&#10084; 23 &nbsp;Helpful</button>
+          </div>
+        </div>
+      </div>
+      <div class="card" style="">
+        <div class="card-pad">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
+            <div class="ic-xl" style="background:var(--sage);color:#fff;font-size:11px;font-weight:600;flex-shrink:0">P</div>
+            <div style="flex:1">
+              <div class="ui" style="font-size:10px;font-weight:500;color:var(--espresso)">Phoenix123</div>
+              <div class="ui" style="font-size:8px;color:var(--muted)">Level 5 · Flourish · 3 hours ago</div>
+            </div>
+          </div>
+          <div class="ui" style="font-size:12px;color:var(--t1);line-height:1.6">Also — this community counts. I know it's an app and it might feel less 'real' than face-to-face. But the people in these threads are genuinely supporting each other through hard things. That's real friendship, even if it looks different.</div>
+          <div style="display:flex;align-items:center;gap:12px;margin-top:8px">
+            <button style="background:none;border:none;cursor:pointer;font-family:'Josefin Sans',sans-serif;font-size:8px;color:var(--muted);letter-spacing:.5px;padding:0;display:flex;align-items:center;gap:4px">&#10084; 28 &nbsp;Helpful</button>
+          </div>
+        </div>
+      </div>
+      <div style="height:8px"></div>
+    </div>
+      <div style="padding:10px 16px;border-top:1px solid var(--border);background:#fff;display:flex;gap:8px;align-items:center;flex-shrink:0">
+        <div class="ic-xl" style="background:var(--rose);color:#fff;font-size:9px;font-weight:600;flex-shrink:0">ME</div>
+        <div style="flex:1;font-family:'Josefin Sans',sans-serif;font-size:11px;color:var(--muted);background:var(--beige);border-radius:2px;padding:8px 12px;border:1px solid var(--border)">Share your experience...</div>
+        <button style="background:var(--sage);color:#fff;border:none;border-radius:2px;padding:8px 12px;font-family:'Josefin Sans',sans-serif;font-size:8px;font-weight:400;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer">Post</button>
+      </div>
+  </div>
+
+  <!-- Bottom Nav -->
+  <div class="bottom-nav" id="bottomNav">
+    <button class="nav-tab active" onclick="goScreen('home')"><span class="nav-icon"><i data-lucide="house"></i></span><div class="nav-label">Home</div></button>
+    <button class="nav-tab" onclick="goScreen('tools')"><span class="nav-icon"><i data-lucide="layout-grid"></i></span><div class="nav-label">Activities</div></button>
+    <button class="nav-tab" onclick="goScreen('mat')"><span class="nav-icon"><i data-lucide="trending-up"></i></span><div class="nav-label">Patterns</div></button>
+    <button class="nav-tab" onclick="goScreen('rewards')"><span class="nav-icon"><i data-lucide="trophy"></i></span><div class="nav-label">Rewards</div></button>
+    <button class="nav-tab nav-sos" onclick="openOv('sos')"><span class="nav-icon"><i data-lucide="life-buoy"></i></span><div class="nav-label">SOS</div></button>
+  </div>
+
+  <!-- ═══ OVERLAYS ═══ -->
+
+  <!-- SAGE CHAT -->
+  <div class="overlay" id="ov-sage-chat" style="background:var(--sage-dk)">
+    <div class="ov-header" style="background:var(--sage)"><button class="ov-back" onclick="closeOv()">&larr;</button><div class="ic-xl" style="background:rgba(255,255,255,.15);color:#fff;font-size:10px">AI</div><div><div class="ui" style="font-size:12px;color:#fff;letter-spacing:1px">Sage</div><div class="ui" style="font-size:8px;color:rgba(255,255,255,.6)">OUD Recovery Companion · +15 XP per session</div></div></div>
+    <div class="ov-body"><div class="chat-msgs" style="padding-top:10px">
+      <div class="chat-bubble chat-ai">Hey Alex! I noticed you logged your Suboxone on time — great start. How can I support you today?</div>
+      <div class="chat-bubble chat-ai">I'm trained for opioid recovery. I can help with cravings, pain management, MOUD questions, or just listen.</div>
+      <div class="chat-bubble chat-user">My back pain has been flaring up and it's making cravings worse.</div>
+      <div class="chat-bubble chat-ai">That makes total sense — pain and cravings are deeply connected in OUD recovery. The pain activates the same reward pathways opioids used to numb. Let's work on this together.</div>
+      <div class="chat-actions"><button class="chat-action" style="background:rgba(255,255,255,.08);color:rgba(255,255,255,.7)">Non-opioid pain tips</button><button class="chat-action" style="background:rgba(255,255,255,.08);color:rgba(255,255,255,.7)">Evening craving plan</button><button class="chat-action" style="background:rgba(255,255,255,.08);color:rgba(255,255,255,.7)">Talk to Dr. Rivera</button></div>
+    </div></div>
+    <div class="chat-input-bar"><input class="chat-input" placeholder="Talk to Sage..."><button class="chat-send" style="background:var(--sage);color:#fff">&uarr;</button></div>
+  </div>
+
+  <!-- URGE MODE -->
+  <div class="overlay" id="ov-sos" style="background:var(--cream)">
+    <div class="ov-header" style="background:var(--coral);flex-shrink:0">
+      <button class="ov-back" onclick="closeOv()">&larr; Back</button>
+      <div>
+        <div class="ui" style="font-size:12px;font-weight:500;color:#fff;letter-spacing:1px">Immediate Crisis Support (SOS)</div>
+        <div class="ui" style="font-size:8px;color:rgba(255,255,255,.7)">You are not alone · Help is here</div>
+      </div>
+    </div>
+    <div class="ov-body" style="padding-top:12px">
+      <div class="card" style="border-left:3px solid var(--coral);margin-bottom:8px">
+        <div class="card-pad" style="background:var(--rose-lt);text-align:center">
+          <div style="font-family:'Cormorant Garamond',serif;font-size:22px;color:var(--espresso);margin-bottom:4px">This craving will pass.</div>
+          <div class="ui" style="font-size:9px;color:var(--muted)">Average urge lasts 15–20 minutes. You've beaten this before.</div>
+        </div>
+      </div>
+      <div style="text-align:center;margin-bottom:12px">
+        <div style="width:100px;height:100px;border-radius:50%;border:3px solid var(--coral);margin:0 auto;display:flex;align-items:center;justify-content:center;animation:breatheCircle 4s infinite"><span class="ui" style="font-size:11px;color:var(--coral);letter-spacing:3px">BREATHE</span></div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:6px">
+        <div class="ui" style="font-size:8px;color:var(--muted);letter-spacing:1.5px;text-transform:uppercase;padding-bottom:2px;border-bottom:1px solid var(--border)">Reach Out</div>
+        <div class="card" style="cursor:pointer;border-left:3px solid var(--coral)">
+          <div class="card-pad" style="display:flex;align-items:center;gap:10px">
+            <div class="ic-lg" style="background:var(--coral);color:#fff;flex-shrink:0">988</div>
+            <div style="flex:1">
+              <div class="ui" style="font-size:11px;font-weight:500;color:var(--espresso)">Call 988 Crisis Lifeline</div>
+              <div class="ui" style="font-size:9px;color:var(--muted)">Available 24/7 · Free &amp; confidential</div>
+            </div>
+          </div>
+        </div>
+        <div class="card" style="cursor:pointer">
+          <div class="card-pad" style="display:flex;align-items:center;gap:10px">
+            <div class="ic-lg" style="background:var(--rose-lt);color:var(--rose-dk);flex-shrink:0">📞</div>
+            <div style="flex:1">
+              <div class="ui" style="font-size:11px;font-weight:500;color:var(--espresso)">Call supportive family: Mom</div>
+            </div>
+          </div>
+        </div>
+        <div class="card" style="cursor:pointer">
+          <div class="card-pad" style="display:flex;align-items:center;gap:10px">
+            <div class="ic-lg" style="background:var(--blue-lt);color:var(--blue);flex-shrink:0">📞</div>
+            <div style="flex:1">
+              <div class="ui" style="font-size:11px;font-weight:500;color:var(--espresso)">Call supportive friend: Jack P.</div>
+            </div>
+          </div>
+        </div>
+        <div class="card" style="cursor:pointer">
+          <div class="card-pad" style="display:flex;align-items:center;gap:10px">
+            <div class="ic-lg" style="background:var(--sage-lt);color:var(--sage-dk);flex-shrink:0">📞</div>
+            <div class="ui" style="font-size:11px;font-weight:500;color:var(--espresso)">Call your sponsor: Mike R.</div>
+          </div>
+        </div>
+        <div class="ui" style="font-size:8px;color:var(--muted);letter-spacing:1.5px;text-transform:uppercase;padding-bottom:2px;border-bottom:1px solid var(--border);margin-top:4px">Find Relief</div>
+        <div class="card" style="cursor:pointer">
+          <div class="card-pad" style="display:flex;align-items:center;gap:10px">
+            <div class="ic-lg" style="background:var(--purple-lt);color:var(--purple-dk);flex-shrink:0">🌊</div>
+            <div class="ui" style="font-size:11px;font-weight:500;color:var(--espresso)">Guided Urge Surfing</div>
+          </div>
+        </div>
+        <div class="card" style="cursor:pointer">
+          <div class="card-pad" style="display:flex;align-items:center;gap:10px">
+            <div class="ic-lg" style="background:var(--blue-lt);color:var(--blue);flex-shrink:0">5·4</div>
+            <div class="ui" style="font-size:11px;font-weight:500;color:var(--espresso)">Grounding exercise (5-4-3-2-1)</div>
+          </div>
+        </div>
+        <div class="card" style="cursor:pointer">
+          <div class="card-pad" style="display:flex;align-items:center;gap:10px">
+            <div class="ic-lg" style="background:var(--purple-lt);color:var(--purple-dk);flex-shrink:0">🎮</div>
+            <div class="ui" style="font-size:11px;font-weight:500;color:var(--espresso)">Play Tetris</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
+  <!-- RELAPSE MODE -->
+  <div class="overlay" id="ov-relapse-mode" style="background:linear-gradient(180deg,var(--espresso-deep),var(--espresso))">
+    <div class="ov-header"><button class="ov-back" onclick="closeOv()">&larr;</button><div class="ui" style="font-size:12px;font-weight:500;color:#fff;letter-spacing:2px;text-transform:uppercase">Support After Use</div></div>
+    <div class="ov-body" style="text-align:center"><div style="font-size:20px;color:#fff;margin:10px 0 8px">This is not the end.</div><div class="ui" style="font-size:10px;color:rgba(255,255,255,.5);margin-bottom:14px">Relapse is a part of many recovery journeys. What matters is what you do next.</div>
+      <div style="display:flex;flex-direction:column;gap:6px;text-align:left">
+        <div style="padding:12px;border-radius:4px;background:rgba(217,79,79,.2);color:#fff;font-family:'Josefin Sans',sans-serif;font-size:11px;cursor:pointer">I'm in danger — Call 911</div>
+        <div style="padding:12px;border-radius:4px;background:rgba(255,255,255,.08);color:#fff;font-family:'Josefin Sans',sans-serif;font-size:11px;cursor:pointer">Report to care team (confidential)</div>
+        <div style="padding:12px;border-radius:4px;background:rgba(255,255,255,.08);color:#fff;font-family:'Josefin Sans',sans-serif;font-size:11px;cursor:pointer">Talk to Sage AI (no judgment)</div>
+        <div style="padding:12px;border-radius:4px;background:rgba(255,255,255,.08);color:#fff;font-family:'Josefin Sans',sans-serif;font-size:11px;cursor:pointer">Locate Narcan near me</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- INSIGHTS OVERLAY -->
+  <div class="overlay" id="ov-insights" style="background:var(--cream)">
+    <div class="ov-header" style="background:#fff;border-bottom:1px solid var(--border)">
+      <button class="ov-back" style="background:var(--beige);color:var(--espresso)" onclick="closeOv()">&larr;</button>
+      <div>
+        <div class="ui" style="font-size:8px;color:var(--muted);letter-spacing:1px;text-transform:uppercase">Recovery Health · Daily Insight</div>
+        <div class="ui" style="font-size:12px;font-weight:500;color:var(--espresso)">Today's Insight</div>
+      </div>
+    </div>
+    <div class="ov-body" style="padding-top:10px">
+      <!-- Today's insight -->
+      <div class="card" style="border-left:3px solid var(--sage)">
+        <div class="card-pad" style="background:var(--sage-lt)">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
+            <div class="ui" style="font-size:9px;color:var(--sage-dk);letter-spacing:1.5px;text-transform:uppercase;font-weight:500">Today &middot; Jun 11</div>
+            <span class="tag" style="background:var(--sage);color:#fff">Score: 73</span>
+          </div>
+          <div style="font-family:'Cormorant Garamond',serif;font-size:15px;color:var(--espresso);line-height:1.75;margin-bottom:14px">
+            Today your recovery health score is a 73, and that is something to feel good about. You have been putting in real work, and it shows. One thing that stands out today is craving, which seems to be playing a part in your recovery health. The good news is that you already have the strength and skills to handle cravings when they come up. You have gotten through tough moments before, and that same grit is still with you.
+          </div>
+          <div style="border-top:1px solid rgba(91,158,111,.25);padding-top:10px;margin-bottom:10px">
+            <div class="ui" style="font-size:8px;color:var(--sage-dk);letter-spacing:1px;text-transform:uppercase;margin-bottom:6px">Your Activity for Today</div>
+            <a href="https://dionysus.psych.wisc.edu/rudrahealth/triggers.html" target="_blank" style="position:relative;display:flex;align-items:center;gap:10px;text-decoration:none;background:#fff;border:1px solid var(--border);border-radius:4px;padding:10px 12px">
+              <div style="position:absolute;top:3px;right:6px;font-family:'Josefin Sans',sans-serif;font-size:6px;color:var(--gold);font-weight:500;letter-spacing:.3px">+20 XP</div>
+              <div class="ic-lg" style="background:var(--sage-lt);color:var(--sage-dk);flex-shrink:0;font-size:13px">&#9654;</div>
+              <div style="flex:1">
+                <div class="ui" style="font-size:10px;font-weight:500;color:var(--espresso)">Recovery Activity: Managing Cravings</div>
+                <div class="ui" style="font-size:8px;color:var(--sage);margin-top:2px">Picked just for you &middot; Tap to open</div>
+              </div>
+              <div style="color:var(--muted);font-size:18px;flex-shrink:0">&#8250;</div>
+            </a>
+          </div>
+
+        </div>
+      </div>
+      <!-- Past week -->
+      <div class="section-label" style="margin-top:6px">Past Week</div>
+      <div class="card" style="margin-bottom:5px;cursor:pointer" onclick="openOv('insights-yesterday')">
+        <div class="card-pad" style="padding:10px 14px;display:flex;align-items:center;gap:10px">
+          <div style="flex:1">
+            <div class="ui" style="font-size:10px;font-weight:500;color:var(--espresso)">Yesterday &middot; Jun 10</div>
+          </div>
+          <span class="tag" style="background:var(--gold-lt);color:var(--gold-dk)">Score: 60</span>
+          <div style="color:var(--muted);font-size:18px;flex-shrink:0">&#8250;</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- YESTERDAY'S INSIGHT OVERLAY -->
+  <div class="overlay" id="ov-insights-yesterday" style="background:var(--cream)">
+    <div class="ov-header" style="background:#fff;border-bottom:1px solid var(--border)">
+      <button class="ov-back" style="background:var(--beige);color:var(--espresso)" onclick="document.getElementById('ov-insights-yesterday').classList.remove('active')">&larr;</button>
+      <div>
+        <div class="ui" style="font-size:8px;color:var(--muted);letter-spacing:1px;text-transform:uppercase">Recovery Health · Daily Insight</div>
+        <div class="ui" style="font-size:12px;font-weight:500;color:var(--espresso)">Yesterday &middot; Jun 10</div>
+      </div>
+    </div>
+    <div class="ov-body" style="padding-top:10px">
+      <div class="card" style="border-left:3px solid var(--gold)">
+        <div class="card-pad" style="background:var(--gold-lt)">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
+            <div class="ui" style="font-size:9px;color:var(--gold-dk);letter-spacing:1.5px;text-transform:uppercase;font-weight:500">Wed &middot; Jun 10</div>
+            <span class="tag" style="background:var(--gold);color:#fff">Score: 60</span>
+          </div>
+          <div style="font-family:'Cormorant Garamond',serif;font-size:15px;color:var(--espresso);line-height:1.75;margin-bottom:14px">
+            Your recovery health score today is a 60, and that number comes from everything you have shared. Life has been asking a lot of you lately, and that experience matters. Today the area in focus is coping with stressors, which seems to be weighing on your recovery health. The things you are feeling make sense, given all that you are carrying right now. Taking a moment to notice those emotions can be a meaningful part of your day.
+          </div>
+          <div style="border-top:1px solid rgba(201,168,76,.25);padding-top:10px">
+            <div class="ui" style="font-size:8px;color:var(--gold-dk);letter-spacing:1px;text-transform:uppercase;margin-bottom:6px">Your Activity for That Day</div>
+            <a href="https://dionysus.psych.wisc.edu/rudrahealth/reducing_stress.html" target="_blank" style="display:flex;align-items:center;gap:10px;text-decoration:none;background:#fff;border:1px solid var(--border);border-radius:4px;padding:10px 12px">
+              <div class="ic-lg" style="background:var(--gold-lt);color:var(--gold-dk);flex-shrink:0;font-size:13px">&#9654;</div>
+              <div style="flex:1">
+                <div class="ui" style="font-size:10px;font-weight:500;color:var(--espresso)">Recovery Activity: Coping with Stressors</div>
+                <div class="ui" style="font-size:8px;color:var(--gold-dk);margin-top:2px">Tap to open</div>
+              </div>
+              <div style="color:var(--muted);font-size:18px;flex-shrink:0">&#8250;</div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- NOTIFICATIONS --><div class="overlay" id="ov-notifications" style="background:var(--cream)"><div class="ov-header" style="background:#fff;border-bottom:1px solid var(--border)"><button class="ov-back" style="background:var(--beige);color:var(--espresso)" onclick="closeOv()">&larr;</button><div class="ui" style="font-size:12px;font-weight:500;color:var(--espresso);letter-spacing:1px">Notifications</div></div><div class="ov-body" style="padding-top:10px"><div class="card"><div class="card-pad" style="display:flex;align-items:center;gap:8px"><div class="ic" style="background:var(--sage-lt);color:var(--sage)">Rx</div><div style="flex:1"><div class="ui" style="font-size:10px;font-weight:500;color:var(--espresso)">Suboxone dose reminder</div><div class="ui" style="font-size:8px;color:var(--muted)">Due in 30 min · +50 XP</div></div></div></div><div class="card"><div class="card-pad" style="display:flex;align-items:center;gap:8px"><div class="ic" style="background:var(--gold-lt);color:var(--gold-dk)">FM</div><div style="flex:1"><div class="ui" style="font-size:10px;font-weight:500;color:var(--espresso)">Mom added a new reward!</div><div class="ui" style="font-size:8px;color:var(--muted)">"Dinner at Olive Garden at 60 days"</div></div></div></div><div class="card"><div class="card-pad" style="display:flex;align-items:center;gap:8px"><div class="ic" style="background:var(--purple-lt);color:var(--purple)">AI</div><div style="flex:1"><div class="ui" style="font-size:10px;font-weight:500;color:var(--espresso)">AI: Craving window approaching</div><div class="ui" style="font-size:8px;color:var(--muted)">Prepare coping tools for 7 PM</div></div></div></div><div class="card"><div class="card-pad" style="display:flex;align-items:center;gap:8px"><div class="ic" style="background:var(--sage-lt);color:var(--sage)">Dr</div><div style="flex:1"><div class="ui" style="font-size:10px;font-weight:500;color:var(--espresso)">Dr. Rivera: "Great MOUD adherence!"</div><div class="ui" style="font-size:8px;color:var(--muted)">Message from your care team</div></div></div></div></div></div>
+
+  <!-- MILESTONE SHARE --><div class="overlay" id="ov-milestone-share" style="background:var(--cream)"><div class="ov-header" style="padding-top:48px"><button class="ov-back" style="background:var(--taupe);color:var(--espresso)" onclick="closeOv()">&larr;</button></div><div class="ov-body" style="text-align:center"><div style="width:250px;background:#fff;border-radius:4px;padding:24px 20px;box-shadow:0 12px 40px rgba(58,51,48,.08);border:1px solid var(--border);margin:0 auto 14px"><div class="ui" style="font-size:7px;letter-spacing:4px;color:var(--rose);text-transform:uppercase;font-weight:300;margin-bottom:6px">RudraHealth AI · OUD Recovery</div><div style="font-size:48px;font-weight:500;color:var(--espresso);line-height:1">47</div><div style="font-size:14px;font-weight:400;color:var(--rose);margin-bottom:8px"><em>days · Recovery Streak</em></div><div style="display:flex;gap:6px;justify-content:center"><span class="tag" style="background:var(--gold-lt);color:var(--gold-dk)">6 Week Streak</span><span class="tag" style="background:var(--sage-lt);color:var(--sage)">Level 4</span></div></div><div style="display:flex;flex-wrap:wrap;gap:5px;justify-content:center"><span class="tag" style="background:var(--rose-lt);border:1px solid rgba(196,160,136,.2);color:var(--rose-dk)">Family</span><span class="tag" style="background:var(--rose-lt);border:1px solid rgba(196,160,136,.2);color:var(--rose-dk)">Sponsor</span><span class="tag" style="background:#fff;border:1px solid var(--border);color:var(--espresso)">Care Team</span></div></div></div>
+
+  <!-- BODY RECOVERY --><div class="overlay" id="ov-body-recovery" style="background:var(--cream)"><div class="ov-header" style="background:#fff;border-bottom:1px solid var(--border)"><button class="ov-back" style="background:var(--beige);color:var(--espresso)" onclick="closeOv()">&larr;</button><div class="ui" style="font-size:12px;font-weight:500;color:var(--espresso)">Body Recovery Timeline</div></div><div class="ov-body" style="padding-top:10px"><div style="font-size:14px;color:var(--brown);line-height:1.6;margin-bottom:14px"><em>Your body is healing from opioid use every day. Here's what's happening at 47 days:</em></div><div class="card" style="border-left:3px solid var(--sage)"><div class="card-pad"><div style="display:flex;justify-content:space-between"><span class="ui" style="font-size:10px;font-weight:500;color:var(--sage)">Week 1-2: Acute Withdrawal Gone</span><span class="tag" style="background:var(--sage-lt);color:var(--sage)">Done</span></div><div class="ui" style="font-size:9px;color:var(--muted);margin-top:3px">Physical withdrawal resolved.</div></div></div><div class="card" style="border-left:3px solid var(--sage)"><div class="card-pad"><div style="display:flex;justify-content:space-between"><span class="ui" style="font-size:10px;font-weight:500;color:var(--sage)">Week 3-4: GI System Healing</span><span class="tag" style="background:var(--sage-lt);color:var(--sage)">Done</span></div><div class="ui" style="font-size:9px;color:var(--muted);margin-top:3px">Digestive recovery. Appetite improving.</div></div></div><div class="card" style="border-left:3px solid var(--gold)"><div class="card-pad"><div style="display:flex;justify-content:space-between"><span class="ui" style="font-size:10px;font-weight:500;color:var(--gold-dk)">Week 5-8: Endorphin Restoration</span><span class="tag" style="background:var(--gold-lt);color:var(--gold-dk)">Now</span></div><div class="ui" style="font-size:9px;color:var(--muted);margin-top:3px">Natural endorphins restarting. Exercise helps accelerate.</div></div></div><div class="card"><div class="card-pad"><div class="ui" style="font-size:10px;font-weight:500;color:var(--t3)">Month 3+: Sleep & Mood Normalization</div><div class="ui" style="font-size:9px;color:var(--t4);margin-top:3px">Full sleep architecture recovery.</div></div></div><div class="card"><div class="card-pad"><div class="ui" style="font-size:10px;font-weight:500;color:var(--t3)">Month 6+: Brain Receptor Healing</div><div class="ui" style="font-size:9px;color:var(--t4);margin-top:3px">Opioid receptors returning to baseline.</div></div></div></div></div>
+
+  <!-- WITHDRAWAL TRACKER --><div class="overlay" id="ov-withdrawal" style="background:var(--cream)"><div class="ov-header" style="background:#fff;border-bottom:1px solid var(--border)"><button class="ov-back" style="background:var(--beige);color:var(--espresso)" onclick="closeOv()">&larr;</button><div class="ui" style="font-size:12px;font-weight:500;color:var(--espresso)">Withdrawal Tracker · +35 XP</div></div><div class="ov-body" style="padding-top:10px"><div class="card" style="border-left:3px solid var(--sage)"><div class="card-pad" style="background:var(--sage-lt)"><div class="ui" style="font-size:9px;color:var(--sage-dk);letter-spacing:1px;text-transform:uppercase;margin-bottom:4px">COWS Score</div><div style="display:flex;align-items:baseline;gap:6px"><span style="font-family:'Fraunces',serif;font-size:28px;font-weight:700;color:var(--sage-dk)">3</span><span class="ui" style="font-size:10px;color:var(--muted)">/48 · Minimal Withdrawal</span></div></div></div><div style="font-size:14px;color:var(--brown);margin-bottom:8px"><em>Rate current symptoms:</em></div><div class="card"><div class="card-pad"><div style="margin-bottom:8px"><div style="display:flex;justify-content:space-between;margin-bottom:2px"><span class="ui" style="font-size:10px;color:var(--brown)">Muscle/bone aches</span><span class="ui" style="font-size:10px;font-weight:500;color:var(--sage)">1</span></div><div class="pbar"><div class="pfill" style="width:33%;background:var(--sage)"></div></div></div><div style="margin-bottom:8px"><div style="display:flex;justify-content:space-between;margin-bottom:2px"><span class="ui" style="font-size:10px;color:var(--brown)">Anxiety/irritability</span><span class="ui" style="font-size:10px;font-weight:500;color:var(--gold-dk)">2</span></div><div class="pbar"><div class="pfill" style="width:66%;background:var(--gold)"></div></div></div><div style="margin-bottom:8px"><div style="display:flex;justify-content:space-between;margin-bottom:2px"><span class="ui" style="font-size:10px;color:var(--brown)">Insomnia</span><span class="ui" style="font-size:10px;font-weight:500;color:var(--sage)">0</span></div><div class="pbar"><div class="pfill" style="width:0%"></div></div></div><div><div style="display:flex;justify-content:space-between;margin-bottom:2px"><span class="ui" style="font-size:10px;color:var(--brown)">Cravings</span><span class="ui" style="font-size:10px;font-weight:500;color:var(--gold-dk)">2</span></div><div class="pbar"><div class="pfill" style="width:66%;background:var(--gold)"></div></div></div></div></div><button style="width:100%;padding:12px;border-radius:2px;border:none;background:var(--espresso);color:var(--cream);font-family:'Josefin Sans',sans-serif;font-size:10px;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;margin-top:6px">Submit to Care Team · +35 XP</button></div></div>
+
+  <!-- DTx MODULE --><div class="overlay" id="ov-dtx-module" style="background:var(--cream)"><div class="ov-header" style="background:var(--purple);flex-shrink:0"><button class="ov-back" onclick="closeOv()">&larr;</button><div><div class="ui" style="font-size:12px;font-weight:500;color:#fff;letter-spacing:1px">CBT for Substance Use</div><div class="ui" style="font-size:8px;color:rgba(255,255,255,.6)">Evidence-based · Rx by Dr. Rivera · +75 XP per session</div></div></div><div class="ov-body" style="padding-top:12px"><div class="card" style="border-left:3px solid var(--purple)"><div class="card-pad" style="background:var(--purple-lt)"><div class="ui" style="font-size:9px;color:var(--purple);letter-spacing:1px;text-transform:uppercase;margin-bottom:4px">Current Progress</div><div style="display:flex;align-items:baseline;gap:6px"><span style="font-family:'Fraunces',serif;font-size:28px;font-weight:700;color:var(--purple-dk)">Module 3</span><span class="ui" style="font-size:10px;color:var(--muted)">of 8 · Functional Analysis</span></div><div class="pbar" style="margin-top:8px"><div class="pfill" style="width:72%;background:var(--purple)"></div></div></div></div><div class="section-label">Today's Session</div><div class="card" style="cursor:pointer;border-left:3px solid var(--purple)"><div class="card-pad"><div class="ui" style="font-size:10px;font-weight:500;color:var(--espresso);margin-bottom:6px">What triggers your opioid use?</div><div class="ui" style="font-size:9px;color:var(--brown);line-height:1.6;margin-bottom:8px">Map your personal trigger patterns. ~20 min. Data shared with provider.</div><button style="width:100%;padding:10px;border-radius:2px;border:none;background:var(--purple);color:#fff;font-family:'Josefin Sans',sans-serif;font-size:10px;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer">Start Session · +75 XP</button></div></div></div></div>
+
+  <!-- SDOH SCREENER --><div class="overlay" id="ov-sdoh-screen" style="background:var(--cream)"><div class="ov-header" style="background:var(--blue);flex-shrink:0"><button class="ov-back" onclick="closeOv()">&larr;</button><div><div class="ui" style="font-size:12px;font-weight:500;color:#fff;letter-spacing:1px">Wellness Screening</div><div class="ui" style="font-size:8px;color:rgba(255,255,255,.6)">Monthly check-in · Helps your care team · +40 XP</div></div></div><div class="ov-body" style="padding-top:12px"><div class="card" style="background:var(--blue-lt)"><div class="card-pad"><div class="ui" style="font-size:9px;color:var(--blue);letter-spacing:1px;text-transform:uppercase;margin-bottom:3px">Why We Ask</div><div class="ui" style="font-size:9px;color:var(--brown);line-height:1.5">Social factors like housing and food access strongly affect recovery. Answers help your team connect you with resources.</div></div></div><div class="section-label">Housing</div><div class="card"><div class="card-pad"><div class="ui" style="font-size:10px;font-weight:500;color:var(--espresso);margin-bottom:8px">Has your housing felt unstable this month?</div><div style="display:flex;gap:6px"><button style="flex:1;padding:8px;border-radius:2px;border:1px solid var(--border);background:var(--sage-lt);color:var(--sage-dk);font-family:'Josefin Sans',sans-serif;font-size:10px;cursor:pointer">No</button><button style="flex:1;padding:8px;border-radius:2px;border:1px solid var(--border);background:#fff;color:var(--muted);font-family:'Josefin Sans',sans-serif;font-size:10px;cursor:pointer">Sometimes</button><button style="flex:1;padding:8px;border-radius:2px;border:1px solid var(--border);background:#fff;color:var(--muted);font-family:'Josefin Sans',sans-serif;font-size:10px;cursor:pointer">Yes</button></div></div></div><button style="width:100%;padding:13px;border-radius:2px;border:none;background:var(--blue);color:#fff;font-family:'Josefin Sans',sans-serif;font-size:10px;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;margin-top:8px">Submit · +40 XP</button></div></div>
+
+  <!-- SLEEP LOG --><div class="overlay" id="ov-sleep-log" style="background:linear-gradient(180deg,var(--espresso-deep),var(--navy))"><div class="ov-header"><button class="ov-back" onclick="closeOv()">&larr;</button><div><div class="ui" style="font-size:12px;font-weight:500;color:#fff;letter-spacing:1px">Sleep Log · +20 XP</div><div class="ui" style="font-size:8px;color:rgba(255,255,255,.5)">Poor sleep amplifies cravings</div></div></div><div class="ov-body"><div style="background:rgba(255,255,255,.05);border-radius:4px;padding:14px;margin-bottom:12px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;text-align:center"><div><div class="ui" style="font-size:20px;font-weight:500;color:#fff">6.5</div><div class="ui" style="font-size:8px;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:1px">Hrs</div></div><div><div class="ui" style="font-size:20px;font-weight:500;color:var(--gold)">Fair</div><div class="ui" style="font-size:8px;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:1px">Quality</div></div><div><div class="ui" style="font-size:20px;font-weight:500;color:var(--sage)">4</div><div class="ui" style="font-size:8px;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:1px">Streak</div></div></div><button style="width:100%;padding:13px;border-radius:2px;border:none;background:var(--purple);color:#fff;font-family:'Josefin Sans',sans-serif;font-size:10px;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer">Save · +20 XP</button></div></div>
+
+  <!-- VOICE JOURNAL --><div class="overlay" id="ov-voice-journal" style="background:linear-gradient(180deg,var(--navy),var(--espresso-deep))"><div class="ov-header"><button class="ov-back" onclick="closeOv()">&larr;</button><div><div class="ui" style="font-size:12px;font-weight:500;color:#fff;letter-spacing:1px">Voice Journal · +25 XP</div><div class="ui" style="font-size:8px;color:rgba(255,255,255,.5)">AI analyzes mood & sentiment for your care team</div></div></div><div class="ov-body" style="text-align:center"><div style="margin-top:30px"><div style="width:100px;height:100px;border-radius:50%;border:3px solid var(--purple);margin:0 auto 14px;display:flex;align-items:center;justify-content:center;cursor:pointer"><span class="ui" style="font-size:11px;color:var(--purple);letter-spacing:2px">RECORD</span></div><div class="ui" style="font-size:10px;color:rgba(255,255,255,.5)">Tap to record. Your words are analyzed for mood patterns and shared with your care team (never raw audio).</div></div><div class="section-label" style="color:rgba(255,255,255,.3);margin-top:20px">Recent Entries</div><div style="background:rgba(255,255,255,.05);border-radius:4px;padding:10px 12px;margin-bottom:6px;text-align:left"><div class="ui" style="font-size:9px;color:rgba(255,255,255,.7)">Today, 7:15 AM · 2:34 min · Mood: Hopeful</div></div><div style="background:rgba(255,255,255,.05);border-radius:4px;padding:10px 12px;margin-bottom:6px;text-align:left"><div class="ui" style="font-size:9px;color:rgba(255,255,255,.7)">Yesterday · 4:12 min · Mood: Anxious about pain</div></div></div></div>
+
+  <!-- PAIN MGMT --><div class="overlay" id="ov-pain-mgmt" style="background:var(--cream)"><div class="ov-header" style="background:#fff;border-bottom:1px solid var(--border)"><button class="ov-back" style="background:var(--beige);color:var(--espresso)" onclick="closeOv()">&larr;</button><div class="ui" style="font-size:12px;font-weight:500;color:var(--espresso)">Pain Management · +20 XP</div></div><div class="ov-body" style="padding-top:10px"><div class="card" style="border-left:3px solid var(--purple)"><div class="card-pad" style="background:var(--purple-lt)"><div class="ui" style="font-size:9px;color:var(--purple);letter-spacing:1px;text-transform:uppercase;margin-bottom:3px">Why This Matters</div><div class="ui" style="font-size:9px;color:var(--brown);line-height:1.5">Chronic pain is the #1 trigger for opioid relapse. Learning non-opioid strategies is essential for long-term OUD recovery.</div></div></div><div class="section-label">Non-Opioid Strategies</div><div class="card" style="cursor:pointer"><div class="card-pad" style="display:flex;align-items:center;gap:10px"><div class="ic" style="background:var(--blue-lt);color:var(--blue)">HC</div><div class="ui" style="font-size:10px;font-weight:500;color:var(--espresso)">Heat/Cold Therapy</div></div></div><div class="card" style="cursor:pointer"><div class="card-pad" style="display:flex;align-items:center;gap:10px"><div class="ic" style="background:var(--sage-lt);color:var(--sage)">MF</div><div class="ui" style="font-size:10px;font-weight:500;color:var(--espresso)">Mindfulness for Pain</div></div></div><div class="card" style="cursor:pointer"><div class="card-pad" style="display:flex;align-items:center;gap:10px"><div class="ic" style="background:var(--gold-lt);color:var(--gold-dk)">GM</div><div class="ui" style="font-size:10px;font-weight:500;color:var(--espresso)">Gentle Movement</div></div></div><div class="card" style="cursor:pointer"><div class="card-pad" style="display:flex;align-items:center;gap:10px"><div class="ic" style="background:var(--purple-lt);color:var(--purple)">CB</div><div class="ui" style="font-size:10px;font-weight:500;color:var(--espresso)">CBT for Chronic Pain</div></div></div></div></div>
+
+  <!-- DRUG SCREEN TRACKER --><div class="overlay" id="ov-drug-screen" style="background:var(--cream)"><div class="ov-header" style="background:var(--amber);flex-shrink:0"><button class="ov-back" onclick="closeOv()">&larr;</button><div><div class="ui" style="font-size:12px;font-weight:500;color:#fff;letter-spacing:1px">Drug Screen Tracker</div><div class="ui" style="font-size:8px;color:rgba(255,255,255,.6)">UDS compliance · Supports G0480–G0483 billing · +30 XP</div></div></div><div class="ov-body" style="padding-top:12px"><div class="card" style="border-left:3px solid var(--sage)"><div class="card-pad" style="background:var(--sage-lt)"><div class="ui" style="font-size:9px;color:var(--sage);letter-spacing:1px;text-transform:uppercase;margin-bottom:4px">UDS Compliance</div><div style="display:flex;align-items:baseline;gap:6px"><span style="font-family:'Fraunces',serif;font-size:28px;font-weight:700;color:var(--sage-dk)">100%</span><span class="ui" style="font-size:10px;color:var(--muted)">12 of 12 screens completed</span></div><div class="pbar" style="margin-top:8px"><div class="pfill" style="width:100%;background:var(--sage)"></div></div></div></div><div class="section-label">Upcoming Screens</div><div class="card"><div class="card-pad" style="display:flex;align-items:center;gap:10px"><div class="ic" style="background:var(--amber-lt);color:var(--amber)">DS</div><div style="flex:1"><div class="ui" style="font-size:10px;font-weight:500;color:var(--espresso)">Next UDS: April 8, 2026</div><div class="ui" style="font-size:9px;color:var(--muted)">Random · Location: Main Clinic Lab</div></div><span class="tag" style="background:var(--amber-lt);color:var(--amber)">3 days</span></div></div><div class="section-label">Recent Results</div><div class="card"><div class="card-pad" style="display:flex;align-items:center;gap:10px"><div class="ic" style="background:var(--sage-lt);color:var(--sage)">✓</div><div style="flex:1"><div class="ui" style="font-size:10px;color:var(--espresso)">Mar 25 — Negative (Buprenorphine detected ✓)</div></div></div></div><div class="card"><div class="card-pad" style="display:flex;align-items:center;gap:10px"><div class="ic" style="background:var(--sage-lt);color:var(--sage)">✓</div><div style="flex:1"><div class="ui" style="font-size:10px;color:var(--espresso)">Mar 11 — Negative (Buprenorphine detected ✓)</div></div></div></div><div class="card"><div class="card-pad" style="display:flex;align-items:center;gap:10px"><div class="ic" style="background:var(--sage-lt);color:var(--sage)">✓</div><div style="flex:1"><div class="ui" style="font-size:10px;color:var(--espresso)">Feb 26 — Negative (Buprenorphine detected ✓)</div></div></div></div><button style="width:100%;padding:12px;border-radius:2px;border:none;background:var(--amber);color:#fff;font-family:'Josefin Sans',sans-serif;font-size:10px;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;margin-top:6px">Confirm Screen Completed · +30 XP</button></div></div>
+
+  <!-- GROUP SESSION CHECK-IN --><div class="overlay" id="ov-group-checkin" style="background:var(--cream)"><div class="ov-header" style="background:var(--purple);flex-shrink:0"><button class="ov-back" onclick="closeOv()">&larr;</button><div><div class="ui" style="font-size:12px;font-weight:500;color:#fff;letter-spacing:1px">Group Session Check-In</div><div class="ui" style="font-size:8px;color:rgba(255,255,255,.6)">Confirms attendance · Supports H0005/90853 billing · +25 XP</div></div></div><div class="ov-body" style="padding-top:12px"><div class="card" style="border-left:3px solid var(--purple)"><div class="card-pad" style="background:var(--purple-lt)"><div class="ui" style="font-size:9px;color:var(--purple);letter-spacing:1px;text-transform:uppercase;margin-bottom:4px">This Week's Groups</div><div style="display:flex;align-items:baseline;gap:6px"><span style="font-family:'Fraunces',serif;font-size:28px;font-weight:700;color:var(--purple-dk)">3</span><span class="ui" style="font-size:10px;color:var(--muted)">of 4 attended · 1 upcoming</span></div></div></div><div class="section-label">Today</div><div class="card" style="border-left:3px solid var(--sage)"><div class="card-pad"><div style="display:flex;align-items:center;gap:10px"><div class="ic" style="background:var(--sage-lt);color:var(--sage)">✓</div><div style="flex:1"><div class="ui" style="font-size:10px;font-weight:500;color:var(--espresso)">Relapse Prevention Group — 10:00 AM</div><div class="ui" style="font-size:9px;color:var(--sage)">Checked in · 55 min · Facilitator: L. Thompson</div></div></div></div></div><div class="section-label">Upcoming</div><div class="card"><div class="card-pad"><div style="display:flex;align-items:center;gap:10px"><div class="ic" style="background:var(--amber-lt);color:var(--amber)">GP</div><div style="flex:1"><div class="ui" style="font-size:10px;font-weight:500;color:var(--espresso)">MOUD Education Group — Wed 2:00 PM</div><div class="ui" style="font-size:9px;color:var(--muted)">Supports OUD treatment code (G2214)</div></div></div></div></div><div class="card"><div class="card-pad"><div style="display:flex;align-items:center;gap:10px"><div class="ic" style="background:var(--amber-lt);color:var(--amber)">GP</div><div style="flex:1"><div class="ui" style="font-size:10px;font-weight:500;color:var(--espresso)">CBT Skills Group — Thu 10:00 AM</div><div class="ui" style="font-size:9px;color:var(--muted)">Supports H2019 DTx documentation</div></div></div></div></div><div class="section-label">This Month</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:8px"><div class="card"><div class="card-pad" style="text-align:center"><div class="ui" style="font-size:20px;font-weight:600;color:var(--purple)">14</div><div class="ui" style="font-size:8px;color:var(--muted);text-transform:uppercase;letter-spacing:1px">Sessions Attended</div></div></div><div class="card"><div class="card-pad" style="text-align:center"><div class="ui" style="font-size:20px;font-weight:600;color:var(--sage)">93%</div><div class="ui" style="font-size:8px;color:var(--muted);text-transform:uppercase;letter-spacing:1px">Attendance Rate</div></div></div></div></div></div>
+
+  <!-- TCM POST-DISCHARGE TRACKER --><div class="overlay" id="ov-tcm-tracker" style="background:var(--cream)"><div class="ov-header" style="background:var(--coral);flex-shrink:0"><button class="ov-back" onclick="closeOv()">&larr;</button><div><div class="ui" style="font-size:12px;font-weight:500;color:#fff;letter-spacing:1px">Post-Discharge Transition</div><div class="ui" style="font-size:8px;color:rgba(255,255,255,.6)">TCM tracking · Supports 99495/99496 billing · $201–$273</div></div></div><div class="ov-body" style="padding-top:12px"><div class="card" style="border-left:3px solid var(--coral)"><div class="card-pad" style="background:var(--coral-lt)"><div class="ui" style="font-size:9px;color:var(--coral);letter-spacing:1px;text-transform:uppercase;margin-bottom:4px">Transition Status</div><div style="display:flex;align-items:baseline;gap:6px"><span style="font-family:'Fraunces',serif;font-size:22px;font-weight:700;color:var(--coral-dk)">Day 5 of 30</span><span class="ui" style="font-size:10px;color:var(--muted)">post-discharge</span></div><div class="ui" style="font-size:9px;color:var(--brown);margin-top:4px">Discharged: Apr 1 from Residential · → IOP level of care</div></div></div><div class="section-label">TCM Checklist</div><div class="card"><div class="card-pad"><div style="margin-bottom:8px;display:flex;align-items:center;gap:8px"><div class="ic-sm" style="background:var(--sage);color:#fff;border-radius:50%">✓</div><div class="ui" style="font-size:10px;color:var(--espresso)"><strong>2-Day Contact</strong> — Completed Apr 2 (phone)</div></div><div style="margin-bottom:8px;display:flex;align-items:center;gap:8px"><div class="ic-sm" style="background:var(--sage);color:#fff;border-radius:50%">✓</div><div class="ui" style="font-size:10px;color:var(--espresso)"><strong>Medication Reconciliation</strong> — Suboxone 16mg confirmed</div></div><div style="margin-bottom:8px;display:flex;align-items:center;gap:8px"><div class="ic-sm" style="background:var(--amber);color:#fff;border-radius:50%">!</div><div class="ui" style="font-size:10px;color:var(--espresso)"><strong>Face-to-Face Visit</strong> — Scheduled Apr 8 (within 7 days)</div></div><div style="display:flex;align-items:center;gap:8px"><div class="ic-sm" style="background:var(--t4);color:#fff;border-radius:50%">○</div><div class="ui" style="font-size:10px;color:var(--muted)"><strong>30-Day Follow-Through</strong> — In progress</div></div></div></div><div class="section-label">Post-Discharge Daily Check</div><div class="card"><div class="card-pad"><div class="ui" style="font-size:10px;font-weight:500;color:var(--espresso);margin-bottom:6px">How are you adjusting since discharge?</div><div style="display:flex;gap:6px;margin-bottom:8px"><button style="flex:1;padding:8px;border-radius:2px;border:1px solid var(--border);background:var(--sage-lt);color:var(--sage-dk);font-family:'Josefin Sans',sans-serif;font-size:9px;cursor:pointer">Well</button><button style="flex:1;padding:8px;border-radius:2px;border:1px solid var(--border);background:#fff;color:var(--muted);font-family:'Josefin Sans',sans-serif;font-size:9px;cursor:pointer">Struggling</button><button style="flex:1;padding:8px;border-radius:2px;border:1px solid var(--border);background:#fff;color:var(--muted);font-family:'Josefin Sans',sans-serif;font-size:9px;cursor:pointer">Need help</button></div><div class="ui" style="font-size:8px;color:var(--muted)">Taking all medications as prescribed?</div><div style="display:flex;gap:6px;margin-top:4px"><button style="flex:1;padding:8px;border-radius:2px;border:1px solid var(--border);background:var(--sage-lt);color:var(--sage-dk);font-family:'Josefin Sans',sans-serif;font-size:9px;cursor:pointer">Yes, all</button><button style="flex:1;padding:8px;border-radius:2px;border:1px solid var(--border);background:#fff;color:var(--muted);font-family:'Josefin Sans',sans-serif;font-size:9px;cursor:pointer">Missed some</button><button style="flex:1;padding:8px;border-radius:2px;border:1px solid var(--border);background:#fff;color:var(--muted);font-family:'Josefin Sans',sans-serif;font-size:9px;cursor:pointer">Not sure</button></div></div></div><button style="width:100%;padding:12px;border-radius:2px;border:none;background:var(--coral);color:#fff;font-family:'Josefin Sans',sans-serif;font-size:10px;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;margin-top:6px">Submit Daily Transition Check · +20 XP</button></div></div>
+
+  <!-- FUNCTIONAL STATUS --><div class="overlay" id="ov-functional-status" style="background:var(--cream)"><div class="ov-header" style="background:var(--sage);flex-shrink:0"><button class="ov-back" onclick="closeOv()">&larr;</button><div><div class="ui" style="font-size:12px;font-weight:500;color:#fff;letter-spacing:1px">Functional Status Check</div><div class="ui" style="font-size:8px;color:rgba(255,255,255,.6)">Monthly · Supports outcomes & CCM documentation · +35 XP</div></div></div><div class="ov-body" style="padding-top:12px"><div class="card" style="background:var(--sage-lt)"><div class="card-pad"><div class="ui" style="font-size:9px;color:var(--sage);letter-spacing:1px;text-transform:uppercase;margin-bottom:3px">Why We Track This</div><div class="ui" style="font-size:9px;color:var(--brown);line-height:1.5">Functional improvement proves treatment is working. This data supports continued care authorization, CCM billing, and outcomes reporting to payers.</div></div></div><div class="section-label">Employment & Daily Living</div><div class="card"><div class="card-pad"><div class="ui" style="font-size:10px;font-weight:500;color:var(--espresso);margin-bottom:6px">Are you currently working or in school?</div><div style="display:flex;gap:5px;flex-wrap:wrap"><button style="padding:7px 12px;border-radius:2px;border:1px solid var(--border);background:var(--sage-lt);color:var(--sage-dk);font-family:'Josefin Sans',sans-serif;font-size:9px;cursor:pointer">Full-time</button><button style="padding:7px 12px;border-radius:2px;border:1px solid var(--border);background:#fff;color:var(--muted);font-family:'Josefin Sans',sans-serif;font-size:9px;cursor:pointer">Part-time</button><button style="padding:7px 12px;border-radius:2px;border:1px solid var(--border);background:#fff;color:var(--muted);font-family:'Josefin Sans',sans-serif;font-size:9px;cursor:pointer">Seeking</button><button style="padding:7px 12px;border-radius:2px;border:1px solid var(--border);background:#fff;color:var(--muted);font-family:'Josefin Sans',sans-serif;font-size:9px;cursor:pointer">Not able</button></div></div></div><div class="card"><div class="card-pad"><div class="ui" style="font-size:10px;font-weight:500;color:var(--espresso);margin-bottom:6px">Can you manage daily responsibilities?</div><div style="display:flex;gap:6px"><button style="flex:1;padding:8px;border-radius:2px;border:1px solid var(--border);background:var(--sage-lt);color:var(--sage-dk);font-family:'Josefin Sans',sans-serif;font-size:9px;cursor:pointer">Yes</button><button style="flex:1;padding:8px;border-radius:2px;border:1px solid var(--border);background:#fff;color:var(--muted);font-family:'Josefin Sans',sans-serif;font-size:9px;cursor:pointer">Some</button><button style="flex:1;padding:8px;border-radius:2px;border:1px solid var(--border);background:#fff;color:var(--muted);font-family:'Josefin Sans',sans-serif;font-size:9px;cursor:pointer">No</button></div></div></div><div class="section-label">Social & Relationships</div><div class="card"><div class="card-pad"><div class="ui" style="font-size:10px;font-weight:500;color:var(--espresso);margin-bottom:6px">Do you have a stable support system?</div><div style="display:flex;gap:6px"><button style="flex:1;padding:8px;border-radius:2px;border:1px solid var(--border);background:var(--sage-lt);color:var(--sage-dk);font-family:'Josefin Sans',sans-serif;font-size:9px;cursor:pointer">Strong</button><button style="flex:1;padding:8px;border-radius:2px;border:1px solid var(--border);background:#fff;color:var(--muted);font-family:'Josefin Sans',sans-serif;font-size:9px;cursor:pointer">Some</button><button style="flex:1;padding:8px;border-radius:2px;border:1px solid var(--border);background:#fff;color:var(--muted);font-family:'Josefin Sans',sans-serif;font-size:9px;cursor:pointer">None</button></div></div></div><button style="width:100%;padding:12px;border-radius:2px;border:none;background:var(--sage);color:#fff;font-family:'Josefin Sans',sans-serif;font-size:10px;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;margin-top:8px">Submit Assessment · +35 XP</button></div></div>
+
+  <!-- SBIRT SCREENING --><div class="overlay" id="ov-sbirt-screen" style="background:var(--cream)"><div class="ov-header" style="background:var(--blue);flex-shrink:0"><button class="ov-back" onclick="closeOv()">&larr;</button><div><div class="ui" style="font-size:12px;font-weight:500;color:#fff;letter-spacing:1px">Substance Use Risk Screen</div><div class="ui" style="font-size:8px;color:rgba(255,255,255,.6)">DAST-10 based · Supports 99408/99409 SBIRT billing · +40 XP</div></div></div><div class="ov-body" style="padding-top:12px"><div class="card" style="background:var(--blue-lt)"><div class="card-pad"><div class="ui" style="font-size:9px;color:var(--blue);letter-spacing:1px;text-transform:uppercase;margin-bottom:3px">About This Screening</div><div class="ui" style="font-size:9px;color:var(--brown);line-height:1.5">This validated screening helps your treatment team assess your current risk level and tailor your care plan. Completed annually or when transitioning care levels. Answers are confidential.</div></div></div><div class="section-label">In the Past 12 Months…</div><div class="card"><div class="card-pad"><div class="ui" style="font-size:10px;font-weight:500;color:var(--espresso);margin-bottom:6px">1. Have you used drugs other than those required for medical reasons?</div><div style="display:flex;gap:6px"><button style="flex:1;padding:8px;border-radius:2px;border:1px solid var(--border);background:#fff;color:var(--muted);font-family:'Josefin Sans',sans-serif;font-size:9px;cursor:pointer">Yes</button><button style="flex:1;padding:8px;border-radius:2px;border:1px solid var(--border);background:var(--sage-lt);color:var(--sage-dk);font-family:'Josefin Sans',sans-serif;font-size:9px;cursor:pointer">No</button></div></div></div><div class="card"><div class="card-pad"><div class="ui" style="font-size:10px;font-weight:500;color:var(--espresso);margin-bottom:6px">2. Have you felt you needed a larger dose to get the same effect?</div><div style="display:flex;gap:6px"><button style="flex:1;padding:8px;border-radius:2px;border:1px solid var(--border);background:#fff;color:var(--muted);font-family:'Josefin Sans',sans-serif;font-size:9px;cursor:pointer">Yes</button><button style="flex:1;padding:8px;border-radius:2px;border:1px solid var(--border);background:var(--sage-lt);color:var(--sage-dk);font-family:'Josefin Sans',sans-serif;font-size:9px;cursor:pointer">No</button></div></div></div><div class="card"><div class="card-pad"><div class="ui" style="font-size:10px;font-weight:500;color:var(--espresso);margin-bottom:6px">3. Have you experienced withdrawal symptoms when you stopped?</div><div style="display:flex;gap:6px"><button style="flex:1;padding:8px;border-radius:2px;border:1px solid var(--border);background:#fff;color:var(--muted);font-family:'Josefin Sans',sans-serif;font-size:9px;cursor:pointer">Yes</button><button style="flex:1;padding:8px;border-radius:2px;border:1px solid var(--border);background:var(--sage-lt);color:var(--sage-dk);font-family:'Josefin Sans',sans-serif;font-size:9px;cursor:pointer">No</button></div></div></div><div class="ui" style="font-size:8px;color:var(--muted);text-align:center;margin:8px 0">Questions 4-10 continue below…</div><button style="width:100%;padding:12px;border-radius:2px;border:none;background:var(--blue);color:#fff;font-family:'Josefin Sans',sans-serif;font-size:10px;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;margin-top:6px">Complete Screening · +40 XP</button></div></div>
+  <!-- ═══ FIND OUD PROVIDER OVERLAY ═══ -->
+  <div class="overlay" id="ov-find-provider" style="background:var(--cream)">
+    <div class="ov-header" style="background:var(--blue);flex-shrink:0">
+      <button class="ov-back" onclick="closeOv()">&larr;</button>
+      <div>
+        <div class="ui" style="font-size:12px;font-weight:500;color:#fff;letter-spacing:1px">Find a Treatment Provider</div>
+        <div class="ui" style="font-size:8px;color:rgba(255,255,255,.65)">SAMHSA-verified OUD specialists · Confidential · +25 XP</div>
+      </div>
+    </div>
+    <div class="ov-body" style="padding-top:12px">
+
+      <!-- Reassurance -->
+      <div class="card" style="background:var(--blue-lt);border-left:3px solid var(--blue)"><div class="card-pad">
+        <div class="ui" style="font-size:9px;color:var(--blue);letter-spacing:1px;text-transform:uppercase;margin-bottom:3px">You're taking a brave step</div>
+        <div class="ui" style="font-size:9px;color:var(--brown);line-height:1.5">Reaching out for help is one of the strongest things you can do. These providers offer MOUD (Suboxone, Methadone, Naltrexone), counseling, and recovery support. Calls are confidential.</div>
+      </div></div>
+
+      <!-- Location Search -->
+      <div class="section-label">Search by Location</div>
+      <div class="card"><div class="card-pad">
+        <div style="display:flex;gap:6px;margin-bottom:8px">
+          <input id="fp-zip" type="text" placeholder="ZIP code or city" value="91501" style="flex:1;padding:10px 12px;border-radius:2px;border:1px solid var(--border);background:#fff;font-family:'Josefin Sans',sans-serif;font-size:11px;color:var(--espresso);outline:none">
+          <button onclick="fpSearch()" style="padding:10px 16px;border-radius:2px;border:none;background:var(--blue);color:#fff;font-family:'Josefin Sans',sans-serif;font-size:10px;letter-spacing:1px;text-transform:uppercase;cursor:pointer">Search</button>
+        </div>
+        <button onclick="fpUseLocation()" style="width:100%;padding:8px;border-radius:2px;border:1px solid var(--blue);background:#fff;color:var(--blue);font-family:'Josefin Sans',sans-serif;font-size:9px;letter-spacing:1px;text-transform:uppercase;cursor:pointer">📍 Use My Current Location</button>
+
+        <!-- Filter chips -->
+        <div style="display:flex;flex-wrap:wrap;gap:5px;margin-top:10px">
+          <span class="tag fp-chip fp-chip-on" onclick="fpToggleChip(this)" style="cursor:pointer;background:var(--blue);color:#fff">All Services</span>
+          <span class="tag fp-chip" onclick="fpToggleChip(this)" style="cursor:pointer;background:#fff;border:1px solid var(--border);color:var(--muted)">Suboxone</span>
+          <span class="tag fp-chip" onclick="fpToggleChip(this)" style="cursor:pointer;background:#fff;border:1px solid var(--border);color:var(--muted)">Methadone</span>
+          <span class="tag fp-chip" onclick="fpToggleChip(this)" style="cursor:pointer;background:#fff;border:1px solid var(--border);color:var(--muted)">Naltrexone</span>
+          <span class="tag fp-chip" onclick="fpToggleChip(this)" style="cursor:pointer;background:#fff;border:1px solid var(--border);color:var(--muted)">Telehealth</span>
+          <span class="tag fp-chip" onclick="fpToggleChip(this)" style="cursor:pointer;background:#fff;border:1px solid var(--border);color:var(--muted)">Walk-In</span>
+        </div>
+      </div></div>
+
+      <!-- Results -->
+      <div class="section-label" id="fp-results-label">5 Providers Near 91501</div>
+      <div id="fp-results">
+
+        <!-- Provider 1 -->
+        <div class="card" style="border-left:3px solid var(--sage)"><div class="card-pad">
+          <div style="display:flex;align-items:flex-start;gap:10px;margin-bottom:8px">
+            <div class="ic-xl" style="background:var(--sage);color:#fff;font-size:11px">BR</div>
+            <div style="flex:1">
+              <div class="ui" style="font-size:11px;font-weight:500;color:var(--espresso)">BayMark Recovery — Burbank</div>
+              <div class="ui" style="font-size:8px;color:var(--muted);margin-top:2px">MOUD Clinic · Suboxone, Methadone, Counseling</div>
+              <div class="ui" style="font-size:8px;color:var(--muted)">1820 W Olive Ave, Burbank, CA · 1.2 mi</div>
+              <div style="display:flex;gap:4px;margin-top:4px"><span class="tag" style="background:var(--sage-lt);color:var(--sage)">Open Now</span><span class="tag" style="background:var(--gold-lt);color:var(--gold-dk)">★ 4.8</span><span class="tag" style="background:var(--blue-lt);color:var(--blue)">Walk-In OK</span></div>
+            </div>
+          </div>
+          <div style="display:flex;gap:6px">
+            <a href="tel:18185550142" onclick="fpCall('BayMark Burbank')" style="flex:2;padding:11px;border-radius:2px;background:var(--sage);color:#fff;font-family:'Josefin Sans',sans-serif;font-size:10px;text-align:center;text-decoration:none;letter-spacing:1px;text-transform:uppercase">☎ Call (818) 555-0142</a>
+            <button onclick="fpDirections('BayMark Burbank')" style="flex:1;padding:11px;border-radius:2px;border:1px solid var(--border);background:#fff;color:var(--muted);font-family:'Josefin Sans',sans-serif;font-size:10px;letter-spacing:1px;cursor:pointer">Directions</button>
+          </div>
+        </div></div>
+
+        <!-- Provider 2 -->
+        <div class="card" style="border-left:3px solid var(--sage)"><div class="card-pad">
+          <div style="display:flex;align-items:flex-start;gap:10px;margin-bottom:8px">
+            <div class="ic-xl" style="background:var(--purple);color:#fff;font-size:11px">VV</div>
+            <div style="flex:1">
+              <div class="ui" style="font-size:11px;font-weight:500;color:var(--espresso)">Valley Recovery Center</div>
+              <div class="ui" style="font-size:8px;color:var(--muted);margin-top:2px">Outpatient · Suboxone, Naltrexone, Group Therapy</div>
+              <div class="ui" style="font-size:8px;color:var(--muted)">3401 Riverside Dr, Burbank, CA · 2.4 mi</div>
+              <div style="display:flex;gap:4px;margin-top:4px"><span class="tag" style="background:var(--sage-lt);color:var(--sage)">Open Now</span><span class="tag" style="background:var(--gold-lt);color:var(--gold-dk)">★ 4.6</span><span class="tag" style="background:var(--purple-lt);color:var(--purple)">Telehealth</span></div>
+            </div>
+          </div>
+          <div style="display:flex;gap:6px">
+            <a href="tel:18185550178" onclick="fpCall('Valley Recovery')" style="flex:2;padding:11px;border-radius:2px;background:var(--sage);color:#fff;font-family:'Josefin Sans',sans-serif;font-size:10px;text-align:center;text-decoration:none;letter-spacing:1px;text-transform:uppercase">☎ Call (818) 555-0178</a>
+            <button onclick="fpDirections('Valley Recovery')" style="flex:1;padding:11px;border-radius:2px;border:1px solid var(--border);background:#fff;color:var(--muted);font-family:'Josefin Sans',sans-serif;font-size:10px;letter-spacing:1px;cursor:pointer">Directions</button>
+          </div>
+        </div></div>
+
+        <!-- Provider 3 -->
+        <div class="card" style="border-left:3px solid var(--sage)"><div class="card-pad">
+          <div style="display:flex;align-items:flex-start;gap:10px;margin-bottom:8px">
+            <div class="ic-xl" style="background:var(--coral);color:#fff;font-size:11px">PR</div>
+            <div style="flex:1">
+              <div class="ui" style="font-size:11px;font-weight:500;color:var(--espresso)">Pacific Recovery Solutions</div>
+              <div class="ui" style="font-size:8px;color:var(--muted);margin-top:2px">IOP · MOUD, CBT, Family Therapy</div>
+              <div class="ui" style="font-size:8px;color:var(--muted)">801 N Brand Blvd, Glendale, CA · 3.7 mi</div>
+              <div style="display:flex;gap:4px;margin-top:4px"><span class="tag" style="background:var(--gold-lt);color:var(--gold-dk)">★ 4.7</span><span class="tag" style="background:var(--blue-lt);color:var(--blue)">Sliding Scale</span></div>
+            </div>
+          </div>
+          <div style="display:flex;gap:6px">
+            <a href="tel:18185550193" onclick="fpCall('Pacific Recovery')" style="flex:2;padding:11px;border-radius:2px;background:var(--sage);color:#fff;font-family:'Josefin Sans',sans-serif;font-size:10px;text-align:center;text-decoration:none;letter-spacing:1px;text-transform:uppercase">☎ Call (818) 555-0193</a>
+            <button onclick="fpDirections('Pacific Recovery')" style="flex:1;padding:11px;border-radius:2px;border:1px solid var(--border);background:#fff;color:var(--muted);font-family:'Josefin Sans',sans-serif;font-size:10px;letter-spacing:1px;cursor:pointer">Directions</button>
+          </div>
+        </div></div>
+
+        <!-- Provider 4 -->
+        <div class="card"><div class="card-pad">
+          <div style="display:flex;align-items:flex-start;gap:10px;margin-bottom:8px">
+            <div class="ic-xl" style="background:var(--rose-dk);color:#fff;font-size:11px">SF</div>
+            <div style="flex:1">
+              <div class="ui" style="font-size:11px;font-weight:500;color:var(--espresso)">Sunrise Family Health</div>
+              <div class="ui" style="font-size:8px;color:var(--muted);margin-top:2px">FQHC · Suboxone, Primary Care, SDOH support</div>
+              <div class="ui" style="font-size:8px;color:var(--muted)">2625 W Magnolia Blvd, Burbank, CA · 4.1 mi</div>
+              <div style="display:flex;gap:4px;margin-top:4px"><span class="tag" style="background:var(--gold-lt);color:var(--gold-dk)">★ 4.5</span><span class="tag" style="background:var(--blue-lt);color:var(--blue)">Medi-Cal OK</span></div>
+            </div>
+          </div>
+          <div style="display:flex;gap:6px">
+            <a href="tel:18185550221" onclick="fpCall('Sunrise Family')" style="flex:2;padding:11px;border-radius:2px;background:var(--sage);color:#fff;font-family:'Josefin Sans',sans-serif;font-size:10px;text-align:center;text-decoration:none;letter-spacing:1px;text-transform:uppercase">☎ Call (818) 555-0221</a>
+            <button onclick="fpDirections('Sunrise Family')" style="flex:1;padding:11px;border-radius:2px;border:1px solid var(--border);background:#fff;color:var(--muted);font-family:'Josefin Sans',sans-serif;font-size:10px;letter-spacing:1px;cursor:pointer">Directions</button>
+          </div>
+        </div></div>
+
+        <!-- Provider 5 (Telehealth) -->
+        <div class="card"><div class="card-pad">
+          <div style="display:flex;align-items:flex-start;gap:10px;margin-bottom:8px">
+            <div class="ic-xl" style="background:var(--blue);color:#fff;font-size:11px">TH</div>
+            <div style="flex:1">
+              <div class="ui" style="font-size:11px;font-weight:500;color:var(--espresso)">Bicycle Health (Telehealth)</div>
+              <div class="ui" style="font-size:8px;color:var(--muted);margin-top:2px">Virtual MOUD · Suboxone Rx · Same-day appointments</div>
+              <div class="ui" style="font-size:8px;color:var(--muted)">100% Telehealth · Available statewide</div>
+              <div style="display:flex;gap:4px;margin-top:4px"><span class="tag" style="background:var(--sage-lt);color:var(--sage)">Same-Day</span><span class="tag" style="background:var(--purple-lt);color:var(--purple)">Telehealth</span></div>
+            </div>
+          </div>
+          <div style="display:flex;gap:6px">
+            <a href="tel:18445550311" onclick="fpCall('Bicycle Health')" style="flex:2;padding:11px;border-radius:2px;background:var(--sage);color:#fff;font-family:'Josefin Sans',sans-serif;font-size:10px;text-align:center;text-decoration:none;letter-spacing:1px;text-transform:uppercase">☎ Call (844) 555-0311</a>
+            <button onclick="fpDirections('Bicycle Health')" style="flex:1;padding:11px;border-radius:2px;border:1px solid var(--border);background:#fff;color:var(--muted);font-family:'Josefin Sans',sans-serif;font-size:10px;letter-spacing:1px;cursor:pointer">Visit Site</button>
+          </div>
+        </div></div>
+
+      </div>
+
+      <div class="ui" style="font-size:8px;color:var(--muted);text-align:center;margin:10px 0 4px">Provider data from SAMHSA Treatment Locator · Updated daily</div>
+
+    </div>
+  </div>
+
+</div><!-- /phone -->
+</div><!-- /patient-view -->
+
+<script src="js/app.js"></script>
+</body>
+</html>

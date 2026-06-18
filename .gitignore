@@ -1,0 +1,9 @@
+# OS
+.DS_Store
+Thumbs.db
+
+# Local Claude settings (machine-specific)
+.claude/settings.local.json
+
+# Logs / temp
+*.log

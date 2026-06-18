@@ -1,0 +1,541 @@
+:root{
+  --rose:#C4A088;--rose-dk:#B58E76;--rose-lt:#F3ECE6;--rose-pale:rgba(196,160,136,.08);
+  --espresso:#3A3330;--espresso-deep:#2A2421;--espresso-lt:#4A4340;
+  --brown:#6B5E56;--muted:#8A7D75;
+  --cream:#FAF8F6;--beige:#F3ECE6;--taupe:#E8DDD4;
+  --sage:#5B9E6F;--sage-dk:#4A8060;--sage-lt:#E6F0E8;
+  --coral:#D4736A;--coral-dk:#B85A52;--coral-lt:#F5E0DD;
+  --gold:#C9A84C;--gold-dk:#9A7C28;--gold-lt:#FBF4E2;
+  --purple:#8B7EC8;--purple-dk:#6B5DB0;--purple-lt:#EDE9F6;
+  --blue:#4A90D9;--blue-lt:#E0EDF8;
+  --high:#D94F4F;--high-lt:#FDEAEA;
+  --med:#D4952A;--med-lt:#FDF3E0;
+  --low:#5B9E6F;--low-lt:#E5F2E8;
+  --t1:#3A3330;--t2:#6B5E56;--t3:#8A7D75;--t4:#B0A69D;
+  --border:rgba(196,160,136,.2);--card:#FFFFFF;--bg:#FAF8F6;
+  --navy:#1A2332;--navy2:#243344;--navy3:#2E4052;
+  --sw:248px;
+  --amber:#E8A317;--amber-lt:#FFF8E7;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+.ic{display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;border-radius:3px;font-family:'Josefin Sans',sans-serif;font-size:9px;font-weight:600;flex-shrink:0}
+.ic-sm{width:14px;height:14px;font-size:8px}
+.ic-lg{width:24px;height:24px;font-size:11px}
+.ic-xl{width:36px;height:36px;border-radius:50%;font-size:14px}
+
+/* ═══ MASTER TOGGLE BAR ═══ */
+.master-bar{position:fixed;top:0;left:0;right:0;z-index:9999;background:#fff;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:center;height:52px;box-shadow:0 2px 12px rgba(58,51,48,.06)}
+.master-logo{display:flex;align-items:center;gap:6px;margin-right:20px}
+.master-logo-text{font-family:'Josefin Sans',sans-serif;font-size:13px;font-weight:400;letter-spacing:5px;text-transform:uppercase;color:var(--espresso)}
+.master-logo-text small{display:block;font-size:7px;letter-spacing:2.5px;color:var(--rose);font-weight:300}
+.toggle-group{display:flex;background:var(--beige);border-radius:4px;padding:3px;gap:2px}
+.toggle-btn{font-family:'Josefin Sans',sans-serif;padding:7px 20px;border-radius:2px;border:none;font-size:10px;font-weight:400;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;transition:all .25s;color:var(--muted);background:transparent;display:flex;align-items:center;gap:6px}
+.toggle-btn.active{background:var(--espresso);color:var(--cream);box-shadow:0 2px 8px rgba(58,51,48,.18)}
+.demo-tag{display:flex;align-items:center;gap:6px;margin-left:18px;font-family:'Josefin Sans',sans-serif;font-size:8px;color:var(--muted);letter-spacing:1.5px;text-transform:uppercase}
+.demo-dot{width:6px;height:6px;border-radius:50%;background:var(--sage);animation:pd 2s infinite}
+@keyframes pd{0%,100%{opacity:1}50%{opacity:.3}}
+
+body{font-family:'Cormorant Garamond',Georgia,serif;background:var(--taupe);display:flex;flex-direction:column;align-items:center;height:100vh;overflow:hidden;padding-top:52px;-webkit-font-smoothing:antialiased}
+
+/* ═══ PATIENT VIEW ═══ */
+#patient-view{display:flex;flex-direction:column;align-items:center;justify-content:flex-start;width:100%;flex:1;overflow:hidden;padding-top:10px}
+.ui{font-family:'Josefin Sans','Helvetica Neue',sans-serif}
+
+/* Phone Shell — fixed bottom nav */
+.phone{width:420px;height:880px;border-radius:48px;background:var(--cream);border:8px solid var(--espresso);box-shadow:0 50px 100px rgba(58,51,48,.15),0 0 0 1px rgba(58,51,48,.04);position:relative;overflow:hidden;display:flex;flex-direction:column}
+.phone-notch{position:absolute;top:0;left:50%;transform:translateX(-50%);width:130px;height:32px;background:var(--espresso);border-radius:0 0 18px 18px;z-index:200}
+.phone-bar{position:absolute;bottom:7px;left:50%;transform:translateX(-50%);width:130px;height:4px;background:var(--espresso);border-radius:3px;z-index:201;opacity:.25}
+
+.status-bar{height:48px;padding:14px 22px 0;display:flex;justify-content:space-between;align-items:center;position:relative;z-index:100;flex-shrink:0}
+.status-time{font-family:'Josefin Sans',sans-serif;font-size:13px;font-weight:500;color:var(--espresso);letter-spacing:.5px}
+.status-icons{display:flex;gap:6px;font-size:9px;opacity:.4;font-family:'Josefin Sans',sans-serif;letter-spacing:1px;color:var(--muted)}
+
+.app-header{padding:2px 18px 8px;display:flex;justify-content:space-between;align-items:center;flex-shrink:0}
+.app-logo{font-family:'Josefin Sans',sans-serif;font-size:13px;font-weight:400;letter-spacing:5px;text-transform:uppercase;color:var(--espresso)}
+.app-logo small{display:block;font-size:7px;letter-spacing:2.5px;color:var(--rose);font-weight:300}
+.header-right{display:flex;align-items:center;gap:8px}
+.xp-pill{background:var(--gold-lt);border-radius:2px;padding:3px 9px;display:flex;align-items:center;gap:3px;font-family:'Josefin Sans',sans-serif;font-size:10px;font-weight:500;color:var(--gold-dk);cursor:pointer}
+.xp-pill:hover{background:var(--gold);color:#fff}
+.notif-btn,.avatar-btn{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;border:none;position:relative}
+.notif-btn{background:var(--beige);font-size:11px;border:2px solid var(--rose);font-family:'Josefin Sans',sans-serif;font-weight:600;color:var(--rose-dk)}
+.avatar-btn{background:var(--rose-lt);border:2px solid var(--rose);font-family:'Josefin Sans',sans-serif;font-size:9px;font-weight:600;color:var(--rose-dk);letter-spacing:1px}
+.notif-badge{position:absolute;top:-3px;right:-3px;width:13px;height:13px;border-radius:50%;background:var(--coral);border:1.5px solid var(--cream);font-family:'Josefin Sans',sans-serif;font-size:7px;font-weight:700;color:#fff;display:flex;align-items:center;justify-content:center}
+
+.screen-area{flex:1;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;min-height:0}
+.screen-area::-webkit-scrollbar{display:none}
+.screen{display:none;padding:0 16px 20px;animation:si .3s ease}
+.screen.active{display:block}
+@keyframes si{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+
+/* Bottom Nav — FIXED with z-index and explicit positioning */
+.bottom-nav{height:60px;min-height:60px;background:#fff;border-top:1px solid var(--border);display:flex;justify-content:space-around;align-items:center;padding-bottom:6px;z-index:150;flex-shrink:0;position:relative}
+.nav-tab{background:none;border:none;cursor:pointer;text-align:center;padding:5px 2px;min-width:48px;transition:all .2s;-webkit-tap-highlight-color:transparent;touch-action:manipulation}
+.nav-tab:active{transform:scale(.9)}
+.nav-icon{display:flex;align-items:center;justify-content:center;width:24px;height:24px;margin:0 auto;border-radius:6px;font-family:'Josefin Sans',sans-serif;font-size:9px;font-weight:600;color:var(--muted);opacity:.35;transition:all .2s}
+.nav-tab.active .nav-icon{opacity:1;color:var(--rose-dk);background:var(--rose-lt)}
+.nav-label{font-family:'Josefin Sans',sans-serif;font-size:7px;font-weight:400;letter-spacing:.5px;text-transform:uppercase;color:var(--muted);margin-top:3px;transition:color .2s}
+.nav-tab.active .nav-label{color:var(--rose);font-weight:500}
+.nav-tab.active{position:relative}
+.nav-tab.active::after{content:'';position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:4px;height:4px;border-radius:50%;background:var(--rose)}
+.sos-fab{position:absolute;bottom:68px;right:14px;width:52px;height:52px;border-radius:50%;background:var(--coral);border:none;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(196,96,72,.45);z-index:160;transition:transform .15s,box-shadow .15s;-webkit-tap-highlight-color:transparent;touch-action:manipulation}
+.sos-fab:active{transform:scale(.92);box-shadow:0 2px 8px rgba(196,96,72,.25)}
+.sos-fab-label{font-family:'Josefin Sans',sans-serif;font-size:7px;font-weight:600;letter-spacing:1px;color:#fff;text-transform:uppercase;margin-top:2px}
+
+
+
+/* Reusable */
+.card{background:#fff;border-radius:4px;border:1px solid var(--border);margin-bottom:8px;overflow:hidden;transition:all .2s}
+.card:active{transform:scale(.985)}
+.card-pad{padding:14px 16px}
+.tag{font-family:'Josefin Sans',sans-serif;display:inline-flex;align-items:center;gap:3px;padding:3px 8px;border-radius:2px;font-size:8px;font-weight:400;letter-spacing:1px;text-transform:uppercase}
+.divider{height:1px;background:var(--border);margin:12px 0}
+.section-label{font-family:'Josefin Sans',sans-serif;font-size:9px;font-weight:400;letter-spacing:3px;text-transform:uppercase;color:var(--muted);margin:12px 0 8px}
+.pbar{height:4px;background:var(--taupe);border-radius:2px;overflow:hidden}
+.pfill{height:100%;border-radius:2px;transition:width .6s ease}
+
+/* Overlays */
+.overlay{display:none;position:absolute;inset:0;z-index:300;animation:oi .3s ease}
+.overlay.active{display:flex;flex-direction:column}
+@keyframes oi{from{opacity:0}to{opacity:1}}
+.ov-header{padding:14px 16px;display:flex;align-items:center;gap:10px;flex-shrink:0}
+.ov-back{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:15px;cursor:pointer;border:none;color:#fff;background:rgba(255,255,255,.15);transition:background .2s;font-family:sans-serif;-webkit-tap-highlight-color:transparent}
+.ov-back:hover{background:rgba(255,255,255,.25)}
+.ov-body{flex:1;overflow-y:auto;padding:0 16px 20px}
+.ov-body::-webkit-scrollbar{display:none}
+
+/* Chat */
+.chat-msgs{display:flex;flex-direction:column;gap:8px;padding-bottom:10px}
+.chat-bubble{max-width:82%;padding:10px 14px;border-radius:4px;font-size:14px;line-height:1.6;animation:bi .3s ease}
+@keyframes bi{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+.chat-ai{background:rgba(255,255,255,.08);color:rgba(255,255,255,.82);align-self:flex-start}
+.chat-user{background:var(--sage);color:#fff;align-self:flex-end}
+.chat-actions{display:flex;flex-wrap:wrap;gap:5px;margin-top:4px}
+.chat-action{font-family:'Josefin Sans',sans-serif;padding:5px 11px;border-radius:2px;font-size:10px;font-weight:400;letter-spacing:.5px;cursor:pointer;border:none;transition:all .2s;-webkit-tap-highlight-color:transparent}
+.chat-input-bar{padding:10px 16px;display:flex;gap:8px;border-top:1px solid rgba(255,255,255,.08);flex-shrink:0}
+.chat-input{flex:1;padding:10px 14px;border-radius:2px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.05);color:#fff;font-family:'Cormorant Garamond',serif;font-size:15px;outline:none}
+.chat-input::placeholder{color:rgba(255,255,255,.3)}
+.chat-send{width:40px;height:40px;border-radius:50%;border:none;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;font-family:sans-serif}
+
+/* ═══ Gamification Extras ═══ */
+.reward-card{background:#fff;border-radius:6px;border:1px solid var(--border);padding:14px;margin-bottom:8px;cursor:pointer;transition:all .2s}
+.reward-card:active{transform:scale(.97)}
+.reward-card.claimed{opacity:.6;border-left:3px solid var(--sage)}
+.xp-action{display:flex;align-items:center;gap:8px;padding:8px 0;border-bottom:1px solid var(--border)}
+.xp-action:last-child{border-bottom:none}
+.streak-ring{width:56px;height:56px;border-radius:50%;border:3px solid var(--gold);display:flex;align-items:center;justify-content:center;position:relative}
+.streak-ring::after{content:'';position:absolute;inset:-1px;border-radius:50%;border:3px solid transparent;border-top-color:var(--sage);animation:spin 3s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes breatheCircle{0%,100%{transform:scale(1);opacity:.6}50%{transform:scale(1.3);opacity:1}}
+
+/* ═══ RECOVERY FLAME ═══ */
+.flame-wrap{position:relative;width:60px;height:68px;display:flex;align-items:flex-end;justify-content:center}
+.flame{width:36px;height:44px;border-radius:50% 50% 50% 50%/60% 60% 40% 40%;position:relative;animation:flameWaver 1.5s ease-in-out infinite alternate}
+.flame.gold{background:linear-gradient(0deg,#F7B733,#FC4A1A);box-shadow:0 0 20px rgba(252,74,26,.35),0 0 40px rgba(247,183,51,.2)}
+.flame.purple{background:linear-gradient(0deg,#8B7EC8,#FC4A1A);box-shadow:0 0 20px rgba(139,126,200,.35),0 0 40px rgba(252,74,26,.15)}
+.flame.diamond{background:linear-gradient(0deg,#E8E8E8,#4A90D9,#8B7EC8);box-shadow:0 0 20px rgba(74,144,217,.4),0 0 40px rgba(139,126,200,.2)}
+.flame-inner{position:absolute;bottom:2px;left:50%;transform:translateX(-50%);width:18px;height:22px;border-radius:50% 50% 50% 50%/60% 60% 40% 40%;background:linear-gradient(0deg,#FFE4A1,#FFEEC0);animation:flameInner 1s ease-in-out infinite alternate}
+.flame-streak{position:absolute;bottom:-2px;font-family:'Josefin Sans',sans-serif;font-size:14px;font-weight:600;color:var(--espresso);text-align:center;width:100%}
+@keyframes flameWaver{0%{transform:scaleX(1) scaleY(1) rotate(-2deg)}100%{transform:scaleX(.92) scaleY(1.06) rotate(2deg)}}
+@keyframes flameInner{0%{transform:translateX(-50%) scaleY(1)}100%{transform:translateX(-50%) scaleY(.85)}}
+.flame-flicker{animation:flicker .3s ease-in-out infinite alternate !important}
+@keyframes flicker{0%{opacity:1;transform:scaleX(1) scaleY(1)}100%{opacity:.4;transform:scaleX(.7) scaleY(.6)}}
+
+/* ═══ MYSTERY XP ═══ */
+.mystery-xp-banner{background:linear-gradient(135deg,#2A2421,#3A3330);border-radius:4px;border:1px solid rgba(201,168,76,.3);padding:12px 16px;margin-bottom:8px;cursor:pointer;position:relative;overflow:hidden}
+.mystery-xp-banner::before{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:conic-gradient(from 0deg,transparent,rgba(201,168,76,.1),transparent,rgba(201,168,76,.05),transparent);animation:mysteryRotate 4s linear infinite}
+@keyframes mysteryRotate{to{transform:rotate(360deg)}}
+.mystery-sparkle{position:absolute;width:4px;height:4px;border-radius:50%;background:var(--gold);animation:sparkle 2s ease-in-out infinite}
+@keyframes sparkle{0%,100%{opacity:0;transform:scale(0)}50%{opacity:1;transform:scale(1)}}
+.treasure-chest{width:42px;height:42px;border-radius:6px;background:linear-gradient(135deg,var(--gold),#D4952A);display:flex;align-items:center;justify-content:center;font-size:18px;box-shadow:0 4px 14px rgba(201,168,76,.3);animation:chestBounce 2s ease-in-out infinite}
+@keyframes chestBounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
+
+/* ═══ DAILY QUESTS ═══ */
+.quest-card{background:#fff;border-radius:4px;border:1px solid var(--border);padding:10px 14px;margin-bottom:5px;display:flex;align-items:center;gap:10px;cursor:pointer;transition:all .2s}
+.quest-card:active{transform:scale(.98)}
+.quest-card.completed{background:var(--sage-lt);border-color:var(--sage)}
+.quest-check{width:20px;height:20px;border-radius:50%;border:2px solid var(--taupe);display:flex;align-items:center;justify-content:center;font-size:10px;font-family:'Josefin Sans',sans-serif;font-weight:600;flex-shrink:0;transition:all .2s}
+.quest-card.completed .quest-check{background:var(--sage);border-color:var(--sage);color:#fff}
+
+/* ═══ ANONYMOUS LEADERBOARD ═══ */
+.lb-row{display:flex;align-items:center;gap:10px;padding:9px 14px;border-bottom:1px solid var(--border);transition:background .15s}
+.lb-row:last-child{border-bottom:none}
+.lb-row.me{background:var(--sage-lt);border-left:3px solid var(--sage-dk)}
+.lb-rank{font-family:'Fraunces',serif;font-size:16px;font-weight:700;color:var(--muted);width:24px;text-align:center}
+.lb-row:nth-child(1) .lb-rank{color:var(--gold)}
+.lb-row:nth-child(2) .lb-rank{color:var(--muted)}
+.lb-row:nth-child(3) .lb-rank{color:var(--coral)}
+.lb-av{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Josefin Sans',sans-serif;font-size:9px;font-weight:600;color:#fff;flex-shrink:0}
+
+/* ═══ RECOVERY RINGS ═══ */
+.ring-member{display:flex;flex-direction:column;align-items:center;gap:3px;min-width:52px}
+.ring-av{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Josefin Sans',sans-serif;font-size:10px;font-weight:600;color:#fff;position:relative}
+.ring-flame-mini{position:absolute;top:-6px;right:-4px;font-size:10px;animation:miniFlame 1.5s ease-in-out infinite alternate}
+@keyframes miniFlame{0%{transform:scale(1)}100%{transform:scale(.8)}}
+.ring-nudge{background:linear-gradient(135deg,var(--purple-lt),#f5f3ff);border:1px solid rgba(139,126,200,.2);border-radius:4px;padding:10px 14px;display:flex;align-items:center;gap:8px;margin-top:6px;cursor:pointer}
+
+/* ═══ JOURNEY MAP ═══ */
+.map-region{background:#fff;border-radius:4px;border:1px solid var(--border);padding:12px 14px;margin-bottom:6px;display:flex;align-items:center;gap:10px;position:relative;overflow:hidden;transition:all .2s;cursor:pointer}
+.map-region:active{transform:scale(.98)}
+.map-region.unlocked{border-left:3px solid var(--sage)}
+.map-region.current{border-left:3px solid var(--gold);background:var(--gold-lt)}
+.map-region.locked{opacity:.45;pointer-events:none}
+.map-node{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Josefin Sans',sans-serif;font-size:11px;font-weight:600;flex-shrink:0}
+.map-connector{position:absolute;left:29px;top:100%;width:2px;height:6px;background:var(--taupe);z-index:1}
+.map-region.unlocked .map-connector{background:var(--sage)}
+
+/* ═══ COMPLETENESS SCORE ═══ */
+.completeness-bar{background:linear-gradient(135deg,var(--espresso),#2A2421);border-radius:4px;padding:10px 16px;margin-bottom:8px;display:flex;align-items:center;gap:12px;cursor:pointer}
+.completeness-ring-sm{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;position:relative}
+.completeness-ring-sm svg{transform:rotate(-90deg)}
+.completeness-pct{font-family:'Fraunces',serif;font-size:12px;font-weight:700;color:#fff;position:absolute}
+
+/* ═══ GRATITUDE GIFTS ═══ */
+.gratitude-card{background:linear-gradient(135deg,var(--rose-lt),#FFF5EF);border-radius:4px;border:1px solid rgba(196,160,136,.3);padding:12px 14px;margin-bottom:6px;cursor:pointer;transition:all .2s}
+.gratitude-card:active{transform:scale(.98)}
+
+/* ═══ STREAK SHIELD ═══ */
+.shield-badge{display:inline-flex;align-items:center;gap:3px;padding:3px 8px;border-radius:2px;background:rgba(74,144,217,.12);font-family:'Josefin Sans',sans-serif;font-size:8px;color:var(--blue);letter-spacing:.5px}
+
+/* ═══ MILESTONE SHARE ═══ */
+.share-btn{background:linear-gradient(135deg,var(--rose),var(--sage));color:#fff;border:none;border-radius:2px;padding:8px 16px;font-family:'Josefin Sans',sans-serif;font-size:9px;font-weight:400;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;transition:all .2s}
+.share-btn:active{transform:scale(.95)}
+
+/* ═══ XP POPUP ANIMOUDION ═══ */
+.xp-popup{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:linear-gradient(135deg,#2A2421,var(--espresso));border:2px solid var(--gold);border-radius:8px;padding:24px 32px;text-align:center;z-index:9000;animation:xpPopIn .4s cubic-bezier(.34,1.56,.64,1);box-shadow:0 20px 60px rgba(0,0,0,.4)}
+@keyframes xpPopIn{from{opacity:0;transform:translate(-50%,-50%) scale(.5)}to{opacity:1;transform:translate(-50%,-50%) scale(1)}}
+.xp-popup-bg{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:8999}
+
+/* ═══ CBT CLIFFHANGER ═══ */
+.cliffhanger{background:linear-gradient(135deg,var(--purple-lt),#f0edff);border:1px solid rgba(139,126,200,.2);border-radius:4px;padding:12px 14px;margin-top:6px;cursor:pointer;position:relative;overflow:hidden}
+.cliffhanger::after{content:'';position:absolute;right:0;top:0;bottom:0;width:60px;background:linear-gradient(90deg,transparent,var(--purple-lt))}
+
+/* ═══ PROVIDER VIEW ═══ */
+#provider-view{display:none;position:fixed;top:52px;left:0;right:0;bottom:0;flex-direction:row;background:var(--bg);font-family:'Josefin Sans',sans-serif;color:var(--t1);z-index:900;overflow:hidden}
+#provider-view.active{display:flex}
+.pv-sidebar{width:var(--sw);min-width:var(--sw);background:var(--navy);display:flex;flex-direction:column;height:100%;overflow-y:auto;flex-shrink:0}
+.pv-sidebar::-webkit-scrollbar{width:3px}
+.pv-sidebar::-webkit-scrollbar-thumb{background:rgba(255,255,255,.1);border-radius:3px}
+.pv-main{flex:1;display:flex;flex-direction:column;height:100%;overflow:hidden}
+.pv-topbar{height:56px;background:#fff;border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 24px;gap:12px;flex-shrink:0}
+.pv-topbar-title{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:500;color:var(--espresso)}
+.pv-topbar-tag{font-size:8px;font-weight:400;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);background:var(--beige);padding:3px 8px;border-radius:2px}
+.pv-content{flex:1;overflow-y:auto;padding:20px 24px 50px}
+.pv-content::-webkit-scrollbar{width:4px}
+.pv-content::-webkit-scrollbar-thumb{background:#D4C8BF;border-radius:3px}
+.pv-view{display:none;animation:si .3s ease}
+.pv-view.active{display:block}
+.pv-card{background:#fff;border-radius:4px;border:1px solid var(--border);overflow:hidden;margin-bottom:12px}
+.pv-tab{padding:6px 13px;border-radius:2px;border:none;font-family:'Josefin Sans',sans-serif;font-size:10px;font-weight:400;letter-spacing:1px;text-transform:uppercase;color:var(--t3);cursor:pointer;background:none;transition:all .2s}
+.pv-tab.active{background:var(--espresso);color:var(--cream)}
+
+/* Sidebar */
+.sb-logo{padding:18px 16px;display:flex;align-items:center;gap:8px}
+.sb-logo-text{font-family:'Josefin Sans',sans-serif;font-size:12px;font-weight:400;letter-spacing:4px;text-transform:uppercase;color:#fff}
+.sb-logo-text small{display:block;font-size:7px;letter-spacing:2px;color:var(--rose);font-weight:300;text-transform:uppercase}
+.sb-section{font-size:8px;font-weight:400;letter-spacing:2.5px;text-transform:uppercase;color:rgba(255,255,255,.3);padding:16px 16px 6px}
+.sb-item{display:flex;align-items:center;gap:9px;padding:9px 16px;cursor:pointer;transition:all .15s;color:rgba(255,255,255,.45);font-size:12px;font-weight:300;letter-spacing:.5px;border-left:3px solid transparent}
+.sb-item:hover{background:rgba(255,255,255,.03);color:rgba(255,255,255,.7)}
+.sb-item.active{background:rgba(196,160,136,.08);color:var(--rose);border-left-color:var(--rose)}
+.sb-item .sb-i{width:20px;text-align:center;font-size:9px;font-weight:600;letter-spacing:0}
+.sb-badge{margin-left:auto;font-size:9px;font-weight:500;padding:2px 7px;border-radius:2px}
+.sb-badge.red{background:rgba(217,79,79,.15);color:var(--high)}
+.sb-badge.default{background:rgba(196,160,136,.15);color:var(--rose)}
+
+/* KPI */
+.kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:16px}
+.kpi{background:#fff;border-radius:4px;border:1px solid var(--border);padding:16px;border-left:3px solid var(--rose)}
+.kpi-val{font-family:'Fraunces',serif;font-size:28px;font-weight:700;line-height:1;color:var(--espresso)}
+.kpi-label{font-size:9px;font-weight:400;text-transform:uppercase;letter-spacing:1px;color:var(--t3);margin-top:4px}
+.kpi-delta{font-size:10px;font-weight:500;margin-top:4px}
+.kpi.sage{border-left-color:var(--sage)}.kpi.coral{border-left-color:var(--coral)}.kpi.gold{border-left-color:var(--gold)}.kpi.purple{border-left-color:var(--purple)}.kpi.blue{border-left-color:var(--blue)}
+
+/* Alert/Patient rows */
+.alert-row{display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:4px;margin-bottom:6px}
+.alert-row.high{background:var(--high-lt);border-left:3px solid var(--high)}
+.alert-row.med{background:var(--med-lt);border-left:3px solid var(--med)}
+.alert-row.low{background:var(--low-lt);border-left:3px solid var(--low)}
+.alert-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.alert-dot.hd{background:var(--high)}.alert-dot.md{background:var(--med)}.alert-dot.ld{background:var(--low)}
+.pt-row{display:flex;align-items:center;gap:10px;padding:11px 14px;border-bottom:1px solid var(--border);cursor:pointer;transition:background .15s}
+.pt-row:hover{background:var(--beige)}
+.pt-av{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:500;color:#fff;flex-shrink:0}
+.pt-info{flex:1}
+.pt-name{font-size:12px;font-weight:500;color:var(--t1)}
+.pt-meta{font-size:10px;color:var(--t3);margin-top:1px}
+.risk-badge{padding:3px 8px;border-radius:2px;font-size:8px;font-weight:400;text-transform:uppercase;letter-spacing:.5px}
+.risk-h{background:var(--high-lt);color:var(--high)}.risk-m{background:var(--med-lt);color:var(--med)}.risk-l{background:var(--low-lt);color:var(--low)}
+
+.chart-box{position:relative;height:200px}
+.chart-box-sm{position:relative;height:160px}
+.hipaa-bar{background:linear-gradient(90deg,var(--sage-lt),var(--purple-lt));border-radius:4px;padding:9px 14px;display:flex;align-items:center;gap:9px;margin-bottom:16px;border:1px solid rgba(91,158,111,.12);font-size:10px;color:var(--t2);letter-spacing:.3px}
+.ai-insight{background:linear-gradient(135deg,var(--purple-lt),var(--blue-lt));border:1px solid rgba(139,126,200,.15);border-radius:4px;padding:14px 16px;margin-bottom:10px}
+.ai-insight-title{font-size:10px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;color:var(--purple-dk);margin-bottom:6px;display:flex;align-items:center;gap:6px}
+.ai-insight-body{font-size:12px;color:var(--t1);line-height:1.6}
+.ai-tag{display:inline-block;padding:2px 8px;border-radius:2px;font-size:8px;font-weight:500;letter-spacing:.5px;text-transform:uppercase;margin-right:4px;margin-top:4px}
+
+.roi-table{width:100%;border-collapse:collapse;font-size:11px}
+.roi-table th{text-align:left;padding:10px 12px;font-size:9px;font-weight:400;letter-spacing:1.5px;text-transform:uppercase;color:var(--t3);border-bottom:2px solid var(--border);background:var(--beige)}
+.roi-table td{padding:10px 12px;border-bottom:1px solid var(--border);color:var(--t1)}
+.roi-table tr:hover{background:var(--rose-pale)}
+.roi-table .rev{font-family:'Fraunces',serif;font-weight:700;color:var(--sage-dk)}
+.roi-table .code{font-family:'Josefin Sans',sans-serif;font-weight:500;color:var(--purple-dk);letter-spacing:.5px}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
+
+/* ═══════════════════════════════════════════════════════════
+   RESPONSIVE SHELL — mobile · tablet · desktop
+   One adaptive sizing function in app.js drives everything and
+   toggles a body class:
+     • body.is-mobile  → app fills the whole viewport (phones)
+     • body.is-framed  → app sits in a clean, centered, readable
+                          surface on tablet & desktop
+   The whole UI is uniformly up-scaled so the prototype's tiny
+   6–10px type renders at readable sizes on every device WITHOUT
+   distorting any component's proportions. width/height/transform
+   are set inline by JS; CSS here only handles the framing.
+   ═══════════════════════════════════════════════════════════ */
+html,body{height:100%}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+.phone-notch,.phone-bar{display:none}      /* clean app look on every device */
+.nav-label,.section-label{font-weight:500} /* crisp labels at any scale */
+
+/* ——— Phones: edge-to-edge, full viewport ——— */
+body.is-mobile{
+  background:var(--cream);
+  padding:0;margin:0;
+  height:100dvh;overflow:hidden;
+  align-items:flex-start;justify-content:flex-start;
+}
+body.is-mobile #patient-view{padding:0;height:100dvh;width:100vw;overflow:hidden;align-items:flex-start}
+body.is-mobile .phone{max-width:none;border:none;border-radius:0;box-shadow:none;transform-origin:top left}
+body.is-mobile .status-bar{height:auto;padding-top:max(12px,env(safe-area-inset-top))}
+body.is-mobile .bottom-nav{padding-bottom:max(6px,env(safe-area-inset-bottom))}
+
+/* ——— Tablet & desktop: centered, readable app surface ——— */
+body.is-framed{
+  background:
+    radial-gradient(1200px 600px at 50% -10%, rgba(196,160,136,.18), transparent 60%),
+    var(--taupe);
+  padding:0;margin:0;
+  height:100dvh;overflow:hidden;
+  align-items:center;justify-content:flex-start;
+}
+body.is-framed #patient-view{padding:0;height:100dvh;width:100%;align-items:center;justify-content:flex-start;overflow:hidden}
+body.is-framed .phone{
+  border:1px solid rgba(58,51,48,.06);
+  border-radius:34px;
+  box-shadow:0 30px 80px rgba(58,51,48,.16), 0 0 0 1px rgba(58,51,48,.03);
+  background:var(--cream);
+  transform-origin:top center;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   VISUAL POLISH — softer, calmer, more consistent ("neat & clean")
+   Works only through shared classes, so every component's spacing
+   and proportions stay exactly as designed — just rounder corners,
+   gentler shadows, lighter hairlines, and true-pill badges.
+   ═══════════════════════════════════════════════════════════ */
+:root{
+  --r-sm:8px; --r-md:12px; --r-lg:16px;
+  --shadow-sm:0 1px 2px rgba(58,51,48,.03), 0 1px 3px rgba(58,51,48,.05);
+  --shadow-md:0 2px 10px rgba(58,51,48,.05), 0 8px 24px rgba(58,51,48,.04);
+  --border:rgba(196,160,136,.16);   /* calmer hairline */
+}
+
+/* Cards — rounder corners + a soft shadow that replaces the hard outline feel */
+.card{
+  border-radius:var(--r-md);
+  border-color:var(--border);
+  box-shadow:var(--shadow-sm);
+  transition:transform .18s ease, box-shadow .18s ease;
+}
+.card:active{transform:scale(.99)}
+.card .card{box-shadow:none}          /* nested cards stay flat — avoids visual noise */
+
+/* All the feature cards speak the same softened language */
+.quest-card,.reward-card,.map-region,.gratitude-card,.ring-nudge,.cliffhanger,
+.ai-insight,.mystery-xp-banner,.completeness-bar{
+  border-radius:var(--r-md);
+  transition:transform .18s ease, box-shadow .18s ease;
+}
+
+/* Badges & chips become true pills — friendlier, cleaner */
+.tag,.risk-badge,.shield-badge,.xp-pill,.ai-tag,.demo-tag{border-radius:999px}
+
+/* Buttons & actions — consistent rounded shape + smooth press */
+.chat-action,.share-btn,.toggle-btn{border-radius:999px}
+.chat-input{border-radius:14px}
+.chat-send{transition:transform .15s ease}
+.chat-send:active{transform:scale(.92)}
+
+/* Progress tracks & dividers — rounded and calm */
+.pbar,.pfill{border-radius:999px}
+.divider{background:var(--border)}
+
+/* Header & bottom nav — clean hairline + faint lift instead of a hard line */
+.app-header{border-bottom:1px solid transparent}
+.bottom-nav{border-top:none; box-shadow:0 -1px 0 var(--border), 0 -8px 22px rgba(58,51,48,.04)}
+
+/* Icon tiles a touch softer to match the rounded cards */
+.ic-lg{border-radius:8px}
+
+/* Smooth, momentum scrolling inside screens & overlays */
+.screen-area,.ov-body{scroll-behavior:smooth}
+
+/* ═══════════════════════════════════════════════════════════
+   HOME SCREEN — clean, calm, consistent layout
+   + Lucide icon defaults (single stroke language everywhere)
+   ═══════════════════════════════════════════════════════════ */
+
+/* Lucide icons render as inline <svg>; keep them crisp & consistent */
+svg.lucide{display:block;stroke-width:1.75px}
+
+/* Section cards — generous, quiet, evenly spaced */
+.home-sec{
+  background:#fff;
+  border:1px solid var(--border);
+  border-radius:18px;
+  box-shadow:var(--shadow-sm);
+  padding:16px;
+  margin-bottom:14px;
+}
+.home-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.home-title{
+  font-family:'Josefin Sans',sans-serif;
+  font-size:10px;font-weight:600;letter-spacing:2px;
+  text-transform:uppercase;color:var(--espresso);
+}
+
+/* Consistent icon tile — one calm visual language for every icon */
+.ic-tile{
+  width:40px;height:40px;border-radius:12px;
+  background:var(--beige);color:var(--brown);
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+}
+.ic-tile svg{width:20px;height:20px}
+
+/* XP chip — small, muted, consistent (no more rainbow micro-text) */
+.xp-chip{
+  font-family:'Josefin Sans',sans-serif;
+  font-size:8px;font-weight:600;letter-spacing:.5px;
+  color:var(--gold-dk);background:var(--gold-lt);
+  padding:3px 8px;border-radius:999px;flex-shrink:0;white-space:nowrap;
+}
+.xp-corner{position:absolute;top:8px;right:8px}
+
+/* Recovery Today — 3 calm task tiles */
+.task-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
+.task{
+  position:relative;text-align:center;cursor:pointer;
+  background:var(--cream);border:1px solid var(--border);
+  border-radius:14px;padding:16px 6px 12px;
+  transition:transform .15s ease, box-shadow .15s ease;
+}
+.task:active{transform:scale(.97)}
+.task-ic-wrap{position:relative;width:42px;height:42px;margin:0 auto 8px}
+.task .ic-tile{width:42px;height:42px;border-radius:50%;background:var(--rose-lt);color:var(--rose-dk)}
+.task-check{
+  position:absolute;inset:0;border-radius:50%;
+  background:var(--sage);color:#fff;
+  font-size:20px;font-weight:700;line-height:42px;text-align:center;
+}
+.task-name{font-family:'Josefin Sans',sans-serif;font-size:9px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--espresso)}
+.task-time{font-family:'Josefin Sans',sans-serif;font-size:8px;color:var(--muted);margin-top:3px}
+
+/* Recovery Treatments — airy rows with hairline separators */
+.tx-row{display:flex;align-items:center;gap:12px;padding:12px 0;border-top:1px solid var(--border)}
+.tx-row:first-of-type{border-top:none;padding-top:2px}
+.tx-name{font-family:'Josefin Sans',sans-serif;font-size:12px;font-weight:600;color:var(--espresso);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tx-sub{font-family:'Josefin Sans',sans-serif;font-size:10px;color:var(--muted);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+/* Consistent action button + its "done" check */
+.chk-btn{
+  padding:7px 14px;border-radius:999px;border:1px solid var(--border);
+  background:#fff;color:var(--espresso);
+  font-family:'Josefin Sans',sans-serif;font-size:10px;font-weight:500;letter-spacing:.5px;
+  cursor:pointer;transition:transform .15s ease, border-color .15s ease;white-space:nowrap;
+}
+.chk-btn:active{transform:scale(.95)}
+.chk-done{
+  display:none;position:absolute;inset:0;border-radius:999px;
+  background:var(--sage);color:#fff;font-size:15px;font-weight:700;
+  align-items:center;justify-content:center;pointer-events:none;
+}
+
+/* Recovery Journey — uniform stat tiles */
+.stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.stat-tile{border-radius:12px;padding:12px 8px;text-align:center}
+.stat-num{font-family:'Fraunces',serif;font-size:22px;font-weight:700;line-height:1}
+.stat-cap{font-family:'Josefin Sans',sans-serif;font-size:8px;letter-spacing:.5px;text-transform:uppercase;margin-top:5px;opacity:.85}
+
+/* Header & bottom-nav icons share the same stroke language */
+.notif-btn svg{width:15px;height:15px}
+.nav-icon svg{width:19px;height:19px}
+.nav-sos .nav-icon{background:var(--coral-lt);color:var(--coral-dk);opacity:1}
+.nav-sos.nav-tab:not(.active) .nav-icon{opacity:1}
+.nav-sos .nav-label{color:var(--coral-dk)}
+
+/* ═══════════════════════════════════════════════════════════
+   CALM THEME — airy, soft "Calm"-style aesthetic
+   (visual theme only; layout & content unchanged)
+   ═══════════════════════════════════════════════════════════ */
+:root{
+  --app-bg:#F2ECE6;
+  --ink:#2E2A30; --ink-soft:#9C938D;
+  --c-coral:#E0917A; --c-lilac:#A99CD9; --c-teal:#3F7E76;
+  --card-shadow:0 6px 24px rgba(60,50,45,.06);
+}
+
+/* Warm cream app background everywhere */
+.phone{background:var(--app-bg)}
+body.is-mobile{background:var(--app-bg)}
+body.is-framed .phone{background:var(--app-bg)}
+.screen{padding:0 18px 26px}
+
+/* Header — quiet, on cream */
+.app-logo{color:var(--ink);letter-spacing:3px}
+.app-logo small{color:var(--c-coral)}
+.notif-btn{background:#fff;border:1px solid rgba(60,50,45,.08);color:var(--ink-soft)}
+.avatar-btn{background:#fff;border:1px solid rgba(60,50,45,.10);color:var(--ink)}
+
+/* Cards — borderless white, very soft shadow, rounder */
+.home-sec{background:#fff;border:none;border-radius:22px;box-shadow:var(--card-shadow);padding:18px;margin-bottom:16px}
+.card{border:none;box-shadow:var(--card-shadow);border-radius:20px}
+.card .card{box-shadow:none}
+
+/* Section titles — calm, charcoal, sentence case */
+.home-title{color:var(--ink);text-transform:none;letter-spacing:.3px;font-size:13px;font-weight:600}
+
+/* Icon tiles — colored, rounded-square, white line icon (Calm style) */
+.ic-tile{width:46px;height:46px;border-radius:16px;color:#fff;background:var(--c-coral)}
+.ic-tile svg{width:22px;height:22px;stroke-width:2px}
+.ic-tile.t-coral{background:var(--c-coral)}
+.ic-tile.t-lilac{background:var(--c-lilac)}
+.ic-tile.t-teal{background:var(--c-teal)}
+
+/* Recovery Today — soft cream tiles inside the white card */
+.task{background:var(--app-bg);border:none;box-shadow:none;border-radius:16px}
+.task .ic-tile{border-radius:50%;width:46px;height:46px}
+.task-ic-wrap{width:46px;height:46px}
+.task-check{line-height:46px}
+
+/* Bottom nav — clean line icons, coral active, no pill */
+.bottom-nav{background:var(--app-bg);border-top:1px solid rgba(60,50,45,.07);box-shadow:none}
+.nav-icon{background:none!important;opacity:1;color:var(--ink-soft);width:26px;height:26px;border-radius:0}
+.nav-icon svg{width:23px;height:23px}
+.nav-tab.active .nav-icon{color:var(--c-coral);background:none!important}
+.nav-tab.active::after{display:none}
+.nav-label{color:var(--ink-soft);text-transform:none;letter-spacing:.2px;font-size:8px;font-weight:500}
+.nav-tab.active .nav-label{color:var(--c-coral);font-weight:600}
+.nav-sos .nav-icon{color:var(--c-coral)}
+.nav-sos .nav-label{color:var(--c-coral)}
+
+/* ═══ RECOVERY HEALTH — soft rounded-arc gauge ═══ */
+.gauge{position:relative;width:100%;max-width:300px;margin:6px auto 2px}
+.gauge-svg{width:100%;display:block}
+.gauge-fill-anim{transition:stroke-dasharray .8s ease}
+.gauge-center{position:absolute;left:0;right:0;top:50%;text-align:center}
+.gauge-num{font-family:'Fraunces',serif;font-weight:700;color:var(--ink);font-size:34px;line-height:1}
+.gauge-num small{font-family:'Josefin Sans',sans-serif;font-weight:400;font-size:14px;color:var(--ink-soft);margin-left:1px}
+.gauge-cap{font-family:'Josefin Sans',sans-serif;font-size:11px;font-weight:500;color:var(--ink-soft);margin-top:7px;letter-spacing:.3px}
+.gauge-cap::before{content:'';display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--c-teal);margin-right:5px;vertical-align:middle}
