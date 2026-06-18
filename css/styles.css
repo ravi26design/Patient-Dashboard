@@ -647,3 +647,6 @@ body.is-mobile .app-header{padding-top:max(16px,env(safe-area-inset-top))}
 
 /* Compact CTA — match the XP chip's height */
 .tx-meta .chk-btn{padding:3px 14px;font-size:9px;font-weight:600;letter-spacing:.3px;line-height:1.5}
+
+/* Align the row icon to the top (left/start), level with the title */
+.tx-row{align-items:flex-start}
