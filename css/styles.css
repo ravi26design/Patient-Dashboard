@@ -632,3 +632,6 @@ body.is-mobile .app-header{padding-top:max(16px,env(safe-area-inset-top))}
 /* Fix: +20 XP badge was overlapping the icon — place it in normal flow, centered above the icon */
 .task .xp-corner{position:static;display:inline-block;margin:0 0 8px}
 .task{padding-top:13px}
+
+/* Make the Recovery Today task icons white (override the old rose stroke) */
+.task .ic-tile{color:#fff}
