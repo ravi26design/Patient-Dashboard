@@ -539,3 +539,24 @@ body.is-framed .phone{background:var(--app-bg)}
 .gauge-num small{font-family:'Josefin Sans',sans-serif;font-weight:400;font-size:14px;color:var(--ink-soft);margin-left:1px}
 .gauge-cap{font-family:'Josefin Sans',sans-serif;font-size:11px;font-weight:500;color:var(--ink-soft);margin-top:7px;letter-spacing:.3px}
 .gauge-cap::before{content:'';display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--c-teal);margin-right:5px;vertical-align:middle}
+
+/* ═══════════════════════════════════════════════════════════
+   TYPOGRAPHY — calm & readable
+   Nunito (warm, rounded, highly legible) for all UI/body text,
+   Fraunces (elegant serif) reserved for the big display numbers.
+   Overrides the prototype's thin Josefin / Cormorant inline fonts.
+   ═══════════════════════════════════════════════════════════ */
+:root{
+  --font-ui:'Nunito',system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;
+  --font-display:'Fraunces',Georgia,'Times New Roman',serif;
+}
+body,.ui{font-family:var(--font-ui)}
+.phone, .phone *{font-family:var(--font-ui) !important}
+
+/* Keep the elegant serif only for large display numerals */
+.phone .gauge-num,
+.phone .stat-num,
+.phone [style*="Fraunces"]{font-family:var(--font-display) !important}
+
+/* Crisp rendering */
+body{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;text-rendering:optimizeLegibility}
