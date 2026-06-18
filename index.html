@@ -1479,48 +1479,75 @@
 
   <!-- INSIGHTS OVERLAY -->
   <div class="overlay" id="ov-insights" style="background:var(--cream)">
-    <div class="ov-header" style="background:#fff;border-bottom:1px solid var(--border)">
-      <button class="ov-back" style="background:var(--beige);color:var(--espresso)" onclick="closeOv()">&larr;</button>
+    <div class="ov-header" style="background:#fff;border-bottom:1px solid rgba(54,59,59,.06)">
+      <button class="ov-back" style="background:#F0F3F3;color:var(--ink)" onclick="closeOv()">&larr;</button>
       <div>
-        <div class="ui" style="font-size:8px;color:var(--muted);letter-spacing:1px;text-transform:uppercase">Recovery Health · Daily Insight</div>
-        <div class="ui" style="font-size:12px;font-weight:500;color:var(--espresso)">Today's Insight</div>
+        <div style="font-size:8px;color:var(--ink-soft);letter-spacing:1.2px;text-transform:uppercase;font-weight:600">Recovery Health · Daily Insight</div>
+        <div style="font-size:13px;font-weight:700;color:var(--ink)">Today's Insight</div>
       </div>
     </div>
-    <div class="ov-body" style="padding-top:10px">
-      <!-- Today's insight -->
-      <div class="card" style="border-left:3px solid var(--sage)">
-        <div class="card-pad" style="background:var(--sage-lt)">
-          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
-            <div class="ui" style="font-size:9px;color:var(--sage-dk);letter-spacing:1.5px;text-transform:uppercase;font-weight:500">Today &middot; Jun 11</div>
-            <span class="tag" style="background:var(--sage);color:#fff">Score: 73</span>
-          </div>
-          <div style="font-family:'Cormorant Garamond',serif;font-size:15px;color:var(--espresso);line-height:1.75;margin-bottom:14px">
-            Today your recovery health score is a 73, and that is something to feel good about. You have been putting in real work, and it shows. One thing that stands out today is craving, which seems to be playing a part in your recovery health. The good news is that you already have the strength and skills to handle cravings when they come up. You have gotten through tough moments before, and that same grit is still with you.
-          </div>
-          <div style="border-top:1px solid rgba(91,158,111,.25);padding-top:10px;margin-bottom:10px">
-            <div class="ui" style="font-size:8px;color:var(--sage-dk);letter-spacing:1px;text-transform:uppercase;margin-bottom:6px">Your Activity for Today</div>
-            <a href="https://dionysus.psych.wisc.edu/rudrahealth/triggers.html" target="_blank" style="position:relative;display:flex;align-items:center;gap:10px;text-decoration:none;background:#fff;border:1px solid var(--border);border-radius:4px;padding:10px 12px">
-              <div style="position:absolute;top:3px;right:6px;font-family:'Josefin Sans',sans-serif;font-size:6px;color:var(--gold);font-weight:500;letter-spacing:.3px">+20 XP</div>
-              <div class="ic-lg" style="background:var(--sage-lt);color:var(--sage-dk);flex-shrink:0;font-size:13px">&#9654;</div>
-              <div style="flex:1">
-                <div class="ui" style="font-size:10px;font-weight:500;color:var(--espresso)">Recovery Activity: Managing Cravings</div>
-                <div class="ui" style="font-size:8px;color:var(--sage);margin-top:2px">Picked just for you &middot; Tap to open</div>
-              </div>
-              <div style="color:var(--muted);font-size:18px;flex-shrink:0">&#8250;</div>
-            </a>
-          </div>
+    <div class="ov-body" style="padding-top:14px">
 
+      <!-- Score hero -->
+      <div style="background:#fff;border-radius:20px;box-shadow:var(--card-shadow);padding:18px;margin-bottom:14px">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
+          <span style="font-size:10px;font-weight:700;color:var(--hb-teal-deep);background:#E2F1EE;padding:4px 11px;border-radius:999px">Today · Jun 11</span>
+          <span style="font-size:10px;font-weight:600;color:var(--ink-soft)">Above average</span>
+        </div>
+        <div style="display:flex;align-items:flex-end;gap:14px">
+          <div style="font-family:var(--font-display);font-weight:700;font-size:46px;line-height:.85;color:var(--ink);letter-spacing:-1.5px">73<span style="font-size:17px;color:var(--ink-soft);font-weight:500;letter-spacing:0">/100</span></div>
+          <div style="flex:1;padding-bottom:4px">
+            <div style="height:8px;border-radius:999px;background:#E3EAEA;overflow:hidden;margin-bottom:6px"><div style="height:100%;width:73%;border-radius:999px;background:linear-gradient(90deg,#9EE3D9,#26BDA6)"></div></div>
+            <div style="font-size:10px;color:var(--ink-soft)">Recovery Health score · up 13 this month</div>
+          </div>
         </div>
       </div>
+
+      <!-- A note for you -->
+      <div style="background:#fff;border-radius:20px;box-shadow:var(--card-shadow);padding:18px;margin-bottom:14px">
+        <div style="display:flex;align-items:center;gap:9px;margin-bottom:11px">
+          <div style="width:34px;height:34px;border-radius:11px;background:var(--hb-teal);color:#fff;display:flex;align-items:center;justify-content:center;flex-shrink:0"><i data-lucide="sparkles"></i></div>
+          <div style="font-size:12px;font-weight:700;color:var(--ink)">A note for you today</div>
+        </div>
+        <div style="font-size:13px;color:#4A5453;line-height:1.7;margin-bottom:14px">Your recovery health score is a <b style="color:var(--ink)">73</b> — something to feel good about. You've been putting in real work, and it shows. One thing standing out today is <b style="color:var(--hb-teal-deep)">cravings</b>. The good news: you already have the strength and skills to handle them. You've gotten through tough moments before, and that same grit is still with you.</div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap">
+          <span style="font-size:10px;font-weight:600;color:#B5764F;background:#FCE7DC;padding:4px 11px;border-radius:999px">Focus · Cravings</span>
+          <span style="font-size:10px;font-weight:600;color:var(--hb-teal-deep);background:#E2F1EE;padding:4px 11px;border-radius:999px">Trend · Improving</span>
+        </div>
+      </div>
+
+      <!-- Recommended activity -->
+      <div style="font-size:10px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;color:var(--ink-soft);margin:4px 2px 8px">Recommended for you</div>
+      <a href="https://dionysus.psych.wisc.edu/rudrahealth/triggers.html" target="_blank" style="display:flex;align-items:center;gap:12px;text-decoration:none;background:#fff;border-radius:18px;box-shadow:var(--card-shadow);padding:14px;margin-bottom:18px">
+        <div style="width:46px;height:46px;border-radius:15px;background:var(--hb-teal);color:#fff;display:flex;align-items:center;justify-content:center;flex-shrink:0"><i data-lucide="play"></i></div>
+        <div style="flex:1;min-width:0">
+          <div style="font-size:12px;font-weight:700;color:var(--ink)">Managing Cravings</div>
+          <div style="font-size:10px;color:var(--ink-soft);margin-top:3px">Guided activity · about 5 min</div>
+          <span style="display:inline-block;font-size:9px;font-weight:700;color:#9A6B16;background:#FFF1D6;padding:2px 9px;border-radius:999px;margin-top:7px">+20 XP</span>
+        </div>
+        <div style="color:var(--ink-soft);flex-shrink:0;display:flex"><i data-lucide="chevron-right"></i></div>
+      </a>
+
       <!-- Past week -->
-      <div class="section-label" style="margin-top:6px">Past Week</div>
-      <div class="card" style="margin-bottom:5px;cursor:pointer" onclick="openOv('insights-yesterday')">
-        <div class="card-pad" style="padding:10px 14px;display:flex;align-items:center;gap:10px">
-          <div style="flex:1">
-            <div class="ui" style="font-size:10px;font-weight:500;color:var(--espresso)">Yesterday &middot; Jun 10</div>
-          </div>
-          <span class="tag" style="background:var(--gold-lt);color:var(--gold-dk)">Score: 60</span>
-          <div style="color:var(--muted);font-size:18px;flex-shrink:0">&#8250;</div>
+      <div style="font-size:10px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;color:var(--ink-soft);margin:4px 2px 8px">Past Week</div>
+      <div style="background:#fff;border-radius:18px;box-shadow:var(--card-shadow);overflow:hidden">
+        <div onclick="openOv('insights-yesterday')" style="display:flex;align-items:center;gap:12px;padding:13px 14px;cursor:pointer;border-bottom:1px solid rgba(54,59,59,.06)">
+          <div style="flex:1"><div style="font-size:12px;font-weight:600;color:var(--ink)">Yesterday</div><div style="font-size:10px;color:var(--ink-soft);margin-top:1px">Jun 10</div></div>
+          <div style="width:60px;height:6px;border-radius:999px;background:#E3EAEA;overflow:hidden"><div style="height:100%;width:60%;background:#EBA63A"></div></div>
+          <div style="font-family:var(--font-display);font-weight:700;font-size:15px;color:var(--ink);width:24px;text-align:right">60</div>
+          <div style="color:var(--ink-soft);flex-shrink:0;display:flex"><i data-lucide="chevron-right"></i></div>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;padding:13px 14px;border-bottom:1px solid rgba(54,59,59,.06)">
+          <div style="flex:1"><div style="font-size:12px;font-weight:600;color:var(--ink)">Monday</div><div style="font-size:10px;color:var(--ink-soft);margin-top:1px">Jun 9</div></div>
+          <div style="width:60px;height:6px;border-radius:999px;background:#E3EAEA;overflow:hidden"><div style="height:100%;width:58%;background:#EBA63A"></div></div>
+          <div style="font-family:var(--font-display);font-weight:700;font-size:15px;color:var(--ink);width:24px;text-align:right">58</div>
+          <div style="color:var(--ink-soft);flex-shrink:0;display:flex"><i data-lucide="chevron-right"></i></div>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;padding:13px 14px">
+          <div style="flex:1"><div style="font-size:12px;font-weight:600;color:var(--ink)">Sunday</div><div style="font-size:10px;color:var(--ink-soft);margin-top:1px">Jun 8</div></div>
+          <div style="width:60px;height:6px;border-radius:999px;background:#E3EAEA;overflow:hidden"><div style="height:100%;width:64%;background:#26BDA6"></div></div>
+          <div style="font-family:var(--font-display);font-weight:700;font-size:15px;color:var(--ink);width:24px;text-align:right">64</div>
+          <div style="color:var(--ink-soft);flex-shrink:0;display:flex"><i data-lucide="chevron-right"></i></div>
         </div>
       </div>
     </div>
