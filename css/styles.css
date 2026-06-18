@@ -599,3 +599,28 @@ body.is-framed{
     radial-gradient(1100px 560px at 50% -10%, rgba(38,189,166,.14), transparent 60%),
     #E6EDED;
 }
+
+/* ═══ RECOVERY TODAY — daily ritual tracker ═══ */
+.rt-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.rt-prog{font-family:var(--font-ui);font-size:11px;font-weight:700;color:var(--hb-teal-deep)}
+.rt-prog .rt-prog-total{color:var(--ink-soft);font-weight:600}
+.rt-bar{height:6px;border-radius:999px;background:#E3EAEA;overflow:hidden;margin-bottom:14px}
+.rt-bar-fill{height:100%;border-radius:999px;background:linear-gradient(90deg,#9EE3D9,#26BDA6);transition:width .5s ease}
+
+/* Tiles — cleaner, tappable, clear done-state */
+.task{
+  background:#fff;
+  border:1px solid rgba(54,59,59,.07);
+  box-shadow:0 3px 12px rgba(60,50,45,.04);
+  padding:16px 8px 13px;
+  transition:transform .15s ease, box-shadow .15s ease, background .2s ease, border-color .2s ease;
+}
+.task:active{transform:scale(.97)}
+.task .ic-tile{box-shadow:0 4px 12px rgba(38,189,166,.18)}
+.task-name{margin-top:2px}
+.task-time{margin-top:4px}
+.task-check{background:var(--hb-teal)}
+
+/* Completed ritual */
+.task.done{background:#E7F4F1;border-color:rgba(38,189,166,.35)}
+.task.done .task-name{color:var(--hb-teal-deep)}

@@ -63,7 +63,11 @@
       <!-- Recovery Today -->
       <div class="home-sec">
         <div>
-          <div class="home-title" style="margin-bottom:12px">Recovery Today</div>
+          <div class="rt-head">
+            <div class="home-title">Recovery Today</div>
+            <div class="rt-prog"><span id="rt-done">0</span><span class="rt-prog-total">/3 done</span></div>
+          </div>
+          <div class="rt-bar"><div class="rt-bar-fill" id="rt-bar-fill" style="width:0%"></div></div>
           <div class="task-grid">
             <div class="task" id="focus-card" onclick="confirmFocus(this)">
               <span class="xp-chip xp-corner">+20 XP</span>

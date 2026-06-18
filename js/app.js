@@ -63,7 +63,8 @@ function confirmFocus(card){
   var time  = document.getElementById('focus-time');
   check.style.display = 'block';
   time.textContent  = 'Today \u2713';
-  time.style.color  = 'var(--sage)';
+  time.style.color  = 'var(--hb-teal)';
+  updateTodayProgress();
   openOv('insights');
 }
 function confirmConnect(card){
@@ -73,8 +74,9 @@ function confirmConnect(card){
   if(check.style.display === 'none'){
     check.style.display = 'block';
     time.textContent  = 'Today \u2713';
-    time.style.color  = 'var(--blue)';
+    time.style.color  = 'var(--hb-teal)';
   }
+  updateTodayProgress();
   openOv('connect');
 }
 function confirmCheckin(card){
@@ -85,13 +87,27 @@ function confirmCheckin(card){
   if(check.style.display === 'none'){
     check.style.display = 'block';
     time.textContent = 'Today \u2713';
-    time.style.color = 'var(--sage)';
+    time.style.color = 'var(--hb-teal)';
     window.open('https://uwmadison.co1.qualtrics.com/jfe/form/SV_4TlrmLvYyPnB9cO?practice=true&subid=9999', '_blank');
   } else {
     check.style.display = 'none';
     time.textContent = '5:00 PM';
     time.style.color = '';
   }
+  updateTodayProgress();
+}
+/* Daily ritual progress \u2014 reflects how many of the 3 tasks are done */
+function updateTodayProgress(){
+  var keys=['focus','checkin','connect'], done=0;
+  keys.forEach(function(k){
+    var chk=document.getElementById(k+'-check');
+    var card=document.getElementById(k+'-card');
+    var on=chk && chk.style.display && chk.style.display!=='none';
+    if(card) card.classList.toggle('done', !!on);
+    if(on) done++;
+  });
+  var t=document.getElementById('rt-done'); if(t) t.textContent=done;
+  var f=document.getElementById('rt-bar-fill'); if(f) f.style.width=(done/keys.length*100)+'%';
 }
 /* ═══ RECOVERY HEALTH CHART ═══ */
 var recoveryHealthChart = null;
@@ -335,4 +351,5 @@ function showMysteryXP(){
    Replace every <i data-lucide="…"> with a clean, consistent stroke icon. */
 function renderIcons(){ if(window.lucide && window.lucide.createIcons) window.lucide.createIcons(); }
 renderIcons();
+if(typeof updateTodayProgress==='function') updateTodayProgress();
 window.addEventListener('load', renderIcons);
