@@ -655,3 +655,12 @@ body.is-mobile .app-header{padding-top:max(16px,env(safe-area-inset-top))}
 :root{--font-ui:'Plus Jakarta Sans',system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif}
 .home-title{letter-spacing:.2px}
 .tx-name{letter-spacing:.1px}
+
+/* ═══ Numbers — Sora (clean modern numerals, tabular) ═══ */
+:root{--font-display:'Sora','Plus Jakarta Sans',system-ui,sans-serif}
+.gauge-num,.stat-num,.phone [style*="Fraunces"]{
+  font-variant-numeric:tabular-nums;
+  letter-spacing:-.6px;
+  font-weight:700;
+}
+.gauge-num small{font-variant-numeric:normal;letter-spacing:0;font-weight:500}
