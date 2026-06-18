@@ -650,3 +650,8 @@ body.is-mobile .app-header{padding-top:max(16px,env(safe-area-inset-top))}
 
 /* Align the row icon to the top (left/start), level with the title */
 .tx-row{align-items:flex-start}
+
+/* ═══ Upgraded UI type — Plus Jakarta Sans (modern, clean, premium) ═══ */
+:root{--font-ui:'Plus Jakarta Sans',system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif}
+.home-title{letter-spacing:.2px}
+.tx-name{letter-spacing:.1px}
