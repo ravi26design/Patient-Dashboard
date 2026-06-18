@@ -624,3 +624,7 @@ body.is-framed{
 /* Completed ritual */
 .task.done{background:#E7F4F1;border-color:rgba(38,189,166,.35)}
 .task.done .task-name{color:var(--hb-teal-deep)}
+
+/* Status bar removed — header takes the top safe-area padding */
+.app-header{padding-top:14px}
+body.is-mobile .app-header{padding-top:max(16px,env(safe-area-inset-top))}
