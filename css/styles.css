@@ -635,3 +635,8 @@ body.is-mobile .app-header{padding-top:max(16px,env(safe-area-inset-top))}
 
 /* Make the Recovery Today task icons white (override the old rose stroke) */
 .task .ic-tile{color:#fff}
+
+/* Treatment rows: names were truncating — let them wrap, move XP chip under the text */
+.tx-name{white-space:normal;overflow:visible;text-overflow:clip;line-height:1.25}
+.tx-sub{white-space:normal;overflow:visible;text-overflow:clip;line-height:1.3;margin-top:3px}
+.tx-row .xp-chip{display:inline-block;margin-top:7px}
