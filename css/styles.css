@@ -865,7 +865,7 @@ body.is-desktop .overlay.active > .ov-body{max-width:620px;margin-left:auto;marg
 
 /* ═══ DAILY REFLECTION — fixed footer CTAs + larger type ═══ */
 #ov-reflect .ov-body{padding-bottom:18px}
-.reflect-footer{flex-shrink:0;display:flex;gap:12px;padding:14px 16px;background:#F7F5F2;border-top:1px solid rgba(54,59,59,.08)}
+.reflect-footer{flex-shrink:0;display:flex;gap:12px;padding:14px 16px;background:var(--app-bg);border-top:1px solid rgba(54,59,59,.08)}
 .reflect-footer:empty{display:none}
 .rf-btn{padding:15px 16px;border-radius:14px;border:none;font-size:13px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;cursor:pointer;font-family:var(--font-ui);white-space:nowrap}
 .rf-primary{background:#7BA47E;color:#fff;flex:1.5}
