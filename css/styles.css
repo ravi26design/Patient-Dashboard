@@ -877,3 +877,7 @@ body.is-desktop .overlay.active > .reflect-footer{max-width:620px;margin-left:au
 
 /* Reflect cards share the app's standard card style (like Insights) */
 .rf-card{background:#fff;border-radius:20px;box-shadow:var(--card-shadow);padding:20px;margin-bottom:14px}
+
+/* Temporarily non-interactive nav items (feature not enabled yet) */
+.nav-soon{cursor:default}
+.nav-soon:active{transform:none !important}
