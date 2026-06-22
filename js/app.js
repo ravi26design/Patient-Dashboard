@@ -106,7 +106,7 @@ function confirmCheckin(card){
 }
 /* Daily ritual progress \u2014 reflects how many of the 3 tasks are done */
 function updateTodayProgress(){
-  var keys=['focus','checkin','connect'], done=0;
+  var keys=['focus','checkin','connect','log'], done=0;
   keys.forEach(function(k){
     var chk=document.getElementById(k+'-check');
     var card=document.getElementById(k+'-card');
@@ -465,9 +465,16 @@ function addLogEntry(){
   if(logState.selDay==null||logState.selPeriod==null) return;
   var dt=new Date(logState.y,logState.m,logState.selDay), p=LOG_PERIODS[logState.selPeriod];
   logState.entries.unshift({label:LOG_SWD[dt.getDay()]+', '+LOG_SMO[logState.m]+' '+logState.selDay, period:p.label, e:p.e});
-  logState.selPeriod=null; renderLogTime(); renderLogEntries();
+  logState.selPeriod=null; renderLogTime(); renderLogEntries(); updateLogTileState();
 }
-function removeLogEntry(i){ logState.entries.splice(i,1); renderLogEntries(); }
+function removeLogEntry(i){ logState.entries.splice(i,1); renderLogEntries(); updateLogTileState(); }
+function updateLogTileState(){
+  var lc=document.getElementById('log-check'), lt=document.getElementById('log-time');
+  var done=logState.entries.length>0;
+  if(lc) lc.style.display=done?'block':'none';
+  if(lt){ lt.textContent=done?'Logged \u2713':'Anytime'; lt.style.color=done?'var(--hb-teal)':''; }
+  if(typeof updateTodayProgress==='function') updateTodayProgress();
+}
 function renderLogEntries(){
   var c=document.getElementById('log-entries'); c.innerHTML='';
   if(!logState.entries.length){ c.innerHTML='<div class="log-empty-note">No entries logged yet</div>'; return; }
