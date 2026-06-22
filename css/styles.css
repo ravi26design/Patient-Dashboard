@@ -764,3 +764,14 @@ body.is-desktop .phone{background:transparent;box-shadow:none;border:none;border
 body.is-desktop .screen.active{column-gap:24px}
 body.is-desktop .screen{padding:18px 24px 24px}
 body.is-desktop .home-sec{padding:20px;margin-bottom:24px}
+
+/* Desktop dashboard as a 2-column GRID — cards sit side by side in order
+   (Recovery Health | Recovery Today, then Treatments | Journey) */
+body.is-desktop .screen.active{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:24px;
+  align-items:start;
+}
+body.is-desktop .screen.active > .section-label{grid-column:1 / -1}
+body.is-desktop .home-sec{margin-bottom:0}
