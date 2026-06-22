@@ -927,3 +927,20 @@ body.is-mobile .insight-hero, body.is-framed:not(.is-desktop) .insight-hero{flex
 body.is-mobile .insight-hero > div, body.is-framed:not(.is-desktop) .insight-hero > div{width:100%}
 body.is-mobile .insight-hero > div:first-child, body.is-framed:not(.is-desktop) .insight-hero > div:first-child{text-align:center;font-size:56px !important}
 body.is-mobile .insight-hero > div:last-child, body.is-framed:not(.is-desktop) .insight-hero > div:last-child{padding-bottom:0}
+
+/* ═══ HOME — soft airy ambiance (clouds + sparkles) behind the dashboard ═══ */
+#screen-home{
+  background:
+    radial-gradient(2.5px 2.5px at 24% 24%, rgba(255,255,255,.95), transparent 60%),
+    radial-gradient(2px 2px at 74% 15%, rgba(255,255,255,.85), transparent 60%),
+    radial-gradient(2.5px 2.5px at 58% 56%, rgba(255,255,255,.85), transparent 60%),
+    radial-gradient(2px 2px at 33% 82%, rgba(255,255,255,.8), transparent 60%),
+    radial-gradient(2px 2px at 88% 68%, rgba(255,255,255,.8), transparent 60%),
+    radial-gradient(150px 80px at 6% 4%, rgba(255,255,255,.55), transparent 70%),
+    radial-gradient(190px 95px at 94% 18%, rgba(255,255,255,.5), transparent 72%),
+    radial-gradient(180px 85px at 50% 100%, rgba(255,255,255,.55), transparent 72%),
+    linear-gradient(180deg,#E7F1EE 0%, var(--app-bg) 34%);
+  background-repeat:no-repeat;
+  background-attachment:local;
+  border-radius:18px;
+}
