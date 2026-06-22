@@ -93,7 +93,7 @@
               <div class="task-name" id="focus-label">Insights</div>
               <div class="task-time" id="focus-time">8:00 AM</div>
             </div>
-            <div class="task" id="checkin-card" onclick="confirmCheckin(this)">
+            <div class="task" id="checkin-card" onclick="openReflect()">
               <span class="xp-chip xp-corner">+20 XP</span>
               <div class="task-ic-wrap">
                 <div class="ic-tile t-lilac" id="checkin-icon"><i data-lucide="pen-line"></i></div>
@@ -1427,6 +1427,18 @@
 
       <button onclick="closeOv()" style="width:100%;margin-top:14px;padding:15px;border-radius:14px;border:none;background:var(--ink);color:#fff;font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;cursor:pointer">Done</button>
     </div>
+  </div>
+
+  <!-- DAILY REFLECTION -->
+  <div class="overlay" id="ov-reflect" style="background:#F7F5F2">
+    <div class="ov-header" style="background:#7BA47E">
+      <button class="ov-back" style="background:rgba(255,255,255,.2);color:#fff" onclick="reflectBack()">&larr;</button>
+      <div>
+        <div style="font-size:15px;font-weight:700;color:#fff">Daily Reflection</div>
+        <div style="font-size:10px;color:rgba(255,255,255,.75)">About 2 minutes · +20 XP</div>
+      </div>
+    </div>
+    <div class="ov-body" id="reflect-body" style="padding-top:16px"></div>
   </div>
 
   <div class="bottom-nav" id="bottomNav">

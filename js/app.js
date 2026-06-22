@@ -469,3 +469,91 @@ function renderLogEntries(){
     d.appendChild(x); c.appendChild(d);
   });
 }
+
+/* ═══ DAILY REFLECTION ═══ */
+var REFLECT_Q=[
+  {type:'multi', q:'Which of these drugs have you used in the past 24 hours?', sub:'Select all that apply', options:[
+    'Alcohol','Cannabis (marijuana, pot, hash, K2, spice, etc.)','Stimulants (cocaine, meth, speed, ecstasy, molly, Adderall, etc.)',
+    'Inhalants (nitrous, glue, petrol, paint thinner, etc.)','Sedatives or sleeping pills (Valium, Serepax, Rohypnol, etc.)',
+    'Hallucinogens (LSD, acid, mushrooms, PCP, special K, etc.)','Opioids (heroin, fentanyl, oxycodone, etc.)','None — I did not use any substances']},
+  {type:'slider', q:'How strong was your greatest craving to use opioids over the past 24 hours?', lo:'No craving', hi:'Extreme craving'},
+  {type:'slider', q:'How risky was the riskiest situation (people, places, or things that interfere with your recovery) you experienced over the past 24 hours?', lo:'No risk', hi:'Extreme risk'},
+  {type:'slider', q:'How stressful was the biggest hassle or stressful event you experienced over the past 24 hours?', lo:'No stress', hi:'Extreme stress'},
+  {type:'slider', q:'How much pain did you experience over the past 24 hours?', lo:'No pain', hi:'Extreme pain'},
+  {type:'slider', q:'How would you rate your sleep quality last night?', lo:'Very poor', hi:'Excellent'},
+  {type:'slider', q:'How would you describe your overall mood over the past 24 hours?', lo:'Very low', hi:'Very good'},
+  {type:'slider', q:'How many pleasant or rewarding moments did you experience over the past 24 hours?', lo:'None', hi:'Many'},
+  {type:'slider', q:'How confident are you in staying on track with your recovery today?', lo:'Not confident', hi:'Very confident'},
+  {type:'slider', q:'How supported and connected did you feel over the past 24 hours?', lo:'Isolated', hi:'Well supported'}
+];
+var reflectStep=0, reflectAnswers={};
+function openReflect(){ reflectStep=0; reflectAnswers={}; renderReflect(); openOv('reflect'); }
+function reflectNext(){ reflectStep++; renderReflect(); }
+function reflectBack(){ if(reflectStep<=0){ closeOv(); return; } reflectStep--; renderReflect(); }
+function esc(s){ return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+function reflectToggleOpt(btn,i){
+  var a=reflectAnswers[reflectStep]||(reflectAnswers[reflectStep]=[]);
+  var idx=a.indexOf(i);
+  if(idx>=0){ a.splice(idx,1); btn.classList.remove('opt-sel'); }
+  else{ a.push(i); btn.classList.add('opt-sel'); }
+}
+function reflectSlider(v){ reflectAnswers[reflectStep]=+v; var el=document.getElementById('reflect-slider-val'); if(el) el.textContent=v; }
+function renderReflect(){
+  var body=document.getElementById('reflect-body'); var total=REFLECT_Q.length;
+  if(reflectStep===0){
+    body.innerHTML=
+      '<div style="text-align:center;padding:18px 0 8px">'+
+        '<div style="font-size:44px;margin-bottom:14px">🪞</div>'+
+        '<div style="font-family:var(--font-display);font-size:26px;color:var(--ink);margin-bottom:8px">Daily Reflection</div>'+
+        '<div style="font-size:13px;color:var(--ink-soft);line-height:1.5;padding:0 10px">A few short questions about your experiences and mood.</div>'+
+      '</div>'+
+      '<div style="background:#EAF1E9;border-left:4px solid #7BA47E;border-radius:12px;padding:14px 16px;margin:16px 0">'+
+        '<div style="font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#5E8560;margin-bottom:6px">Section 1 of 2</div>'+
+        '<div style="font-family:var(--font-display);font-size:18px;color:var(--ink)">Thinking about the past 24 hours…</div>'+
+      '</div>'+
+      '<button onclick="reflectNext()" style="width:100%;padding:15px;border-radius:14px;border:none;background:#7BA47E;color:#fff;font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;cursor:pointer">Begin →</button>';
+    return;
+  }
+  if(reflectStep>total){
+    body.innerHTML=
+      '<div style="text-align:center;padding:24px 0">'+
+        '<div style="width:84px;height:84px;border-radius:50%;background:#EAF1E9;border:2px solid #7BA47E;display:flex;align-items:center;justify-content:center;margin:0 auto 18px;font-size:34px;color:#5E8560">✓</div>'+
+        '<div style="font-family:var(--font-display);font-size:26px;color:var(--ink);margin-bottom:10px">Reflection complete</div>'+
+        '<div style="font-size:13px;color:var(--ink-soft);line-height:1.6;padding:0 6px">Your responses have been recorded. Thank you for taking time to reflect — it matters for your recovery.</div>'+
+      '</div>'+
+      '<button onclick="reflectDone()" style="width:100%;padding:15px;border-radius:14px;border:none;background:#7BA47E;color:#fff;font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;cursor:pointer">Done</button>';
+    return;
+  }
+  var n=reflectStep, item=REFLECT_Q[n-1], pct=Math.round(n/total*100), inner='';
+  if(item.type==='multi'){
+    var sel=reflectAnswers[n]||[];
+    inner='<div style="margin-top:14px">'+item.options.map(function(o,i){
+      return '<button class="reflect-opt'+(sel.indexOf(i)>=0?' opt-sel':'')+'" onclick="reflectToggleOpt(this,'+i+')">'+esc(o)+'</button>';
+    }).join('')+'</div>';
+  } else {
+    var val=reflectAnswers[n]!=null?reflectAnswers[n]:5; reflectAnswers[n]=val;
+    inner='<div style="text-align:center;margin-top:8px"><span id="reflect-slider-val" style="font-family:var(--font-display);font-size:48px;font-weight:700;color:#7BA47E;line-height:1">'+val+'</span><div style="font-size:12px;color:var(--ink-soft)">out of 10</div></div>'+
+      '<div style="display:flex;justify-content:space-between;font-size:11px;color:var(--ink-soft);margin:12px 2px 6px"><span>'+esc(item.lo)+'</span><span>'+esc(item.hi)+'</span></div>'+
+      '<input type="range" min="0" max="10" value="'+val+'" oninput="reflectSlider(this.value)" class="reflect-range">';
+  }
+  body.innerHTML=
+    '<div style="text-align:center;font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--ink-soft);margin-bottom:8px">Question '+n+' of '+total+'</div>'+
+    '<div class="reflect-prog"><div class="reflect-prog-fill" style="width:'+pct+'%"></div></div>'+
+    '<div style="background:#fff;border-radius:16px;box-shadow:var(--card-shadow);padding:18px;margin-top:14px">'+
+      '<div style="font-size:15px;font-weight:700;color:var(--ink);line-height:1.4">'+esc(item.q)+'</div>'+
+      (item.sub?'<div style="font-size:12px;color:var(--ink-soft);margin-top:3px">'+esc(item.sub)+'</div>':'')+
+      inner+
+      '<div style="display:flex;gap:10px;margin-top:18px">'+
+        '<button class="reflect-btn-back" onclick="reflectBack()">← Back</button>'+
+        '<button class="reflect-btn-next" onclick="reflectNext()">Next →</button>'+
+      '</div>'+
+    '</div>';
+}
+function reflectDone(){
+  closeOv();
+  var check=document.getElementById('checkin-check'), time=document.getElementById('checkin-time');
+  if(check){ check.style.display='block'; }
+  if(time){ time.textContent='Today ✓'; time.style.color='var(--hb-teal)'; }
+  updateTodayProgress();
+  if(typeof showXPPopup==='function') showXPPopup(20);
+}

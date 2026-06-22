@@ -849,3 +849,12 @@ body.is-mobile .task-grid > .task{
 .log-entry .pe{font-size:18px}
 .log-entry-x{margin-left:auto;border:none;background:none;cursor:pointer;color:var(--ink-soft);font-size:18px;line-height:1;padding:2px 6px}
 .log-empty-note{text-align:center;color:var(--ink-soft);font-size:13px;padding:10px 0}
+
+/* ═══ DAILY REFLECTION ═══ */
+.reflect-prog{height:4px;background:#E6E2DB;border-radius:999px;overflow:hidden;margin-top:4px}
+.reflect-prog-fill{height:100%;background:#7BA47E;border-radius:999px;transition:width .3s}
+.reflect-opt{display:block;width:100%;text-align:left;padding:14px 16px;border:1px solid rgba(54,59,59,.14);border-radius:12px;background:#fff;cursor:pointer;font-size:13px;color:var(--ink);margin-bottom:10px;font-family:var(--font-ui);line-height:1.4}
+.reflect-opt.opt-sel{border-color:#7BA47E;background:#EAF1E9;color:#3F5E41;font-weight:600}
+.reflect-range{width:100%;accent-color:#7BA47E;height:8px;cursor:pointer}
+.reflect-btn-back{flex:1;padding:13px;border-radius:12px;border:1px solid #7BA47E;background:#fff;color:#5E8560;font-weight:700;font-size:12px;letter-spacing:1px;text-transform:uppercase;cursor:pointer;font-family:var(--font-ui)}
+.reflect-btn-next{flex:1.4;padding:13px;border-radius:12px;border:none;background:#7BA47E;color:#fff;font-weight:700;font-size:12px;letter-spacing:1px;text-transform:uppercase;cursor:pointer;font-family:var(--font-ui)}
