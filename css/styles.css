@@ -890,3 +890,7 @@ body.is-mobile .task-grid{
   scroll-padding-left:18px;
 }
 body.is-mobile .task-grid > .task{flex:0 0 44%}
+
+/* Mobile — card container padding = 16px (carousel breakout matches) */
+body.is-mobile .home-sec{padding:16px}
+body.is-mobile .task-grid{margin-left:-16px;margin-right:-16px;padding:2px 16px 8px 16px;scroll-padding-left:16px}
