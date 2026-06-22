@@ -601,3 +601,12 @@ function buildHealthGauge(){
   var cap=el.querySelector('.gauge-cap'); if(cap) cap.textContent = val>=85?'Excellent':val>=70?'Above Average':val>=55?'Good':'Needs care';
 }
 buildHealthGauge();
+
+/* Show a couple of today's rituals already completed (filled state) */
+(function(){
+  ['focus','checkin'].forEach(function(k){
+    var c=document.getElementById(k+'-check'); if(c) c.style.display='block';
+    var t=document.getElementById(k+'-time'); if(t){ t.textContent='Today ✓'; t.style.color='var(--hb-teal)'; }
+  });
+  if(typeof updateTodayProgress==='function') updateTodayProgress();
+})();
