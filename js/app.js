@@ -367,3 +367,19 @@ function renderIcons(){ if(window.lucide && window.lucide.createIcons) window.lu
 renderIcons();
 if(typeof updateTodayProgress==='function') updateTodayProgress();
 window.addEventListener('load', renderIcons);
+
+/* ═══ SCROLL FROM ANYWHERE ═══
+   Forward wheel scrolling into the active content area even when the pointer
+   is over the backdrop, the top bar, or the scaled margins. */
+(function(){
+  function activeScroller(){
+    var ov=document.querySelector('.overlay.active .ov-body');
+    return ov || document.getElementById('screenArea');
+  }
+  window.addEventListener('wheel', function(e){
+    var sc=activeScroller(); if(!sc) return;
+    if(sc.contains(e.target)) return;   /* pointer already over a scroller — let it scroll natively */
+    sc.scrollTop += e.deltaY;
+    e.preventDefault();
+  }, {passive:false});
+})();
