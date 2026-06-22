@@ -1006,3 +1006,6 @@ body.is-mobile .bottom-nav{margin-bottom:max(10px,env(safe-area-inset-bottom))}
 .bottom-nav{position:absolute;left:0;right:0;bottom:0;z-index:200}
 body.is-mobile .screen-area,
 body.is-framed:not(.is-desktop) .screen-area{padding-bottom:92px}
+
+/* Hide Appointments nav item until the feature exists */
+.dn-item[data-screen="appointments"]{display:none}
