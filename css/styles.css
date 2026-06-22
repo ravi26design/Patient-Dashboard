@@ -1193,3 +1193,7 @@ body.is-desktop .dn-item svg{width:20px;height:20px}
 /* Desktop top-nav — slightly larger tab labels */
 body.is-desktop .dn-item{font-size:15px}
 body.is-desktop .dn-item svg{width:21px;height:21px}
+
+/* Recovery Journey stat icons in a white circle */
+.stat-ic{display:flex;width:40px;height:40px;border-radius:50%;background:#fff;align-items:center;justify-content:center;margin:0 auto 9px;box-shadow:0 2px 6px rgba(58,65,64,.07)}
+.stat-ic svg{width:19px;height:19px}
