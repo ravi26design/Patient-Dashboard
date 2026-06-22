@@ -932,9 +932,9 @@ body.is-mobile .insight-hero > div:last-child, body.is-framed:not(.is-desktop) .
 /* ═══ Teal header band accent (HelloBetter-style) ═══ */
 .app-header{
   background:#237E69;
-  border-radius:0 0 28px 28px;
+  border-radius:0;
   position:relative;
-  padding-bottom:18px;
+  padding:14px 18px 16px;
 }
 .app-logo{color:#fff}
 .app-logo small{color:rgba(255,255,255,.72)}
