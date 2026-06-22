@@ -1133,3 +1133,22 @@ body.is-mobile .log-periods{grid-template-columns:1fr}
 .pe svg{width:18px;height:18px}
 .log-period .pe svg{width:19px;height:19px}
 .log-entry .pe svg{width:19px;height:19px;color:var(--ink-soft)}
+
+/* ═══ Connect — clean, consistent thread cards (readable on all sizes) ═══ */
+.conn-card{
+  display:flex;align-items:center;gap:13px;width:100%;text-align:left;
+  background:#fff;border:none;border-radius:16px;box-shadow:var(--card-shadow);
+  padding:14px;margin-bottom:10px;cursor:pointer;font-family:var(--font-ui);
+  transition:transform .18s ease, box-shadow .2s ease;
+}
+.conn-card:active{transform:scale(.99)}
+body.is-desktop .conn-card:hover{transform:translateY(-2px);box-shadow:0 2px 4px rgba(58,65,64,.05),0 14px 30px rgba(58,65,64,.09)}
+.conn-ic{width:42px;height:42px;border-radius:13px;color:#fff;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.conn-ic svg{width:21px;height:21px}
+.conn-body{flex:1;min-width:0}
+.conn-title{font-size:14px;font-weight:700;color:var(--ink)}
+.conn-sub{font-size:12px;color:var(--ink-soft);line-height:1.4;margin-top:2px}
+.conn-meta{display:flex;gap:6px;flex-wrap:wrap;margin-top:9px}
+.conn-tag{font-size:10.5px;font-weight:600;color:var(--ink-soft);background:#F0ECE4;padding:3px 9px;border-radius:999px}
+.conn-tag.on{color:var(--hb-teal-deep);background:#E3EFEA}
+.conn-chev{color:var(--ink-soft);flex-shrink:0;width:18px;height:18px;align-self:center}
