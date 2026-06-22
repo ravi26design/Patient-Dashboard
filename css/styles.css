@@ -1152,3 +1152,9 @@ body.is-desktop .conn-card:hover{transform:translateY(-2px);box-shadow:0 2px 4px
 .conn-tag{font-size:10.5px;font-weight:600;color:var(--ink-soft);background:#F0ECE4;padding:3px 9px;border-radius:999px}
 .conn-tag.on{color:var(--hb-teal-deep);background:#E3EFEA}
 .conn-chev{color:var(--ink-soft);flex-shrink:0;width:18px;height:18px;align-self:center}
+
+/* ═══ Consistent type scale across cards (harmonious modular scale) ═══ */
+.home-title{font-size:14px}                 /* section headings */
+.conn-title,.tx-name{font-size:13px;font-weight:700;line-height:1.3}   /* item titles */
+.conn-sub,.tx-sub{font-size:11.5px;line-height:1.4;white-space:normal;overflow:visible;text-overflow:clip}
+.conn-tag{font-size:10px}
