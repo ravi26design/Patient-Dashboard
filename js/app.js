@@ -18,7 +18,7 @@ function goScreen(id){
 function openOv(id){
   var el=document.getElementById('ov-'+id);if(!el)return;
   /* desktop: counter the page zoom so the fixed overlay covers the viewport at native scale */
-  if(document.body.classList.contains('is-desktop') && window.__deskF){ el.style.zoom=1/window.__deskF; }
+  if(document.body.classList.contains('is-desktop') && window.__deskF){ el.style.zoom=1.3/window.__deskF; }
   else { el.style.zoom=''; }
   el.classList.add('active');
   el.scrollTop=0; var b=el.querySelector('.ov-body'); if(b) b.scrollTop=0;
