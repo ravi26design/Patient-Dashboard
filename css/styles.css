@@ -799,3 +799,7 @@ body.is-desktop .screen{padding-bottom:48px}
 
 /* Match the original card spacing (16px gap, like the mobile/old design) */
 body.is-desktop .screen.active{gap:16px}
+
+/* Equal-height cards per row (Recovery Health & Recovery Today match) */
+body.is-desktop .screen.active{align-items:stretch}
+body.is-desktop .home-sec{height:100%}
