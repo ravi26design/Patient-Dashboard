@@ -583,11 +583,13 @@ function reflectDone(){
 function buildHealthGauge(){
   var el=document.getElementById('healthGauge'); if(!el) return;
   if(el.querySelector('.seg')) return;            /* build once */
-  var N=10, val=73, filled=Math.round(val/100*N), html='';
+  var N=10, val=74, filled=Math.round(val/10), html='';   /* each slice = 10 -> /100 */
   for(var i=0;i<N;i++){
     var a=(-78 + i*(156/(N-1))).toFixed(2);
     html+='<div class="seg'+(i<filled?' on':'')+'" style="transform:rotate('+a+'deg) translateY(-86px)"></div>';
   }
   el.insertAdjacentHTML('afterbegin', html);
+  var num=el.querySelector('.gauge-num'); if(num) num.innerHTML=val+'<small>/100</small>';
+  var cap=el.querySelector('.gauge-cap'); if(cap) cap.textContent = val>=85?'Excellent':val>=70?'Above Average':val>=55?'Good':'Needs care';
 }
 buildHealthGauge();
