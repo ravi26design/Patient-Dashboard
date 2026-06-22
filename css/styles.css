@@ -1057,3 +1057,8 @@ body.is-desktop .tx-meta .chk-btn{padding:6px 18px;font-size:11px}
 /* Gauge as a scalable SVG (always fits the card, never overflows) */
 .seg-svg{display:block;width:100%;height:auto}
 .seg-gauge{height:auto;padding-bottom:6px}
+
+/* Recovery Health — speedometer */
+.speedo{display:block;width:100%;height:auto;font-family:var(--font-ui)}
+.seg-gauge{position:relative;text-align:center;height:auto}
+.seg-center{position:static;margin-top:-4px}
