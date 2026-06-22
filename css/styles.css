@@ -750,3 +750,9 @@ body.is-desktop .screen.active{column-count:2;column-gap:18px}
 body.is-desktop .screen.active > *{break-inside:avoid;-webkit-column-break-inside:avoid}
 /* Section headers that introduce a list span both columns */
 body.is-desktop .screen.active > .section-label{column-span:all}
+
+/* Compact top-bar nav so it fits from ~900px up */
+body.is-desktop #dnav{padding:0 18px;gap:10px}
+body.is-desktop .dn-item{padding:8px 12px;font-size:12.5px;gap:7px}
+body.is-desktop .dn-item svg{width:18px;height:18px}
+body.is-desktop .dn-brand{font-size:15px}

@@ -329,7 +329,7 @@ function showMysteryXP(){
       p.style.transform='scale('+F+')';
       p.style.transformOrigin='top left';
       p.style.margin='0';
-    } else if(vw<1024){
+    } else if(vw<900){
       /* tablet — a tall, phone-shaped column centered in the space */
       b.classList.add('is-framed'); b.classList.remove('is-mobile'); b.classList.remove('is-desktop');
       var F2=clamp(H/640,1.3,1.6);
@@ -345,8 +345,8 @@ function showMysteryXP(){
       /* desktop — a wide dashboard panel under the top nav bar.
          Authored at a wider design width so cards can flow into 2 columns. */
       b.classList.add('is-framed'); b.classList.add('is-desktop'); b.classList.remove('is-mobile');
-      var DW=600, top=64, avail=H-top;
-      var F=clamp(avail/720,1.25,1.5);
+      var DW=640, top=64, avail=H-top;
+      var F=clamp(avail/700,1.2,1.5);
       var dispH=Math.round(avail-36);
       p.style.width=DW+'px';
       p.style.height=Math.round(dispH/F)+'px';
