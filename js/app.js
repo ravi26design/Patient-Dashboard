@@ -329,24 +329,31 @@ function showMysteryXP(){
       p.style.transform='scale('+F+')';
       p.style.transformOrigin='top left';
       p.style.margin='0';
-    } else {
-      /* tablet & desktop — a tall, phone-shaped column centered in the space.
-         Scale is driven by height (readable, not huge); the card keeps a
-         portrait aspect so it never goes wide-and-short. */
-      b.classList.add('is-framed'); b.classList.remove('is-mobile');
-      var desktop=vw>=1024;
-      b.classList.toggle('is-desktop', desktop);
-      var top=desktop?64:0;                     /* desktop top nav bar height */
-      var avail=H-top;
-      var F2=clamp(avail/640,1.3,1.6);          /* comfortable, readable scale */
-      var dispW=Math.round(DESIGN_W*F2);        /* phone-width column */
-      var dispH=Math.round(Math.min(avail-32, dispW*1.95));  /* portrait, capped to window */
+    } else if(vw<1024){
+      /* tablet — a tall, phone-shaped column centered in the space */
+      b.classList.add('is-framed'); b.classList.remove('is-mobile'); b.classList.remove('is-desktop');
+      var F2=clamp(H/640,1.3,1.6);
+      var dispW=Math.round(DESIGN_W*F2);
+      var dispH=Math.round(Math.min(H-32, dispW*1.95));
       p.style.width=DESIGN_W+'px';
       p.style.height=Math.round(dispH/F2)+'px';
       p.style.transform='scale('+F2.toFixed(4)+')';
       p.style.transformOrigin='top center';
-      p.style.marginTop=Math.max(0,Math.round((avail-dispH)/2))+'px';
+      p.style.marginTop=Math.max(0,Math.round((H-dispH)/2))+'px';
       p.style.marginBottom=Math.round(dispH*(1-1/F2))+'px';
+    } else {
+      /* desktop — a wide dashboard panel under the top nav bar.
+         Authored at a wider design width so cards can flow into 2 columns. */
+      b.classList.add('is-framed'); b.classList.add('is-desktop'); b.classList.remove('is-mobile');
+      var DW=600, top=64, avail=H-top;
+      var F=clamp(avail/720,1.25,1.5);
+      var dispH=Math.round(avail-36);
+      p.style.width=DW+'px';
+      p.style.height=Math.round(dispH/F)+'px';
+      p.style.transform='scale('+F.toFixed(4)+')';
+      p.style.transformOrigin='top center';
+      p.style.marginTop='18px';
+      p.style.marginBottom=Math.round(dispH*(1-1/F))+'px';
     }
   }
   apply();

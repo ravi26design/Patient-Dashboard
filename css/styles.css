@@ -742,3 +742,11 @@ body.is-desktop .app-header{display:none}          /* top bar replaces the in-ca
 .dn-sos{margin-top:0}
 .dn-foot{flex:1;justify-content:flex-end;border-top:none;margin:0;padding:5px 6px;width:auto}
 .dn-foot .dn-user{display:none}                    /* just the avatar on the top bar */
+
+/* ═══ DESKTOP — wide dashboard panel, cards in 2 columns ═══ */
+body.is-desktop .phone{border-radius:24px}
+body.is-desktop .screen{padding:20px 22px 26px}
+body.is-desktop .screen.active{column-count:2;column-gap:18px}
+body.is-desktop .screen.active > *{break-inside:avoid;-webkit-column-break-inside:avoid}
+/* Section headers that introduce a list span both columns */
+body.is-desktop .screen.active > .section-label{column-span:all}
