@@ -514,13 +514,13 @@ function renderReflect(){
   var total=REFLECT_Q.length;
   if(reflectStep===0){
     body.innerHTML=
-      '<div style="text-align:center;padding:22px 0 8px">'+
-        '<div style="font-size:48px;margin-bottom:16px">\ud83e\ude9e</div>'+
-        '<div style="font-family:var(--font-display);font-size:28px;font-weight:600;color:var(--ink);margin-bottom:10px">Daily Reflection</div>'+
-        '<div style="font-size:14px;color:var(--ink-soft);line-height:1.55;padding:0 8px">A few short questions about your experiences and mood.</div>'+
+      '<div class="rf-card" style="text-align:center;padding:26px 20px">'+
+        '<div style="font-size:48px;margin-bottom:14px">\ud83e\ude9e</div>'+
+        '<div style="font-family:var(--font-display);font-size:26px;font-weight:600;color:var(--ink);margin-bottom:8px">Daily Reflection</div>'+
+        '<div style="font-size:14px;color:var(--ink-soft);line-height:1.55">A few short questions about your experiences and mood.</div>'+
       '</div>'+
-      '<div style="background:#EAF1E9;border-left:4px solid #7BA47E;border-radius:14px;padding:16px 18px;margin:18px 0 4px">'+
-        '<div style="font-size:11px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:#5E8560;margin-bottom:7px">Section 1 of 2</div>'+
+      '<div class="rf-card">'+
+        '<div style="font-size:11px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:#5E8560;margin-bottom:8px">Section 1 of 2</div>'+
         '<div style="font-family:var(--font-display);font-size:20px;font-weight:500;color:var(--ink)">Thinking about the past 24 hours\u2026</div>'+
       '</div>';
     foot.innerHTML='<button class="rf-btn rf-primary rf-full" onclick="reflectNext()">Begin \u2192</button>';
@@ -528,10 +528,10 @@ function renderReflect(){
   }
   if(reflectStep>total){
     body.innerHTML=
-      '<div style="text-align:center;padding:30px 0">'+
+      '<div class="rf-card" style="text-align:center;padding:34px 22px">'+
         '<div style="width:92px;height:92px;border-radius:50%;background:#EAF1E9;border:2px solid #7BA47E;display:flex;align-items:center;justify-content:center;margin:0 auto 20px;font-size:38px;color:#5E8560">\u2713</div>'+
-        '<div style="font-family:var(--font-display);font-size:28px;font-weight:600;color:var(--ink);margin-bottom:12px">Reflection complete</div>'+
-        '<div style="font-size:14px;color:var(--ink-soft);line-height:1.65;padding:0 8px">Your responses have been recorded. Thank you for taking time to reflect \u2014 it matters for your recovery.</div>'+
+        '<div style="font-family:var(--font-display);font-size:26px;font-weight:600;color:var(--ink);margin-bottom:12px">Reflection complete</div>'+
+        '<div style="font-size:14px;color:var(--ink-soft);line-height:1.65">Your responses have been recorded. Thank you for taking time to reflect \u2014 it matters for your recovery.</div>'+
       '</div>';
     foot.innerHTML='<button class="rf-btn rf-primary rf-full" onclick="reflectDone()">Done</button>';
     return;
@@ -550,8 +550,8 @@ function renderReflect(){
   }
   body.innerHTML=
     '<div style="text-align:center;font-size:11px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--ink-soft);margin-bottom:9px">Question '+n+' of '+total+'</div>'+
-    '<div class="reflect-prog"><div class="reflect-prog-fill" style="width:'+pct+'%"></div></div>'+
-    '<div style="background:#fff;border-radius:18px;box-shadow:var(--card-shadow);padding:20px 18px;margin-top:16px">'+
+    '<div class="reflect-prog" style="margin-bottom:16px"><div class="reflect-prog-fill" style="width:'+pct+'%"></div></div>'+
+    '<div class="rf-card">'+
       '<div style="font-size:17px;font-weight:700;color:var(--ink);line-height:1.45">'+esc(item.q)+'</div>'+
       (item.sub?'<div style="font-size:13px;color:var(--ink-soft);margin-top:4px">'+esc(item.sub)+'</div>':'')+
       inner+

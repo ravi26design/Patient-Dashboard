@@ -874,3 +874,6 @@ body.is-desktop .overlay.active > .ov-body{max-width:620px;margin-left:auto;marg
 .reflect-opt{padding:15px 16px;font-size:14px}
 body.is-mobile .reflect-footer{padding-bottom:max(14px,env(safe-area-inset-bottom))}
 body.is-desktop .overlay.active > .reflect-footer{max-width:620px;margin-left:auto;margin-right:auto;width:100%}
+
+/* Reflect cards share the app's standard card style (like Insights) */
+.rf-card{background:#fff;border-radius:20px;box-shadow:var(--card-shadow);padding:20px;margin-bottom:14px}
