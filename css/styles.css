@@ -879,5 +879,5 @@ body.is-desktop .overlay.active > .reflect-footer{max-width:620px;margin-left:au
 .rf-card{background:#fff;border-radius:20px;box-shadow:var(--card-shadow);padding:20px;margin-bottom:14px}
 
 /* Temporarily non-interactive nav items (feature not enabled yet) */
-.nav-soon{cursor:default}
+.nav-soon{cursor:default;pointer-events:none;opacity:.45}
 .nav-soon:active{transform:none !important}
