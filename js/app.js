@@ -18,7 +18,7 @@ function goScreen(id){
 function openOv(id){
   var el=document.getElementById('ov-'+id);if(!el)return;
   /* desktop: counter the page zoom so the fixed overlay covers the viewport at native scale */
-  if(document.body.classList.contains('is-desktop') && window.__deskF){ el.style.zoom=1.3/window.__deskF; }
+  if(document.body.classList.contains('is-desktop') && window.__deskF){ var _vw=window.innerWidth; var _t=Math.min(1.3,(_vw-24)/620); el.style.zoom=_t/window.__deskF; }
   else { el.style.zoom=''; }
   el.classList.add('active');
   el.scrollTop=0; var b=el.querySelector('.ov-body'); if(b) b.scrollTop=0;
@@ -339,8 +339,8 @@ function showMysteryXP(){
       p.style.transformOrigin='top left';
       p.style.margin='0';
       p.style.zoom='';
-    } else if(vw<900){
-      /* tablet — a tall, phone-shaped column centered in the space */
+    } else if(vw<720){
+      /* large phone / small tablet — a tall, phone-shaped column centered */
       b.classList.add('is-framed'); b.classList.remove('is-mobile'); b.classList.remove('is-desktop');
       window.__deskF=null;
       var F2=clamp(H/640,1.3,1.6);
@@ -357,7 +357,7 @@ function showMysteryXP(){
       /* desktop — natural page scroll. Use CSS zoom (which reflows, unlike
          transform) so the whole page scrolls normally; cards flow 2-up. */
       b.classList.add('is-framed'); b.classList.add('is-desktop'); b.classList.remove('is-mobile');
-      var DW=680, F=clamp(Math.min((vw-72)/DW, H/700), 1.3, 1.55);
+      var DW=680, F=clamp(Math.min((vw-72)/DW, H/700), 1.0, 1.55);
       window.__deskF=F;
       p.style.transform='none';
       p.style.transformOrigin='';
