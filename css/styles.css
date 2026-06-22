@@ -910,3 +910,8 @@ body.is-desktop .home-sec{padding:16px}
 body.is-desktop .gauge-card{display:flex;flex-direction:column}
 body.is-desktop .gauge-card > div{flex:1;display:flex;flex-direction:column}
 body.is-desktop .gauge-card .gauge{margin:auto}
+
+/* Consistent divider line under each card's title */
+.home-head,.rt-head{border-bottom:1px solid var(--border);padding-bottom:12px}
+.home-sec > div > .home-title{border-bottom:1px solid var(--border);padding-bottom:12px;margin-bottom:14px}
+.home-title + .tx-row{border-top:none;padding-top:4px}
