@@ -902,3 +902,6 @@ body.is-mobile .task-grid{margin-left:-16px;margin-right:-16px;padding:2px 16px 
 /* Uniform 16px padding on dashboard cards across all sizes */
 .home-sec{padding:16px}
 body.is-desktop .home-sec{padding:16px}
+
+/* UI typeface → Inter */
+:root{--font-ui:'Inter',system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif}
