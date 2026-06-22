@@ -594,3 +594,42 @@ function buildHealthGauge(){
 buildHealthGauge();
 
 /* Recovery Today starts empty (0/4) */
+
+/* ═══ CONNECT THREADS — like + post your own experience ═══ */
+function toggleHelpful(btn){
+  if(!btn.dataset.base) btn.dataset.base = (btn.textContent.match(/\d+/)||['0'])[0];
+  var liked = btn.classList.toggle('liked');
+  var n = (+btn.dataset.base) + (liked ? 1 : 0);
+  btn.innerHTML = (liked ? '&#10084;' : '&#9825;') + ' ' + n + ' &nbsp;Helpful';
+}
+function postThread(el){
+  var bar = el.closest('.thread-reply'); if(!bar) return;
+  var input = bar.querySelector('.thread-reply-input');
+  var text = (input.value||'').trim();
+  if(!text){ input.focus(); return; }
+  var body = bar.closest('.overlay').querySelector('.ov-body'); if(!body) return;
+  var card = document.createElement('div');
+  card.className = 'card';
+  card.style.cssText = 'border-color:var(--rose);border-left:3px solid var(--rose)';
+  card.innerHTML =
+    '<div class="card-pad">'+
+      '<div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">'+
+        '<div class="ic-xl" style="background:var(--rose);color:#fff;font-size:9px;font-weight:600;flex-shrink:0">ME</div>'+
+        '<div style="flex:1">'+
+          '<div class="ui" style="font-size:10px;font-weight:500;color:var(--espresso)">VictoryWarrior <span style="color:var(--rose);font-weight:400">(you)</span></div>'+
+          '<div class="ui" style="font-size:8px;color:var(--muted)">Level 4 · Bloom · just now</div>'+
+        '</div>'+
+      '</div>'+
+      '<div class="ui thread-msg" style="font-size:12px;color:var(--t1);line-height:1.6"></div>'+
+      '<div style="display:flex;align-items:center;gap:12px;margin-top:8px">'+
+        '<button class="thread-like" onclick="toggleHelpful(this)" style="background:none;border:none;cursor:pointer;font-family:\'Josefin Sans\',sans-serif;font-size:8px;color:var(--muted);letter-spacing:.5px;padding:0;display:flex;align-items:center;gap:4px">&#9825; 0 &nbsp;Helpful</button>'+
+      '</div>'+
+    '</div>';
+  card.querySelector('.thread-msg').textContent = text;
+  var spacer = body.lastElementChild;
+  if(spacer && spacer.children.length===0 && spacer.offsetHeight<=12){ body.insertBefore(card, spacer); }
+  else { body.appendChild(card); }
+  input.value = '';
+  card.scrollIntoView({behavior:'smooth', block:'center'});
+  if(window.lucide && lucide.createIcons) lucide.createIcons();
+}

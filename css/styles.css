@@ -21,7 +21,7 @@
 .ic{display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;border-radius:3px;font-family:'Josefin Sans',sans-serif;font-size:9px;font-weight:600;flex-shrink:0}
 .ic-sm{width:14px;height:14px;font-size:8px}
 .ic-lg{width:24px;height:24px;font-size:11px}
-.ic-xl{width:36px;height:36px;border-radius:50%;font-size:14px}
+.ic-xl{display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:50%;font-size:14px;font-family:'Josefin Sans',sans-serif;font-weight:600;line-height:1;overflow:hidden;flex-shrink:0;text-align:center}
 
 /* ═══ MASTER TOGGLE BAR ═══ */
 .master-bar{position:fixed;top:0;left:0;right:0;z-index:9999;background:#fff;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:center;height:52px;box-shadow:0 2px 12px rgba(58,51,48,.06)}
@@ -1219,3 +1219,6 @@ body.is-desktop .overlay.active > .thread-reply{max-width:620px;margin-left:auto
   box-shadow:0 4px 16px rgba(58,65,64,.08)}
 body.is-desktop .thread-reply-input{font-size:13px;padding:12px 18px}
 body.is-desktop .thread-reply-post{font-size:10px;padding:12px 22px}
+.thread-like{transition:color .15s ease}
+.thread-like.liked{color:var(--rose)!important}
+.thread-like:active{transform:scale(1.15)}
