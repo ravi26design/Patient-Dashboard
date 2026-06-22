@@ -1086,3 +1086,24 @@ body.is-desktop .tx-meta .chk-btn{padding:6px 18px;font-size:11px}
 .ic-tile.t-slate{background:#C39078}                 /* Log Use — muted clay */
 .bottom-nav .nav-sos .nav-icon{color:#CC8870 !important}  /* softer SOS */
 .gauge-cap{color:var(--ink-soft)}
+
+/* ═══════════════════════════════════════════════════════════
+   WARM MEDITATION PALETTE — peach / coral / orange (sunset)
+   ═══════════════════════════════════════════════════════════ */
+:root{
+  --app-bg:#FBF2EC;
+  --ink:#2A2A45;
+  --ink-soft:#9C8E86;
+  --hb-teal:#F2783E;        /* primary orange */
+  --hb-teal-deep:#D9632B;
+  --hb-teal-dark:#B5491C;
+  --hb-mint:#FBD9C4;
+  --hb-gold:#E8A23D;
+  --c-coral:#F2783E;        /* tile orange */
+  --c-lilac:#E58A5A;        /* tile soft coral */
+  --c-teal:#C96A4A;         /* tile terracotta */
+  --card-shadow:0 5px 20px rgba(90,60,40,.06);
+}
+.ic-tile.t-slate{background:#D8965E}                 /* Log Use — amber */
+.bottom-nav{background:#2A2A45}                       /* warm-navy pill */
+.bottom-nav .nav-sos .nav-icon{color:#E2574A !important}  /* SOS distinct red-orange */
