@@ -1005,9 +1005,11 @@ body.is-mobile .bottom-nav{margin-bottom:max(10px,env(safe-area-inset-bottom))}
 /* Floating bottom nav — pill floats over content, no full-width strip */
 .bottom-nav{position:absolute;left:0;right:0;bottom:0;z-index:200}
 body.is-mobile .screen-area,
+body.is-tablet .screen-area,
 body.is-framed:not(.is-desktop) .screen-area{padding-bottom:118px}
 /* Fade-mask behind the floating pill so content doesn't peek around/below it */
 body.is-mobile .phone::after,
+body.is-tablet .phone::after,
 body.is-framed:not(.is-desktop) .phone::after{
   content:'';position:absolute;left:0;right:0;bottom:0;height:108px;
   background:linear-gradient(to top, var(--app-bg) 56%, rgba(0,0,0,0));
@@ -1246,3 +1248,17 @@ body.is-desktop .thread-reply-post svg{width:20px;height:20px}
 .btn-block{width:100%}
 .btn-sm{padding:9px 14px;font-size:11px;border-radius:11px}
 .btn-primary svg,.btn-secondary svg{width:16px;height:16px;stroke-width:2}
+
+/* ═══ TABLET — "bigger mobile": edge-to-edge shell + floating bottom nav,
+   but content laid out in 2 columns to use the width ═══ */
+body.is-tablet{background:#EAF0EF;padding:0;margin:0;height:100dvh;overflow:hidden;
+  align-items:flex-start;justify-content:flex-start}
+body.is-tablet #patient-view{padding:0;height:100dvh;width:100vw;overflow:hidden;align-items:flex-start}
+body.is-tablet .phone{max-width:none;border:none;border-radius:0;box-shadow:none;
+  background:var(--app-bg);transform-origin:top left}
+/* 2-column card grid (mirrors desktop), inside the mobile-style scroll shell */
+body.is-tablet .screen.active{display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:stretch}
+body.is-tablet .screen.active > .section-label{grid-column:1 / -1}
+body.is-tablet .screen.active > *{break-inside:avoid;min-width:0}
+body.is-tablet .home-sec{margin-bottom:0;height:auto}
+body.is-tablet .screen{padding:6px 18px 0}
