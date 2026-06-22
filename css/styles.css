@@ -953,3 +953,7 @@ body.is-mobile .insight-hero > div:last-child, body.is-framed:not(.is-desktop) .
 .app-logo{color:#fff}
 .app-logo .brand-ai{color:#C7C0F7}
 .app-logo small{color:rgba(255,255,255,.72)}
+
+/* Brand wordmark — a little bigger */
+.app-logo{font-size:20px}
+.dn-brand{font-size:19px}
