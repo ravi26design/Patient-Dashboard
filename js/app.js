@@ -329,17 +329,18 @@ function showMysteryXP(){
       p.style.transformOrigin='top left';
       p.style.margin='0';
     } else {
-      /* tablet & desktop — centered, readable app surface */
+      /* tablet & desktop — centered, readable app surface that grows with the window */
       b.classList.add('is-framed'); b.classList.remove('is-mobile');
-      var dispW=Math.min(vw-48,520);
-      var dispH=Math.min(H-48,940);
-      var F2=clamp(dispW/DESIGN_W,1.35,1.8);
-      p.style.width=(dispW/F2)+'px';
-      p.style.height=(dispH/F2)+'px';
-      p.style.transform='scale('+F2+')';
+      var pad=vw>=1024?64:40;
+      var dispW=Math.round(clamp(vw-pad*2,320,600));
+      var dispH=Math.round(Math.min(H-56,1000));
+      var F2=clamp(dispW/DESIGN_W,1.4,1.95);
+      p.style.width=Math.round(dispW/F2)+'px';
+      p.style.height=Math.round(dispH/F2)+'px';
+      p.style.transform='scale('+F2.toFixed(4)+')';
       p.style.transformOrigin='top center';
-      p.style.marginTop=Math.max(0,(H-dispH)/2)+'px';
-      p.style.marginBottom=(dispH*(1-1/F2))+'px';
+      p.style.marginTop=Math.max(0,Math.round((H-dispH)/2))+'px';
+      p.style.marginBottom=Math.round(dispH*(1-1/F2))+'px';
     }
   }
   apply();
