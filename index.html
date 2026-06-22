@@ -574,7 +574,7 @@
       <div class="section-label">Appointments</div>
       <div class="card"><div class="card-pad">
         <div class="ui" style="font-size:9px;color:var(--muted);letter-spacing:1px;text-transform:uppercase;margin-bottom:8px">Today — Friday</div>
-        <div style="display:flex;align-items:center;gap:8px;padding:8px 0;border-bottom:1px solid var(--border)"><div style="width:3px;height:28px;border-radius:2px;background:var(--sage)"></div><div style="flex:1"><div class="ui" style="font-size:11px;font-weight:500;color:var(--espresso)">MOUD Clinic Visit</div><div class="ui" style="font-size:9px;color:var(--muted)">10:00 AM · Dr. Rivera · In Person</div></div><button style="padding:6px 12px;border-radius:2px;border:1px solid var(--sage);background:var(--sage-lt);color:var(--sage-dk);font-family:'Josefin Sans',sans-serif;font-size:8px;cursor:pointer;letter-spacing:.5px">Confirm · +25 XP</button></div>
+        <div style="display:flex;align-items:center;gap:8px;padding:8px 0;border-bottom:1px solid var(--border)"><div style="width:3px;height:28px;border-radius:2px;background:var(--sage)"></div><div style="flex:1"><div class="ui" style="font-size:11px;font-weight:500;color:var(--espresso)">MOUD Clinic Visit</div><div class="ui" style="font-size:9px;color:var(--muted)">10:00 AM · Dr. Rivera · In Person</div></div><button class="btn-primary btn-sm">Confirm · +25 XP</button></div>
         <div style="display:flex;align-items:center;gap:8px;padding:8px 0;border-bottom:1px solid var(--border)"><div style="width:3px;height:28px;border-radius:2px;background:var(--purple)"></div><div style="flex:1"><div class="ui" style="font-size:11px;font-weight:500;color:var(--espresso)">Individual Therapy</div><div class="ui" style="font-size:9px;color:var(--muted)">2:00 PM · Dr. Chen · Telehealth</div></div><button style="padding:6px 12px;border-radius:2px;border:1px solid var(--purple);background:var(--purple-lt);color:var(--purple-dk);font-family:'Josefin Sans',sans-serif;font-size:8px;cursor:pointer;letter-spacing:.5px">Confirm · +25 XP</button></div>
         <div style="display:flex;align-items:center;gap:8px;padding:8px 0"><div style="width:3px;height:28px;border-radius:2px;background:var(--rose)"></div><div style="flex:1"><div class="ui" style="font-size:11px;font-weight:500;color:var(--espresso)">NA Meeting</div><div class="ui" style="font-size:9px;color:var(--muted)">7:00 PM · Community Center · MOUD-Friendly</div></div><button style="padding:6px 12px;border-radius:2px;border:1px solid var(--rose);background:var(--rose-lt);color:var(--rose-dk);font-family:'Josefin Sans',sans-serif;font-size:8px;cursor:pointer;letter-spacing:.5px">Confirm · +25 XP</button></div>
       </div></div>
@@ -613,7 +613,7 @@
         <div style="display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:1px solid var(--border)"><div class="ic-lg" style="background:var(--sage-lt);color:var(--sage)">Dr</div><div style="flex:1"><div class="ui" style="font-size:10px;font-weight:500;color:var(--espresso)">Dr. Rivera</div><div class="ui" style="font-size:8px;color:var(--muted)">MOUD Prescriber</div></div></div>
         <div style="display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:1px solid var(--border)"><div class="ic-lg" style="background:var(--purple-lt);color:var(--purple)">Th</div><div style="flex:1"><div class="ui" style="font-size:10px;font-weight:500;color:var(--espresso)">Dr. Chen</div><div class="ui" style="font-size:8px;color:var(--muted)">Therapist · CBT</div></div></div>
         <div style="display:flex;align-items:center;gap:8px;padding:6px 0"><div class="ic-lg" style="background:var(--rose-lt);color:var(--rose-dk)">Sp</div><div style="flex:1"><div class="ui" style="font-size:10px;font-weight:500;color:var(--espresso)">Mike R.</div><div class="ui" style="font-size:8px;color:var(--muted)">Sponsor · CPRS</div></div></div>
-        <button onclick="openFindProvider('profile')" style="width:100%;margin-top:8px;padding:10px;border-radius:2px;border:1px dashed var(--blue);background:var(--blue-lt);color:var(--blue);font-family:'Josefin Sans',sans-serif;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer">+ Find a Treatment Provider</button>
+        <button onclick="openFindProvider('profile')" class="btn-primary btn-block" style="margin-top:8px"><i data-lucide="search"></i> Find a Treatment Provider</button>
       </div></div>
 
       <div class="card"><div class="card-pad">
@@ -1642,7 +1642,7 @@
           <input id="fp-zip" type="text" placeholder="ZIP code or city" value="91501" style="flex:1;padding:10px 12px;border-radius:2px;border:1px solid var(--border);background:#fff;font-family:'Josefin Sans',sans-serif;font-size:11px;color:var(--espresso);outline:none">
           <button onclick="fpSearch()" style="padding:10px 16px;border-radius:2px;border:none;background:var(--blue);color:#fff;font-family:'Josefin Sans',sans-serif;font-size:10px;letter-spacing:1px;text-transform:uppercase;cursor:pointer">Search</button>
         </div>
-        <button onclick="fpUseLocation()" style="width:100%;padding:8px;border-radius:2px;border:1px solid var(--blue);background:#fff;color:var(--blue);font-family:'Josefin Sans',sans-serif;font-size:9px;letter-spacing:1px;text-transform:uppercase;cursor:pointer">📍 Use My Current Location</button>
+        <button onclick="fpUseLocation()" class="btn-secondary btn-block"><i data-lucide="map-pin"></i> Use My Current Location</button>
 
         <!-- Filter chips -->
         <div style="display:flex;flex-wrap:wrap;gap:5px;margin-top:10px">
@@ -1671,8 +1671,8 @@
             </div>
           </div>
           <div style="display:flex;gap:6px">
-            <a href="tel:18185550142" onclick="fpCall('BayMark Burbank')" style="flex:2;padding:11px;border-radius:2px;background:var(--sage);color:#fff;font-family:'Josefin Sans',sans-serif;font-size:10px;text-align:center;text-decoration:none;letter-spacing:1px;text-transform:uppercase">☎ Call (818) 555-0142</a>
-            <button onclick="fpDirections('BayMark Burbank')" style="flex:1;padding:11px;border-radius:2px;border:1px solid var(--border);background:#fff;color:var(--muted);font-family:'Josefin Sans',sans-serif;font-size:10px;letter-spacing:1px;cursor:pointer">Directions</button>
+            <a href="tel:18185550142" onclick="fpCall('BayMark Burbank')" class="btn-primary" style="flex:2"><i data-lucide="phone"></i>Call (818) 555-0142</a>
+            <button onclick="fpDirections('BayMark Burbank')" class="btn-secondary" style="flex:1">Directions</button>
           </div>
         </div></div>
 
@@ -1688,8 +1688,8 @@
             </div>
           </div>
           <div style="display:flex;gap:6px">
-            <a href="tel:18185550178" onclick="fpCall('Valley Recovery')" style="flex:2;padding:11px;border-radius:2px;background:var(--sage);color:#fff;font-family:'Josefin Sans',sans-serif;font-size:10px;text-align:center;text-decoration:none;letter-spacing:1px;text-transform:uppercase">☎ Call (818) 555-0178</a>
-            <button onclick="fpDirections('Valley Recovery')" style="flex:1;padding:11px;border-radius:2px;border:1px solid var(--border);background:#fff;color:var(--muted);font-family:'Josefin Sans',sans-serif;font-size:10px;letter-spacing:1px;cursor:pointer">Directions</button>
+            <a href="tel:18185550178" onclick="fpCall('Valley Recovery')" class="btn-primary" style="flex:2"><i data-lucide="phone"></i>Call (818) 555-0178</a>
+            <button onclick="fpDirections('Valley Recovery')" class="btn-secondary" style="flex:1">Directions</button>
           </div>
         </div></div>
 
@@ -1705,8 +1705,8 @@
             </div>
           </div>
           <div style="display:flex;gap:6px">
-            <a href="tel:18185550193" onclick="fpCall('Pacific Recovery')" style="flex:2;padding:11px;border-radius:2px;background:var(--sage);color:#fff;font-family:'Josefin Sans',sans-serif;font-size:10px;text-align:center;text-decoration:none;letter-spacing:1px;text-transform:uppercase">☎ Call (818) 555-0193</a>
-            <button onclick="fpDirections('Pacific Recovery')" style="flex:1;padding:11px;border-radius:2px;border:1px solid var(--border);background:#fff;color:var(--muted);font-family:'Josefin Sans',sans-serif;font-size:10px;letter-spacing:1px;cursor:pointer">Directions</button>
+            <a href="tel:18185550193" onclick="fpCall('Pacific Recovery')" class="btn-primary" style="flex:2"><i data-lucide="phone"></i>Call (818) 555-0193</a>
+            <button onclick="fpDirections('Pacific Recovery')" class="btn-secondary" style="flex:1">Directions</button>
           </div>
         </div></div>
 
@@ -1722,8 +1722,8 @@
             </div>
           </div>
           <div style="display:flex;gap:6px">
-            <a href="tel:18185550221" onclick="fpCall('Sunrise Family')" style="flex:2;padding:11px;border-radius:2px;background:var(--sage);color:#fff;font-family:'Josefin Sans',sans-serif;font-size:10px;text-align:center;text-decoration:none;letter-spacing:1px;text-transform:uppercase">☎ Call (818) 555-0221</a>
-            <button onclick="fpDirections('Sunrise Family')" style="flex:1;padding:11px;border-radius:2px;border:1px solid var(--border);background:#fff;color:var(--muted);font-family:'Josefin Sans',sans-serif;font-size:10px;letter-spacing:1px;cursor:pointer">Directions</button>
+            <a href="tel:18185550221" onclick="fpCall('Sunrise Family')" class="btn-primary" style="flex:2"><i data-lucide="phone"></i>Call (818) 555-0221</a>
+            <button onclick="fpDirections('Sunrise Family')" class="btn-secondary" style="flex:1">Directions</button>
           </div>
         </div></div>
 
@@ -1739,8 +1739,8 @@
             </div>
           </div>
           <div style="display:flex;gap:6px">
-            <a href="tel:18445550311" onclick="fpCall('Bicycle Health')" style="flex:2;padding:11px;border-radius:2px;background:var(--sage);color:#fff;font-family:'Josefin Sans',sans-serif;font-size:10px;text-align:center;text-decoration:none;letter-spacing:1px;text-transform:uppercase">☎ Call (844) 555-0311</a>
-            <button onclick="fpDirections('Bicycle Health')" style="flex:1;padding:11px;border-radius:2px;border:1px solid var(--border);background:#fff;color:var(--muted);font-family:'Josefin Sans',sans-serif;font-size:10px;letter-spacing:1px;cursor:pointer">Visit Site</button>
+            <a href="tel:18445550311" onclick="fpCall('Bicycle Health')" class="btn-primary" style="flex:2"><i data-lucide="phone"></i>Call (844) 555-0311</a>
+            <button onclick="fpDirections('Bicycle Health')" class="btn-secondary" style="flex:1">Visit Site</button>
           </div>
         </div></div>
 
