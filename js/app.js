@@ -509,55 +509,56 @@ function reflectToggleOpt(btn,i){
 }
 function reflectSlider(v){ reflectAnswers[reflectStep]=+v; var el=document.getElementById('reflect-slider-val'); if(el) el.textContent=v; }
 function renderReflect(){
-  var body=document.getElementById('reflect-body'); var total=REFLECT_Q.length;
+  var body=document.getElementById('reflect-body');
+  var foot=document.getElementById('reflect-footer');
+  var total=REFLECT_Q.length;
   if(reflectStep===0){
     body.innerHTML=
-      '<div style="text-align:center;padding:18px 0 8px">'+
-        '<div style="font-size:44px;margin-bottom:14px">🪞</div>'+
-        '<div style="font-family:var(--font-display);font-size:26px;color:var(--ink);margin-bottom:8px">Daily Reflection</div>'+
-        '<div style="font-size:13px;color:var(--ink-soft);line-height:1.5;padding:0 10px">A few short questions about your experiences and mood.</div>'+
+      '<div style="text-align:center;padding:22px 0 8px">'+
+        '<div style="font-size:48px;margin-bottom:16px">\ud83e\ude9e</div>'+
+        '<div style="font-family:var(--font-display);font-size:28px;font-weight:600;color:var(--ink);margin-bottom:10px">Daily Reflection</div>'+
+        '<div style="font-size:14px;color:var(--ink-soft);line-height:1.55;padding:0 8px">A few short questions about your experiences and mood.</div>'+
       '</div>'+
-      '<div style="background:#EAF1E9;border-left:4px solid #7BA47E;border-radius:12px;padding:14px 16px;margin:16px 0">'+
-        '<div style="font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#5E8560;margin-bottom:6px">Section 1 of 2</div>'+
-        '<div style="font-family:var(--font-display);font-size:18px;color:var(--ink)">Thinking about the past 24 hours…</div>'+
-      '</div>'+
-      '<button onclick="reflectNext()" style="width:100%;padding:15px;border-radius:14px;border:none;background:#7BA47E;color:#fff;font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;cursor:pointer">Begin →</button>';
+      '<div style="background:#EAF1E9;border-left:4px solid #7BA47E;border-radius:14px;padding:16px 18px;margin:18px 0 4px">'+
+        '<div style="font-size:11px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:#5E8560;margin-bottom:7px">Section 1 of 2</div>'+
+        '<div style="font-family:var(--font-display);font-size:20px;font-weight:500;color:var(--ink)">Thinking about the past 24 hours\u2026</div>'+
+      '</div>';
+    foot.innerHTML='<button class="rf-btn rf-primary rf-full" onclick="reflectNext()">Begin \u2192</button>';
     return;
   }
   if(reflectStep>total){
     body.innerHTML=
-      '<div style="text-align:center;padding:24px 0">'+
-        '<div style="width:84px;height:84px;border-radius:50%;background:#EAF1E9;border:2px solid #7BA47E;display:flex;align-items:center;justify-content:center;margin:0 auto 18px;font-size:34px;color:#5E8560">✓</div>'+
-        '<div style="font-family:var(--font-display);font-size:26px;color:var(--ink);margin-bottom:10px">Reflection complete</div>'+
-        '<div style="font-size:13px;color:var(--ink-soft);line-height:1.6;padding:0 6px">Your responses have been recorded. Thank you for taking time to reflect — it matters for your recovery.</div>'+
-      '</div>'+
-      '<button onclick="reflectDone()" style="width:100%;padding:15px;border-radius:14px;border:none;background:#7BA47E;color:#fff;font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;cursor:pointer">Done</button>';
+      '<div style="text-align:center;padding:30px 0">'+
+        '<div style="width:92px;height:92px;border-radius:50%;background:#EAF1E9;border:2px solid #7BA47E;display:flex;align-items:center;justify-content:center;margin:0 auto 20px;font-size:38px;color:#5E8560">\u2713</div>'+
+        '<div style="font-family:var(--font-display);font-size:28px;font-weight:600;color:var(--ink);margin-bottom:12px">Reflection complete</div>'+
+        '<div style="font-size:14px;color:var(--ink-soft);line-height:1.65;padding:0 8px">Your responses have been recorded. Thank you for taking time to reflect \u2014 it matters for your recovery.</div>'+
+      '</div>';
+    foot.innerHTML='<button class="rf-btn rf-primary rf-full" onclick="reflectDone()">Done</button>';
     return;
   }
   var n=reflectStep, item=REFLECT_Q[n-1], pct=Math.round(n/total*100), inner='';
   if(item.type==='multi'){
     var sel=reflectAnswers[n]||[];
-    inner='<div style="margin-top:14px">'+item.options.map(function(o,i){
+    inner='<div style="margin-top:16px">'+item.options.map(function(o,i){
       return '<button class="reflect-opt'+(sel.indexOf(i)>=0?' opt-sel':'')+'" onclick="reflectToggleOpt(this,'+i+')">'+esc(o)+'</button>';
     }).join('')+'</div>';
   } else {
     var val=reflectAnswers[n]!=null?reflectAnswers[n]:5; reflectAnswers[n]=val;
-    inner='<div style="text-align:center;margin-top:8px"><span id="reflect-slider-val" style="font-family:var(--font-display);font-size:48px;font-weight:700;color:#7BA47E;line-height:1">'+val+'</span><div style="font-size:12px;color:var(--ink-soft)">out of 10</div></div>'+
-      '<div style="display:flex;justify-content:space-between;font-size:11px;color:var(--ink-soft);margin:12px 2px 6px"><span>'+esc(item.lo)+'</span><span>'+esc(item.hi)+'</span></div>'+
+    inner='<div style="text-align:center;margin-top:14px"><span id="reflect-slider-val" style="font-family:var(--font-display);font-size:56px;font-weight:700;color:#7BA47E;line-height:1">'+val+'</span><div style="font-size:13px;color:var(--ink-soft);margin-top:2px">out of 10</div></div>'+
+      '<div style="display:flex;justify-content:space-between;font-size:12px;color:var(--ink-soft);margin:16px 2px 8px"><span>'+esc(item.lo)+'</span><span>'+esc(item.hi)+'</span></div>'+
       '<input type="range" min="0" max="10" value="'+val+'" oninput="reflectSlider(this.value)" class="reflect-range">';
   }
   body.innerHTML=
-    '<div style="text-align:center;font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--ink-soft);margin-bottom:8px">Question '+n+' of '+total+'</div>'+
+    '<div style="text-align:center;font-size:11px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--ink-soft);margin-bottom:9px">Question '+n+' of '+total+'</div>'+
     '<div class="reflect-prog"><div class="reflect-prog-fill" style="width:'+pct+'%"></div></div>'+
-    '<div style="background:#fff;border-radius:16px;box-shadow:var(--card-shadow);padding:18px;margin-top:14px">'+
-      '<div style="font-size:15px;font-weight:700;color:var(--ink);line-height:1.4">'+esc(item.q)+'</div>'+
-      (item.sub?'<div style="font-size:12px;color:var(--ink-soft);margin-top:3px">'+esc(item.sub)+'</div>':'')+
+    '<div style="background:#fff;border-radius:18px;box-shadow:var(--card-shadow);padding:20px 18px;margin-top:16px">'+
+      '<div style="font-size:17px;font-weight:700;color:var(--ink);line-height:1.45">'+esc(item.q)+'</div>'+
+      (item.sub?'<div style="font-size:13px;color:var(--ink-soft);margin-top:4px">'+esc(item.sub)+'</div>':'')+
       inner+
-      '<div style="display:flex;gap:10px;margin-top:18px">'+
-        '<button class="reflect-btn-back" onclick="reflectBack()">← Back</button>'+
-        '<button class="reflect-btn-next" onclick="reflectNext()">Next →</button>'+
-      '</div>'+
     '</div>';
+  foot.innerHTML=
+    '<button class="rf-btn rf-back" onclick="reflectBack()">\u2190 Back</button>'+
+    '<button class="rf-btn rf-primary" onclick="reflectNext()">Next \u2192</button>';
 }
 function reflectDone(){
   closeOv();
