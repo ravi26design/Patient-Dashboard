@@ -522,13 +522,13 @@ function renderReflect(){
   if(reflectStep===0){
     body.innerHTML=
       '<div class="rf-card" style="text-align:center;padding:26px 20px">'+
-        '<div style="font-size:48px;margin-bottom:14px">\ud83e\ude9e</div>'+
-        '<div style="font-family:var(--font-display);font-size:26px;font-weight:600;color:var(--ink);margin-bottom:8px">Daily Reflection</div>'+
-        '<div style="font-size:14px;color:var(--ink-soft);line-height:1.55">A few short questions about your experiences and mood.</div>'+
+        '<div style="font-size:36px;margin-bottom:12px">\ud83e\ude9e</div>'+
+        '<div style="font-family:var(--font-display);font-size:19px;font-weight:600;color:var(--ink);margin-bottom:8px">Daily Reflection</div>'+
+        '<div style="font-size:13px;color:var(--ink-soft);line-height:1.55">A few short questions about your experiences and mood.</div>'+
       '</div>'+
       '<div class="rf-card">'+
         '<div style="font-size:11px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:#5E8560;margin-bottom:8px">Section 1 of 2</div>'+
-        '<div style="font-family:var(--font-display);font-size:20px;font-weight:500;color:var(--ink)">Thinking about the past 24 hours\u2026</div>'+
+        '<div style="font-family:var(--font-display);font-size:15px;font-weight:500;color:var(--ink)">Thinking about the past 24 hours\u2026</div>'+
         '<div style="margin-top:16px"><span style="display:inline-block;font-size:12px;font-weight:700;color:#9A6B16;background:#FFF1D6;padding:6px 14px;border-radius:999px">+20 XP</span></div>'+
       '</div>';
     foot.innerHTML='<button class="rf-btn rf-primary rf-full" onclick="reflectNext()">Begin \u2192</button>';
@@ -538,8 +538,8 @@ function renderReflect(){
     body.innerHTML=
       '<div class="rf-card" style="text-align:center;padding:34px 22px">'+
         '<div style="width:92px;height:92px;border-radius:50%;background:#EAF1E9;border:2px solid #7BA47E;display:flex;align-items:center;justify-content:center;margin:0 auto 20px;font-size:38px;color:#5E8560">\u2713</div>'+
-        '<div style="font-family:var(--font-display);font-size:26px;font-weight:600;color:var(--ink);margin-bottom:12px">Reflection complete</div>'+
-        '<div style="font-size:14px;color:var(--ink-soft);line-height:1.65">Your responses have been recorded. Thank you for taking time to reflect \u2014 it matters for your recovery.</div>'+
+        '<div style="font-family:var(--font-display);font-size:19px;font-weight:600;color:var(--ink);margin-bottom:12px">Reflection complete</div>'+
+        '<div style="font-size:13px;color:var(--ink-soft);line-height:1.65">Your responses have been recorded. Thank you for taking time to reflect \u2014 it matters for your recovery.</div>'+
       '</div>';
     foot.innerHTML='<button class="rf-btn rf-primary rf-full" onclick="reflectDone()">Done</button>';
     return;
@@ -552,7 +552,7 @@ function renderReflect(){
     }).join('')+'</div>';
   } else {
     var val=reflectAnswers[n]!=null?reflectAnswers[n]:5; reflectAnswers[n]=val;
-    inner='<div style="text-align:center;margin-top:14px"><span id="reflect-slider-val" style="font-family:var(--font-display);font-size:56px;font-weight:700;color:#7BA47E;line-height:1">'+val+'</span><div style="font-size:13px;color:var(--ink-soft);margin-top:2px">out of 10</div></div>'+
+    inner='<div style="text-align:center;margin-top:14px"><span id="reflect-slider-val" style="font-family:var(--font-display);font-size:40px;font-weight:700;color:#7BA47E;line-height:1">'+val+'</span><div style="font-size:13px;color:var(--ink-soft);margin-top:2px">out of 10</div></div>'+
       '<div style="display:flex;justify-content:space-between;font-size:12px;color:var(--ink-soft);margin:16px 2px 8px"><span>'+esc(item.lo)+'</span><span>'+esc(item.hi)+'</span></div>'+
       '<input type="range" min="0" max="10" value="'+val+'" oninput="reflectSlider(this.value)" class="reflect-range">';
   }
@@ -560,7 +560,7 @@ function renderReflect(){
     '<div style="text-align:center;font-size:11px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--ink-soft);margin-bottom:9px">Question '+n+' of '+total+'</div>'+
     '<div class="reflect-prog" style="margin-bottom:16px"><div class="reflect-prog-fill" style="width:'+pct+'%"></div></div>'+
     '<div class="rf-card">'+
-      '<div style="font-size:17px;font-weight:700;color:var(--ink);line-height:1.45">'+esc(item.q)+'</div>'+
+      '<div style="font-size:15px;font-weight:700;color:var(--ink);line-height:1.45">'+esc(item.q)+'</div>'+
       (item.sub?'<div style="font-size:13px;color:var(--ink-soft);margin-top:4px">'+esc(item.sub)+'</div>':'')+
       inner+
     '</div>';
