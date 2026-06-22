@@ -786,3 +786,7 @@ body.is-desktop #patient-view{
 }
 body.is-desktop .phone{height:auto !important;min-height:0;overflow:visible;display:block}
 body.is-desktop .screen-area{flex:none;height:auto;overflow:visible;display:block}
+
+/* Desktop — trim top/bottom scroll slack; stop exactly at content */
+body.is-desktop #patient-view{padding:16px 0 16px;overscroll-behavior:none}
+body.is-desktop .screen{padding-top:0;padding-bottom:0}
