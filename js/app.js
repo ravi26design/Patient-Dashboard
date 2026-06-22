@@ -378,7 +378,16 @@ window.addEventListener('load', renderIcons);
   }
   window.addEventListener('wheel', function(e){
     var sc=activeScroller(); if(!sc) return;
-    if(sc.contains(e.target)) return;   /* pointer already over a scroller — let it scroll natively */
+    /* let a horizontal scroll strip (e.g. chart timelines) keep its own wheel */
+    var t=e.target;
+    while(t && t!==document.body){
+      if(t!==sc){
+        var ox=getComputedStyle(t).overflowX;
+        if((ox==='auto'||ox==='scroll') && t.scrollWidth>t.clientWidth+1) return;
+      }
+      t=t.parentElement;
+    }
+    /* otherwise drive the main content scroller from anywhere on the page */
     sc.scrollTop += e.deltaY;
     e.preventDefault();
   }, {passive:false});
