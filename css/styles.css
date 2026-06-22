@@ -881,3 +881,12 @@ body.is-desktop .overlay.active > .reflect-footer{max-width:620px;margin-left:au
 /* Temporarily non-interactive nav items (feature not enabled yet) */
 .nav-soon{cursor:default;pointer-events:none;opacity:.45}
 .nav-soon:active{transform:none !important}
+
+/* Mobile — Recovery Today carousel bleeds full-width; first tile stays aligned with the title */
+body.is-mobile .task-grid{
+  margin-left:-18px;
+  margin-right:-18px;
+  padding:2px 18px 8px 18px;
+  scroll-padding-left:18px;
+}
+body.is-mobile .task-grid > .task{flex:0 0 44%}
