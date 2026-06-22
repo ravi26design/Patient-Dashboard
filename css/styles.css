@@ -992,3 +992,9 @@ body.is-mobile .app-logo, body.is-framed:not(.is-desktop) .app-logo{font-size:15
 .bottom-nav .nav-tab.active .nav-label{display:block;color:#1A1A1A;font-weight:700;font-size:11px;text-transform:none;letter-spacing:0;margin:0}
 .bottom-nav .nav-sos .nav-icon{color:#E0917A !important}
 body.is-mobile .bottom-nav{margin-bottom:max(10px,env(safe-area-inset-bottom))}
+
+/* Bottom nav — fit all tabs in the pill (no overflow/cut-off) */
+.bottom-nav{padding:6px;gap:2px}
+.bottom-nav .nav-tab{flex:1;min-width:0;padding:10px 4px}
+.bottom-nav .nav-tab.active{flex:0 0 auto;padding:11px 16px}
+.bottom-nav .nav-icon svg{width:20px;height:20px}
