@@ -11,6 +11,7 @@ function goScreen(id){
   var m={home:0,tools:1,mat:2,rewards:4,narcan:4,workbook:1,profile:0,checkin:0,appointments:0};
   var tabs=document.querySelectorAll('.nav-tab');if(tabs[m[id]!=null?m[id]:0])tabs[m[id]!=null?m[id]:0].classList.add('active');
   document.querySelectorAll('#dnav .dn-item').forEach(function(i){i.classList.toggle('active',i.getAttribute('data-screen')===id);});
+  try{localStorage.setItem('rh_screen',id);}catch(e){}
   document.getElementById('screenArea').scrollTop=0;
   if(id==='mat'){ setTimeout(updatePatternChart,50); setTimeout(updateRecoveryHealthChart,50); }
 }
@@ -21,9 +22,10 @@ function openOv(id){
   else { el.style.zoom=''; }
   el.classList.add('active');
   el.scrollTop=0; var b=el.querySelector('.ov-body'); if(b) b.scrollTop=0;
+  try{localStorage.setItem('rh_ov',id);}catch(e){}
 }
-function closeOv(){document.querySelectorAll('.overlay').forEach(function(o){o.classList.remove('active');o.style.zoom='';})}
-function closeTopOv(id){var el=document.getElementById('ov-'+id);if(el){el.classList.remove('active');el.style.zoom='';}}
+function closeOv(){document.querySelectorAll('.overlay').forEach(function(o){o.classList.remove('active');o.style.zoom='';});try{localStorage.removeItem('rh_ov');}catch(e){}}
+function closeTopOv(id){var el=document.getElementById('ov-'+id);if(el){el.classList.remove('active');el.style.zoom='';}try{localStorage.removeItem('rh_ov');}catch(e){}}
 
 /* ═══ FIND PROVIDER — engagement-instrumented ═══ */
 window.FP_ANALYTICS={opens:0,searches:0,calls:0,directions:0,bySource:{home:0,tools:0,profile:0}};
@@ -393,6 +395,21 @@ function renderIcons(){ if(window.lucide && window.lucide.createIcons) window.lu
 renderIcons();
 if(typeof updateTodayProgress==='function') updateTodayProgress();
 window.addEventListener('load', renderIcons);
+
+/* ═══ KEEP CURRENT PAGE ON REFRESH ═══ */
+(function(){
+  try{
+    var sc=localStorage.getItem('rh_screen');
+    if(sc && sc!=='home' && document.getElementById('screen-'+sc)) goScreen(sc);
+    var ov=localStorage.getItem('rh_ov');
+    if(ov && document.getElementById('ov-'+ov)){
+      if(ov==='reflect' && typeof openReflect==='function') openReflect();
+      else if(ov==='log-use' && typeof openLogUse==='function') openLogUse();
+      else if(ov==='find-provider' && typeof openFindProvider==='function') openFindProvider();
+      else openOv(ov);
+    }
+  }catch(e){}
+})();
 
 /* ═══ LOG OPIOID USE ═══ */
 var LOG_TODAY={y:2026,m:5,d:22};   /* June 22, 2026 — demo "today" */
