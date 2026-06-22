@@ -584,12 +584,12 @@ function buildHealthGauge(){
   var el=document.getElementById('healthGauge'); if(!el) return;
   if(el.querySelector('.speedo')) return;        /* build once */
   var val=74, N=10, filled=Math.round(val/10);
-  var s='<svg class="speedo" viewBox="18 28 264 154" xmlns="http://www.w3.org/2000/svg">';
+  var s='<svg class="speedo" viewBox="14 24 272 158" xmlns="http://www.w3.org/2000/svg">';
   for(var i=0;i<N;i++){
-    var a=(-70 + i*(140/(N-1))).toFixed(2);
-    s+='<rect x="136" y="124" width="28" height="44" rx="14" fill="'+(i<filled?'#26BDA6':'#E6E1D8')+'" transform="rotate('+a+' 150 168) translate(0 -86)"/>';
+    var a=(-80 + i*(160/(N-1))).toFixed(2);
+    s+='<rect x="137" y="124" width="26" height="44" rx="13" fill="'+(i<filled?'#26BDA6':'#E6E1D8')+'" transform="rotate('+a+' 150 168) translate(0 -88)"/>';
   }
-  var na=(-70 + (val/100)*140)*Math.PI/180, L=62, bw=5;
+  var na=(-80 + (val/100)*160)*Math.PI/180, L=64, bw=5;
   var tx=(150+L*Math.sin(na)).toFixed(1), ty=(168-L*Math.cos(na)).toFixed(1);
   var px=Math.cos(na), py=Math.sin(na);
   var blx=(150+bw*px).toFixed(1), bly=(168+bw*py).toFixed(1), brx=(150-bw*px).toFixed(1), bry=(168-bw*py).toFixed(1);
