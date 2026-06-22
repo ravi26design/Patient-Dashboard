@@ -1087,3 +1087,29 @@ body.is-desktop .tx-meta .chk-btn{padding:6px 18px;font-size:11px}
 .bottom-nav .nav-sos .nav-icon{color:#CC8870 !important}  /* softer SOS */
 .gauge-cap{color:var(--ink-soft)}
 
+
+/* ═══════════════════════════════════════════════════════════
+   PREMIUM POLISH — depth, motion, micro-interactions
+   ═══════════════════════════════════════════════════════════ */
+/* Layered, softer card depth */
+.home-sec,.card{box-shadow:0 1px 2px rgba(58,65,64,.04), 0 12px 30px rgba(58,65,64,.06)}
+.home-sec{border-radius:22px}
+
+/* Smooth transitions on interactive elements */
+.home-sec,.task,.ic-tile,.chk-btn,.dn-item,.nav-tab,.reflect-opt,.log-day,.log-period{
+  transition:transform .2s cubic-bezier(.4,0,.2,1), box-shadow .25s ease, background .2s ease, color .2s ease;
+}
+.task:active{transform:scale(.97)}
+
+/* Desktop hover lift on the daily tiles */
+body.is-desktop .task:hover{transform:translateY(-3px);box-shadow:0 2px 4px rgba(58,65,64,.05), 0 16px 34px rgba(58,65,64,.10)}
+body.is-desktop .dn-item:hover{transform:translateX(2px)}
+
+/* Gentle staggered entrance for the home cards */
+@keyframes riseIn{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+#screen-home.active>.home-sec{animation:riseIn .55s cubic-bezier(.2,.7,.3,1) both}
+#screen-home.active>.home-sec:nth-child(1){animation-delay:.03s}
+#screen-home.active>.home-sec:nth-child(2){animation-delay:.10s}
+#screen-home.active>.home-sec:nth-child(3){animation-delay:.17s}
+#screen-home.active>.home-sec:nth-child(4){animation-delay:.24s}
+@media (prefers-reduced-motion:reduce){#screen-home.active>.home-sec{animation:none}}
