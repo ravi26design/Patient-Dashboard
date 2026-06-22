@@ -722,3 +722,23 @@ body.is-desktop .bottom-nav{display:none}   /* sidebar replaces the tab bar */
 .dn-user{text-align:left;font-family:var(--font-ui)}
 .dn-user div{font-size:13px;font-weight:700;color:var(--ink)}
 .dn-user small{font-size:11px;font-weight:500;color:var(--ink-soft)}
+
+/* ═══ DESKTOP NAV AS A CENTERED TOP BAR (overrides the sidebar layout) ═══ */
+body.is-desktop{flex-direction:column;align-items:stretch;justify-content:flex-start}
+body.is-desktop #dnav{
+  flex-direction:row;align-items:center;
+  width:100%;height:64px;flex-shrink:0;
+  border-right:none;border-bottom:1px solid rgba(54,59,59,.07);
+  padding:0 24px;gap:16px;
+}
+body.is-desktop #patient-view{flex:1;width:100%;height:auto;min-height:0}
+body.is-desktop .app-header{display:none}          /* top bar replaces the in-card header */
+
+/* Brand left · nav centered · avatar right */
+.dn-brand{flex:1;padding:0;font-size:16px;white-space:nowrap}
+.dn-brand small{margin-top:1px}
+.dn-list{flex-direction:row;flex:0 0 auto;gap:4px;align-items:center}
+.dn-item{width:auto;padding:8px 15px;border-radius:999px;font-size:13px;gap:8px}
+.dn-sos{margin-top:0}
+.dn-foot{flex:1;justify-content:flex-end;border-top:none;margin:0;padding:5px 6px;width:auto}
+.dn-foot .dn-user{display:none}                    /* just the avatar on the top bar */

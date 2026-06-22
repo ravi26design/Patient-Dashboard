@@ -330,20 +330,22 @@ function showMysteryXP(){
       p.style.transformOrigin='top left';
       p.style.margin='0';
     } else {
-      /* tablet & desktop — centered, readable app surface that grows with the window */
+      /* tablet & desktop — a tall, phone-shaped column centered in the space.
+         Scale is driven by height (readable, not huge); the card keeps a
+         portrait aspect so it never goes wide-and-short. */
       b.classList.add('is-framed'); b.classList.remove('is-mobile');
       var desktop=vw>=1024;
-      b.classList.toggle('is-desktop',desktop);
-      var avail=desktop?(vw-248):vw;            /* leave room for the sidebar */
-      var pad=desktop?56:40;
-      var dispW=Math.round(clamp(avail-pad*2,320,600));
-      var dispH=Math.round(Math.min(H-56,1000));
-      var F2=clamp(dispW/DESIGN_W,1.4,1.95);
-      p.style.width=Math.round(dispW/F2)+'px';
+      b.classList.toggle('is-desktop', desktop);
+      var top=desktop?64:0;                     /* desktop top nav bar height */
+      var avail=H-top;
+      var F2=clamp(avail/640,1.3,1.6);          /* comfortable, readable scale */
+      var dispW=Math.round(DESIGN_W*F2);        /* phone-width column */
+      var dispH=Math.round(Math.min(avail-32, dispW*1.95));  /* portrait, capped to window */
+      p.style.width=DESIGN_W+'px';
       p.style.height=Math.round(dispH/F2)+'px';
       p.style.transform='scale('+F2.toFixed(4)+')';
       p.style.transformOrigin='top center';
-      p.style.marginTop=Math.max(0,Math.round((H-dispH)/2))+'px';
+      p.style.marginTop=Math.max(0,Math.round((avail-dispH)/2))+'px';
       p.style.marginBottom=Math.round(dispH*(1-1/F2))+'px';
     }
   }
