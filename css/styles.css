@@ -1001,3 +1001,8 @@ body.is-mobile .bottom-nav{margin-bottom:max(10px,env(safe-area-inset-bottom))}
 
 /* Active tab icon uses the active (teal) color, matching the label */
 .bottom-nav .nav-tab.active .nav-icon{color:var(--hb-teal) !important}
+
+/* Floating bottom nav — pill floats over content, no full-width strip */
+.bottom-nav{position:absolute;left:0;right:0;bottom:0;z-index:200}
+body.is-mobile .screen-area,
+body.is-framed:not(.is-desktop) .screen-area{padding-bottom:92px}
