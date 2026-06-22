@@ -1120,3 +1120,7 @@ body.is-desktop{background:var(--app-bg)}
 
 /* Completed task tile: white XP chip */
 .task.done .xp-chip{background:#fff}
+
+/* Mobile — slimmer Reflection footer CTAs */
+body.is-mobile .rf-btn{padding:11px 14px;font-size:11.5px}
+body.is-mobile .reflect-footer{padding:10px 14px}
