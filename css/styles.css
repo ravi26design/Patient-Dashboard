@@ -957,3 +957,9 @@ body.is-mobile .insight-hero > div:last-child, body.is-framed:not(.is-desktop) .
 /* Brand wordmark — a little bigger */
 .app-logo{font-size:20px}
 .dn-brand{font-size:19px}
+
+/* Header matches the app background (no teal band); navy wordmark */
+.app-header{background:transparent;border-radius:0;padding:14px 18px 10px}
+.app-logo{color:#1A1F3D}
+.app-logo .brand-ai{color:#6C63FF}
+.notif-badge{border-color:var(--app-bg)}
