@@ -505,8 +505,8 @@ var REFLECT_Q=[
   {type:'slider', q:'How confident are you in staying on track with your recovery today?', lo:'Not confident', hi:'Very confident'},
   {type:'slider', q:'How supported and connected did you feel over the past 24 hours?', lo:'Isolated', hi:'Well supported'}
 ];
-var reflectStep=0, reflectAnswers={};
-function openReflect(){ reflectStep=0; reflectAnswers={}; renderReflect(); openOv('reflect'); }
+var reflectStep=0, reflectAnswers={}, reflectQs=[];
+function openReflect(){ reflectStep=0; reflectAnswers={}; reflectQs=REFLECT_Q.slice().sort(function(){return Math.random()-0.5;}).slice(0,5); renderReflect(); openOv('reflect'); }
 function reflectNext(){ reflectStep++; renderReflect(); }
 function reflectBack(){ if(reflectStep<=0){ closeOv(); return; } reflectStep--; renderReflect(); }
 function esc(s){ return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
@@ -520,7 +520,8 @@ function reflectSlider(v){ reflectAnswers[reflectStep]=+v; var el=document.getEl
 function renderReflect(){
   var body=document.getElementById('reflect-body');
   var foot=document.getElementById('reflect-footer');
-  var total=REFLECT_Q.length;
+  if(!reflectQs.length) reflectQs=REFLECT_Q.slice(0,5);
+  var total=reflectQs.length;
   if(reflectStep===0){
     body.innerHTML=
       '<div class="rf-card" style="text-align:center;padding:26px 20px">'+
@@ -546,7 +547,7 @@ function renderReflect(){
     foot.innerHTML='<button class="rf-btn rf-primary rf-full" onclick="reflectDone()">Done</button>';
     return;
   }
-  var n=reflectStep, item=REFLECT_Q[n-1], pct=Math.round(n/total*100), inner='';
+  var n=reflectStep, item=reflectQs[n-1], pct=Math.round(n/total*100), inner='';
   if(item.type==='multi'){
     var sel=reflectAnswers[n]||[];
     inner='<div style="margin-top:16px">'+item.options.map(function(o,i){
