@@ -1065,3 +1065,24 @@ body.is-desktop .tx-meta .chk-btn{padding:6px 18px;font-size:11px}
 
 /* Remove the dot before the gauge caption */
 .gauge-cap::before{display:none}
+
+/* ═══════════════════════════════════════════════════════════
+   CALM / MEDITATION PALETTE — soft sage-eucalyptus, warm oat
+   ═══════════════════════════════════════════════════════════ */
+:root{
+  --app-bg:#F3EFE8;
+  --ink:#3A4140;
+  --ink-soft:#8A9794;
+  --hb-teal:#6BAE9C;
+  --hb-teal-deep:#3F7D6F;
+  --hb-teal-dark:#2E5E53;
+  --hb-mint:#C4DED4;
+  --hb-gold:#D8AD63;
+  --c-coral:#D8AD63;   /* tile: soft ochre */
+  --c-lilac:#6BAE9C;   /* tile: soft sage-teal */
+  --c-teal:#3F7D6F;    /* tile: deep sage */
+  --card-shadow:0 4px 18px rgba(58,65,64,.05);
+}
+.ic-tile.t-slate{background:#C39078}                 /* Log Use — muted clay */
+.bottom-nav .nav-sos .nav-icon{color:#CC8870 !important}  /* softer SOS */
+.gauge-cap{color:var(--ink-soft)}
