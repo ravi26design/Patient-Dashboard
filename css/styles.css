@@ -928,3 +928,14 @@ body.is-mobile .insight-hero > div, body.is-framed:not(.is-desktop) .insight-her
 body.is-mobile .insight-hero > div:first-child, body.is-framed:not(.is-desktop) .insight-hero > div:first-child{text-align:center;font-size:56px !important}
 body.is-mobile .insight-hero > div:last-child, body.is-framed:not(.is-desktop) .insight-hero > div:last-child{padding-bottom:0}
 
+
+/* ═══ Teal header band accent (HelloBetter-style) ═══ */
+.app-header{
+  background:#237E69;
+  border-radius:0 0 28px 28px;
+  position:relative;
+  padding-bottom:18px;
+}
+.app-logo{color:#fff}
+.app-logo small{color:rgba(255,255,255,.72)}
+.notif-badge{border-color:#237E69}
