@@ -3,14 +3,14 @@
   --espresso:#3A3330;--espresso-deep:#2A2421;--espresso-lt:#4A4340;
   --brown:#6B5E56;--muted:#8A7D75;
   --cream:#FAF8F6;--beige:#F3ECE6;--taupe:#E8DDD4;
-  --sage:#5B9E6F;--sage-dk:#4A8060;--sage-lt:#E6F0E8;
+  --sage:#6E9E80;--sage-dk:#4E7B5E;--sage-lt:#E7F0EA;
   --coral:#D4736A;--coral-dk:#B85A52;--coral-lt:#F5E0DD;
   --gold:#C9A84C;--gold-dk:#9A7C28;--gold-lt:#FBF4E2;
   --purple:#8B7EC8;--purple-dk:#6B5DB0;--purple-lt:#EDE9F6;
   --blue:#4A90D9;--blue-lt:#E0EDF8;
   --high:#D94F4F;--high-lt:#FDEAEA;
   --med:#D4952A;--med-lt:#FDF3E0;
-  --low:#5B9E6F;--low-lt:#E5F2E8;
+  --low:#6E9E80;--low-lt:#E7F0EA;
   --t1:#3A3330;--t2:#6B5E56;--t3:#8A7D75;--t4:#B0A69D;
   --border:rgba(196,160,136,.2);--card:#FFFFFF;--bg:#FAF8F6;
   --navy:#1A2332;--navy2:#243344;--navy3:#2E4052;
@@ -569,16 +569,16 @@ body{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;text-r
   --app-bg:#F5F7F7;                 /* off-white */
   --ink:#363B3B;                    /* charcoal text */
   --ink-soft:#7E9393;               /* muted gray-green */
-  --hb-teal:#26BDA6;                /* primary */
-  --hb-teal-deep:#037D6B;
-  --hb-teal-dark:#005649;
+  --hb-teal:#4E7B5E;                /* unified calm sage (was bright teal) */
+  --hb-teal-deep:#3F6650;
+  --hb-teal-dark:#34543F;
   --hb-mint:#9EE3D9;
   --hb-gold:#EBA63A;
   --hb-peach:#FFC7B2;
   /* icon-tile accent trio → teal · deep-teal · warm gold */
   --c-coral:#EBA63A;
-  --c-lilac:#26BDA6;
-  --c-teal:#005649;
+  --c-lilac:#6E9E80;
+  --c-teal:#3F6650;
 }
 
 /* Primary accent = teal */
@@ -596,7 +596,7 @@ body{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;text-r
 /* Desktop/tablet backdrop → soft teal-tinted */
 body.is-framed{
   background:
-    radial-gradient(1100px 560px at 50% -10%, rgba(38,189,166,.14), transparent 60%),
+    radial-gradient(1100px 560px at 50% -10%, rgba(110,158,128,.12), transparent 60%),
     #E6EDED;
 }
 
@@ -605,7 +605,7 @@ body.is-framed{
 .rt-prog{font-family:var(--font-ui);font-size:11px;font-weight:700;color:var(--hb-teal-deep)}
 .rt-prog .rt-prog-total{color:var(--ink-soft);font-weight:600}
 .rt-bar{height:6px;border-radius:999px;background:#E3EAEA;overflow:hidden;margin-bottom:14px}
-.rt-bar-fill{height:100%;border-radius:999px;background:#26BDA6;transition:width .5s ease}
+.rt-bar-fill{height:100%;border-radius:999px;background:#6E9E80;transition:width .5s ease}
 
 /* Tiles — cleaner, tappable, clear done-state */
 .task{
@@ -616,13 +616,13 @@ body.is-framed{
   transition:transform .15s ease, box-shadow .15s ease, background .2s ease, border-color .2s ease;
 }
 .task:active{transform:scale(.97)}
-.task .ic-tile{box-shadow:0 4px 12px rgba(38,189,166,.18)}
+.task .ic-tile{box-shadow:0 4px 12px rgba(110,158,128,.14)}
 .task-name{margin-top:2px}
 .task-time{margin-top:4px}
 .task-check{background:var(--hb-teal)}
 
 /* Completed ritual */
-.task.done{background:#E7F4F1;border-color:rgba(38,189,166,.35)}
+.task.done{background:#E7F0EA;border-color:rgba(78,123,94,.35)}
 .task.done .task-name{color:var(--hb-teal-deep)}
 
 /* Status bar removed — header takes the top safe-area padding */
@@ -947,11 +947,11 @@ body.is-mobile .insight-hero > div:last-child, body.is-framed:not(.is-desktop) .
 .brand-ai{font-size:.52em;font-weight:700;vertical-align:super;margin-left:2px;letter-spacing:0}
 /* Desktop nav (light bg): navy wordmark + purple ai */
 .dn-brand{color:#1A1F3D}
-.dn-brand .brand-ai{color:#6C63FF}
+.dn-brand .brand-ai{color:#B58E76}
 .dn-brand small{color:var(--ink-soft)}
 /* Teal header band (mobile/tablet): white wordmark + lilac ai */
 .app-logo{color:#fff}
-.app-logo .brand-ai{color:#C7C0F7}
+.app-logo .brand-ai{color:#CDB7A6}
 .app-logo small{color:rgba(255,255,255,.72)}
 
 /* Brand wordmark — a little bigger */
@@ -961,7 +961,7 @@ body.is-mobile .insight-hero > div:last-child, body.is-framed:not(.is-desktop) .
 /* Header matches the app background (no teal band); navy wordmark */
 .app-header{background:transparent;border-radius:0;padding:14px 18px 10px}
 .app-logo{color:#1A1F3D}
-.app-logo .brand-ai{color:#6C63FF}
+.app-logo .brand-ai{color:#B58E76}
 .notif-badge{border-color:var(--app-bg)}
 
 /* Smaller logo on phone/tablet header */
@@ -969,7 +969,7 @@ body.is-mobile .app-logo, body.is-framed:not(.is-desktop) .app-logo{font-size:15
 
 /* ═══ Bottom nav — dark floating pill, active = white pill (icon + label) ═══ */
 .bottom-nav{
-  background:#2B2B2B;
+  background:#384A40;
   border:none;border-top:none;
   border-radius:999px;
   margin:0 14px 10px;
@@ -1081,14 +1081,14 @@ body.is-desktop .tx-meta .chk-btn{padding:6px 18px;font-size:11px}
   --app-bg:#F3EFE8;
   --ink:#3A4140;
   --ink-soft:#8A9794;
-  --hb-teal:#6BAE9C;
-  --hb-teal-deep:#3F7D6F;
-  --hb-teal-dark:#2E5E53;
+  --hb-teal:#4E7B5E;
+  --hb-teal-deep:#3F6650;
+  --hb-teal-dark:#34543F;
   --hb-mint:#C4DED4;
   --hb-gold:#D8AD63;
   --c-coral:#D8AD63;   /* tile: soft ochre */
-  --c-lilac:#6BAE9C;   /* tile: soft sage-teal */
-  --c-teal:#3F7D6F;    /* tile: deep sage */
+  --c-lilac:#6E9E80;   /* tile: unified muted sage */
+  --c-teal:#3F6650;    /* tile: deep sage */
   --card-shadow:0 4px 18px rgba(58,65,64,.05);
 }
 .ic-tile.t-slate{background:#C39078}                 /* Log Use — muted clay */

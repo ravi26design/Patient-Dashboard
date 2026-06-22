@@ -162,14 +162,14 @@ function updateRecoveryHealthChart(){
       labels: labels,
       datasets: [{
         data: data,
-        borderColor: '#5B9E6F',
-        backgroundColor: 'rgba(91,158,111,0.08)',
+        borderColor: '#6E9E80',
+        backgroundColor: 'rgba(110,158,128,0.10)',
         borderWidth: 2,
         fill: true,
         tension: 0.4,
         pointRadius: 3,
         pointHoverRadius: 5,
-        pointBackgroundColor: '#5B9E6F'
+        pointBackgroundColor: '#6E9E80'
       }]
     },
     options: {
@@ -590,14 +590,14 @@ function buildHealthGauge(){
   var s='<svg class="speedo" viewBox="14 24 272 158" xmlns="http://www.w3.org/2000/svg">';
   for(var i=0;i<N;i++){
     var a=(-80 + i*(160/(N-1))).toFixed(2);
-    s+='<rect x="137" y="124" width="26" height="44" rx="13" fill="'+(i<filled?'#6BAE9C':'#E6E1D8')+'" transform="rotate('+a+' 150 168) translate(0 -88)"/>';
+    s+='<rect x="137" y="124" width="26" height="44" rx="13" fill="'+(i<filled?'#6E9E80':'#E6E1D8')+'" transform="rotate('+a+' 150 168) translate(0 -88)"/>';
   }
   var na=(-80 + (val/100)*160)*Math.PI/180, L=64, bw=5;
   var tx=(150+L*Math.sin(na)).toFixed(1), ty=(168-L*Math.cos(na)).toFixed(1);
   var px=Math.cos(na), py=Math.sin(na);
   var blx=(150+bw*px).toFixed(1), bly=(168+bw*py).toFixed(1), brx=(150-bw*px).toFixed(1), bry=(168-bw*py).toFixed(1);
-  s+='<polygon points="'+blx+','+bly+' '+brx+','+bry+' '+tx+','+ty+'" fill="#2E5E53"/>';
-  s+='<circle cx="150" cy="168" r="10" fill="#2E5E53"/><circle cx="150" cy="168" r="4.5" fill="#fff"/>';
+  s+='<polygon points="'+blx+','+bly+' '+brx+','+bry+' '+tx+','+ty+'" fill="#3F6650"/>';
+  s+='<circle cx="150" cy="168" r="10" fill="#3F6650"/><circle cx="150" cy="168" r="4.5" fill="#fff"/>';
   s+='</svg>';
   el.insertAdjacentHTML('afterbegin', s);
   var num=el.querySelector('.gauge-num'); if(num) num.innerHTML=val+'<small>/100</small>';
