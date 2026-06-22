@@ -1127,3 +1127,9 @@ body.is-mobile .reflect-footer{padding:10px 14px}
 
 /* Mobile — Log Use time periods one per row */
 body.is-mobile .log-periods{grid-template-columns:1fr}
+
+/* Consistent Lucide icon sizing in pickers/lists */
+.pe{display:inline-flex;align-items:center;justify-content:center}
+.pe svg{width:18px;height:18px}
+.log-period .pe svg{width:19px;height:19px}
+.log-entry .pe svg{width:19px;height:19px;color:var(--ink-soft)}

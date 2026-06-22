@@ -400,10 +400,10 @@ window.addEventListener('load', renderIcons);
 var LOG_TODAY={y:2026,m:5,d:22};   /* June 22, 2026 — demo "today" */
 var logState={y:2026,m:5,selDay:null,selPeriod:null,entries:[]};
 var LOG_PERIODS=[
-  {e:'🌙',label:'Midnight – 6 AM'},
-  {e:'🌅',label:'6 AM – Noon'},
-  {e:'☀️',label:'Noon – 6 PM'},
-  {e:'🌆',label:'6 PM – Midnight'}
+  {e:'moon',label:'Midnight – 6 AM'},
+  {e:'sunrise',label:'6 AM – Noon'},
+  {e:'sun',label:'Noon – 6 PM'},
+  {e:'sunset',label:'6 PM – Midnight'}
 ];
 var LOG_MONTHS=['January','February','March','April','May','June','July','August','September','October','November','December'];
 var LOG_SMO=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
@@ -455,10 +455,11 @@ function renderLogTime(){
   LOG_PERIODS.forEach(function(p,i){
     var b=document.createElement('button');
     b.className='log-period'+(logState.selPeriod===i?' sel':'');
-    b.innerHTML='<span class="pe">'+p.e+'</span><span>'+p.label+'</span>';
+    b.innerHTML='<span class="pe"><i data-lucide="'+p.e+'"></i></span><span>'+p.label+'</span>';
     (function(idx){ b.onclick=function(){ logState.selPeriod=idx; renderLogTime(); }; })(i);
     pc.appendChild(b);
   });
+  if(window.lucide&&lucide.createIcons)lucide.createIcons();
   var add=document.getElementById('log-add-btn');
   if(logState.selPeriod!=null){ add.disabled=false; add.style.background='var(--hb-gold)'; add.style.color='#fff'; add.style.cursor='pointer'; }
   else { add.disabled=true; add.style.background='#E3DED6'; add.style.color='#9A938B'; add.style.cursor='not-allowed'; }
@@ -482,11 +483,12 @@ function renderLogEntries(){
   if(!logState.entries.length){ c.innerHTML='<div class="log-empty-note">No entries logged yet</div>'; return; }
   logState.entries.forEach(function(en,i){
     var d=document.createElement('div'); d.className='log-entry';
-    d.innerHTML='<span class="pe">'+en.e+'</span><div style="flex:1"><div style="font-size:13px;font-weight:700;color:var(--ink)">'+en.label+'</div><div style="font-size:11px;color:var(--ink-soft)">'+en.period+'</div></div>';
+    d.innerHTML='<span class="pe"><i data-lucide="'+en.e+'"></i></span><div style="flex:1"><div style="font-size:13px;font-weight:700;color:var(--ink)">'+en.label+'</div><div style="font-size:11px;color:var(--ink-soft)">'+en.period+'</div></div>';
     var x=document.createElement('button'); x.className='log-entry-x'; x.innerHTML='&times;';
     (function(idx){ x.onclick=function(){removeLogEntry(idx);}; })(i);
     d.appendChild(x); c.appendChild(d);
   });
+  if(window.lucide&&lucide.createIcons)lucide.createIcons();
 }
 
 /* ═══ DAILY REFLECTION ═══ */
