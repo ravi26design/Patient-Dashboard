@@ -518,6 +518,7 @@ function renderReflect(){
         '<div style="font-size:48px;margin-bottom:14px">\ud83e\ude9e</div>'+
         '<div style="font-family:var(--font-display);font-size:26px;font-weight:600;color:var(--ink);margin-bottom:8px">Daily Reflection</div>'+
         '<div style="font-size:14px;color:var(--ink-soft);line-height:1.55">A few short questions about your experiences and mood.</div>'+
+        '<div style="margin-top:16px"><span style="display:inline-block;font-size:12px;font-weight:700;color:#9A6B16;background:#FFF1D6;padding:6px 16px;border-radius:999px">+20 XP</span></div>'+
       '</div>'+
       '<div class="rf-card">'+
         '<div style="font-size:11px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:#5E8560;margin-bottom:8px">Section 1 of 2</div>'+
