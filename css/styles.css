@@ -1049,3 +1049,7 @@ body.is-desktop .tx-meta .chk-btn{padding:6px 18px;font-size:11px}
 /* Distinct (non-overlapping) gauge segments */
 .seg-gauge{max-width:330px;height:190px}
 .seg{width:30px;height:46px;border-radius:15px;left:calc(50% - 15px);bottom:6px}
+
+/* Keep the gauge fan inside the card on all phone sizes */
+.seg-gauge{max-width:300px;height:178px}
+.seg{width:28px;height:44px;border-radius:14px;left:calc(50% - 14px)}
