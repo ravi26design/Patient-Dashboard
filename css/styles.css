@@ -803,3 +803,7 @@ body.is-desktop .screen.active{gap:16px}
 /* Equal-height cards per row (Recovery Health & Recovery Today match) */
 body.is-desktop .screen.active{align-items:stretch}
 body.is-desktop .home-sec{height:100%}
+
+/* Let grid stretch handle equal heights (height:100% broke it) */
+body.is-desktop .home-sec{height:auto}
+body.is-desktop .screen.active{align-items:stretch}
