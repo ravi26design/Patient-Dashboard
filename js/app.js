@@ -339,25 +339,12 @@ function showMysteryXP(){
       p.style.transformOrigin='top left';
       p.style.margin='0';
       p.style.zoom='';
-    } else if(vw<720){
-      /* large phone / small tablet — a tall, phone-shaped column centered */
-      b.classList.add('is-framed'); b.classList.remove('is-mobile'); b.classList.remove('is-desktop'); b.classList.remove('is-tablet');
-      window.__deskF=null;
-      var F2=clamp(H/640,1.3,1.6);
-      var dispW=Math.round(DESIGN_W*F2);
-      var dispH=Math.round(Math.min(H-32, dispW*1.95));
-      p.style.width=DESIGN_W+'px';
-      p.style.height=Math.round(dispH/F2)+'px';
-      p.style.transform='scale('+F2.toFixed(4)+')';
-      p.style.transformOrigin='top center';
-      p.style.marginTop=Math.max(0,Math.round((H-dispH)/2))+'px';
-      p.style.marginBottom=Math.round(dispH*(1-1/F2))+'px';
-      p.style.zoom='';
     } else if(vw<900){
-      /* tablet — bigger-mobile: edge-to-edge, 2-column cards, floating bottom nav */
+      /* tablet (and large-phone landscape) — bigger-mobile: edge-to-edge,
+         2-column cards, floating bottom nav */
       b.classList.add('is-tablet'); b.classList.remove('is-mobile'); b.classList.remove('is-framed'); b.classList.remove('is-desktop');
       window.__deskF=null;
-      var WT=680, FT=clamp(vw/WT,1.0,1.5);
+      var WT=680, FT=clamp(vw/WT,0.85,1.5);
       p.style.width=WT+'px';
       p.style.height=(H/FT)+'px';
       p.style.transform='scale('+FT.toFixed(4)+')';
