@@ -759,3 +759,8 @@ body.is-desktop .dn-brand{font-size:15px}
 
 /* Desktop — drop the panel background so cards float on the page */
 body.is-desktop .phone{background:transparent;box-shadow:none;border:none;border-radius:0}
+
+/* Desktop dashboard — roomier columns & gutters */
+body.is-desktop .screen.active{column-gap:24px}
+body.is-desktop .screen{padding:18px 24px 24px}
+body.is-desktop .home-sec{padding:20px;margin-bottom:24px}

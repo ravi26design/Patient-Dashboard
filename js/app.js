@@ -345,8 +345,8 @@ function showMysteryXP(){
       /* desktop — a wide dashboard panel under the top nav bar.
          Authored at a wider design width so cards can flow into 2 columns. */
       b.classList.add('is-framed'); b.classList.add('is-desktop'); b.classList.remove('is-mobile');
-      var DW=640, top=64, avail=H-top;
-      var F=clamp(avail/700,1.2,1.5);
+      var DW=680, top=64, avail=H-top;
+      var F=clamp(avail/740,1.15,1.4);
       var dispH=Math.round(avail-36);
       p.style.width=DW+'px';
       p.style.height=Math.round(dispH/F)+'px';
