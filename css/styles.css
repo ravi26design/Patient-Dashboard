@@ -898,3 +898,7 @@ body.is-mobile .task-grid{margin-left:-16px;margin-right:-16px;padding:2px 16px 
 /* Move the +20 XP chip to the bottom of each Recovery Today tile */
 .task{display:flex;flex-direction:column;align-items:center}
 .task .xp-corner{order:9;margin:12px 0 0}
+
+/* Uniform 16px padding on dashboard cards across all sizes */
+.home-sec{padding:16px}
+body.is-desktop .home-sec{padding:16px}
