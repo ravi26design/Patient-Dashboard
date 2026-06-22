@@ -939,3 +939,17 @@ body.is-mobile .insight-hero > div:last-child, body.is-framed:not(.is-desktop) .
 .app-logo{color:#fff}
 .app-logo small{color:rgba(255,255,255,.72)}
 .notif-badge{border-color:#237E69}
+
+/* ═══ BRAND WORDMARK — "Rudra Health" + purple "ai" ═══ */
+.app-logo,.dn-brand{font-family:var(--font-ui);text-transform:none;letter-spacing:-.3px;font-weight:700}
+.app-logo{font-size:17px;line-height:1.05}
+.app-logo small,.dn-brand small{text-transform:uppercase;letter-spacing:2px;font-size:8px;font-weight:600;display:block;margin-top:3px}
+.brand-ai{font-size:.52em;font-weight:700;vertical-align:super;margin-left:2px;letter-spacing:0}
+/* Desktop nav (light bg): navy wordmark + purple ai */
+.dn-brand{color:#1A1F3D}
+.dn-brand .brand-ai{color:#6C63FF}
+.dn-brand small{color:var(--ink-soft)}
+/* Teal header band (mobile/tablet): white wordmark + lilac ai */
+.app-logo{color:#fff}
+.app-logo .brand-ai{color:#C7C0F7}
+.app-logo small{color:rgba(255,255,255,.72)}
