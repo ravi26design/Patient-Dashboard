@@ -1176,3 +1176,7 @@ body.is-desktop .conn-card:hover{transform:translateY(-2px);box-shadow:0 2px 4px
 .dn-item{font-size:13px}
 .chk-btn{font-size:10px}
 .tx-meta .chk-btn{font-size:10px}
+
+/* Connect cards — top-align the icon with the title */
+.conn-card{align-items:flex-start}
+.conn-chev{align-self:center}
