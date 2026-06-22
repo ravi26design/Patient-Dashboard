@@ -593,11 +593,4 @@ function buildHealthGauge(){
 }
 buildHealthGauge();
 
-/* Show a couple of today's rituals already completed (filled state) */
-(function(){
-  ['focus','checkin'].forEach(function(k){
-    var c=document.getElementById(k+'-check'); if(c) c.style.display='block';
-    var t=document.getElementById(k+'-time'); if(t){ t.textContent='Today ✓'; t.style.color='var(--hb-teal)'; }
-  });
-  if(typeof updateTodayProgress==='function') updateTodayProgress();
-})();
+/* Recovery Today starts empty (0/4) */
