@@ -915,3 +915,9 @@ body.is-desktop .gauge-card .gauge{margin:auto}
 .home-head,.rt-head{border-bottom:1px solid var(--border);padding-bottom:12px}
 .home-sec > div > .home-title{border-bottom:1px solid var(--border);padding-bottom:12px;margin-bottom:14px}
 .home-title + .tx-row{border-top:none;padding-top:4px}
+
+/* Desktop readability floor — keep dashboard labels ≈12px+ (zoom is ≥1.3×) */
+body.is-desktop .task-name,
+body.is-desktop .task-time,
+body.is-desktop .xp-chip,
+body.is-desktop .stat-cap{font-size:10px}
