@@ -923,6 +923,6 @@ body.is-desktop .xp-chip,
 body.is-desktop .stat-cap{font-size:10px}
 
 /* Mobile — Insight score hero stacks: big number, then full-width bar + caption */
-body.is-mobile .insight-hero{flex-direction:column;align-items:flex-start;gap:14px}
+body.is-mobile .insight-hero{flex-direction:column;align-items:center;gap:14px;text-align:center}
 body.is-mobile .insight-hero > div:last-child{width:100%;padding-bottom:0}
 body.is-mobile .insight-hero > div:first-child{font-size:60px !important}
