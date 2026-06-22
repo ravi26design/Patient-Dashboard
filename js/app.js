@@ -583,22 +583,20 @@ function reflectDone(){
 function buildHealthGauge(){
   var el=document.getElementById('healthGauge'); if(!el) return;
   if(el.querySelector('.speedo')) return;        /* build once */
-  var val=74, cx=120, cy=126, R=98, w=16;
-  var arc='M'+(cx-R)+','+cy+' A'+R+','+R+' 0 0 1 '+(cx+R)+','+cy;
-  var ang=(180-1.8*val)*Math.PI/180, nr=R*0.78;
-  var tx=(cx+nr*Math.cos(ang)).toFixed(1), ty=(cy-nr*Math.sin(ang)).toFixed(1);
-  var p=ang+Math.PI/2, bw=5;
-  var blx=(cx+bw*Math.cos(p)).toFixed(1), bly=(cy-bw*Math.sin(p)).toFixed(1);
-  var brx=(cx-bw*Math.cos(p)).toFixed(1), bry=(cy+bw*Math.sin(p)).toFixed(1);
-  var svg='<svg class="speedo" viewBox="0 0 240 142" xmlns="http://www.w3.org/2000/svg">'
-    +'<path d="'+arc+'" fill="none" stroke="#E6E1D8" stroke-width="'+w+'" stroke-linecap="round"/>'
-    +'<path d="'+arc+'" fill="none" stroke="#26BDA6" stroke-width="'+w+'" stroke-linecap="round" pathLength="100" stroke-dasharray="'+val+' 100"/>'
-    +'<polygon points="'+blx+','+bly+' '+brx+','+bry+' '+tx+','+ty+'" fill="#1A1F3D"/>'
-    +'<circle cx="'+cx+'" cy="'+cy+'" r="10" fill="#1A1F3D"/><circle cx="'+cx+'" cy="'+cy+'" r="4" fill="#fff"/>'
-    +'<text x="'+(cx-R)+'" y="'+(cy+15)+'" font-size="10" fill="#9aa3a3" text-anchor="middle">0</text>'
-    +'<text x="'+(cx+R)+'" y="'+(cy+15)+'" font-size="10" fill="#9aa3a3" text-anchor="middle">100</text>'
-    +'</svg>';
-  el.insertAdjacentHTML('afterbegin', svg);
+  var val=74, N=10, filled=Math.round(val/10);
+  var s='<svg class="speedo" viewBox="20 26 260 160" xmlns="http://www.w3.org/2000/svg">';
+  for(var i=0;i<N;i++){
+    var a=(-74 + i*(148/(N-1))).toFixed(2);
+    s+='<rect x="136" y="124" width="28" height="44" rx="14" fill="'+(i<filled?'#26BDA6':'#E6E1D8')+'" transform="rotate('+a+' 150 168) translate(0 -84)"/>';
+  }
+  var na=(-74 + (val/100)*148)*Math.PI/180, L=66, bw=5;
+  var tx=(150+L*Math.sin(na)).toFixed(1), ty=(168-L*Math.cos(na)).toFixed(1);
+  var px=Math.cos(na), py=Math.sin(na);
+  var blx=(150+bw*px).toFixed(1), bly=(168+bw*py).toFixed(1), brx=(150-bw*px).toFixed(1), bry=(168-bw*py).toFixed(1);
+  s+='<polygon points="'+blx+','+bly+' '+brx+','+bry+' '+tx+','+ty+'" fill="#1A1F3D"/>';
+  s+='<circle cx="150" cy="168" r="10" fill="#1A1F3D"/><circle cx="150" cy="168" r="4.5" fill="#fff"/>';
+  s+='</svg>';
+  el.insertAdjacentHTML('afterbegin', s);
   var num=el.querySelector('.gauge-num'); if(num) num.innerHTML=val+'<small>/100</small>';
   var cap=el.querySelector('.gauge-cap'); if(cap) cap.textContent = val>=85?'Excellent':val>=70?'Above Average':val>=55?'Good':'Needs care';
 }
