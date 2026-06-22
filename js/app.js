@@ -14,9 +14,16 @@ function goScreen(id){
   document.getElementById('screenArea').scrollTop=0;
   if(id==='mat'){ setTimeout(updatePatternChart,50); setTimeout(updateRecoveryHealthChart,50); }
 }
-function openOv(id){var el=document.getElementById('ov-'+id);if(el)el.classList.add('active')}
-function closeOv(){document.querySelectorAll('.overlay').forEach(o=>o.classList.remove('active'))}
-function closeTopOv(id){var el=document.getElementById('ov-'+id);if(el)el.classList.remove('active')}
+function openOv(id){
+  var el=document.getElementById('ov-'+id);if(!el)return;
+  /* desktop: counter the page zoom so the fixed overlay covers the viewport at native scale */
+  if(document.body.classList.contains('is-desktop') && window.__deskF){ el.style.zoom=1/window.__deskF; }
+  else { el.style.zoom=''; }
+  el.classList.add('active');
+  el.scrollTop=0; var b=el.querySelector('.ov-body'); if(b) b.scrollTop=0;
+}
+function closeOv(){document.querySelectorAll('.overlay').forEach(function(o){o.classList.remove('active');o.style.zoom='';})}
+function closeTopOv(id){var el=document.getElementById('ov-'+id);if(el){el.classList.remove('active');el.style.zoom='';}}
 
 /* ═══ FIND PROVIDER — engagement-instrumented ═══ */
 window.FP_ANALYTICS={opens:0,searches:0,calls:0,directions:0,bySource:{home:0,tools:0,profile:0}};
@@ -337,6 +344,7 @@ function showMysteryXP(){
     if(vw<=MOBILE){
       /* phones — fill the viewport edge to edge */
       b.classList.add('is-mobile'); b.classList.remove('is-framed'); b.classList.remove('is-desktop');
+      window.__deskF=null;
       var F=clamp(vw/DESIGN_W,1.35,1.7);
       p.style.width=(vw/F)+'px';
       p.style.height=(H/F)+'px';
@@ -347,6 +355,7 @@ function showMysteryXP(){
     } else if(vw<900){
       /* tablet — a tall, phone-shaped column centered in the space */
       b.classList.add('is-framed'); b.classList.remove('is-mobile'); b.classList.remove('is-desktop');
+      window.__deskF=null;
       var F2=clamp(H/640,1.3,1.6);
       var dispW=Math.round(DESIGN_W*F2);
       var dispH=Math.round(Math.min(H-32, dispW*1.95));
@@ -362,6 +371,7 @@ function showMysteryXP(){
          transform) so the whole page scrolls normally; cards flow 2-up. */
       b.classList.add('is-framed'); b.classList.add('is-desktop'); b.classList.remove('is-mobile');
       var DW=680, F=clamp(H/760,1.15,1.4);
+      window.__deskF=F;
       p.style.transform='none';
       p.style.transformOrigin='';
       p.style.margin='0 auto';

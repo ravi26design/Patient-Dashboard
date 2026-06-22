@@ -858,3 +858,7 @@ body.is-mobile .task-grid > .task{
 .reflect-range{width:100%;accent-color:#7BA47E;height:8px;cursor:pointer}
 .reflect-btn-back{flex:1;padding:13px;border-radius:12px;border:1px solid #7BA47E;background:#fff;color:#5E8560;font-weight:700;font-size:12px;letter-spacing:1px;text-transform:uppercase;cursor:pointer;font-family:var(--font-ui)}
 .reflect-btn-next{flex:1.4;padding:13px;border-radius:12px;border:none;background:#7BA47E;color:#fff;font-weight:700;font-size:12px;letter-spacing:1px;text-transform:uppercase;cursor:pointer;font-family:var(--font-ui)}
+
+/* Desktop — overlays become viewport-fixed modals (visible regardless of page scroll) */
+body.is-desktop .overlay.active{position:fixed;inset:0;z-index:9000}
+body.is-desktop .overlay.active > .ov-body{max-width:620px;margin-left:auto;margin-right:auto;width:100%}
