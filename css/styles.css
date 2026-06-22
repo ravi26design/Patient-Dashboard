@@ -1180,3 +1180,7 @@ body.is-desktop .conn-card:hover{transform:translateY(-2px);box-shadow:0 2px 4px
 /* Connect cards — top-align the icon with the title */
 .conn-card{align-items:flex-start}
 .conn-chev{align-self:center}
+
+/* Recovery Journey stat tiles — small icon above the number */
+.stat-ic{display:flex;justify-content:center;margin-bottom:5px}
+.stat-ic svg{width:18px;height:18px}
