@@ -1184,3 +1184,8 @@ body.is-desktop .conn-card:hover{transform:translateY(-2px);box-shadow:0 2px 4px
 /* Recovery Journey stat tiles — small icon above the number */
 .stat-ic{display:flex;justify-content:center;margin-bottom:5px}
 .stat-ic svg{width:18px;height:18px}
+
+/* Desktop top-nav — larger, more readable */
+body.is-desktop .dn-brand{font-size:22px}
+body.is-desktop .dn-item{font-size:14px;padding:9px 15px;gap:9px}
+body.is-desktop .dn-item svg{width:20px;height:20px}
