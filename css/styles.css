@@ -998,3 +998,6 @@ body.is-mobile .bottom-nav{margin-bottom:max(10px,env(safe-area-inset-bottom))}
 .bottom-nav .nav-tab{flex:1;min-width:0;padding:10px 4px}
 .bottom-nav .nav-tab.active{flex:0 0 auto;padding:11px 16px}
 .bottom-nav .nav-icon svg{width:20px;height:20px}
+
+/* Active tab icon uses the active (teal) color, matching the label */
+.bottom-nav .nav-tab.active .nav-icon{color:var(--hb-teal) !important}
