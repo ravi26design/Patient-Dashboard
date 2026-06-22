@@ -1026,3 +1026,16 @@ body.is-desktop .tx-meta .chk-btn{padding:6px 18px;font-size:11px}
 .bottom-nav .nav-tab{padding:8px 4px}
 .bottom-nav .nav-tab.active{padding:8px 16px}
 .bottom-nav .nav-icon svg{width:18px;height:18px}
+
+/* ═══ Recovery Health — segmented fan gauge ═══ */
+.seg-gauge{position:relative;width:100%;max-width:300px;height:176px;margin:4px auto 0}
+.seg{
+  position:absolute;left:calc(50% - 17px);bottom:8px;
+  width:34px;height:52px;border-radius:14px;background:#DEE5E2;
+  transform-origin:50% 100%;
+  transition:background .4s ease;
+}
+.seg.on{background:var(--hb-teal)}
+.seg-center{position:absolute;left:0;right:0;bottom:12px;text-align:center}
+.seg-spark{display:flex;justify-content:center;color:var(--hb-gold);margin-bottom:3px}
+.seg-spark svg{width:18px;height:18px}

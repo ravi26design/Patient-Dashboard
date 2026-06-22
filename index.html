@@ -57,18 +57,9 @@
           <div class="home-head">
             <div class="home-title">Recovery Health</div>
           </div>
-          <div class="gauge">
-            <svg class="gauge-svg" viewBox="0 0 200 116" xmlns="http://www.w3.org/2000/svg">
-              <defs>
-                <linearGradient id="gaugeGrad" x1="0" y1="0" x2="1" y2="0">
-                  <stop offset="0" stop-color="#9EE3D9"/>
-                  <stop offset="1" stop-color="#26BDA6"/>
-                </linearGradient>
-              </defs>
-              <path d="M16,100 A84,84 0 0 1 184,100" fill="none" stroke="#D6E3E3" stroke-width="22" stroke-linecap="round"/>
-              <path d="M16,100 A84,84 0 0 1 184,100" fill="none" stroke="#26BDA6" stroke-width="22" stroke-linecap="round" pathLength="100" stroke-dasharray="73 100"/>
-            </svg>
-            <div class="gauge-center">
+          <div class="seg-gauge" id="healthGauge">
+            <div class="seg-center">
+              <div class="seg-spark"><i data-lucide="zap"></i></div>
               <div class="gauge-num">7.3<small>/10</small></div>
               <div class="gauge-cap">Great!</div>
             </div>

@@ -578,3 +578,16 @@ function reflectDone(){
   updateTodayProgress();
   if(typeof showXPPopup==='function') showXPPopup(20);
 }
+
+/* ═══ Recovery Health — segmented fan gauge ═══ */
+function buildHealthGauge(){
+  var el=document.getElementById('healthGauge'); if(!el) return;
+  if(el.querySelector('.seg')) return;            /* build once */
+  var N=11, val=73, filled=Math.round(val/100*N), html='';
+  for(var i=0;i<N;i++){
+    var a=(-80 + i*(160/(N-1))).toFixed(2);
+    html+='<div class="seg'+(i<filled?' on':'')+'" style="transform:rotate('+a+'deg) translateY(-58px)"></div>';
+  }
+  el.insertAdjacentHTML('afterbegin', html);
+}
+buildHealthGauge();
