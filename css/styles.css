@@ -1039,3 +1039,9 @@ body.is-desktop .tx-meta .chk-btn{padding:6px 18px;font-size:11px}
 .seg-center{position:absolute;left:0;right:0;bottom:12px;text-align:center}
 .seg-spark{display:flex;justify-content:center;color:var(--hb-gold);margin-bottom:3px}
 .seg-spark svg{width:18px;height:18px}
+
+/* Cleaner segmented gauge — larger squircle segments, wider ring */
+.seg-gauge{max-width:330px;height:186px}
+.seg{width:44px;height:54px;border-radius:18px;left:calc(50% - 22px);bottom:6px;background:#E6E1D8}
+.seg-center{bottom:14px}
+.seg-date{font-size:12px;font-weight:600;color:var(--ink-soft);margin-bottom:1px}

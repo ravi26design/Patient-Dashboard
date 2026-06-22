@@ -585,8 +585,8 @@ function buildHealthGauge(){
   if(el.querySelector('.seg')) return;            /* build once */
   var N=10, val=73, filled=Math.round(val/100*N), html='';
   for(var i=0;i<N;i++){
-    var a=(-80 + i*(160/(N-1))).toFixed(2);
-    html+='<div class="seg'+(i<filled?' on':'')+'" style="transform:rotate('+a+'deg) translateY(-58px)"></div>';
+    var a=(-78 + i*(156/(N-1))).toFixed(2);
+    html+='<div class="seg'+(i<filled?' on':'')+'" style="transform:rotate('+a+'deg) translateY(-86px)"></div>';
   }
   el.insertAdjacentHTML('afterbegin', html);
 }
