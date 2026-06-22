@@ -905,3 +905,8 @@ body.is-desktop .home-sec{padding:16px}
 
 /* UI typeface → Inter */
 :root{--font-ui:'Inter',system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif}
+
+/* Desktop — center the Recovery Health gauge vertically in its (stretched) card */
+body.is-desktop .gauge-card{display:flex;flex-direction:column}
+body.is-desktop .gauge-card > div{flex:1;display:flex;flex-direction:column}
+body.is-desktop .gauge-card .gauge{margin:auto}
