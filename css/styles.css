@@ -1009,3 +1009,11 @@ body.is-framed:not(.is-desktop) .screen-area{padding-bottom:92px}
 
 /* Hide Appointments nav item until the feature exists */
 .dn-item[data-screen="appointments"]{display:none}
+
+/* Taken/Attended — smooth animated check + comfy press */
+.chk-btn{transition:transform .14s ease, border-color .2s ease}
+.chk-btn:active{transform:scale(.94)}
+.chk-done{display:flex !important;background:var(--hb-teal);opacity:0;transform:scale(.55);transition:opacity .2s ease, transform .3s cubic-bezier(.34,1.6,.5,1);pointer-events:none}
+.chk-done.on{opacity:1;transform:scale(1)}
+/* Desktop — slightly larger, click-friendly CTA */
+body.is-desktop .tx-meta .chk-btn{padding:6px 18px;font-size:11px}

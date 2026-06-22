@@ -258,28 +258,13 @@ function selectPatternTf(tf,btn){
   updatePatternChart();
 }
 
-function confirmAttended(id){
-  var check = document.getElementById('attended-check-' + id);
-  var btn = document.getElementById('attended-btn-' + id);
-  if(check.style.display === 'none' || check.style.display === ''){
-    check.style.display = 'flex';
-    btn.style.borderColor = 'var(--sage)';
-  } else {
-    check.style.display = 'none';
-    btn.style.borderColor = 'var(--border)';
-  }
+function toggleChk(check, btn){
+  if(!check) return;
+  var on = check.classList.toggle('on');
+  if(btn) btn.style.borderColor = on ? 'var(--hb-teal)' : 'var(--border)';
 }
-function confirmTaken(){
-  var check = document.getElementById('taken-check');
-  var btn = document.getElementById('taken-btn');
-  if(check.style.display === 'none' || check.style.display === ''){
-    check.style.display = 'flex';
-    btn.style.borderColor = 'var(--sage)';
-  } else {
-    check.style.display = 'none';
-    btn.style.borderColor = 'var(--border)';
-  }
-}
+function confirmAttended(id){ toggleChk(document.getElementById('attended-check-'+id), document.getElementById('attended-btn-'+id)); }
+function confirmTaken(){ toggleChk(document.getElementById('taken-check'), document.getElementById('taken-btn')); }
 function confirmMoudDose(card){
   var pill = document.getElementById('moud-pill-icon');
   var check = document.getElementById('moud-check');
