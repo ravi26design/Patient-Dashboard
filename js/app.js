@@ -582,13 +582,15 @@ function reflectDone(){
 /* ═══ Recovery Health — segmented fan gauge ═══ */
 function buildHealthGauge(){
   var el=document.getElementById('healthGauge'); if(!el) return;
-  if(el.querySelector('.seg')) return;            /* build once */
-  var N=10, val=74, filled=Math.round(val/10), html='';   /* each slice = 10 -> /100 */
+  if(el.querySelector('.seg-svg')) return;        /* build once */
+  var N=10, val=74, filled=Math.round(val/10);    /* each slice = 10 -> /100 */
+  var s='<svg class="seg-svg" viewBox="20 2 260 168" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMin meet">';
   for(var i=0;i<N;i++){
     var a=(-74 + i*(148/(N-1))).toFixed(2);
-    html+='<div class="seg'+(i<filled?' on':'')+'" style="transform:rotate('+a+'deg) translateY(-84px)"></div>';
+    s+='<rect x="136" y="124" width="28" height="44" rx="14" fill="'+(i<filled?'#26BDA6':'#E6E1D8')+'" transform="rotate('+a+' 150 168) translate(0 -84)"/>';
   }
-  el.insertAdjacentHTML('afterbegin', html);
+  s+='</svg>';
+  el.insertAdjacentHTML('afterbegin', s);
   var num=el.querySelector('.gauge-num'); if(num) num.innerHTML=val+'<small>/100</small>';
   var cap=el.querySelector('.gauge-cap'); if(cap) cap.textContent = val>=85?'Excellent':val>=70?'Above Average':val>=55?'Good':'Needs care';
 }
