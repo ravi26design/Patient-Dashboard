@@ -370,7 +370,7 @@ function showMysteryXP(){
       /* desktop — natural page scroll. Use CSS zoom (which reflows, unlike
          transform) so the whole page scrolls normally; cards flow 2-up. */
       b.classList.add('is-framed'); b.classList.add('is-desktop'); b.classList.remove('is-mobile');
-      var DW=680, F=clamp(H/760,1.15,1.4);
+      var DW=680, F=clamp(Math.min((vw-72)/DW, H/700), 1.3, 1.55);
       window.__deskF=F;
       p.style.transform='none';
       p.style.transformOrigin='';
