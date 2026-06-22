@@ -963,3 +963,6 @@ body.is-mobile .insight-hero > div:last-child, body.is-framed:not(.is-desktop) .
 .app-logo{color:#1A1F3D}
 .app-logo .brand-ai{color:#6C63FF}
 .notif-badge{border-color:var(--app-bg)}
+
+/* Smaller logo on phone/tablet header */
+body.is-mobile .app-logo, body.is-framed:not(.is-desktop) .app-logo{font-size:15px}
