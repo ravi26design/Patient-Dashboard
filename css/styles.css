@@ -1020,3 +1020,9 @@ body.is-desktop .tx-meta .chk-btn{padding:6px 18px;font-size:11px}
 
 /* Bottom nav bar = logo navy */
 .bottom-nav{background:#1A1F3D}
+
+/* Slimmer bottom nav */
+.bottom-nav{padding:5px}
+.bottom-nav .nav-tab{padding:8px 4px}
+.bottom-nav .nav-tab.active{padding:8px 16px}
+.bottom-nav .nav-icon svg{width:18px;height:18px}
