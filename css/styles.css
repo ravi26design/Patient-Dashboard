@@ -811,3 +811,7 @@ body.is-desktop .screen.active{align-items:stretch}
 /* Solid backdrops (no gradients) */
 body.is-framed{background:#E9EEEC}
 body.is-desktop{background:#EAF0EF}
+
+/* Recovery Today — 4 tiles in a 2×2 grid (added Log Use) */
+.task-grid{grid-template-columns:1fr 1fr}
+.ic-tile.t-slate{background:#6E8B87}

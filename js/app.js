@@ -110,6 +110,20 @@ function updateTodayProgress(){
   var t=document.getElementById('rt-done'); if(t) t.textContent=done;
   var f=document.getElementById('rt-bar-fill'); if(f) f.style.width=(done/keys.length*100)+'%';
 }
+/* Log Use — optional, anytime (not part of the daily 3) */
+function logUse(card){
+  var check=document.getElementById('log-check');
+  var time=document.getElementById('log-time');
+  if(check.style.display==='none'){
+    check.style.display='block';
+    time.textContent='Logged ✓';
+    time.style.color='var(--hb-teal)';
+  } else {
+    check.style.display='none';
+    time.textContent='Anytime';
+    time.style.color='';
+  }
+}
 /* ═══ RECOVERY HEALTH CHART ═══ */
 var recoveryHealthChart = null;
 var currentRHTf = 'month';
