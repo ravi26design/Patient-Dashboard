@@ -966,3 +966,29 @@ body.is-mobile .insight-hero > div:last-child, body.is-framed:not(.is-desktop) .
 
 /* Smaller logo on phone/tablet header */
 body.is-mobile .app-logo, body.is-framed:not(.is-desktop) .app-logo{font-size:15px}
+
+/* ═══ Bottom nav — dark floating pill, active = white pill (icon + label) ═══ */
+.bottom-nav{
+  background:#2B2B2B;
+  border:none;border-top:none;
+  border-radius:999px;
+  margin:0 14px 10px;
+  padding:7px 8px;
+  height:auto;min-height:0;
+  gap:4px;
+  justify-content:space-between;
+  box-shadow:0 10px 26px rgba(0,0,0,.20);
+}
+.bottom-nav .nav-tab{
+  display:flex;flex-direction:row;align-items:center;justify-content:center;
+  gap:8px;padding:11px 13px;border-radius:999px;min-width:0;flex:0 0 auto;
+}
+.bottom-nav .nav-tab::after{display:none !important}
+.bottom-nav .nav-icon{background:none !important;opacity:1 !important;color:#fff !important;width:auto;height:auto;border-radius:0;margin:0}
+.bottom-nav .nav-icon svg{width:21px;height:21px}
+.bottom-nav .nav-label{display:none}
+.bottom-nav .nav-tab.active{background:#fff;padding:11px 18px}
+.bottom-nav .nav-tab.active .nav-icon{color:#1A1A1A !important}
+.bottom-nav .nav-tab.active .nav-label{display:block;color:#1A1A1A;font-weight:700;font-size:11px;text-transform:none;letter-spacing:0;margin:0}
+.bottom-nav .nav-sos .nav-icon{color:#E0917A !important}
+body.is-mobile .bottom-nav{margin-bottom:max(10px,env(safe-area-inset-bottom))}
