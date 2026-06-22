@@ -381,20 +381,8 @@ renderIcons();
 if(typeof updateTodayProgress==='function') updateTodayProgress();
 window.addEventListener('load', renderIcons);
 
-/* ═══ KEEP CURRENT PAGE ON REFRESH ═══ */
-(function(){
-  try{
-    var sc=localStorage.getItem('rh_screen');
-    if(sc && sc!=='home' && document.getElementById('screen-'+sc)) goScreen(sc);
-    var ov=localStorage.getItem('rh_ov');
-    if(ov && document.getElementById('ov-'+ov)){
-      if(ov==='reflect' && typeof openReflect==='function') openReflect();
-      else if(ov==='log-use' && typeof openLogUse==='function') openLogUse();
-      else if(ov==='find-provider' && typeof openFindProvider==='function') openFindProvider();
-      else openOv(ov);
-    }
-  }catch(e){}
-})();
+/* Fresh state on every refresh (no page restore) */
+try{localStorage.removeItem("rh_ov");localStorage.removeItem("rh_screen");}catch(e){}
 
 /* ═══ LOG OPIOID USE ═══ */
 var LOG_TODAY={y:2026,m:5,d:22};   /* June 22, 2026 — demo "today" */
