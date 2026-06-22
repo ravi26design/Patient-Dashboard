@@ -831,3 +831,21 @@ body.is-mobile .task-grid > .task{
   flex:0 0 41%;
   scroll-snap-align:start;
 }
+
+/* ═══ LOG OPIOID USE — calendar + time picker ═══ */
+.log-cal{display:grid;grid-template-columns:repeat(7,1fr);gap:2px}
+.log-cal .dow{text-align:center;font-size:11px;color:var(--ink-soft);padding:2px 0 8px}
+.log-day{aspect-ratio:1;display:flex;align-items:center;justify-content:center;font-size:14px;color:var(--ink);border-radius:10px;cursor:pointer;border:none;background:none;padding:0;font-family:var(--font-ui)}
+.log-day.empty{visibility:hidden}
+.log-day.future{color:#C9CFCD;cursor:default;pointer-events:none}
+.log-day.today{background:#FBEFD2;color:#9A6B16;font-weight:700}
+.log-day.sel{background:var(--hb-gold);color:#fff;font-weight:700}
+.log-day:not(.future):not(.sel):hover{background:#F0F3F3}
+.log-periods{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.log-period{display:flex;align-items:center;gap:9px;padding:11px 12px;border:1px solid rgba(54,59,59,.12);border-radius:12px;background:#fff;cursor:pointer;font-size:12.5px;font-weight:600;color:var(--ink);text-align:left;font-family:var(--font-ui)}
+.log-period .pe{font-size:18px}
+.log-period.sel{background:var(--hb-gold);border-color:var(--hb-gold);color:#fff}
+.log-entry{display:flex;align-items:center;gap:10px;background:#fff;border:1px solid rgba(54,59,59,.1);border-radius:12px;padding:11px 13px;margin-bottom:8px}
+.log-entry .pe{font-size:18px}
+.log-entry-x{margin-left:auto;border:none;background:none;cursor:pointer;color:var(--ink-soft);font-size:18px;line-height:1;padding:2px 6px}
+.log-empty-note{text-align:center;color:var(--ink-soft);font-size:13px;padding:10px 0}

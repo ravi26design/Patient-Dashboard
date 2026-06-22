@@ -383,3 +383,89 @@ function renderIcons(){ if(window.lucide && window.lucide.createIcons) window.lu
 renderIcons();
 if(typeof updateTodayProgress==='function') updateTodayProgress();
 window.addEventListener('load', renderIcons);
+
+/* ═══ LOG OPIOID USE ═══ */
+var LOG_TODAY={y:2026,m:5,d:22};   /* June 22, 2026 — demo "today" */
+var logState={y:2026,m:5,selDay:null,selPeriod:null,entries:[]};
+var LOG_PERIODS=[
+  {e:'🌙',label:'Midnight – 6 AM'},
+  {e:'🌅',label:'6 AM – Noon'},
+  {e:'☀️',label:'Noon – 6 PM'},
+  {e:'🌆',label:'6 PM – Midnight'}
+];
+var LOG_MONTHS=['January','February','March','April','May','June','July','August','September','October','November','December'];
+var LOG_SMO=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+var LOG_WD=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+var LOG_SWD=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+var LOG_DOW=['Su','Mo','Tu','We','Th','Fr','Sa'];
+
+function openLogUse(){
+  logState.y=LOG_TODAY.y; logState.m=LOG_TODAY.m; logState.selDay=null; logState.selPeriod=null;
+  renderLogCalendar(); renderLogTime(); renderLogEntries();
+  openOv('log-use');
+}
+function changeLogMonth(d){
+  logState.m+=d;
+  if(logState.m<0){logState.m=11;logState.y--;}
+  if(logState.m>11){logState.m=0;logState.y++;}
+  logState.selDay=null; logState.selPeriod=null;
+  renderLogCalendar(); renderLogTime();
+}
+function logIsFuture(y,m,d){
+  if(y!==LOG_TODAY.y) return y>LOG_TODAY.y;
+  if(m!==LOG_TODAY.m) return m>LOG_TODAY.m;
+  return d>LOG_TODAY.d;
+}
+function renderLogCalendar(){
+  document.getElementById('log-month').textContent=LOG_MONTHS[logState.m]+' '+logState.y;
+  var cal=document.getElementById('log-cal'); cal.innerHTML='';
+  LOG_DOW.forEach(function(d){var c=document.createElement('div');c.className='dow';c.textContent=d;cal.appendChild(c);});
+  var first=new Date(logState.y,logState.m,1).getDay();
+  var days=new Date(logState.y,logState.m+1,0).getDate();
+  for(var i=0;i<first;i++){var e=document.createElement('div');e.className='log-day empty';cal.appendChild(e);}
+  for(var day=1;day<=days;day++){
+    var b=document.createElement('button'); b.className='log-day'; b.textContent=day;
+    if(logIsFuture(logState.y,logState.m,day)){ b.className+=' future'; }
+    else { (function(dd){ b.onclick=function(){selectLogDate(dd);}; })(day); }
+    if(logState.y===LOG_TODAY.y&&logState.m===LOG_TODAY.m&&day===LOG_TODAY.d&&logState.selDay!==day) b.className+=' today';
+    if(logState.selDay===day) b.className+=' sel';
+    cal.appendChild(b);
+  }
+}
+function selectLogDate(d){ logState.selDay=d; logState.selPeriod=null; renderLogCalendar(); renderLogTime(); }
+function renderLogTime(){
+  var empty=document.getElementById('log-time-empty'), body=document.getElementById('log-time-body');
+  if(logState.selDay==null){ empty.style.display='block'; body.style.display='none'; return; }
+  empty.style.display='none'; body.style.display='block';
+  var dt=new Date(logState.y,logState.m,logState.selDay);
+  document.getElementById('log-day-label').textContent=LOG_WD[dt.getDay()]+', '+LOG_MONTHS[logState.m]+' '+logState.selDay;
+  var pc=document.getElementById('log-periods'); pc.innerHTML='';
+  LOG_PERIODS.forEach(function(p,i){
+    var b=document.createElement('button');
+    b.className='log-period'+(logState.selPeriod===i?' sel':'');
+    b.innerHTML='<span class="pe">'+p.e+'</span><span>'+p.label+'</span>';
+    (function(idx){ b.onclick=function(){ logState.selPeriod=idx; renderLogTime(); }; })(i);
+    pc.appendChild(b);
+  });
+  var add=document.getElementById('log-add-btn');
+  if(logState.selPeriod!=null){ add.disabled=false; add.style.background='var(--hb-gold)'; add.style.color='#fff'; add.style.cursor='pointer'; }
+  else { add.disabled=true; add.style.background='#E3DED6'; add.style.color='#9A938B'; add.style.cursor='not-allowed'; }
+}
+function addLogEntry(){
+  if(logState.selDay==null||logState.selPeriod==null) return;
+  var dt=new Date(logState.y,logState.m,logState.selDay), p=LOG_PERIODS[logState.selPeriod];
+  logState.entries.unshift({label:LOG_SWD[dt.getDay()]+', '+LOG_SMO[logState.m]+' '+logState.selDay, period:p.label, e:p.e});
+  logState.selPeriod=null; renderLogTime(); renderLogEntries();
+}
+function removeLogEntry(i){ logState.entries.splice(i,1); renderLogEntries(); }
+function renderLogEntries(){
+  var c=document.getElementById('log-entries'); c.innerHTML='';
+  if(!logState.entries.length){ c.innerHTML='<div class="log-empty-note">No entries logged yet</div>'; return; }
+  logState.entries.forEach(function(en,i){
+    var d=document.createElement('div'); d.className='log-entry';
+    d.innerHTML='<span class="pe">'+en.e+'</span><div style="flex:1"><div style="font-size:13px;font-weight:700;color:var(--ink)">'+en.label+'</div><div style="font-size:11px;color:var(--ink-soft)">'+en.period+'</div></div>';
+    var x=document.createElement('button'); x.className='log-entry-x'; x.innerHTML='&times;';
+    (function(idx){ x.onclick=function(){removeLogEntry(idx);}; })(i);
+    d.appendChild(x); c.appendChild(d);
+  });
+}

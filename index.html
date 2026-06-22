@@ -111,7 +111,7 @@
               <div class="task-name" id="connect-label">Connect</div>
               <div class="task-time" id="connect-time">Anytime</div>
             </div>
-            <div class="task" id="log-card" onclick="logUse(this)">
+            <div class="task" id="log-card" onclick="openLogUse()">
               <div class="task-ic-wrap">
                 <div class="ic-tile t-slate" id="log-icon"><i data-lucide="clipboard-list"></i></div>
                 <div class="task-check" style="display:none" id="log-check">&#10003;</div>
@@ -1389,6 +1389,46 @@
   </div>
 
   <!-- Bottom Nav -->
+  <!-- LOG OPIOID USE -->
+  <div class="overlay" id="ov-log-use" style="background:var(--app-bg)">
+    <div class="ov-header" style="background:#fff;border-bottom:1px solid rgba(54,59,59,.06)">
+      <button class="ov-back" style="background:#F0F3F3;color:var(--ink)" onclick="closeOv()">&larr;</button>
+      <div style="font-size:14px;font-weight:700;color:var(--ink)">Log Opioid Use</div>
+    </div>
+    <div class="ov-body" style="padding-top:14px">
+      <div style="background:#FBF1DA;border-left:4px solid var(--hb-gold);border-radius:12px;padding:13px 15px;margin-bottom:14px">
+        <div style="font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#B5832B;margin-bottom:5px">Private &amp; Confidential</div>
+        <div style="font-size:12.5px;color:#5A5450;line-height:1.6">Select the day and time when you used. You can log past days too — whenever you feel ready. You can add multiple entries.</div>
+      </div>
+
+      <!-- Calendar -->
+      <div style="background:#fff;border-radius:18px;box-shadow:var(--card-shadow);padding:16px 14px;margin-bottom:14px">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
+          <button onclick="changeLogMonth(-1)" style="border:none;background:none;cursor:pointer;font-size:20px;color:var(--ink-soft);padding:4px 10px">&#8249;</button>
+          <div id="log-month" style="font-size:15px;font-weight:700;color:var(--ink)">June 2026</div>
+          <button onclick="changeLogMonth(1)" style="border:none;background:none;cursor:pointer;font-size:20px;color:var(--ink-soft);padding:4px 10px">&#8250;</button>
+        </div>
+        <div id="log-cal" class="log-cal"></div>
+      </div>
+
+      <!-- Time picker -->
+      <div id="log-time-card" style="background:#fff;border-radius:18px;box-shadow:var(--card-shadow);padding:16px;margin-bottom:14px">
+        <div id="log-time-empty" style="text-align:center;color:var(--ink-soft);font-size:13px;padding:8px 0">Select a date above to choose a time</div>
+        <div id="log-time-body" style="display:none">
+          <div id="log-day-label" style="font-size:13px;font-weight:700;color:var(--ink);margin-bottom:12px"></div>
+          <div class="log-periods" id="log-periods"></div>
+          <button id="log-add-btn" onclick="addLogEntry()" disabled style="width:100%;margin-top:12px;padding:13px;border-radius:12px;border:none;font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;cursor:not-allowed;background:#E3DED6;color:#9A938B;transition:all .15s">Add to Log</button>
+        </div>
+      </div>
+
+      <!-- Logged entries -->
+      <div style="font-size:10px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;color:var(--ink-soft);margin:4px 2px 8px">Logged Entries</div>
+      <div id="log-entries"></div>
+
+      <button onclick="closeOv()" style="width:100%;margin-top:14px;padding:15px;border-radius:14px;border:none;background:var(--ink);color:#fff;font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;cursor:pointer">Done</button>
+    </div>
+  </div>
+
   <div class="bottom-nav" id="bottomNav">
     <button class="nav-tab active" onclick="goScreen('home')"><span class="nav-icon"><i data-lucide="house"></i></span><div class="nav-label">Home</div></button>
     <button class="nav-tab" onclick="goScreen('tools')"><span class="nav-icon"><i data-lucide="layout-grid"></i></span><div class="nav-label">Activities</div></button>
