@@ -814,7 +814,7 @@ body.is-desktop{background:#EAF0EF}
 
 /* Recovery Today — 4 tiles in a 2×2 grid (added Log Use) */
 .task-grid{grid-template-columns:1fr 1fr}
-.ic-tile.t-slate{background:#6E8B87}
+.ic-tile.t-slate{background:#C97C5D}
 
 /* Mobile — Recovery Today tiles scroll horizontally */
 body.is-mobile .task-grid{
