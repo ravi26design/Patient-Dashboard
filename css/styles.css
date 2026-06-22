@@ -1117,3 +1117,6 @@ body.is-desktop .dn-item:hover{transform:translateX(2px)}
 /* Consistent background across mobile, tablet & desktop */
 body.is-framed{background:var(--app-bg)}
 body.is-desktop{background:var(--app-bg)}
+
+/* Completed task tile: white XP chip */
+.task.done .xp-chip{background:#fff}
