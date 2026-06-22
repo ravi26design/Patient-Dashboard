@@ -775,3 +775,14 @@ body.is-desktop .screen.active{
 }
 body.is-desktop .screen.active > .section-label{grid-column:1 / -1}
 body.is-desktop .home-sec{margin-bottom:0}
+
+/* ═══ DESKTOP — normal native page scroll (content zoomed, not transform-scaled) ═══ */
+body.is-desktop{height:100dvh;overflow:hidden}
+body.is-desktop #patient-view{
+  flex:1;min-height:0;height:auto;
+  overflow-y:auto;overflow-x:hidden;
+  display:flex;flex-direction:column;align-items:center;justify-content:flex-start;
+  padding:22px 0 48px;
+}
+body.is-desktop .phone{height:auto !important;min-height:0;overflow:visible;display:block}
+body.is-desktop .screen-area{flex:none;height:auto;overflow:visible;display:block}

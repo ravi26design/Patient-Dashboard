@@ -329,6 +329,7 @@ function showMysteryXP(){
       p.style.transform='scale('+F+')';
       p.style.transformOrigin='top left';
       p.style.margin='0';
+      p.style.zoom='';
     } else if(vw<900){
       /* tablet — a tall, phone-shaped column centered in the space */
       b.classList.add('is-framed'); b.classList.remove('is-mobile'); b.classList.remove('is-desktop');
@@ -341,19 +342,20 @@ function showMysteryXP(){
       p.style.transformOrigin='top center';
       p.style.marginTop=Math.max(0,Math.round((H-dispH)/2))+'px';
       p.style.marginBottom=Math.round(dispH*(1-1/F2))+'px';
+      p.style.zoom='';
     } else {
-      /* desktop — a wide dashboard panel under the top nav bar.
-         Authored at a wider design width so cards can flow into 2 columns. */
+      /* desktop — natural page scroll. Use CSS zoom (which reflows, unlike
+         transform) so the whole page scrolls normally; cards flow 2-up. */
       b.classList.add('is-framed'); b.classList.add('is-desktop'); b.classList.remove('is-mobile');
-      var DW=680, top=64, avail=H-top;
-      var F=clamp(avail/740,1.15,1.4);
-      var dispH=Math.round(avail-36);
+      var DW=680, F=clamp(H/760,1.15,1.4);
+      p.style.transform='none';
+      p.style.transformOrigin='';
+      p.style.margin='0 auto';
+      p.style.marginTop='';
+      p.style.marginBottom='';
       p.style.width=DW+'px';
-      p.style.height=Math.round(dispH/F)+'px';
-      p.style.transform='scale('+F.toFixed(4)+')';
-      p.style.transformOrigin='top center';
-      p.style.marginTop='18px';
-      p.style.marginBottom=Math.round(dispH*(1-1/F))+'px';
+      p.style.height='auto';
+      p.style.zoom=F;
     }
   }
   apply();
@@ -367,28 +369,3 @@ function renderIcons(){ if(window.lucide && window.lucide.createIcons) window.lu
 renderIcons();
 if(typeof updateTodayProgress==='function') updateTodayProgress();
 window.addEventListener('load', renderIcons);
-
-/* ═══ SCROLL FROM ANYWHERE ═══
-   Forward wheel scrolling into the active content area even when the pointer
-   is over the backdrop, the top bar, or the scaled margins. */
-(function(){
-  function activeScroller(){
-    var ov=document.querySelector('.overlay.active .ov-body');
-    return ov || document.getElementById('screenArea');
-  }
-  window.addEventListener('wheel', function(e){
-    var sc=activeScroller(); if(!sc) return;
-    /* let a horizontal scroll strip (e.g. chart timelines) keep its own wheel */
-    var t=e.target;
-    while(t && t!==document.body){
-      if(t!==sc){
-        var ox=getComputedStyle(t).overflowX;
-        if((ox==='auto'||ox==='scroll') && t.scrollWidth>t.clientWidth+1) return;
-      }
-      t=t.parentElement;
-    }
-    /* otherwise drive the main content scroller from anywhere on the page */
-    sc.scrollTop += e.deltaY;
-    e.preventDefault();
-  }, {passive:false});
-})();
