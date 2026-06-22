@@ -1124,3 +1124,6 @@ body.is-desktop{background:var(--app-bg)}
 /* Mobile — slimmer Reflection footer CTAs */
 body.is-mobile .rf-btn{padding:11px 14px;font-size:11.5px}
 body.is-mobile .reflect-footer{padding:10px 14px}
+
+/* Mobile — Log Use time periods one per row */
+body.is-mobile .log-periods{grid-template-columns:1fr}
