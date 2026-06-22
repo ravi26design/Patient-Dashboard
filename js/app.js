@@ -10,6 +10,7 @@ function goScreen(id){
   document.querySelectorAll('.nav-tab').forEach(t=>t.classList.remove('active'));
   var m={home:0,tools:1,mat:2,rewards:4,narcan:4,workbook:1,profile:0,checkin:0,appointments:0};
   var tabs=document.querySelectorAll('.nav-tab');if(tabs[m[id]!=null?m[id]:0])tabs[m[id]!=null?m[id]:0].classList.add('active');
+  document.querySelectorAll('#dnav .dn-item').forEach(function(i){i.classList.toggle('active',i.getAttribute('data-screen')===id);});
   document.getElementById('screenArea').scrollTop=0;
   if(id==='mat'){ setTimeout(updatePatternChart,50); setTimeout(updateRecoveryHealthChart,50); }
 }
@@ -321,7 +322,7 @@ function showMysteryXP(){
     var vw=window.innerWidth, H=vh();
     if(vw<=MOBILE){
       /* phones — fill the viewport edge to edge */
-      b.classList.add('is-mobile'); b.classList.remove('is-framed');
+      b.classList.add('is-mobile'); b.classList.remove('is-framed'); b.classList.remove('is-desktop');
       var F=clamp(vw/DESIGN_W,1.35,1.7);
       p.style.width=(vw/F)+'px';
       p.style.height=(H/F)+'px';
@@ -331,8 +332,11 @@ function showMysteryXP(){
     } else {
       /* tablet & desktop — centered, readable app surface that grows with the window */
       b.classList.add('is-framed'); b.classList.remove('is-mobile');
-      var pad=vw>=1024?64:40;
-      var dispW=Math.round(clamp(vw-pad*2,320,600));
+      var desktop=vw>=1024;
+      b.classList.toggle('is-desktop',desktop);
+      var avail=desktop?(vw-248):vw;            /* leave room for the sidebar */
+      var pad=desktop?56:40;
+      var dispW=Math.round(clamp(avail-pad*2,320,600));
       var dispH=Math.round(Math.min(H-56,1000));
       var F2=clamp(dispW/DESIGN_W,1.4,1.95);
       p.style.width=Math.round(dispW/F2)+'px';

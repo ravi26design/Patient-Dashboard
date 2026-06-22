@@ -17,6 +17,23 @@
 </head>
 <body>
 
+<!-- ═══ DESKTOP SIDEBAR (shown ≥1024px) ═══ -->
+<aside id="dnav">
+  <div class="dn-brand">RudraHealth<small>OUD Recovery</small></div>
+  <nav class="dn-list">
+    <button class="dn-item active" data-screen="home" onclick="goScreen('home')"><i data-lucide="house"></i><span>Home</span></button>
+    <button class="dn-item" data-screen="tools" onclick="goScreen('tools')"><i data-lucide="layout-grid"></i><span>Activities</span></button>
+    <button class="dn-item" data-screen="mat" onclick="goScreen('mat')"><i data-lucide="trending-up"></i><span>Patterns</span></button>
+    <button class="dn-item" data-screen="rewards" onclick="goScreen('rewards')"><i data-lucide="trophy"></i><span>Rewards</span></button>
+    <button class="dn-item" data-screen="appointments" onclick="goScreen('appointments')"><i data-lucide="calendar"></i><span>Appointments</span></button>
+    <button class="dn-item dn-sos" onclick="openOv('sos')"><i data-lucide="life-buoy"></i><span>SOS</span></button>
+  </nav>
+  <button class="dn-foot" onclick="goScreen('profile')">
+    <div class="dn-avatar">AM</div>
+    <div class="dn-user"><div>Alex M.</div><small>47-day streak</small></div>
+  </button>
+</aside>
+
 <!-- ═══ PATIENT APP (mobile-first web app) ═══ -->
 <div id="patient-view">
 <div class="phone" id="phone">

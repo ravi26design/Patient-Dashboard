@@ -667,3 +667,58 @@ body.is-mobile .app-header{padding-top:max(16px,env(safe-area-inset-top))}
 
 /* Connect page — align the row icon to the top */
 #ov-connect .card-pad{align-items:flex-start !important}
+
+/* ═══════════════════════════════════════════════════════════
+   DESKTOP LAYOUT (≥1024px) — persistent left sidebar + app column
+   ═══════════════════════════════════════════════════════════ */
+#dnav{display:none}
+body.is-desktop{
+  flex-direction:row;
+  align-items:stretch;
+  justify-content:flex-start;
+  height:100dvh;overflow:hidden;padding:0;margin:0;
+  background:#EAF0EF;
+}
+body.is-desktop #dnav{
+  display:flex;flex-direction:column;
+  width:248px;flex-shrink:0;height:100dvh;
+  background:#fff;border-right:1px solid rgba(54,59,59,.07);
+  padding:24px 16px 18px;
+  font-family:var(--font-ui);
+}
+body.is-desktop #patient-view{
+  flex:1;min-width:0;height:100dvh;
+  display:flex;flex-direction:column;align-items:center;justify-content:flex-start;
+  overflow:hidden;padding:0;
+}
+body.is-desktop .bottom-nav{display:none}   /* sidebar replaces the tab bar */
+
+/* Sidebar brand */
+.dn-brand{font-weight:800;font-size:17px;letter-spacing:.5px;color:var(--ink);padding:4px 12px 24px}
+.dn-brand small{display:block;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--hb-teal-deep);margin-top:3px}
+
+/* Sidebar nav items */
+.dn-list{display:flex;flex-direction:column;gap:4px;flex:1}
+.dn-item{
+  display:flex;align-items:center;gap:13px;
+  padding:11px 14px;border:none;background:none;border-radius:13px;cursor:pointer;
+  font-family:var(--font-ui);font-size:14px;font-weight:600;color:var(--ink-soft);
+  text-align:left;width:100%;transition:background .15s,color .15s;
+}
+.dn-item svg{width:20px;height:20px;flex-shrink:0}
+.dn-item:hover{background:#F0F3F3;color:var(--ink)}
+.dn-item.active{background:#E2F1EE;color:var(--hb-teal-deep)}
+.dn-sos{color:#D9795F;margin-top:6px}
+.dn-sos:hover{background:#FBEAE4;color:#C25A45}
+
+/* Sidebar footer / user */
+.dn-foot{
+  display:flex;align-items:center;gap:11px;width:100%;
+  padding:12px 10px;border:none;background:none;cursor:pointer;border-radius:13px;
+  border-top:1px solid rgba(54,59,59,.07);margin-top:6px;transition:background .15s;
+}
+.dn-foot:hover{background:#F0F3F3}
+.dn-avatar{width:38px;height:38px;border-radius:50%;background:var(--hb-teal);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;flex-shrink:0}
+.dn-user{text-align:left;font-family:var(--font-ui)}
+.dn-user div{font-size:13px;font-weight:700;color:var(--ink)}
+.dn-user small{font-size:11px;font-weight:500;color:var(--ink-soft)}
