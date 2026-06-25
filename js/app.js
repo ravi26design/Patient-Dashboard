@@ -655,10 +655,10 @@ function enterApp(){
 (function(){
   var sp=document.getElementById('splash'); if(!sp) return;
   var hidden=false;
-  function hide(){ if(hidden) return; hidden=true; sp.classList.add('hide');
-    setTimeout(function(){ sp.style.display='none';
-      var w=document.getElementById('welcome'); if(w){ w.classList.add('show'); __wc.start(); } /* reveal + start carousel */
-    }, 650); }
+  function hide(){ if(hidden) return; hidden=true;
+    var w=document.getElementById('welcome'); if(w){ w.classList.add('show'); __wc.start(); } /* show welcome BEHIND the splash first */
+    sp.classList.add('hide');                                                                 /* then fade the splash to reveal it (no dashboard flash) */
+    setTimeout(function(){ sp.style.display='none'; }, 650); }
   setTimeout(hide, 1900);            /* auto-dismiss splash */
   sp.addEventListener('click', hide); /* tap to skip */
 })();
