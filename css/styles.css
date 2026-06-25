@@ -1253,7 +1253,7 @@ body.is-tablet #patient-view{padding:0;height:100dvh;width:100vw;overflow:hidden
 body.is-tablet .phone{max-width:none;border:none;border-radius:0;box-shadow:none;
   background:var(--app-bg);transform-origin:top left}
 /* 2-column card grid (mirrors desktop), inside the mobile-style scroll shell */
-body.is-tablet .screen.active{display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:stretch}
+body.is-tablet .screen.active{display:grid;grid-template-columns:1fr;gap:16px;align-items:start}
 body.is-tablet .screen.active > .section-label{grid-column:1 / -1}
 body.is-tablet .screen.active > *{break-inside:avoid;min-width:0}
 body.is-tablet .home-sec{margin-bottom:0;height:auto}
