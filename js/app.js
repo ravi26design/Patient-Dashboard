@@ -637,13 +637,32 @@ function postThread(el){
 var __wc={start:function(){},stop:function(){}};
 (function(){
   var track=document.getElementById('wcTrack'); if(!track) return;
+  var slidesEl=document.querySelector('#welcome .wc-slides');
   var n=track.children.length, i=0, timer=null;
   var dots=document.querySelectorAll('#wcDots .wc-dot');
-  function go(k){ i=(k+n)%n; track.style.transform='translateX('+(-i*100)+'%)';
+  function go(k){ i=(k+n)%n; track.style.transition=''; track.style.transform='translateX('+(-i*100)+'%)';
     for(var d=0;d<dots.length;d++) dots[d].classList.toggle('active', d===i); }
   function start(){ stop(); timer=setInterval(function(){ go(i+1); }, 3800); }
   function stop(){ if(timer){ clearInterval(timer); timer=null; } }
   for(var d=0;d<dots.length;d++){ (function(k){ dots[k].addEventListener('click', function(){ go(k); start(); }); })(d); }
+
+  /* manual swipe / drag */
+  var startX=0, dx=0, dragging=false, w=1;
+  function down(x){ dragging=true; startX=x; dx=0; w=(slidesEl&&slidesEl.clientWidth)||window.innerWidth||1; track.style.transition='none'; stop(); }
+  function move(x){ if(!dragging) return; dx=x-startX; track.style.transform='translateX('+(-i*100 + dx/w*100)+'%)'; }
+  function up(){ if(!dragging) return; dragging=false; var th=w*0.16;
+    if(dx<=-th) go(i+1); else if(dx>=th) go(i-1); else go(i);
+    start(); }
+  if(slidesEl){
+    slidesEl.addEventListener('touchstart', function(e){ down(e.touches[0].clientX); }, {passive:true});
+    slidesEl.addEventListener('touchmove',  function(e){ move(e.touches[0].clientX); }, {passive:true});
+    slidesEl.addEventListener('touchend',   up);
+    slidesEl.addEventListener('touchcancel',up);
+    slidesEl.addEventListener('pointerdown',function(e){ if(e.pointerType==='mouse'){ e.preventDefault(); down(e.clientX); } });
+    slidesEl.addEventListener('pointermove',function(e){ if(e.pointerType==='mouse') move(e.clientX); });
+    window.addEventListener('pointerup',     function(e){ if(e.pointerType==='mouse') up(); });
+    slidesEl.style.cursor='grab';
+  }
   go(0); __wc.start=start; __wc.stop=stop;
 })();
 function enterApp(){
