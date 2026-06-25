@@ -490,7 +490,7 @@ svg.lucide{display:block;stroke-width:1.75px}
 .phone{background:var(--app-bg)}
 body.is-mobile{background:var(--app-bg)}
 body.is-framed .phone{background:var(--app-bg)}
-.screen{padding:0 18px 26px}
+.screen{padding:0 12px 26px}
 
 /* Header — quiet, on cream */
 .app-logo{color:var(--ink);letter-spacing:3px}
