@@ -1541,9 +1541,12 @@ body.is-desktop .brand-img{height:26px}
   margin:0;padding:6px 6px calc(5px + env(safe-area-inset-bottom));
   background:#fff !important;border:none;border-top:none;border-radius:22px 22px 0 0;
   box-shadow:0 -5px 22px rgba(58,51,48,.10);
-  display:flex;align-items:flex-end;justify-content:space-around;gap:10px;overflow:visible}
-.bottom-nav .nav-tab{flex:1;min-width:0;display:flex;flex-direction:column;align-items:center;gap:4px;
-  background:none !important;padding:3px 2px;border-radius:0}
+  display:flex;align-items:flex-end;justify-content:flex-start;gap:0;overflow:visible}
+.bottom-nav .nav-tab{flex:0 0 auto;min-width:0;display:flex;flex-direction:column;align-items:center;gap:4px;
+  background:none !important;padding:3px 5px;border-radius:0}
+/* Home far-left, Rewards far-right; Activities & Patterns hug the center SOS */
+.bottom-nav .nav-tab:nth-child(2),
+.bottom-nav .nav-tab:last-child{margin-left:auto}
 .bottom-nav .nav-tab::after{display:none !important}
 .bottom-nav .nav-icon{background:none !important;width:auto;height:auto;border-radius:0;margin:0;
   color:var(--muted) !important;opacity:1 !important}
@@ -1555,7 +1558,7 @@ body.is-desktop .brand-img{height:26px}
 .bottom-nav .nav-tab.active .nav-icon{color:var(--hb-teal-deep) !important;background:none !important}
 .bottom-nav .nav-tab.active .nav-label{color:var(--hb-teal-deep) !important;font-weight:700}
 /* center SOS = raised circular FAB */
-.bottom-nav .nav-sos{flex:0 0 70px;opacity:1 !important;padding:0}
+.bottom-nav .nav-sos{flex:0 0 62px;opacity:1 !important;padding:0}
 .bottom-nav .nav-sos .nav-icon{position:absolute;left:50%;top:-30px;transform:translateX(-50%);margin:0;
   width:58px;height:58px;border-radius:50%;background:var(--coral) !important;color:#fff !important;
   display:flex;align-items:center;justify-content:center;
