@@ -1591,7 +1591,7 @@ body.is-framed:not(.is-desktop) .bottom-nav{margin-bottom:0}
   color:var(--muted);margin-top:5px}
 
 /* ═══ HOME WIDGET — Recovery Journey milestone ═══ */
-.rj-card{background:#AECB96;padding:22px}
+.rj-card{background:#84B27F;padding:22px}
 .rj-eyebrow{font-family:var(--font-ui);font-size:10px;font-weight:700;letter-spacing:2.2px;
   text-transform:uppercase;color:rgba(255,255,255,.88);margin-bottom:8px}
 .rj-title{font-family:var(--font-display);font-size:23px;font-weight:700;color:#fff;
