@@ -667,7 +667,8 @@ var __wc={start:function(){},stop:function(){}};
 })();
 function enterApp(){
   __wc.stop();
-  showPhoneScreen();                         /* appears on top, so the dashboard never flashes */
+  showPhoneScreen();                         /* mobile-number page underneath */
+  showLocModal();                            /* location modal OVER the mobile-number page */
   var w=document.getElementById('welcome');
   if(w){ w.classList.add('hide'); setTimeout(function(){ w.style.display='none'; }, 520); }
 }
@@ -693,8 +694,7 @@ function sendCode(){
     return;
   }
   window.__phone='+1'+d;
-  showLocModal();        /* next onboarding step */
-  hidePhoneScreen();
+  hidePhoneScreen();     /* -> dashboard */
 }
 /* ═══ LOCATION PERMISSION ═══ */
 function showLocModal(){ var m=document.getElementById('locModal'); if(m) m.classList.add('show'); }
