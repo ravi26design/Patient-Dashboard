@@ -703,12 +703,12 @@ function hideDetailsScreen(){ var d=document.getElementById('detailsScreen'); if
   d.classList.add('hide'); setTimeout(function(){ d.style.display='none'; }, 420); }
 function dtErr(id){ var f=document.getElementById(id); if(f){ f.classList.add('err'); setTimeout(function(){ f.classList.remove('err'); }, 1200); } }
 function submitDetails(){
-  var name=document.getElementById('dtName'), email=document.getElementById('dtEmail'), age=document.getElementById('dtAge');
+  var name=document.getElementById('dtName'), email=document.getElementById('dtEmail');
   var nameVal=((name&&name.value)||'').trim();
   if(!nameVal){ dtErr('dtNameField'); if(name) name.focus(); return; }
   var emailVal=((email&&email.value)||'').trim();
   if(emailVal && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(emailVal)){ dtErr('dtEmailField'); if(email) email.focus(); return; }
-  window.__profile={name:nameVal, email:emailVal, age:((age&&age.value)||'').trim()};
+  window.__profile={name:nameVal, email:emailVal, dob:(window.__dob||null), age:(window.__dob?window.__dob.age:null)};
   hideDetailsScreen();   /* -> dashboard */
 }
 /* ═══ LOCATION PERMISSION ═══ */
@@ -829,3 +829,41 @@ function resendOtp(){
     });
   })(i); }
 })();
+
+/* ═══ DATE OF BIRTH WHEEL PICKER ═══ */
+var DOB_ITEMH=44;
+var DOB_DAYS=[], DOB_MONTHS=['January','February','March','April','May','June','July','August','September','October','November','December'], DOB_YEARS=[];
+(function(){ for(var d=1;d<=31;d++) DOB_DAYS.push(d); for(var y=1940;y<=2026;y++) DOB_YEARS.push(y); })();
+var __dobBuilt=false, __dobSel=null;
+function dobCols(){ return [document.getElementById('dobDay'),document.getElementById('dobMonth'),document.getElementById('dobYear')]; }
+function dobFill(col,arr){ var h=''; for(var i=0;i<arr.length;i++) h+='<div class="dob-item" data-i="'+i+'">'+arr[i]+'</div>'; col.innerHTML=h; }
+function dobIdx(col){ return Math.max(0, Math.round(col.scrollTop/DOB_ITEMH)); }
+function dobSel(col){ if(!col) return; var idx=dobIdx(col), items=col.children; for(var i=0;i<items.length;i++) items[i].classList.toggle('sel', i===idx); }
+function dobTo(col,idx){ if(col){ col.scrollTop=idx*DOB_ITEMH; dobSel(col); } }
+function openDob(){
+  var p=document.getElementById('dobPicker'); if(!p) return;
+  var cols=dobCols();
+  if(!__dobBuilt){
+    dobFill(cols[0],DOB_DAYS); dobFill(cols[1],DOB_MONTHS); dobFill(cols[2],DOB_YEARS);
+    cols.forEach(function(c){ if(!c) return; var t=null;
+      c.addEventListener('scroll', function(){ dobSel(c); if(t) clearTimeout(t); t=setTimeout(function(){ dobSel(c); }, 60); });
+      c.addEventListener('click', function(e){ var it=e.target.closest&&e.target.closest('.dob-item'); if(it) c.scrollTo({top:(+it.getAttribute('data-i'))*DOB_ITEMH, behavior:'smooth'}); });
+    });
+    __dobBuilt=true;
+  }
+  p.classList.add('show');
+  var sel=__dobSel||{d:0,m:0,y:DOB_YEARS.indexOf(2000)};
+  setTimeout(function(){ dobTo(cols[0],sel.d); dobTo(cols[1],sel.m); dobTo(cols[2],sel.y); }, 40);
+}
+function closeDob(){ var p=document.getElementById('dobPicker'); if(p) p.classList.remove('show'); }
+function confirmDob(){
+  var cols=dobCols(); var di=dobIdx(cols[0]), mi=dobIdx(cols[1]), yi=dobIdx(cols[2]);
+  di=Math.min(di,DOB_DAYS.length-1); mi=Math.min(mi,DOB_MONTHS.length-1); yi=Math.min(yi,DOB_YEARS.length-1);
+  __dobSel={d:di,m:mi,y:yi};
+  var day=DOB_DAYS[di], month=mi, year=DOB_YEARS[yi];
+  var str=day+' '+DOB_MONTHS[month]+' '+year;
+  var inp=document.getElementById('dtDob'); if(inp) inp.value=str;
+  var t=new Date(), age=t.getFullYear()-year; if(t.getMonth()<month || (t.getMonth()===month && t.getDate()<day)) age--;
+  window.__dob={date:str, day:day, month:month+1, year:year, age:age};
+  closeDob();
+}

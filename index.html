@@ -122,9 +122,9 @@
           <label class="dt-label" for="dtEmail">Email</label>
           <div class="dt-inwrap"><i data-lucide="mail"></i><input id="dtEmail" class="dt-input" type="email" placeholder="you@example.com" autocomplete="email"></div>
         </div>
-        <div class="dt-field" id="dtAgeField">
-          <label class="dt-label" for="dtAge">Age</label>
-          <div class="dt-inwrap"><i data-lucide="cake"></i><input id="dtAge" class="dt-input" type="number" inputmode="numeric" placeholder="Your age" min="1" max="120"></div>
+        <div class="dt-field" id="dtDobField">
+          <label class="dt-label" for="dtDob">Date of birth</label>
+          <div class="dt-inwrap"><i data-lucide="calendar"></i><input id="dtDob" class="dt-input" type="text" placeholder="Select your date of birth" readonly onclick="openDob()"></div>
         </div>
       </div>
     </div>
@@ -152,6 +152,23 @@
     </div>
     <div class="cc-search-wrap"><i data-lucide="search"></i><input id="ccSearch" class="cc-search" type="text" placeholder="Search country or code" oninput="filterCC(this.value)"></div>
     <div class="cc-list" id="ccList"></div>
+  </div>
+</div>
+
+<!-- ═══ DATE OF BIRTH PICKER ═══ -->
+<div id="dobPicker" aria-hidden="true" onclick="if(event.target===this)closeDob()">
+  <div class="dob-sheet">
+    <div class="dob-head">
+      <div class="dob-title">Date of birth</div>
+      <button class="cc-close" type="button" onclick="closeDob()"><i data-lucide="x"></i></button>
+    </div>
+    <div class="dob-wheels">
+      <div class="dob-band"></div>
+      <div class="dob-col" id="dobDay"></div>
+      <div class="dob-col" id="dobMonth"></div>
+      <div class="dob-col" id="dobYear"></div>
+    </div>
+    <button class="wc-begin dob-done" type="button" onclick="confirmDob()">Done</button>
   </div>
 </div>
 
