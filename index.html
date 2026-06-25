@@ -66,6 +66,17 @@
   </div>
 </div>
 
+<!-- ═══ LOCATION PERMISSION MODAL ═══ -->
+<div id="locModal" aria-hidden="true">
+  <div class="lm-card">
+    <div class="lm-icon"><i data-lucide="map-pin"></i></div>
+    <h2 class="lm-title">Allow location access?</h2>
+    <p class="lm-body">Rudra uses your location to find treatment providers and recovery support near you. You can change this anytime in settings.</p>
+    <button class="lm-allow" type="button" onclick="allowLocation()">Allow location</button>
+    <button class="lm-deny" type="button" onclick="skipLocation()">Not now</button>
+  </div>
+</div>
+
 <!-- ═══ DESKTOP SIDEBAR (shown ≥1024px) ═══ -->
 <aside id="dnav">
   <div class="dn-brand"><img class="brand-img" src="assets/Logo.png" alt="RudraHealth ai"></div>

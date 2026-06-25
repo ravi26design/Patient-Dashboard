@@ -648,10 +648,28 @@ var __wc={start:function(){},stop:function(){}};
 })();
 function enterApp(){
   __wc.stop();
-  var w=document.getElementById('welcome'); if(!w) return;
-  w.classList.add('hide');
-  setTimeout(function(){ w.style.display='none'; }, 520);
+  var w=document.getElementById('welcome');
+  if(w){ w.classList.add('hide'); setTimeout(function(){ w.style.display='none'; showLocModal(); }, 520); }
+  else showLocModal();
 }
+/* ═══ LOCATION PERMISSION ═══ */
+function showLocModal(){ var m=document.getElementById('locModal'); if(m) m.classList.add('show'); }
+function hideLocModal(){ var m=document.getElementById('locModal'); if(!m) return;
+  m.classList.add('hide'); setTimeout(function(){ m.style.display='none'; }, 320); }
+function allowLocation(){
+  hideLocModal();
+  /* trigger the real browser/system location prompt */
+  try{
+    if(navigator.geolocation){
+      navigator.geolocation.getCurrentPosition(
+        function(pos){ window.__loc={lat:pos.coords.latitude,lng:pos.coords.longitude}; },
+        function(err){ /* denied or unavailable — the app still works without it */ },
+        {enableHighAccuracy:false, timeout:10000, maximumAge:600000}
+      );
+    }
+  }catch(e){}
+}
+function skipLocation(){ hideLocModal(); }
 (function(){
   var sp=document.getElementById('splash'); if(!sp) return;
   var hidden=false;
