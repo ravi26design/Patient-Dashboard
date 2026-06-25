@@ -632,3 +632,13 @@ function postThread(el){
   card.scrollIntoView({behavior:'smooth', block:'center'});
   if(window.lucide && lucide.createIcons) lucide.createIcons();
 }
+
+/* ═══ SPLASH SCREEN — show on load, then dissolve into the app ═══ */
+(function(){
+  var sp=document.getElementById('splash'); if(!sp) return;
+  var hidden=false;
+  function hide(){ if(hidden) return; hidden=true; sp.classList.add('hide');
+    setTimeout(function(){ sp.style.display='none'; }, 650); }
+  setTimeout(hide, 1900);            /* auto-dismiss */
+  sp.addEventListener('click', hide); /* tap to skip */
+})();
