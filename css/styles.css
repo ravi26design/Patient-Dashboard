@@ -1408,7 +1408,7 @@ body.is-desktop .brand-img{height:26px}
 .cc-close i,.cc-close svg{width:18px;height:18px}
 .cc-search-wrap{display:flex;align-items:center;gap:8px;background:var(--beige);border-radius:14px;padding:11px 14px;margin-bottom:8px}
 .cc-search-wrap i,.cc-search-wrap svg{width:17px;height:17px;color:var(--muted);flex-shrink:0}
-.cc-search{flex:1;min-width:0;border:none;background:none;outline:none;font-family:var(--font-ui);font-size:15px;color:var(--ink)}
+.cc-search{flex:1;min-width:0;border:none;background:none;outline:none;font-family:var(--font-ui);font-size:16px;color:var(--ink)}
 .cc-list{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch}
 .cc-item{display:flex;align-items:center;gap:12px;width:100%;background:none;border:none;cursor:pointer;
   padding:12px 8px;border-radius:12px;text-align:left;font-family:var(--font-ui)}
