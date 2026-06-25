@@ -380,8 +380,7 @@ renderIcons();
 if(typeof updateTodayProgress==='function') updateTodayProgress();
 window.addEventListener('load', renderIcons);
 
-/* Fresh state on every refresh (no page restore) */
-try{localStorage.removeItem("rh_ov");localStorage.removeItem("rh_screen");}catch(e){}
+/* Returning users stay on their last screen (rh_screen / rh_ov persist) */
 
 /* ═══ LOG OPIOID USE ═══ */
 var LOG_TODAY={y:2026,m:5,d:22};   /* June 22, 2026 — demo "today" */
@@ -715,6 +714,7 @@ function submitDetails(){
   if(emailVal && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(emailVal)){ dtErr('dtEmailField'); if(email) email.focus(); return; }
   window.__profile={name:nameVal, email:emailVal, dob:(window.__dob||null), age:(window.__dob?window.__dob.age:null)};
   var rn=document.getElementById('rhName'); if(rn) rn.textContent=nameVal.split(' ')[0];   /* greet by first name */
+  try{ localStorage.setItem('rh_onboarded','1'); localStorage.setItem('rh_profile', JSON.stringify(window.__profile)); }catch(e){}
   hideDetailsScreen();   /* -> dashboard */
 }
 /* ═══ LOCATION PERMISSION ═══ */
@@ -737,6 +737,16 @@ function allowLocation(){
 function skipLocation(){ hideLocModal(); }
 (function(){
   var sp=document.getElementById('splash'); if(!sp) return;
+  var onboarded=false; try{ onboarded=localStorage.getItem('rh_onboarded')==='1'; }catch(e){}
+  if(onboarded){
+    /* returning user — skip onboarding, restore the last screen/overlay behind a brief splash */
+    try{ var pf=JSON.parse(localStorage.getItem('rh_profile')||'null'); if(pf){ window.__profile=pf; if(pf.name){ var rn=document.getElementById('rhName'); if(rn) rn.textContent=pf.name.split(' ')[0]; } } }catch(e){}
+    try{ var scr=localStorage.getItem('rh_screen'); if(scr) goScreen(scr);
+         var ov=localStorage.getItem('rh_ov'); if(ov) openOv(ov); }catch(e){}
+    setTimeout(function(){ sp.classList.add('hide'); setTimeout(function(){ sp.style.display='none'; }, 650); }, 850);
+    sp.addEventListener('click', function(){ sp.classList.add('hide'); setTimeout(function(){ sp.style.display='none'; }, 650); });
+    return;
+  }
   var hidden=false;
   function hide(){ if(hidden) return; hidden=true;
     var w=document.getElementById('welcome'); if(w){ w.classList.add('show'); __wc.start(); } /* show welcome BEHIND the splash first */
