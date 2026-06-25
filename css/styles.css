@@ -1437,3 +1437,25 @@ body.is-desktop .brand-img{height:26px}
   .lm-body{font-size:16px;line-height:1.65}
   .lm-title{font-size:23px}
 }
+
+/* ═══ DETAILS SCREEN (name / email / age) ═══ */
+#detailsScreen{position:fixed;inset:0;z-index:9560;display:none;
+  flex-direction:column;align-items:center;justify-content:flex-start;text-align:center;
+  padding:48px 30px calc(34px + env(safe-area-inset-bottom));
+  background:
+    radial-gradient(120% 62% at 50% 6%, rgba(196,160,136,.26), transparent 56%),
+    radial-gradient(120% 70% at 50% 102%, rgba(110,158,128,.20), transparent 60%),
+    var(--app-bg)}
+#detailsScreen.show{display:flex;animation:wcIn .55s cubic-bezier(.2,.7,.3,1) both}
+#detailsScreen.hide{opacity:0;visibility:hidden;pointer-events:none;transition:opacity .4s ease, visibility .4s ease}
+.dt-stage{justify-content:flex-start;overflow-y:auto;padding-top:14px}
+.dt-stage .ph-sub{margin-bottom:20px}
+.dt-fields{width:100%;max-width:340px;display:flex;flex-direction:column;gap:14px;margin-top:2px}
+.dt-field{text-align:left}
+.dt-label{display:block;font-family:var(--font-ui);font-size:13px;font-weight:600;color:var(--brown);margin:0 0 6px 4px}
+.dt-req{color:var(--coral)}
+.dt-input{width:100%;background:#fff;border:none;border-radius:16px;padding:15px 18px;
+  font-family:var(--font-ui);font-size:16px;color:var(--ink);outline:none;box-shadow:0 8px 22px rgba(58,51,48,.08)}
+.dt-input::placeholder{color:var(--t4)}
+.dt-field.err .dt-input{box-shadow:0 0 0 2px var(--coral)}
+@media (min-width:900px){ .dt-input{font-size:17px} .dt-label{font-size:14px} }

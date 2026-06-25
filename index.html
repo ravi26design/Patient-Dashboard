@@ -85,6 +85,32 @@
   </div>
 </div>
 
+<!-- ═══ DETAILS SCREEN (name / email / age) ═══ -->
+<div id="detailsScreen" aria-hidden="true">
+  <div class="phone-inner">
+    <div class="ph-stage dt-stage">
+      <div class="ph-badge ph-badge-ic"><i data-lucide="user-round"></i></div>
+      <h1 class="ph-title">A little about you</h1>
+      <p class="ph-sub">This helps us personalize your recovery.</p>
+      <div class="dt-fields">
+        <div class="dt-field" id="dtNameField">
+          <label class="dt-label" for="dtName">Name <span class="dt-req">*</span></label>
+          <input id="dtName" class="dt-input" type="text" placeholder="Your name" autocomplete="name">
+        </div>
+        <div class="dt-field" id="dtEmailField">
+          <label class="dt-label" for="dtEmail">Email</label>
+          <input id="dtEmail" class="dt-input" type="email" placeholder="you@example.com" autocomplete="email">
+        </div>
+        <div class="dt-field" id="dtAgeField">
+          <label class="dt-label" for="dtAge">Age</label>
+          <input id="dtAge" class="dt-input" type="number" inputmode="numeric" placeholder="Your age" min="1" max="120">
+        </div>
+      </div>
+    </div>
+    <button class="wc-begin ph-send" type="button" onclick="submitDetails()">Continue <span aria-hidden="true">&rarr;</span></button>
+  </div>
+</div>
+
 <!-- ═══ LOCATION PERMISSION MODAL ═══ -->
 <div id="locModal" aria-hidden="true">
   <div class="lm-card">

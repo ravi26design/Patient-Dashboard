@@ -694,7 +694,22 @@ function sendCode(){
     return;
   }
   window.__phone=(typeof __cc!=='undefined'&&__cc?__cc.d:'+1')+d;
-  hidePhoneScreen();     /* -> dashboard */
+  showDetailsScreen();   /* next step: name / email / age */
+  hidePhoneScreen();
+}
+/* ═══ DETAILS (name / email / age) ═══ */
+function showDetailsScreen(){ var d=document.getElementById('detailsScreen'); if(d) d.classList.add('show'); }
+function hideDetailsScreen(){ var d=document.getElementById('detailsScreen'); if(!d) return;
+  d.classList.add('hide'); setTimeout(function(){ d.style.display='none'; }, 420); }
+function dtErr(id){ var f=document.getElementById(id); if(f){ f.classList.add('err'); setTimeout(function(){ f.classList.remove('err'); }, 1200); } }
+function submitDetails(){
+  var name=document.getElementById('dtName'), email=document.getElementById('dtEmail'), age=document.getElementById('dtAge');
+  var nameVal=((name&&name.value)||'').trim();
+  if(!nameVal){ dtErr('dtNameField'); if(name) name.focus(); return; }
+  var emailVal=((email&&email.value)||'').trim();
+  if(emailVal && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(emailVal)){ dtErr('dtEmailField'); if(email) email.focus(); return; }
+  window.__profile={name:nameVal, email:emailVal, age:((age&&age.value)||'').trim()};
+  hideDetailsScreen();   /* -> dashboard */
 }
 /* ═══ LOCATION PERMISSION ═══ */
 function showLocModal(){ var m=document.getElementById('locModal'); if(m) m.classList.add('show'); }
