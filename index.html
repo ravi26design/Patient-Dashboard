@@ -74,7 +74,9 @@
       <h1 class="ph-title">What's your mobile number?</h1>
       <p class="ph-sub">Your number is never shared or sold.</p>
       <div class="ph-row" id="phRow">
-        <div class="ph-cc">+1</div>
+        <button class="ph-cc" id="phCC" type="button" onclick="openCC()">
+          <span class="cc-flag" id="ccFlag">🇺🇸</span><span class="cc-dial" id="ccDial">+1</span><i data-lucide="chevron-down" class="cc-chev"></i>
+        </button>
         <input id="phoneInput" class="ph-input" type="tel" inputmode="numeric" autocomplete="tel"
                placeholder="(555) 123-4567" maxlength="14" oninput="fmtPhone(this)">
       </div>
@@ -91,6 +93,18 @@
     <p class="lm-body">Rudra uses your location to find treatment providers and recovery support near you. You can change this anytime in settings.</p>
     <button class="lm-allow" type="button" onclick="allowLocation()">Allow location</button>
     <button class="lm-deny" type="button" onclick="skipLocation()">Not now</button>
+  </div>
+</div>
+
+<!-- ═══ COUNTRY CODE PICKER ═══ -->
+<div id="ccPicker" aria-hidden="true" onclick="if(event.target===this)closeCC()">
+  <div class="cc-sheet">
+    <div class="cc-head">
+      <div class="cc-title">Select country</div>
+      <button class="cc-close" type="button" onclick="closeCC()"><i data-lucide="x"></i></button>
+    </div>
+    <div class="cc-search-wrap"><i data-lucide="search"></i><input id="ccSearch" class="cc-search" type="text" placeholder="Search country or code" oninput="filterCC(this.value)"></div>
+    <div class="cc-list" id="ccList"></div>
   </div>
 </div>
 

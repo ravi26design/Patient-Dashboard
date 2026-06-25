@@ -693,7 +693,7 @@ function sendCode(){
     if(inp) inp.focus();
     return;
   }
-  window.__phone='+1'+d;
+  window.__phone=(typeof __cc!=='undefined'&&__cc?__cc.d:'+1')+d;
   hidePhoneScreen();     /* -> dashboard */
 }
 /* ═══ LOCATION PERMISSION ═══ */
@@ -724,3 +724,39 @@ function skipLocation(){ hideLocModal(); }
   setTimeout(hide, 1900);            /* auto-dismiss splash */
   sp.addEventListener('click', hide); /* tap to skip */
 })();
+
+/* ═══ COUNTRY CODE PICKER ═══ */
+var CC_LIST=[
+ {n:'United States',d:'+1',f:'🇺🇸'},{n:'Canada',d:'+1',f:'🇨🇦'},{n:'United Kingdom',d:'+44',f:'🇬🇧'},
+ {n:'Australia',d:'+61',f:'🇦🇺'},{n:'India',d:'+91',f:'🇮🇳'},{n:'Ireland',d:'+353',f:'🇮🇪'},
+ {n:'Germany',d:'+49',f:'🇩🇪'},{n:'France',d:'+33',f:'🇫🇷'},{n:'Spain',d:'+34',f:'🇪🇸'},
+ {n:'Italy',d:'+39',f:'🇮🇹'},{n:'Netherlands',d:'+31',f:'🇳🇱'},{n:'Portugal',d:'+351',f:'🇵🇹'},
+ {n:'Sweden',d:'+46',f:'🇸🇪'},{n:'Norway',d:'+47',f:'🇳🇴'},{n:'Denmark',d:'+45',f:'🇩🇰'},
+ {n:'Switzerland',d:'+41',f:'🇨🇭'},{n:'Poland',d:'+48',f:'🇵🇱'},{n:'Mexico',d:'+52',f:'🇲🇽'},
+ {n:'Brazil',d:'+55',f:'🇧🇷'},{n:'Argentina',d:'+54',f:'🇦🇷'},{n:'New Zealand',d:'+64',f:'🇳🇿'},
+ {n:'United Arab Emirates',d:'+971',f:'🇦🇪'},{n:'Saudi Arabia',d:'+966',f:'🇸🇦'},{n:'Turkey',d:'+90',f:'🇹🇷'},
+ {n:'South Africa',d:'+27',f:'🇿🇦'},{n:'Nigeria',d:'+234',f:'🇳🇬'},{n:'Kenya',d:'+254',f:'🇰🇪'},
+ {n:'Egypt',d:'+20',f:'🇪🇬'},{n:'Pakistan',d:'+92',f:'🇵🇰'},{n:'Bangladesh',d:'+880',f:'🇧🇩'},
+ {n:'Sri Lanka',d:'+94',f:'🇱🇰'},{n:'Nepal',d:'+977',f:'🇳🇵'},{n:'China',d:'+86',f:'🇨🇳'},
+ {n:'Japan',d:'+81',f:'🇯🇵'},{n:'South Korea',d:'+82',f:'🇰🇷'},{n:'Singapore',d:'+65',f:'🇸🇬'},
+ {n:'Malaysia',d:'+60',f:'🇲🇾'},{n:'Indonesia',d:'+62',f:'🇮🇩'},{n:'Philippines',d:'+63',f:'🇵🇭'},
+ {n:'Thailand',d:'+66',f:'🇹🇭'},{n:'Vietnam',d:'+84',f:'🇻🇳'}
+];
+var __cc=CC_LIST[0];
+function ccItem(c,i){ return '<button class="cc-item" type="button" onclick="pickCC('+i+')">'+
+  '<span class="cc-i-flag">'+c.f+'</span><span class="cc-i-name">'+c.n+'</span><span class="cc-i-dial">'+c.d+'</span></button>'; }
+function renderCC(q){
+  q=(q||'').toLowerCase().trim(); var nq=q.replace('+','');
+  var html='', any=false;
+  for(var i=0;i<CC_LIST.length;i++){ var c=CC_LIST[i];
+    if(!q || c.n.toLowerCase().indexOf(q)>=0 || c.d.replace('+','').indexOf(nq)>=0){ html+=ccItem(c,i); any=true; } }
+  var el=document.getElementById('ccList'); if(el) el.innerHTML=any?html:'<div class="cc-empty">No matches</div>';
+}
+function filterCC(q){ renderCC(q); }
+function openCC(){ var p=document.getElementById('ccPicker'); if(!p) return;
+  var s=document.getElementById('ccSearch'); if(s) s.value=''; renderCC(''); p.classList.add('show'); }
+function closeCC(){ var p=document.getElementById('ccPicker'); if(p) p.classList.remove('show'); }
+function pickCC(i){ var c=CC_LIST[i]; if(!c) return; __cc=c;
+  var f=document.getElementById('ccFlag'); if(f) f.textContent=c.f;
+  var d=document.getElementById('ccDial'); if(d) d.textContent=c.d;
+  closeCC(); var inp=document.getElementById('phoneInput'); if(inp) inp.focus(); }
