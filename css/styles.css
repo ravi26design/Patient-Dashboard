@@ -1541,7 +1541,7 @@ body.is-desktop .brand-img{height:26px}
   margin:0;padding:9px 6px calc(7px + env(safe-area-inset-bottom));
   background:#fff !important;border:none;border-top:none;border-radius:22px 22px 0 0;
   box-shadow:0 -5px 22px rgba(58,51,48,.10);
-  display:flex;align-items:flex-end;justify-content:space-around;gap:0;overflow:visible}
+  display:flex;align-items:flex-end;justify-content:space-around;gap:10px;overflow:visible}
 .bottom-nav .nav-tab{flex:1;min-width:0;display:flex;flex-direction:column;align-items:center;gap:5px;
   background:none !important;padding:6px 2px;border-radius:0}
 .bottom-nav .nav-tab::after{display:none !important}
