@@ -1561,3 +1561,6 @@ body.is-desktop .brand-img{height:26px}
   box-shadow:0 8px 20px rgba(196,96,72,.40)}
 .bottom-nav .nav-sos .nav-icon svg{width:25px;height:25px;color:#fff !important}
 .bottom-nav .nav-sos .nav-label{display:none !important}
+
+/* Returning user (already onboarded): no splash on refresh — land on the same page */
+html.returning #splash{display:none !important}

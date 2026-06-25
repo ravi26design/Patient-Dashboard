@@ -739,12 +739,11 @@ function skipLocation(){ hideLocModal(); }
   var sp=document.getElementById('splash'); if(!sp) return;
   var onboarded=false; try{ onboarded=localStorage.getItem('rh_onboarded')==='1'; }catch(e){}
   if(onboarded){
-    /* returning user — skip onboarding, restore the last screen/overlay behind a brief splash */
+    /* returning user — skip onboarding entirely; restore the last screen/overlay (splash already hidden via CSS) */
+    sp.style.display='none';
     try{ var pf=JSON.parse(localStorage.getItem('rh_profile')||'null'); if(pf){ window.__profile=pf; if(pf.name){ var rn=document.getElementById('rhName'); if(rn) rn.textContent=pf.name.split(' ')[0]; } } }catch(e){}
     try{ var scr=localStorage.getItem('rh_screen'); if(scr) goScreen(scr);
          var ov=localStorage.getItem('rh_ov'); if(ov) openOv(ov); }catch(e){}
-    setTimeout(function(){ sp.classList.add('hide'); setTimeout(function(){ sp.style.display='none'; }, 650); }, 850);
-    sp.addEventListener('click', function(){ sp.classList.add('hide'); setTimeout(function(){ sp.style.display='none'; }, 650); });
     return;
   }
   var hidden=false;
