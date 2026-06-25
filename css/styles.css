@@ -1557,6 +1557,7 @@ body.is-desktop .brand-img{height:26px}
 /* active item */
 .bottom-nav .nav-tab.active{background:none !important;padding:6px 2px}
 .bottom-nav .nav-tab.active .nav-icon{color:var(--hb-teal-deep) !important;background:none !important}
+.bottom-nav .nav-tab.active .nav-icon svg{fill:currentColor;stroke:currentColor}   /* filled icon when active */
 .bottom-nav .nav-tab.active .nav-label{color:var(--hb-teal-deep) !important;font-weight:700}
 /* center SOS = raised circular FAB */
 .bottom-nav .nav-sos{flex:0 0 62px;opacity:1 !important;padding:0}
