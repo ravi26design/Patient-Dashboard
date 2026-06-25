@@ -1589,20 +1589,17 @@ body.is-framed:not(.is-desktop) .bottom-nav{margin-bottom:0}
 /* ═══ HOME WIDGET — Recovery Journey milestone ═══ */
 .rj-card{display:flex;gap:18px;align-items:center;background:#AECB96}
 .rj-left{flex:0 0 auto;text-align:center}
-.rj-ring{position:relative;width:76px;height:76px;margin:0 auto}
-.rj-ring svg{width:100%;height:100%;display:block}
-.rj-ring-c{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1}
-.rj-ring-c b{font-family:var(--font-display);font-size:24px;font-weight:700;color:#fff}
-.rj-ring-c small{font-family:var(--font-ui);font-size:8px;font-weight:700;letter-spacing:1px;
-  text-transform:uppercase;color:rgba(255,255,255,.85);margin-top:2px}
+.rj-big{font-family:var(--font-display);font-size:46px;font-weight:700;color:#fff;line-height:.9}
 .rj-cap{font-family:var(--font-ui);font-size:8.5px;font-weight:700;letter-spacing:1px;
-  text-transform:uppercase;color:rgba(255,255,255,.9);margin-top:7px}
+  text-transform:uppercase;color:rgba(255,255,255,.9);margin-top:6px}
 .rj-right{flex:1;min-width:0}
 .rj-eyebrow{font-family:var(--font-ui);font-size:9.5px;font-weight:700;letter-spacing:1.5px;
   text-transform:uppercase;color:rgba(255,255,255,.92);margin-bottom:5px}
 .rj-title{font-family:var(--font-display);font-size:20px;font-weight:700;color:#fff;
   line-height:1.1;margin-bottom:10px}
 .rj-heart{color:#fff}
+.rj-bar{height:9px;border-radius:999px;background:rgba(255,255,255,.32);overflow:hidden;margin-bottom:9px}
+.rj-fill{height:100%;width:78%;border-radius:999px;background:#fff}
 .rj-sub{font-family:var(--font-ui);font-size:11.5px;color:rgba(255,255,255,.92);line-height:1.4}
 
 /* Active bottom-nav tab in #84B27F */
