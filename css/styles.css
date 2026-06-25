@@ -1573,3 +1573,6 @@ html.returning #splash{display:none !important}
 body.is-mobile .bottom-nav,
 body.is-tablet .bottom-nav,
 body.is-framed:not(.is-desktop) .bottom-nav{margin-bottom:0}
+
+/* Nudge Activities (2nd tab) a little to the right */
+.bottom-nav .nav-tab:nth-child(2){transform:translateX(6px)}
