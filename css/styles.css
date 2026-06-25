@@ -1480,3 +1480,8 @@ body.is-desktop .brand-img{height:26px}
   font-family:var(--font-ui);font-size:14px;font-weight:600;color:var(--sage-dk)}
 .otp-resend:active{opacity:.6}
 @media (min-width:900px){ .ph-sub #otpNum{font-weight:700} .otp-box{font-size:26px;max-width:54px} }
+
+/* Details fields — leading icon inside the input */
+.dt-inwrap{position:relative;display:flex;align-items:center;width:100%}
+.dt-inwrap > i,.dt-inwrap > svg{position:absolute;left:16px;width:18px;height:18px;color:var(--sage-dk);pointer-events:none;stroke-width:1.8}
+.dt-inwrap .dt-input{padding-left:46px}
