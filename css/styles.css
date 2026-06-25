@@ -969,7 +969,7 @@ body.is-mobile .app-logo, body.is-framed:not(.is-desktop) .app-logo{font-size:15
 
 /* ═══ Bottom nav — dark floating pill, active = white pill (icon + label) ═══ */
 .bottom-nav{
-  background:#fff;
+  background:#84B27F;
   border:none;border-top:none;
   border-radius:999px;
   margin:0 14px 10px;
@@ -984,10 +984,10 @@ body.is-mobile .app-logo, body.is-framed:not(.is-desktop) .app-logo{font-size:15
   gap:8px;padding:11px 13px;border-radius:999px;min-width:0;flex:0 0 auto;
 }
 .bottom-nav .nav-tab::after{display:none !important}
-.bottom-nav .nav-icon{background:none !important;opacity:1 !important;color:#5E6E68 !important;width:auto;height:auto;border-radius:0;margin:0}
+.bottom-nav .nav-icon{background:none !important;opacity:1 !important;color:#fff !important;width:auto;height:auto;border-radius:0;margin:0}
 .bottom-nav .nav-icon svg{width:21px;height:21px}
 .bottom-nav .nav-label{display:none}
-.bottom-nav .nav-tab.active{background:#E7F0EA;padding:11px 18px}
+.bottom-nav .nav-tab.active{background:#fff;padding:11px 18px}
 .bottom-nav .nav-tab.active .nav-icon{color:#1A1A1A !important}
 .bottom-nav .nav-tab.active .nav-label{display:block;color:#1A1A1A;font-weight:700;font-size:11px;text-transform:none;letter-spacing:0;margin:0}
 .bottom-nav .nav-sos .nav-icon{color:#E0917A !important}
@@ -1019,8 +1019,8 @@ body.is-framed:not(.is-desktop) .screen-area{padding-bottom:118px}
 /* Desktop — slightly larger, click-friendly CTA */
 body.is-desktop .tx-meta .chk-btn{padding:6px 18px;font-size:11px}
 
-/* Bottom nav bar = white floating pill */
-.bottom-nav{background:#fff}
+/* Bottom nav bar = green floating pill (#84B27F) */
+.bottom-nav{background:#84B27F}
 /* Active chip + inactive icons read clearly on white */
 .bottom-nav .nav-tab.active .nav-icon,
 .bottom-nav .nav-tab.active .nav-label{color:var(--hb-teal-deep)!important}
