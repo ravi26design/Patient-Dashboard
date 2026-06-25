@@ -1367,3 +1367,33 @@ body.is-desktop .brand-img{height:26px}
 .lm-deny:active{opacity:.6}
 @keyframes lmFade{from{opacity:0}to{opacity:1}}
 @keyframes lmPop{from{opacity:0;transform:translateY(12px) scale(.96)}to{opacity:1;transform:none}}
+
+/* ═══ MOBILE NUMBER SCREEN (onboarding) ═══ */
+#phoneScreen{position:fixed;inset:0;z-index:9550;display:none;
+  flex-direction:column;align-items:center;justify-content:flex-start;text-align:center;
+  padding:48px 30px calc(34px + env(safe-area-inset-bottom));
+  background:
+    radial-gradient(120% 62% at 50% 6%, rgba(196,160,136,.26), transparent 56%),
+    radial-gradient(120% 70% at 50% 102%, rgba(110,158,128,.20), transparent 60%),
+    var(--app-bg)}
+#phoneScreen.show{display:flex;animation:wcIn .55s cubic-bezier(.2,.7,.3,1) both}
+#phoneScreen.hide{opacity:0;visibility:hidden;pointer-events:none;transition:opacity .4s ease, visibility .4s ease}
+.phone-inner{display:flex;flex-direction:column;align-items:center;width:100%;max-width:360px;flex:1}
+.ph-stage{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;width:100%}
+.ph-badge{width:74px;height:74px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;
+  box-shadow:0 12px 30px rgba(58,51,48,.12);margin-bottom:22px}
+.ph-badge img{width:34px;height:auto;display:block}
+.ph-title{font-family:var(--font-display);font-size:30px;font-weight:700;color:var(--ink);line-height:1.16;margin:0 0 12px}
+.ph-sub{font-family:var(--font-ui);font-size:14px;line-height:1.6;color:var(--brown);margin-bottom:28px;max-width:330px}
+.ph-row{display:flex;gap:12px;width:100%;max-width:340px}
+.ph-cc{flex:0 0 auto;min-width:74px;display:flex;align-items:center;justify-content:center;background:#fff;
+  border-radius:16px;padding:16px;font-family:var(--font-ui);font-size:17px;font-weight:700;color:var(--ink);
+  box-shadow:0 8px 22px rgba(58,51,48,.08)}
+.ph-input{flex:1;min-width:0;background:#fff;border:none;border-radius:16px;padding:16px 18px;
+  font-family:var(--font-ui);font-size:17px;color:var(--ink);outline:none;box-shadow:0 8px 22px rgba(58,51,48,.08)}
+.ph-input::placeholder{color:var(--t4)}
+.ph-row.err .ph-input,.ph-row.err .ph-cc{box-shadow:0 0 0 2px var(--coral)}
+.ph-note{display:inline-flex;align-items:center;gap:7px;margin-top:16px;
+  background:rgba(255,255,255,.55);border-radius:999px;padding:9px 16px;
+  font-family:var(--font-ui);font-size:12.5px;font-weight:600;color:var(--brown)}
+.ph-note i,.ph-note svg{width:14px;height:14px;color:var(--sage-dk)}

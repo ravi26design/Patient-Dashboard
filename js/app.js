@@ -667,9 +667,34 @@ var __wc={start:function(){},stop:function(){}};
 })();
 function enterApp(){
   __wc.stop();
+  showPhoneScreen();                         /* appears on top, so the dashboard never flashes */
   var w=document.getElementById('welcome');
-  if(w){ w.classList.add('hide'); setTimeout(function(){ w.style.display='none'; showLocModal(); }, 520); }
-  else showLocModal();
+  if(w){ w.classList.add('hide'); setTimeout(function(){ w.style.display='none'; }, 520); }
+}
+/* ═══ MOBILE NUMBER ═══ */
+function showPhoneScreen(){ var p=document.getElementById('phoneScreen'); if(p) p.classList.add('show'); }
+function hidePhoneScreen(){ var p=document.getElementById('phoneScreen'); if(!p) return;
+  p.classList.add('hide'); setTimeout(function(){ p.style.display='none'; }, 420); }
+function fmtPhone(el){
+  var d=el.value.replace(/\D/g,'').slice(0,10), out='';
+  if(d.length===0){ el.value=''; return; }
+  out='('+d.slice(0,3);
+  if(d.length>3) out+=') '+d.slice(3,6);
+  if(d.length>6) out+='-'+d.slice(6,10);
+  el.value=out;
+}
+function sendCode(){
+  var inp=document.getElementById('phoneInput');
+  var d=((inp&&inp.value)||'').replace(/\D/g,'');
+  if(d.length<10){
+    var row=document.getElementById('phRow');
+    if(row){ row.classList.add('err'); setTimeout(function(){ row.classList.remove('err'); }, 1200); }
+    if(inp) inp.focus();
+    return;
+  }
+  window.__phone='+1'+d;
+  showLocModal();        /* next onboarding step */
+  hidePhoneScreen();
 }
 /* ═══ LOCATION PERMISSION ═══ */
 function showLocModal(){ var m=document.getElementById('locModal'); if(m) m.classList.add('show'); }
