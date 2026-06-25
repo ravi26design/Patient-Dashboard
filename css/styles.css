@@ -1441,6 +1441,7 @@ body.is-desktop .brand-img{height:26px}
 /* ═══ DETAILS SCREEN (name / email / age) ═══ */
 #detailsScreen{position:fixed;inset:0;z-index:9560;display:none;
   flex-direction:column;align-items:center;justify-content:flex-start;text-align:center;
+  overflow-y:auto;-webkit-overflow-scrolling:touch;
   padding:48px 30px calc(34px + env(safe-area-inset-bottom));
   background:
     radial-gradient(120% 62% at 50% 6%, rgba(196,160,136,.26), transparent 56%),
@@ -1448,7 +1449,8 @@ body.is-desktop .brand-img{height:26px}
     var(--app-bg)}
 #detailsScreen.show{display:flex;animation:wcIn .55s cubic-bezier(.2,.7,.3,1) both}
 #detailsScreen.hide{opacity:0;visibility:hidden;pointer-events:none;transition:opacity .4s ease, visibility .4s ease}
-.dt-stage{justify-content:flex-start;overflow-y:auto;padding-top:14px}
+#detailsScreen .phone-inner{flex:0 0 auto;min-height:100%}
+.dt-stage{justify-content:flex-start;overflow:visible;padding-top:14px}
 .dt-stage .ph-sub{margin-bottom:20px}
 .dt-fields{width:100%;max-width:340px;display:flex;flex-direction:column;gap:14px;margin-top:2px}
 .dt-field{text-align:left}
