@@ -1383,6 +1383,7 @@ body.is-desktop .brand-img{height:26px}
 .ph-badge{width:74px;height:74px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;
   box-shadow:0 12px 30px rgba(58,51,48,.12);margin-bottom:22px}
 .ph-badge img{width:34px;height:auto;display:block}
+.ph-badge-ic i,.ph-badge-ic svg{width:34px;height:34px;color:var(--sage-dk);stroke-width:1.7}
 .ph-title{font-family:var(--font-display);font-size:30px;font-weight:700;color:var(--ink);line-height:1.16;margin:0 0 12px}
 .ph-sub{font-family:var(--font-ui);font-size:14px;line-height:1.6;color:var(--brown);margin-bottom:28px;max-width:330px}
 .ph-row{display:flex;gap:12px;width:100%;max-width:340px}
