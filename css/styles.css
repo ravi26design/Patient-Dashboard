@@ -1580,13 +1580,13 @@ body.is-framed:not(.is-desktop) .bottom-nav{margin-bottom:0}
 /* ═══ HOME WIDGET — Your streak, by focus ═══ */
 .sf-eyebrow{font-family:var(--font-ui);font-size:10px;font-weight:700;letter-spacing:1.5px;
   text-transform:uppercase;color:var(--muted);margin-bottom:14px}
-.sf-row{display:flex;justify-content:space-between;gap:6px}
-.sf-stat{flex:1;min-width:0;text-align:center}
-.sf-ic{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;
-  margin:0 auto 8px;box-shadow:0 2px 6px rgba(58,51,48,.06)}
+.sf-row{display:flex;gap:8px}
+.sf-stat{flex:1;min-width:0;text-align:center;border-radius:16px;padding:14px 4px}
+.sf-ic{width:34px;height:34px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;
+  margin:0 auto 8px;box-shadow:0 2px 6px rgba(58,51,48,.07)}
 .sf-ic i,.sf-ic svg{width:17px;height:17px;stroke-width:2}
-.sf-num{font-family:var(--font-display);font-size:23px;font-weight:700;line-height:1}
-.sf-lbl{font-family:var(--font-ui);font-size:10px;font-weight:600;letter-spacing:.2px;
+.sf-num{font-family:var(--font-display);font-size:22px;font-weight:700;line-height:1}
+.sf-lbl{font-family:var(--font-ui);font-size:9.5px;font-weight:600;letter-spacing:.2px;
   color:var(--muted);margin-top:5px}
 
 /* ═══ HOME WIDGET — Recovery Journey milestone ═══ */
