@@ -1007,13 +1007,6 @@ body.is-mobile .bottom-nav{margin-bottom:max(10px,env(safe-area-inset-bottom))}
 body.is-mobile .screen-area,
 body.is-tablet .screen-area,
 body.is-framed:not(.is-desktop) .screen-area{padding-bottom:118px}
-/* Fade-mask behind the floating pill so content doesn't peek around/below it */
-body.is-mobile .phone::after,
-body.is-tablet .phone::after,
-body.is-framed:not(.is-desktop) .phone::after{
-  content:'';position:absolute;left:0;right:0;bottom:0;height:108px;
-  background:linear-gradient(to top, var(--app-bg) 56%, rgba(0,0,0,0));
-  pointer-events:none;z-index:180}
 
 /* Hide Appointments nav item until the feature exists */
 .dn-item[data-screen="appointments"]{display:none}
