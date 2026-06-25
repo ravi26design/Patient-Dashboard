@@ -633,8 +633,21 @@ function postThread(el){
   if(window.lucide && lucide.createIcons) lucide.createIcons();
 }
 
-/* ═══ SPLASH → WELCOME → APP ═══ */
+/* ═══ SPLASH → WELCOME CAROUSEL → APP ═══ */
+var __wc={start:function(){},stop:function(){}};
+(function(){
+  var track=document.getElementById('wcTrack'); if(!track) return;
+  var n=track.children.length, i=0, timer=null;
+  var dots=document.querySelectorAll('#wcDots .wc-dot');
+  function go(k){ i=(k+n)%n; track.style.transform='translateX('+(-i*100)+'%)';
+    for(var d=0;d<dots.length;d++) dots[d].classList.toggle('active', d===i); }
+  function start(){ stop(); timer=setInterval(function(){ go(i+1); }, 3800); }
+  function stop(){ if(timer){ clearInterval(timer); timer=null; } }
+  for(var d=0;d<dots.length;d++){ (function(k){ dots[k].addEventListener('click', function(){ go(k); start(); }); })(d); }
+  go(0); __wc.start=start; __wc.stop=stop;
+})();
 function enterApp(){
+  __wc.stop();
   var w=document.getElementById('welcome'); if(!w) return;
   w.classList.add('hide');
   setTimeout(function(){ w.style.display='none'; }, 520);
@@ -644,7 +657,7 @@ function enterApp(){
   var hidden=false;
   function hide(){ if(hidden) return; hidden=true; sp.classList.add('hide');
     setTimeout(function(){ sp.style.display='none';
-      var w=document.getElementById('welcome'); if(w) w.classList.add('show'); /* reveal welcome */
+      var w=document.getElementById('welcome'); if(w){ w.classList.add('show'); __wc.start(); } /* reveal + start carousel */
     }, 650); }
   setTimeout(hide, 1900);            /* auto-dismiss splash */
   sp.addEventListener('click', hide); /* tap to skip */

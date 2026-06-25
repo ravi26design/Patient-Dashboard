@@ -31,10 +31,35 @@
 <!-- ═══ WELCOME SCREEN (after splash) ═══ -->
 <div id="welcome" aria-hidden="true">
   <div class="wc-inner">
-    <div class="wc-badge"><img src="assets/icon.png" alt="" aria-hidden="true"></div>
-    <h1 class="wc-title">Rudra</h1>
-    <div class="wc-tag">your recovery, one day at a time</div>
-    <p class="wc-body">A companion for opioid recovery — with you every day, and a real human always one tap away.</p>
+    <div class="wc-slides"><div class="wc-track" id="wcTrack">
+      <div class="wc-slide">
+        <div class="wc-badge"><img src="assets/icon.png" alt="" aria-hidden="true"></div>
+        <h1 class="wc-title">Rudra</h1>
+        <div class="wc-tag">your recovery, one day at a time</div>
+        <p class="wc-body">A companion for opioid recovery — with you every day, and a real human always one tap away.</p>
+      </div>
+      <div class="wc-slide">
+        <div class="wc-badge wc-badge-ic"><i data-lucide="trending-up"></i></div>
+        <h1 class="wc-title">Track progress</h1>
+        <div class="wc-tag">your recovery health, daily</div>
+        <p class="wc-body">A daily Recovery Health score and gentle check-ins help you notice patterns and celebrate every step forward.</p>
+      </div>
+      <div class="wc-slide">
+        <div class="wc-badge wc-badge-ic"><i data-lucide="heart-handshake"></i></div>
+        <h1 class="wc-title">Never alone</h1>
+        <div class="wc-tag">support that's always there</div>
+        <p class="wc-body">Share with a caring peer community and reach a real human any time — help is always one tap away.</p>
+      </div>
+      <div class="wc-slide">
+        <div class="wc-badge wc-badge-ic"><i data-lucide="sprout"></i></div>
+        <h1 class="wc-title">Small steps</h1>
+        <div class="wc-tag">habits that stick</div>
+        <p class="wc-body">Daily insights, reflections and rewards keep you motivated and moving forward, one day at a time.</p>
+      </div>
+    </div></div>
+    <div class="wc-dots" id="wcDots">
+      <span class="wc-dot active"></span><span class="wc-dot"></span><span class="wc-dot"></span><span class="wc-dot"></span>
+    </div>
     <button class="wc-begin" type="button" onclick="enterApp()">Begin <span aria-hidden="true">&rarr;</span></button>
     <button class="wc-skip" type="button" onclick="enterApp()">Skip for now</button>
   </div>
