@@ -1274,3 +1274,7 @@ body.is-tablet .screen{padding:6px 18px 0}
 /* desktop top-bar brand a touch larger */
 body.is-desktop .brand-mark{height:25px}
 body.is-desktop .brand-word{font-size:19px}
+
+/* Brand logo image (actual RudraHealth ai logo) */
+.brand-img{height:22px;width:auto;display:block}
+body.is-desktop .brand-img{height:26px}
