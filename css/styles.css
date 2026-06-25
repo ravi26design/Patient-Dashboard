@@ -1605,3 +1605,10 @@ body.is-framed:not(.is-desktop) .bottom-nav{margin-bottom:0}
 .rj-bar{height:9px;border-radius:999px;background:rgba(58,51,48,.08);overflow:hidden;margin-bottom:8px}
 .rj-fill{height:100%;width:78%;border-radius:999px;background:linear-gradient(90deg,var(--coral),#7FA8D4)}
 .rj-sub{font-family:var(--font-ui);font-size:11px;color:var(--ink-soft)}
+
+/* Active bottom-nav tab in #84B27F */
+.bottom-nav .nav-tab.active .nav-icon,
+.bottom-nav .nav-tab.active .nav-label{color:#84B27F !important}
+
+/* Desktop: Recovery Health spans 2 rows; the two widgets stack to its right */
+body.is-desktop .gauge-card{grid-row:span 2}
