@@ -239,14 +239,19 @@
       <!-- Recovery Journey milestone -->
       <div class="home-sec rj-card">
         <div class="rj-left">
-          <div class="rj-avatar"><i data-lucide="user-round"></i></div>
-          <div class="rj-big">47</div>
-          <div class="rj-cap">Days in recovery</div>
+          <div class="rj-ring">
+            <svg viewBox="0 0 72 72" aria-hidden="true">
+              <circle cx="36" cy="36" r="30" fill="none" stroke="rgba(58,51,48,.09)" stroke-width="6"/>
+              <circle cx="36" cy="36" r="30" fill="none" stroke="url(#rjgrad)" stroke-width="6" stroke-linecap="round" stroke-dasharray="147 189" transform="rotate(-90 36 36)"/>
+              <defs><linearGradient id="rjgrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#E08A7D"/><stop offset="1" stop-color="#7FA8D4"/></linearGradient></defs>
+            </svg>
+            <div class="rj-ring-c"><b>47</b><small>days</small></div>
+          </div>
+          <div class="rj-cap">In recovery</div>
         </div>
         <div class="rj-right">
           <div class="rj-eyebrow">Recovery Journey</div>
-          <div class="rj-title">your longest yet <span class="rj-heart">&#9829;</span></div>
-          <div class="rj-bar"><div class="rj-fill"></div></div>
+          <div class="rj-title">Your longest yet <span class="rj-heart">&#9829;</span></div>
           <div class="rj-sub">13 days to your 60-day milestone &#11088;</div>
         </div>
       </div>
