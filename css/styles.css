@@ -1555,12 +1555,12 @@ body.is-desktop .brand-img{height:26px}
 .bottom-nav .nav-tab.active .nav-icon{color:var(--hb-teal-deep) !important;background:none !important}
 .bottom-nav .nav-tab.active .nav-label{color:var(--hb-teal-deep) !important;font-weight:700}
 /* center SOS = raised circular FAB */
-.bottom-nav .nav-sos{flex:0 0 auto;opacity:1 !important;padding:0 8px}
-.bottom-nav .nav-sos .nav-icon{width:56px;height:56px;border-radius:50%;
-  background:var(--coral) !important;color:#fff !important;margin:-38px auto 6px;
+.bottom-nav .nav-sos{flex:0 0 70px;opacity:1 !important;padding:0}
+.bottom-nav .nav-sos .nav-icon{position:absolute;left:50%;top:-30px;transform:translateX(-50%);margin:0;
+  width:58px;height:58px;border-radius:50%;background:var(--coral) !important;color:#fff !important;
   display:flex;align-items:center;justify-content:center;
   box-shadow:0 8px 20px rgba(196,96,72,.40)}
-.bottom-nav .nav-sos .nav-icon svg{width:25px;height:25px;color:#fff !important}
+.bottom-nav .nav-sos .nav-icon svg{width:26px;height:26px;color:#fff !important}
 .bottom-nav .nav-sos .nav-label{display:none !important}
 
 /* Returning user (already onboarded): no splash on refresh — land on the same page */
