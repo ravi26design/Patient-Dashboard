@@ -1450,6 +1450,7 @@ body.is-desktop .brand-img{height:26px}
 #detailsScreen.show{display:flex;animation:wcIn .55s cubic-bezier(.2,.7,.3,1) both}
 #detailsScreen.hide{opacity:0;visibility:hidden;pointer-events:none;transition:opacity .4s ease, visibility .4s ease}
 #detailsScreen .phone-inner{flex:0 0 auto;min-height:100%}
+#detailsScreen .ph-send{margin-top:24px}   /* always keep a gap above Continue (auto-margin collapses when scrolled) */
 .dt-stage{justify-content:flex-start;overflow:visible;padding-top:14px}
 .dt-stage .ph-sub{margin-bottom:20px}
 .dt-fields{width:100%;max-width:340px;display:flex;flex-direction:column;gap:14px;margin-top:2px}
