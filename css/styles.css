@@ -1618,3 +1618,8 @@ body.is-desktop .rt-section .task-grid{grid-template-columns:repeat(4,1fr);gap:1
 
 /* Desktop: Recovery Treatments full-width */
 body.is-desktop .tx-section{grid-column:1 / -1}
+
+/* Desktop: XP chip + Taken/Attended on the right of each treatment row */
+body.is-desktop .tx-row{position:relative;align-items:center}
+body.is-desktop .tx-row > div:nth-child(2){padding-right:170px}
+body.is-desktop .tx-meta{position:absolute;right:6px;top:50%;transform:translateY(-50%);margin-top:0}
