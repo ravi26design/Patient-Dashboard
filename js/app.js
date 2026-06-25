@@ -591,8 +591,9 @@ function buildHealthGauge(){
   s+='<circle cx="'+cx+'" cy="'+cy+'" r="11" fill="#2A2421"/><circle cx="'+cx+'" cy="'+cy+'" r="4" fill="#fff"/>';
   s+='</svg>';
   el.insertAdjacentHTML('afterbegin', s);
-  var num=el.querySelector('.gauge-num'); if(num) num.innerHTML=val+'<small>/100</small>';
-  var cap=el.querySelector('.gauge-cap'); if(cap) cap.textContent = val>=85?'Excellent':val>=70?'Above Average':val>=55?'Good':'Needs care';
+  var card=el.closest('.gauge-card')||document;
+  var num=card.querySelector('.rh-num b'); if(num) num.textContent=val;
+  var pill=card.querySelector('.rh-pill'); if(pill) pill.textContent = val>=85?'Excellent':val>=70?'Above Average':val>=55?'Good':'Needs Care';
 }
 buildHealthGauge();
 
@@ -713,6 +714,7 @@ function submitDetails(){
   var emailVal=((email&&email.value)||'').trim();
   if(emailVal && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(emailVal)){ dtErr('dtEmailField'); if(email) email.focus(); return; }
   window.__profile={name:nameVal, email:emailVal, dob:(window.__dob||null), age:(window.__dob?window.__dob.age:null)};
+  var rn=document.getElementById('rhName'); if(rn) rn.textContent=nameVal.split(' ')[0];   /* greet by first name */
   hideDetailsScreen();   /* -> dashboard */
 }
 /* ═══ LOCATION PERMISSION ═══ */

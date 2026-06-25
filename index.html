@@ -207,16 +207,18 @@
     <!-- ═══ HOME ═══ -->
     <div class="screen active" id="screen-home">
       <!-- Recovery Health -->
-      <div class="home-sec gauge-card">
-        <div>
-          <div class="home-head">
-            <div class="home-title">Recovery Health</div>
-          </div>
-          <div class="seg-gauge" id="healthGauge">
-            <div class="seg-center">
-              <div class="gauge-num">7.3<small>/10</small></div>
-              <div class="gauge-cap">Great!</div>
-            </div>
+      <div class="home-sec gauge-card rh-card">
+        <div class="rh-inner">
+          <div class="rh-eyebrow">Recovery Health</div>
+          <div class="rh-greet">You're doing great, <span id="rhName">there</span> &#127807;</div>
+          <div class="rh-gauge" id="healthGauge"></div>
+          <div class="rh-num"><b>74</b></div>
+          <div class="rh-outof">out of 100</div>
+          <div class="rh-pill">Above Average</div>
+          <div class="rh-stats">
+            <div class="rh-stat"><div class="rh-stat-ic">&#128138;</div><div class="rh-stat-val" style="color:var(--hb-teal-deep)">94%</div><div class="rh-stat-lbl">Med adherence</div></div>
+            <div class="rh-stat"><div class="rh-stat-ic">&#11088;</div><div class="rh-stat-val" style="color:#5B92CE">2,340</div><div class="rh-stat-lbl">Reward points</div></div>
+            <div class="rh-stat"><div class="rh-stat-ic">&#128524;</div><div class="rh-stat-val" style="color:var(--gold-dk)">Calm</div><div class="rh-stat-lbl">Today's mood</div></div>
           </div>
         </div>
       </div>
