@@ -580,7 +580,7 @@ function buildHealthGauge(){
   var s='<svg class="speedo" viewBox="0 0 300 192" xmlns="http://www.w3.org/2000/svg">';
   s+=arc(180,135,'#DB8A7E')+arc(135,90,'#E7B86A')+arc(90,45,'#AECB96')+arc(45,0,'#84B27F');
   s+='<text x="12" y="185" font-size="13" font-weight="600" fill="#C56A5E">Needs care</text>';
-  s+='<text x="276" y="185" text-anchor="end" font-size="13" font-weight="600" fill="#5E8B6E">Thriving</text>';
+  s+='<text x="288" y="185" text-anchor="end" font-size="13" font-weight="600" fill="#5E8B6E">Thriving</text>';
   var th=(180-(val/100)*180)*Math.PI/180, L=84, bw=6;
   var tx=(cx+L*Math.cos(th)).toFixed(1), ty=(cy-L*Math.sin(th)).toFixed(1);
   var sinT=Math.sin(th), cosT=Math.cos(th);
