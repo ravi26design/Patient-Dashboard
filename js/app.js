@@ -694,7 +694,7 @@ function sendCode(){
     return;
   }
   window.__phone=(typeof __cc!=='undefined'&&__cc?__cc.d:'+1')+d;
-  showDetailsScreen();   /* next step: name / email / age */
+  showOtpScreen();       /* next step: verify the code */
   hidePhoneScreen();
 }
 /* ═══ DETAILS (name / email / age) ═══ */
@@ -775,3 +775,39 @@ function pickCC(i){ var c=CC_LIST[i]; if(!c) return; __cc=c;
   var f=document.getElementById('ccFlag'); if(f) f.textContent=c.f;
   var d=document.getElementById('ccDial'); if(d) d.textContent=c.d;
   closeCC(); var inp=document.getElementById('phoneInput'); if(inp) inp.focus(); }
+
+/* ═══ OTP VERIFICATION ═══ */
+function showOtpScreen(){ var o=document.getElementById('otpScreen'); if(!o) return;
+  var num=document.getElementById('otpNum'); if(num && window.__phone) num.textContent=window.__phone;
+  o.classList.add('show');
+  setTimeout(function(){ var b=document.querySelector('#otpRow .otp-box'); if(b) b.focus(); }, 420); }
+function hideOtpScreen(){ var o=document.getElementById('otpScreen'); if(!o) return;
+  o.classList.add('hide'); setTimeout(function(){ o.style.display='none'; }, 420); }
+function otpBoxes(){ var r=document.getElementById('otpRow'); return r?r.querySelectorAll('.otp-box'):[]; }
+function verifyOtp(){
+  var boxes=otpBoxes(), code='';
+  for(var i=0;i<boxes.length;i++) code+=boxes[i].value;
+  if(code.length<6){ var r=document.getElementById('otpRow'); if(r){ r.classList.add('err'); setTimeout(function(){ r.classList.remove('err'); }, 1200); } return; }
+  window.__otp=code;                /* demo: any 6-digit code is accepted */
+  showDetailsScreen();
+  hideOtpScreen();
+}
+function resendOtp(){ var boxes=otpBoxes(); for(var i=0;i<boxes.length;i++) boxes[i].value=''; if(boxes[0]) boxes[0].focus(); }
+(function otpInit(){
+  var boxes=otpBoxes(); if(!boxes.length) return;
+  for(var i=0;i<boxes.length;i++){ (function(idx){
+    var b=boxes[idx];
+    b.addEventListener('input', function(){
+      b.value=b.value.replace(/\D/g,'').slice(0,1);
+      var r=document.getElementById('otpRow'); if(r) r.classList.remove('err');
+      if(b.value && idx<boxes.length-1) boxes[idx+1].focus();
+    });
+    b.addEventListener('keydown', function(e){ if(e.key==='Backspace' && !b.value && idx>0) boxes[idx-1].focus(); });
+    b.addEventListener('paste', function(e){
+      e.preventDefault();
+      var t=((e.clipboardData||window.clipboardData).getData('text')||'').replace(/\D/g,'').slice(0,boxes.length);
+      for(var k=0;k<t.length;k++) boxes[k].value=t[k];
+      boxes[Math.min(t.length,boxes.length-1)].focus();
+    });
+  })(i); }
+})();
