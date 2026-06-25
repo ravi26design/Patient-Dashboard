@@ -1026,8 +1026,8 @@ body.is-framed:not(.is-desktop) .phone::after{
 /* Desktop — slightly larger, click-friendly CTA */
 body.is-desktop .tx-meta .chk-btn{padding:6px 18px;font-size:11px}
 
-/* Bottom nav bar = logo navy */
-.bottom-nav{background:#1A1F3D}
+/* Bottom nav bar = logo 'Health' blue */
+.bottom-nav{background:#779EC8}
 
 /* Slimmer bottom nav */
 .bottom-nav{padding:5px}
