@@ -777,11 +777,25 @@ function pickCC(i){ var c=CC_LIST[i]; if(!c) return; __cc=c;
   closeCC(); var inp=document.getElementById('phoneInput'); if(inp) inp.focus(); }
 
 /* ═══ OTP VERIFICATION ═══ */
+var __otpTimer=null;
+function startOtpTimer(secs){
+  var btn=document.getElementById('otpResend'); if(!btn) return;
+  if(__otpTimer){ clearInterval(__otpTimer); __otpTimer=null; }
+  var t=secs;
+  function tick(){
+    if(t<=0){ clearInterval(__otpTimer); __otpTimer=null;
+      btn.textContent='Resend code'; btn.disabled=false; btn.classList.remove('disabled'); return; }
+    btn.textContent='Resend code in '+t+'s'; btn.disabled=true; btn.classList.add('disabled'); t--;
+  }
+  tick(); __otpTimer=setInterval(tick,1000);
+}
 function showOtpScreen(){ var o=document.getElementById('otpScreen'); if(!o) return;
   var num=document.getElementById('otpNum'); if(num && window.__phone) num.textContent=window.__phone;
   o.classList.add('show');
+  startOtpTimer(30);
   setTimeout(function(){ var b=document.querySelector('#otpRow .otp-box'); if(b) b.focus(); }, 420); }
 function hideOtpScreen(){ var o=document.getElementById('otpScreen'); if(!o) return;
+  if(__otpTimer){ clearInterval(__otpTimer); __otpTimer=null; }
   o.classList.add('hide'); setTimeout(function(){ o.style.display='none'; }, 420); }
 function otpBoxes(){ var r=document.getElementById('otpRow'); return r?r.querySelectorAll('.otp-box'):[]; }
 function verifyOtp(){
@@ -792,7 +806,11 @@ function verifyOtp(){
   showDetailsScreen();
   hideOtpScreen();
 }
-function resendOtp(){ var boxes=otpBoxes(); for(var i=0;i<boxes.length;i++) boxes[i].value=''; if(boxes[0]) boxes[0].focus(); }
+function resendOtp(){
+  var btn=document.getElementById('otpResend'); if(btn && btn.disabled) return;   /* still counting down */
+  var boxes=otpBoxes(); for(var i=0;i<boxes.length;i++) boxes[i].value=''; if(boxes[0]) boxes[0].focus();
+  startOtpTimer(30);   /* restart countdown */
+}
 (function otpInit(){
   var boxes=otpBoxes(); if(!boxes.length) return;
   for(var i=0;i<boxes.length;i++){ (function(idx){

@@ -1485,3 +1485,6 @@ body.is-desktop .brand-img{height:26px}
 .dt-inwrap{position:relative;display:flex;align-items:center;width:100%}
 .dt-inwrap > i,.dt-inwrap > svg{position:absolute;left:16px;width:18px;height:18px;color:var(--sage-dk);pointer-events:none;stroke-width:1.8}
 .dt-inwrap .dt-input{padding-left:46px}
+
+/* OTP resend — muted while the countdown is running */
+.otp-resend.disabled,.otp-resend:disabled{color:var(--muted);cursor:default}
