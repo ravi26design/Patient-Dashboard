@@ -1297,3 +1297,37 @@ body.is-desktop .brand-img{height:26px}
 @media (prefers-reduced-motion: reduce){
   .splash-inner,.splash-dots span{animation:none}
 }
+
+/* ═══ WELCOME SCREEN — calm onboarding after the splash ═══ */
+#welcome{position:fixed;inset:0;z-index:9500;display:none;
+  flex-direction:column;align-items:center;justify-content:center;text-align:center;
+  padding:48px 30px calc(40px + env(safe-area-inset-bottom));
+  background:
+    radial-gradient(120% 62% at 50% 6%, rgba(196,160,136,.26), transparent 56%),
+    radial-gradient(120% 70% at 50% 102%, rgba(110,158,128,.20), transparent 60%),
+    var(--app-bg)}
+#welcome.show{display:flex;animation:wcIn .6s cubic-bezier(.2,.7,.3,1) both}
+#welcome.hide{opacity:0;visibility:hidden;pointer-events:none;
+  transition:opacity .5s ease, visibility .5s ease}
+.wc-inner{display:flex;flex-direction:column;align-items:center;width:100%;max-width:360px}
+.wc-badge{width:112px;height:112px;border-radius:50%;background:#fff;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 16px 40px rgba(58,51,48,.12);margin-bottom:28px}
+.wc-badge img{width:50px;height:auto;display:block}
+.wc-title{font-family:var(--font-display);font-size:40px;font-weight:700;
+  color:var(--ink);letter-spacing:.4px;line-height:1;margin-bottom:12px}
+.wc-tag{font-family:var(--font-ui);font-style:italic;font-size:16px;font-weight:500;
+  color:var(--hb-teal-deep);margin-bottom:18px}
+.wc-body{font-family:var(--font-ui);font-size:14.5px;line-height:1.66;
+  color:var(--brown);margin-bottom:40px;max-width:320px}
+.wc-begin{width:100%;max-width:320px;display:flex;align-items:center;justify-content:center;gap:8px;
+  padding:17px 18px;border:none;border-radius:18px;background:var(--sage);color:#fff;
+  font-family:var(--font-ui);font-size:16px;font-weight:700;letter-spacing:.3px;cursor:pointer;
+  box-shadow:0 12px 28px rgba(110,158,128,.34);transition:transform .12s ease, filter .15s ease}
+.wc-begin:hover{filter:brightness(1.04)}
+.wc-begin:active{transform:scale(.98)}
+.wc-skip{margin-top:18px;background:none;border:none;cursor:pointer;
+  font-family:var(--font-ui);font-size:14px;font-weight:600;color:var(--muted)}
+.wc-skip:active{opacity:.6}
+@keyframes wcIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion: reduce){#welcome.show{animation:none}}

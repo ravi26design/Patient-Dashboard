@@ -633,12 +633,19 @@ function postThread(el){
   if(window.lucide && lucide.createIcons) lucide.createIcons();
 }
 
-/* ═══ SPLASH SCREEN — show on load, then dissolve into the app ═══ */
+/* ═══ SPLASH → WELCOME → APP ═══ */
+function enterApp(){
+  var w=document.getElementById('welcome'); if(!w) return;
+  w.classList.add('hide');
+  setTimeout(function(){ w.style.display='none'; }, 520);
+}
 (function(){
   var sp=document.getElementById('splash'); if(!sp) return;
   var hidden=false;
   function hide(){ if(hidden) return; hidden=true; sp.classList.add('hide');
-    setTimeout(function(){ sp.style.display='none'; }, 650); }
-  setTimeout(hide, 1900);            /* auto-dismiss */
+    setTimeout(function(){ sp.style.display='none';
+      var w=document.getElementById('welcome'); if(w) w.classList.add('show'); /* reveal welcome */
+    }, 650); }
+  setTimeout(hide, 1900);            /* auto-dismiss splash */
   sp.addEventListener('click', hide); /* tap to skip */
 })();
