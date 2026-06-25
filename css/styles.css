@@ -969,7 +969,7 @@ body.is-mobile .app-logo, body.is-framed:not(.is-desktop) .app-logo{font-size:15
 
 /* ═══ Bottom nav — dark floating pill, active = white pill (icon + label) ═══ */
 .bottom-nav{
-  background:#384A40;
+  background:#779EC8;
   border:none;border-top:none;
   border-radius:999px;
   margin:0 14px 10px;
