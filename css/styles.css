@@ -1262,3 +1262,15 @@ body.is-tablet .screen.active > .section-label{grid-column:1 / -1}
 body.is-tablet .screen.active > *{break-inside:avoid;min-width:0}
 body.is-tablet .home-sec{margin-bottom:0;height:auto}
 body.is-tablet .screen{padding:6px 18px 0}
+
+/* ═══ BRAND LOGO — icon mark + colored wordmark (RudraHealth ai) ═══ */
+.brand-logo{display:inline-flex;align-items:center;gap:7px;line-height:1;text-transform:none;letter-spacing:normal}
+.brand-mark{height:23px;width:auto;flex-shrink:0;display:block}
+.brand-word{font-family:'Josefin Sans',sans-serif;font-weight:700;font-size:18px;
+  letter-spacing:.2px;line-height:1;white-space:nowrap;text-transform:none}
+.bw-1{color:#E07A6E}            /* Rudra — coral */
+.bw-2{color:#5B92CE}            /* Health — blue */
+.bw-ai{color:#E2A43C;font-size:.5em;font-weight:700;vertical-align:super;margin-left:1px;letter-spacing:0}
+/* desktop top-bar brand a touch larger */
+body.is-desktop .brand-mark{height:25px}
+body.is-desktop .brand-word{font-size:19px}
