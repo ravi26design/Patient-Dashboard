@@ -573,18 +573,22 @@ function reflectDone(){
 function buildHealthGauge(){
   var el=document.getElementById('healthGauge'); if(!el) return;
   if(el.querySelector('.speedo')) return;        /* build once */
-  var val=74, N=10, filled=Math.round(val/10);
-  var s='<svg class="speedo" viewBox="14 24 272 158" xmlns="http://www.w3.org/2000/svg">';
-  for(var i=0;i<N;i++){
-    var a=(-80 + i*(160/(N-1))).toFixed(2);
-    s+='<rect x="137" y="124" width="26" height="44" rx="13" fill="'+(i<filled?'#6E9E80':'#E6E1D8')+'" transform="rotate('+a+' 150 168) translate(0 -88)"/>';
-  }
-  var na=(-80 + (val/100)*160)*Math.PI/180, L=64, bw=5;
-  var tx=(150+L*Math.sin(na)).toFixed(1), ty=(168-L*Math.cos(na)).toFixed(1);
-  var px=Math.cos(na), py=Math.sin(na);
-  var blx=(150+bw*px).toFixed(1), bly=(168+bw*py).toFixed(1), brx=(150-bw*px).toFixed(1), bry=(168-bw*py).toFixed(1);
-  s+='<polygon points="'+blx+','+bly+' '+brx+','+bry+' '+tx+','+ty+'" fill="#3F6650"/>';
-  s+='<circle cx="150" cy="168" r="10" fill="#3F6650"/><circle cx="150" cy="168" r="4.5" fill="#fff"/>';
+  var val=74;
+  var cx=150, cy=158, r=112, sw=22;
+  function pt(deg){ var a=deg*Math.PI/180; return [(cx+r*Math.cos(a)).toFixed(1),(cy-r*Math.sin(a)).toFixed(1)]; }
+  function arc(d1,d2,col){ var p1=pt(d1),p2=pt(d2);
+    return '<path d="M'+p1[0]+','+p1[1]+' A'+r+','+r+' 0 0 1 '+p2[0]+','+p2[1]+'" fill="none" stroke="'+col+'" stroke-width="'+sw+'" stroke-linecap="round"/>'; }
+  var s='<svg class="speedo" viewBox="0 0 300 192" xmlns="http://www.w3.org/2000/svg">';
+  s+=arc(180,135,'#DB8A7E')+arc(135,90,'#E7B86A')+arc(90,45,'#AECB96')+arc(45,0,'#84B27F');
+  s+='<text x="24" y="185" font-size="13" font-weight="600" fill="#C56A5E">Needs care</text>';
+  s+='<text x="276" y="185" text-anchor="end" font-size="13" font-weight="600" fill="#5E8B6E">Thriving</text>';
+  var th=(180-(val/100)*180)*Math.PI/180, L=84, bw=6;
+  var tx=(cx+L*Math.cos(th)).toFixed(1), ty=(cy-L*Math.sin(th)).toFixed(1);
+  var sinT=Math.sin(th), cosT=Math.cos(th);
+  var b1x=(cx+sinT*bw).toFixed(1), b1y=(cy+cosT*bw).toFixed(1);
+  var b2x=(cx-sinT*bw).toFixed(1), b2y=(cy-cosT*bw).toFixed(1);
+  s+='<polygon points="'+b1x+','+b1y+' '+tx+','+ty+' '+b2x+','+b2y+'" fill="#2A2421"/>';
+  s+='<circle cx="'+cx+'" cy="'+cy+'" r="11" fill="#2A2421"/><circle cx="'+cx+'" cy="'+cy+'" r="4" fill="#fff"/>';
   s+='</svg>';
   el.insertAdjacentHTML('afterbegin', s);
   var num=el.querySelector('.gauge-num'); if(num) num.innerHTML=val+'<small>/100</small>';
