@@ -1397,3 +1397,15 @@ body.is-desktop .brand-img{height:26px}
   background:rgba(255,255,255,.55);border-radius:999px;padding:9px 16px;
   font-family:var(--font-ui);font-size:12.5px;font-weight:600;color:var(--brown)}
 .ph-note i,.ph-note svg{width:14px;height:14px;color:var(--sage-dk)}
+
+/* ═══ DESKTOP — onboarding overlays render at native scale; enlarge text ═══ */
+@media (min-width:900px){
+  .wc-body{font-size:17px;line-height:1.7;max-width:400px}
+  .wc-tag{font-size:18px}
+  .wc-title{font-size:46px}
+  .ph-sub{font-size:16.5px}
+  .ph-title{font-size:34px}
+  .ph-input,.ph-cc{font-size:18px}
+  .lm-body{font-size:16px;line-height:1.65}
+  .lm-title{font-size:23px}
+}
