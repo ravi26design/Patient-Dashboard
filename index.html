@@ -251,7 +251,14 @@
 <!-- ═══ DAILY CHECK-IN PROMPT (auto-shows a few seconds after home loads) ═══ -->
 <div id="checkinModal" aria-hidden="true">
   <div class="lm-card ci-card">
-    <div class="ci-icon"><i data-lucide="target"></i></div>
+    <div class="ci-icon">
+      <svg class="ci-anim" viewBox="0 0 48 48" aria-hidden="true">
+        <circle cx="24" cy="24" r="17" fill="none" stroke="#9A7C28" stroke-width="2.4" opacity=".32"/>
+        <circle cx="24" cy="24" r="11" fill="none" stroke="#9A7C28" stroke-width="2.4" opacity=".55"/>
+        <circle class="ci-ping" cx="24" cy="24" r="9" fill="none" stroke="#9A7C28" stroke-width="2"/>
+        <circle class="ci-dot" cx="24" cy="24" r="4.5" fill="#9A7C28"/>
+      </svg>
+    </div>
     <h2 class="ci-title">Daily Check-In</h2>
     <p class="ci-sub"><b>4 quick exercises</b>, about 2 minutes. Finish all four for a <span class="ci-xp">+50 XP bonus</span> — and help your care team show up for you.</p>
     <button class="ci-begin" type="button" onclick="checkinBegin()">Let's Begin <span aria-hidden="true">&rarr;</span></button>
