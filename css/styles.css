@@ -1654,3 +1654,6 @@ body.is-desktop .tx-meta{position:absolute;right:6px;top:50%;transform:translate
   background:#FBEAE4;color:#C25A45;font-family:var(--font-ui);font-size:15px;font-weight:700;cursor:pointer;transition:transform .12s ease}
 .pf-logout i,.pf-logout svg{width:18px;height:18px}
 .pf-logout:active{transform:scale(.98)}
+
+/* Header: profile left, logo centered, location right */
+.app-header > .app-logo{flex:1;text-align:center}
