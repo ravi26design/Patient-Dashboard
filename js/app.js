@@ -723,7 +723,7 @@ function onbShow(id){ var e=document.getElementById(id); if(e){ e.style.display=
 function onbHide(id){ var e=document.getElementById(id); if(!e) return; e.classList.add('hide');
   setTimeout(function(){ e.style.display='none'; e.classList.remove('show','hide'); }, 420); }
 function onbStep(from,to){ onbShow(to); onbHide(from); }
-var ONB_ORDER=['moudScreen','triggersScreen','reliefScreen','connectCareScreen','remindersScreen','privacyScreen','doneScreen'];
+var ONB_ORDER=['moudScreen','triggersScreen','reliefScreen','connectCareScreen','privacyScreen','doneScreen'];
 function onbBack(curId){
   var i=ONB_ORDER.indexOf(curId);
   if(i<=0){ onbShow('detailsScreen'); onbHide('moudScreen'); return; }   /* first step back -> details */
@@ -746,16 +746,15 @@ function hideMoudScreen(){ onbHide('moudScreen'); }
 function selectMoud(opt){ onbSave('moud',opt); onbStep('moudScreen','triggersScreen'); }
 /* steps */
 function pvToggle(el){ el.classList.toggle('on');
-  var c1=document.getElementById('pvCheck1'), c2=document.getElementById('pvCheck2'), btn=document.getElementById('pvContinue');
-  if(btn) btn.disabled=!(c1&&c1.classList.contains('on') && c2&&c2.classList.contains('on')); }
+  var c1=document.getElementById('pvCheck1'), btn=document.getElementById('pvContinue');
+  if(btn) btn.disabled=!(c1&&c1.classList.contains('on')); }
 function onbNext(step){
   if(step==='triggers'){ onbSave('triggers', onbSelected('trigChips')); onbStep('triggersScreen','reliefScreen'); }
   else if(step==='relief'){ onbSave('relief', onbSelected('reliefChips')); onbStep('reliefScreen','connectCareScreen'); }
-  else if(step==='connect'){ onbStep('connectCareScreen','remindersScreen'); }
-  else if(step==='reminders'){ onbStep('remindersScreen','privacyScreen'); }
+  else if(step==='connect'){ var cc=document.getElementById('clinicCode'); if(cc&&cc.value.trim()) onbSave('clinicCode', cc.value.trim()); onbStep('connectCareScreen','privacyScreen'); }
   else if(step==='privacy'){
-    var c1=document.getElementById('pvCheck1'), c2=document.getElementById('pvCheck2');
-    if(!(c1&&c1.classList.contains('on') && c2&&c2.classList.contains('on'))) return;
+    var c1=document.getElementById('pvCheck1');
+    if(!(c1&&c1.classList.contains('on'))) return;
     var pf=window.__profile||{}; var first=(pf.name||'there').split(' ')[0];
     var dn=document.getElementById('doneName'); if(dn) dn.textContent=first;
     onbStep('privacyScreen','doneScreen');
