@@ -1718,7 +1718,8 @@ body.is-desktop .tx-meta{position:absolute;right:6px;top:50%;transform:translate
 .onb-count span{color:var(--muted);font-weight:600}
 .onb-steps{flex:1;min-width:0;height:6px;border-radius:999px;background:rgba(58,51,48,.1);overflow:hidden}
 .onb-steps-fill{height:100%;border-radius:999px;background:var(--sage);transition:width .45s ease}
-.onb-inner{flex:1;min-height:0;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;width:100%;max-width:380px;padding:56px 0 0;overflow-y:auto;-webkit-overflow-scrolling:touch}
+.onb-inner{flex:1;min-height:0;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;width:100%;max-width:380px;padding:56px 0 0;overflow-y:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;-ms-overflow-style:none}
+.onb-inner::-webkit-scrollbar{width:0;height:0;display:none}
 .onb-inner .ph-title{font-size:26px;line-height:1.18;margin-bottom:11px}
 .onb-inner .ph-title em{font-style:italic;font-weight:700}
 .onb-inner .ph-sub{margin-bottom:24px;max-width:344px}
