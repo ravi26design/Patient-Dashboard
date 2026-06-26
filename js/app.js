@@ -854,8 +854,13 @@ function startOtpTimer(secs){
   }
   tick(); __otpTimer=setInterval(tick,1000);
 }
+function genOtp(){ var c=''; for(var i=0;i<6;i++) c+=Math.floor(Math.random()*10);
+  window.__otpCode=c; var el=document.getElementById('otpDemoCode'); if(el) el.textContent=c; return c; }
+function otpFilled(){ var b=otpBoxes(); if(!b.length) return false; for(var i=0;i<b.length;i++){ if(!b[i].value) return false; } return true; }
 function showOtpScreen(){ var o=document.getElementById('otpScreen'); if(!o) return;
   var num=document.getElementById('otpNum'); if(num && window.__phone) num.textContent=window.__phone;
+  var boxes=otpBoxes(); for(var i=0;i<boxes.length;i++) boxes[i].value='';
+  genOtp();
   o.classList.add('show');
   startOtpTimer(30);
   setTimeout(function(){ var b=document.querySelector('#otpRow .otp-box'); if(b) b.focus(); }, 420); }
@@ -863,11 +868,18 @@ function hideOtpScreen(){ var o=document.getElementById('otpScreen'); if(!o) ret
   if(__otpTimer){ clearInterval(__otpTimer); __otpTimer=null; }
   o.classList.add('hide'); setTimeout(function(){ o.style.display='none'; }, 420); }
 function otpBoxes(){ var r=document.getElementById('otpRow'); return r?r.querySelectorAll('.otp-box'):[]; }
+function otpError(){
+  var r=document.getElementById('otpRow'); if(!r) return;
+  r.classList.add('err'); setTimeout(function(){ r.classList.remove('err'); }, 1200);
+  var boxes=otpBoxes();
+  setTimeout(function(){ for(var j=0;j<boxes.length;j++) boxes[j].value=''; if(boxes[0]) boxes[0].focus(); }, 650);
+}
 function verifyOtp(){
   var boxes=otpBoxes(), code='';
   for(var i=0;i<boxes.length;i++) code+=boxes[i].value;
-  if(code.length<6){ var r=document.getElementById('otpRow'); if(r){ r.classList.add('err'); setTimeout(function(){ r.classList.remove('err'); }, 1200); } return; }
-  window.__otp=code;                /* demo: any 6-digit code is accepted */
+  if(code.length<6){ otpError(); return; }
+  if(window.__otpCode && code!==window.__otpCode){ otpError(); return; }   /* wrong code */
+  window.__otp=code;                /* correct -> auto-verify */
   showDetailsScreen();
   hideOtpScreen();
   hidePhoneScreen();                /* dismiss the phone screen sitting behind the sheet */
@@ -875,7 +887,8 @@ function verifyOtp(){
 function resendOtp(){
   var btn=document.getElementById('otpResend'); if(btn && btn.disabled) return;   /* still counting down */
   var boxes=otpBoxes(); for(var i=0;i<boxes.length;i++) boxes[i].value=''; if(boxes[0]) boxes[0].focus();
-  startOtpTimer(30);   /* restart countdown */
+  genOtp();             /* fresh code */
+  startOtpTimer(30);    /* restart countdown */
 }
 (function otpInit(){
   var boxes=otpBoxes(); if(!boxes.length) return;
@@ -885,6 +898,7 @@ function resendOtp(){
       b.value=b.value.replace(/\D/g,'').slice(0,1);
       var r=document.getElementById('otpRow'); if(r) r.classList.remove('err');
       if(b.value && idx<boxes.length-1) boxes[idx+1].focus();
+      if(otpFilled()) verifyOtp();   /* auto-verify once all six are in */
     });
     b.addEventListener('keydown', function(e){ if(e.key==='Backspace' && !b.value && idx>0) boxes[idx-1].focus(); });
     b.addEventListener('paste', function(e){
@@ -892,6 +906,7 @@ function resendOtp(){
       var t=((e.clipboardData||window.clipboardData).getData('text')||'').replace(/\D/g,'').slice(0,boxes.length);
       for(var k=0;k<t.length;k++) boxes[k].value=t[k];
       boxes[Math.min(t.length,boxes.length-1)].focus();
+      if(otpFilled()) verifyOtp();   /* auto-verify on full paste */
     });
   })(i); }
 })();

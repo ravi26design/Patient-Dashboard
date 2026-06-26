@@ -1520,6 +1520,9 @@ body.is-desktop .brand-img{height:26px}
 .otp-sheet .ph-sub{margin-bottom:22px}
 .otp-sheet .ph-send{width:100%;margin-top:26px}
 @keyframes sheetUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
+.otp-demo{font-family:var(--font-ui);font-size:12px;font-weight:600;color:var(--sage-dk);
+  background:var(--sage-lt);border-radius:999px;padding:7px 14px;margin:0 0 18px;letter-spacing:.2px}
+.otp-demo b{font-family:var(--font-display);font-weight:700;letter-spacing:2px;color:var(--ink)}
 .otp-row{display:flex;gap:10px;justify-content:center;width:100%;max-width:330px;margin-top:6px}
 .otp-box{flex:1;min-width:0;max-width:50px;aspect-ratio:1/1;text-align:center;background:#fff;border:none;border-radius:14px;
   font-family:var(--font-display);font-size:24px;font-weight:700;color:var(--ink);outline:none;
