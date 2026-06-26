@@ -857,16 +857,20 @@ function startOtpTimer(secs){
 function genOtp(){ var c=''; for(var i=0;i<6;i++) c+=Math.floor(Math.random()*10);
   window.__otpCode=c; var el=document.getElementById('otpDemoCode'); if(el) el.textContent=c; return c; }
 function otpFilled(){ var b=otpBoxes(); if(!b.length) return false; for(var i=0;i<b.length;i++){ if(!b[i].value) return false; } return true; }
+var __otpHideTimer=null;
 function showOtpScreen(){ var o=document.getElementById('otpScreen'); if(!o) return;
+  if(__otpHideTimer){ clearTimeout(__otpHideTimer); __otpHideTimer=null; }
   var num=document.getElementById('otpNum'); if(num && window.__phone) num.textContent=window.__phone;
   var boxes=otpBoxes(); for(var i=0;i<boxes.length;i++) boxes[i].value='';
   genOtp();
-  o.classList.add('show');
+  o.style.display=''; o.classList.remove('hide'); o.classList.add('show');   /* reset any leftover state from a prior close */
   startOtpTimer(30);
   setTimeout(function(){ var b=document.querySelector('#otpRow .otp-box'); if(b) b.focus(); }, 420); }
 function hideOtpScreen(){ var o=document.getElementById('otpScreen'); if(!o) return;
   if(__otpTimer){ clearInterval(__otpTimer); __otpTimer=null; }
-  o.classList.add('hide'); setTimeout(function(){ o.style.display='none'; }, 420); }
+  o.classList.add('hide');
+  if(__otpHideTimer) clearTimeout(__otpHideTimer);
+  __otpHideTimer=setTimeout(function(){ o.style.display='none'; o.classList.remove('show','hide'); __otpHideTimer=null; }, 420); }
 function closeOtpSheet(){ hideOtpScreen(); }   /* dismiss sheet -> back to the phone-number screen behind it */
 function otpBoxes(){ var r=document.getElementById('otpRow'); return r?r.querySelectorAll('.otp-box'):[]; }
 function otpError(){
