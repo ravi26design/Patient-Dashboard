@@ -156,6 +156,25 @@
   </div>
 </div>
 
+<!-- ═══ PROFILE SHEET ═══ -->
+<div id="profileSheet" aria-hidden="true" onclick="if(event.target===this)closeProfile()">
+  <div class="pf-sheet">
+    <div class="pf-top">
+      <div class="pf-avatar" id="pfAvatar">AM</div>
+      <div class="pf-id">
+        <div class="pf-name" id="pfName">—</div>
+        <div class="pf-sub" id="pfPhone">—</div>
+      </div>
+      <button class="pf-close" type="button" onclick="closeProfile()"><i data-lucide="x"></i></button>
+    </div>
+    <div class="pf-list">
+      <div class="pf-item"><i data-lucide="mail"></i><div><span class="pf-k">Email</span><span class="pf-v" id="pfEmail">—</span></div></div>
+      <div class="pf-item"><i data-lucide="cake"></i><div><span class="pf-k">Date of birth</span><span class="pf-v" id="pfDob">—</span></div></div>
+    </div>
+    <button class="pf-logout" type="button" onclick="logout()"><i data-lucide="log-out"></i> Log out</button>
+  </div>
+</div>
+
 <!-- ═══ DATE OF BIRTH PICKER ═══ -->
 <div id="dobPicker" aria-hidden="true" onclick="if(event.target===this)closeDob()">
   <div class="dob-sheet">
@@ -199,7 +218,7 @@
     <div class="header-right">
       
       <button class="notif-btn nav-soon" aria-label="Location"><i data-lucide="map-pin"></i></button>
-      <button class="avatar-btn nav-soon" aria-label="Profile"><i data-lucide="user-round"></i></button>
+      <button class="avatar-btn" aria-label="Profile" onclick="openProfile()"><i data-lucide="user-round"></i></button>
     </div>
   </div>
 

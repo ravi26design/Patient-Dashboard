@@ -1627,3 +1627,30 @@ body.is-desktop .tx-meta{position:absolute;right:6px;top:50%;transform:translate
 /* Profile avatar — filled sage circle with white initials */
 .avatar-btn{background:#5E8B6E;border:none;color:#fff;font-weight:700;font-size:10px}
 .avatar-btn i,.avatar-btn svg{width:16px;height:16px;stroke-width:2}
+
+/* ═══ PROFILE SHEET ═══ */
+#profileSheet{position:fixed;inset:0;z-index:9700;display:none}
+#profileSheet.show{display:block}
+#profileSheet::before{content:'';position:absolute;inset:0;background:rgba(40,36,33,.45);animation:lmFade .25s ease both}
+.pf-sheet{position:absolute;left:0;right:0;bottom:0;background:#fff;border-radius:24px 24px 0 0;
+  padding:20px 18px calc(18px + env(safe-area-inset-bottom));box-shadow:0 -10px 40px rgba(40,36,33,.25);
+  animation:ccUp .32s cubic-bezier(.2,.8,.3,1) both}
+.pf-top{display:flex;align-items:center;gap:14px;margin-bottom:18px}
+.pf-avatar{width:54px;height:54px;border-radius:50%;background:#5E8B6E;color:#fff;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;font-family:var(--font-ui);font-weight:700;font-size:18px;letter-spacing:.5px}
+.pf-id{flex:1;min-width:0}
+.pf-name{font-family:var(--font-display);font-size:18px;font-weight:700;color:var(--ink)}
+.pf-sub{font-family:var(--font-ui);font-size:13px;color:var(--ink-soft);margin-top:2px}
+.pf-close{background:var(--beige);border:none;width:34px;height:34px;border-radius:50%;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--espresso)}
+.pf-close i,.pf-close svg{width:18px;height:18px}
+.pf-list{display:flex;flex-direction:column;gap:2px;margin-bottom:16px}
+.pf-item{display:flex;align-items:center;gap:13px;padding:11px 8px;border-radius:12px}
+.pf-item i,.pf-item svg{width:19px;height:19px;color:var(--sage-dk);flex-shrink:0}
+.pf-item > div{display:flex;flex-direction:column;min-width:0}
+.pf-k{font-family:var(--font-ui);font-size:11px;color:var(--ink-soft)}
+.pf-v{font-family:var(--font-ui);font-size:14px;color:var(--ink);font-weight:600}
+.pf-logout{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:14px;border:none;border-radius:14px;
+  background:#FBEAE4;color:#C25A45;font-family:var(--font-ui);font-size:15px;font-weight:700;cursor:pointer;transition:transform .12s ease}
+.pf-logout i,.pf-logout svg{width:18px;height:18px}
+.pf-logout:active{transform:scale(.98)}

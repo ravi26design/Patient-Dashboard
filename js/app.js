@@ -712,7 +712,7 @@ function submitDetails(){
   if(!nameVal){ dtErr('dtNameField'); if(name) name.focus(); return; }
   var emailVal=((email&&email.value)||'').trim();
   if(emailVal && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(emailVal)){ dtErr('dtEmailField'); if(email) email.focus(); return; }
-  window.__profile={name:nameVal, email:emailVal, dob:(window.__dob||null), age:(window.__dob?window.__dob.age:null)};
+  window.__profile={name:nameVal, email:emailVal, phone:(window.__phone||null), dob:(window.__dob||null), age:(window.__dob?window.__dob.age:null)};
   var rn=document.getElementById('rhName'); if(rn) rn.textContent=nameVal.split(' ')[0];   /* greet by first name */
   try{ localStorage.setItem('rh_onboarded','1'); localStorage.setItem('rh_profile', JSON.stringify(window.__profile)); }catch(e){}
   hideDetailsScreen();   /* -> dashboard */
@@ -881,4 +881,25 @@ function confirmDob(){
   var t=new Date(), age=t.getFullYear()-year; if(t.getMonth()<month || (t.getMonth()===month && t.getDate()<day)) age--;
   window.__dob={date:str, day:day, month:month+1, year:year, age:age};
   closeDob();
+}
+
+/* ═══ PROFILE SHEET ═══ */
+function pfInitials(name){ var p=(name||'').trim().split(/\s+/); var s=((p[0]||'')[0]||'')+((p[1]||'')[0]||''); return (s||'U').toUpperCase(); }
+function pfSet(id,v){ var el=document.getElementById(id); if(el) el.textContent=(v&&String(v).trim())?v:'—'; }
+function openProfile(){
+  var p=document.getElementById('profileSheet'); if(!p) return;
+  var pf=window.__profile; if(!pf){ try{ pf=JSON.parse(localStorage.getItem('rh_profile')||'null'); }catch(e){} } pf=pf||{};
+  var name=pf.name||'There';
+  pfSet('pfName', name);
+  var av=document.getElementById('pfAvatar'); if(av) av.textContent=pfInitials(name);
+  pfSet('pfPhone', window.__phone || pf.phone || '');
+  pfSet('pfEmail', pf.email);
+  pfSet('pfDob', (pf.dob && pf.dob.date) ? pf.dob.date : (typeof pf.dob==='string' ? pf.dob : ''));
+  p.classList.add('show');
+}
+function closeProfile(){ var p=document.getElementById('profileSheet'); if(p) p.classList.remove('show'); }
+function logout(){
+  try{ localStorage.removeItem('rh_onboarded'); localStorage.removeItem('rh_profile');
+       localStorage.removeItem('rh_screen'); localStorage.removeItem('rh_ov'); }catch(e){}
+  location.reload();   /* restart onboarding */
 }
