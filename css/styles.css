@@ -1394,9 +1394,10 @@ body.is-desktop .brand-img{height:26px}
 .ci-sub{font-family:var(--font-ui);font-size:14px;line-height:1.6;color:var(--brown);margin-bottom:20px}
 .ci-sub b{color:var(--ink);font-weight:700}
 .ci-xp{color:var(--gold-dk);font-weight:700}
-.ci-begin{width:100%;padding:16px;border:none;border-radius:14px;background:var(--gold-dk);color:#fff;
+.ci-begin{width:100%;padding:16px;border:none;border-radius:14px;background:var(--sage);color:#fff;
   font-family:var(--font-ui);font-size:16px;font-weight:700;cursor:pointer;
-  box-shadow:0 10px 24px rgba(154,124,40,.3);transition:transform .12s ease}
+  box-shadow:0 10px 24px rgba(110,158,128,.32);transition:transform .12s ease,filter .15s ease}
+.ci-begin:hover{filter:brightness(1.04)}
 .ci-begin:active{transform:scale(.98)}
 .ci-later{width:100%;margin-top:10px;padding:14px;border:1px solid var(--border);border-radius:14px;background:#fff;
   font-family:var(--font-ui);font-size:14px;font-weight:600;color:var(--brown);cursor:pointer}
