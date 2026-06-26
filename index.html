@@ -132,10 +132,10 @@
   </div>
 </div>
 
-<!-- ═══ MOUD MEDICATION SCREEN ═══ -->
-<div id="moudScreen" aria-hidden="true">
-  <div class="moud-inner">
-    <div class="ph-badge"><img src="assets/icon.png" alt="" aria-hidden="true"></div>
+<!-- ═══ ONBOARDING STEP FORM (MOUD -> Triggers -> Relief -> Care team -> Reminders -> Privacy -> Done) ═══ -->
+<div id="moudScreen" class="step-screen" aria-hidden="true">
+  <div class="onb-steps"><div class="onb-steps-fill" style="width:14%"></div></div>
+  <div class="onb-inner">
     <h1 class="ph-title">Are you taking medication for opioid use disorder?</h1>
     <p class="ph-sub">MOUD like buprenorphine cuts overdose risk dramatically. There's no wrong answer — I'll set your tracker to match.</p>
     <div class="moud-opts">
@@ -145,6 +145,111 @@
       <button class="moud-opt" type="button" onclick="selectMoud('Not right now')">Not right now</button>
       <button class="moud-opt" type="button" onclick="selectMoud('Prefer not to say')">Prefer not to say</button>
     </div>
+  </div>
+</div>
+
+<div id="triggersScreen" class="step-screen" aria-hidden="true">
+  <div class="onb-steps"><div class="onb-steps-fill" style="width:29%"></div></div>
+  <div class="onb-inner">
+    <h1 class="ph-title">What are your <em>triggers</em>?</h1>
+    <p class="ph-sub">A trigger is anything — a feeling, place, person, or time of day — that tends to spark a craving. Naming yours helps me warn you early. Add as many as you can.</p>
+    <div class="onb-addrow">
+      <input id="trigInput" class="onb-input" type="text" placeholder="Type a trigger…" onkeydown="if(event.key==='Enter'){event.preventDefault();onbAdd('trigChips','trigInput')}">
+      <button class="onb-add" type="button" onclick="onbAdd('trigChips','trigInput')">Add</button>
+    </div>
+    <div class="onb-hint">Tap to add common ones</div>
+    <div class="onb-chips" id="trigChips">
+      <button class="onb-chip" type="button" onclick="onbToggle(this)">Stress</button>
+      <button class="onb-chip" type="button" onclick="onbToggle(this)">Evenings</button>
+      <button class="onb-chip" type="button" onclick="onbToggle(this)">Physical pain</button>
+      <button class="onb-chip" type="button" onclick="onbToggle(this)">Old neighborhood</button>
+      <button class="onb-chip" type="button" onclick="onbToggle(this)">Certain people</button>
+      <button class="onb-chip" type="button" onclick="onbToggle(this)">Loneliness</button>
+      <button class="onb-chip" type="button" onclick="onbToggle(this)">Payday</button>
+      <button class="onb-chip" type="button" onclick="onbToggle(this)">Boredom</button>
+      <button class="onb-chip" type="button" onclick="onbToggle(this)">Poor sleep</button>
+      <button class="onb-chip" type="button" onclick="onbToggle(this)">Conflict</button>
+    </div>
+    <button class="wc-begin onb-continue" type="button" onclick="onbNext('triggers')">Continue <span aria-hidden="true">&rarr;</span></button>
+  </div>
+</div>
+
+<div id="reliefScreen" class="step-screen" aria-hidden="true">
+  <div class="onb-steps"><div class="onb-steps-fill" style="width:43%"></div></div>
+  <div class="onb-inner">
+    <h1 class="ph-title">What brings you <em>relief</em>?</h1>
+    <p class="ph-sub">When an urge hits, doing something you enjoy can help it pass. What helps you ride it out? I'll put these one tap away on your Urge button.</p>
+    <div class="onb-addrow">
+      <input id="reliefInput" class="onb-input" type="text" placeholder="Type an activity…" onkeydown="if(event.key==='Enter'){event.preventDefault();onbAdd('reliefChips','reliefInput')}">
+      <button class="onb-add" type="button" onclick="onbAdd('reliefChips','reliefInput')">Add</button>
+    </div>
+    <div class="onb-hint">Tap what helps you</div>
+    <div class="onb-chips" id="reliefChips">
+      <button class="onb-chip" type="button" onclick="onbToggle(this)">🚶 Go for a walk</button>
+      <button class="onb-chip" type="button" onclick="onbToggle(this)">📞 Call someone</button>
+      <button class="onb-chip" type="button" onclick="onbToggle(this)">🎵 Music</button>
+      <button class="onb-chip" type="button" onclick="onbToggle(this)">🚿 Hot shower</button>
+      <button class="onb-chip" type="button" onclick="onbToggle(this)">🌬️ Breathe</button>
+      <button class="onb-chip" type="button" onclick="onbToggle(this)">🎮 Play a game</button>
+      <button class="onb-chip" type="button" onclick="onbToggle(this)">🧘 Pray / meditate</button>
+      <button class="onb-chip" type="button" onclick="onbToggle(this)">💪 Work out</button>
+      <button class="onb-chip" type="button" onclick="onbToggle(this)">💧 Cold water</button>
+      <button class="onb-chip" type="button" onclick="onbToggle(this)">🐶 My pet</button>
+    </div>
+    <button class="wc-begin onb-continue" type="button" onclick="onbNext('relief')">Continue <span aria-hidden="true">&rarr;</span></button>
+  </div>
+</div>
+
+<div id="connectCareScreen" class="step-screen" aria-hidden="true">
+  <div class="onb-steps"><div class="onb-steps-fill" style="width:57%"></div></div>
+  <div class="onb-inner">
+    <h1 class="ph-title">Want to connect your care team?</h1>
+    <p class="ph-sub">If you're seeing a clinic, Rudra can securely sync your appointments and MOUD plan through your health record. You're always in control of what's shared.</p>
+    <div class="onb-careopts">
+      <button class="moud-opt" type="button" onclick="onbNext('connect')">Connect my clinic</button>
+      <button class="moud-opt" type="button" onclick="onbNext('connect')">Enter a clinic code</button>
+    </div>
+    <button class="onb-later" type="button" onclick="onbNext('connect')">I'll do this later</button>
+  </div>
+</div>
+
+<div id="remindersScreen" class="step-screen" aria-hidden="true">
+  <div class="onb-steps"><div class="onb-steps-fill" style="width:71%"></div></div>
+  <div class="onb-inner">
+    <h1 class="ph-title">Can I send gentle reminders?</h1>
+    <p class="ph-sub">Just the helpful ones — your dose, a daily check-in, and a heads-up before tough times of day. No spam, ever.</p>
+    <div class="onb-careopts">
+      <button class="moud-opt" type="button" onclick="onbNext('reminders')">Yes, remind me</button>
+      <button class="moud-opt" type="button" onclick="onbNext('reminders')">Only my dose</button>
+    </div>
+    <button class="onb-later" type="button" onclick="onbNext('reminders')">Not now</button>
+  </div>
+</div>
+
+<div id="privacyScreen" class="step-screen" aria-hidden="true">
+  <div class="onb-steps"><div class="onb-steps-fill" style="width:86%"></div></div>
+  <div class="onb-inner">
+    <h1 class="ph-title">Your privacy, in plain terms.</h1>
+    <p class="ph-sub">Records about substance use disorder get extra federal protection. Here's what you're agreeing to.</p>
+    <button class="pv-check" id="pvCheck1" type="button" onclick="pvToggle(this)">
+      <span class="pv-box"><i data-lucide="check"></i></span>
+      <span class="pv-text">I agree to the <b>Terms of Use</b> and understand Rudra is an AI companion, not a medical or emergency service.</span>
+    </button>
+    <button class="pv-check" id="pvCheck2" type="button" onclick="pvToggle(this)">
+      <span class="pv-box"><i data-lucide="check"></i></span>
+      <span class="pv-text">I've read how my data is protected under <b>42 CFR Part 2</b> &amp; HIPAA, and that nothing is shared without my consent.</span>
+    </button>
+    <button class="wc-begin onb-continue" id="pvContinue" type="button" onclick="onbNext('privacy')" disabled>Continue <span aria-hidden="true">&rarr;</span></button>
+  </div>
+</div>
+
+<div id="doneScreen" class="step-screen" aria-hidden="true">
+  <div class="onb-steps"><div class="onb-steps-fill" style="width:100%"></div></div>
+  <div class="onb-inner">
+    <div class="ph-badge"><img src="assets/icon.png" alt="" aria-hidden="true"></div>
+    <h1 class="ph-title">We're set, <em id="doneName">there</em>.</h1>
+    <p class="ph-sub">Whenever you're ready — a check-in, a craving, or just a hello — I'm right here. One tap on my circle, any time.</p>
+    <button class="wc-begin onb-continue" type="button" onclick="finishOnb()">Get started <span aria-hidden="true">&rarr;</span></button>
   </div>
 </div>
 

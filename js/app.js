@@ -718,15 +718,44 @@ function submitDetails(){
   showMoudScreen();      /* next step: MOUD medication */
   hideDetailsScreen();
 }
-/* ═══ MOUD MEDICATION ═══ */
-function showMoudScreen(){ var m=document.getElementById('moudScreen'); if(m) m.classList.add('show'); }
-function hideMoudScreen(){ var m=document.getElementById('moudScreen'); if(!m) return;
-  m.classList.add('hide'); setTimeout(function(){ m.style.display='none'; }, 420); }
-function selectMoud(opt){
-  window.__moud=opt;
-  try{ var pf=window.__profile||{}; pf.moud=opt; window.__profile=pf; localStorage.setItem('rh_profile', JSON.stringify(pf)); }catch(e){}
-  hideMoudScreen();      /* -> dashboard */
+/* ═══ ONBOARDING STEP FORM (MOUD -> triggers -> relief -> care -> reminders -> privacy -> done) ═══ */
+function onbShow(id){ var e=document.getElementById(id); if(e){ e.style.display=''; e.classList.remove('hide'); e.classList.add('show'); e.scrollTop=0; } }
+function onbHide(id){ var e=document.getElementById(id); if(!e) return; e.classList.add('hide');
+  setTimeout(function(){ e.style.display='none'; e.classList.remove('show','hide'); }, 420); }
+function onbStep(from,to){ onbShow(to); onbHide(from); }
+function onbToggle(el){ el.classList.toggle('sel'); }
+function onbAdd(containerId, inputId){
+  var inp=document.getElementById(inputId), c=document.getElementById(containerId); if(!inp||!c) return;
+  var v=(inp.value||'').trim(); if(!v) return;
+  var b=document.createElement('button'); b.type='button'; b.className='onb-chip sel'; b.textContent=v;
+  b.addEventListener('click', function(){ onbToggle(b); });
+  c.appendChild(b); inp.value=''; inp.focus();
 }
+function onbSelected(containerId){ var c=document.getElementById(containerId); if(!c) return [];
+  var out=[], ch=c.querySelectorAll('.onb-chip.sel'); for(var i=0;i<ch.length;i++) out.push(ch[i].textContent.trim()); return out; }
+function onbSave(k,v){ try{ var pf=window.__profile||{}; pf[k]=v; window.__profile=pf; localStorage.setItem('rh_profile', JSON.stringify(pf)); }catch(e){} window['__'+k]=v; }
+/* MOUD */
+function showMoudScreen(){ onbShow('moudScreen'); }
+function hideMoudScreen(){ onbHide('moudScreen'); }
+function selectMoud(opt){ onbSave('moud',opt); onbStep('moudScreen','triggersScreen'); }
+/* steps */
+function pvToggle(el){ el.classList.toggle('on');
+  var c1=document.getElementById('pvCheck1'), c2=document.getElementById('pvCheck2'), btn=document.getElementById('pvContinue');
+  if(btn) btn.disabled=!(c1&&c1.classList.contains('on') && c2&&c2.classList.contains('on')); }
+function onbNext(step){
+  if(step==='triggers'){ onbSave('triggers', onbSelected('trigChips')); onbStep('triggersScreen','reliefScreen'); }
+  else if(step==='relief'){ onbSave('relief', onbSelected('reliefChips')); onbStep('reliefScreen','connectCareScreen'); }
+  else if(step==='connect'){ onbStep('connectCareScreen','remindersScreen'); }
+  else if(step==='reminders'){ onbStep('remindersScreen','privacyScreen'); }
+  else if(step==='privacy'){
+    var c1=document.getElementById('pvCheck1'), c2=document.getElementById('pvCheck2');
+    if(!(c1&&c1.classList.contains('on') && c2&&c2.classList.contains('on'))) return;
+    var pf=window.__profile||{}; var first=(pf.name||'there').split(' ')[0];
+    var dn=document.getElementById('doneName'); if(dn) dn.textContent=first;
+    onbStep('privacyScreen','doneScreen');
+  }
+}
+function finishOnb(){ onbHide('doneScreen'); }   /* -> dashboard */
 /* ═══ LOCATION PERMISSION ═══ */
 function showLocModal(){ var m=document.getElementById('locModal'); if(m) m.classList.add('show'); }
 function hideLocModal(){ var m=document.getElementById('locModal'); if(!m) return;
