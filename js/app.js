@@ -867,6 +867,7 @@ function showOtpScreen(){ var o=document.getElementById('otpScreen'); if(!o) ret
 function hideOtpScreen(){ var o=document.getElementById('otpScreen'); if(!o) return;
   if(__otpTimer){ clearInterval(__otpTimer); __otpTimer=null; }
   o.classList.add('hide'); setTimeout(function(){ o.style.display='none'; }, 420); }
+function closeOtpSheet(){ hideOtpScreen(); }   /* dismiss sheet -> back to the phone-number screen behind it */
 function otpBoxes(){ var r=document.getElementById('otpRow'); return r?r.querySelectorAll('.otp-box'):[]; }
 function otpError(){
   var r=document.getElementById('otpRow'); if(!r) return;
