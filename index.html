@@ -138,13 +138,14 @@
   <div class="onb-inner">
     <h1 class="ph-title">Are you taking medication for opioid use disorder?</h1>
     <p class="ph-sub">MOUD like buprenorphine cuts overdose risk dramatically. There's no wrong answer — I'll set your tracker to match.</p>
-    <div class="moud-opts">
-      <button class="moud-opt" type="button" onclick="selectMoud('Suboxone / buprenorphine')">Suboxone / buprenorphine</button>
-      <button class="moud-opt" type="button" onclick="selectMoud('Methadone')">Methadone</button>
-      <button class="moud-opt" type="button" onclick="selectMoud('Naltrexone / Vivitrol')">Naltrexone / Vivitrol</button>
-      <button class="moud-opt" type="button" onclick="selectMoud('Not right now')">Not right now</button>
-      <button class="moud-opt" type="button" onclick="selectMoud('Prefer not to say')">Prefer not to say</button>
+    <div class="moud-opts" id="moudOpts">
+      <button class="moud-opt" type="button" onclick="onbToggle(this)">Suboxone / buprenorphine</button>
+      <button class="moud-opt" type="button" onclick="onbToggle(this)">Methadone</button>
+      <button class="moud-opt" type="button" onclick="onbToggle(this)">Naltrexone / Vivitrol</button>
+      <button class="moud-opt" type="button" onclick="onbToggle(this)">Not right now</button>
+      <button class="moud-opt" type="button" onclick="onbToggle(this)">Prefer not to say</button>
     </div>
+    <button class="wc-begin onb-continue" type="button" onclick="onbNext('moud')">Continue <span aria-hidden="true">&rarr;</span></button>
   </div>
 </div>
 

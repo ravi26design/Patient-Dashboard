@@ -1718,3 +1718,4 @@ body.is-desktop .tx-meta{position:absolute;right:6px;top:50%;transform:translate
 .pv-text{font-family:var(--font-ui);font-size:13.5px;line-height:1.5;color:var(--brown)}
 .pv-text b{color:var(--ink);font-weight:700}
 @media (min-width:900px){ .onb-inner .ph-title{font-size:30px} .moud-opt,.onb-chip{font-size:15px} }
+.moud-opt.sel{background:var(--sage);color:#fff;box-shadow:0 6px 16px rgba(110,158,128,.32)}
