@@ -1669,7 +1669,15 @@ body.is-desktop .tx-meta{position:absolute;right:6px;top:50%;transform:translate
     var(--app-bg)}
 .step-screen.show{display:flex;animation:wcIn .5s cubic-bezier(.2,.7,.3,1) both}
 .step-screen.hide{opacity:0;visibility:hidden;pointer-events:none;transition:opacity .4s ease, visibility .4s ease}
-.onb-steps{width:100%;max-width:360px;height:5px;border-radius:999px;background:rgba(58,51,48,.1);overflow:hidden;flex-shrink:0;margin:0 auto}
+.onb-top{display:flex;align-items:center;gap:12px;width:100%;max-width:380px;margin:0 auto;flex-shrink:0}
+.onb-back{flex-shrink:0;width:34px;height:34px;border-radius:50%;border:none;cursor:pointer;
+  background:rgba(255,255,255,.6);display:flex;align-items:center;justify-content:center;color:var(--ink);
+  box-shadow:0 2px 8px rgba(58,51,48,.06);transition:transform .12s ease}
+.onb-back i,.onb-back svg{width:18px;height:18px}
+.onb-back:active{transform:scale(.92)}
+.onb-count{flex-shrink:0;font-family:var(--font-ui);font-size:12px;font-weight:700;color:var(--brown);min-width:30px;text-align:right}
+.onb-count span{color:var(--muted);font-weight:600}
+.onb-steps{flex:1;min-width:0;height:6px;border-radius:999px;background:rgba(58,51,48,.1);overflow:hidden}
 .onb-steps-fill{height:100%;border-radius:999px;background:var(--sage);transition:width .45s ease}
 .onb-inner{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;width:100%;max-width:380px;padding:24px 0}
 .onb-inner .ph-title{font-size:26px;line-height:1.18;margin-bottom:11px}

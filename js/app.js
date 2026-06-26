@@ -723,6 +723,12 @@ function onbShow(id){ var e=document.getElementById(id); if(e){ e.style.display=
 function onbHide(id){ var e=document.getElementById(id); if(!e) return; e.classList.add('hide');
   setTimeout(function(){ e.style.display='none'; e.classList.remove('show','hide'); }, 420); }
 function onbStep(from,to){ onbShow(to); onbHide(from); }
+var ONB_ORDER=['moudScreen','triggersScreen','reliefScreen','connectCareScreen','remindersScreen','privacyScreen','doneScreen'];
+function onbBack(curId){
+  var i=ONB_ORDER.indexOf(curId);
+  if(i<=0){ onbShow('detailsScreen'); onbHide('moudScreen'); return; }   /* first step back -> details */
+  onbStep(curId, ONB_ORDER[i-1]);
+}
 function onbToggle(el){ el.classList.toggle('sel'); }
 function onbAdd(containerId, inputId){
   var inp=document.getElementById(inputId), c=document.getElementById(containerId); if(!inp||!c) return;
