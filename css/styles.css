@@ -1661,7 +1661,7 @@ body.is-desktop .tx-meta{position:absolute;right:6px;top:50%;transform:translate
 /* ═══ ONBOARDING STEP FORM (MOUD / triggers / relief / care / reminders / privacy / done) ═══ */
 .step-screen{position:fixed;inset:0;z-index:9565;display:none;
   flex-direction:column;align-items:center;justify-content:flex-start;text-align:center;
-  overflow-y:auto;-webkit-overflow-scrolling:touch;
+  overflow:hidden;
   padding:34px 26px calc(34px + env(safe-area-inset-bottom));
   background:
     radial-gradient(120% 62% at 50% 6%, rgba(196,160,136,.26), transparent 56%),
@@ -1679,7 +1679,7 @@ body.is-desktop .tx-meta{position:absolute;right:6px;top:50%;transform:translate
 .onb-count span{color:var(--muted);font-weight:600}
 .onb-steps{flex:1;min-width:0;height:6px;border-radius:999px;background:rgba(58,51,48,.1);overflow:hidden}
 .onb-steps-fill{height:100%;border-radius:999px;background:var(--sage);transition:width .45s ease}
-.onb-inner{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;width:100%;max-width:380px;padding:56px 0 24px}
+.onb-inner{flex:1;min-height:0;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;width:100%;max-width:380px;padding:56px 0 0;overflow-y:auto;-webkit-overflow-scrolling:touch}
 .onb-inner .ph-title{font-size:26px;line-height:1.18;margin-bottom:11px}
 .onb-inner .ph-title em{font-style:italic;font-weight:700}
 .onb-inner .ph-sub{margin-bottom:24px;max-width:344px}
@@ -1705,7 +1705,7 @@ body.is-desktop .tx-meta{position:absolute;right:6px;top:50%;transform:translate
 .onb-chip{background:rgba(255,255,255,.6);border:1px solid rgba(255,255,255,.5);border-radius:999px;padding:13px 18px;
   font-family:var(--font-ui);font-size:14px;font-weight:600;color:var(--ink);cursor:pointer;transition:all .15s ease}
 .onb-chip.sel{background:var(--sage);color:#fff;border-color:var(--sage)}
-.onb-continue{margin-top:4px}
+.onb-continue{position:sticky;bottom:0;margin-top:auto;max-width:none;flex-shrink:0}
 .onb-continue:disabled{opacity:.45;cursor:default}
 .pv-check{display:flex;align-items:flex-start;gap:12px;width:100%;max-width:360px;text-align:left;
   background:#fff;border:none;border-radius:16px;padding:16px;margin-bottom:12px;cursor:pointer;
