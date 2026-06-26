@@ -758,9 +758,11 @@ function onbNext(step){
     var pf=window.__profile||{}; var first=(pf.name||'there').split(' ')[0];
     var dn=document.getElementById('doneName'); if(dn) dn.textContent=first;
     onbStep('privacyScreen','doneScreen');
+    if(window.__doneTimer) clearTimeout(window.__doneTimer);
+    window.__doneTimer=setTimeout(finishOnb, 3400);   /* auto-advance to home after a few seconds */
   }
 }
-function finishOnb(){ onbHide('doneScreen'); }   /* -> dashboard */
+function finishOnb(){ if(window.__doneTimer){ clearTimeout(window.__doneTimer); window.__doneTimer=null; } onbHide('doneScreen'); }   /* -> dashboard */
 /* ═══ LOCATION PERMISSION ═══ */
 function showLocModal(){ var m=document.getElementById('locModal'); if(m) m.classList.add('show'); }
 function hideLocModal(){ var m=document.getElementById('locModal'); if(!m) return;
