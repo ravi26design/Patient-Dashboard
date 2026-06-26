@@ -1372,12 +1372,12 @@ body.is-desktop .brand-img{height:26px}
 #doneModal.show{display:flex;animation:lmFade .3s ease both}
 #doneModal.hide{opacity:0;pointer-events:none;transition:opacity .38s ease}
 .dm-card{padding:34px 28px 30px;overflow:hidden}
-.dm-anim{position:relative;width:140px;height:140px;margin:2px auto 20px;display:flex;align-items:center;justify-content:center}
-.dm-ring{position:absolute;top:50%;left:50%;width:82px;height:82px;border-radius:50%;
+.dm-anim{position:relative;width:104px;height:104px;margin:2px auto 18px;display:flex;align-items:center;justify-content:center}
+.dm-ring{position:absolute;top:50%;left:50%;width:62px;height:62px;border-radius:50%;
   background:var(--sage-lt);transform:translate(-50%,-50%);animation:dmPulse 3.6s ease-out infinite}
 .dm-ring:nth-child(2){animation-delay:1.2s}
 .dm-ring:nth-child(3){animation-delay:2.4s}
-.dm-bloom{position:relative;z-index:1;width:140px;height:140px;transform-origin:center;
+.dm-bloom{position:relative;z-index:1;width:104px;height:104px;transform-origin:center;
   filter:drop-shadow(0 8px 20px rgba(110,158,128,.28));animation:dmBreathe 4.6s ease-in-out infinite}
 @keyframes dmPulse{0%{transform:translate(-50%,-50%) scale(.6);opacity:.5}70%{opacity:.1}100%{transform:translate(-50%,-50%) scale(2);opacity:0}}
 @keyframes dmBreathe{0%,100%{transform:scale(.93)}50%{transform:scale(1.06)}}
