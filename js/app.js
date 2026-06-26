@@ -872,6 +872,7 @@ function hideOtpScreen(){ var o=document.getElementById('otpScreen'); if(!o) ret
   if(__otpHideTimer) clearTimeout(__otpHideTimer);
   __otpHideTimer=setTimeout(function(){ o.style.display='none'; o.classList.remove('show','hide'); __otpHideTimer=null; }, 420); }
 function closeOtpSheet(){ hideOtpScreen(); }   /* dismiss sheet -> back to the phone-number screen behind it */
+function otpBackdrop(e){ if(e && e.target && e.target.id==='otpScreen') closeOtpSheet(); }   /* tap outside the sheet closes it */
 function otpBoxes(){ var r=document.getElementById('otpRow'); return r?r.querySelectorAll('.otp-box'):[]; }
 function otpError(){
   var r=document.getElementById('otpRow'); if(!r) return;
