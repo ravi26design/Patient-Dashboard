@@ -737,15 +737,7 @@ function allowLocation(){
 function skipLocation(){ hideLocModal(); }
 (function(){
   var sp=document.getElementById('splash'); if(!sp) return;
-  var onboarded=false; try{ onboarded=localStorage.getItem('rh_onboarded')==='1'; }catch(e){}
-  if(onboarded){
-    /* returning user — skip onboarding entirely; restore the last screen/overlay (splash already hidden via CSS) */
-    sp.style.display='none';
-    try{ var pf=JSON.parse(localStorage.getItem('rh_profile')||'null'); if(pf){ window.__profile=pf; if(pf.name){ var rn=document.getElementById('rhName'); if(rn) rn.textContent=pf.name.split(' ')[0]; } } }catch(e){}
-    try{ var scr=localStorage.getItem('rh_screen'); if(scr) goScreen(scr);
-         var ov=localStorage.getItem('rh_ov'); if(ov) openOv(ov); }catch(e){}
-    return;
-  }
+  /* every load runs the full flow: splash -> intro -> mobile number -> OTP -> details -> location -> home */
   var hidden=false;
   function hide(){ if(hidden) return; hidden=true;
     var w=document.getElementById('welcome'); if(w){ w.classList.add('show'); __wc.start(); } /* show welcome BEHIND the splash first */
