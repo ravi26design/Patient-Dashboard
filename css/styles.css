@@ -1712,8 +1712,7 @@ body.is-desktop .tx-meta{position:absolute;right:6px;top:50%;transform:translate
 .onb-continue{position:sticky;bottom:0;margin-top:auto;max-width:none;flex-shrink:0}
 .onb-continue:disabled{opacity:.45;cursor:default}
 .pv-check{display:flex;align-items:flex-start;gap:12px;width:100%;max-width:360px;text-align:left;
-  background:#fff;border:none;border-radius:16px;padding:16px;margin-bottom:12px;cursor:pointer;
-  box-shadow:0 4px 14px rgba(58,51,48,.06)}
+  background:transparent;border:none;padding:8px 2px;margin-bottom:8px;cursor:pointer}
 .pv-box{flex-shrink:0;width:24px;height:24px;border-radius:7px;border:2px solid var(--t4);margin-top:1px;
   display:flex;align-items:center;justify-content:center;color:#fff;transition:all .15s ease}
 .pv-box i,.pv-box svg{width:15px;height:15px;opacity:0;stroke-width:3}
