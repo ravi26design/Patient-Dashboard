@@ -766,7 +766,16 @@ function onbNext(step){
 function showDoneModal(){ var m=document.getElementById('doneModal'); if(m){ m.classList.remove('hide'); m.classList.add('show'); } }
 function finishOnb(){ if(window.__doneTimer){ clearTimeout(window.__doneTimer); window.__doneTimer=null; }
   var m=document.getElementById('doneModal'); if(!m) return;
-  m.classList.add('hide'); setTimeout(function(){ m.classList.remove('show','hide'); m.style.display='none'; }, 400); }   /* -> dashboard */
+  m.classList.add('hide'); setTimeout(function(){ m.classList.remove('show','hide'); m.style.display='none'; }, 400);
+  if(window.__checkinTimer) clearTimeout(window.__checkinTimer);
+  window.__checkinTimer=setTimeout(showCheckinModal, 4000);   /* prompt daily check-in a few seconds after landing on home */
+}
+function showCheckinModal(){ var m=document.getElementById('checkinModal'); if(!m) return;
+  m.classList.remove('hide'); m.classList.add('show'); if(window.lucide&&lucide.createIcons) lucide.createIcons(); }
+function hideCheckinModal(){ if(window.__checkinTimer){ clearTimeout(window.__checkinTimer); window.__checkinTimer=null; }
+  var m=document.getElementById('checkinModal'); if(!m) return;
+  m.classList.add('hide'); setTimeout(function(){ m.classList.remove('show','hide'); m.style.display='none'; }, 340); }
+function checkinBegin(){ hideCheckinModal(); if(typeof openReflect==='function') openReflect(); }
 /* ═══ LOCATION PERMISSION ═══ */
 function showLocModal(){ var m=document.getElementById('locModal'); if(m) m.classList.add('show'); }
 function hideLocModal(){ var m=document.getElementById('locModal'); if(!m) return;

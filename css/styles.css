@@ -1382,6 +1382,25 @@ body.is-desktop .brand-img{height:26px}
 @keyframes dmPulse{0%{transform:translate(-50%,-50%) scale(.6);opacity:.5}70%{opacity:.1}100%{transform:translate(-50%,-50%) scale(2);opacity:0}}
 @keyframes dmBreathe{0%,100%{transform:scale(.93)}50%{transform:scale(1.06)}}
 @media (prefers-reduced-motion:reduce){ .dm-ring{animation:none;opacity:.22} .dm-bloom{animation:none} }
+#checkinModal{position:fixed;inset:0;z-index:9588;display:none;align-items:center;justify-content:center;
+  padding:28px;background:rgba(40,36,33,.45)}
+#checkinModal.show{display:flex;animation:lmFade .3s ease both}
+#checkinModal.hide{opacity:0;pointer-events:none;transition:opacity .34s ease}
+.ci-card{max-width:360px;padding:30px 26px 22px;text-align:center;animation:lmPop .38s cubic-bezier(.2,.8,.3,1) both}
+.ci-icon{width:64px;height:64px;border-radius:18px;background:var(--gold-lt);
+  display:flex;align-items:center;justify-content:center;margin:0 auto 16px}
+.ci-icon i,.ci-icon svg{width:30px;height:30px;color:var(--gold-dk);stroke-width:1.9}
+.ci-title{font-family:var(--font-display);font-size:24px;font-weight:700;color:var(--ink);margin-bottom:12px}
+.ci-sub{font-family:var(--font-ui);font-size:14px;line-height:1.6;color:var(--brown);margin-bottom:20px}
+.ci-sub b{color:var(--ink);font-weight:700}
+.ci-xp{color:var(--gold-dk);font-weight:700}
+.ci-begin{width:100%;padding:16px;border:none;border-radius:14px;background:var(--gold-dk);color:#fff;
+  font-family:var(--font-ui);font-size:16px;font-weight:700;cursor:pointer;
+  box-shadow:0 10px 24px rgba(154,124,40,.3);transition:transform .12s ease}
+.ci-begin:active{transform:scale(.98)}
+.ci-later{width:100%;margin-top:10px;padding:14px;border:1px solid var(--border);border-radius:14px;background:#fff;
+  font-family:var(--font-ui);font-size:14px;font-weight:600;color:var(--brown);cursor:pointer}
+.ci-later:active{opacity:.7}
 .dm-title{font-family:var(--font-display);font-size:25px;font-weight:700;color:var(--ink);line-height:1.15;margin-bottom:11px}
 .dm-title em{font-style:italic;font-weight:700}
 .dm-sub{font-family:var(--font-ui);font-size:14px;line-height:1.6;color:var(--brown);margin:0}
