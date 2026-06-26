@@ -723,7 +723,7 @@ function onbShow(id){ var e=document.getElementById(id); if(e){ e.style.display=
 function onbHide(id){ var e=document.getElementById(id); if(!e) return; e.classList.add('hide');
   setTimeout(function(){ e.style.display='none'; e.classList.remove('show','hide'); }, 420); }
 function onbStep(from,to){ onbShow(to); onbHide(from); }
-var ONB_ORDER=['moudScreen','triggersScreen','reliefScreen','connectCareScreen','privacyScreen','doneScreen'];
+var ONB_ORDER=['moudScreen','triggersScreen','reliefScreen','connectCareScreen','privacyScreen'];
 function onbBack(curId){
   var i=ONB_ORDER.indexOf(curId);
   if(i<=0){ onbShow('detailsScreen'); onbHide('moudScreen'); return; }   /* first step back -> details */
@@ -757,12 +757,16 @@ function onbNext(step){
     if(!(c1&&c1.classList.contains('on'))) return;
     var pf=window.__profile||{}; var first=(pf.name||'there').split(' ')[0];
     var dn=document.getElementById('doneName'); if(dn) dn.textContent=first;
-    onbStep('privacyScreen','doneScreen');
+    onbHide('privacyScreen');           /* reveal home behind */
+    showDoneModal();                    /* confirmation in a modal over home */
     if(window.__doneTimer) clearTimeout(window.__doneTimer);
-    window.__doneTimer=setTimeout(finishOnb, 3400);   /* auto-advance to home after a few seconds */
+    window.__doneTimer=setTimeout(finishOnb, 3400);   /* auto-dismiss to home after a few seconds */
   }
 }
-function finishOnb(){ if(window.__doneTimer){ clearTimeout(window.__doneTimer); window.__doneTimer=null; } onbHide('doneScreen'); }   /* -> dashboard */
+function showDoneModal(){ var m=document.getElementById('doneModal'); if(m){ m.classList.remove('hide'); m.classList.add('show'); } }
+function finishOnb(){ if(window.__doneTimer){ clearTimeout(window.__doneTimer); window.__doneTimer=null; }
+  var m=document.getElementById('doneModal'); if(!m) return;
+  m.classList.add('hide'); setTimeout(function(){ m.classList.remove('show','hide'); m.style.display='none'; }, 400); }   /* -> dashboard */
 /* ═══ LOCATION PERMISSION ═══ */
 function showLocModal(){ var m=document.getElementById('locModal'); if(m) m.classList.add('show'); }
 function hideLocModal(){ var m=document.getElementById('locModal'); if(!m) return;

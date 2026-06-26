@@ -1367,6 +1367,15 @@ body.is-desktop .brand-img{height:26px}
 .lm-deny:active{opacity:.6}
 @keyframes lmFade{from{opacity:0}to{opacity:1}}
 @keyframes lmPop{from{opacity:0;transform:translateY(12px) scale(.96)}to{opacity:1;transform:none}}
+#doneModal{position:fixed;inset:0;z-index:9605;display:none;align-items:center;justify-content:center;
+  padding:28px;background:rgba(40,36,33,.45)}
+#doneModal.show{display:flex;animation:lmFade .3s ease both}
+#doneModal.hide{opacity:0;pointer-events:none;transition:opacity .38s ease}
+.dm-card{padding:34px 28px 30px}
+.dm-card .ph-badge{margin:0 auto 18px}
+.dm-title{font-family:var(--font-display);font-size:25px;font-weight:700;color:var(--ink);line-height:1.15;margin-bottom:11px}
+.dm-title em{font-style:italic;font-weight:700}
+.dm-sub{font-family:var(--font-ui);font-size:14px;line-height:1.6;color:var(--brown);margin:0}
 
 /* ═══ MOBILE NUMBER SCREEN (onboarding) ═══ */
 #phoneScreen{position:fixed;inset:0;z-index:9550;display:none;

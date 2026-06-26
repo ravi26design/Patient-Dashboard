@@ -134,7 +134,7 @@
 
 <!-- ═══ ONBOARDING STEP FORM (MOUD -> Triggers -> Relief -> Care team -> Reminders -> Privacy -> Done) ═══ -->
 <div id="moudScreen" class="step-screen" aria-hidden="true">
-  <div class="onb-top"><button class="onb-back" type="button" onclick="onbBack('moudScreen')" aria-label="Back"><i data-lucide="arrow-left"></i></button><div class="onb-steps"><div class="onb-steps-fill" style="width:17%"></div></div><div class="onb-count">1<span>/6</span></div></div>
+  <div class="onb-top"><button class="onb-back" type="button" onclick="onbBack('moudScreen')" aria-label="Back"><i data-lucide="arrow-left"></i></button><div class="onb-steps"><div class="onb-steps-fill" style="width:20%"></div></div><div class="onb-count">1<span>/5</span></div></div>
   <div class="onb-inner">
     <h1 class="ph-title">Are you taking medication for opioid use disorder?</h1>
     <p class="ph-sub">MOUD like buprenorphine cuts overdose risk dramatically. There's no wrong answer — I'll set your tracker to match.</p>
@@ -149,7 +149,7 @@
 </div>
 
 <div id="triggersScreen" class="step-screen" aria-hidden="true">
-  <div class="onb-top"><button class="onb-back" type="button" onclick="onbBack('triggersScreen')" aria-label="Back"><i data-lucide="arrow-left"></i></button><div class="onb-steps"><div class="onb-steps-fill" style="width:33%"></div></div><div class="onb-count">2<span>/6</span></div></div>
+  <div class="onb-top"><button class="onb-back" type="button" onclick="onbBack('triggersScreen')" aria-label="Back"><i data-lucide="arrow-left"></i></button><div class="onb-steps"><div class="onb-steps-fill" style="width:40%"></div></div><div class="onb-count">2<span>/5</span></div></div>
   <div class="onb-inner">
     <h1 class="ph-title">What are your <em>triggers</em>?</h1>
     <p class="ph-sub">A feeling, place, person, or time that sparks a craving. Add as many as you can.</p>
@@ -174,7 +174,7 @@
 </div>
 
 <div id="reliefScreen" class="step-screen" aria-hidden="true">
-  <div class="onb-top"><button class="onb-back" type="button" onclick="onbBack('reliefScreen')" aria-label="Back"><i data-lucide="arrow-left"></i></button><div class="onb-steps"><div class="onb-steps-fill" style="width:50%"></div></div><div class="onb-count">3<span>/6</span></div></div>
+  <div class="onb-top"><button class="onb-back" type="button" onclick="onbBack('reliefScreen')" aria-label="Back"><i data-lucide="arrow-left"></i></button><div class="onb-steps"><div class="onb-steps-fill" style="width:60%"></div></div><div class="onb-count">3<span>/5</span></div></div>
   <div class="onb-inner">
     <h1 class="ph-title">What brings you <em>relief</em>?</h1>
     <p class="ph-sub">Things you enjoy can help an urge pass. I'll keep these one tap away on your Urge button.</p>
@@ -199,7 +199,7 @@
 </div>
 
 <div id="connectCareScreen" class="step-screen" aria-hidden="true">
-  <div class="onb-top"><button class="onb-back" type="button" onclick="onbBack('connectCareScreen')" aria-label="Back"><i data-lucide="arrow-left"></i></button><div class="onb-steps"><div class="onb-steps-fill" style="width:67%"></div></div><div class="onb-count">4<span>/6</span></div></div>
+  <div class="onb-top"><button class="onb-back" type="button" onclick="onbBack('connectCareScreen')" aria-label="Back"><i data-lucide="arrow-left"></i></button><div class="onb-steps"><div class="onb-steps-fill" style="width:80%"></div></div><div class="onb-count">4<span>/5</span></div></div>
   <div class="onb-inner">
     <h1 class="ph-title">Want to connect your care team?</h1>
     <p class="ph-sub">If you're seeing a clinic, Rudra can securely sync your appointments and MOUD plan through your health record. You're always in control of what's shared.</p>
@@ -211,7 +211,7 @@
 </div>
 
 <div id="privacyScreen" class="step-screen" aria-hidden="true">
-  <div class="onb-top"><button class="onb-back" type="button" onclick="onbBack('privacyScreen')" aria-label="Back"><i data-lucide="arrow-left"></i></button><div class="onb-steps"><div class="onb-steps-fill" style="width:83%"></div></div><div class="onb-count">5<span>/6</span></div></div>
+  <div class="onb-top"><button class="onb-back" type="button" onclick="onbBack('privacyScreen')" aria-label="Back"><i data-lucide="arrow-left"></i></button><div class="onb-steps"><div class="onb-steps-fill" style="width:100%"></div></div><div class="onb-count">5<span>/5</span></div></div>
   <div class="onb-inner">
     <h1 class="ph-title">Your privacy, in plain terms.</h1>
     <p class="ph-sub">Records about substance use disorder get extra federal protection. Here's what you're agreeing to.</p>
@@ -223,13 +223,12 @@
   </div>
 </div>
 
-<div id="doneScreen" class="step-screen" aria-hidden="true">
-  <div class="onb-top"><button class="onb-back" type="button" onclick="onbBack('doneScreen')" aria-label="Back"><i data-lucide="arrow-left"></i></button><div class="onb-steps"><div class="onb-steps-fill" style="width:100%"></div></div><div class="onb-count">6<span>/6</span></div></div>
-  <div class="onb-inner">
+<!-- ═══ DONE CONFIRMATION (modal, auto-dismisses to home) ═══ -->
+<div id="doneModal" aria-hidden="true">
+  <div class="lm-card dm-card">
     <div class="ph-badge"><img src="assets/icon.png" alt="" aria-hidden="true"></div>
-    <h1 class="ph-title">We're set, <em id="doneName">there</em>.</h1>
-    <p class="ph-sub">Whenever you're ready — a check-in, a craving, or just a hello — I'm right here. One tap on my circle, any time.</p>
-    <button class="wc-begin onb-continue" type="button" onclick="finishOnb()">Get started <span aria-hidden="true">&rarr;</span></button>
+    <h2 class="dm-title">We're set, <em id="doneName">there</em>.</h2>
+    <p class="dm-sub">Whenever you're ready — a check-in, a craving, or just a hello — I'm right here. One tap on my circle, any time.</p>
   </div>
 </div>
 
