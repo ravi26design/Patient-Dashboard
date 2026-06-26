@@ -1626,3 +1626,4 @@ body.is-desktop .tx-meta{position:absolute;right:6px;top:50%;transform:translate
 
 /* Profile avatar — filled sage circle with white initials */
 .avatar-btn{background:#5E8B6E;border:none;color:#fff;font-weight:700;font-size:10px}
+.avatar-btn i,.avatar-btn svg{width:16px;height:16px;stroke-width:2}
