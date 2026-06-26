@@ -749,8 +749,7 @@ function pvToggle(el){ el.classList.toggle('on');
   var c1=document.getElementById('pvCheck1'), c2=document.getElementById('pvCheck2'), btn=document.getElementById('pvContinue');
   if(btn) btn.disabled=!(c1&&c1.classList.contains('on') && c2&&c2.classList.contains('on')); }
 function onbNext(step){
-  if(step==='moud'){ var mc=document.getElementById('moudOpts'), msel=[]; if(mc){ var mb=mc.querySelectorAll('.moud-opt.sel'); for(var mi=0;mi<mb.length;mi++) msel.push(mb[mi].textContent.trim()); } onbSave('moud', msel); onbStep('moudScreen','triggersScreen'); }
-  else if(step==='triggers'){ onbSave('triggers', onbSelected('trigChips')); onbStep('triggersScreen','reliefScreen'); }
+  if(step==='triggers'){ onbSave('triggers', onbSelected('trigChips')); onbStep('triggersScreen','reliefScreen'); }
   else if(step==='relief'){ onbSave('relief', onbSelected('reliefChips')); onbStep('reliefScreen','connectCareScreen'); }
   else if(step==='connect'){ onbStep('connectCareScreen','remindersScreen'); }
   else if(step==='reminders'){ onbStep('remindersScreen','privacyScreen'); }
