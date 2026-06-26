@@ -735,7 +735,7 @@ function onbAdd(containerId, inputId){
   var v=(inp.value||'').trim(); if(!v) return;
   var b=document.createElement('button'); b.type='button'; b.className='onb-chip sel'; b.textContent=v;
   b.addEventListener('click', function(){ onbToggle(b); });
-  c.appendChild(b); inp.value=''; inp.focus();
+  c.insertBefore(b, c.firstChild); inp.value=''; inp.focus();
 }
 function onbSelected(containerId){ var c=document.getElementById(containerId); if(!c) return [];
   var out=[], ch=c.querySelectorAll('.onb-chip.sel'); for(var i=0;i<ch.length;i++) out.push(ch[i].textContent.trim()); return out; }
