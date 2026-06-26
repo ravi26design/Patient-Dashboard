@@ -177,23 +177,22 @@
   <div class="onb-top"><button class="onb-back" type="button" onclick="onbBack('reliefScreen')" aria-label="Back"><i data-lucide="arrow-left"></i></button><div class="onb-steps"><div class="onb-steps-fill" style="width:43%"></div></div><div class="onb-count">3<span>/7</span></div></div>
   <div class="onb-inner">
     <h1 class="ph-title">What brings you <em>relief</em>?</h1>
-    <p class="ph-sub">When an urge hits, doing something you enjoy can help it pass. What helps you ride it out? I'll put these one tap away on your Urge button.</p>
+    <p class="ph-sub">Things you enjoy can help an urge pass. I'll keep these one tap away on your Urge button.</p>
     <div class="onb-addrow">
       <input id="reliefInput" class="onb-input" type="text" placeholder="Type an activity…" onkeydown="if(event.key==='Enter'){event.preventDefault();onbAdd('reliefChips','reliefInput')}">
       <button class="onb-add" type="button" onclick="onbAdd('reliefChips','reliefInput')">Add</button>
     </div>
-    <div class="onb-hint">Tap what helps you</div>
     <div class="onb-chips" id="reliefChips">
-      <button class="onb-chip" type="button" onclick="onbToggle(this)">🚶 Go for a walk</button>
-      <button class="onb-chip" type="button" onclick="onbToggle(this)">📞 Call someone</button>
-      <button class="onb-chip" type="button" onclick="onbToggle(this)">🎵 Music</button>
-      <button class="onb-chip" type="button" onclick="onbToggle(this)">🚿 Hot shower</button>
-      <button class="onb-chip" type="button" onclick="onbToggle(this)">🌬️ Breathe</button>
-      <button class="onb-chip" type="button" onclick="onbToggle(this)">🎮 Play a game</button>
-      <button class="onb-chip" type="button" onclick="onbToggle(this)">🧘 Pray / meditate</button>
-      <button class="onb-chip" type="button" onclick="onbToggle(this)">💪 Work out</button>
-      <button class="onb-chip" type="button" onclick="onbToggle(this)">💧 Cold water</button>
-      <button class="onb-chip" type="button" onclick="onbToggle(this)">🐶 My pet</button>
+      <button class="onb-chip" type="button" onclick="onbToggle(this)"><i data-lucide="footprints"></i>Go for a walk</button>
+      <button class="onb-chip" type="button" onclick="onbToggle(this)"><i data-lucide="phone"></i>Call someone</button>
+      <button class="onb-chip" type="button" onclick="onbToggle(this)"><i data-lucide="music"></i>Music</button>
+      <button class="onb-chip" type="button" onclick="onbToggle(this)"><i data-lucide="shower-head"></i>Hot shower</button>
+      <button class="onb-chip" type="button" onclick="onbToggle(this)"><i data-lucide="wind"></i>Breathe</button>
+      <button class="onb-chip" type="button" onclick="onbToggle(this)"><i data-lucide="gamepad-2"></i>Play a game</button>
+      <button class="onb-chip" type="button" onclick="onbToggle(this)"><i data-lucide="sparkles"></i>Pray / meditate</button>
+      <button class="onb-chip" type="button" onclick="onbToggle(this)"><i data-lucide="dumbbell"></i>Work out</button>
+      <button class="onb-chip" type="button" onclick="onbToggle(this)"><i data-lucide="droplet"></i>Cold water</button>
+      <button class="onb-chip" type="button" onclick="onbToggle(this)"><i data-lucide="dog"></i>My pet</button>
     </div>
     <button class="wc-begin onb-continue" type="button" onclick="onbNext('relief')">Continue <span aria-hidden="true">&rarr;</span></button>
   </div>
