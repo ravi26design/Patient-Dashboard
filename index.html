@@ -228,7 +228,19 @@
   <div class="lm-card dm-card">
     <div class="dm-anim">
       <span class="dm-ring"></span><span class="dm-ring"></span><span class="dm-ring"></span>
-      <div class="ph-badge"><img src="assets/icon.png" alt="" aria-hidden="true"></div>
+      <svg class="dm-bloom" viewBox="0 0 120 120" aria-hidden="true">
+        <g class="dm-petals">
+          <animateTransform attributeName="transform" type="rotate" from="0 60 60" to="360 60 60" dur="30s" repeatCount="indefinite"/>
+          <ellipse cx="60" cy="39" rx="11" ry="21" fill="#9CC18A" opacity=".5"/>
+          <ellipse cx="60" cy="39" rx="11" ry="21" fill="#9CC18A" opacity=".5" transform="rotate(60 60 60)"/>
+          <ellipse cx="60" cy="39" rx="11" ry="21" fill="#9CC18A" opacity=".5" transform="rotate(120 60 60)"/>
+          <ellipse cx="60" cy="39" rx="11" ry="21" fill="#9CC18A" opacity=".5" transform="rotate(180 60 60)"/>
+          <ellipse cx="60" cy="39" rx="11" ry="21" fill="#9CC18A" opacity=".5" transform="rotate(240 60 60)"/>
+          <ellipse cx="60" cy="39" rx="11" ry="21" fill="#9CC18A" opacity=".5" transform="rotate(300 60 60)"/>
+        </g>
+        <circle cx="60" cy="60" r="13" fill="#84B27F"/>
+        <circle cx="60" cy="60" r="13" fill="none" stroke="#fff" stroke-width="2" opacity=".55"/>
+      </svg>
     </div>
     <h2 class="dm-title">We're set, <em id="doneName">there</em>.</h2>
     <p class="dm-sub">Whenever you're ready — a check-in, a craving, or just a hello — I'm right here. One tap on my circle, any time.</p>
