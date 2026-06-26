@@ -1657,3 +1657,26 @@ body.is-desktop .tx-meta{position:absolute;right:6px;top:50%;transform:translate
 
 /* Header: profile left, logo centered, location right */
 .app-header > .app-logo{flex:1;display:flex;justify-content:center;align-items:center}
+
+/* ═══ MOUD MEDICATION SCREEN (onboarding) ═══ */
+#moudScreen{position:fixed;inset:0;z-index:9565;display:none;
+  flex-direction:column;align-items:center;justify-content:center;text-align:center;
+  overflow-y:auto;-webkit-overflow-scrolling:touch;
+  padding:48px 28px calc(40px + env(safe-area-inset-bottom));
+  background:
+    radial-gradient(120% 62% at 50% 6%, rgba(196,160,136,.26), transparent 56%),
+    radial-gradient(120% 70% at 50% 102%, rgba(110,158,128,.20), transparent 60%),
+    var(--app-bg)}
+#moudScreen.show{display:flex;animation:wcIn .55s cubic-bezier(.2,.7,.3,1) both}
+#moudScreen.hide{opacity:0;visibility:hidden;pointer-events:none;transition:opacity .4s ease, visibility .4s ease}
+.moud-inner{display:flex;flex-direction:column;align-items:center;width:100%;max-width:380px}
+.moud-inner .ph-badge{margin-bottom:22px}
+.moud-inner .ph-title{font-size:27px;line-height:1.18;margin-bottom:12px}
+.moud-inner .ph-sub{margin-bottom:26px;max-width:340px}
+.moud-opts{display:flex;flex-wrap:wrap;justify-content:center;gap:12px;width:100%}
+.moud-opt{background:#fff;border:none;border-radius:16px;padding:15px 20px;
+  font-family:var(--font-ui);font-size:14px;font-weight:600;color:var(--ink);cursor:pointer;
+  box-shadow:0 4px 14px rgba(58,51,48,.07);transition:transform .12s ease, box-shadow .15s ease}
+.moud-opt:hover{box-shadow:0 6px 18px rgba(58,51,48,.10)}
+.moud-opt:active{transform:scale(.97)}
+@media (min-width:900px){ .moud-inner .ph-title{font-size:30px} .moud-opt{font-size:15px} }

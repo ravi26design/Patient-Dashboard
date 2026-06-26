@@ -715,7 +715,17 @@ function submitDetails(){
   window.__profile={name:nameVal, email:emailVal, phone:(window.__phone||null), dob:(window.__dob||null), age:(window.__dob?window.__dob.age:null)};
   var rn=document.getElementById('rhName'); if(rn) rn.textContent=nameVal.split(' ')[0];   /* greet by first name */
   try{ localStorage.setItem('rh_onboarded','1'); localStorage.setItem('rh_profile', JSON.stringify(window.__profile)); }catch(e){}
-  hideDetailsScreen();   /* -> dashboard */
+  showMoudScreen();      /* next step: MOUD medication */
+  hideDetailsScreen();
+}
+/* ═══ MOUD MEDICATION ═══ */
+function showMoudScreen(){ var m=document.getElementById('moudScreen'); if(m) m.classList.add('show'); }
+function hideMoudScreen(){ var m=document.getElementById('moudScreen'); if(!m) return;
+  m.classList.add('hide'); setTimeout(function(){ m.style.display='none'; }, 420); }
+function selectMoud(opt){
+  window.__moud=opt;
+  try{ var pf=window.__profile||{}; pf.moud=opt; window.__profile=pf; localStorage.setItem('rh_profile', JSON.stringify(pf)); }catch(e){}
+  hideMoudScreen();      /* -> dashboard */
 }
 /* ═══ LOCATION PERMISSION ═══ */
 function showLocModal(){ var m=document.getElementById('locModal'); if(m) m.classList.add('show'); }
