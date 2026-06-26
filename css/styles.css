@@ -1584,17 +1584,17 @@ body.is-desktop .brand-img{height:26px}
 .bottom-nav .nav-tab{flex:1;min-width:0;display:flex;flex-direction:column;align-items:center;gap:4px;
   background:none !important;padding:3px 5px;border-radius:0}
 .bottom-nav .nav-tab::after{display:none !important}
-.bottom-nav .nav-icon{background:none !important;width:auto;height:24px;border-radius:0;margin:0;
+.bottom-nav .nav-icon{background:none !important;width:auto;height:21px;border-radius:0;margin:0;
   display:flex;align-items:center;justify-content:center;
   color:var(--muted) !important;opacity:1 !important}
-.bottom-nav .nav-icon svg{width:23px;height:23px}
-.bottom-nav .nav-label{display:block !important;font-family:var(--font-ui);font-size:9px;font-weight:600;
+.bottom-nav .nav-icon svg{width:20px;height:20px}
+.bottom-nav .nav-label{display:block !important;font-family:var(--font-ui);font-size:8px;font-weight:600;
   color:var(--muted) !important;letter-spacing:.1px;text-transform:none;margin:0}
 /* active item */
 .bottom-nav .nav-tab.active{background:none !important;padding:6px 2px}
 .bottom-nav .nav-tab.active .nav-icon{color:var(--hb-teal-deep) !important;background:none !important}
 .bottom-nav .nav-tab.active .nav-icon svg{fill:currentColor;stroke:currentColor}   /* filled icon when active */
-.bottom-nav .nav-tab.active .nav-label{color:var(--hb-teal-deep) !important;font-weight:700;font-size:9px !important}
+.bottom-nav .nav-tab.active .nav-label{color:var(--hb-teal-deep) !important;font-weight:700;font-size:8px !important}
 /* center SOS = raised circular FAB */
 .bottom-nav .nav-sos{flex:0 0 62px;opacity:1 !important;padding:0}
 .bottom-nav .nav-sos .nav-icon{position:absolute;left:50%;top:-30px;transform:translateX(-50%);margin:0;
