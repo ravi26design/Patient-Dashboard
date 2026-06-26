@@ -698,8 +698,7 @@ function sendCode(){
     return;
   }
   window.__phone=(typeof __cc!=='undefined'&&__cc?__cc.d:'+1')+d;
-  showOtpScreen();       /* next step: verify the code */
-  hidePhoneScreen();
+  showOtpScreen();       /* OTP slides up as a bottom sheet over the (dimmed) phone screen */
 }
 /* ═══ DETAILS (name / email / age) ═══ */
 function showDetailsScreen(){ var d=document.getElementById('detailsScreen'); if(d) d.classList.add('show'); }
@@ -871,6 +870,7 @@ function verifyOtp(){
   window.__otp=code;                /* demo: any 6-digit code is accepted */
   showDetailsScreen();
   hideOtpScreen();
+  hidePhoneScreen();                /* dismiss the phone screen sitting behind the sheet */
 }
 function resendOtp(){
   var btn=document.getElementById('otpResend'); if(btn && btn.disabled) return;   /* still counting down */

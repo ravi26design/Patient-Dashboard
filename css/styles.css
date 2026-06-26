@@ -1503,14 +1503,23 @@ body.is-desktop .brand-img{height:26px}
 
 /* ═══ OTP VERIFICATION SCREEN ═══ */
 #otpScreen{position:fixed;inset:0;z-index:9555;display:none;
-  flex-direction:column;align-items:center;justify-content:flex-start;text-align:center;
-  padding:48px 30px calc(34px + env(safe-area-inset-bottom));
-  background:
-    radial-gradient(120% 62% at 50% 6%, rgba(196,160,136,.26), transparent 56%),
-    radial-gradient(120% 70% at 50% 102%, rgba(110,158,128,.20), transparent 60%),
-    var(--app-bg)}
-#otpScreen.show{display:flex;animation:wcIn .55s cubic-bezier(.2,.7,.3,1) both}
-#otpScreen.hide{opacity:0;visibility:hidden;pointer-events:none;transition:opacity .4s ease, visibility .4s ease}
+  align-items:flex-end;justify-content:center;text-align:center;
+  background:rgba(40,36,33,.44)}
+#otpScreen.show{display:flex;animation:lmFade .3s ease both}
+#otpScreen.hide{opacity:0;pointer-events:none;transition:opacity .42s ease}
+.otp-sheet{width:100%;max-width:480px;background:var(--app-bg);border-radius:28px 28px 0 0;
+  padding:12px 28px calc(26px + env(safe-area-inset-bottom));
+  display:flex;flex-direction:column;align-items:center;
+  box-shadow:0 -12px 44px rgba(40,36,33,.26);
+  animation:sheetUp .44s cubic-bezier(.2,.85,.25,1) both}
+#otpScreen.hide .otp-sheet{animation:none;transform:translateY(100%);transition:transform .42s ease}
+.sheet-grab{width:42px;height:4px;border-radius:999px;background:rgba(58,51,48,.16);margin:0 auto 18px;flex-shrink:0}
+.otp-sheet .ph-badge{width:58px;height:58px;margin-bottom:14px}
+.otp-sheet .ph-badge-ic i,.otp-sheet .ph-badge-ic svg{width:28px;height:28px}
+.otp-sheet .ph-title{font-size:24px;margin-bottom:8px}
+.otp-sheet .ph-sub{margin-bottom:22px}
+.otp-sheet .ph-send{width:100%;margin-top:26px}
+@keyframes sheetUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
 .otp-row{display:flex;gap:10px;justify-content:center;width:100%;max-width:330px;margin-top:6px}
 .otp-box{flex:1;min-width:0;max-width:50px;aspect-ratio:1/1;text-align:center;background:#fff;border:none;border-radius:14px;
   font-family:var(--font-display);font-size:24px;font-weight:700;color:var(--ink);outline:none;

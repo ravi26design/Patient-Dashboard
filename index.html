@@ -87,21 +87,20 @@
 
 <!-- ═══ OTP VERIFICATION SCREEN ═══ -->
 <div id="otpScreen" aria-hidden="true">
-  <div class="phone-inner">
-    <div class="ph-stage">
-      <div class="ph-badge ph-badge-ic"><i data-lucide="message-square"></i></div>
-      <h1 class="ph-title">Enter the code</h1>
-      <p class="ph-sub">We sent a 6-digit code to <span id="otpNum">your number</span>.</p>
-      <div class="otp-row" id="otpRow">
-        <input class="otp-box" type="text" inputmode="numeric" maxlength="1" autocomplete="one-time-code" aria-label="Digit 1">
-        <input class="otp-box" type="text" inputmode="numeric" maxlength="1" aria-label="Digit 2">
-        <input class="otp-box" type="text" inputmode="numeric" maxlength="1" aria-label="Digit 3">
-        <input class="otp-box" type="text" inputmode="numeric" maxlength="1" aria-label="Digit 4">
-        <input class="otp-box" type="text" inputmode="numeric" maxlength="1" aria-label="Digit 5">
-        <input class="otp-box" type="text" inputmode="numeric" maxlength="1" aria-label="Digit 6">
-      </div>
-      <button class="otp-resend" id="otpResend" type="button" onclick="resendOtp()">Resend code</button>
+  <div class="otp-sheet">
+    <div class="sheet-grab"></div>
+    <div class="ph-badge ph-badge-ic"><i data-lucide="message-square"></i></div>
+    <h1 class="ph-title">Enter the code</h1>
+    <p class="ph-sub">We sent a 6-digit code to <span id="otpNum">your number</span>.</p>
+    <div class="otp-row" id="otpRow">
+      <input class="otp-box" type="text" inputmode="numeric" maxlength="1" autocomplete="one-time-code" aria-label="Digit 1">
+      <input class="otp-box" type="text" inputmode="numeric" maxlength="1" aria-label="Digit 2">
+      <input class="otp-box" type="text" inputmode="numeric" maxlength="1" aria-label="Digit 3">
+      <input class="otp-box" type="text" inputmode="numeric" maxlength="1" aria-label="Digit 4">
+      <input class="otp-box" type="text" inputmode="numeric" maxlength="1" aria-label="Digit 5">
+      <input class="otp-box" type="text" inputmode="numeric" maxlength="1" aria-label="Digit 6">
     </div>
+    <button class="otp-resend" id="otpResend" type="button" onclick="resendOtp()">Resend code</button>
     <button class="wc-begin ph-send" type="button" onclick="verifyOtp()">Verify <span aria-hidden="true">&rarr;</span></button>
   </div>
 </div>
