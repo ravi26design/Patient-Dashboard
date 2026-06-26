@@ -1597,11 +1597,11 @@ body.is-desktop .brand-img{height:26px}
 .bottom-nav .nav-tab.active .nav-label{color:var(--hb-teal-deep) !important;font-weight:700;font-size:8px !important}
 /* center SOS = raised circular FAB */
 .bottom-nav .nav-sos{flex:0 0 62px;opacity:1 !important;padding:0}
-.bottom-nav .nav-sos .nav-icon{position:absolute;left:50%;top:-30px;transform:translateX(-50%);margin:0;
-  width:58px;height:58px;border-radius:50%;background:var(--coral) !important;color:#fff !important;
+.bottom-nav .nav-sos .nav-icon{position:absolute;left:50%;top:-27px;transform:translateX(-50%);margin:0;
+  width:52px;height:52px;border-radius:50%;background:var(--coral) !important;color:#fff !important;
   display:flex;align-items:center;justify-content:center;
   box-shadow:0 8px 20px rgba(196,96,72,.40)}
-.bottom-nav .nav-sos .nav-icon svg{width:26px;height:26px;color:#fff !important}
+.bottom-nav .nav-sos .nav-icon svg{width:24px;height:24px;color:#fff !important}
 .bottom-nav .nav-sos .nav-label{display:none !important}
 
 /* Returning user (already onboarded): no splash on refresh — land on the same page */
