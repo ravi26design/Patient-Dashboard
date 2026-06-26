@@ -1606,7 +1606,8 @@ body.is-framed:not(.is-desktop) .bottom-nav{margin-bottom:0}
 .rj-title{font-family:var(--font-display);font-size:19px;font-weight:700;color:#fff;
   line-height:1.15;margin-bottom:20px}
 .rj-stat{display:flex;align-items:baseline;gap:12px;margin-bottom:14px}
-.rj-big{font-family:var(--font-display);font-size:44px;font-weight:700;color:#fff;line-height:.85;letter-spacing:-.5px}
+.rj-big{font-family:var(--font-display);font-size:37px;font-weight:700;color:#fff;line-height:.85;letter-spacing:-.5px}
+@media (min-width:900px){ .rj-big{font-size:44px} }
 .rj-cap{font-family:var(--font-ui);font-size:10px;font-weight:700;letter-spacing:1.5px;
   text-transform:uppercase;color:rgba(255,255,255,.92)}
 .rj-heart{color:#fff}
