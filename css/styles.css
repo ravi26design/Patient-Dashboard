@@ -1623,3 +1623,6 @@ body.is-desktop .tx-section{grid-column:1 / -1}
 body.is-desktop .tx-row{position:relative;align-items:center}
 body.is-desktop .tx-row > div:nth-child(2){padding-right:170px}
 body.is-desktop .tx-meta{position:absolute;right:6px;top:50%;transform:translateY(-50%);margin-top:0}
+
+/* Profile avatar — filled sage circle with white initials */
+.avatar-btn{background:#5E8B6E;border:none;color:#fff;font-weight:700;font-size:10px}
