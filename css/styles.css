@@ -1604,14 +1604,14 @@ body.is-framed:not(.is-desktop) .bottom-nav{margin-bottom:0}
 .rj-eyebrow{font-family:var(--font-ui);font-size:10px;font-weight:700;letter-spacing:2.2px;
   text-transform:uppercase;color:rgba(255,255,255,.88);margin-bottom:8px}
 .rj-title{font-family:var(--font-display);font-size:19px;font-weight:700;color:#fff;
-  line-height:1.15;margin-bottom:20px}
-.rj-stat{display:flex;align-items:baseline;gap:12px;margin-bottom:14px}
+  line-height:1.15;margin-bottom:16px}
+.rj-stat{display:flex;align-items:baseline;gap:12px;margin-bottom:18px}
 .rj-big{font-family:var(--font-display);font-size:37px;font-weight:700;color:#fff;line-height:.85;letter-spacing:-.5px}
 @media (min-width:900px){ .rj-big{font-size:44px} }
 .rj-cap{font-family:var(--font-ui);font-size:10px;font-weight:700;letter-spacing:1.5px;
   text-transform:uppercase;color:rgba(255,255,255,.92)}
 .rj-heart{color:#fff}
-.rj-bar{height:9px;border-radius:999px;background:rgba(255,255,255,.4);overflow:hidden;margin-bottom:12px}
+.rj-bar{height:9px;border-radius:999px;background:rgba(255,255,255,.4);overflow:hidden;margin-bottom:14px}
 .rj-fill{height:100%;width:78%;border-radius:999px;background:#fff}
 .rj-sub{font-family:var(--font-ui);font-size:12px;color:rgba(255,255,255,.9);line-height:1.4}
 
