@@ -742,6 +742,10 @@ function onbAdd(containerId, inputId){
 function onbSelected(containerId){ var c=document.getElementById(containerId); if(!c) return [];
   var out=[], ch=c.querySelectorAll('.onb-chip.sel'); for(var i=0;i<ch.length;i++) out.push(ch[i].textContent.trim()); return out; }
 function onbSave(k,v){ try{ var pf=window.__profile||{}; pf[k]=v; window.__profile=pf; localStorage.setItem('rh_profile', JSON.stringify(pf)); }catch(e){} window['__'+k]=v; }
+/* registered-number registry: a returning number only needs OTP, then straight to home */
+function rhUsers(){ try{ return JSON.parse(localStorage.getItem('rh_users')||'{}'); }catch(e){ return {}; } }
+function rhRegisterUser(prof){ if(!prof||!prof.phone) return; var u=rhUsers(); u[prof.phone]=prof; try{ localStorage.setItem('rh_users', JSON.stringify(u)); }catch(e){} }
+function rhGetUser(num){ if(!num) return null; var u=rhUsers(); return u[num]||null; }
 /* MOUD */
 function showMoudScreen(){ onbShow('moudScreen'); }
 function hideMoudScreen(){ onbHide('moudScreen'); }
@@ -762,6 +766,7 @@ function onbNext(step){
     if(!(c1&&c1.classList.contains('on') && c2&&c2.classList.contains('on'))) return;
     onbSave('contactOptIn', true);
     var pf=window.__profile||{}; var first=(pf.name||'there').split(' ')[0];
+    rhRegisterUser(pf);                 /* remember this number so it skips onboarding next time */
     var dn=document.getElementById('doneName'); if(dn) dn.textContent=first;
     onbHide('privacyScreen');           /* reveal home behind */
     showDoneModal();                    /* confirmation in a modal over home */
@@ -901,6 +906,15 @@ function verifyOtp(){
   if(code.length<6){ otpError(); return; }
   if(window.__otpCode && code!==window.__otpCode){ otpError(); return; }   /* wrong code */
   window.__otp=code;                /* correct -> auto-verify */
+  var existing=rhGetUser(window.__phone);
+  if(existing){                     /* returning number -> straight to home, skip onboarding */
+    window.__profile=existing;
+    try{ localStorage.setItem('rh_profile', JSON.stringify(existing)); localStorage.setItem('rh_onboarded','1'); }catch(e){}
+    var rn=document.getElementById('rhName'); if(rn && existing.name) rn.textContent=String(existing.name).split(' ')[0];
+    hideOtpScreen();
+    hidePhoneScreen();              /* reveal the home dashboard behind */
+    return;
+  }
   showDetailsScreen();
   hideOtpScreen();
   hidePhoneScreen();                /* dismiss the phone screen sitting behind the sheet */
