@@ -512,15 +512,12 @@ function renderReflect(){
   var total=reflectQs.length;
   if(reflectStep===0){
     body.innerHTML=
-      '<div class="rf-card" style="text-align:center;padding:26px 20px">'+
-        '<div style="font-size:36px;margin-bottom:12px">\ud83e\ude9e</div>'+
-        '<div style="font-family:var(--font-display);font-size:19px;font-weight:600;color:var(--ink);margin-bottom:8px">Daily Reflection</div>'+
-        '<div style="font-size:13px;color:var(--ink-soft);line-height:1.55">A few short questions about your experiences and mood.</div>'+
-      '</div>'+
-      '<div class="rf-card">'+
-        '<div style="font-size:11px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:#5E8560;margin-bottom:8px">Section 1 of 2</div>'+
-        '<div style="font-family:var(--font-display);font-size:15px;font-weight:500;color:var(--ink)">Thinking about the past 24 hours\u2026</div>'+
-        '<div style="margin-top:16px"><span style="display:inline-block;font-size:12px;font-weight:700;color:#9A6B16;background:#FFF1D6;padding:6px 14px;border-radius:999px">+20 XP</span></div>'+
+      '<div class="rf-intro">'+
+        '<div class="rf-hero"><svg viewBox="0 0 24 24" fill="none" stroke="#5E8560" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4.5A1.5 1.5 0 0 1 6.5 3H17a1 1 0 0 1 1 1v15.5a1 1 0 0 1-1 1H6.5A1.5 1.5 0 0 1 5 19z"/><path d="M9 3v17.5"/><path d="M12 8h3M12 12h3"/></svg></div>'+
+        '<div class="rf-hero-title">Daily Reflection</div>'+
+        '<div class="rf-hero-sub">A few short questions about your experiences and mood.</div>'+
+        '<div class="rf-meta"><span class="rf-chip">~2 min</span><span class="rf-chip">2 sections</span><span class="rf-chip rf-chip-xp">+20 XP</span></div>'+
+        '<div class="rf-upnext"><span class="rf-upnext-k">Up first</span><span class="rf-upnext-v">Thinking about the past 24 hours\u2026</span></div>'+
       '</div>';
     foot.innerHTML='<button class="rf-btn rf-primary rf-full" onclick="reflectNext()">Begin \u2192</button>';
     return;
