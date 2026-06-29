@@ -496,7 +496,9 @@ var REFLECT_Q=[
   {type:'slider', q:'How supported and connected did you feel over the past 24 hours?', lo:'Isolated', hi:'Well supported'}
 ];
 var reflectStep=0, reflectAnswers={}, reflectQs=[];
-function openReflect(){ reflectStep=0; reflectAnswers={}; reflectQs=REFLECT_Q.slice().sort(function(){return Math.random()-0.5;}).slice(0,5); renderReflect(); openOv('reflect'); }
+function openReflect(){ reflectStep=0; reflectAnswers={};
+  reflectQs=[REFLECT_Q[0]].concat(REFLECT_Q.slice(1).sort(function(){return Math.random()-0.5;}).slice(0,4));  /* substance-use (option cards) always first, then 4 random */
+  renderReflect(); openOv('reflect'); }
 function reflectNext(){ reflectStep++; renderReflect(); }
 function reflectBack(){ if(reflectStep<=0){ closeOv(); return; } reflectStep--; renderReflect(); }
 function esc(s){ return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
