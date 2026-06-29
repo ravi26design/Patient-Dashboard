@@ -729,6 +729,8 @@ function onbBack(curId){
   onbStep(curId, ONB_ORDER[i-1]);
 }
 function onbSkip(step){ if(step==='relief'){ onbStep('reliefScreen','connectCareScreen'); } }
+function connectCheck(){ var cn=document.getElementById('clinicName'), cc=document.getElementById('clinicCode'), btn=document.getElementById('connectContinue');
+  if(btn) btn.disabled=!((cn&&cn.value.trim()) || (cc&&cc.value.trim())); }
 function onbToggle(el){ el.classList.toggle('sel'); }
 function onbAdd(containerId, inputId){
   var inp=document.getElementById(inputId), c=document.getElementById(containerId); if(!inp||!c) return;
@@ -751,7 +753,10 @@ function pvToggle(el){ el.classList.toggle('on');
 function onbNext(step){
   if(step==='triggers'){ onbSave('triggers', onbSelected('trigChips')); onbStep('triggersScreen','reliefScreen'); }
   else if(step==='relief'){ onbSave('relief', onbSelected('reliefChips')); onbStep('reliefScreen','connectCareScreen'); }
-  else if(step==='connect'){ var cn=document.getElementById('clinicName'), cc=document.getElementById('clinicCode'); if(cn&&cn.value.trim()) onbSave('clinicName', cn.value.trim()); if(cc&&cc.value.trim()) onbSave('clinicCode', cc.value.trim()); onbStep('connectCareScreen','privacyScreen'); }
+  else if(step==='connect'){ var cn=document.getElementById('clinicName'), cc=document.getElementById('clinicCode');
+    var nm=cn&&cn.value.trim(), cd=cc&&cc.value.trim();
+    if(!nm && !cd) return;   /* mandatory: need clinic name or code */
+    if(nm) onbSave('clinicName', nm); if(cd) onbSave('clinicCode', cd); onbStep('connectCareScreen','privacyScreen'); }
   else if(step==='privacy'){
     var c1=document.getElementById('pvCheck1');
     if(!(c1&&c1.classList.contains('on'))) return;
