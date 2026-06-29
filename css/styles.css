@@ -1695,8 +1695,8 @@ body.is-framed:not(.is-desktop) .bottom-nav{margin-bottom:0}
 .bottom-nav .nav-tab.active .nav-icon,
 .bottom-nav .nav-tab.active .nav-label{color:#84B27F !important}
 
-/* Desktop: Recovery Health spans 2 rows; the two widgets stack to its right */
-body.is-desktop .gauge-card{grid-row:span 2}
+/* Desktop: Recovery Health (left) and streak (right) share row 1; Recovery Journey is its own full-width section below */
+body.is-desktop .rj-card{grid-column:1 / -1}
 
 /* Desktop: Recovery Today full-width with all 4 tiles in one row */
 body.is-desktop .rt-section{grid-column:1 / -1}
