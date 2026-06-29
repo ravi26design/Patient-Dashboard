@@ -1411,15 +1411,13 @@ body.is-desktop .brand-img{height:26px}
 #checkinModal.show{display:flex;animation:lmFade .3s ease both}
 #checkinModal.hide{opacity:0;pointer-events:none;transition:opacity .34s ease}
 .ci-card{max-width:360px;padding:30px 26px 22px;text-align:center;animation:lmPop .38s cubic-bezier(.2,.8,.3,1) both}
-.ci-icon{width:64px;height:64px;border-radius:18px;background:var(--gold-lt);
+.ci-icon{width:92px;height:92px;border-radius:24px;background:var(--gold-lt);
   display:flex;align-items:center;justify-content:center;margin:0 auto 16px}
-.ci-icon i,.ci-icon svg{width:30px;height:30px;color:var(--gold-dk);stroke-width:1.9}
-.ci-anim{display:block}
-.ci-ping{transform-box:fill-box;transform-origin:center;animation:ciPing 2.4s ease-out infinite}
-.ci-dot{transform-box:fill-box;transform-origin:center;animation:ciBeat 2.4s ease-in-out infinite}
-@keyframes ciPing{0%{transform:scale(.45);opacity:.85}70%{opacity:0}100%{transform:scale(2.4);opacity:0}}
-@keyframes ciBeat{0%,100%{transform:scale(1)}50%{transform:scale(1.28)}}
-@media (prefers-reduced-motion:reduce){ .ci-ping,.ci-dot{animation:none} }
+.ci-icon i{width:30px;height:30px;color:var(--gold-dk);stroke-width:1.9}
+.ci-icon .ci-illus{width:64px;height:64px;display:block}
+.ci-tick{transform-box:fill-box;transform-origin:center;opacity:0;animation:ciTick 3.8s ease-in-out infinite}
+@keyframes ciTick{0%{opacity:0;transform:scale(.3)}10%{opacity:1;transform:scale(1)}78%{opacity:1;transform:scale(1)}88%{opacity:0;transform:scale(.3)}100%{opacity:0}}
+@media (prefers-reduced-motion:reduce){ .ci-tick{animation:none;opacity:1} }
 .ci-title{font-family:var(--font-display);font-size:24px;font-weight:700;color:var(--ink);margin-bottom:12px}
 .ci-sub{font-family:var(--font-ui);font-size:14px;line-height:1.6;color:var(--brown);margin-bottom:20px}
 .ci-sub b{color:var(--ink);font-weight:700}
