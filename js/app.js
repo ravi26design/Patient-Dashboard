@@ -814,7 +814,17 @@ function allowPush(){ hidePushModal(); try{ if('Notification' in window && Notif
 function skipPush(){ hidePushModal(); }
 (function(){
   var sp=document.getElementById('splash'); if(!sp) return;
-  /* every load runs the full flow: splash -> intro -> mobile number -> OTP -> details -> location -> home */
+  var onboarded=false; try{ onboarded=localStorage.getItem('rh_onboarded')==='1'; }catch(e){}
+  if(onboarded){
+    /* already logged in — refresh restores the page; no splash/onboarding (only logout restarts it) */
+    sp.classList.add('hide'); sp.style.display='none';
+    try{ var pf=JSON.parse(localStorage.getItem('rh_profile')||'null'); if(pf){ window.__profile=pf; if(pf.phone) window.__phone=pf.phone;
+      var rn=document.getElementById('rhName'); if(rn && pf.name) rn.textContent=String(pf.name).split(' ')[0]; } }catch(e){}
+    var last=null; try{ last=localStorage.getItem('rh_screen'); }catch(e){}
+    if(last && document.getElementById('screen-'+last)) goScreen(last); else goScreen('home');
+    return;
+  }
+  /* new user — run the full flow: splash -> intro -> mobile number -> OTP -> details -> location -> home */
   var hidden=false;
   function hide(){ if(hidden) return; hidden=true;
     var w=document.getElementById('welcome'); if(w){ w.classList.add('show'); __wc.start(); } /* show welcome BEHIND the splash first */
