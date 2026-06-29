@@ -537,12 +537,11 @@ function renderReflect(){
     return;
   }
   var n=reflectStep, item=reflectQs[n-1], pct=Math.round(n/total*100), inner='';
-  var CHK='<span class="ro-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 6"/></svg></span>';
   if(item.type==='multi'){
     var sel=reflectAnswers[n]||[]; var icons=item.icons||[];
     inner='<div class="reflect-opts">'+item.options.map(function(o,i){
       return '<button class="reflect-opt'+(sel.indexOf(i)>=0?' opt-sel':'')+'" onclick="reflectToggleOpt(this,'+i+')">'+
-        '<span class="ro-ic">'+(icons[i]||'•')+'</span><span class="ro-txt">'+esc(o)+'</span>'+CHK+'</button>';
+        '<span class="ro-ic">'+(icons[i]||'•')+'</span><span class="ro-txt">'+esc(o)+'</span></button>';
     }).join('')+'</div>';
   } else {
     var val=reflectAnswers[n]!=null?reflectAnswers[n]:5; reflectAnswers[n]=val;
