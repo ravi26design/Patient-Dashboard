@@ -291,6 +291,17 @@
   </div>
 </div>
 
+<!-- ═══ PUSH NOTIFICATION PERMISSION MODAL ═══ -->
+<div id="pushModal" aria-hidden="true">
+  <div class="lm-card">
+    <div class="lm-icon"><i data-lucide="bell"></i></div>
+    <h2 class="lm-title">Turn on notifications?</h2>
+    <p class="lm-body">Get gentle reminders for your dose, daily check-ins, and a nudge before tough moments. No spam — you're always in control.</p>
+    <button class="lm-allow" type="button" onclick="allowPush()">Turn on notifications</button>
+    <button class="lm-deny" type="button" onclick="skipPush()">Not now</button>
+  </div>
+</div>
+
 <!-- ═══ COUNTRY CODE PICKER ═══ -->
 <div id="ccPicker" aria-hidden="true" onclick="if(event.target===this)closeCC()">
   <div class="cc-sheet">

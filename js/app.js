@@ -798,8 +798,16 @@ function allowLocation(){
       );
     }
   }catch(e){}
+  setTimeout(showPushModal, 360);            /* then ask about notifications */
 }
-function skipLocation(){ hideLocModal(); }
+function skipLocation(){ hideLocModal(); setTimeout(showPushModal, 360); }
+function showPushModal(){ var m=document.getElementById('pushModal'); if(!m) return;
+  m.style.display=''; m.classList.remove('hide'); m.classList.add('show');
+  if(window.lucide&&lucide.createIcons) lucide.createIcons(); }
+function hidePushModal(){ var m=document.getElementById('pushModal'); if(!m) return;
+  m.classList.add('hide'); setTimeout(function(){ m.style.display='none'; m.classList.remove('show','hide'); }, 320); }
+function allowPush(){ hidePushModal(); try{ if('Notification' in window && Notification.requestPermission) Notification.requestPermission(); }catch(e){} }
+function skipPush(){ hidePushModal(); }
 (function(){
   var sp=document.getElementById('splash'); if(!sp) return;
   /* every load runs the full flow: splash -> intro -> mobile number -> OTP -> details -> location -> home */

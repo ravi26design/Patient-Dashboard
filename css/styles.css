@@ -1345,10 +1345,10 @@ body.is-desktop .brand-img{height:26px}
 .wc-dot.active{width:22px;background:var(--sage)}
 
 /* ═══ LOCATION PERMISSION MODAL ═══ */
-#locModal{position:fixed;inset:0;z-index:9600;display:none;align-items:center;justify-content:center;
+#locModal,#pushModal{position:fixed;inset:0;z-index:9600;display:none;align-items:center;justify-content:center;
   padding:28px;background:rgba(40,36,33,.45)}
-#locModal.show{display:flex;animation:lmFade .3s ease both}
-#locModal.hide{opacity:0;pointer-events:none;transition:opacity .3s ease}
+#locModal.show,#pushModal.show{display:flex;animation:lmFade .3s ease both}
+#locModal.hide,#pushModal.hide{opacity:0;pointer-events:none;transition:opacity .3s ease}
 .lm-card{width:100%;max-width:340px;background:#fff;border-radius:24px;
   padding:30px 26px 22px;text-align:center;box-shadow:0 24px 60px rgba(40,36,33,.30);
   animation:lmPop .35s cubic-bezier(.2,.8,.3,1) both}
