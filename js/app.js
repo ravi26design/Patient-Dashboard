@@ -748,8 +748,8 @@ function hideMoudScreen(){ onbHide('moudScreen'); }
 function selectMoud(opt){ onbSave('moud',opt); onbStep('moudScreen','triggersScreen'); }
 /* steps */
 function pvToggle(el){ el.classList.toggle('on');
-  var c1=document.getElementById('pvCheck1'), btn=document.getElementById('pvContinue');
-  if(btn) btn.disabled=!(c1&&c1.classList.contains('on')); }
+  var c1=document.getElementById('pvCheck1'), c2=document.getElementById('pvCheck2'), btn=document.getElementById('pvContinue');
+  if(btn) btn.disabled=!(c1&&c1.classList.contains('on') && c2&&c2.classList.contains('on')); }
 function onbNext(step){
   if(step==='triggers'){ onbSave('triggers', onbSelected('trigChips')); onbStep('triggersScreen','reliefScreen'); }
   else if(step==='relief'){ onbSave('relief', onbSelected('reliefChips')); onbStep('reliefScreen','connectCareScreen'); }
@@ -758,9 +758,9 @@ function onbNext(step){
     if(!nm && !cd) return;   /* mandatory: need clinic name or code */
     if(nm) onbSave('clinicName', nm); if(cd) onbSave('clinicCode', cd); onbStep('connectCareScreen','privacyScreen'); }
   else if(step==='privacy'){
-    var c1=document.getElementById('pvCheck1');
-    if(!(c1&&c1.classList.contains('on'))) return;
-    var c2=document.getElementById('pvCheck2'); onbSave('contactOptIn', !!(c2&&c2.classList.contains('on')));
+    var c1=document.getElementById('pvCheck1'), c2=document.getElementById('pvCheck2');
+    if(!(c1&&c1.classList.contains('on') && c2&&c2.classList.contains('on'))) return;
+    onbSave('contactOptIn', true);
     var pf=window.__profile||{}; var first=(pf.name||'there').split(' ')[0];
     var dn=document.getElementById('doneName'); if(dn) dn.textContent=first;
     onbHide('privacyScreen');           /* reveal home behind */
