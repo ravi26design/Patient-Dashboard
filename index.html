@@ -175,7 +175,7 @@
 </div>
 
 <div id="reliefScreen" class="step-screen" aria-hidden="true">
-  <div class="onb-top"><button class="onb-back" type="button" onclick="onbBack('reliefScreen')" aria-label="Back"><i data-lucide="arrow-left"></i></button><div class="onb-steps"><div class="onb-steps-fill" style="width:60%"></div></div><div class="onb-count">3<span>/5</span></div><button class="onb-skip" type="button" onclick="onbSkip('relief')">Skip</button></div>
+  <div class="onb-top"><button class="onb-back" type="button" onclick="onbBack('reliefScreen')" aria-label="Back"><i data-lucide="arrow-left"></i></button><div class="onb-steps"><div class="onb-steps-fill" style="width:60%"></div></div><div class="onb-count">3<span>/5</span></div></div>
   <div class="onb-inner">
     <h1 class="ph-title">What brings you <em>relief</em>?</h1>
     <p class="ph-sub">Things you enjoy can help an urge pass. I'll keep these one tap away on your Urge button.</p>
@@ -195,7 +195,10 @@
       <button class="onb-chip" type="button" onclick="onbToggle(this)"><i data-lucide="droplet"></i>Cold water</button>
       <button class="onb-chip" type="button" onclick="onbToggle(this)"><i data-lucide="dog"></i>My pet</button>
     </div>
-    <button class="wc-begin onb-continue" type="button" onclick="onbNext('relief')">Continue <span aria-hidden="true">&rarr;</span></button>
+    <div class="onb-foot">
+      <button class="wc-begin onb-continue" type="button" onclick="onbNext('relief')">Continue <span aria-hidden="true">&rarr;</span></button>
+      <button class="onb-skip-link" type="button" onclick="onbSkip('relief')">Skip for now</button>
+    </div>
   </div>
 </div>
 
