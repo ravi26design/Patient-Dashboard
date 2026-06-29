@@ -480,7 +480,8 @@ function renderLogEntries(){
 
 /* ═══ DAILY REFLECTION ═══ */
 var REFLECT_Q=[
-  {type:'multi', q:'Which of these drugs have you used in the past 24 hours?', sub:'Select all that apply', options:[
+  {type:'multi', q:'Which of these drugs have you used in the past 24 hours?', sub:'Select all that apply',
+    icons:['🍺','🌿','⚡','🌬️','💊','🍄','💉','✅'], options:[
     'Alcohol','Cannabis (marijuana, pot, hash, K2, spice, etc.)','Stimulants (cocaine, meth, speed, ecstasy, molly, Adderall, etc.)',
     'Inhalants (nitrous, glue, petrol, paint thinner, etc.)','Sedatives or sleeping pills (Valium, Serepax, Rohypnol, etc.)',
     'Hallucinogens (LSD, acid, mushrooms, PCP, special K, etc.)','Opioids (heroin, fentanyl, oxycodone, etc.)','None — I did not use any substances']},
@@ -534,25 +535,25 @@ function renderReflect(){
     return;
   }
   var n=reflectStep, item=reflectQs[n-1], pct=Math.round(n/total*100), inner='';
+  var CHK='<span class="ro-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 6"/></svg></span>';
   if(item.type==='multi'){
-    var sel=reflectAnswers[n]||[];
-    inner='<div style="margin-top:16px">'+item.options.map(function(o,i){
-      return '<button class="reflect-opt'+(sel.indexOf(i)>=0?' opt-sel':'')+'" onclick="reflectToggleOpt(this,'+i+')">'+esc(o)+'</button>';
+    var sel=reflectAnswers[n]||[]; var icons=item.icons||[];
+    inner='<div class="reflect-opts">'+item.options.map(function(o,i){
+      return '<button class="reflect-opt'+(sel.indexOf(i)>=0?' opt-sel':'')+'" onclick="reflectToggleOpt(this,'+i+')">'+
+        '<span class="ro-ic">'+(icons[i]||'•')+'</span><span class="ro-txt">'+esc(o)+'</span>'+CHK+'</button>';
     }).join('')+'</div>';
   } else {
     var val=reflectAnswers[n]!=null?reflectAnswers[n]:5; reflectAnswers[n]=val;
-    inner='<div style="text-align:center;margin-top:14px"><span id="reflect-slider-val" style="font-family:var(--font-display);font-size:40px;font-weight:700;color:#7BA47E;line-height:1">'+val+'</span><div style="font-size:13px;color:var(--ink-soft);margin-top:2px">out of 10</div></div>'+
-      '<div style="display:flex;justify-content:space-between;font-size:12px;color:var(--ink-soft);margin:16px 2px 8px"><span>'+esc(item.lo)+'</span><span>'+esc(item.hi)+'</span></div>'+
-      '<input type="range" min="0" max="10" value="'+val+'" oninput="reflectSlider(this.value)" class="reflect-range">';
+    inner='<div class="rf-card" style="margin-top:6px"><div style="text-align:center"><span id="reflect-slider-val" style="font-family:var(--font-display);font-size:44px;font-weight:700;color:#7BA47E;line-height:1">'+val+'</span><div style="font-size:13px;color:var(--ink-soft);margin-top:2px">out of 10</div></div>'+
+      '<div style="display:flex;justify-content:space-between;font-size:12px;color:var(--ink-soft);margin:18px 2px 8px"><span>'+esc(item.lo)+'</span><span>'+esc(item.hi)+'</span></div>'+
+      '<input type="range" min="0" max="10" value="'+val+'" oninput="reflectSlider(this.value)" class="reflect-range"></div>';
   }
   body.innerHTML=
-    '<div style="text-align:center;font-size:11px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--ink-soft);margin-bottom:9px">Question '+n+' of '+total+'</div>'+
-    '<div class="reflect-prog" style="margin-bottom:16px"><div class="reflect-prog-fill" style="width:'+pct+'%"></div></div>'+
-    '<div class="rf-card">'+
-      '<div style="font-size:15px;font-weight:700;color:var(--ink);line-height:1.45">'+esc(item.q)+'</div>'+
-      (item.sub?'<div style="font-size:13px;color:var(--ink-soft);margin-top:4px">'+esc(item.sub)+'</div>':'')+
-      inner+
-    '</div>';
+    '<div class="reflect-step">Question '+n+' of '+total+'</div>'+
+    '<div class="reflect-prog" style="margin-bottom:18px"><div class="reflect-prog-fill" style="width:'+pct+'%"></div></div>'+
+    '<h2 class="reflect-q">'+esc(item.q)+'</h2>'+
+    (item.sub?'<div class="reflect-qsub">'+esc(item.sub)+'</div>':'')+
+    inner;
   foot.innerHTML=
     '<button class="rf-btn rf-back" onclick="reflectBack()">\u2190 Back</button>'+
     '<button class="rf-btn rf-primary" onclick="reflectNext()">Next \u2192</button>';
