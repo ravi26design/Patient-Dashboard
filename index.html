@@ -203,9 +203,15 @@
   <div class="onb-top"><button class="onb-back" type="button" onclick="onbBack('connectCareScreen')" aria-label="Back"><i data-lucide="arrow-left"></i></button><div class="onb-steps"><div class="onb-steps-fill" style="width:80%"></div></div><div class="onb-count">4<span>/5</span></div></div>
   <div class="onb-inner">
     <h1 class="ph-title">Want to connect your care team?</h1>
-    <p class="ph-sub">If you're seeing a clinic, Rudra can securely sync your appointments and MOUD plan through your health record. You're always in control of what's shared.</p>
-    <div class="onb-addrow">
-      <input id="clinicCode" class="onb-input" type="text" placeholder="Enter a clinic code…" onkeydown="if(event.key==='Enter'){event.preventDefault();onbNext('connect')}">
+    <p class="ph-sub">If you're seeing a clinic, Rudra can securely sync your appointments and MOUD plan through your health record. Enter your clinic's name or the code they gave you. You're always in control of what's shared.</p>
+    <div class="cc-field">
+      <label class="cc-label" for="clinicName">Clinic name</label>
+      <input id="clinicName" class="onb-input cc-input" type="text" placeholder="Enter clinic name…">
+    </div>
+    <div class="cc-or"><span>or</span></div>
+    <div class="cc-field">
+      <label class="cc-label" for="clinicCode">Clinic code</label>
+      <input id="clinicCode" class="onb-input cc-input" type="text" placeholder="Enter a clinic code…" onkeydown="if(event.key==='Enter'){event.preventDefault();onbNext('connect')}">
     </div>
     <button class="wc-begin onb-continue" type="button" onclick="onbNext('connect')">Continue <span aria-hidden="true">&rarr;</span></button>
   </div>

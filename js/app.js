@@ -750,7 +750,7 @@ function pvToggle(el){ el.classList.toggle('on');
 function onbNext(step){
   if(step==='triggers'){ onbSave('triggers', onbSelected('trigChips')); onbStep('triggersScreen','reliefScreen'); }
   else if(step==='relief'){ onbSave('relief', onbSelected('reliefChips')); onbStep('reliefScreen','connectCareScreen'); }
-  else if(step==='connect'){ var cc=document.getElementById('clinicCode'); if(cc&&cc.value.trim()) onbSave('clinicCode', cc.value.trim()); onbStep('connectCareScreen','privacyScreen'); }
+  else if(step==='connect'){ var cn=document.getElementById('clinicName'), cc=document.getElementById('clinicCode'); if(cn&&cn.value.trim()) onbSave('clinicName', cn.value.trim()); if(cc&&cc.value.trim()) onbSave('clinicCode', cc.value.trim()); onbStep('connectCareScreen','privacyScreen'); }
   else if(step==='privacy'){
     var c1=document.getElementById('pvCheck1');
     if(!(c1&&c1.classList.contains('on'))) return;
