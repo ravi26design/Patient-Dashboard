@@ -228,9 +228,13 @@
     <p class="ph-sub">Records about substance use disorder get extra federal protection. Here's what you're agreeing to.</p>
     <button class="pv-check" id="pvCheck1" type="button" onclick="pvToggle(this)">
       <span class="pv-box"><i data-lucide="check"></i></span>
-      <span class="pv-text">I agree to the <b>Terms of Use</b> and have read how my data is protected under <b>42 CFR Part 2</b> &amp; HIPAA. Rudra is an AI companion — not a medical or emergency service — and nothing is shared without my consent.</span>
+      <span class="pv-text">I agree to the <b>Terms of Use</b> and understand Rudra is an AI companion, not a medical or emergency service. I've read how my data is protected under <b>42 CFR Part 2</b> &amp; HIPAA, and that nothing is shared without my consent.</span>
     </button>
-    <button class="wc-begin onb-continue" id="pvContinue" type="button" onclick="onbNext('privacy')" disabled>Continue <span aria-hidden="true">&rarr;</span></button>
+    <button class="pv-check" id="pvCheck2" type="button" onclick="pvToggle(this)">
+      <span class="pv-box"><i data-lucide="check"></i></span>
+      <span class="pv-text"><b>Permission to contact me</b> — I agree to receive text messages and emails from Rudra (dose &amp; check-in reminders, support). Msg &amp; data rates may apply. <span class="pv-opt">Optional · reply STOP to texts or unsubscribe from emails anytime.</span></span>
+    </button>
+    <button class="wc-begin onb-continue" id="pvContinue" type="button" onclick="onbNext('privacy')" disabled>Agree &amp; continue</button>
   </div>
 </div>
 

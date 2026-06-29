@@ -1791,8 +1791,11 @@ body.is-desktop .tx-meta{position:absolute;right:6px;top:50%;transform:translate
   font-family:var(--font-ui);font-size:14px;font-weight:700;color:var(--sage-dk);padding:6px 8px}
 .onb-skip-link:active{opacity:.55}
 .onb-continue:disabled{opacity:.45;cursor:default}
-.pv-check{display:flex;align-items:flex-start;gap:12px;width:100%;max-width:360px;text-align:left;
-  background:transparent;border:none;padding:8px 2px;margin-bottom:8px;cursor:pointer}
+.pv-check{display:flex;align-items:flex-start;gap:12px;width:100%;max-width:380px;text-align:left;
+  background:rgba(255,255,255,.45);border:1px solid rgba(58,51,48,.08);border-radius:16px;
+  padding:15px 16px;margin-bottom:12px;cursor:pointer;transition:background .15s ease,border-color .15s ease}
+.pv-check.on{background:rgba(255,255,255,.72);border-color:var(--sage)}
+.pv-opt{display:block;margin-top:6px;font-size:12px;color:var(--muted);font-weight:600}
 .pv-box{flex-shrink:0;width:24px;height:24px;border-radius:7px;border:2px solid var(--t4);margin-top:1px;
   display:flex;align-items:center;justify-content:center;color:#fff;transition:all .15s ease}
 .pv-box i,.pv-box svg{width:15px;height:15px;opacity:0;stroke-width:3}

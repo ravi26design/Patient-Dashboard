@@ -760,6 +760,7 @@ function onbNext(step){
   else if(step==='privacy'){
     var c1=document.getElementById('pvCheck1');
     if(!(c1&&c1.classList.contains('on'))) return;
+    var c2=document.getElementById('pvCheck2'); onbSave('contactOptIn', !!(c2&&c2.classList.contains('on')));
     var pf=window.__profile||{}; var first=(pf.name||'there').split(' ')[0];
     var dn=document.getElementById('doneName'); if(dn) dn.textContent=first;
     onbHide('privacyScreen');           /* reveal home behind */
