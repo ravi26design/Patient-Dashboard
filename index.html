@@ -282,23 +282,30 @@
 
 <!-- ═══ LOCATION PERMISSION MODAL ═══ -->
 <div id="locModal" aria-hidden="true">
-  <div class="lm-card">
-    <div class="lm-icon"><i data-lucide="map-pin"></i></div>
-    <h2 class="lm-title">Allow location access?</h2>
-    <p class="lm-body">Rudra uses your location to find treatment providers and recovery support near you. You can change this anytime in settings.</p>
-    <button class="lm-allow" type="button" onclick="allowLocation()">Allow location</button>
-    <button class="lm-deny" type="button" onclick="skipLocation()">Not now</button>
+  <div class="ios-alert">
+    <div class="ios-alert-body">
+      <h2 class="ios-alert-title">Allow &ldquo;Rudra&rdquo; to use your location?</h2>
+      <p class="ios-alert-msg">Rudra uses your location to find treatment providers and recovery support near you. You can change this anytime in Settings.</p>
+    </div>
+    <div class="ios-alert-actions ios-stack">
+      <button class="ios-btn ios-btn-bold" type="button" onclick="allowLocation()">Allow While Using App</button>
+      <button class="ios-btn" type="button" onclick="allowLocation()">Allow Once</button>
+      <button class="ios-btn" type="button" onclick="skipLocation()">Don&rsquo;t Allow</button>
+    </div>
   </div>
 </div>
 
 <!-- ═══ PUSH NOTIFICATION PERMISSION MODAL ═══ -->
 <div id="pushModal" aria-hidden="true">
-  <div class="lm-card">
-    <div class="lm-icon"><i data-lucide="bell"></i></div>
-    <h2 class="lm-title">Turn on notifications?</h2>
-    <p class="lm-body">Get gentle reminders for your dose, daily check-ins, and a nudge before tough moments. No spam — you're always in control.</p>
-    <button class="lm-allow" type="button" onclick="allowPush()">Turn on notifications</button>
-    <button class="lm-deny" type="button" onclick="skipPush()">Not now</button>
+  <div class="ios-alert">
+    <div class="ios-alert-body">
+      <h2 class="ios-alert-title">&ldquo;Rudra&rdquo; Would Like to Send You Notifications</h2>
+      <p class="ios-alert-msg">Notifications may include dose reminders, daily check-ins, and achievement alerts. These can be customized anytime in Settings.</p>
+    </div>
+    <div class="ios-alert-actions ios-row">
+      <button class="ios-btn" type="button" onclick="skipPush()">Don&rsquo;t Allow</button>
+      <button class="ios-btn ios-btn-bold" type="button" onclick="allowPush()">Allow</button>
+    </div>
   </div>
 </div>
 

@@ -1349,6 +1349,24 @@ body.is-desktop .brand-img{height:26px}
   padding:28px;background:rgba(40,36,33,.45)}
 #locModal.show,#pushModal.show{display:flex;animation:lmFade .3s ease both}
 #locModal.hide,#pushModal.hide{opacity:0;pointer-events:none;transition:opacity .3s ease}
+/* native iOS-style permission alert */
+.ios-alert{width:270px;max-width:82%;border-radius:14px;overflow:hidden;
+  background:rgba(248,248,248,.82);-webkit-backdrop-filter:blur(20px);backdrop-filter:blur(20px);
+  font-family:-apple-system,system-ui,'SF Pro Text','Segoe UI',Helvetica,Arial,sans-serif;
+  box-shadow:0 12px 44px rgba(0,0,0,.22);animation:lmPop .32s cubic-bezier(.2,.8,.3,1) both}
+.ios-alert-body{padding:19px 16px 15px;text-align:center}
+.ios-alert-title{font-size:17px;font-weight:600;color:#1c1c1e;line-height:1.28;margin:0 0 4px}
+.ios-alert-msg{font-size:13px;line-height:1.36;color:#1c1c1e;margin:0}
+.ios-alert-actions{border-top:.5px solid rgba(60,60,67,.3)}
+.ios-stack{display:flex;flex-direction:column}
+.ios-stack .ios-btn+.ios-btn{border-top:.5px solid rgba(60,60,67,.3)}
+.ios-row{display:flex}
+.ios-row .ios-btn{flex:1}
+.ios-row .ios-btn+.ios-btn{border-left:.5px solid rgba(60,60,67,.3)}
+.ios-btn{background:none;border:none;cursor:pointer;height:44px;font-size:17px;color:#007AFF;
+  font-family:inherit;display:flex;align-items:center;justify-content:center;padding:0 10px;width:100%}
+.ios-btn-bold{font-weight:600}
+.ios-btn:active{background:rgba(0,0,0,.06)}
 .lm-card{width:100%;max-width:340px;background:#fff;border-radius:24px;
   padding:30px 26px 22px;text-align:center;box-shadow:0 24px 60px rgba(40,36,33,.30);
   animation:lmPop .35s cubic-bezier(.2,.8,.3,1) both}
