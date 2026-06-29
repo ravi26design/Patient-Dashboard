@@ -294,9 +294,10 @@
 <!-- ═══ COUNTRY CODE PICKER ═══ -->
 <div id="ccPicker" aria-hidden="true" onclick="if(event.target===this)closeCC()">
   <div class="cc-sheet">
+    <button class="sheet-close" type="button" onclick="closeCC()" aria-label="Close"><i data-lucide="x"></i></button>
+    <div class="sheet-grab"></div>
     <div class="cc-head">
       <div class="cc-title">Select country</div>
-      <button class="cc-close" type="button" onclick="closeCC()"><i data-lucide="x"></i></button>
     </div>
     <div class="cc-search-wrap"><i data-lucide="search"></i><input id="ccSearch" class="cc-search" type="text" placeholder="Search country or code" oninput="filterCC(this.value)"></div>
     <div class="cc-list" id="ccList"></div>
@@ -306,13 +307,14 @@
 <!-- ═══ PROFILE SHEET ═══ -->
 <div id="profileSheet" aria-hidden="true" onclick="if(event.target===this)closeProfile()">
   <div class="pf-sheet">
+    <button class="sheet-close" type="button" onclick="closeProfile()" aria-label="Close"><i data-lucide="x"></i></button>
+    <div class="sheet-grab"></div>
     <div class="pf-top">
       <div class="pf-avatar" id="pfAvatar">AM</div>
       <div class="pf-id">
         <div class="pf-name" id="pfName">—</div>
         <div class="pf-sub" id="pfPhone">—</div>
       </div>
-      <button class="pf-close" type="button" onclick="closeProfile()"><i data-lucide="x"></i></button>
     </div>
     <div class="pf-list">
       <div class="pf-item"><i data-lucide="mail"></i><div><span class="pf-k">Email</span><span class="pf-v" id="pfEmail">—</span></div></div>
@@ -325,9 +327,10 @@
 <!-- ═══ DATE OF BIRTH PICKER ═══ -->
 <div id="dobPicker" aria-hidden="true" onclick="if(event.target===this)closeDob()">
   <div class="dob-sheet">
+    <button class="sheet-close" type="button" onclick="closeDob()" aria-label="Close"><i data-lucide="x"></i></button>
+    <div class="sheet-grab"></div>
     <div class="dob-head">
       <div class="dob-title">Date of birth</div>
-      <button class="cc-close" type="button" onclick="closeDob()"><i data-lucide="x"></i></button>
     </div>
     <div class="dob-wheels">
       <div class="dob-band"></div>

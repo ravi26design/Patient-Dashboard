@@ -1441,8 +1441,8 @@ body.is-desktop .brand-img{height:26px}
 #ccPicker.show{display:block}
 #ccPicker::before{content:'';position:absolute;inset:0;background:rgba(40,36,33,.45);animation:lmFade .25s ease both}
 .cc-sheet{position:absolute;left:0;right:0;bottom:0;max-height:80%;display:flex;flex-direction:column;
-  background:#fff;border-radius:24px 24px 0 0;padding:18px 18px calc(14px + env(safe-area-inset-bottom));
-  box-shadow:0 -10px 40px rgba(40,36,33,.25);animation:ccUp .32s cubic-bezier(.2,.8,.3,1) both}
+  background:#fff;border-radius:28px 28px 0 0;padding:12px 18px calc(14px + env(safe-area-inset-bottom));
+  box-shadow:0 -12px 44px rgba(40,36,33,.26);animation:ccUp .32s cubic-bezier(.2,.8,.3,1) both}
 @keyframes ccUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
 .cc-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
 .cc-title{font-family:var(--font-display);font-size:18px;font-weight:700;color:var(--ink)}
@@ -1557,8 +1557,8 @@ body.is-desktop .brand-img{height:26px}
 #dobPicker.show{display:block}
 #dobPicker::before{content:'';position:absolute;inset:0;background:rgba(40,36,33,.45);animation:lmFade .25s ease both}
 .dob-sheet{position:absolute;left:0;right:0;bottom:0;display:flex;flex-direction:column;
-  background:#fff;border-radius:24px 24px 0 0;padding:18px 18px calc(16px + env(safe-area-inset-bottom));
-  box-shadow:0 -10px 40px rgba(40,36,33,.25);animation:ccUp .32s cubic-bezier(.2,.8,.3,1) both}
+  background:#fff;border-radius:28px 28px 0 0;padding:12px 18px calc(16px + env(safe-area-inset-bottom));
+  box-shadow:0 -12px 44px rgba(40,36,33,.26);animation:ccUp .32s cubic-bezier(.2,.8,.3,1) both}
 .dob-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px}
 .dob-title{font-family:var(--font-display);font-size:18px;font-weight:700;color:var(--ink)}
 .dob-wheels{position:relative;display:flex;height:220px;margin:6px 0 16px}
@@ -1693,8 +1693,8 @@ body.is-desktop .tx-meta{position:absolute;right:6px;top:50%;transform:translate
 #profileSheet{position:fixed;inset:0;z-index:9700;display:none}
 #profileSheet.show{display:block}
 #profileSheet::before{content:'';position:absolute;inset:0;background:rgba(40,36,33,.45);animation:lmFade .25s ease both}
-.pf-sheet{position:absolute;left:0;right:0;bottom:0;background:#fff;border-radius:24px 24px 0 0;
-  padding:20px 18px calc(18px + env(safe-area-inset-bottom));box-shadow:0 -10px 40px rgba(40,36,33,.25);
+.pf-sheet{position:absolute;left:0;right:0;bottom:0;background:#fff;border-radius:28px 28px 0 0;
+  padding:12px 18px calc(18px + env(safe-area-inset-bottom));box-shadow:0 -12px 44px rgba(40,36,33,.26);
   animation:ccUp .32s cubic-bezier(.2,.8,.3,1) both}
 .pf-top{display:flex;align-items:center;gap:14px;margin-bottom:18px}
 .pf-avatar{width:54px;height:54px;border-radius:50%;background:#5E8B6E;color:#fff;flex-shrink:0;
