@@ -728,6 +728,7 @@ function onbBack(curId){
   if(i<=0){ onbShow('detailsScreen'); onbHide('moudScreen'); return; }   /* first step back -> details */
   onbStep(curId, ONB_ORDER[i-1]);
 }
+function onbSkip(step){ if(step==='relief'){ onbStep('reliefScreen','connectCareScreen'); } }
 function onbToggle(el){ el.classList.toggle('sel'); }
 function onbAdd(containerId, inputId){
   var inp=document.getElementById(inputId), c=document.getElementById(containerId); if(!inp||!c) return;

@@ -1739,6 +1739,8 @@ body.is-desktop .tx-meta{position:absolute;right:6px;top:50%;transform:translate
 .onb-back:active{transform:scale(.92)}
 .onb-count{flex-shrink:0;font-family:var(--font-ui);font-size:12px;font-weight:700;color:var(--brown);min-width:30px;text-align:right}
 .onb-count span{color:var(--muted);font-weight:600}
+.onb-skip{flex-shrink:0;background:none;border:none;cursor:pointer;font-family:var(--font-ui);font-size:13px;font-weight:700;color:var(--sage-dk);padding:4px 2px 4px 8px}
+.onb-skip:active{opacity:.55}
 .onb-steps{flex:1;min-width:0;height:6px;border-radius:999px;background:rgba(58,51,48,.1);overflow:hidden}
 .onb-steps-fill{height:100%;border-radius:999px;background:var(--sage);transition:width .45s ease}
 .onb-inner{flex:1;min-height:0;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;width:100%;max-width:380px;padding:56px 0 0;overflow-y:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;-ms-overflow-style:none}
