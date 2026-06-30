@@ -24,9 +24,11 @@ function openOv(id){
   else { el.style.zoom=''; }
   el.classList.add('active');
   el.scrollTop=0; var b=el.querySelector('.ov-body'); if(b) b.scrollTop=0;
+  if(id==='relief-breath' && typeof startBreath==='function') startBreath();           /* start 4-7-8 cycle */
+  if(id==='relief-game'   && typeof gameInit==='function')   gameInit();               /* build distraction grid */
   try{localStorage.setItem('rh_ov',id);}catch(e){}
 }
-function closeOv(){document.querySelectorAll('.overlay').forEach(function(o){o.classList.remove('active');o.style.zoom='';});try{localStorage.removeItem('rh_ov');}catch(e){}}
+function closeOv(){if(typeof stopBreath==='function')stopBreath();document.querySelectorAll('.overlay').forEach(function(o){o.classList.remove('active');o.style.zoom='';});try{localStorage.removeItem('rh_ov');}catch(e){}}
 function closeTopOv(id){var el=document.getElementById('ov-'+id);if(el){el.classList.remove('active');el.style.zoom='';}try{localStorage.removeItem('rh_ov');}catch(e){}}
 
 /* ═══ FIND PROVIDER — engagement-instrumented ═══ */
@@ -564,6 +566,104 @@ function reflectDone(){
   updateTodayProgress();
   if(typeof showXPPopup==='function') showXPPopup(20);
 }
+
+/* ═══════════════════════════════════════════════════════════
+   FIND RELIEF — urge surfing / grounding / breathing / game
+   + the "Having an urge right now?" toolkit. Ported from the
+   reference app, restyled into our sage/cream system.
+   ═══════════════════════════════════════════════════════════ */
+
+/* small inline toast fallback (reference used toast()) */
+function rlToast(msg){
+  try{
+    var t=document.createElement('div');
+    t.textContent=msg;
+    t.style.cssText='position:fixed;left:50%;bottom:96px;transform:translateX(-50%);background:rgba(58,51,48,.94);color:#fff;font-family:\'Josefin Sans\',sans-serif;font-size:12px;padding:10px 16px;border-radius:999px;z-index:99999;max-width:80%;text-align:center;box-shadow:0 8px 24px rgba(0,0,0,.25)';
+    document.body.appendChild(t);
+    setTimeout(function(){ t.style.transition='opacity .4s'; t.style.opacity='0'; setTimeout(function(){ t.remove(); },420); },1800);
+  }catch(e){}
+}
+
+/* completing any relief exercise: close, award XP, gentle confirm */
+function reliefDone(label){
+  if(typeof stopBreath==='function') stopBreath();
+  closeOv();
+  if(typeof showXPPopup==='function') showXPPopup(20);
+  else rlToast((label||'Exercise')+' complete — well done 🌿');
+}
+
+/* open the urge toolkit: populate "why", relief actions and contacts */
+function openUrge(){
+  var why=document.getElementById('urge-why');
+  if(why){ var w=(window.__profile&&window.__profile.why)||''; why.textContent = w ? 'Remember: '+w : ''; }
+  var acts=document.getElementById('urge-acts');
+  if(acts){
+    acts.innerHTML = RH_PF.activities.map(function(a){
+      return '<div class="rl-act" onclick="urgeAct(\''+jsStr(a)+'\')"><div class="rl-act-ic">'+actIcon(a)+'</div><div class="rl-act-lb">'+esc(a)+'</div></div>';
+    }).join('') || '<div class="rl-act-empty">Add relief activities in your profile to see them here.</div>';
+  }
+  var contacts=document.getElementById('urge-contacts');
+  if(contacts) contacts.innerHTML = contactsHTML();
+  openOv('urge');
+  if(window.lucide && lucide.createIcons) lucide.createIcons();
+}
+function urgeAct(a){ rlToast('Nice — '+String(a).toLowerCase()+'. Stay with it.'); }
+
+/* ═══ Distraction mini-game: tap 1→9 in order, track best time ═══ */
+var rlGameNext=1, rlGameStart=0, rlGameBest=null;
+function gameInit(){
+  var nums=[1,2,3,4,5,6,7,8,9];
+  for(var i=nums.length-1;i>0;i--){ var j=Math.floor(Math.random()*(i+1)); var t=nums[i]; nums[i]=nums[j]; nums[j]=t; }
+  var colors=['#84B27F','#7BA47E','#A6C9AD','#6E9E80','#5E8560','#9BC0A0','#84B27F','#6E9E80','#A6C9AD'];
+  var g=document.getElementById('game-grid'); if(!g) return;
+  g.innerHTML=nums.map(function(n,i){
+    return '<button class="game-cell" data-n="'+n+'" onclick="gameTap('+n+',this)" style="background:'+colors[i%colors.length]+'">'+n+'</button>';
+  }).join('');
+  rlGameNext=1; rlGameStart=0;
+  var nx=document.getElementById('game-next'); if(nx) nx.textContent='1';
+}
+function gameTap(n,el){
+  if(n!==rlGameNext){
+    if(el&&el.animate) el.animate([{transform:'translateX(-4px)'},{transform:'translateX(4px)'},{transform:'translateX(0)'}],{duration:200});
+    return;
+  }
+  if(rlGameNext===1) rlGameStart=Date.now();
+  if(el) el.style.visibility='hidden';
+  rlGameNext++;
+  var nx=document.getElementById('game-next'); if(nx) nx.textContent=rlGameNext<=9?rlGameNext:'✓';
+  if(rlGameNext>9){
+    var secs=((Date.now()-rlGameStart)/1000).toFixed(1);
+    if(rlGameBest===null || +secs<rlGameBest) rlGameBest=+secs;
+    var bb=document.getElementById('game-best'); if(bb) bb.textContent=rlGameBest+'s';
+    rlToast('Done in '+secs+'s! Mind busy = craving quiet 🌿');
+    setTimeout(gameInit,900);
+  }
+}
+
+/* ═══ 4-7-8 breathing cycle — animate #breath-orb + #breath-phase ═══ */
+var breathTimer=null;
+function startBreath(){
+  stopBreath();
+  var phases=[
+    ['Breathe in','Inhale through your nose · 4',4000,'scale(1.12)'],
+    ['Hold','Hold · 7',7000,'scale(1.12)'],
+    ['Breathe out','Exhale slowly · 8',8000,'scale(.78)']
+  ];
+  var i=0;
+  function run(){
+    var p=phases[i%3];
+    var orb=document.getElementById('breath-orb'), ph=document.getElementById('breath-phase');
+    if(!orb||!ph){ stopBreath(); return; }
+    orb.textContent=p[0].toUpperCase();
+    ph.textContent=p[1];
+    orb.style.transition='transform '+(p[2]/1000)+'s ease-in-out';
+    orb.style.transform=p[3];
+    i++;
+    breathTimer=setTimeout(run,p[2]);
+  }
+  run();
+}
+function stopBreath(){ if(breathTimer){ clearTimeout(breathTimer); breathTimer=null; } }
 
 /* ═══ Recovery Health — segmented fan gauge ═══ */
 function buildHealthGauge(){

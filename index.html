@@ -866,6 +866,77 @@
         <div class="scr-title">Activities</div>
         <div class="scr-sub">Short guided exercises to build skills and earn XP. Your recent sessions:</div>
       </div>
+
+      <!-- ═══ FIND RELIEF ═══ -->
+      <div class="scr-eyebrow">Find relief</div>
+      <div style="font-size:13px;color:var(--muted);line-height:1.5;margin:-2px 0 12px">A craving is a wave — it rises and passes. Pick a quick tool to ride it out.</div>
+      <div class="rl-grid">
+        <div class="rl-tile" onclick="openOv('relief-surf')">
+          <div class="rl-emoji">🌊</div>
+          <div class="rl-title">Urge surfing</div>
+          <div class="rl-dur">3 min</div>
+        </div>
+        <div class="rl-tile" onclick="openOv('relief-ground')">
+          <div class="rl-emoji">✋</div>
+          <div class="rl-title">5-4-3-2-1 grounding</div>
+          <div class="rl-dur">2 min</div>
+        </div>
+        <div class="rl-tile" onclick="openOv('relief-breath')">
+          <div class="rl-emoji">🌬️</div>
+          <div class="rl-title">4-7-8 breathing</div>
+          <div class="rl-dur">2 min</div>
+        </div>
+        <div class="rl-tile" onclick="openOv('relief-game')">
+          <div class="rl-emoji">🎯</div>
+          <div class="rl-title">Distraction game</div>
+          <div class="rl-dur">1 min</div>
+        </div>
+      </div>
+
+      <!-- ═══ HAVING AN URGE CTA ═══ -->
+      <div class="rl-urge-cta" onclick="openUrge()">
+        <div class="rl-urge-ic">🌊</div>
+        <div class="rl-urge-main">
+          <div class="rl-urge-t">Having an urge right now?</div>
+          <div class="rl-urge-d">Open your toolkit — breathing, grounding &amp; your people</div>
+        </div>
+        <div class="rl-urge-arrow">›</div>
+      </div>
+
+      <!-- ═══ SCORE TREND ═══ -->
+      <div class="scr-card">
+        <div class="scr-eyebrow" style="margin:0 0 10px">Score trend</div>
+        <svg viewBox="0 0 240 80" width="100%" height="80" preserveAspectRatio="none" aria-hidden="true" style="display:block">
+          <rect x="6"   y="44" width="20" height="36" rx="4" fill="#CFE0D2"/>
+          <rect x="34"  y="34" width="20" height="46" rx="4" fill="#BBD4C0"/>
+          <rect x="62"  y="48" width="20" height="32" rx="4" fill="#CFE0D2"/>
+          <rect x="90"  y="26" width="20" height="54" rx="4" fill="#A6C9AD"/>
+          <rect x="118" y="20" width="20" height="60" rx="4" fill="#84B27F"/>
+          <rect x="146" y="32" width="20" height="48" rx="4" fill="#A6C9AD"/>
+          <rect x="174" y="14" width="20" height="66" rx="4" fill="#7BA47E"/>
+          <rect x="202" y="8"  width="20" height="72" rx="4" fill="#5E8560"/>
+        </svg>
+        <div style="font-size:11px;color:var(--muted);margin-top:8px;letter-spacing:.3px">Last 8 activities · higher is stronger coping</div>
+      </div>
+
+      <!-- ═══ SUMMARY STATS ═══ -->
+      <div class="scr-card">
+        <div class="rl-stats">
+          <div class="rl-stat">
+            <div class="rl-stat-n">14</div>
+            <div class="rl-stat-l">Activities</div>
+          </div>
+          <div class="rl-stat">
+            <div class="rl-stat-n">4</div>
+            <div class="rl-stat-l">This week</div>
+          </div>
+          <div class="rl-stat">
+            <div class="rl-stat-n">68</div>
+            <div class="rl-stat-l">Avg score</div>
+          </div>
+        </div>
+      </div>
+
       <div class="scr-eyebrow">Recent activity</div>
       <a class="lrow" href="https://dionysus.psych.wisc.edu/rudrahealth/triggers.html" target="_blank">
         <div class="lrow-ic" style="background:#EAF1E9;color:#5E8560">▶</div>
@@ -1746,6 +1817,119 @@
     </div>
     <div class="ov-body" id="reflect-body" style="padding-top:18px"></div>
     <div class="reflect-footer" id="reflect-footer"></div>
+  </div>
+
+  <!-- ═══ RELIEF: URGE SURFING ═══ -->
+  <div class="overlay" id="ov-relief-surf" style="background:var(--app-bg)">
+    <div class="ov-header" style="background:#7BA47E">
+      <button class="ov-back" style="background:rgba(255,255,255,.2);color:#fff" onclick="closeOv()">&larr;</button>
+      <div>
+        <div style="font-size:15px;font-weight:700;color:#fff">Urge surfing</div>
+        <div style="font-size:10px;color:rgba(255,255,255,.75)">3 min · ride the wave, don't fight it</div>
+      </div>
+    </div>
+    <div class="ov-body" style="padding-top:16px">
+      <div class="rl-hero">
+        <div style="font-size:44px">🌊</div>
+        <div class="rl-hero-t">An urge is a wave.</div>
+        <div class="rl-hero-d">It rises, crests, and falls — every time. You don't have to act on it. You just have to ride it until it passes.</div>
+      </div>
+      <div class="rl-step"><div class="rl-num">1</div><div class="rl-step-tx">Notice where you feel the craving in your body. Name it: "tightness in my chest," "buzzing in my hands."</div></div>
+      <div class="rl-step"><div class="rl-num">2</div><div class="rl-step-tx">Breathe into that spot. Don't push the urge away — just watch it like a wave moving through you.</div></div>
+      <div class="rl-step"><div class="rl-num">3</div><div class="rl-step-tx">Rate the wave 0–10. Keep breathing. Watch the number rise… and then start to drop.</div></div>
+      <div class="rl-step"><div class="rl-num">4</div><div class="rl-step-tx">It always comes down. You surfed it. You didn't have to use to get to the other side.</div></div>
+      <button class="rl-done" onclick="reliefDone('Urge surfing')">I surfed it 🌊 <span class="rl-xp">+20 XP</span></button>
+    </div>
+  </div>
+
+  <!-- ═══ RELIEF: 5-4-3-2-1 GROUNDING ═══ -->
+  <div class="overlay" id="ov-relief-ground" style="background:var(--app-bg)">
+    <div class="ov-header" style="background:#7BA47E">
+      <button class="ov-back" style="background:rgba(255,255,255,.2);color:#fff" onclick="closeOv()">&larr;</button>
+      <div>
+        <div style="font-size:15px;font-weight:700;color:#fff">5-4-3-2-1 grounding</div>
+        <div style="font-size:10px;color:rgba(255,255,255,.75)">Come back to right now</div>
+      </div>
+    </div>
+    <div class="ov-body" style="padding-top:16px">
+      <div class="rl-hero">
+        <div style="font-size:44px">✋</div>
+        <div class="rl-hero-t">Use your senses to land here.</div>
+      </div>
+      <div class="rl-step"><div class="rl-num">5</div><div><div class="rl-step-h">things you can see</div><div class="rl-step-s">Look around. Name them out loud.</div></div></div>
+      <div class="rl-step"><div class="rl-num">4</div><div><div class="rl-step-h">things you can touch</div><div class="rl-step-s">Feel the texture of each one.</div></div></div>
+      <div class="rl-step"><div class="rl-num">3</div><div><div class="rl-step-h">things you can hear</div><div class="rl-step-s">Near sounds, far sounds.</div></div></div>
+      <div class="rl-step"><div class="rl-num">2</div><div><div class="rl-step-h">things you can smell</div><div class="rl-step-s">Or two scents you like.</div></div></div>
+      <div class="rl-step"><div class="rl-num">1</div><div><div class="rl-step-h">thing you can taste</div><div class="rl-step-s">Water, gum, a deep breath.</div></div></div>
+      <button class="rl-done" onclick="reliefDone('Grounding')">I'm grounded ✓ <span class="rl-xp">+20 XP</span></button>
+    </div>
+  </div>
+
+  <!-- ═══ RELIEF: 4-7-8 BREATHING ═══ -->
+  <div class="overlay" id="ov-relief-breath" style="background:linear-gradient(180deg,#84B27F,#4E7B5E)">
+    <div class="ov-header" style="background:transparent">
+      <button class="ov-back" style="background:rgba(255,255,255,.2);color:#fff" onclick="closeOv()">&larr;</button>
+      <div>
+        <div style="font-size:15px;font-weight:700;color:#fff">4-7-8 breathing</div>
+        <div style="font-size:10px;color:rgba(255,255,255,.75)">Calms the nervous system fast</div>
+      </div>
+    </div>
+    <div class="ov-body" style="padding-top:28px;text-align:center">
+      <div class="breath-orb" id="breath-orb">BREATHE IN</div>
+      <div id="breath-phase" class="breath-phase">Inhale through your nose · 4</div>
+      <div class="breath-help">Breathe in for 4, hold for 7, exhale slowly for 8. Follow the circle. Four rounds is usually enough to feel your body settle.</div>
+      <button class="rl-done rl-done-light" onclick="reliefDone('Breathing')">I feel calmer ✓ <span class="rl-xp" style="color:var(--sage-dk)">+20 XP</span></button>
+    </div>
+  </div>
+
+  <!-- ═══ RELIEF: DISTRACTION GAME ═══ -->
+  <div class="overlay" id="ov-relief-game" style="background:var(--app-bg)">
+    <div class="ov-header" style="background:#7BA47E">
+      <button class="ov-back" style="background:rgba(255,255,255,.2);color:#fff" onclick="closeOv()">&larr;</button>
+      <div>
+        <div style="font-size:15px;font-weight:700;color:#fff">Distraction game</div>
+        <div style="font-size:10px;color:rgba(255,255,255,.75)">A busy mind has less room for cravings</div>
+      </div>
+    </div>
+    <div class="ov-body" style="padding-top:16px">
+      <div class="rl-hero">
+        <div style="font-size:42px">🎯</div>
+        <div class="rl-hero-t">Pop the tiles in order</div>
+        <div class="rl-hero-d">Tap 1 → 9 as fast as you can. A busy mind has less room for a craving. Beat your best time.</div>
+      </div>
+      <div id="game-grid" class="game-grid"></div>
+      <div class="game-bar">
+        <div class="game-read">Next: <b id="game-next">1</b></div>
+        <div class="game-read">Best: <b id="game-best">—</b></div>
+        <button class="game-new" onclick="gameInit()">New game</button>
+      </div>
+      <button class="rl-done rl-done-soft" onclick="reliefDone('Distraction game')">Done — the urge passed</button>
+    </div>
+  </div>
+
+  <!-- ═══ URGE TOOLKIT ═══ -->
+  <div class="overlay" id="ov-urge" style="background:var(--app-bg)">
+    <div class="ov-header" style="background:#7BA47E">
+      <button class="ov-back" style="background:rgba(255,255,255,.2);color:#fff" onclick="closeOv()">&larr;</button>
+      <div>
+        <div style="font-size:15px;font-weight:700;color:#fff">Ride out the urge</div>
+        <div style="font-size:10px;color:rgba(255,255,255,.75)">This will pass · you are not alone</div>
+      </div>
+    </div>
+    <div class="ov-body" style="padding-top:16px">
+      <div class="rl-urge-hero">
+        <div class="rl-urge-ring"><span>BREATHE</span></div>
+        <div class="rl-urge-headline">This craving will pass.</div>
+        <div class="rl-urge-sub">Most urges peak and fade within 15–20 minutes. You've beaten this before.</div>
+        <div id="urge-why" class="rl-urge-why"></div>
+      </div>
+
+      <div class="scr-eyebrow" style="margin:4px 0 8px">Do something that helps you</div>
+      <div class="rl-acts" id="urge-acts"></div>
+
+      <div class="scr-eyebrow" style="margin:16px 0 10px">Reach your people — call or text</div>
+      <div id="urge-contacts"></div>
+    </div>
   </div>
 
   <!-- ═══ EDIT MY TRIGGERS ═══ -->
