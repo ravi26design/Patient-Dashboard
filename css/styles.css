@@ -1922,8 +1922,9 @@ body.is-mobile .scr-card{padding:16px}
 .pf-cbtn.call{background:var(--sage);color:#fff}
 .pf-cbtn.text{background:var(--blue-lt);color:var(--blue)}
 
-/* Hide the app header on the Activities screen */
+/* Hide the app header on the Activities screen + add breathing room above the title */
 body[data-screen="tools"] .app-header{display:none}
+#screen-tools{padding-top:26px}
 
 /* ═══ Recent activity rows with score progress bar ═══ */
 .act-row{display:flex;flex-direction:column;gap:12px;background:#fff;border-radius:16px;box-shadow:var(--card-shadow);padding:14px 16px;margin-bottom:12px;text-decoration:none;cursor:pointer;transition:transform .12s ease}
