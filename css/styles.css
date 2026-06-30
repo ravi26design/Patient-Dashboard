@@ -1948,13 +1948,18 @@ body[data-screen="tools"] .app-header{display:none}
 .rl-dur{display:flex;align-items:center;gap:5px;font-family:var(--font-ui);font-size:12px;color:var(--ink-soft);margin-top:2px}
 .rl-dur .rl-clock{width:13px;height:13px;stroke-width:2.2}
 
-.rl-urge-cta{display:flex;align-items:center;gap:14px;background:linear-gradient(150deg,#EAF1E9,#DDEBDD);border:1px solid rgba(123,164,126,.28);border-radius:18px;padding:16px;margin-bottom:14px;cursor:pointer;transition:transform .12s ease}
+.rl-urge-cta{display:flex;align-items:center;gap:14px;background:linear-gradient(150deg,#E08578,#C85D52);border:none;border-radius:18px;padding:17px 16px;margin-bottom:14px;cursor:pointer;
+  box-shadow:0 10px 26px rgba(196,96,72,.34);animation:urgePulse 2.4s ease-in-out infinite;transition:transform .12s ease}
 .rl-urge-cta:active{transform:scale(.98)}
-.rl-urge-ic{width:46px;height:46px;border-radius:14px;background:rgba(123,164,126,.22);display:flex;align-items:center;justify-content:center;font-size:23px;flex-shrink:0}
+@keyframes urgePulse{0%,100%{box-shadow:0 10px 26px rgba(196,96,72,.30)}50%{box-shadow:0 10px 30px rgba(196,96,72,.50)}}
+.rl-urge-ic{width:46px;height:46px;border-radius:50%;background:rgba(255,255,255,.22);display:flex;align-items:center;justify-content:center;flex-shrink:0;color:#fff}
+.rl-urge-ic i,.rl-urge-ic svg{width:24px;height:24px;stroke-width:2.1}
 .rl-urge-main{flex:1;min-width:0}
-.rl-urge-t{font-family:var(--font-ui);font-weight:700;font-size:15px;color:#3F5E41}
-.rl-urge-d{font-family:var(--font-ui);font-size:12px;color:#5E8560;margin-top:3px;line-height:1.4}
-.rl-urge-arrow{font-size:24px;color:#5E8560;flex-shrink:0}
+.rl-urge-t{font-family:var(--font-ui);font-weight:700;font-size:15.5px;color:#fff}
+.rl-urge-d{font-family:var(--font-ui);font-size:12px;color:rgba(255,255,255,.9);margin-top:3px;line-height:1.4}
+.rl-urge-arrow{flex-shrink:0;color:rgba(255,255,255,.9);display:flex}
+.rl-urge-arrow i,.rl-urge-arrow svg{width:22px;height:22px}
+@media (prefers-reduced-motion:reduce){ .rl-urge-cta{animation:none} }
 
 .rl-stats{display:flex;align-items:stretch}
 .rl-stat{flex:1;text-align:center;padding:4px 2px}
