@@ -1922,6 +1922,13 @@ body.is-mobile .scr-card{padding:16px}
 .pf-cbtn.call{background:var(--sage);color:#fff}
 .pf-cbtn.text{background:var(--blue-lt);color:var(--blue)}
 
+/* ═══ Recent activity rows with score progress bar ═══ */
+.act-row{display:flex;flex-direction:column;gap:12px;background:#fff;border-radius:16px;box-shadow:var(--card-shadow);padding:14px 16px;margin-bottom:12px;text-decoration:none;cursor:pointer;transition:transform .12s ease}
+.act-row:active{transform:scale(.99)}
+.act-row-top{display:flex;align-items:center;gap:14px}
+.act-bar{height:7px;border-radius:999px;background:rgba(54,59,59,.10);overflow:hidden}
+.act-bar-fill{height:100%;border-radius:999px;transition:width .5s ease}
+
 /* ═══ FIND RELIEF (Activities screen) ═══ */
 .rl-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px}
 .rl-tile{display:flex;flex-direction:column;gap:11px;background:#fff;border:none;border-radius:18px;box-shadow:var(--card-shadow);padding:16px;cursor:pointer;transition:transform .12s ease,box-shadow .15s ease;text-align:left}
