@@ -549,14 +549,11 @@ function renderReflect(){
       '<input type="range" min="0" max="10" value="'+val+'" oninput="reflectSlider(this.value)" class="reflect-range"></div>';
   }
   body.innerHTML=
-    '<div class="reflect-step">Question '+n+' of '+total+'</div>'+
-    '<div class="reflect-prog" style="margin-bottom:18px"><div class="reflect-prog-fill" style="width:'+pct+'%"></div></div>'+
+    '<div class="rf-steprow"><div class="onb-steps"><div class="onb-steps-fill" style="width:'+pct+'%"></div></div><div class="onb-count">'+n+'<span>/'+total+'</span></div></div>'+
     '<h2 class="reflect-q">'+esc(item.q)+'</h2>'+
     (item.sub?'<div class="reflect-qsub">'+esc(item.sub)+'</div>':'')+
     inner;
-  foot.innerHTML=
-    '<button class="rf-btn rf-back" onclick="reflectBack()">\u2190 Back</button>'+
-    '<button class="rf-btn rf-primary" onclick="reflectNext()">Next \u2192</button>';
+  foot.innerHTML='<button class="rf-btn rf-primary rf-full" onclick="reflectNext()">Continue \u2192</button>';
 }
 function reflectDone(){
   closeOv();
