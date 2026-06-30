@@ -15,6 +15,7 @@ function goScreen(id){
   document.getElementById('screenArea').scrollTop=0;
   if(id==='mat'){ setTimeout(updatePatternChart,50); setTimeout(updateRecoveryHealthChart,50); }
   if(id==='home' && typeof scheduleCheckin==='function') scheduleCheckin();   /* daily check-in prompt 2s after landing on home */
+  if(id==='profile' && typeof renderProfileLists==='function') renderProfileLists();   /* triggers / relief / contacts */
 }
 function openOv(id){
   var el=document.getElementById('ov-'+id);if(!el)return;
@@ -1012,3 +1013,105 @@ function logout(){
        localStorage.removeItem('rh_screen'); localStorage.removeItem('rh_ov'); }catch(e){}
   location.reload();   /* restart onboarding */
 }
+
+/* ═══════════════════════════════════════════════════════════
+   PROFILE FEATURES — My Triggers · What Helps Me · My People
+   Ported/adapted from reference app. Namespaced RH_PF to avoid
+   clashing with onboarding's onb* helpers and window.__profile.
+   ═══════════════════════════════════════════════════════════ */
+var RH_PF = {
+  triggers:   ['Stress','Evenings / nighttime','Physical pain','Old neighborhood'],
+  activities: ['Go for a walk','Call someone I trust','Listen to music','Breathing exercise'],
+  contacts: [
+    {name:'Daniel Ruiz',      role:'Your recovery coach',  num:'(310) 555-0142', color:'#6E9E80', icon:'🎧'},
+    {name:'Tasha Brooks',     role:'Your peer specialist', num:'(310) 555-0188', color:'#4A90D9', icon:'🤝'},
+    {name:'Mike R.',          role:'Sponsor · CPRS',       num:'(323) 555-0117', color:'#C97B6F', icon:'🧭'},
+    {name:'Dr. Elena Rivera', role:'Therapist · LCSW',     num:'(310) 555-0164', color:'#8A6FB0', icon:'🛋️'},
+    {name:'Mom (Sarah M.)',   role:'Family',               num:'(562) 555-0193', color:'#D8AD63', icon:'❤️'},
+    {name:'Jack P.',          role:'Supportive friend',    num:'(213) 555-0175', color:'#5E8560', icon:'👋'}
+  ]
+};
+var TRIGGER_SUGG = ['Payday','Stress','Loneliness','Certain people','Old neighborhood','Boredom','Physical pain','Arguments','Parties','Anxiety','Can’t sleep','Seeing paraphernalia'];
+var ACTIVITY_SUGG = ['Go for a walk','Call a friend','Listen to music','Workout','Cold shower','Play a game','Cook something','Pray / meditate','Journal','Watch a show','Deep breathing','Pet my dog'];
+var ACT_ICONS = {
+  'Go for a walk':'🚶','Call someone I trust':'📞','Call someone':'📞','Call a friend':'📞',
+  'Listen to music':'🎵','Music':'🎵','Take a hot shower':'🚿','Hot shower':'🚿','Cold shower':'🚿',
+  'Breathing exercise':'🌬️','Breathe':'🌬️','Deep breathing':'🌬️','Play a game':'🎮',
+  'Pray or meditate':'🧘','Pray / meditate':'🧘','Work out':'💪','Workout':'💪',
+  'Drink cold water':'💧','Cold water':'💧','Pet my dog':'🐶','My pet':'🐶','Pet my cat':'🐱',
+  'Journal':'📓','Cook something':'🍳','Watch a show':'📺'
+};
+function actIcon(a){ return ACT_ICONS[a] || '✨'; }
+
+/* persist into our existing rh_profile blob (alongside onboarding fields) */
+function pfPersist(){
+  try{
+    var pf=window.__profile||{};
+    pf.triggers=RH_PF.triggers.slice();
+    pf.relief=RH_PF.activities.slice();
+    window.__profile=pf;
+    localStorage.setItem('rh_profile', JSON.stringify(pf));
+  }catch(e){}
+}
+
+/* seed from onboarding answers (window.__profile.triggers / .relief) if present */
+function pfSeedFromProfile(){
+  var pf=window.__profile;
+  if(!pf){ try{ pf=JSON.parse(localStorage.getItem('rh_profile')||'null'); }catch(e){} }
+  if(pf){
+    if(Array.isArray(pf.triggers) && pf.triggers.length) RH_PF.triggers=pf.triggers.slice();
+    if(Array.isArray(pf.relief)   && pf.relief.length)   RH_PF.activities=pf.relief.slice();
+  }
+}
+
+function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+function jsStr(s){ return String(s).replace(/\\/g,'\\\\').replace(/'/g,"\\'"); }
+
+/* render the 3 profile-screen containers */
+function renderProfileLists(){
+  pfSeedFromProfile();
+  var t=document.getElementById('pf-triggers');
+  if(t) t.innerHTML=RH_PF.triggers.map(function(x){return '<span class="pf-chip trig">'+esc(x)+'</span>';}).join('') || '<span class="pf-empty">None added yet</span>';
+  var a=document.getElementById('pf-activities');
+  if(a) a.innerHTML=RH_PF.activities.map(function(x){return '<span class="pf-chip">'+actIcon(x)+' '+esc(x)+'</span>';}).join('') || '<span class="pf-empty">None added yet</span>';
+  var c=document.getElementById('pf-contacts');
+  if(c) c.innerHTML=contactsHTML();
+}
+
+function contactsHTML(){
+  return RH_PF.contacts.map(function(c){
+    return '<div class="pf-contact">'+
+      '<div class="pf-contact-av" style="background:'+c.color+'1F">'+c.icon+'</div>'+
+      '<div class="pf-contact-main"><div class="pf-contact-name">'+esc(c.name)+'</div><div class="pf-contact-role">'+esc(c.role)+'</div></div>'+
+      '<div class="pf-contact-btns">'+
+        '<button class="pf-cbtn call" type="button" onclick="callContact(\''+jsStr(c.name)+'\',\''+jsStr(c.num)+'\')"><i data-lucide="phone"></i>Call</button>'+
+        '<button class="pf-cbtn text" type="button" onclick="textContact(\''+jsStr(c.name)+'\',\''+jsStr(c.num)+'\')"><i data-lucide="message-circle"></i>Text</button>'+
+      '</div></div>';
+  }).join('');
+}
+function pfTelHref(num){ return 'tel:'+String(num).replace(/[^\d+]/g,''); }
+function callContact(name,num){ try{ window.location.href=pfTelHref(num); }catch(e){} }
+function textContact(name,num){ try{ window.location.href='sms:'+String(num).replace(/[^\d+]/g,''); }catch(e){} }
+
+/* edit-overlay rendering: live chip list (with remove) + suggestion strip */
+function renderProfileEdit(){
+  var et=document.getElementById('et-list');
+  if(et) et.innerHTML=RH_PF.triggers.map(function(x,i){return '<span class="pf-tagchip trig">'+esc(x)+'<span class="x" onclick="pfRemoveTrigger('+i+')">×</span></span>';}).join('') || '<span class="pf-empty">None yet — add some below.</span>';
+  var es=document.getElementById('et-sugg');
+  if(es) es.innerHTML=TRIGGER_SUGG.filter(function(s){return RH_PF.triggers.indexOf(s)<0;}).map(function(s){return '<button class="pf-sgc" type="button" onclick="pfAddTriggerVal(\''+jsStr(s)+'\')">+ '+esc(s)+'</button>';}).join('');
+  var ea=document.getElementById('ea-list');
+  if(ea) ea.innerHTML=RH_PF.activities.map(function(x,i){return '<span class="pf-tagchip">'+actIcon(x)+' '+esc(x)+'<span class="x" onclick="pfRemoveActivity('+i+')">×</span></span>';}).join('') || '<span class="pf-empty">None yet — add some below.</span>';
+  var eas=document.getElementById('ea-sugg');
+  if(eas) eas.innerHTML=ACTIVITY_SUGG.filter(function(s){return RH_PF.activities.indexOf(s)<0;}).map(function(s){return '<button class="pf-sgc" type="button" onclick="pfAddActivityVal(\''+jsStr(s)+'\')">+ '+esc(s)+'</button>';}).join('');
+  if(window.lucide && lucide.createIcons) lucide.createIcons();
+}
+function pfRefresh(){ renderProfileEdit(); renderProfileLists(); pfPersist(); if(window.lucide && lucide.createIcons) lucide.createIcons(); }
+function pfAddTriggerVal(v){ v=(v||'').trim(); if(!v) return; if(RH_PF.triggers.indexOf(v)<0) RH_PF.triggers.push(v); pfRefresh(); }
+function pfAddTrigger(){ var i=document.getElementById('et-input'); if(!i) return; pfAddTriggerVal(i.value); i.value=''; i.focus(); }
+function pfRemoveTrigger(i){ RH_PF.triggers.splice(i,1); pfRefresh(); }
+function pfAddActivityVal(v){ v=(v||'').trim(); if(!v) return; if(RH_PF.activities.indexOf(v)<0) RH_PF.activities.push(v); pfRefresh(); }
+function pfAddActivity(){ var i=document.getElementById('ea-input'); if(!i) return; pfAddActivityVal(i.value); i.value=''; i.focus(); }
+function pfRemoveActivity(i){ RH_PF.activities.splice(i,1); pfRefresh(); }
+
+/* render once on load (in case profile is the restored screen) */
+window.addEventListener('load', function(){ try{ renderProfileLists(); }catch(e){} });

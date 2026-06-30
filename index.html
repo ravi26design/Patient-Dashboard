@@ -367,6 +367,7 @@
       <div class="pf-item"><i data-lucide="mail"></i><div><span class="pf-k">Email</span><span class="pf-v" id="pfEmail">—</span></div></div>
       <div class="pf-item"><i data-lucide="cake"></i><div><span class="pf-k">Date of birth</span><span class="pf-v" id="pfDob">—</span></div></div>
     </div>
+    <button class="pf-viewfull" type="button" onclick="closeProfile();goScreen('profile')"><i data-lucide="user-round"></i> View full profile <i data-lucide="arrow-right" class="pf-vf-arrow"></i></button>
     <button class="pf-logout" type="button" onclick="logout()"><i data-lucide="log-out"></i> Log out</button>
   </div>
 </div>
@@ -953,6 +954,30 @@
         <div class="ui" style="font-size:11px;color:var(--espresso)">Suboxone 8mg/2mg · Daily · Sublingual</div>
         <div class="ui" style="font-size:9px;color:var(--muted);margin-top:2px">Prescribed by Dr. Rivera</div>
       </div></div>
+
+      <!-- My Triggers -->
+      <div class="scr-card">
+        <div class="scr-eyebrow" style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
+          <span>My Triggers</span>
+          <button class="pf-edit-btn" type="button" onclick="renderProfileEdit();openOv('edit-triggers')">Edit</button>
+        </div>
+        <div id="pf-triggers" class="pf-chips"></div>
+      </div>
+
+      <!-- What Helps Me -->
+      <div class="scr-card">
+        <div class="scr-eyebrow" style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
+          <span>What Helps Me</span>
+          <button class="pf-edit-btn" type="button" onclick="renderProfileEdit();openOv('edit-activities')">Edit</button>
+        </div>
+        <div id="pf-activities" class="pf-chips"></div>
+      </div>
+
+      <!-- My People · Call or Text -->
+      <div class="scr-card">
+        <div class="scr-eyebrow" style="margin-bottom:12px">My People · Call or Text</div>
+        <div id="pf-contacts"></div>
+      </div>
 
       <div class="card"><div class="card-pad">
         <div class="ui" style="font-size:9px;color:var(--muted);letter-spacing:1px;text-transform:uppercase;margin-bottom:8px">Care Team</div>
@@ -1721,6 +1746,56 @@
     </div>
     <div class="ov-body" id="reflect-body" style="padding-top:18px"></div>
     <div class="reflect-footer" id="reflect-footer"></div>
+  </div>
+
+  <!-- ═══ EDIT MY TRIGGERS ═══ -->
+  <div class="overlay" id="ov-edit-triggers" style="background:var(--app-bg)">
+    <div class="ov-header" style="background:var(--high);border-bottom:1px solid rgba(0,0,0,.04)">
+      <button class="ov-back" style="background:rgba(255,255,255,.2);color:#fff" onclick="closeOv()">&larr;</button>
+      <div>
+        <div style="font-size:15px;font-weight:700;color:#fff">My Triggers</div>
+        <div style="font-size:10px;color:rgba(255,255,255,.8)">Knowing them helps you plan ahead</div>
+      </div>
+    </div>
+    <div class="ov-body" style="padding-top:14px">
+      <div class="scr-card" style="background:var(--high-lt);border-left:3px solid var(--high)">
+        <div style="font-family:var(--font-ui);font-size:13px;color:var(--ink);line-height:1.55">Triggers are people, places, feelings, or moments that make an urge more likely. Add as many as you notice — there's no wrong answer.</div>
+      </div>
+      <div class="scr-card">
+        <div class="onb-addrow" style="margin-bottom:0">
+          <input id="et-input" class="onb-input" type="text" placeholder="e.g. payday, stress, certain friends…" onkeydown="if(event.key==='Enter'){event.preventDefault();pfAddTrigger()}">
+          <button class="onb-add" type="button" onclick="pfAddTrigger()">Add</button>
+        </div>
+        <div id="et-list" class="pf-chips" style="margin-top:14px"></div>
+        <div class="pf-sugg-label">Common triggers — tap to add</div>
+        <div class="pf-sugg" id="et-sugg"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ EDIT WHAT HELPS ME ═══ -->
+  <div class="overlay" id="ov-edit-activities" style="background:var(--app-bg)">
+    <div class="ov-header" style="background:var(--sage);border-bottom:1px solid rgba(0,0,0,.04)">
+      <button class="ov-back" style="background:rgba(255,255,255,.2);color:#fff" onclick="closeOv()">&larr;</button>
+      <div>
+        <div style="font-size:15px;font-weight:700;color:#fff">What Helps Me</div>
+        <div style="font-size:10px;color:rgba(255,255,255,.8)">Your go-to relief activities</div>
+      </div>
+    </div>
+    <div class="ov-body" style="padding-top:14px">
+      <div class="scr-card" style="background:var(--sage-lt);border-left:3px solid var(--sage)">
+        <div style="font-family:var(--font-ui);font-size:13px;color:var(--ink);line-height:1.55">When an urge hits, doing something you enjoy can help it pass. Add the activities that bring you relief.</div>
+      </div>
+      <div class="scr-card">
+        <div class="onb-addrow" style="margin-bottom:0">
+          <input id="ea-input" class="onb-input" type="text" placeholder="e.g. go for a walk, call a friend…" onkeydown="if(event.key==='Enter'){event.preventDefault();pfAddActivity()}">
+          <button class="onb-add" type="button" onclick="pfAddActivity()">Add</button>
+        </div>
+        <div id="ea-list" class="pf-chips" style="margin-top:14px"></div>
+        <div class="pf-sugg-label">Ideas — tap to add</div>
+        <div class="pf-sugg" id="ea-sugg"></div>
+      </div>
+    </div>
   </div>
 
   <div class="bottom-nav" id="bottomNav">
