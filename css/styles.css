@@ -1923,41 +1923,45 @@ body.is-mobile .scr-card{padding:16px}
 .pf-cbtn.text{background:var(--blue-lt);color:var(--blue)}
 
 /* ═══ FIND RELIEF (Activities screen) ═══ */
-.rl-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}
-.rl-tile{background:#fff;border:1px solid var(--border);border-radius:16px;padding:16px 14px;cursor:pointer;transition:transform .12s,box-shadow .12s;text-align:left}
+.rl-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px}
+.rl-tile{display:flex;flex-direction:column;gap:11px;background:#fff;border:none;border-radius:18px;box-shadow:var(--card-shadow);padding:16px;cursor:pointer;transition:transform .12s ease,box-shadow .15s ease;text-align:left}
 .rl-tile:active{transform:scale(.97)}
-.rl-tile:hover{box-shadow:0 6px 18px rgba(94,133,96,.14)}
-.rl-emoji{font-size:30px;line-height:1;margin-bottom:8px}
-.rl-title{font-family:'Josefin Sans',sans-serif;font-size:14px;font-weight:600;color:var(--espresso);line-height:1.25}
-.rl-dur{font-size:11px;color:var(--muted);margin-top:3px}
+.rl-tile:hover{box-shadow:0 10px 24px rgba(94,133,96,.16)}
+.rl-emoji{width:46px;height:46px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:24px;line-height:1}
+.rl-tile:nth-child(1) .rl-emoji{background:#E4EEF4}
+.rl-tile:nth-child(2) .rl-emoji{background:#FBF1DC}
+.rl-tile:nth-child(3) .rl-emoji{background:#E7F0EA}
+.rl-tile:nth-child(4) .rl-emoji{background:#FAE7E2}
+.rl-title{font-family:var(--font-ui);font-size:14.5px;font-weight:700;color:var(--ink);line-height:1.25}
+.rl-dur{font-family:var(--font-ui);font-size:12px;color:var(--ink-soft);margin-top:2px}
 
-.rl-urge-cta{display:flex;align-items:center;gap:12px;background:linear-gradient(150deg,#EAF1E9,#DDEBDD);border:1px solid rgba(123,164,126,.3);border-radius:16px;padding:14px 16px;margin-bottom:14px;cursor:pointer;transition:transform .12s}
+.rl-urge-cta{display:flex;align-items:center;gap:14px;background:linear-gradient(150deg,#EAF1E9,#DDEBDD);border:1px solid rgba(123,164,126,.28);border-radius:18px;padding:16px;margin-bottom:14px;cursor:pointer;transition:transform .12s ease}
 .rl-urge-cta:active{transform:scale(.98)}
-.rl-urge-ic{width:44px;height:44px;border-radius:13px;background:rgba(123,164,126,.18);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
-.rl-urge-main{flex:1}
-.rl-urge-t{font-family:'Josefin Sans',sans-serif;font-weight:700;font-size:15px;color:var(--sage-dk)}
-.rl-urge-d{font-size:11px;color:var(--muted);margin-top:2px;line-height:1.4}
-.rl-urge-arrow{font-size:22px;color:var(--sage-dk);flex-shrink:0}
+.rl-urge-ic{width:46px;height:46px;border-radius:14px;background:rgba(123,164,126,.22);display:flex;align-items:center;justify-content:center;font-size:23px;flex-shrink:0}
+.rl-urge-main{flex:1;min-width:0}
+.rl-urge-t{font-family:var(--font-ui);font-weight:700;font-size:15px;color:#3F5E41}
+.rl-urge-d{font-family:var(--font-ui);font-size:12px;color:#5E8560;margin-top:3px;line-height:1.4}
+.rl-urge-arrow{font-size:24px;color:#5E8560;flex-shrink:0}
 
 .rl-stats{display:flex;align-items:stretch}
 .rl-stat{flex:1;text-align:center;padding:4px 2px}
-.rl-stat+.rl-stat{border-left:1px solid var(--border)}
-.rl-stat-n{font-family:'Cormorant Garamond',serif;font-size:30px;font-weight:600;color:var(--espresso);line-height:1}
-.rl-stat-l{font-size:11px;color:var(--muted);margin-top:4px;letter-spacing:.3px}
+.rl-stat+.rl-stat{border-left:1px solid rgba(54,59,59,.1)}
+.rl-stat-n{font-family:var(--font-display);font-size:28px;font-weight:700;color:var(--ink);line-height:1}
+.rl-stat-l{font-family:var(--font-ui);font-size:11px;color:var(--ink-soft);margin-top:5px;letter-spacing:.2px}
 
 /* ═══ RELIEF OVERLAYS ═══ */
-.rl-hero{background:linear-gradient(150deg,#84B27F,#5E8560);color:#fff;border-radius:18px;padding:20px 18px;text-align:center;margin-bottom:14px}
-.rl-hero-t{font-family:'Cormorant Garamond',serif;font-size:21px;margin-top:4px}
-.rl-hero-d{font-size:12px;opacity:.92;margin-top:6px;line-height:1.5}
-.rl-step{display:flex;align-items:flex-start;gap:12px;background:#fff;border:1px solid var(--border);border-radius:14px;padding:12px 14px;margin-bottom:10px}
-.rl-num{width:30px;height:30px;border-radius:50%;background:var(--sage-lt);color:var(--sage-dk);font-family:'Josefin Sans',sans-serif;font-weight:700;font-size:15px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.rl-step-tx{font-size:13px;color:var(--espresso);line-height:1.5}
-.rl-step-h{font-family:'Josefin Sans',sans-serif;font-weight:600;font-size:13px;color:var(--espresso)}
-.rl-step-s{font-size:11px;color:var(--muted);margin-top:1px}
-.rl-done{width:100%;margin-top:10px;padding:15px;border-radius:14px;border:none;background:var(--sage);color:#fff;font-family:'Josefin Sans',sans-serif;font-weight:700;font-size:15px;cursor:pointer}
+.rl-hero{background:linear-gradient(150deg,#84B27F,#5E8560);color:#fff;border-radius:18px;padding:22px 18px;text-align:center;margin-bottom:14px}
+.rl-hero-t{font-family:var(--font-display);font-size:22px;font-weight:700;margin-top:4px}
+.rl-hero-d{font-family:var(--font-ui);font-size:13px;opacity:.94;margin-top:8px;line-height:1.5}
+.rl-step{display:flex;align-items:flex-start;gap:12px;background:#fff;border:none;box-shadow:var(--card-shadow);border-radius:14px;padding:13px 15px;margin-bottom:10px}
+.rl-num{width:30px;height:30px;border-radius:50%;background:#EAF1E9;color:#5E8560;font-family:var(--font-ui);font-weight:700;font-size:15px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.rl-step-tx{font-family:var(--font-ui);font-size:13.5px;color:var(--ink);line-height:1.5}
+.rl-step-h{font-family:var(--font-ui);font-weight:700;font-size:13.5px;color:var(--ink)}
+.rl-step-s{font-family:var(--font-ui);font-size:12px;color:var(--ink-soft);margin-top:1px}
+.rl-done{width:100%;margin-top:12px;padding:16px;border-radius:16px;border:none;background:var(--sage);color:#fff;font-family:var(--font-ui);font-weight:700;font-size:15px;cursor:pointer;box-shadow:0 10px 24px rgba(110,158,128,.3)}
 .rl-done:active{transform:scale(.98)}
-.rl-done-light{background:#fff;color:var(--sage-dk)}
-.rl-done-soft{background:#fff;color:var(--muted);border:1px solid var(--border);font-weight:600;font-size:13px}
+.rl-done-light{background:#fff;color:#5E8560;box-shadow:none}
+.rl-done-soft{background:#fff;color:var(--ink-soft);border:1px solid rgba(54,59,59,.12);font-weight:600;font-size:13px;box-shadow:none}
 .rl-xp{font-weight:500;opacity:.85;font-size:12px}
 
 /* breathing orb */
