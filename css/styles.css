@@ -1922,11 +1922,13 @@ body.is-mobile .scr-card{padding:16px}
 .pf-cbtn.call{background:var(--sage);color:#fff}
 .pf-cbtn.text{background:var(--blue-lt);color:var(--blue)}
 
-/* Hide the app header on the Activities + Patterns screens + add breathing room above the title */
+/* Hide the app header on the Activities + Patterns + Rewards screens + add breathing room above the title */
 body[data-screen="tools"] .app-header,
-body[data-screen="mat"] .app-header{display:none}
+body[data-screen="mat"] .app-header,
+body[data-screen="rewards"] .app-header{display:none}
 #screen-tools{padding-top:26px}
 body[data-screen="mat"] #screen-mat{padding-top:26px}
+body[data-screen="rewards"] #screen-rewards{padding-top:26px}
 
 /* ═══ Recent activity rows with score progress bar ═══ */
 .act-row{display:flex;flex-direction:column;gap:12px;background:#fff;border-radius:16px;box-shadow:var(--card-shadow);padding:14px 16px;margin-bottom:12px;text-decoration:none;cursor:pointer;transition:transform .12s ease}
