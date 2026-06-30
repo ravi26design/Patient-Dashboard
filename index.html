@@ -601,150 +601,152 @@
 
     <!-- ═══ REWARDS SCREEN (Major Gamification Hub) ═══ -->
     <div class="screen" id="screen-rewards">
-      <div class="card" style="margin-bottom:10px;border-left:3px solid var(--gold)">
-        <div class="card-pad" style="background:var(--gold-lt);text-align:center;padding:16px 14px">
-          <!-- Recovery Flame -->
-          <div class="flame-wrap" style="margin:0 auto 8px;width:72px;height:78px">
-            <div class="flame gold" style="width:44px;height:52px">
-              <div class="flame-inner" style="width:22px;height:26px"></div>
-            </div>
-            <div class="flame-streak" style="font-size:18px;color:var(--espresso);bottom:-6px"></div>
+      <!-- 1. Page header -->
+      <div class="scr-head scr-full">
+        <div class="scr-title">Rewards</div>
+        <div class="scr-sub">Your progress, streaks, and the rewards you've earned.</div>
+      </div>
+
+      <!-- 2. Level / XP hero -->
+      <div class="scr-card scr-full" style="background:var(--gold-lt);text-align:center">
+        <!-- Recovery Flame -->
+        <div class="flame-wrap" style="margin:0 auto 10px;width:72px;height:78px">
+          <div class="flame gold" style="width:44px;height:52px">
+            <div class="flame-inner" style="width:22px;height:26px"></div>
           </div>
-          <div class="ui" style="font-size:9px;color:var(--muted);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:2px">Level 4 · Bloom</div>
-          <div style="font-family:'Fraunces',serif;font-size:32px;font-weight:700;color:var(--gold-dk)">2,340 XP</div>
-          <div class="pbar" style="margin:8px 20px 0"><div class="pfill" style="width:78%;background:var(--gold)"></div></div>
-          <div class="ui" style="font-size:8px;color:var(--muted);margin-top:4px">660 XP to Level 5 · Flourish</div>
-          <div style="display:flex;justify-content:center;gap:0;margin-top:12px;border-top:1px solid rgba(201,168,76,.2);padding-top:10px">
-            <div style="flex:1;text-align:center;border-right:1px solid rgba(201,168,76,.2)">
-              <div style="font-family:'Fraunces',serif;font-size:22px;font-weight:700;color:var(--gold-dk);line-height:1">47</div>
-              <div class="ui" style="font-size:7px;color:var(--muted);letter-spacing:1px;text-transform:uppercase;margin-top:2px">Recovery Days</div>
-            </div>
-            <div style="flex:1;text-align:center;border-right:1px solid rgba(201,168,76,.2)">
-              <div style="font-family:'Fraunces',serif;font-size:22px;font-weight:700;color:var(--gold-dk);line-height:1">45</div>
-              <div class="ui" style="font-size:7px;color:var(--muted);letter-spacing:1px;text-transform:uppercase;margin-top:2px">Days Active</div>
-            </div>
-            <div style="flex:1;text-align:center">
-              <div style="font-family:'Fraunces',serif;font-size:22px;font-weight:700;color:var(--gold-dk);line-height:1">142</div>
-              <div class="ui" style="font-size:7px;color:var(--muted);letter-spacing:1px;text-transform:uppercase;margin-top:2px">Sessions</div>
-            </div>
+          <div class="flame-streak" style="font-size:18px;color:var(--brown);bottom:-6px"></div>
+        </div>
+        <div class="scr-eyebrow" style="margin:0 0 4px">Level 4 · Bloom</div>
+        <div style="font-family:var(--font-display);font-size:32px;font-weight:700;color:var(--gold-dk);line-height:1">2,340 XP</div>
+        <div class="scr-bar" style="margin:12px auto 0;max-width:280px"><div class="scr-bar-fill" style="width:78%;background:#C9A84C"></div></div>
+        <div style="font-family:var(--font-ui);font-size:12px;color:var(--ink-soft);margin-top:7px">660 XP to Level 5 · Flourish</div>
+        <div style="display:flex;justify-content:center;margin-top:16px;border-top:1px solid rgba(201,168,76,.25);padding-top:14px">
+          <div style="flex:1;text-align:center;border-right:1px solid rgba(201,168,76,.25)">
+            <div style="font-family:var(--font-display);font-size:24px;font-weight:700;color:var(--gold-dk);line-height:1">47</div>
+            <div style="font-family:var(--font-ui);font-size:11px;color:var(--ink-soft);margin-top:4px">Recovery Days</div>
+          </div>
+          <div style="flex:1;text-align:center;border-right:1px solid rgba(201,168,76,.25)">
+            <div style="font-family:var(--font-display);font-size:24px;font-weight:700;color:var(--gold-dk);line-height:1">45</div>
+            <div style="font-family:var(--font-ui);font-size:11px;color:var(--ink-soft);margin-top:4px">Days Active</div>
+          </div>
+          <div style="flex:1;text-align:center">
+            <div style="font-family:var(--font-display);font-size:24px;font-weight:700;color:var(--gold-dk);line-height:1">142</div>
+            <div style="font-family:var(--font-ui);font-size:11px;color:var(--ink-soft);margin-top:4px">Sessions</div>
           </div>
         </div>
       </div>
 
+      <!-- 3. Anonymous Leaderboard -->
+      <div class="scr-eyebrow" style="display:flex;align-items:center;justify-content:space-between"><span>Anonymous Leaderboard</span><span style="font-family:var(--font-ui);font-size:11px;font-weight:600;color:#5E8560;letter-spacing:0;text-transform:none">Day 30-90 Tier</span></div>
+      <div class="scr-card" style="padding:6px 0">
+        <div class="lb-row"><div class="lb-rank">1</div><div class="lb-av" style="background:#7BA47E;font-size:13px;width:36px;height:36px">P</div><div style="flex:1"><div style="font-family:var(--font-ui);font-size:14px;font-weight:700;color:var(--ink)">Phoenix123</div><div style="font-family:var(--font-ui);font-size:12px;color:var(--ink-soft)">68-day streak · L5 Flourish</div></div><div style="font-family:var(--font-ui);font-size:15px;font-weight:700;color:var(--gold-dk)">3,840</div></div>
+        <div class="lb-row"><div class="lb-rank">2</div><div class="lb-av" style="background:#9C8FC4;font-size:13px;width:36px;height:36px">R</div><div style="flex:1"><div style="font-family:var(--font-ui);font-size:14px;font-weight:700;color:var(--ink)">RisingTide</div><div style="font-family:var(--font-ui);font-size:12px;color:var(--ink-soft)">52-day streak · L4 Bloom</div></div><div style="font-family:var(--font-ui);font-size:15px;font-weight:700;color:var(--gold-dk)">2,960</div></div>
+        <div class="lb-row me"><div class="lb-rank">3</div><div class="lb-av" style="background:#C98FA0;font-size:13px;width:36px;height:36px">ME</div><div style="flex:1"><div style="font-family:var(--font-ui);font-size:14px;font-weight:700;color:var(--ink)">You (VictoryWarrior)</div><div style="font-family:var(--font-ui);font-size:12px;color:var(--gold-dk);font-weight:600">47-day streak · L4 Bloom</div></div><div style="font-family:var(--font-ui);font-size:15px;font-weight:700;color:var(--gold-dk)">2,340</div></div>
+        <div class="lb-row"><div class="lb-rank">4</div><div class="lb-av" style="background:#7FAAC4;font-size:13px;width:36px;height:36px">K</div><div style="flex:1"><div style="font-family:var(--font-ui);font-size:14px;font-weight:700;color:var(--ink)">KindredSpirit</div><div style="font-family:var(--font-ui);font-size:12px;color:var(--ink-soft)">39-day streak · L3 Root</div></div><div style="font-family:var(--font-ui);font-size:15px;font-weight:700;color:var(--ink-soft)">1,810</div></div>
+        <div class="lb-row"><div class="lb-rank">5</div><div class="lb-av" style="background:#D49A78;font-size:13px;width:36px;height:36px">N</div><div style="flex:1"><div style="font-family:var(--font-ui);font-size:14px;font-weight:700;color:var(--ink)">NewDawn44</div><div style="font-family:var(--font-ui);font-size:12px;color:var(--ink-soft)">31-day streak · L3 Root</div></div><div style="font-family:var(--font-ui);font-size:15px;font-weight:700;color:var(--ink-soft)">1,540</div></div>
+      </div>
 
-
-      <!-- Anonymous Leaderboard -->
-      <div class="section-label" style="display:flex;align-items:center;justify-content:space-between"><span>Anonymous Leaderboard</span><span class="ui" style="font-size:8px;color:var(--sage);letter-spacing:0;text-transform:none">Day 30-90 Tier</span></div>
-      <div class="card"><div style="padding:0">
-        <div class="lb-row"><div class="lb-rank">1</div><div class="lb-av" style="background:var(--sage)">P</div><div style="flex:1"><div class="ui" style="font-size:10px;font-weight:500;color:var(--espresso)">Phoenix123</div><div class="ui" style="font-size:8px;color:var(--muted)">68-day streak · L5 Flourish</div></div><div class="ui" style="font-size:12px;font-weight:600;color:var(--gold)">3,840</div></div>
-        <div class="lb-row"><div class="lb-rank">2</div><div class="lb-av" style="background:var(--purple)">R</div><div style="flex:1"><div class="ui" style="font-size:10px;font-weight:500;color:var(--espresso)">RisingTide</div><div class="ui" style="font-size:8px;color:var(--muted)">52-day streak · L4 Bloom</div></div><div class="ui" style="font-size:12px;font-weight:600;color:var(--gold)">2,960</div></div>
-        <div class="lb-row me"><div class="lb-rank">3</div><div class="lb-av" style="background:var(--rose)">ME</div><div style="flex:1"><div class="ui" style="font-size:10px;font-weight:500;color:var(--espresso)">You (VictoryWarrior)</div><div class="ui" style="font-size:8px;color:var(--gold-dk)">47-day streak · L4 Bloom</div></div><div class="ui" style="font-size:12px;font-weight:600;color:var(--gold)">2,340</div></div>
-        <div class="lb-row"><div class="lb-rank">4</div><div class="lb-av" style="background:var(--blue)">K</div><div style="flex:1"><div class="ui" style="font-size:10px;color:var(--t2)">KindredSpirit</div><div class="ui" style="font-size:8px;color:var(--muted)">39-day streak · L3 Root</div></div><div class="ui" style="font-size:12px;color:var(--muted)">1,810</div></div>
-        <div class="lb-row"><div class="lb-rank">5</div><div class="lb-av" style="background:var(--coral)">N</div><div style="flex:1"><div class="ui" style="font-size:10px;color:var(--t2)">NewDawn44</div><div class="ui" style="font-size:8px;color:var(--muted)">31-day streak · L3 Root</div></div><div class="ui" style="font-size:12px;color:var(--muted)">1,540</div></div>
-      </div></div>
-
-
-
-      <!-- Family Reward Board -->
-      <div class="section-label">Family Reward Board</div>
-      <div class="card" style="border-left:3px solid var(--gold);overflow:visible">
-        <div class="card-pad">
-          <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px"><div class="ic-xl" style="background:var(--gold);color:#fff;font-size:10px">MOM</div>
-          <div style="flex:1"><div class="ui" style="font-size:11px;font-weight:500;color:var(--espresso)">Mom's Reward: Dinner at Olive Garden</div><div class="ui" style="font-size:9px;color:var(--gold-dk)">Unlocks at 60-day Recovery Streak!</div></div></div>
-          <div class="pbar"><div class="pfill" style="width:78%;background:var(--gold)"></div></div>
-          <div class="ui" style="font-size:8px;color:var(--muted);margin-top:3px">13 days to go · You're so close!</div>
+      <!-- 4. Family Reward Board -->
+      <div class="scr-eyebrow">Family Reward Board</div>
+      <div class="lrow" style="flex-wrap:wrap">
+        <div class="lrow-ic" style="background:#FBF4E2;color:#9A7C28;font-size:12px">MOM</div>
+        <div class="lrow-main">
+          <div class="lrow-t">Mom's Reward: Dinner at Olive Garden</div>
+          <div class="lrow-d" style="color:#9A6B16">Unlocks at 60-day Recovery Streak!</div>
+        </div>
+        <div style="flex-basis:100%;margin-top:10px">
+          <div class="scr-bar"><div class="scr-bar-fill" style="width:78%;background:#C9A84C"></div></div>
+          <div style="font-family:var(--font-ui);font-size:12px;color:var(--ink-soft);margin-top:6px">13 days to go · You're so close!</div>
         </div>
       </div>
 
-      <div class="card" style="border-left:3px solid var(--sage)">
-        <div class="card-pad">
-          <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px"><div class="ic-xl" style="background:var(--sage);color:#fff;font-size:10px">DAD</div>
-          <div style="flex:1"><div class="ui" style="font-size:11px;font-weight:500;color:var(--espresso)">Dad's Reward: $50 Amazon Gift Card</div><div class="ui" style="font-size:9px;color:var(--sage)">Unlocks at Level 5</div></div></div>
-          <div class="pbar"><div class="pfill" style="width:78%;background:var(--sage)"></div></div>
-          <div class="ui" style="font-size:8px;color:var(--muted);margin-top:3px">660 XP away · Keep earning!</div>
+      <div class="lrow" style="flex-wrap:wrap">
+        <div class="lrow-ic" style="background:#EAF1E9;color:#5E8560;font-size:12px">DAD</div>
+        <div class="lrow-main">
+          <div class="lrow-t">Dad's Reward: $50 Amazon Gift Card</div>
+          <div class="lrow-d" style="color:#5E8560">Unlocks at Level 5</div>
+        </div>
+        <div style="flex-basis:100%;margin-top:10px">
+          <div class="scr-bar"><div class="scr-bar-fill" style="width:78%;background:#84B27F"></div></div>
+          <div style="font-family:var(--font-ui);font-size:12px;color:var(--ink-soft);margin-top:6px">660 XP away · Keep earning!</div>
         </div>
       </div>
 
-      <div class="card" style="border-left:3px solid var(--purple)">
-        <div class="card-pad">
-          <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px"><div class="ic-xl" style="background:var(--purple);color:#fff;font-size:9px">SIS</div>
-          <div style="flex:1"><div class="ui" style="font-size:11px;font-weight:500;color:var(--espresso)">Emily's Reward: Movie Night Together</div><div class="ui" style="font-size:9px;color:var(--purple)">Unlocks at 90 days</div></div></div>
-          <div class="pbar"><div class="pfill" style="width:52%;background:var(--purple)"></div></div>
-          <div class="ui" style="font-size:8px;color:var(--muted);margin-top:3px">43 days to go</div>
+      <div class="lrow" style="flex-wrap:wrap">
+        <div class="lrow-ic" style="background:#EFEAF6;color:#7A6AA8;font-size:12px">SIS</div>
+        <div class="lrow-main">
+          <div class="lrow-t">Emily's Reward: Movie Night Together</div>
+          <div class="lrow-d" style="color:#7A6AA8">Unlocks at 90 days</div>
+        </div>
+        <div style="flex-basis:100%;margin-top:10px">
+          <div class="scr-bar"><div class="scr-bar-fill" style="width:52%;background:#84B27F"></div></div>
+          <div style="font-family:var(--font-ui);font-size:12px;color:var(--ink-soft);margin-top:6px">43 days to go</div>
         </div>
       </div>
 
-      <div class="card" style="border-left:3px solid var(--rose);opacity:.5">
-        <div class="card-pad" style="background:var(--sage-lt)">
-          <div style="display:flex;align-items:center;gap:8px"><div class="ic-xl" style="background:var(--sage);color:#fff;font-size:9px">SP</div>
-          <div style="flex:1"><div class="ui" style="font-size:11px;font-weight:500;color:var(--sage)">Sponsor Mike: Fishing Trip</div><div class="ui" style="font-size:9px;color:var(--sage-dk)">Claimed at 30 days!</div></div>
-          <span class="tag" style="background:var(--sage);color:#fff">Earned</span></div>
+      <div class="lrow" style="opacity:.6;background:#EAF1E9">
+        <div class="lrow-ic" style="background:#7BA47E;color:#fff;font-size:12px">SP</div>
+        <div class="lrow-main">
+          <div class="lrow-t" style="color:#3F5E41">Sponsor Mike: Fishing Trip</div>
+          <div class="lrow-d" style="color:#5E8560">Claimed at 30 days!</div>
         </div>
+        <span class="lpill lpill-sage">Earned</span>
       </div>
 
-      <!-- Gratitude Gifts (Reciprocity Loop) -->
-      <div class="section-label">Gratitude Gifts</div>
-      <div class="gratitude-card">
-        <div style="display:flex;align-items:center;gap:10px">
-          <div style="width:36px;height:36px;border-radius:50%;background:var(--gold);display:flex;align-items:center;justify-content:center;font-size:16px">💌</div>
-          <div style="flex:1">
-            <div class="ui" style="font-size:10px;font-weight:500;color:var(--espresso)">Send a Thank You to Dad</div>
-            <div class="ui" style="font-size:8px;color:var(--muted)">He pledged a $50 gift card for your L5 milestone</div>
-          </div>
-          <button style="padding:6px 12px;border-radius:2px;border:none;background:var(--rose);color:#fff;font-family:'Josefin Sans',sans-serif;font-size:8px;cursor:pointer;letter-spacing:.5px">Send</button>
+      <!-- 5. Gratitude Gifts -->
+      <div class="scr-eyebrow">Gratitude Gifts</div>
+      <div class="lrow">
+        <div class="lrow-ic" style="background:#FBF4E2">💌</div>
+        <div class="lrow-main">
+          <div class="lrow-t">Send a Thank You to Dad</div>
+          <div class="lrow-d">He pledged a $50 gift card for your L5 milestone</div>
         </div>
+        <button style="flex-shrink:0;padding:7px 16px;border-radius:999px;border:none;background:#7BA47E;color:#fff;font-family:var(--font-ui);font-size:12px;font-weight:700;cursor:pointer">Send</button>
       </div>
-      <div class="gratitude-card" style="opacity:.7">
-        <div style="display:flex;align-items:center;gap:10px">
-          <div style="width:36px;height:36px;border-radius:50%;background:var(--sage-lt);display:flex;align-items:center;justify-content:center;font-size:16px">✅</div>
-          <div style="flex:1">
-            <div class="ui" style="font-size:10px;color:var(--sage)">Sent to Sponsor Mike · 30-Day Milestone</div>
-            <div class="ui" style="font-size:8px;color:var(--muted)">"Thank you for the fishing trip. It meant everything."</div>
-          </div>
-          <span class="tag" style="background:var(--sage-lt);color:var(--sage)">Sent</span>
+      <div class="lrow" style="opacity:.6">
+        <div class="lrow-ic" style="background:#EAF1E9">✅</div>
+        <div class="lrow-main">
+          <div class="lrow-t" style="color:#3F5E41">Sent to Sponsor Mike · 30-Day Milestone</div>
+          <div class="lrow-d">"Thank you for the fishing trip. It meant everything."</div>
         </div>
+        <span class="lpill lpill-sage">Sent</span>
       </div>
 
 
-
-
-
-      <!-- Streak Shield Inventory -->
-      <div class="section-label">Streak Shields</div>
-      <div class="card"><div class="card-pad" style="display:flex;align-items:center;gap:12px">
-        <div style="font-size:28px">🛡</div>
+      <!-- 6. Streak Shields -->
+      <div class="scr-eyebrow">Streak Shields</div>
+      <div class="scr-card" style="display:flex;align-items:center;gap:14px">
+        <div style="font-size:30px;line-height:1">🛡</div>
         <div style="flex:1">
-          <div class="ui" style="font-size:11px;font-weight:500;color:var(--espresso)">1 Shield Available</div>
-          <div class="ui" style="font-size:8px;color:var(--muted)">Auto-protects any of your streaks if you miss a day</div>
-          <div class="ui" style="font-size:7px;color:var(--blue);margin-top:2px">Earn 1 new shield for every 7 days of app use</div>
+          <div style="font-family:var(--font-display);font-size:17px;font-weight:700;color:var(--ink)">1 Shield Available</div>
+          <div style="font-family:var(--font-ui);font-size:13px;color:var(--ink-soft);margin-top:3px">Auto-protects any of your streaks if you miss a day</div>
+          <div style="font-family:var(--font-ui);font-size:12px;color:#5E8560;font-weight:600;margin-top:4px">Earn 1 new shield for every 7 days of app use</div>
         </div>
-      </div></div>
-
-      <!-- Achievements Unlocked (Collection Instinct) -->
-      <div class="section-label">Achievements Unlocked · 7 of 24</div>
-      <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:5px;margin-bottom:8px">
-        <div style="text-align:center;background:#fff;border-radius:4px;border:1px solid var(--border);padding:8px 4px"><div class="ic-xl" style="background:var(--gold);color:#fff;margin:0 auto 3px;font-size:8px">30</div><div class="ui" style="font-size:6px;font-weight:500;color:var(--espresso)">30 Day Hero</div></div>
-        <div style="text-align:center;background:#fff;border-radius:4px;border:1px solid var(--border);padding:8px 4px"><div class="ic-xl" style="background:var(--sage);color:#fff;margin:0 auto 3px;font-size:8px">Rx</div><div class="ui" style="font-size:6px;font-weight:500;color:var(--espresso)">MOUD Master</div></div>
-        <div style="text-align:center;background:#fff;border-radius:4px;border:1px solid var(--border);padding:8px 4px"><div class="ic-xl" style="background:var(--purple);color:#fff;margin:0 auto 3px;font-size:8px">AI</div><div class="ui" style="font-size:6px;font-weight:500;color:var(--espresso)">Sage Friend</div></div>
-        <div style="text-align:center;background:#fff;border-radius:4px;border:1px solid var(--border);padding:8px 4px"><div class="ic-xl" style="background:var(--coral);color:#fff;margin:0 auto 3px;font-size:8px">Nx</div><div class="ui" style="font-size:6px;font-weight:500;color:var(--espresso)">Narcan Ready</div></div>
-        <div style="text-align:center;background:#fff;border-radius:4px;border:1px solid var(--border);padding:8px 4px"><div class="ic-xl" style="background:var(--blue);color:#fff;margin:0 auto 3px;font-size:8px">VJ</div><div class="ui" style="font-size:6px;font-weight:500;color:var(--espresso)">Voice Healer</div></div>
-        <div style="text-align:center;background:#fff;border-radius:4px;border:1px solid var(--border);padding:8px 4px"><div class="ic-xl" style="background:var(--rose);color:#fff;margin:0 auto 3px;font-size:8px">FM</div><div class="ui" style="font-size:6px;font-weight:500;color:var(--espresso)">Family Bond</div></div>
-        <div style="text-align:center;background:#fff;border-radius:4px;border:1px solid var(--border);padding:8px 4px"><div class="ic-xl" style="background:var(--gold);color:#fff;margin:0 auto 3px;font-size:8px">7d</div><div class="ui" style="font-size:6px;font-weight:500;color:var(--espresso)">Week Warrior</div></div>
-        <div style="text-align:center;background:#fff;border-radius:4px;border:1px solid var(--border);padding:8px 4px;opacity:.3"><div class="ic-xl" style="background:var(--taupe);color:var(--muted);margin:0 auto 3px;font-size:8px">?</div><div class="ui" style="font-size:6px;color:var(--muted)">90 Days</div></div>
       </div>
 
+      <!-- 7. Achievements -->
+      <div class="scr-eyebrow">Achievements · 7 of 24</div>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:14px">
+        <div style="text-align:center;background:#fff;border-radius:16px;box-shadow:var(--card-shadow);padding:14px 6px"><div style="width:42px;height:42px;border-radius:50%;background:#C9A84C;color:#fff;display:flex;align-items:center;justify-content:center;font-family:var(--font-ui);font-weight:700;font-size:13px;margin:0 auto 7px">30</div><div style="font-family:var(--font-ui);font-size:11px;font-weight:600;color:var(--ink)">30 Day Hero</div></div>
+        <div style="text-align:center;background:#fff;border-radius:16px;box-shadow:var(--card-shadow);padding:14px 6px"><div style="width:42px;height:42px;border-radius:50%;background:#7BA47E;color:#fff;display:flex;align-items:center;justify-content:center;font-family:var(--font-ui);font-weight:700;font-size:13px;margin:0 auto 7px">Rx</div><div style="font-family:var(--font-ui);font-size:11px;font-weight:600;color:var(--ink)">MOUD Master</div></div>
+        <div style="text-align:center;background:#fff;border-radius:16px;box-shadow:var(--card-shadow);padding:14px 6px"><div style="width:42px;height:42px;border-radius:50%;background:#9C8FC4;color:#fff;display:flex;align-items:center;justify-content:center;font-family:var(--font-ui);font-weight:700;font-size:13px;margin:0 auto 7px">AI</div><div style="font-family:var(--font-ui);font-size:11px;font-weight:600;color:var(--ink)">Sage Friend</div></div>
+        <div style="text-align:center;background:#fff;border-radius:16px;box-shadow:var(--card-shadow);padding:14px 6px"><div style="width:42px;height:42px;border-radius:50%;background:#D49A78;color:#fff;display:flex;align-items:center;justify-content:center;font-family:var(--font-ui);font-weight:700;font-size:13px;margin:0 auto 7px">Nx</div><div style="font-family:var(--font-ui);font-size:11px;font-weight:600;color:var(--ink)">Narcan Ready</div></div>
+        <div style="text-align:center;background:#fff;border-radius:16px;box-shadow:var(--card-shadow);padding:14px 6px"><div style="width:42px;height:42px;border-radius:50%;background:#7FAAC4;color:#fff;display:flex;align-items:center;justify-content:center;font-family:var(--font-ui);font-weight:700;font-size:13px;margin:0 auto 7px">VJ</div><div style="font-family:var(--font-ui);font-size:11px;font-weight:600;color:var(--ink)">Voice Healer</div></div>
+        <div style="text-align:center;background:#fff;border-radius:16px;box-shadow:var(--card-shadow);padding:14px 6px"><div style="width:42px;height:42px;border-radius:50%;background:#C98FA0;color:#fff;display:flex;align-items:center;justify-content:center;font-family:var(--font-ui);font-weight:700;font-size:13px;margin:0 auto 7px">FM</div><div style="font-family:var(--font-ui);font-size:11px;font-weight:600;color:var(--ink)">Family Bond</div></div>
+        <div style="text-align:center;background:#fff;border-radius:16px;box-shadow:var(--card-shadow);padding:14px 6px"><div style="width:42px;height:42px;border-radius:50%;background:#C9A84C;color:#fff;display:flex;align-items:center;justify-content:center;font-family:var(--font-ui);font-weight:700;font-size:13px;margin:0 auto 7px">7d</div><div style="font-family:var(--font-ui);font-size:11px;font-weight:600;color:var(--ink)">Week Warrior</div></div>
+        <div style="text-align:center;background:#fff;border-radius:16px;box-shadow:var(--card-shadow);padding:14px 6px;opacity:.45"><div style="width:42px;height:42px;border-radius:50%;background:#E6E0DA;color:var(--ink-soft);display:flex;align-items:center;justify-content:center;font-family:var(--font-ui);font-weight:700;font-size:15px;margin:0 auto 7px">?</div><div style="font-family:var(--font-ui);font-size:11px;font-weight:600;color:var(--ink-soft)">90 Days</div></div>
+      </div>
 
-
-      <!-- Level Roadmap -->
-      <div class="section-label">Level Roadmap</div>
-      <div class="card"><div class="card-pad" style="padding:10px 14px">
-        <div style="display:flex;align-items:center;gap:8px;padding:6px 0;opacity:.5"><span class="tag" style="background:var(--sage-lt);color:var(--sage)">Done</span><span class="ui" style="font-size:10px;color:var(--t1)">L1 Seed · 100 XP</span><span class="ui" style="font-size:7px;color:var(--sage);font-style:italic">+100 welcome bonus</span></div>
-        <div style="display:flex;align-items:center;gap:8px;padding:6px 0;opacity:.5"><span class="tag" style="background:var(--sage-lt);color:var(--sage)">Done</span><span class="ui" style="font-size:10px;color:var(--t1)">L2 Sprout · 500 XP</span><span class="ui" style="font-size:7px;color:var(--muted)">🔵 Blue Flame</span></div>
-        <div style="display:flex;align-items:center;gap:8px;padding:6px 0;opacity:.5"><span class="tag" style="background:var(--sage-lt);color:var(--sage)">Done</span><span class="ui" style="font-size:10px;color:var(--t1)">L3 Root · 1,200 XP</span><span class="ui" style="font-size:7px;color:var(--muted)">🟣 Purple Flame</span></div>
-        <div style="display:flex;align-items:center;gap:8px;padding:6px 0"><span class="tag" style="background:var(--gold-lt);color:var(--gold)">Now</span><span class="ui" style="font-size:10px;font-weight:500;color:var(--gold-dk)">L4 Bloom · 2,000 XP</span><span class="ui" style="font-size:7px;color:var(--gold)">🟡 Gold Flame</span></div>
-        <div style="display:flex;align-items:center;gap:8px;padding:6px 0;opacity:.4"><span class="tag" style="background:var(--taupe);color:var(--muted)">Next</span><span class="ui" style="font-size:10px;color:var(--t3)">L5 Flourish · 3,000 XP</span><span class="ui" style="font-size:7px;color:var(--muted)">Platinum Flame</span></div>
-        <div style="display:flex;align-items:center;gap:8px;padding:6px 0;opacity:.3"><span class="tag" style="background:var(--taupe);color:var(--muted)">L6</span><span class="ui" style="font-size:10px;color:var(--t4)">L6 Thrive · 5,000 XP</span><span class="ui" style="font-size:7px;color:var(--t4)">💎 Diamond Flame</span></div>
-      </div></div>
+      <!-- 8. Level Roadmap -->
+      <div class="scr-eyebrow">Level Roadmap</div>
+      <div class="scr-card" style="padding:8px 18px">
+        <div style="display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid rgba(54,59,59,.07)"><span class="lpill lpill-sage">Done</span><span style="flex:1;font-family:var(--font-ui);font-size:13px;font-weight:600;color:var(--ink)">L1 Seed · 100 XP</span><span style="font-family:var(--font-ui);font-size:12px;color:#5E8560;font-style:italic">+100 welcome bonus</span></div>
+        <div style="display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid rgba(54,59,59,.07)"><span class="lpill lpill-sage">Done</span><span style="flex:1;font-family:var(--font-ui);font-size:13px;font-weight:600;color:var(--ink)">L2 Sprout · 500 XP</span><span style="font-family:var(--font-ui);font-size:12px;color:var(--ink-soft)">🔵 Blue Flame</span></div>
+        <div style="display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid rgba(54,59,59,.07)"><span class="lpill lpill-sage">Done</span><span style="flex:1;font-family:var(--font-ui);font-size:13px;font-weight:600;color:var(--ink)">L3 Root · 1,200 XP</span><span style="font-family:var(--font-ui);font-size:12px;color:var(--ink-soft)">🟣 Purple Flame</span></div>
+        <div style="display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid rgba(54,59,59,.07)"><span class="lpill lpill-xp">Now</span><span style="flex:1;font-family:var(--font-ui);font-size:13px;font-weight:700;color:var(--gold-dk)">L4 Bloom · 2,000 XP</span><span style="font-family:var(--font-ui);font-size:12px;color:#9A6B16">🟡 Gold Flame</span></div>
+        <div style="display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid rgba(54,59,59,.07)"><span class="lpill" style="color:var(--ink-soft);background:#F0ECE7">Next</span><span style="flex:1;font-family:var(--font-ui);font-size:13px;font-weight:600;color:var(--ink-soft)">L5 Flourish · 3,000 XP</span><span style="font-family:var(--font-ui);font-size:12px;color:var(--ink-soft)">Platinum Flame</span></div>
+        <div style="display:flex;align-items:center;gap:10px;padding:9px 0"><span class="lpill" style="color:var(--ink-soft);background:#F0ECE7">L6</span><span style="flex:1;font-family:var(--font-ui);font-size:13px;font-weight:600;color:var(--ink-soft)">L6 Thrive · 5,000 XP</span><span style="font-family:var(--font-ui);font-size:12px;color:var(--ink-soft)">💎 Diamond Flame</span></div>
+      </div>
 
     </div>
 
