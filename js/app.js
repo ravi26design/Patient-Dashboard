@@ -11,6 +11,7 @@ function goScreen(id){
   var m={home:0,tools:1,narcan:2,mat:3,rewards:4,workbook:1,profile:0,checkin:0,appointments:0};
   var tabs=document.querySelectorAll('.nav-tab');if(tabs[m[id]!=null?m[id]:0])tabs[m[id]!=null?m[id]:0].classList.add('active');
   document.querySelectorAll('#dnav .dn-item').forEach(function(i){i.classList.toggle('active',i.getAttribute('data-screen')===id);});
+  document.body.setAttribute('data-screen', id);
   try{localStorage.setItem('rh_screen',id);}catch(e){}
   document.getElementById('screenArea').scrollTop=0;
   if(id==='mat'){ setTimeout(updatePatternChart,50); setTimeout(updateRecoveryHealthChart,50); }
