@@ -752,62 +752,48 @@
     <!-- ═══ MOUD SCREEN ═══ -->
     <!-- ═══ PATTERNS SCREEN ═══ -->
     <div class="screen" id="screen-mat">
-      <div class="section-label">Recovery Patterns</div>
+      <div class="scr-head scr-full">
+        <div class="scr-title">Patterns</div>
+        <div class="scr-sub">See how your recovery health and daily factors trend over time.</div>
+      </div>
 
-      <!-- Recovery Health Over Time — always visible -->
-      <div class="card" style="margin-bottom:6px;border-left:3px solid var(--sage)">
-        <div class="card-pad" style="padding:8px 14px">
-          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
-            <div>
-              <div class="ui" style="font-size:11px;font-weight:500;color:var(--espresso)">Recovery Health</div>
-              <div class="ui" style="font-size:8px;color:var(--muted)">Scale: 0 (lowest) · 100 (highest)</div>
-            </div>
-            <div style="display:flex;gap:4px">
-              <button class="rh-tf" id="rhtf-month"   onclick="selectRHTf('month',this)"   style="padding:4px 7px;border-radius:2px;border:1px solid var(--espresso);background:var(--espresso);color:#fff;font-family:'Josefin Sans',sans-serif;font-size:7px;letter-spacing:.5px;cursor:pointer">Past Month</button>
-              <button class="rh-tf" id="rhtf-weekly"  onclick="selectRHTf('weekly',this)"  style="padding:4px 7px;border-radius:2px;border:1px solid var(--border);background:#fff;color:var(--muted);font-family:'Josefin Sans',sans-serif;font-size:7px;letter-spacing:.5px;cursor:pointer">Weekly</button>
-              <button class="rh-tf" id="rhtf-monthly" onclick="selectRHTf('monthly',this)" style="padding:4px 7px;border-radius:2px;border:1px solid var(--border);background:#fff;color:var(--muted);font-family:'Josefin Sans',sans-serif;font-size:7px;letter-spacing:.5px;cursor:pointer">Monthly</button>
-            </div>
+      <!-- Recovery Health over time -->
+      <div class="scr-card scr-full">
+        <div class="scr-card-h">
+          <div><div class="scr-card-t">Recovery Health</div><div class="scr-card-s">Scale 0 (lowest) – 100 (highest)</div></div>
+          <div class="seg">
+            <button class="rh-tf seg-btn on" id="rhtf-month"   onclick="selectRHTf('month',this)">Past Month</button>
+            <button class="rh-tf seg-btn"    id="rhtf-weekly"  onclick="selectRHTf('weekly',this)">Weekly</button>
+            <button class="rh-tf seg-btn"    id="rhtf-monthly" onclick="selectRHTf('monthly',this)">Monthly</button>
           </div>
-          <div id="rh-scroll-wrapper" style="overflow-x:auto;-webkit-overflow-scrolling:touch">
-            <canvas id="recoveryHealthChart"></canvas>
-          </div>
+        </div>
+        <div id="rh-scroll-wrapper" style="overflow-x:auto;-webkit-overflow-scrolling:touch"><canvas id="recoveryHealthChart"></canvas></div>
+      </div>
+
+      <!-- Item selector -->
+      <div class="scr-card scr-full">
+        <div class="scr-eyebrow" style="margin:0 0 12px">Select item to graph</div>
+        <div class="seg-grid">
+          <button class="pattern-item seg-btn on" id="pitem-urge"     onclick="selectPatternItem('urge',this)">Urge</button>
+          <button class="pattern-item seg-btn"    id="pitem-pain"     onclick="selectPatternItem('pain',this)">Pain</button>
+          <button class="pattern-item seg-btn"    id="pitem-stress"   onclick="selectPatternItem('stress',this)">Stressful Events</button>
+          <button class="pattern-item seg-btn"    id="pitem-pleasant" onclick="selectPatternItem('pleasant',this)">Pleasant Events</button>
+          <button class="pattern-item seg-btn"    id="pitem-risky"    onclick="selectPatternItem('risky',this)">Risky Situations</button>
+          <button class="pattern-item seg-btn"    id="pitem-sleep"    onclick="selectPatternItem('sleep',this)">Sleep Quality</button>
         </div>
       </div>
 
-      <!-- Item Selector -->
-      <div class="card" style="margin-bottom:6px">
-        <div class="card-pad" style="padding:8px 14px">
-          <div class="ui" style="font-size:9px;color:var(--espresso);letter-spacing:1.5px;font-weight:500;text-transform:uppercase;margin-bottom:8px">Select Item to Graph</div>
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:5px">
-            <button class="pattern-item" id="pitem-urge"     onclick="selectPatternItem('urge',this)"     style="padding:7px 4px;border-radius:2px;border:1px solid var(--espresso);background:var(--espresso);color:#fff;font-family:'Josefin Sans',sans-serif;font-size:8px;letter-spacing:.5px;cursor:pointer">Urge</button>
-            <button class="pattern-item" id="pitem-pain"     onclick="selectPatternItem('pain',this)"     style="padding:7px 4px;border-radius:2px;border:1px solid var(--border);background:#fff;color:var(--muted);font-family:'Josefin Sans',sans-serif;font-size:8px;letter-spacing:.5px;cursor:pointer">Pain</button>
-            <button class="pattern-item" id="pitem-stress"   onclick="selectPatternItem('stress',this)"   style="padding:7px 4px;border-radius:2px;border:1px solid var(--border);background:#fff;color:var(--muted);font-family:'Josefin Sans',sans-serif;font-size:8px;letter-spacing:.5px;cursor:pointer">Stressful Events</button>
-            <button class="pattern-item" id="pitem-pleasant" onclick="selectPatternItem('pleasant',this)" style="padding:7px 4px;border-radius:2px;border:1px solid var(--border);background:#fff;color:var(--muted);font-family:'Josefin Sans',sans-serif;font-size:8px;letter-spacing:.5px;cursor:pointer">Pleasant Events</button>
-            <button class="pattern-item" id="pitem-risky"    onclick="selectPatternItem('risky',this)"    style="padding:7px 4px;border-radius:2px;border:1px solid var(--border);background:#fff;color:var(--muted);font-family:'Josefin Sans',sans-serif;font-size:8px;letter-spacing:.5px;cursor:pointer">Risky Situations</button>
-            <button class="pattern-item" id="pitem-sleep"    onclick="selectPatternItem('sleep',this)"    style="padding:7px 4px;border-radius:2px;border:1px solid var(--border);background:#fff;color:var(--muted);font-family:'Josefin Sans',sans-serif;font-size:8px;letter-spacing:.5px;cursor:pointer">Sleep Quality</button>
+      <!-- Selected item chart -->
+      <div class="scr-card scr-full">
+        <div class="scr-card-h">
+          <div><div class="scr-card-t" id="pattern-title">Urge</div><div class="scr-card-s">Scale 1 (lowest) – 5 (highest)</div></div>
+          <div class="seg">
+            <button class="pattern-tf seg-btn on" id="ptf-month"   onclick="selectPatternTf('month',this)">Past Month</button>
+            <button class="pattern-tf seg-btn"    id="ptf-weekly"  onclick="selectPatternTf('weekly',this)">Weekly</button>
+            <button class="pattern-tf seg-btn"    id="ptf-monthly" onclick="selectPatternTf('monthly',this)">Monthly</button>
           </div>
         </div>
-      </div>
-
-      <!-- Chart Card -->
-      <div class="card">
-        <div class="card-pad" style="padding:8px 14px">
-          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
-            <div>
-              <div class="ui" style="font-size:11px;font-weight:500;color:var(--espresso)" id="pattern-title">Urge</div>
-              <div class="ui" style="font-size:8px;color:var(--muted)">Scale: 1 (lowest) · 5 (highest)</div>
-            </div>
-            <div style="display:flex;gap:4px">
-              <button class="pattern-tf" id="ptf-month"   onclick="selectPatternTf('month',this)"   style="padding:4px 7px;border-radius:2px;border:1px solid var(--espresso);background:var(--espresso);color:#fff;font-family:'Josefin Sans',sans-serif;font-size:7px;letter-spacing:.5px;cursor:pointer">Past Month</button>
-              <button class="pattern-tf" id="ptf-weekly"  onclick="selectPatternTf('weekly',this)"  style="padding:4px 7px;border-radius:2px;border:1px solid var(--border);background:#fff;color:var(--muted);font-family:'Josefin Sans',sans-serif;font-size:7px;letter-spacing:.5px;cursor:pointer">Weekly</button>
-              <button class="pattern-tf" id="ptf-monthly" onclick="selectPatternTf('monthly',this)" style="padding:4px 7px;border-radius:2px;border:1px solid var(--border);background:#fff;color:var(--muted);font-family:'Josefin Sans',sans-serif;font-size:7px;letter-spacing:.5px;cursor:pointer">Monthly</button>
-            </div>
-          </div>
-          <div id="chart-scroll-wrapper" style="overflow-x:auto;-webkit-overflow-scrolling:touch">
-            <canvas id="patternChart"></canvas>
-          </div>
-
-        </div>
+        <div id="chart-scroll-wrapper" style="overflow-x:auto;-webkit-overflow-scrolling:touch"><canvas id="patternChart"></canvas></div>
       </div>
     </div>
 
@@ -873,35 +859,26 @@
 
     <!-- ═══ ACTIVITIES SCREEN ═══ -->
     <div class="screen" id="screen-tools">
-      <div class="section-label">Recovery Activity History</div>
-      <a href="https://dionysus.psych.wisc.edu/rudrahealth/triggers.html" target="_blank" style="text-decoration:none;display:block">
-        <div class="card" style="cursor:pointer;border-left:3px solid var(--sage);margin-bottom:6px">
-          <div class="card-pad" style="padding:10px 14px;position:relative">
-            <div style="position:absolute;top:6px;right:10px;font-family:'Josefin Sans',sans-serif;font-size:6px;color:var(--gold);font-weight:500;letter-spacing:.3px">+20 XP</div>
-            <div style="display:flex;align-items:center;gap:10px">
-              <div class="ic-lg" style="background:var(--sage-lt);color:var(--sage-dk);flex-shrink:0;font-size:13px">&#9654;</div>
-              <div style="flex:1">
-                <div class="ui" style="font-size:10px;font-weight:500;color:var(--espresso)">Managing Cravings</div>
-                <div class="ui" style="font-size:8px;color:var(--muted);margin-top:2px">Today &middot; Jun 11</div>
-              </div>
-              <span class="tag" style="background:var(--sage-lt);color:var(--sage-dk);flex-shrink:0">Score: 73</span>
-            </div>
-          </div>
+      <div class="scr-head">
+        <div class="scr-title">Activities</div>
+        <div class="scr-sub">Short guided exercises to build skills and earn XP. Your recent sessions:</div>
+      </div>
+      <div class="scr-eyebrow">Recent activity</div>
+      <a class="lrow" href="https://dionysus.psych.wisc.edu/rudrahealth/triggers.html" target="_blank">
+        <div class="lrow-ic" style="background:#EAF1E9;color:#5E8560">▶</div>
+        <div class="lrow-main">
+          <div class="lrow-t">Managing Cravings</div>
+          <div class="lrow-d">Today · Jun 11 · <b style="color:#9A6B16">+20 XP</b></div>
         </div>
+        <span class="lpill lpill-sage">Score 73</span>
       </a>
-      <a href="https://dionysus.psych.wisc.edu/rudrahealth/reducing_stress.html" target="_blank" style="text-decoration:none;display:block">
-        <div class="card" style="cursor:pointer;border-left:3px solid var(--gold);margin-bottom:6px">
-          <div class="card-pad" style="padding:10px 14px;position:relative">
-            <div style="display:flex;align-items:center;gap:10px">
-              <div class="ic-lg" style="background:var(--gold-lt);color:var(--gold-dk);flex-shrink:0;font-size:13px">&#9654;</div>
-              <div style="flex:1">
-                <div class="ui" style="font-size:10px;font-weight:500;color:var(--espresso)">Coping with Stressors</div>
-                <div class="ui" style="font-size:8px;color:var(--muted);margin-top:2px">Yesterday &middot; Jun 10</div>
-              </div>
-              <span class="tag" style="background:var(--gold-lt);color:var(--gold-dk);flex-shrink:0">Score: 60</span>
-            </div>
-          </div>
+      <a class="lrow" href="https://dionysus.psych.wisc.edu/rudrahealth/reducing_stress.html" target="_blank">
+        <div class="lrow-ic" style="background:#FFF1D6;color:#9A6B16">▶</div>
+        <div class="lrow-main">
+          <div class="lrow-t">Coping with Stressors</div>
+          <div class="lrow-d">Yesterday · Jun 10 · <b style="color:#9A6B16">+20 XP</b></div>
         </div>
+        <span class="lpill lpill-xp">Score 60</span>
       </a>
     </div>
 

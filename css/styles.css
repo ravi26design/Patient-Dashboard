@@ -1850,3 +1850,41 @@ body.is-desktop .tx-meta{position:absolute;right:6px;top:50%;transform:translate
 .pv-text{font-family:var(--font-ui);font-size:13.5px;line-height:1.5;color:var(--brown)}
 .pv-text b{color:var(--ink);font-weight:700}
 @media (min-width:900px){ .onb-inner .ph-title{font-size:30px} .moud-opt,.onb-chip{font-size:15px} }
+
+/* ═══════════════════════════════════════════════════════════
+   ACTIVITIES / PATTERNS / REWARDS — unified card styling + responsive
+   ═══════════════════════════════════════════════════════════ */
+.scr-head{margin:2px 2px 18px}
+.scr-title{font-family:var(--font-display);font-size:24px;font-weight:700;color:var(--ink);line-height:1.15}
+.scr-sub{font-family:var(--font-ui);font-size:13.5px;color:var(--ink-soft);line-height:1.5;margin-top:5px}
+.scr-eyebrow{font-family:var(--font-ui);font-size:11px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:#5E8560;margin:4px 2px 12px}
+.scr-card{background:#fff;border-radius:20px;box-shadow:var(--card-shadow);padding:18px;margin-bottom:14px}
+.scr-card-h{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:14px;flex-wrap:wrap}
+.scr-card-t{font-family:var(--font-display);font-size:17px;font-weight:700;color:var(--ink);line-height:1.2}
+.scr-card-s{font-family:var(--font-ui);font-size:12px;color:var(--ink-soft);margin-top:2px}
+/* list rows */
+.lrow{display:flex;align-items:center;gap:14px;background:#fff;border-radius:16px;box-shadow:var(--card-shadow);padding:14px 16px;margin-bottom:12px;text-decoration:none;cursor:pointer;transition:transform .12s ease}
+.lrow:active{transform:scale(.99)}
+.lrow-ic{flex-shrink:0;width:44px;height:44px;border-radius:13px;display:flex;align-items:center;justify-content:center;font-size:19px;font-weight:700}
+.lrow-main{flex:1;min-width:0}
+.lrow-t{font-family:var(--font-ui);font-size:14.5px;font-weight:700;color:var(--ink);line-height:1.3}
+.lrow-d{font-family:var(--font-ui);font-size:12px;color:var(--ink-soft);margin-top:2px}
+.lpill{flex-shrink:0;font-family:var(--font-ui);font-size:11.5px;font-weight:700;padding:6px 12px;border-radius:999px;white-space:nowrap}
+.lpill-xp{color:#9A6B16;background:#FFF1D6}
+.lpill-sage{color:#3F5E41;background:#EAF1E9}
+/* segmented controls (timeframe / item pickers) */
+.seg{display:flex;gap:6px;flex-wrap:wrap}
+.seg-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;width:100%}
+.seg-btn{padding:8px 13px;border-radius:999px;border:1.5px solid rgba(54,59,59,.14);background:#fff;color:var(--ink-soft);font-family:var(--font-ui);font-size:12px;font-weight:600;cursor:pointer;transition:all .15s ease;white-space:nowrap}
+.seg-grid .seg-btn{border-radius:12px;text-align:center;padding:10px 6px}
+.seg-btn.on{background:#7BA47E;color:#fff;border-color:#7BA47E}
+/* progress bar */
+.scr-bar{height:9px;border-radius:999px;background:rgba(54,59,59,.10);overflow:hidden}
+.scr-bar-fill{height:100%;border-radius:999px;background:#7BA47E}
+/* desktop: full-width sections inside the 2-col screen grid */
+body.is-desktop .screen.active > .scr-head,
+body.is-desktop .screen.active > .scr-eyebrow,
+body.is-desktop .screen.active > .scr-full{grid-column:1 / -1}
+/* mobile sizing */
+body.is-mobile .scr-title{font-size:21px}
+body.is-mobile .scr-card{padding:16px}

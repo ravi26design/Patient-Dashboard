@@ -187,8 +187,8 @@ function updateRecoveryHealthChart(){
 
 function selectRHTf(tf, btn){
   currentRHTf = tf;
-  document.querySelectorAll('.rh-tf').forEach(function(b){ b.style.background='#fff'; b.style.color='var(--muted)'; b.style.borderColor='var(--border)'; });
-  btn.style.background = 'var(--espresso)'; btn.style.color = '#fff'; btn.style.borderColor = 'var(--espresso)';
+  document.querySelectorAll('.rh-tf').forEach(function(b){ b.classList.remove('on'); });
+  btn.classList.add('on');
   updateRecoveryHealthChart();
 }
 
@@ -247,15 +247,15 @@ function updatePatternChart(){
 
 function selectPatternItem(key,btn){
   currentPatternItem=key;
-  document.querySelectorAll('.pattern-item').forEach(function(b){b.style.background='#fff';b.style.color='var(--muted)';b.style.borderColor='var(--border)';});
-  btn.style.background='var(--espresso)';btn.style.color='#fff';btn.style.borderColor='var(--espresso)';
+  document.querySelectorAll('.pattern-item').forEach(function(b){b.classList.remove('on');});
+  btn.classList.add('on');
   updatePatternChart();
 }
 
 function selectPatternTf(tf,btn){
   currentPatternTf=tf;
-  document.querySelectorAll('.pattern-tf').forEach(function(b){b.style.background='#fff';b.style.color='var(--muted)';b.style.borderColor='var(--border)';});
-  btn.style.background='var(--espresso)';btn.style.color='#fff';btn.style.borderColor='var(--espresso)';
+  document.querySelectorAll('.pattern-tf').forEach(function(b){b.classList.remove('on');});
+  btn.classList.add('on');
   updatePatternChart();
 }
 
