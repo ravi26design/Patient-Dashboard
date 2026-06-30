@@ -8,7 +8,7 @@ function goScreen(id){
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
   var el=document.getElementById('screen-'+id);if(el)el.classList.add('active');
   document.querySelectorAll('.nav-tab').forEach(t=>t.classList.remove('active'));
-  var m={home:0,tools:1,mat:2,rewards:4,narcan:4,workbook:1,profile:0,checkin:0,appointments:0};
+  var m={home:0,tools:1,narcan:2,mat:3,rewards:4,workbook:1,profile:0,checkin:0,appointments:0};
   var tabs=document.querySelectorAll('.nav-tab');if(tabs[m[id]!=null?m[id]:0])tabs[m[id]!=null?m[id]:0].classList.add('active');
   document.querySelectorAll('#dnav .dn-item').forEach(function(i){i.classList.toggle('active',i.getAttribute('data-screen')===id);});
   try{localStorage.setItem('rh_screen',id);}catch(e){}
