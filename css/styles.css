@@ -1938,13 +1938,15 @@ body[data-screen="tools"] .app-header{display:none}
 .rl-tile{display:flex;flex-direction:column;gap:11px;background:#fff;border:none;border-radius:18px;box-shadow:var(--card-shadow);padding:16px;cursor:pointer;transition:transform .12s ease,box-shadow .15s ease;text-align:left}
 .rl-tile:active{transform:scale(.97)}
 .rl-tile:hover{box-shadow:0 10px 24px rgba(94,133,96,.16)}
-.rl-emoji{width:46px;height:46px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:24px;line-height:1}
-.rl-tile:nth-child(1) .rl-emoji{background:#E4EEF4}
-.rl-tile:nth-child(2) .rl-emoji{background:#FBF1DC}
-.rl-tile:nth-child(3) .rl-emoji{background:#E7F0EA}
-.rl-tile:nth-child(4) .rl-emoji{background:#FAE7E2}
+.rl-emoji{width:48px;height:48px;border-radius:15px;display:flex;align-items:center;justify-content:center;line-height:1}
+.rl-emoji i,.rl-emoji svg{width:24px;height:24px;stroke-width:2}
+.rl-tile:nth-child(1) .rl-emoji{background:#E4EEF4;color:#5B92CE}
+.rl-tile:nth-child(2) .rl-emoji{background:#FBF1DC;color:#C9962E}
+.rl-tile:nth-child(3) .rl-emoji{background:#E7F0EA;color:#5E8560}
+.rl-tile:nth-child(4) .rl-emoji{background:#FAE7E2;color:#D17A6B}
 .rl-title{font-family:var(--font-ui);font-size:14.5px;font-weight:700;color:var(--ink);line-height:1.25}
-.rl-dur{font-family:var(--font-ui);font-size:12px;color:var(--ink-soft);margin-top:2px}
+.rl-dur{display:flex;align-items:center;gap:5px;font-family:var(--font-ui);font-size:12px;color:var(--ink-soft);margin-top:2px}
+.rl-dur .rl-clock{width:13px;height:13px;stroke-width:2.2}
 
 .rl-urge-cta{display:flex;align-items:center;gap:14px;background:linear-gradient(150deg,#EAF1E9,#DDEBDD);border:1px solid rgba(123,164,126,.28);border-radius:18px;padding:16px;margin-bottom:14px;cursor:pointer;transition:transform .12s ease}
 .rl-urge-cta:active{transform:scale(.98)}
