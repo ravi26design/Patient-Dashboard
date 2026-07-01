@@ -1999,6 +1999,25 @@ body.is-desktop .tx-meta{position:absolute;right:6px;top:50%;transform:translate
 .lr-st-done{background:#EAF1E9;color:#5E8560}
 .lr-st-now{background:#FBF1DC;color:#9A6B16}
 .lr-st-next{background:#F0ECE7;color:var(--ink-soft)}
+/* rewards level hero — ribbon card style (like "You got!") */
+.rwh-card{position:relative;background:#fff;border-radius:24px;box-shadow:0 16px 40px rgba(58,51,48,.12);padding:40px 18px 22px;text-align:center;margin-bottom:14px}
+.rwh-ribbon{position:absolute;top:-20px;left:50%;transform:translateX(-50%);white-space:nowrap;
+  background:linear-gradient(135deg,#8FBE86,#5E8560);color:#fff;font-family:var(--font-display);font-size:16px;font-weight:700;
+  padding:11px 26px;border-radius:14px;box-shadow:0 10px 22px rgba(94,133,96,.36)}
+.rwh-ribbon::before,.rwh-ribbon::after{content:"";position:absolute;top:6px;width:14px;height:14px;background:#4E7150;transform:rotate(45deg);z-index:-1}
+.rwh-ribbon::before{left:-5px}
+.rwh-ribbon::after{right:-5px}
+.rwh-xp{font-family:var(--font-display);font-size:34px;font-weight:700;color:var(--gold-dk);line-height:1;letter-spacing:-.5px}
+.rwh-tonext{font-family:var(--font-ui);font-size:12px;color:var(--ink-soft);margin-top:7px}
+.rwh-tiles{display:flex;gap:11px;margin-top:18px}
+.rwh-tile{flex:1;background:#F7F5F0;border-radius:16px;padding:14px 6px 12px}
+.rwh-tile-ic{width:44px;height:44px;border-radius:13px;display:flex;align-items:center;justify-content:center;margin:0 auto 8px}
+.rwh-tile-ic i,.rwh-tile-ic svg{width:22px;height:22px;stroke-width:2}
+.rwh-ic-gold{background:#FBF1DC;color:#C9962E}
+.rwh-ic-sage{background:#EAF1E9;color:#5E8560}
+.rwh-ic-coral{background:#FAE7E2;color:#D17A6B}
+.rwh-tile-n{font-family:var(--font-display);font-size:22px;font-weight:700;color:var(--ink);line-height:1}
+.rwh-tile-l{font-family:var(--font-ui);font-size:9.5px;font-weight:700;letter-spacing:.3px;text-transform:uppercase;color:var(--ink-soft);margin-top:4px}
 /* rewards level hero polish */
 .rw-level{display:inline-block;background:#fff;color:#9A7C28;font-family:var(--font-ui);font-size:11px;font-weight:700;
   letter-spacing:1.3px;text-transform:uppercase;padding:6px 15px;border-radius:999px;box-shadow:0 3px 10px rgba(201,168,76,.20);margin-bottom:9px}
