@@ -1246,6 +1246,8 @@ function openProfile(){
   pfSet('pfPhone', window.__phone || pf.phone || '');
   pfSet('pfEmail', pf.email);
   pfSet('pfDob', (pf.dob && pf.dob.date) ? pf.dob.date : (typeof pf.dob==='string' ? pf.dob : ''));
+  if(document.body.classList.contains('is-desktop') && window.__deskF){ var _vw=window.innerWidth; var _t=Math.min(1.3,(_vw-24)/620); p.style.zoom=_t/window.__deskF; }
+  else { p.style.zoom=''; }
   p.classList.add('show');
 }
 function closeProfile(){ var p=document.getElementById('profileSheet'); if(p) p.classList.remove('show'); }
