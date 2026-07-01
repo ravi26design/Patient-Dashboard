@@ -493,8 +493,8 @@ var REFLECT_Q=[
     sub:'Takes about a minute.',
     placeholder:'A sentence or two about how today felt… (optional)'},
   /* 1 — drug use multi-select (reuse our substance list + emoji icons) */
-  {type:'multi', q:'Which of these drugs have you used in the past 24 hours?', sub:'Select all that apply',
-    icons:['🍺','🌿','⚡','🌬️','💊','🍄','💉','✅'], options:[
+  {type:'multi', q:'Which of these drugs have you used in the past 24 hours?', sub:'Select all that apply', lucideIcons:true,
+    icons:['beer','leaf','zap','wind','pill','sparkles','syringe','circle-check'], options:[
     'Alcohol','Cannabis (marijuana, pot, hash, K2, spice, etc.)','Stimulants (cocaine, meth, speed, ecstasy, molly, Adderall, etc.)',
     'Inhalants (nitrous, glue, petrol, paint thinner, etc.)','Sedatives or sleeping pills (Valium, Serepax, Rohypnol, etc.)',
     'Hallucinogens (LSD, acid, mushrooms, PCP, special K, etc.)','Opioids (heroin, fentanyl, oxycodone, etc.)','None — I did not use any substances']},
@@ -524,8 +524,8 @@ var REFLECT_Q=[
     {key:'confidence', label:'How confident are you in your ability to avoid using opioids for non-medical reasons within the next week?', lo:'Not confident', hi:'Extremely confident'}
   ]},
   /* 6 — medication taken (single-choice, reuse our option-card style) */
-  {type:'multi', single:true, q:'Have you taken your medication today?', sub:'Suboxone 8mg/2mg · daily',
-    icons:['✅','⏳'], options:['Yes — I’ve taken it today','Not yet']}
+  {type:'multi', single:true, q:'Have you taken your medication today?', sub:'Suboxone 8mg/2mg · daily', lucideIcons:true,
+    icons:['circle-check','clock'], options:['Yes — I’ve taken it today','Not yet']}
 ];
 var REFLECT_TOTAL=REFLECT_Q.length;   /* 7 */
 var reflectStep=0, reflectAnswers={}, reflectVoiceMode=false;
@@ -621,10 +621,11 @@ function renderReflect(){
         '</div>'+
       '</div>';
   } else if(item.type==='multi'){
-    var sel=a.selected||[]; var icons=item.icons||[];
+    var sel=a.selected||[]; var icons=item.icons||[]; var lu=item.lucideIcons;
     inner='<div class="reflect-opts">'+item.options.map(function(o,i){
+      var ic=lu?'<i data-lucide="'+(icons[i]||'circle')+'"></i>':(icons[i]||'•');
       return '<button class="reflect-opt'+(sel.indexOf(i)>=0?' opt-sel':'')+'" onclick="reflectToggleOpt(this,'+i+')">'+
-        '<span class="ro-ic">'+(icons[i]||'•')+'</span><span class="ro-txt">'+esc(o)+'</span></button>';
+        '<span class="ro-ic">'+ic+'</span><span class="ro-txt">'+esc(o)+'</span></button>';
     }).join('')+'</div>';
   } else if(item.type==='sliders'){
     var vals=a.sliders||{};
@@ -651,6 +652,7 @@ function renderReflect(){
   } else {
     foot.innerHTML='<button class="rf-btn rf-primary rf-full" onclick="reflectNext()">'+(n===0?'Continue':'Next')+' →</button>';
   }
+  if(window.lucide && lucide.createIcons) lucide.createIcons();   /* render any data-lucide icons in the step */
 }
 function reflectDone(){
   closeOv();

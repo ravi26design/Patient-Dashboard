@@ -862,10 +862,12 @@ body.is-mobile .task-grid > .task{
 .reflect-opt{display:flex;align-items:center;gap:16px;width:100%;text-align:left;
   background:#fff;border:2px solid transparent;border-radius:18px;box-shadow:var(--card-shadow);
   padding:16px 18px;cursor:pointer;font-family:var(--font-ui);margin:0;transition:border-color .15s,background .15s}
-.reflect-opt .ro-ic{flex-shrink:0;width:30px;display:flex;align-items:center;justify-content:center;font-size:26px;line-height:1}
-.reflect-opt .ro-txt{flex:1;min-width:0;font-size:14.5px;font-weight:700;color:var(--ink);line-height:1.35}
+.reflect-opt .ro-ic{flex-shrink:0;width:26px;display:flex;align-items:center;justify-content:center;font-size:22px;line-height:1;color:#5E8560}
+.reflect-opt .ro-ic i,.reflect-opt .ro-ic svg{width:21px;height:21px;stroke-width:2}
+.reflect-opt .ro-txt{flex:1;min-width:0;font-size:14px;font-weight:600;color:var(--ink);line-height:1.35}
 .reflect-opt.opt-sel{border-color:#7BA47E;background:#F3F8F2}
 .reflect-opt.opt-sel .ro-txt{color:#3F5E41}
+.reflect-opt.opt-sel .ro-ic{color:#7BA47E}
 .reflect-range{width:100%;accent-color:#7BA47E;height:8px;cursor:pointer}
 .reflect-btn-back{flex:1;padding:13px;border-radius:12px;border:1px solid #7BA47E;background:#fff;color:#5E8560;font-weight:700;font-size:12px;letter-spacing:1px;text-transform:uppercase;cursor:pointer;font-family:var(--font-ui)}
 .reflect-btn-next{flex:1.4;padding:13px;border-radius:12px;border:none;background:#7BA47E;color:#fff;font-weight:700;font-size:12px;letter-spacing:1px;text-transform:uppercase;cursor:pointer;font-family:var(--font-ui)}
