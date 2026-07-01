@@ -822,6 +822,10 @@ function onbHide(id){ var e=document.getElementById(id); if(!e) return; e.classL
 function onbStep(from,to){ onbShow(to); onbHide(from); }
 var ONB_ORDER=['moudScreen','triggersScreen','reliefScreen','connectCareScreen','privacyScreen'];
 function onbBack(curId){
+  if(window.__ciMode){   /* check-in intro: relief -> triggers -> cancel to home */
+    if(curId==='reliefScreen'){ onbStep('reliefScreen','triggersScreen'); ciConfigTriggers(); ciGate(); return; }
+    if(curId==='triggersScreen'){ ciCancel(); return; }
+  }
   var i=ONB_ORDER.indexOf(curId);
   if(i<=0){ onbShow('detailsScreen'); onbHide('moudScreen'); return; }   /* first step back -> details */
   onbStep(curId, ONB_ORDER[i-1]);
@@ -829,13 +833,14 @@ function onbBack(curId){
 function onbSkip(step){ if(step==='relief'){ onbStep('reliefScreen','connectCareScreen'); } }
 function connectCheck(){ var cn=document.getElementById('clinicName'), cc=document.getElementById('clinicCode'), btn=document.getElementById('connectContinue');
   if(btn) btn.disabled=!((cn&&cn.value.trim()) || (cc&&cc.value.trim())); }
-function onbToggle(el){ el.classList.toggle('sel'); }
+function onbToggle(el){ el.classList.toggle('sel'); if(window.__ciMode) ciGate(); }
 function onbAdd(containerId, inputId){
   var inp=document.getElementById(inputId), c=document.getElementById(containerId); if(!inp||!c) return;
   var v=(inp.value||'').trim(); if(!v) return;
   var b=document.createElement('button'); b.type='button'; b.className='onb-chip sel'; b.textContent=v;
   b.addEventListener('click', function(){ onbToggle(b); });
   c.insertBefore(b, c.firstChild); inp.value=''; inp.focus();
+  if(window.__ciMode) ciGate();
 }
 function onbSelected(containerId){ var c=document.getElementById(containerId); if(!c) return [];
   var out=[], ch=c.querySelectorAll('.onb-chip.sel'); for(var i=0;i<ch.length;i++) out.push(ch[i].textContent.trim()); return out; }
@@ -853,8 +858,18 @@ function pvToggle(el){ el.classList.toggle('on');
   var c1=document.getElementById('pvCheck1'), c2=document.getElementById('pvCheck2'), btn=document.getElementById('pvContinue');
   if(btn) btn.disabled=!(c1&&c1.classList.contains('on') && c2&&c2.classList.contains('on')); }
 function onbNext(step){
-  if(step==='triggers'){ onbSave('triggers', onbSelected('trigChips')); onbStep('triggersScreen','reliefScreen'); }
-  else if(step==='relief'){ onbSave('relief', onbSelected('reliefChips')); onbStep('reliefScreen','connectCareScreen'); }
+  if(step==='triggers'){
+    if(window.__ciMode && onbSelected('trigChips').length===0) return;   /* must pick at least one */
+    onbSave('triggers', onbSelected('trigChips')); onbStep('triggersScreen','reliefScreen');
+    if(window.__ciMode){ ciConfigRelief(); ciGate(); } }
+  else if(step==='relief'){
+    if(window.__ciMode){
+      if(onbSelected('reliefChips').length===0) return;                  /* must pick at least one */
+      onbSave('relief', onbSelected('reliefChips'));
+      window.__ciMode=false; onbHide('reliefScreen');
+      setTimeout(function(){ if(typeof openReflect==='function') openReflect(); }, 460);   /* then the check-in */
+      return; }
+    onbSave('relief', onbSelected('reliefChips')); onbStep('reliefScreen','connectCareScreen'); }
   else if(step==='connect'){ var cn=document.getElementById('clinicName'), cc=document.getElementById('clinicCode');
     var nm=cn&&cn.value.trim(), cd=cc&&cc.value.trim();
     if(!nm && !cd) return;   /* mandatory: need clinic name or code */
@@ -885,7 +900,26 @@ function showCheckinModal(){ var m=document.getElementById('checkinModal'); if(!
 function hideCheckinModal(){ if(window.__checkinTimer){ clearTimeout(window.__checkinTimer); window.__checkinTimer=null; }
   var m=document.getElementById('checkinModal'); if(!m) return;
   m.classList.add('hide'); setTimeout(function(){ m.classList.remove('show','hide'); m.style.display='none'; }, 340); }
-function checkinBegin(){ hideCheckinModal(); if(typeof openReflect==='function') openReflect(); }
+/* ═══ CHECK-IN INTRO: Let's Begin -> triggers -> relief -> reflection ═══ */
+function ciResetChips(cid){ var c=document.getElementById(cid); if(!c) return; var s=c.querySelectorAll('.onb-chip.sel'); for(var i=0;i<s.length;i++) s[i].classList.remove('sel'); }
+function ciConfig(id, num, pct, ctaHtml, hideSkip){ var s=document.getElementById(id); if(!s) return;
+  var cnt=s.querySelector('.onb-count'); if(cnt) cnt.innerHTML=num+'<span>/2</span>';
+  var fill=s.querySelector('.onb-steps-fill'); if(fill) fill.style.width=pct;
+  var cta=s.querySelector('.onb-continue'); if(cta) cta.innerHTML=ctaHtml;
+  var skip=s.querySelector('.onb-skip-link'); if(skip) skip.style.display=hideSkip?'none':''; }
+function ciConfigTriggers(){ ciConfig('triggersScreen','1','50%','Next <span aria-hidden="true">&rarr;</span>', false); }
+function ciConfigRelief(){ ciConfig('reliefScreen','2','100%','Start my check-in <span aria-hidden="true">&rarr;</span>', true); }
+function ciGate(){ if(!window.__ciMode) return;
+  var t=document.getElementById('triggersScreen'), r=document.getElementById('reliefScreen');
+  if(t && t.classList.contains('show')){ var bt=t.querySelector('.onb-continue'); if(bt) bt.disabled=(onbSelected('trigChips').length===0); }
+  if(r && r.classList.contains('show')){ var br=r.querySelector('.onb-continue'); if(br) br.disabled=(onbSelected('reliefChips').length===0); } }
+function checkinBegin(){ hideCheckinModal();
+  window.__ciMode=true;
+  ciResetChips('trigChips'); ciResetChips('reliefChips');
+  ciConfigTriggers(); ciConfigRelief();
+  onbShow('triggersScreen');
+  ciGate(); }
+function ciCancel(){ window.__ciMode=false; onbHide('triggersScreen'); onbHide('reliefScreen'); }
 /* ═══ LOCATION PERMISSION ═══ */
 function showLocModal(){ var m=document.getElementById('locModal'); if(m) m.classList.add('show'); }
 function hideLocModal(){ var m=document.getElementById('locModal'); if(!m) return;
