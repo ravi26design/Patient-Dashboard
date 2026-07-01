@@ -629,9 +629,9 @@ function renderReflect(){
     }).join('')+'</div>';
   } else if(item.type==='sliders'){
     var vals=a.sliders||{};
-    inner='<div class="rf-card" style="margin-top:6px">'+item.sliders.map(function(s){
+    inner='<div class="rf-sliders">'+item.sliders.map(function(s){
       var v=vals[s.key]!=null?vals[s.key]:5;
-      return '<div class="rf-srow">'+
+      return '<div class="rf-card rf-scard">'+
         '<div class="rf-srow-top"><span class="rf-srow-label">'+esc(s.label)+'</span>'+
           '<span id="rf-sv-'+s.key+'" class="rf-srow-val">'+v+'</span></div>'+
         '<input type="range" min="0" max="10" value="'+v+'" class="reflect-range" oninput="reflectSlider(\''+s.key+'\',this.value)">'+
