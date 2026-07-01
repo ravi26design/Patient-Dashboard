@@ -584,22 +584,19 @@ function renderReflect(){
   if(reflectStep>=REFLECT_TOTAL){   /* ═══ completion screen ═══ */
     body.innerHTML=
       '<div class="rf-complete">'+
-        '<div class="rf-cc-badge">🎉</div>'+
-        '<div class="rf-cc-title">Check-in complete!</div>'+
-        '<div class="rf-cc-sub">You showed up for yourself today. Your care team sees every bit of it. 🌿</div>'+
-        '<div class="rf-cc-xp">'+
-          '<div class="rf-cc-xp-k">You earned</div>'+
-          '<div class="rf-cc-xp-row">'+
-            '<div class="rf-cc-xp-item"><span class="rf-cc-xp-n" style="color:#5E8560">+20</span><span class="rf-cc-xp-l">Check-in</span></div>'+
-            '<span class="rf-cc-xp-op">+</span>'+
-            '<div class="rf-cc-xp-item"><span class="rf-cc-xp-n" style="color:#9A6B16">+50</span><span class="rf-cc-xp-l">Completion bonus</span></div>'+
-            '<span class="rf-cc-xp-op">=</span>'+
-            '<div class="rf-cc-xp-item"><span class="rf-cc-xp-n" style="color:var(--ink)">70</span><span class="rf-cc-xp-l">XP today</span></div>'+
+        '<div class="rf-yg">'+
+          '<div class="rf-yg-ribbon">🎉 You got!</div>'+
+          '<div class="rf-yg-title">Check-in complete!</div>'+
+          '<div class="rf-yg-tiles">'+
+            '<div class="rf-yg-tile"><div class="rf-yg-ic rf-yg-ic-gold"><i data-lucide="sparkles"></i></div><div class="rf-yg-amt">+20</div><div class="rf-yg-lbl">Check-in</div></div>'+
+            '<div class="rf-yg-tile"><div class="rf-yg-ic rf-yg-ic-sage"><i data-lucide="gift"></i></div><div class="rf-yg-amt">+50</div><div class="rf-yg-lbl">Bonus</div></div>'+
+            '<div class="rf-yg-tile"><div class="rf-yg-ic rf-yg-ic-coral"><i data-lucide="flame"></i></div><div class="rf-yg-amt">+1</div><div class="rf-yg-lbl">Streak</div></div>'+
           '</div>'+
+          '<div class="rf-yg-streak"><span>🔥</span> Daily streak extended · come back tomorrow</div>'+
         '</div>'+
-        '<div class="rf-cc-streak"><span>🔥</span> Daily streak extended · come back tomorrow to keep it alive</div>'+
       '</div>';
-    foot.innerHTML='<button class="rf-btn rf-primary rf-full" onclick="reflectDone()">Claim 70 XP</button>';
+    foot.innerHTML='<button class="rf-btn rf-primary rf-full" onclick="reflectDone()">Confirm · 70 XP</button>';
+    if(window.lucide && lucide.createIcons) lucide.createIcons();
     return;
   }
   var n=reflectStep, item=REFLECT_Q[n], total=REFLECT_TOTAL;
