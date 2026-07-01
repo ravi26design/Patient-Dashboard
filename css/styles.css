@@ -950,8 +950,10 @@ body.is-desktop .overlay.active > .reflect-footer{max-width:620px;margin-left:au
 .rf-scard{padding:16px 16px 14px;margin:0}
 .rf-srow-label{font-family:var(--font-ui);font-size:14px;font-weight:600;color:var(--ink);line-height:1.4}
 .rf-srow-num{font-family:var(--font-display);font-size:34px;font-weight:700;color:#7BA47E;line-height:1;text-align:center;margin:8px 0 10px}
-.rf-srow-scale{display:flex;justify-content:space-between;gap:10px;margin-top:7px;font-family:var(--font-ui);font-size:12px;font-weight:700;color:var(--ink-soft)}
-.rf-srow-ends{display:flex;justify-content:space-between;gap:10px;margin-top:3px;font-family:var(--font-ui);font-size:11px;color:var(--ink-soft)}
+.rf-srow-track{display:flex;align-items:center;gap:11px;margin-top:2px}
+.rf-srow-track .reflect-range{flex:1;min-width:0}
+.rf-srow-end{flex-shrink:0;font-family:var(--font-ui);font-size:12.5px;font-weight:700;color:var(--ink-soft)}
+.rf-srow-ends{display:flex;justify-content:space-between;gap:10px;margin-top:7px;font-family:var(--font-ui);font-size:11px;color:var(--ink-soft)}
 
 /* Temporarily non-interactive nav items (feature not enabled yet) */
 .nav-soon{cursor:default;pointer-events:none}
