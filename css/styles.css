@@ -1967,7 +1967,7 @@ body.is-desktop .tx-meta{position:absolute;right:6px;top:50%;transform:translate
 .lpill-xp{color:#9A6B16;background:#FFF1D6}
 .lpill-sage{color:#3F5E41;background:#EAF1E9}
 /* segmented controls (timeframe / item pickers) */
-.seg{display:flex;gap:6px;flex-wrap:wrap}
+.tf-seg{display:flex;gap:6px;flex-wrap:wrap;position:static;width:auto;height:auto}
 .seg-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;width:100%}
 .seg-btn{padding:8px 13px;border-radius:999px;border:1.5px solid rgba(54,59,59,.14);background:#fff;color:var(--ink-soft);font-family:var(--font-ui);font-size:12px;font-weight:600;cursor:pointer;transition:all .15s ease;white-space:nowrap}
 .seg-grid .seg-btn{border-radius:12px;text-align:center;padding:10px 6px}
