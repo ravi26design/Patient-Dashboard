@@ -1970,6 +1970,26 @@ body.is-desktop .tx-meta{position:absolute;right:6px;top:50%;transform:translate
 /* segmented controls (timeframe / item pickers) */
 .tf-seg{display:flex;gap:6px;flex-wrap:wrap;position:static;width:auto;height:auto}
 .seg-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;width:100%}
+/* level roadmap as a vertical timeline */
+.lr-card{padding:8px 18px}
+.lr-item{display:flex;gap:14px;padding:12px 0;position:relative}
+.lr-item:not(:last-child)::before{content:"";position:absolute;left:12px;top:33px;bottom:-11px;width:2px;background:rgba(54,59,59,.12)}
+.lr-dot{width:26px;height:26px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;z-index:1;margin-top:1px}
+.lr-chk{width:15px;height:15px}
+.lr-out{background:#fff;border:2px solid rgba(54,59,59,.20)}
+.lr-now{box-shadow:0 0 0 4px rgba(232,184,74,.28)}
+.lr-now::after{content:"";width:9px;height:9px;border-radius:50%;background:#fff}
+.lr-body{flex:1;min-width:0;padding-top:2px}
+.lr-row{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.lr-name{font-family:var(--font-ui);font-size:14px;font-weight:700;color:var(--ink)}
+.lr-future .lr-name{color:var(--ink-soft);font-weight:600}
+.lr-current .lr-name{color:#9A6B16}
+.lr-note{font-family:var(--font-ui);font-size:12px;color:var(--ink-soft);margin-top:2px}
+.lr-current .lr-note{color:#9A6B16;font-weight:600}
+.lr-status{flex-shrink:0;font-family:var(--font-ui);font-size:10px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;padding:5px 11px;border-radius:999px}
+.lr-st-done{background:#EAF1E9;color:#5E8560}
+.lr-st-now{background:#FBF1DC;color:#9A6B16}
+.lr-st-next{background:#F0ECE7;color:var(--ink-soft)}
 /* rewards level hero polish */
 .rw-level{display:inline-block;background:#fff;color:#9A7C28;font-family:var(--font-ui);font-size:11px;font-weight:700;
   letter-spacing:1.3px;text-transform:uppercase;padding:6px 15px;border-radius:999px;box-shadow:0 3px 10px rgba(201,168,76,.20);margin-bottom:9px}
