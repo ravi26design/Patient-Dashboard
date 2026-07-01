@@ -1970,6 +1970,15 @@ body.is-desktop .tx-meta{position:absolute;right:6px;top:50%;transform:translate
 /* segmented controls (timeframe / item pickers) */
 .tf-seg{display:flex;gap:6px;flex-wrap:wrap;position:static;width:auto;height:auto}
 .seg-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;width:100%}
+/* gratitude gift cards — CTA below the text */
+.grat-card{background:#fff;border-radius:16px;box-shadow:var(--card-shadow);padding:15px 16px;margin-bottom:12px}
+.grat-card.grat-sent{opacity:.75}
+.grat-top{display:flex;align-items:flex-start;gap:14px;margin-bottom:13px}
+.grat-btn{display:block;width:100%;padding:12px;border-radius:12px;border:none;background:#7BA47E;color:#fff;
+  font-family:var(--font-ui);font-size:14px;font-weight:700;cursor:pointer;transition:transform .12s ease,filter .15s ease}
+.grat-btn:hover{filter:brightness(1.04)}
+.grat-btn:active{transform:scale(.99)}
+.grat-btn.grat-done{background:#EAF1E9;color:#5E8560;cursor:default}
 /* level roadmap as a vertical timeline */
 .lr-card{padding:8px 18px}
 .lr-item{display:flex;gap:14px;padding:12px 0;position:relative}
