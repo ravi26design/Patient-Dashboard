@@ -878,8 +878,8 @@ body.is-desktop .overlay.active > .ov-body{max-width:620px;margin-left:auto;marg
 #ov-reflect .ov-body{padding-bottom:18px}
 .reflect-footer{flex-shrink:0;display:flex;gap:12px;padding:14px 16px;background:var(--app-bg);border-top:1px solid rgba(54,59,59,.08)}
 .reflect-footer:empty{display:none}
-.rf-btn{padding:16px 16px;border-radius:16px;border:none;font-size:16px;font-weight:700;letter-spacing:.3px;cursor:pointer;font-family:var(--font-ui);white-space:nowrap}
-.rf-primary{background:#7BA47E;color:#fff;flex:1.5;box-shadow:0 10px 24px rgba(110,158,128,.30)}
+.rf-btn{padding:17px 18px;border-radius:18px;border:none;font-size:16px;font-weight:700;letter-spacing:.3px;cursor:pointer;font-family:var(--font-ui);white-space:nowrap}
+.rf-primary{background:var(--sage);color:#fff;flex:1.5;box-shadow:0 12px 28px rgba(110,158,128,.34)}
 .rf-back{background:#fff;border:1.5px solid #7BA47E;color:#5E8560;flex:1}
 .rf-full{flex:1;width:100%}
 .rf-btn:disabled{opacity:.45;cursor:default;box-shadow:none}
