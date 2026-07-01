@@ -823,11 +823,32 @@
 
     <!-- ═══ NARCAN SCREEN ═══ -->
     <div class="screen" id="screen-narcan">
-      <div class="scr-head">
-        <div class="scr-title">Naloxone</div>
-        <div class="scr-sub">Your emergency kit and overdose-response tools.</div>
+      <div class="sos-lead">Reaching out is a strength, not a setback.</div>
+
+      <a class="sos-911" href="tel:911">
+        <div class="sos-911-ic"><i data-lucide="phone"></i></div>
+        <div class="sos-911-main"><div class="sos-911-t">Call 911</div><div class="sos-911-d">Overdose or medical emergency — call now</div></div>
+        <i data-lucide="chevron-right" class="sos-911-arrow"></i>
+      </a>
+
+      <div class="scr-eyebrow" style="margin-top:18px">What's going on?</div>
+      <div class="sos-opt" onclick="openUrge()">
+        <div class="sos-opt-ic" style="background:#E4EEF4;color:#5B92CE"><i data-lucide="waves"></i></div>
+        <div class="sos-opt-main"><div class="sos-opt-t">I'm having an urge</div><div class="sos-opt-d">Ride it out — breathing, grounding &amp; your people</div></div>
+        <i data-lucide="chevron-right" class="sos-opt-arrow"></i>
+      </div>
+      <a class="sos-opt sos-opt-crisis" href="tel:988">
+        <div class="sos-opt-ic" style="background:#FBE3EC;color:#C25A8A"><i data-lucide="heart-pulse"></i></div>
+        <div class="sos-opt-main"><div class="sos-opt-t">I'm in crisis</div><div class="sos-opt-d">988 Lifeline, crisis text line &amp; naloxone help</div></div>
+        <i data-lucide="chevron-right" class="sos-opt-arrow"></i>
+      </a>
+      <div class="sos-opt" onclick="openProfile()">
+        <div class="sos-opt-ic" style="background:#EAF1E9;color:#5E8560"><i data-lucide="handshake"></i></div>
+        <div class="sos-opt-main"><div class="sos-opt-t">Reach my support team</div><div class="sos-opt-d">Family, friends, sponsor, coach, peer, therapist &amp; doctor</div></div>
+        <i data-lucide="chevron-right" class="sos-opt-arrow"></i>
       </div>
 
+      <div class="scr-eyebrow" style="margin-top:18px">Your naloxone kit</div>
       <!-- Kit status -->
       <div class="sos-kit">
         <div class="sos-kit-ic"><i data-lucide="heart-pulse"></i></div>
