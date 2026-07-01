@@ -2035,9 +2035,11 @@ body.is-desktop .tx-meta{position:absolute;right:6px;top:50%;transform:translate
 .rw-bar{height:11px;box-shadow:inset 0 1px 2px rgba(154,124,40,.12)}
 @media (prefers-reduced-motion:reduce){ .rw-flame::before{animation:none} }
 /* achievements: horizontal scroll, 3 visible then scroll */
-.ach-scroll{display:flex;gap:10px;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;scroll-snap-type:x proximity;padding-bottom:4px;margin-bottom:14px}
+.ach-scroll{display:flex;gap:10px;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;scroll-snap-type:x proximity;
+  margin:0 -12px 14px;padding:4px 12px}   /* full-bleed: cards scroll to the screen edges */
 .ach-scroll::-webkit-scrollbar{display:none}
 .ach-scroll > div{flex:0 0 30%;scroll-snap-align:start}   /* 3 full + a peek of the 4th */
+body.is-tablet .ach-scroll{margin-left:-18px;margin-right:-18px;padding-left:18px;padding-right:18px}
 .seg-btn{padding:8px 13px;border-radius:999px;border:1.5px solid rgba(54,59,59,.14);background:#fff;color:var(--ink-soft);font-family:var(--font-ui);font-size:12px;font-weight:600;cursor:pointer;transition:all .15s ease;white-space:nowrap}
 .seg-grid .seg-btn{border-radius:12px;text-align:center;padding:10px 6px}
 .seg-btn.on{background:#7BA47E;color:#fff;border-color:#7BA47E}
