@@ -1969,12 +1969,6 @@ body.is-desktop .tx-meta{position:absolute;right:6px;top:50%;transform:translate
 /* segmented controls (timeframe / item pickers) */
 .tf-seg{display:flex;gap:6px;flex-wrap:wrap;position:static;width:auto;height:auto}
 .seg-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;width:100%}
-/* item selector as horizontal tabs on top of the chart (scrollable on mobile) */
-.pat-tabs{display:flex;gap:8px;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding-bottom:2px;margin:0 -2px}
-.pat-tabs::-webkit-scrollbar{display:none}
-.pat-tab{flex-shrink:0;padding:9px 15px;border-radius:999px;border:1.5px solid rgba(54,59,59,.14);background:#fff;color:var(--ink-soft);
-  font-family:var(--font-ui);font-size:12.5px;font-weight:600;cursor:pointer;white-space:nowrap;transition:all .15s ease}
-.pat-tab.on{background:#7BA47E;color:#fff;border-color:#7BA47E}
 .seg-btn{padding:8px 13px;border-radius:999px;border:1.5px solid rgba(54,59,59,.14);background:#fff;color:var(--ink-soft);font-family:var(--font-ui);font-size:12px;font-weight:600;cursor:pointer;transition:all .15s ease;white-space:nowrap}
 .seg-grid .seg-btn{border-radius:12px;text-align:center;padding:10px 6px}
 .seg-btn.on{background:#7BA47E;color:#fff;border-color:#7BA47E}
