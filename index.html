@@ -773,22 +773,17 @@
         <div id="rh-scroll-wrapper" style="overflow-x:auto;-webkit-overflow-scrolling:touch"><canvas id="recoveryHealthChart"></canvas></div>
       </div>
 
-      <!-- Item selector -->
+      <!-- Selected item chart (item tabs on top) -->
       <div class="scr-card scr-full">
-        <div class="scr-eyebrow" style="margin:0 0 12px">Select item to graph</div>
-        <div class="seg-grid">
-          <button class="pattern-item seg-btn on" id="pitem-urge"     onclick="selectPatternItem('urge',this)">Urge</button>
-          <button class="pattern-item seg-btn"    id="pitem-pain"     onclick="selectPatternItem('pain',this)">Pain</button>
-          <button class="pattern-item seg-btn"    id="pitem-stress"   onclick="selectPatternItem('stress',this)">Stressful Events</button>
-          <button class="pattern-item seg-btn"    id="pitem-pleasant" onclick="selectPatternItem('pleasant',this)">Pleasant Events</button>
-          <button class="pattern-item seg-btn"    id="pitem-risky"    onclick="selectPatternItem('risky',this)">Risky Situations</button>
-          <button class="pattern-item seg-btn"    id="pitem-sleep"    onclick="selectPatternItem('sleep',this)">Sleep Quality</button>
+        <div class="pat-tabs">
+          <button class="pattern-item pat-tab on" id="pitem-urge"     onclick="selectPatternItem('urge',this)">Urge</button>
+          <button class="pattern-item pat-tab"    id="pitem-pain"     onclick="selectPatternItem('pain',this)">Pain</button>
+          <button class="pattern-item pat-tab"    id="pitem-stress"   onclick="selectPatternItem('stress',this)">Stressful Events</button>
+          <button class="pattern-item pat-tab"    id="pitem-pleasant" onclick="selectPatternItem('pleasant',this)">Pleasant Events</button>
+          <button class="pattern-item pat-tab"    id="pitem-risky"    onclick="selectPatternItem('risky',this)">Risky Situations</button>
+          <button class="pattern-item pat-tab"    id="pitem-sleep"    onclick="selectPatternItem('sleep',this)">Sleep Quality</button>
         </div>
-      </div>
-
-      <!-- Selected item chart -->
-      <div class="scr-card scr-full">
-        <div class="scr-card-h">
+        <div class="scr-card-h" style="margin-top:14px">
           <div><div class="scr-card-t" id="pattern-title">Urge</div><div class="scr-card-s">Scale 1 (lowest) – 5 (highest)</div></div>
           <div class="tf-seg">
             <button class="pattern-tf seg-btn on" id="ptf-month"   onclick="selectPatternTf('month',this)">Past Month</button>
