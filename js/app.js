@@ -581,7 +581,8 @@ function renderReflect(){
   var body=document.getElementById('reflect-body');
   var foot=document.getElementById('reflect-footer');
   body.classList.toggle('rf-body-center', reflectStep>=REFLECT_TOTAL);   /* center the celebration */
-  if(reflectStep>=REFLECT_TOTAL){   /* ═══ completion screen ═══ */
+  var _ov=document.getElementById('ov-reflect'); if(_ov) _ov.classList.toggle('rf-modal', reflectStep>=REFLECT_TOTAL);   /* dim backdrop = modal */
+  if(reflectStep>=REFLECT_TOTAL){   /* ═══ completion screen (modal) ═══ */
     body.innerHTML=
       '<div class="rf-complete">'+
         '<div class="rf-yg">'+
@@ -593,9 +594,10 @@ function renderReflect(){
             '<div class="rf-yg-tile"><div class="rf-yg-ic rf-yg-ic-coral"><i data-lucide="flame"></i></div><div class="rf-yg-amt">+1</div><div class="rf-yg-lbl">Streak</div></div>'+
           '</div>'+
           '<div class="rf-yg-streak"><span>🔥</span> Daily streak extended · come back tomorrow</div>'+
+          '<button class="rf-yg-confirm" onclick="reflectDone()">Confirm · 70 XP</button>'+
         '</div>'+
       '</div>';
-    foot.innerHTML='<button class="rf-btn rf-primary rf-full" onclick="reflectDone()">Confirm · 70 XP</button>';
+    foot.innerHTML='';
     if(window.lucide && lucide.createIcons) lucide.createIcons();
     return;
   }
