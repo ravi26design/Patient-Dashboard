@@ -837,13 +837,17 @@ function onbToggle(el){ el.classList.toggle('sel'); if(window.__ciMode) ciGate()
 function onbAdd(containerId, inputId){
   var inp=document.getElementById(inputId), c=document.getElementById(containerId); if(!inp||!c) return;
   var v=(inp.value||'').trim(); if(!v) return;
-  var b=document.createElement('button'); b.type='button'; b.className='onb-chip sel'; b.textContent=v;
+  var b=document.createElement('button'); b.type='button'; b.className='onb-chip onb-chip-custom sel'; b.setAttribute('data-val', v);
+  var t=document.createElement('span'); t.className='onb-chip-t'; t.textContent=v;
+  var x=document.createElement('span'); x.className='onb-chip-x'; x.setAttribute('aria-label','Remove'); x.innerHTML='&times;';
+  x.addEventListener('click', function(e){ e.stopPropagation(); b.parentNode&&b.parentNode.removeChild(b); if(window.__ciMode) ciGate(); });
+  b.appendChild(t); b.appendChild(x);
   b.addEventListener('click', function(){ onbToggle(b); });
   c.insertBefore(b, c.firstChild); inp.value=''; inp.focus();
   if(window.__ciMode) ciGate();
 }
 function onbSelected(containerId){ var c=document.getElementById(containerId); if(!c) return [];
-  var out=[], ch=c.querySelectorAll('.onb-chip.sel'); for(var i=0;i<ch.length;i++) out.push(ch[i].textContent.trim()); return out; }
+  var out=[], ch=c.querySelectorAll('.onb-chip.sel'); for(var i=0;i<ch.length;i++) out.push((ch[i].getAttribute('data-val')||ch[i].textContent).trim()); return out; }
 function onbSave(k,v){ try{ var pf=window.__profile||{}; pf[k]=v; window.__profile=pf; localStorage.setItem('rh_profile', JSON.stringify(pf)); }catch(e){} window['__'+k]=v; }
 /* registered-number registry: a returning number only needs OTP, then straight to home */
 function rhUsers(){ try{ return JSON.parse(localStorage.getItem('rh_users')||'{}'); }catch(e){ return {}; } }

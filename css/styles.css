@@ -1834,6 +1834,13 @@ body.is-desktop .tx-meta{position:absolute;right:6px;top:50%;transform:translate
 .onb-chip i,.onb-chip svg{width:16px;height:16px;flex-shrink:0;color:var(--sage)}
 .onb-chip.sel{background:#EBA63A;color:#fff;border-color:#EBA63A}
 .onb-chip.sel i,.onb-chip.sel svg{color:#fff}
+/* user-added chips are removable via the × */
+.onb-chip-custom{padding-right:12px}
+.onb-chip-x{display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;border-radius:50%;
+  font-size:15px;line-height:1;flex-shrink:0;color:inherit;background:rgba(255,255,255,.32);transition:background .12s ease}
+.onb-chip:not(.sel) .onb-chip-x{background:rgba(58,51,48,.10)}
+.onb-chip-x:hover{background:rgba(255,255,255,.5)}
+.onb-chip:not(.sel) .onb-chip-x:hover{background:rgba(58,51,48,.18)}
 .onb-continue{position:sticky;bottom:0;margin-top:auto;max-width:none;flex-shrink:0}
 .onb-foot{position:sticky;bottom:0;margin-top:auto;width:100%;display:flex;flex-direction:column;align-items:center;
   padding-top:8px;background:transparent}
