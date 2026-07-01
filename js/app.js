@@ -1251,6 +1251,14 @@ function openProfile(){
   p.classList.add('show');
 }
 function closeProfile(){ var p=document.getElementById('profileSheet'); if(p) p.classList.remove('show'); }
+/* Full-page profile with back arrow (from the home-header avatar) */
+function openProfileFull(){
+  try{ window.__pfBackTo=document.body.getAttribute('data-screen')||'home'; }catch(e){ window.__pfBackTo='home'; }
+  if(window.__pfBackTo==='profile') window.__pfBackTo='home';
+  closeProfile();
+  goScreen('profile');
+}
+function pfBack(){ goScreen(window.__pfBackTo||'home'); }
 function logout(){
   try{ localStorage.removeItem('rh_onboarded'); localStorage.removeItem('rh_profile');
        localStorage.removeItem('rh_screen'); localStorage.removeItem('rh_ov'); }catch(e){}
