@@ -580,6 +580,7 @@ function reflectVrRecord(orb){
 function renderReflect(){
   var body=document.getElementById('reflect-body');
   var foot=document.getElementById('reflect-footer');
+  body.classList.toggle('rf-body-center', reflectStep>=REFLECT_TOTAL);   /* center the celebration */
   if(reflectStep>=REFLECT_TOTAL){   /* ═══ completion screen ═══ */
     body.innerHTML=
       '<div class="rf-complete">'+
