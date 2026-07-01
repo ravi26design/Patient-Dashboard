@@ -632,9 +632,10 @@ function renderReflect(){
     inner='<div class="rf-sliders">'+item.sliders.map(function(s){
       var v=vals[s.key]!=null?vals[s.key]:5;
       return '<div class="rf-card rf-scard">'+
-        '<div class="rf-srow-top"><span class="rf-srow-label">'+esc(s.label)+'</span>'+
-          '<span id="rf-sv-'+s.key+'" class="rf-srow-val">'+v+'</span></div>'+
+        '<div class="rf-srow-label">'+esc(s.label)+'</div>'+
+        '<div id="rf-sv-'+s.key+'" class="rf-srow-num">'+v+'</div>'+
         '<input type="range" min="0" max="10" value="'+v+'" class="reflect-range" oninput="reflectSlider(\''+s.key+'\',this.value)">'+
+        '<div class="rf-srow-scale"><span>0</span><span>10</span></div>'+
         '<div class="rf-srow-ends"><span>'+esc(s.lo)+'</span><span>'+esc(s.hi)+'</span></div>'+
       '</div>';
     }).join('')+'</div>';
