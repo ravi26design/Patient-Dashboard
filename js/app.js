@@ -591,12 +591,12 @@ function renderReflect(){
           '<div class="rf-cc-xp-row">'+
             '<div class="rf-cc-xp-item"><span class="rf-cc-xp-n" style="color:#5E8560">+20</span><span class="rf-cc-xp-l">Check-in</span></div>'+
             '<span class="rf-cc-xp-op">+</span>'+
-            '<div class="rf-cc-xp-item"><span class="rf-cc-xp-n" style="color:#9A6B16">+50</span><span class="rf-cc-xp-l">Full-completion bonus</span></div>'+
+            '<div class="rf-cc-xp-item"><span class="rf-cc-xp-n" style="color:#9A6B16">+50</span><span class="rf-cc-xp-l">Completion bonus</span></div>'+
             '<span class="rf-cc-xp-op">=</span>'+
             '<div class="rf-cc-xp-item"><span class="rf-cc-xp-n" style="color:var(--ink)">70</span><span class="rf-cc-xp-l">XP today</span></div>'+
           '</div>'+
         '</div>'+
-        '<div class="rf-cc-streak">🔥 Daily streak extended · Come back tomorrow to keep it alive</div>'+
+        '<div class="rf-cc-streak"><span>🔥</span> Daily streak extended · come back tomorrow to keep it alive</div>'+
       '</div>';
     foot.innerHTML='<button class="rf-btn rf-primary rf-full" onclick="reflectDone()">Claim 70 XP</button>';
     return;
