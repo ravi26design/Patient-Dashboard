@@ -159,7 +159,7 @@ body{font-family:'Cormorant Garamond',Georgia,serif;background:var(--taupe);disp
 /* ═══ ANONYMOUS LEADERBOARD ═══ */
 .lb-row{display:flex;align-items:center;gap:12px;padding:11px 14px;border-bottom:1px solid rgba(54,59,59,.07);transition:background .15s}
 .lb-row:last-child{border-bottom:none}
-.lb-row.me{background:#EFF5EE;border-left:3px solid #5E8560}
+.lb-row.me{background:none;border-left:none}
 .lb-rank{display:none}
 .lb-row:nth-child(1) .lb-rank,.lb-row:nth-child(2) .lb-rank,.lb-row:nth-child(3) .lb-rank{border-radius:50%;color:#fff;font-size:13px;box-shadow:0 3px 8px rgba(58,51,48,.16)}
 .lb-row:nth-child(1) .lb-rank{background:linear-gradient(135deg,#EAC95E,#C9962E)}   /* gold */
