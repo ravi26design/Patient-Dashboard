@@ -2000,14 +2000,14 @@ body.is-desktop .tx-meta{position:absolute;right:6px;top:50%;transform:translate
 .lr-st-now{background:#FBF1DC;color:#9A6B16}
 .lr-st-next{background:#F0ECE7;color:var(--ink-soft)}
 /* rewards level hero — ribbon card style (like "You got!") */
-.rwh-card{position:relative;background:#fff;border-radius:24px;box-shadow:0 16px 40px rgba(58,51,48,.12);padding:40px 18px 22px;text-align:center;margin-bottom:14px}
+.rwh-card{position:relative;background:#fff;border-radius:24px;box-shadow:0 16px 40px rgba(58,51,48,.12);padding:44px 18px 22px;text-align:center;margin:34px 0 14px}
 .rwh-ribbon{position:absolute;top:-20px;left:50%;transform:translateX(-50%);white-space:nowrap;
   background:linear-gradient(135deg,#8FBE86,#5E8560);color:#fff;font-family:var(--font-display);font-size:16px;font-weight:700;
   padding:11px 26px;border-radius:14px;box-shadow:0 10px 22px rgba(94,133,96,.36)}
 .rwh-ribbon::before,.rwh-ribbon::after{content:"";position:absolute;top:6px;width:14px;height:14px;background:#4E7150;transform:rotate(45deg);z-index:-1}
 .rwh-ribbon::before{left:-5px}
 .rwh-ribbon::after{right:-5px}
-.rwh-bloom{position:relative;width:74px;height:74px;margin:2px auto 8px}
+.rwh-bloom{position:relative;width:86px;height:86px;margin:2px auto 10px}
 .rwh-bloom svg{position:relative;z-index:1;width:100%;height:100%;display:block;transform-origin:center;animation:rwhBreathe 4.6s ease-in-out infinite}
 .rwh-bloom::before{content:"";position:absolute;top:50%;left:50%;width:92px;height:92px;transform:translate(-50%,-50%);border-radius:50%;
   background:radial-gradient(circle,rgba(232,184,74,.22),transparent 68%);z-index:0}
