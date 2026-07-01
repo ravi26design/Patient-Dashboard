@@ -1259,6 +1259,13 @@ function openProfileFull(){
   goScreen('profile');
 }
 function pfBack(){ goScreen(window.__pfBackTo||'home'); }
+/* Full-page SOS with back arrow (no top/bottom bars) */
+function openSOS(){
+  try{ window.__sosBackTo=document.body.getAttribute('data-screen')||'home'; }catch(e){ window.__sosBackTo='home'; }
+  if(window.__sosBackTo==='narcan') window.__sosBackTo='home';
+  goScreen('narcan');
+}
+function sosBack(){ goScreen(window.__sosBackTo||'home'); }
 function logout(){
   try{ localStorage.removeItem('rh_onboarded'); localStorage.removeItem('rh_profile');
        localStorage.removeItem('rh_screen'); localStorage.removeItem('rh_ov'); }catch(e){}

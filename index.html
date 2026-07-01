@@ -399,7 +399,7 @@
     <button class="dn-item" data-screen="mat" onclick="goScreen('mat')"><i data-lucide="trending-up"></i><span>Patterns</span></button>
     <button class="dn-item" data-screen="rewards" onclick="goScreen('rewards')"><i data-lucide="trophy"></i><span>Rewards</span></button>
     <button class="dn-item" data-screen="appointments" onclick="goScreen('appointments')"><i data-lucide="calendar"></i><span>Appointments</span></button>
-    <button class="dn-item dn-sos" data-screen="narcan" onclick="goScreen('narcan')"><i data-lucide="life-buoy"></i><span>SOS</span></button>
+    <button class="dn-item dn-sos" data-screen="narcan" onclick="openSOS()"><i data-lucide="life-buoy"></i><span>SOS</span></button>
   </nav>
   <button class="dn-foot" onclick="openProfile()">
     <div class="dn-avatar">AM</div>
@@ -823,6 +823,10 @@
 
     <!-- ═══ NARCAN SCREEN ═══ -->
     <div class="screen" id="screen-narcan">
+      <div class="sos-top">
+        <button class="sos-back" type="button" onclick="sosBack()" aria-label="Back"><i data-lucide="arrow-left"></i></button>
+        <div class="sos-top-t">Get support now</div>
+      </div>
       <div class="sos-lead">Reaching out is a strength, not a setback.</div>
 
       <a class="sos-911" href="tel:911">
@@ -2060,7 +2064,7 @@
   <div class="bottom-nav" id="bottomNav">
     <button class="nav-tab active" onclick="goScreen('home')"><span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round" stroke-linecap="round"><path d="M12 2.8 20.2 10.2 20.2 20.2 14 20.2 14 14 10 14 10 20.2 3.8 20.2 3.8 10.2Z"/></svg></span><div class="nav-label">Home</div></button>
     <button class="nav-tab" onclick="goScreen('tools')"><span class="nav-icon"><i data-lucide="sparkles"></i></span><div class="nav-label">Activities</div></button>
-    <button class="nav-tab nav-sos" onclick="goScreen('narcan')"><span class="nav-icon"><i data-lucide="life-buoy"></i></span><div class="nav-label">SOS</div></button>
+    <button class="nav-tab nav-sos" onclick="openSOS()"><span class="nav-icon"><i data-lucide="life-buoy"></i></span><div class="nav-label">SOS</div></button>
     <button class="nav-tab" onclick="goScreen('mat')"><span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"><rect x="3.5" y="13.5" width="4" height="7" rx="2"/><rect x="10" y="8.5" width="4" height="12" rx="2"/><rect x="16.5" y="4" width="4" height="16.5" rx="2"/></svg></span><div class="nav-label">Patterns</div></button>
     <button class="nav-tab" onclick="goScreen('rewards')"><span class="nav-icon"><i data-lucide="trophy"></i></span><div class="nav-label">Rewards</div></button>
   </div>
