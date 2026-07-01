@@ -882,6 +882,20 @@ body.is-desktop .overlay.active > .ov-body{max-width:620px;margin-left:auto;marg
 .rf-primary{background:#7BA47E;color:#fff;flex:1.5;box-shadow:0 10px 24px rgba(110,158,128,.30)}
 .rf-back{background:#fff;border:1.5px solid #7BA47E;color:#5E8560;flex:1}
 .rf-full{flex:1;width:100%}
+.rf-btn:disabled{opacity:.45;cursor:default;box-shadow:none}
+/* ═══ check-in completion screen ═══ */
+.rf-complete{text-align:center;padding:16px 4px 6px}
+.rf-cc-badge{width:90px;height:90px;border-radius:50%;background:#FBF4E2;border:2px solid #E8C76A;display:flex;align-items:center;justify-content:center;font-size:42px;margin:8px auto 18px}
+.rf-cc-title{font-family:var(--font-display);font-size:26px;font-weight:700;color:var(--ink);margin-bottom:10px}
+.rf-cc-sub{font-family:var(--font-ui);font-size:13.5px;color:var(--ink-soft);line-height:1.6;max-width:330px;margin:0 auto 20px}
+.rf-cc-xp{background:linear-gradient(135deg,#F6EDE6,#EAF0F4);border-radius:18px;padding:18px 14px;margin-bottom:14px}
+.rf-cc-xp-k{font-family:var(--font-ui);font-size:11px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:#9A6B16;margin-bottom:12px}
+.rf-cc-xp-row{display:flex;align-items:flex-start;justify-content:center;gap:10px}
+.rf-cc-xp-item{display:flex;flex-direction:column;align-items:center;flex-shrink:0}
+.rf-cc-xp-n{font-family:var(--font-display);font-size:26px;font-weight:700;line-height:1}
+.rf-cc-xp-l{font-family:var(--font-ui);font-size:9px;font-weight:600;letter-spacing:.3px;text-transform:uppercase;color:var(--ink-soft);margin-top:5px;max-width:72px;line-height:1.25}
+.rf-cc-xp-op{font-family:var(--font-display);font-size:18px;color:var(--ink-soft);margin-top:4px}
+.rf-cc-streak{font-family:var(--font-ui);font-size:12px;color:var(--brown);line-height:1.4}
 .rf-steprow{display:flex;align-items:center;gap:12px;margin-bottom:18px}
 .reflect-opt{padding:14px 16px}
 body.is-mobile .reflect-footer{padding-bottom:max(14px,env(safe-area-inset-bottom))}
@@ -900,6 +914,25 @@ body.is-desktop .overlay.active > .reflect-footer{max-width:620px;margin-left:au
 .rf-upnext{display:flex;flex-direction:column;gap:3px;text-align:left;border-top:1px solid rgba(54,59,59,.08);padding-top:16px}
 .rf-upnext-k{font-family:var(--font-ui);font-size:11px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:#5E8560}
 .rf-upnext-v{font-family:var(--font-display);font-size:15px;font-weight:500;color:var(--ink)}
+
+/* ── Check-in: free-text + voice (step 0) ── */
+.rf-voice-toggle{display:inline-flex;align-items:center;gap:7px;margin:0 0 14px;padding:8px 13px;border-radius:999px;border:1.5px solid rgba(122,164,126,.35);background:#EAF1E9;color:#5E8560;font-family:var(--font-ui);font-size:12.5px;font-weight:700;cursor:pointer}
+.rf-voice-toggle.rf-voice-on{background:#7BA47E;border-color:#7BA47E;color:#fff}
+.rf-textarea{width:100%;min-height:96px;box-sizing:border-box;border:1.5px solid rgba(54,59,59,.14);border-radius:14px;padding:13px 14px;font-family:var(--font-ui);font-size:14.5px;color:var(--ink);line-height:1.5;resize:none;background:#FCFAF4}
+.rf-textarea:focus{outline:none;border-color:#7BA47E}
+.rf-textarea::placeholder{color:var(--ink-soft)}
+.rf-voice-cap{text-align:center;padding:8px 0 4px}
+.rf-mic-orb{width:78px;height:78px;border-radius:50%;background:#EAF1E9;border:2px solid #7BA47E;display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 12px;cursor:pointer;transition:transform .2s,box-shadow .2s}
+.rf-mic-orb.live{box-shadow:0 0 0 8px rgba(122,164,126,.18);transform:scale(1.05)}
+.rf-vr-status{font-family:var(--font-ui);font-size:13px;color:var(--ink-soft);line-height:1.5}
+
+/* ── Check-in: grouped 0–10 sliders (one card, N rows) ── */
+.rf-srow{margin-bottom:20px}
+.rf-srow:last-child{margin-bottom:0}
+.rf-srow-top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:9px}
+.rf-srow-label{flex:1;min-width:0;font-family:var(--font-ui);font-size:14px;font-weight:600;color:var(--ink);line-height:1.4}
+.rf-srow-val{flex-shrink:0;font-family:var(--font-display);font-size:26px;font-weight:700;color:#7BA47E;line-height:1;min-width:26px;text-align:center}
+.rf-srow-ends{display:flex;justify-content:space-between;gap:10px;margin-top:6px;font-family:var(--font-ui);font-size:11.5px;color:var(--ink-soft)}
 
 /* Temporarily non-interactive nav items (feature not enabled yet) */
 .nav-soon{cursor:default;pointer-events:none}

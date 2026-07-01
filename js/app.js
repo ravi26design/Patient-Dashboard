@@ -483,81 +483,173 @@ function renderLogEntries(){
 }
 
 /* ═══ DAILY REFLECTION ═══ */
+/* Fixed 7-step Daily Check-In. Order & content mirror the reference app's
+   streamlined check-in (ds-step-0 … ds-step-6), rendered in OUR sage/cream
+   design. Step types: 'text' (heading + textarea + voice toggle),
+   'multi' (option cards), 'sliders' (group of 0–10 sliders on one page). */
 var REFLECT_Q=[
+  /* 0 — opening reflection, optional free-text + voice */
+  {type:'text', q:'How are you, really?',
+    sub:'A few quick steps — about a minute. Every answer helps you and your care team.',
+    placeholder:'A sentence or two about how today felt… (optional)'},
+  /* 1 — drug use multi-select (reuse our substance list + emoji icons) */
   {type:'multi', q:'Which of these drugs have you used in the past 24 hours?', sub:'Select all that apply',
     icons:['🍺','🌿','⚡','🌬️','💊','🍄','💉','✅'], options:[
     'Alcohol','Cannabis (marijuana, pot, hash, K2, spice, etc.)','Stimulants (cocaine, meth, speed, ecstasy, molly, Adderall, etc.)',
     'Inhalants (nitrous, glue, petrol, paint thinner, etc.)','Sedatives or sleeping pills (Valium, Serepax, Rohypnol, etc.)',
     'Hallucinogens (LSD, acid, mushrooms, PCP, special K, etc.)','Opioids (heroin, fentanyl, oxycodone, etc.)','None — I did not use any substances']},
-  {type:'slider', q:'How strong was your greatest craving to use opioids over the past 24 hours?', lo:'No craving', hi:'Extreme craving'},
-  {type:'slider', q:'How risky was the riskiest situation (people, places, or things that interfere with your recovery) you experienced over the past 24 hours?', lo:'No risk', hi:'Extreme risk'},
-  {type:'slider', q:'How stressful was the biggest hassle or stressful event you experienced over the past 24 hours?', lo:'No stress', hi:'Extreme stress'},
-  {type:'slider', q:'How much pain did you experience over the past 24 hours?', lo:'No pain', hi:'Extreme pain'},
-  {type:'slider', q:'How would you rate your sleep quality last night?', lo:'Very poor', hi:'Excellent'},
-  {type:'slider', q:'How would you describe your overall mood over the past 24 hours?', lo:'Very low', hi:'Very good'},
-  {type:'slider', q:'How many pleasant or rewarding moments did you experience over the past 24 hours?', lo:'None', hi:'Many'},
-  {type:'slider', q:'How confident are you in staying on track with your recovery today?', lo:'Not confident', hi:'Very confident'},
-  {type:'slider', q:'How supported and connected did you feel over the past 24 hours?', lo:'Isolated', hi:'Well supported'}
+  /* 2 — past 24 hours: craving / risk / stress / pleasant */
+  {type:'sliders', q:'Thinking about the past 24 hours…', sub:'Slide each one — 0 to 10.', sliders:[
+    {key:'craving', label:'How strong was your greatest craving to use opioids over the past 24 hours?', lo:'No craving', hi:'Extreme craving'},
+    {key:'risk', label:'How risky was the riskiest situation (people, places, or things that interfere with your recovery) you experienced over the past 24 hours?', lo:'No risk', hi:'Extreme risk'},
+    {key:'stress', label:'How stressful was the biggest hassle or stressful event you experienced over the past 24 hours?', lo:'No stress', hi:'Extreme stress'},
+    {key:'pleasant', label:'How pleasant was the most pleasant or positive event you experienced over the past 24 hours?', lo:'Not at all pleasant', hi:'Extremely pleasant'}
+  ]},
+  /* 3 — emotion strength */
+  {type:'sliders', q:'Rate the strength of each of these emotions', sub:'Over the past 24 hours · 0 = Not at all · 10 = Extremely', sliders:[
+    {key:'dep', label:'Depressed', lo:'Not at all', hi:'Extremely'},
+    {key:'ang', label:'Angry', lo:'Not at all', hi:'Extremely'},
+    {key:'anx', label:'Anxious', lo:'Not at all', hi:'Extremely'},
+    {key:'rel', label:'Relaxed', lo:'Not at all', hi:'Extremely'},
+    {key:'hap', label:'Happy', lo:'Not at all', hi:'Extremely'}
+  ]},
+  /* 4 — body: sleep & pain */
+  {type:'sliders', q:'Your body, the past 24 hours', sub:'Slide each one — 0 to 10.', sliders:[
+    {key:'sleep', label:'How well did you sleep over the past 24 hours?', lo:'Very poor', hi:'Excellent'},
+    {key:'pain', label:'How painful was your most intense pain over the past 24 hours?', lo:'No pain', hi:'Worst pain'}
+  ]},
+  /* 5 — next week: motivation & confidence */
+  {type:'sliders', q:'Thinking about the next week…', sub:'Slide each one — 0 to 10.', sliders:[
+    {key:'motivation', label:'How motivated are you to avoid using opioids for non-medical reasons within the next week?', lo:'Not motivated', hi:'Extremely motivated'},
+    {key:'confidence', label:'How confident are you in your ability to avoid using opioids for non-medical reasons within the next week?', lo:'Not confident', hi:'Extremely confident'}
+  ]},
+  /* 6 — medication taken (single-choice, reuse our option-card style) */
+  {type:'multi', single:true, q:'Have you taken your medication today?', sub:'Suboxone 8mg/2mg · Daily · Sublingual',
+    icons:['✅','⏳'], options:['Yes — I’ve taken it today','Not yet']}
 ];
-var reflectStep=0, reflectAnswers={}, reflectQs=[];
-function openReflect(){ reflectStep=0; reflectAnswers={};
-  reflectQs=[REFLECT_Q[0]].concat(REFLECT_Q.slice(1).sort(function(){return Math.random()-0.5;}).slice(0,4));  /* substance-use (option cards) always first, then 4 random */
+var REFLECT_TOTAL=REFLECT_Q.length;   /* 7 */
+var reflectStep=0, reflectAnswers={}, reflectVoiceMode=false;
+function openReflect(){ reflectStep=0; reflectAnswers={}; reflectVoiceMode=false;
   renderReflect(); openOv('reflect'); }
-function reflectNext(){ reflectStep++; renderReflect(); }
+function reflectNext(){ if(reflectStep<REFLECT_TOTAL){ reflectStep++; renderReflect(); } }   /* REFLECT_TOTAL = completion screen */
 function reflectBack(){ if(reflectStep<=0){ closeOv(); return; } reflectStep--; renderReflect(); }
 function esc(s){ return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+function reflectAns(){ return reflectAnswers[reflectStep]||(reflectAnswers[reflectStep]={}); }
+function reflectText(el){ reflectAns().text=el.value; }
 function reflectToggleOpt(btn,i){
-  var a=reflectAnswers[reflectStep]||(reflectAnswers[reflectStep]=[]);
-  var idx=a.indexOf(i);
-  if(idx>=0){ a.splice(idx,1); btn.classList.remove('opt-sel'); }
-  else{ a.push(i); btn.classList.add('opt-sel'); }
+  var a=reflectAns(); var item=REFLECT_Q[reflectStep];
+  if(item.single){
+    a.selected=[i];
+    var p=btn.parentElement;
+    if(p) p.querySelectorAll('.reflect-opt').forEach(function(b){ b.classList.remove('opt-sel'); });
+    btn.classList.add('opt-sel');
+    var fb=document.getElementById('rf-finish'); if(fb) fb.disabled=false;   /* enable Finish once a choice is made */
+    return;
+  }
+  var sel=a.selected||(a.selected=[]); var idx=sel.indexOf(i);
+  if(idx>=0){ sel.splice(idx,1); btn.classList.remove('opt-sel'); }
+  else{ sel.push(i); btn.classList.add('opt-sel'); }
 }
-function reflectSlider(v){ reflectAnswers[reflectStep]=+v; var el=document.getElementById('reflect-slider-val'); if(el) el.textContent=v; }
+function reflectSlider(key,v){
+  var a=reflectAns(); a.sliders=a.sliders||{}; a.sliders[key]=+v;
+  var el=document.getElementById('rf-sv-'+key); if(el) el.textContent=v;
+}
+/* Voice: swap textarea for a mic orb (ported from reference toggleVoiceMode). */
+function reflectToggleVoice(){
+  reflectVoiceMode=!reflectVoiceMode;
+  var b=document.getElementById('rf-voice-btn');
+  if(b){ b.classList.toggle('rf-voice-on', reflectVoiceMode);
+    var lbl=b.querySelector('.rf-vt-label'); if(lbl) lbl.textContent=reflectVoiceMode?'Voice on':'Speak instead of typing'; }
+  var tc=document.getElementById('rf-type-cap'), vc=document.getElementById('rf-voice-cap');
+  if(tc) tc.style.display=reflectVoiceMode?'none':'block';
+  if(vc) vc.style.display=reflectVoiceMode?'block':'none';
+}
+/* Simple recording stub (mirrors reference vrRecord — visual only). */
+function reflectVrRecord(orb){
+  var status=orb.parentElement.querySelector('.rf-vr-status');
+  if(orb.classList.contains('live')){
+    orb.classList.remove('live'); if(window._rfVrTimer){ clearInterval(window._rfVrTimer); window._rfVrTimer=null; }
+    reflectAns().text='Today was hard but I made it through.';
+    if(status) status.innerHTML='✓ Captured — <span style="color:#5E8560">“Today was hard but I made it through.”</span>';
+    return;
+  }
+  orb.classList.add('live'); var s=0;
+  if(status) status.textContent='Listening… 0:00';
+  window._rfVrTimer=setInterval(function(){ s++; if(status) status.textContent='Listening… 0:'+(s<10?'0':'')+s; },1000);
+}
 function renderReflect(){
   var body=document.getElementById('reflect-body');
   var foot=document.getElementById('reflect-footer');
-  if(!reflectQs.length) reflectQs=REFLECT_Q.slice(0,5);
-  var total=reflectQs.length;
-  if(reflectStep===0){
+  if(reflectStep>=REFLECT_TOTAL){   /* ═══ completion screen ═══ */
     body.innerHTML=
-      '<div class="rf-intro">'+
-        '<div class="rf-hero-title">Daily Reflection</div>'+
-        '<div class="rf-hero-sub">A few short questions about your experiences and mood.</div>'+
-        '<div class="rf-meta"><span class="rf-chip">~2 min</span><span class="rf-chip">2 sections</span><span class="rf-chip rf-chip-xp">+20 XP</span></div>'+
-        '<div class="rf-upnext"><span class="rf-upnext-k">Up first</span><span class="rf-upnext-v">Thinking about the past 24 hours\u2026</span></div>'+
+      '<div class="rf-complete">'+
+        '<div class="rf-cc-badge">🎉</div>'+
+        '<div class="rf-cc-title">Check-in complete!</div>'+
+        '<div class="rf-cc-sub">You showed up for yourself today — that’s what recovery looks like. Your care team sees every bit of it. 🌿</div>'+
+        '<div class="rf-cc-xp">'+
+          '<div class="rf-cc-xp-k">You earned</div>'+
+          '<div class="rf-cc-xp-row">'+
+            '<div class="rf-cc-xp-item"><span class="rf-cc-xp-n" style="color:#5E8560">+20</span><span class="rf-cc-xp-l">Check-in</span></div>'+
+            '<span class="rf-cc-xp-op">+</span>'+
+            '<div class="rf-cc-xp-item"><span class="rf-cc-xp-n" style="color:#9A6B16">+50</span><span class="rf-cc-xp-l">Full-completion bonus</span></div>'+
+            '<span class="rf-cc-xp-op">=</span>'+
+            '<div class="rf-cc-xp-item"><span class="rf-cc-xp-n" style="color:var(--ink)">70</span><span class="rf-cc-xp-l">XP today</span></div>'+
+          '</div>'+
+        '</div>'+
+        '<div class="rf-cc-streak">🔥 Daily streak extended · Come back tomorrow to keep it alive</div>'+
       '</div>';
-    foot.innerHTML='<button class="rf-btn rf-primary rf-full" onclick="reflectNext()">Begin \u2192</button>';
+    foot.innerHTML='<button class="rf-btn rf-primary rf-full" onclick="reflectDone()">Claim 70 XP</button>';
     return;
   }
-  if(reflectStep>total){
-    body.innerHTML=
-      '<div class="rf-card" style="text-align:center;padding:34px 22px">'+
-        '<div style="width:92px;height:92px;border-radius:50%;background:#EAF1E9;border:2px solid #7BA47E;display:flex;align-items:center;justify-content:center;margin:0 auto 20px;font-size:38px;color:#5E8560">\u2713</div>'+
-        '<div style="font-family:var(--font-display);font-size:19px;font-weight:600;color:var(--ink);margin-bottom:12px">Reflection complete</div>'+
-        '<div style="font-size:13px;color:var(--ink-soft);line-height:1.65">Your responses have been recorded. Thank you for taking time to reflect \u2014 it matters for your recovery.</div>'+
+  var n=reflectStep, item=REFLECT_Q[n], total=REFLECT_TOTAL;
+  var pct=Math.round((n+1)/total*100), inner='';
+  var a=reflectAnswers[n]||{};
+  if(item.type==='text'){
+    var txt=a.text||'';
+    inner='<div class="rf-card" style="margin-top:6px">'+
+        '<button id="rf-voice-btn" class="rf-voice-toggle'+(reflectVoiceMode?' rf-voice-on':'')+'" onclick="reflectToggleVoice()">'+
+          '<span>🎤</span><span class="rf-vt-label">'+(reflectVoiceMode?'Voice on':'Speak instead of typing')+'</span></button>'+
+        '<div id="rf-type-cap" style="display:'+(reflectVoiceMode?'none':'block')+'">'+
+          '<textarea class="rf-textarea" oninput="reflectText(this)" placeholder="'+esc(item.placeholder||'')+'">'+esc(txt)+'</textarea>'+
+        '</div>'+
+        '<div id="rf-voice-cap" class="rf-voice-cap" style="display:'+(reflectVoiceMode?'block':'none')+'">'+
+          '<div class="rf-mic-orb" onclick="reflectVrRecord(this)">🎙️</div>'+
+          '<div class="rf-vr-status">'+(txt?('✓ Captured — <span style="color:#5E8560">“'+esc(txt)+'”</span>'):'Tap to record · we’ll transcribe it for you')+'</div>'+
+        '</div>'+
       '</div>';
-    foot.innerHTML='<button class="rf-btn rf-primary rf-full" onclick="reflectDone()">Done</button>';
-    return;
-  }
-  var n=reflectStep, item=reflectQs[n-1], pct=Math.round(n/total*100), inner='';
-  if(item.type==='multi'){
-    var sel=reflectAnswers[n]||[]; var icons=item.icons||[];
+  } else if(item.type==='multi'){
+    var sel=a.selected||[]; var icons=item.icons||[];
     inner='<div class="reflect-opts">'+item.options.map(function(o,i){
       return '<button class="reflect-opt'+(sel.indexOf(i)>=0?' opt-sel':'')+'" onclick="reflectToggleOpt(this,'+i+')">'+
         '<span class="ro-ic">'+(icons[i]||'•')+'</span><span class="ro-txt">'+esc(o)+'</span></button>';
     }).join('')+'</div>';
-  } else {
-    var val=reflectAnswers[n]!=null?reflectAnswers[n]:5; reflectAnswers[n]=val;
-    inner='<div class="rf-card" style="margin-top:6px"><div style="text-align:center"><span id="reflect-slider-val" style="font-family:var(--font-display);font-size:44px;font-weight:700;color:#7BA47E;line-height:1">'+val+'</span><div style="font-size:13px;color:var(--ink-soft);margin-top:2px">out of 10</div></div>'+
-      '<div style="display:flex;justify-content:space-between;font-size:12px;color:var(--ink-soft);margin:18px 2px 8px"><span>'+esc(item.lo)+'</span><span>'+esc(item.hi)+'</span></div>'+
-      '<input type="range" min="0" max="10" value="'+val+'" oninput="reflectSlider(this.value)" class="reflect-range"></div>';
+  } else if(item.type==='sliders'){
+    var vals=a.sliders||{};
+    inner='<div class="rf-card" style="margin-top:6px">'+item.sliders.map(function(s){
+      var v=vals[s.key]!=null?vals[s.key]:5;
+      return '<div class="rf-srow">'+
+        '<div class="rf-srow-top"><span class="rf-srow-label">'+esc(s.label)+'</span>'+
+          '<span id="rf-sv-'+s.key+'" class="rf-srow-val">'+v+'</span></div>'+
+        '<input type="range" min="0" max="10" value="'+v+'" class="reflect-range" oninput="reflectSlider(\''+s.key+'\',this.value)">'+
+        '<div class="rf-srow-ends"><span>'+esc(s.lo)+'</span><span>'+esc(s.hi)+'</span></div>'+
+      '</div>';
+    }).join('')+'</div>';
   }
   body.innerHTML=
-    '<div class="rf-steprow"><div class="onb-steps"><div class="onb-steps-fill" style="width:'+pct+'%"></div></div><div class="onb-count">'+n+'<span>/'+total+'</span></div></div>'+
+    '<div class="rf-steprow"><div class="onb-steps"><div class="onb-steps-fill" style="width:'+pct+'%"></div></div><div class="onb-count">'+(n+1)+'<span>/'+total+'</span></div></div>'+
     '<h2 class="reflect-q">'+esc(item.q)+'</h2>'+
     (item.sub?'<div class="reflect-qsub">'+esc(item.sub)+'</div>':'')+
     inner;
-  foot.innerHTML='<button class="rf-btn rf-primary rf-full" onclick="reflectNext()">Continue \u2192</button>';
+  if(n===0){
+    foot.innerHTML='<button class="rf-btn rf-primary rf-full" onclick="reflectNext()">Continue →</button>';
+  } else if(n===total-1){
+    var msel=(a.selected&&a.selected.length)?'':' disabled';
+    foot.innerHTML='<button class="rf-btn rf-back" onclick="reflectBack()">← Back</button>'+
+      '<button id="rf-finish" class="rf-btn rf-primary" onclick="reflectNext()"'+msel+'>Finish · +70 XP 🎉</button>';
+  } else {
+    foot.innerHTML='<button class="rf-btn rf-back" onclick="reflectBack()">← Back</button>'+
+      '<button class="rf-btn rf-primary" onclick="reflectNext()">Next →</button>';
+  }
 }
 function reflectDone(){
   closeOv();
@@ -565,7 +657,7 @@ function reflectDone(){
   if(check){ check.style.display='block'; }
   if(time){ time.textContent='Today ✓'; time.style.color='var(--hb-teal)'; }
   updateTodayProgress();
-  if(typeof showXPPopup==='function') showXPPopup(20);
+  if(typeof showXPPopup==='function') showXPPopup(70);
 }
 
 /* ═══════════════════════════════════════════════════════════
