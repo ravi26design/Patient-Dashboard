@@ -493,7 +493,7 @@ var REFLECT_Q=[
     sub:'Takes about a minute.',
     placeholder:'A sentence or two about how today felt… (optional)'},
   /* 1 — drug use multi-select (reuse our substance list + emoji icons) */
-  {type:'multi', q:'Which of these drugs have you used in the past 24 hours?', sub:'Select all that apply', lucideIcons:true,
+  {type:'multi', q:'Which of these drugs have you used in the past 24 hours?', lucideIcons:true,
     icons:['beer','leaf','zap','wind','pill','sparkles','syringe','circle-check'], options:[
     'Alcohol','Cannabis (marijuana, pot, hash, K2, spice, etc.)','Stimulants (cocaine, meth, speed, ecstasy, molly, Adderall, etc.)',
     'Inhalants (nitrous, glue, petrol, paint thinner, etc.)','Sedatives or sleeping pills (Valium, Serepax, Rohypnol, etc.)',
