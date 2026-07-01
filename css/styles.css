@@ -2259,3 +2259,26 @@ body[data-screen="narcan"] .bottom-nav{display:none}
 .sos-back-ic{width:40px;height:40px;border-radius:50%;background:#fff;box-shadow:0 2px 8px rgba(58,51,48,.10);display:flex;align-items:center;justify-content:center;transition:background .2s}
 .sos-back-btn:active .sos-back-ic{background:#f4efe9}
 .sos-back-ic i,.sos-back-ic svg{width:20px;height:20px;stroke-width:2.4}
+
+/* ============ Profile page — unified design-system look ============ */
+.pf-hero{text-align:center;padding:22px 18px}
+.pf-hero-av{width:72px;height:72px;border-radius:50%;margin:0 auto 10px;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,var(--sage) 0%,var(--sage-dk) 100%);color:#fff;font-family:var(--font-display);font-size:26px;font-weight:700;letter-spacing:.5px;box-shadow:0 6px 16px rgba(78,123,94,.28)}
+.pf-hero-name{font-family:var(--font-display);font-size:22px;font-weight:700;color:var(--ink);line-height:1.1}
+.pf-hero-meta{font-family:var(--font-ui);font-size:12px;color:var(--ink-soft);margin-top:3px}
+.pf-tags{display:flex;justify-content:center;flex-wrap:wrap;gap:8px;margin-top:12px}
+.pf-tag{font-family:var(--font-ui);font-size:12px;font-weight:700;padding:5px 12px;border-radius:999px}
+.pf-tag-gold{background:var(--gold-lt);color:var(--gold-dk)}
+.pf-tag-sage{background:var(--sage-lt);color:var(--sage-dk)}
+/* list-row avatar used across Medication / Care Team / Family / nav */
+.pf-rav{flex-shrink:0;width:42px;height:42px;border-radius:13px;display:flex;align-items:center;justify-content:center;font-family:var(--font-ui);font-weight:700;font-size:13px;letter-spacing:.3px}
+.pf-rav i,.pf-rav svg{width:19px;height:19px}
+.pf-av-sage{background:var(--sage-lt);color:var(--sage-dk)}
+.pf-av-purple{background:var(--purple-lt);color:var(--purple)}
+.pf-av-rose{background:var(--rose-lt);color:var(--rose-dk)}
+.pf-av-gold{background:var(--gold-lt);color:var(--gold-dk)}
+.pf-av-beige{background:var(--beige);color:var(--ink-soft)}
+.pf-row-end{flex-shrink:0;color:var(--muted);width:18px;height:18px}
+/* tappable settings / privacy / logout rows */
+.pf-nav-row{display:flex;align-items:center;gap:12px;width:100%;text-align:left;background:#fff;border:none;border-radius:18px;box-shadow:var(--card-shadow);padding:13px 16px;margin-bottom:12px;cursor:pointer;font:inherit;transition:transform .12s ease}
+.pf-nav-row:active{transform:scale(.99)}
+.pf-logout .pf-contact-name{color:var(--coral-dk)}

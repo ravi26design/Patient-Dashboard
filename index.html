@@ -1050,21 +1050,28 @@
           <div class="pf-fullhead-sub">Your recovery · your people</div>
         </div>
       </div>
-      <div style="text-align:center;margin-bottom:12px">
-        <div style="width:64px;height:64px;border-radius:50%;background:var(--rose-lt);border:3px solid var(--rose);display:flex;align-items:center;justify-content:center;margin:0 auto 8px;font-family:'Josefin Sans',sans-serif;font-size:20px;font-weight:500;color:var(--rose-dk)">AM</div>
-        <div style="font-family:'Cormorant Garamond',serif;font-size:22px;color:var(--espresso)">Alex M.</div>
-        <div class="ui" style="font-size:9px;color:var(--muted)">Clean since January 15, 2026</div>
-        <div style="display:flex;justify-content:center;gap:6px;margin-top:6px">
-          <span class="tag" style="background:var(--gold-lt);color:var(--gold-dk)">Level 4 · Bloom</span>
-          <span class="tag" style="background:var(--sage-lt);color:var(--sage)">2,340 XP</span>
+      <!-- Hero -->
+      <div class="scr-card pf-hero">
+        <div class="pf-hero-av">AM</div>
+        <div class="pf-hero-name">Alex M.</div>
+        <div class="pf-hero-meta">Clean since January 15, 2026</div>
+        <div class="pf-tags">
+          <span class="pf-tag pf-tag-gold">Level 4 · Bloom</span>
+          <span class="pf-tag pf-tag-sage">2,340 XP</span>
         </div>
       </div>
 
-      <div class="card"><div class="card-pad">
-        <div class="ui" style="font-size:9px;color:var(--muted);letter-spacing:1px;text-transform:uppercase;margin-bottom:8px">Medication</div>
-        <div class="ui" style="font-size:11px;color:var(--espresso)">Suboxone 8mg/2mg · Daily · Sublingual</div>
-        <div class="ui" style="font-size:9px;color:var(--muted);margin-top:2px">Prescribed by Dr. Rivera</div>
-      </div></div>
+      <!-- Medication -->
+      <div class="scr-card">
+        <div class="scr-eyebrow" style="margin-bottom:12px">Medication</div>
+        <div class="pf-contact" style="border-bottom:none;padding:0">
+          <div class="pf-rav pf-av-sage"><i data-lucide="pill"></i></div>
+          <div class="pf-contact-main">
+            <div class="pf-contact-name">Suboxone 8mg / 2mg</div>
+            <div class="pf-contact-role">Daily · Sublingual · Prescribed by Dr. Rivera</div>
+          </div>
+        </div>
+      </div>
 
       <!-- My Triggers -->
       <div class="scr-card">
@@ -1090,23 +1097,59 @@
         <div id="pf-contacts"></div>
       </div>
 
-      <div class="card"><div class="card-pad">
-        <div class="ui" style="font-size:9px;color:var(--muted);letter-spacing:1px;text-transform:uppercase;margin-bottom:8px">Care Team</div>
-        <div style="display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:1px solid var(--border)"><div class="ic-lg" style="background:var(--sage-lt);color:var(--sage)">Dr</div><div style="flex:1"><div class="ui" style="font-size:10px;font-weight:500;color:var(--espresso)">Dr. Rivera</div><div class="ui" style="font-size:8px;color:var(--muted)">MOUD Prescriber</div></div></div>
-        <div style="display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:1px solid var(--border)"><div class="ic-lg" style="background:var(--purple-lt);color:var(--purple)">Th</div><div style="flex:1"><div class="ui" style="font-size:10px;font-weight:500;color:var(--espresso)">Dr. Chen</div><div class="ui" style="font-size:8px;color:var(--muted)">Therapist · CBT</div></div></div>
-        <div style="display:flex;align-items:center;gap:8px;padding:6px 0"><div class="ic-lg" style="background:var(--rose-lt);color:var(--rose-dk)">Sp</div><div style="flex:1"><div class="ui" style="font-size:10px;font-weight:500;color:var(--espresso)">Mike R.</div><div class="ui" style="font-size:8px;color:var(--muted)">Sponsor · CPRS</div></div></div>
-        <button onclick="openFindProvider('profile')" class="btn-primary btn-block" style="margin-top:8px"><i data-lucide="search"></i> Find a Treatment Provider</button>
-      </div></div>
+      <!-- Care Team -->
+      <div class="scr-card">
+        <div class="scr-eyebrow" style="margin-bottom:6px">Care Team</div>
+        <div class="pf-contact">
+          <div class="pf-rav pf-av-sage">Dr</div>
+          <div class="pf-contact-main"><div class="pf-contact-name">Dr. Rivera</div><div class="pf-contact-role">MOUD Prescriber</div></div>
+        </div>
+        <div class="pf-contact">
+          <div class="pf-rav pf-av-purple">Th</div>
+          <div class="pf-contact-main"><div class="pf-contact-name">Dr. Chen</div><div class="pf-contact-role">Therapist · CBT</div></div>
+        </div>
+        <div class="pf-contact">
+          <div class="pf-rav pf-av-rose">Sp</div>
+          <div class="pf-contact-main"><div class="pf-contact-name">Mike R.</div><div class="pf-contact-role">Sponsor · CPRS</div></div>
+        </div>
+        <button onclick="openFindProvider('profile')" class="btn-primary btn-block" style="margin-top:12px"><i data-lucide="search"></i> Find a Treatment Provider</button>
+      </div>
 
-      <div class="card"><div class="card-pad">
-        <div class="ui" style="font-size:9px;color:var(--muted);letter-spacing:1px;text-transform:uppercase;margin-bottom:8px">Family Connected</div>
-        <div style="display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:1px solid var(--border)"><div class="ic-lg" style="background:var(--gold-lt);color:var(--gold-dk)">MOM</div><div style="flex:1"><div class="ui" style="font-size:10px;color:var(--espresso)">Mom (Sarah M.)</div><div class="ui" style="font-size:8px;color:var(--gold-dk)">1 reward pledged</div></div></div>
-        <div style="display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:1px solid var(--border)"><div class="ic-lg" style="background:var(--sage-lt);color:var(--sage)">DAD</div><div style="flex:1"><div class="ui" style="font-size:10px;color:var(--espresso)">Dad (Tom M.)</div><div class="ui" style="font-size:8px;color:var(--sage)">1 reward pledged</div></div></div>
-        <div style="display:flex;align-items:center;gap:8px;padding:6px 0"><div class="ic-lg" style="background:var(--purple-lt);color:var(--purple)">SIS</div><div style="flex:1"><div class="ui" style="font-size:10px;color:var(--espresso)">Emily M. (Sister)</div><div class="ui" style="font-size:8px;color:var(--purple)">1 reward pledged</div></div></div>
-      </div></div>
+      <!-- Family Connected -->
+      <div class="scr-card">
+        <div class="scr-eyebrow" style="margin-bottom:6px">Family Connected</div>
+        <div class="pf-contact">
+          <div class="pf-rav pf-av-gold">M</div>
+          <div class="pf-contact-main"><div class="pf-contact-name">Mom (Sarah M.)</div><div class="pf-contact-role">1 reward pledged</div></div>
+          <i data-lucide="gift" class="pf-row-end"></i>
+        </div>
+        <div class="pf-contact">
+          <div class="pf-rav pf-av-sage">D</div>
+          <div class="pf-contact-main"><div class="pf-contact-name">Dad (Tom M.)</div><div class="pf-contact-role">1 reward pledged</div></div>
+          <i data-lucide="gift" class="pf-row-end"></i>
+        </div>
+        <div class="pf-contact">
+          <div class="pf-rav pf-av-purple">E</div>
+          <div class="pf-contact-main"><div class="pf-contact-name">Emily M. (Sister)</div><div class="pf-contact-role">1 reward pledged</div></div>
+          <i data-lucide="gift" class="pf-row-end"></i>
+        </div>
+      </div>
 
-      <div class="card" style="cursor:pointer"><div class="card-pad" style="display:flex;align-items:center;gap:10px"><div class="ic-lg" style="background:var(--beige);color:var(--muted)">ST</div><div class="ui" style="font-size:10px;color:var(--muted)">Settings &amp; Preferences</div></div></div>
-      <div class="card" style="cursor:pointer"><div class="card-pad" style="display:flex;align-items:center;gap:10px"><div class="ic-lg" style="background:var(--beige);color:var(--muted)">PR</div><div class="ui" style="font-size:10px;color:var(--muted)">Privacy &amp; Data Sharing</div></div></div>
+      <!-- Settings / Privacy / Log out -->
+      <button class="pf-nav-row" type="button">
+        <div class="pf-rav pf-av-beige"><i data-lucide="settings"></i></div>
+        <div class="pf-contact-main"><div class="pf-contact-name">Settings &amp; Preferences</div></div>
+        <i data-lucide="chevron-right" class="pf-row-end"></i>
+      </button>
+      <button class="pf-nav-row" type="button">
+        <div class="pf-rav pf-av-beige"><i data-lucide="shield"></i></div>
+        <div class="pf-contact-main"><div class="pf-contact-name">Privacy &amp; Data Sharing</div></div>
+        <i data-lucide="chevron-right" class="pf-row-end"></i>
+      </button>
+      <button class="pf-nav-row pf-logout" type="button" onclick="logout()">
+        <div class="pf-rav pf-av-beige"><i data-lucide="log-out"></i></div>
+        <div class="pf-contact-main"><div class="pf-contact-name">Log out</div></div>
+      </button>
     </div>
 
   </div>
