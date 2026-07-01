@@ -636,19 +636,17 @@ function renderReflect(){
     }).join('')+'</div>';
   }
   body.innerHTML=
-    '<div class="rf-steprow"><div class="onb-steps"><div class="onb-steps-fill" style="width:'+pct+'%"></div></div><div class="onb-count">'+(n+1)+'<span>/'+total+'</span></div></div>'+
+    '<div class="onb-top"><button class="onb-back" type="button" onclick="reflectBack()" aria-label="Back"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button>'+
+      '<div class="onb-steps"><div class="onb-steps-fill" style="width:'+pct+'%"></div></div>'+
+      '<div class="onb-count">'+(n+1)+'<span>/'+total+'</span></div></div>'+
     '<h2 class="reflect-q">'+esc(item.q)+'</h2>'+
     (item.sub?'<div class="reflect-qsub">'+esc(item.sub)+'</div>':'')+
     inner;
-  if(n===0){
-    foot.innerHTML='<button class="rf-btn rf-primary rf-full" onclick="reflectNext()">Continue →</button>';
-  } else if(n===total-1){
+  if(n===total-1){
     var msel=(a.selected&&a.selected.length)?'':' disabled';
-    foot.innerHTML='<button class="rf-btn rf-back" onclick="reflectBack()">← Back</button>'+
-      '<button id="rf-finish" class="rf-btn rf-primary" onclick="reflectNext()"'+msel+'>Finish · +70 XP 🎉</button>';
+    foot.innerHTML='<button id="rf-finish" class="rf-btn rf-primary rf-full" onclick="reflectNext()"'+msel+'>Finish · +70 XP 🎉</button>';
   } else {
-    foot.innerHTML='<button class="rf-btn rf-back" onclick="reflectBack()">← Back</button>'+
-      '<button class="rf-btn rf-primary" onclick="reflectNext()">Next →</button>';
+    foot.innerHTML='<button class="rf-btn rf-primary rf-full" onclick="reflectNext()">'+(n===0?'Continue':'Next')+' →</button>';
   }
 }
 function reflectDone(){
