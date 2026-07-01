@@ -917,7 +917,12 @@ function ciGate(){ if(!window.__ciMode) return;
   var t=document.getElementById('triggersScreen'), r=document.getElementById('reliefScreen');
   if(t && t.classList.contains('show')){ var bt=t.querySelector('.onb-continue'); if(bt) bt.disabled=(onbSelected('trigChips').length===0); }
   if(r && r.classList.contains('show')){ var br=r.querySelector('.onb-continue'); if(br) br.disabled=(onbSelected('reliefChips').length===0); } }
+function ciProfile(){ var pf=window.__profile; if(!pf){ try{ pf=JSON.parse(localStorage.getItem('rh_profile')||'null'); }catch(e){} } return pf||{}; }
 function checkinBegin(){ hideCheckinModal();
+  var pf=ciProfile();
+  if((pf.triggers&&pf.triggers.length) && (pf.relief&&pf.relief.length)){
+    if(typeof openReflect==='function') openReflect(); return;   /* already set during onboarding -> straight to check-in */
+  }
   window.__ciMode=true;
   ciResetChips('trigChips'); ciResetChips('reliefChips');
   ciConfigTriggers(); ciConfigRelief();
