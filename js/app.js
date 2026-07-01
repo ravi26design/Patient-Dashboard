@@ -608,7 +608,7 @@ function renderReflect(){
     var txt=a.text||'';
     inner='<div class="rf-card rf-textcard" style="margin-top:6px">'+
         '<div class="rf-tc-head">'+
-          '<span class="rf-tc-k">In your own words <span class="rf-tc-opt">· optional</span></span>'+
+          '<span class="rf-tc-k">In your own words</span>'+
           '<button id="rf-voice-btn" class="rf-voice-toggle'+(reflectVoiceMode?' rf-voice-on':'')+'" onclick="reflectToggleVoice()">'+
             '<span class="rf-vt-ic">🎤</span><span class="rf-vt-label">'+(reflectVoiceMode?'Typing':'Speak')+'</span></button>'+
         '</div>'+
