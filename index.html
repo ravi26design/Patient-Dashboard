@@ -823,24 +823,50 @@
 
     <!-- ═══ NARCAN SCREEN ═══ -->
     <div class="screen" id="screen-narcan">
-      <div class="section-label">Naloxone Hub</div>
-      <div class="card" style="border-left:3px solid var(--coral)"><div class="card-pad" style="background:var(--coral-lt)">
-        <div class="ui" style="font-size:9px;color:var(--coral);letter-spacing:1px;text-transform:uppercase;margin-bottom:4px">Your Narcan Kit</div>
-        <div style="display:flex;align-items:baseline;gap:8px"><span style="font-family:'Fraunces',serif;font-size:28px;font-weight:700;color:var(--coral-dk)">2</span><span class="ui" style="font-size:11px;color:var(--muted)">doses available</span></div>
-        <div class="ui" style="font-size:9px;color:var(--muted);margin-top:3px">Narcan Nasal Spray 4mg · Expires Jun 2027</div>
-      </div></div>
+      <div class="scr-head">
+        <div class="scr-title">Naloxone</div>
+        <div class="scr-sub">Your emergency kit and overdose-response tools.</div>
+      </div>
 
-      <div class="card" style="cursor:pointer"><div class="card-pad" style="display:flex;align-items:center;gap:10px"><div class="ic-lg" style="background:var(--sage-lt);color:var(--sage)">FT</div><div style="flex:1"><div class="ui" style="font-size:10px;font-weight:500;color:var(--espresso)">Family Training Status</div><div class="ui" style="font-size:9px;color:var(--sage)">Mom (Sarah) — Trained · Dad — Not yet</div></div></div></div>
+      <!-- Kit status -->
+      <div class="sos-kit">
+        <div class="sos-kit-ic"><i data-lucide="heart-pulse"></i></div>
+        <div class="sos-kit-main">
+          <div class="sos-kit-eyebrow">Your Narcan Kit</div>
+          <div class="sos-kit-count"><b>2</b> doses available</div>
+          <div class="sos-kit-sub">Narcan Nasal Spray 4mg · Expires Jun 2027</div>
+        </div>
+      </div>
 
-      <div class="card" style="cursor:pointer"><div class="card-pad" style="display:flex;align-items:center;gap:10px"><div class="ic-lg" style="background:var(--blue-lt);color:var(--blue)">OD</div><div style="flex:1"><div class="ui" style="font-size:10px;font-weight:500;color:var(--espresso)">OD Response Plan</div><div class="ui" style="font-size:9px;color:var(--muted)">Step-by-step guide for you and your family</div></div></div></div>
+      <div class="scr-eyebrow" style="margin-top:16px">If someone's overdosing</div>
+      <div class="lrow">
+        <div class="lrow-ic" style="background:#FAE7E2;color:#C25A45"><i data-lucide="siren"></i></div>
+        <div class="lrow-main"><div class="lrow-t">OD Response Plan</div><div class="lrow-d">Step-by-step guide for you and your family</div></div>
+        <i data-lucide="chevron-right" style="color:var(--ink-soft);flex-shrink:0"></i>
+      </div>
 
-      <div class="card" style="cursor:pointer"><div class="card-pad" style="display:flex;align-items:center;gap:10px"><div class="ic-lg" style="background:var(--gold-lt);color:var(--gold-dk)">FN</div><div style="flex:1"><div class="ui" style="font-size:10px;font-weight:500;color:var(--espresso)">Find Free Narcan Near Me</div><div class="ui" style="font-size:9px;color:var(--muted)">Pharmacies, health depts, community orgs</div></div></div></div>
+      <div class="scr-eyebrow" style="margin-top:14px">Resources</div>
+      <div class="lrow">
+        <div class="lrow-ic" style="background:#EAF1E9;color:#5E8560"><i data-lucide="users"></i></div>
+        <div class="lrow-main"><div class="lrow-t">Family Training Status</div><div class="lrow-d">Mom (Sarah) — Trained · Dad — Not yet</div></div>
+        <i data-lucide="chevron-right" style="color:var(--ink-soft);flex-shrink:0"></i>
+      </div>
+      <div class="lrow">
+        <div class="lrow-ic" style="background:#E4EEF4;color:#5B92CE"><i data-lucide="map-pin"></i></div>
+        <div class="lrow-main"><div class="lrow-t">Find Free Narcan Near Me</div><div class="lrow-d">Pharmacies, health depts, community orgs</div></div>
+        <i data-lucide="chevron-right" style="color:var(--ink-soft);flex-shrink:0"></i>
+      </div>
+      <div class="lrow">
+        <div class="lrow-ic" style="background:#FBF1DC;color:#9A7C28"><i data-lucide="shield-check"></i></div>
+        <div class="lrow-main"><div class="lrow-t">Fentanyl Safety</div><div class="lrow-d">Test strips · Harm reduction education</div></div>
+        <i data-lucide="chevron-right" style="color:var(--ink-soft);flex-shrink:0"></i>
+      </div>
+      <div class="lrow">
+        <div class="lrow-ic" style="background:#F1ECE6;color:#8A7A5E"><i data-lucide="file-text"></i></div>
+        <div class="lrow-main"><div class="lrow-t">Naloxone Dispensing Record</div><div class="lrow-d">G2216 · 2 doses on Mar 15 · Training complete</div></div>
+      </div>
 
-      <div class="card" style="cursor:pointer"><div class="card-pad" style="display:flex;align-items:center;gap:10px"><div class="ic-lg" style="background:var(--purple-lt);color:var(--purple)">FS</div><div style="flex:1"><div class="ui" style="font-size:10px;font-weight:500;color:var(--espresso)">Fentanyl Safety</div><div class="ui" style="font-size:9px;color:var(--muted)">Test strips · Harm reduction education</div></div></div></div>
-
-      <div class="card" style="border-left:3px solid var(--amber)"><div class="card-pad" style="display:flex;align-items:center;gap:10px"><div class="ic-lg" style="background:var(--amber-lt);color:var(--amber)">Rx</div><div style="flex:1"><div class="ui" style="font-size:10px;font-weight:500;color:var(--espresso)">Naloxone Dispensing Record</div><div class="ui" style="font-size:9px;color:var(--amber)">G2216 · Received: 2 doses on Mar 15 · Training: Complete</div><div class="ui" style="font-size:8px;color:var(--muted);margin-top:2px">Take-home supply documented for EMR billing</div></div></div></div>
-
-      <div class="ui" style="font-size:8px;color:var(--muted);text-align:center;margin-top:6px">Narcan status is shared with your care team.</div>
+      <div class="sos-note">Your Narcan status is shared with your care team.</div>
     </div>
 
     <!-- ═══ WORKBOOK/LEARN SCREEN ═══ -->

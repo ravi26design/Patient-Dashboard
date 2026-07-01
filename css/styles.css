@@ -1970,6 +1970,17 @@ body.is-desktop .tx-meta{position:absolute;right:6px;top:50%;transform:translate
 /* segmented controls (timeframe / item pickers) */
 .tf-seg{display:flex;gap:6px;flex-wrap:wrap;position:static;width:auto;height:auto}
 .seg-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;width:100%}
+/* SOS / naloxone screen */
+.sos-kit{display:flex;align-items:center;gap:15px;background:linear-gradient(135deg,#FBEDE9,#F8E2DC);border:1px solid rgba(196,90,69,.16);border-radius:20px;padding:18px;margin-bottom:2px}
+.sos-kit-ic{width:56px;height:56px;border-radius:16px;background:#fff;color:#C25A45;display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 4px 12px rgba(196,90,69,.16)}
+.sos-kit-ic i,.sos-kit-ic svg{width:28px;height:28px;stroke-width:2}
+.sos-kit-main{flex:1;min-width:0}
+.sos-kit-eyebrow{font-family:var(--font-ui);font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#C25A45;margin-bottom:3px}
+.sos-kit-count{font-family:var(--font-ui);font-size:14px;color:var(--ink-soft)}
+.sos-kit-count b{font-family:var(--font-display);font-size:26px;font-weight:700;color:#B85A52;margin-right:5px;vertical-align:-2px}
+.sos-kit-sub{font-family:var(--font-ui);font-size:12px;color:var(--ink-soft);margin-top:4px}
+#screen-narcan .lrow i[data-lucide],#screen-narcan .lrow svg{width:18px;height:18px}
+.sos-note{font-family:var(--font-ui);font-size:12px;color:var(--ink-soft);text-align:center;margin-top:10px;line-height:1.5}
 /* gratitude gift cards — CTA below the text */
 .grat-card{background:#fff;border-radius:16px;box-shadow:var(--card-shadow);padding:15px 16px;margin-bottom:12px}
 .grat-card.grat-sent{opacity:.75}
