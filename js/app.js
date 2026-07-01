@@ -499,14 +499,14 @@ var REFLECT_Q=[
     'Inhalants (nitrous, glue, petrol, paint thinner, etc.)','Sedatives or sleeping pills (Valium, Serepax, Rohypnol, etc.)',
     'Hallucinogens (LSD, acid, mushrooms, PCP, special K, etc.)','Opioids (heroin, fentanyl, oxycodone, etc.)','None — I did not use any substances']},
   /* 2 — past 24 hours: craving / risk / stress / pleasant */
-  {type:'sliders', q:'Thinking about the past 24 hours…', sub:'Slide 0–10', sliders:[
+  {type:'sliders', q:'Thinking about the past 24 hours…', sliders:[
     {key:'craving', label:'How strong was your greatest craving to use opioids over the past 24 hours?', lo:'No craving', hi:'Extreme craving'},
     {key:'risk', label:'How risky was the riskiest situation (people, places, or things that interfere with your recovery) you experienced over the past 24 hours?', lo:'No risk', hi:'Extreme risk'},
     {key:'stress', label:'How stressful was the biggest hassle or stressful event you experienced over the past 24 hours?', lo:'No stress', hi:'Extreme stress'},
     {key:'pleasant', label:'How pleasant was the most pleasant or positive event you experienced over the past 24 hours?', lo:'Not at all pleasant', hi:'Extremely pleasant'}
   ]},
   /* 3 — emotion strength */
-  {type:'sliders', q:'Rate the strength of each of these emotions', sub:'0 = not at all · 10 = extremely', sliders:[
+  {type:'sliders', q:'Rate the strength of each of these emotions', sliders:[
     {key:'dep', label:'Depressed', lo:'Not at all', hi:'Extremely'},
     {key:'ang', label:'Angry', lo:'Not at all', hi:'Extremely'},
     {key:'anx', label:'Anxious', lo:'Not at all', hi:'Extremely'},
@@ -514,12 +514,12 @@ var REFLECT_Q=[
     {key:'hap', label:'Happy', lo:'Not at all', hi:'Extremely'}
   ]},
   /* 4 — body: sleep & pain */
-  {type:'sliders', q:'Your body, the past 24 hours', sub:'Slide 0–10', sliders:[
+  {type:'sliders', q:'Your body, the past 24 hours', sliders:[
     {key:'sleep', label:'How well did you sleep over the past 24 hours?', lo:'Very poor', hi:'Excellent'},
     {key:'pain', label:'How painful was your most intense pain over the past 24 hours?', lo:'No pain', hi:'Worst pain'}
   ]},
   /* 5 — next week: motivation & confidence */
-  {type:'sliders', q:'Thinking about the next week…', sub:'Slide 0–10', sliders:[
+  {type:'sliders', q:'Thinking about the next week…', sliders:[
     {key:'motivation', label:'How motivated are you to avoid using opioids for non-medical reasons within the next week?', lo:'Not motivated', hi:'Extremely motivated'},
     {key:'confidence', label:'How confident are you in your ability to avoid using opioids for non-medical reasons within the next week?', lo:'Not confident', hi:'Extremely confident'}
   ]},
