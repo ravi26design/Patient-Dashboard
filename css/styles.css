@@ -1969,6 +1969,16 @@ body.is-desktop .tx-meta{position:absolute;right:6px;top:50%;transform:translate
 /* segmented controls (timeframe / item pickers) */
 .tf-seg{display:flex;gap:6px;flex-wrap:wrap;position:static;width:auto;height:auto}
 .seg-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;width:100%}
+/* rewards level hero polish */
+.rw-level{display:inline-block;background:#fff;color:#9A7C28;font-family:var(--font-ui);font-size:11px;font-weight:700;
+  letter-spacing:1.3px;text-transform:uppercase;padding:6px 15px;border-radius:999px;box-shadow:0 3px 10px rgba(201,168,76,.20);margin-bottom:9px}
+.rw-flame{position:relative}
+.rw-flame::before{content:"";position:absolute;top:52%;left:50%;width:98px;height:98px;transform:translate(-50%,-50%);border-radius:50%;
+  background:radial-gradient(circle,rgba(224,140,50,.30),transparent 66%);z-index:0;animation:rwGlow 3.2s ease-in-out infinite}
+.rw-flame > *{position:relative;z-index:1}
+@keyframes rwGlow{0%,100%{opacity:.65;transform:translate(-50%,-50%) scale(.9)}50%{opacity:1;transform:translate(-50%,-50%) scale(1.1)}}
+.rw-bar{height:11px;box-shadow:inset 0 1px 2px rgba(154,124,40,.12)}
+@media (prefers-reduced-motion:reduce){ .rw-flame::before{animation:none} }
 /* achievements: horizontal scroll, 3 visible then scroll */
 .ach-scroll{display:flex;gap:10px;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;scroll-snap-type:x proximity;padding-bottom:4px;margin-bottom:14px}
 .ach-scroll::-webkit-scrollbar{display:none}
