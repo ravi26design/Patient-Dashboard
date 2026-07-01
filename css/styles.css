@@ -2007,6 +2007,12 @@ body.is-desktop .tx-meta{position:absolute;right:6px;top:50%;transform:translate
 .rwh-ribbon::before,.rwh-ribbon::after{content:"";position:absolute;top:6px;width:14px;height:14px;background:#4E7150;transform:rotate(45deg);z-index:-1}
 .rwh-ribbon::before{left:-5px}
 .rwh-ribbon::after{right:-5px}
+.rwh-bloom{position:relative;width:74px;height:74px;margin:2px auto 8px}
+.rwh-bloom svg{position:relative;z-index:1;width:100%;height:100%;display:block;transform-origin:center;animation:rwhBreathe 4.6s ease-in-out infinite}
+.rwh-bloom::before{content:"";position:absolute;top:50%;left:50%;width:92px;height:92px;transform:translate(-50%,-50%);border-radius:50%;
+  background:radial-gradient(circle,rgba(232,184,74,.22),transparent 68%);z-index:0}
+@keyframes rwhBreathe{0%,100%{transform:scale(.97)}50%{transform:scale(1.05)}}
+@media (prefers-reduced-motion:reduce){ .rwh-bloom svg{animation:none} }
 .rwh-xp{font-family:var(--font-display);font-size:34px;font-weight:700;color:var(--gold-dk);line-height:1;letter-spacing:-.5px}
 .rwh-tonext{font-family:var(--font-ui);font-size:12px;color:var(--ink-soft);margin-top:7px}
 .rwh-tiles{display:flex;gap:11px;margin-top:18px}
