@@ -2240,3 +2240,12 @@ body[data-screen="profile"] .bottom-nav{display:none}
 .pf-fullhead-title{font-family:var(--font-display,'Fraunces','Cormorant Garamond',serif);font-size:21px;font-weight:700;color:#fff;line-height:1.1}
 .pf-fullhead-sub{font-size:11px;color:rgba(255,255,255,.85);margin-top:3px;letter-spacing:.3px}
 body.is-desktop .pf-fullhead{margin-left:0;margin-right:0;border-radius:18px}
+
+/* Bottom nav: keep every tab equal-width so tapping never shifts the others
+   (an earlier override left the active tab at flex:0 0 auto) */
+.bottom-nav .nav-tab.active:not(.nav-sos){flex:1}
+
+/* Reward 'lrow' card: pin the status pill to the right edge and keep the
+   title to two tidy lines so it never crams against the pill */
+.lpill{margin-left:auto}
+.lrow-t{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
