@@ -585,7 +585,7 @@ function renderReflect(){
       '<div class="rf-complete">'+
         '<div class="rf-cc-badge">🎉</div>'+
         '<div class="rf-cc-title">Check-in complete!</div>'+
-        '<div class="rf-cc-sub">You showed up for yourself today — that’s what recovery looks like. Your care team sees every bit of it. 🌿</div>'+
+        '<div class="rf-cc-sub">You showed up for yourself today. Your care team sees every bit of it. 🌿</div>'+
         '<div class="rf-cc-xp">'+
           '<div class="rf-cc-xp-k">You earned</div>'+
           '<div class="rf-cc-xp-row">'+
