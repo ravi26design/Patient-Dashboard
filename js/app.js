@@ -229,7 +229,8 @@ function updatePatternChart(){
   var wrapper=document.getElementById('chart-scroll-wrapper');
   var containerW=wrapper.clientWidth||320;
   var ptSpacing=tf==='month'?13:60;
-  var chartW=Math.max(containerW,labels.length*ptSpacing);
+  var AXISW=28;   /* room reserved for the fixed y-axis strip */
+  var chartW=Math.max(containerW,labels.length*ptSpacing+AXISW);
   var canvas=document.getElementById('patternChart');
   canvas.width=chartW; canvas.height=160;
   canvas.style.width=chartW+'px'; canvas.style.height='160px';
@@ -240,13 +241,28 @@ function updatePatternChart(){
     options:{
       responsive:false,
       animation:{duration:300},
+      layout:{padding:{left:AXISW}},   /* plot starts right of the fixed y-axis */
       plugins:{legend:{display:false},tooltip:{callbacks:{label:function(c){return 'Score: '+c.parsed.y;}}}},
       scales:{
-        y:{min:1,max:5,ticks:{stepSize:1,font:{size:8},color:'#8a7e76'},grid:{color:'rgba(0,0,0,0.04)'},border:{display:false}},
+        y:{min:1,max:5,ticks:{display:false},grid:{color:'rgba(0,0,0,0.04)'},border:{display:false}},
         x:{ticks:{font:{size:7},maxRotation:45,color:'#8a7e76'},grid:{display:false}}
       }
     }
   });
+  renderPatternYAxis();
+}
+
+/* Draw the y-axis labels in a fixed left strip, aligned to the chart's real
+   pixel positions so they stay put while the plot scrolls horizontally. */
+function renderPatternYAxis(){
+  var yEl=document.getElementById('pattern-yaxis');
+  if(!yEl||!patternChart||!patternChart.scales||!patternChart.scales.y) return;
+  var ys=patternChart.scales.y,html='';
+  for(var v=5;v>=1;v--){
+    var py=Math.round(ys.getPixelForValue(v));
+    html+='<span style="top:'+py+'px">'+v+'</span>';
+  }
+  yEl.innerHTML=html;
 }
 
 function selectPatternItem(key,btn){
@@ -1334,16 +1350,17 @@ function renderProfileLists(){
   if(a) a.innerHTML=RH_PF.activities.map(function(x){return '<span class="pf-chip">'+actIcon(x)+' '+esc(x)+'</span>';}).join('') || '<span class="pf-empty">None added yet</span>';
   var c=document.getElementById('pf-contacts');
   if(c) c.innerHTML=contactsHTML();
+  if(window.lucide && lucide.createIcons) lucide.createIcons();
 }
 
 function contactsHTML(){
   return RH_PF.contacts.map(function(c){
     return '<div class="pf-contact">'+
-      '<div class="pf-contact-av" style="background:'+c.color+'1F">'+c.icon+'</div>'+
+      '<div class="pf-contact-av" style="background:'+c.color+'22;color:'+c.color+'">'+esc(pfInitials(c.name))+'</div>'+
       '<div class="pf-contact-main"><div class="pf-contact-name">'+esc(c.name)+'</div><div class="pf-contact-role">'+esc(c.role)+'</div></div>'+
       '<div class="pf-contact-btns">'+
-        '<button class="pf-cbtn call" type="button" onclick="callContact(\''+jsStr(c.name)+'\',\''+jsStr(c.num)+'\')"><i data-lucide="phone"></i>Call</button>'+
-        '<button class="pf-cbtn text" type="button" onclick="textContact(\''+jsStr(c.name)+'\',\''+jsStr(c.num)+'\')"><i data-lucide="message-circle"></i>Text</button>'+
+        '<button class="pf-cbtn call" type="button" aria-label="Call '+esc(c.name)+'" onclick="callContact(\''+jsStr(c.name)+'\',\''+jsStr(c.num)+'\')"><i data-lucide="phone"></i></button>'+
+        '<button class="pf-cbtn text" type="button" aria-label="Text '+esc(c.name)+'" onclick="textContact(\''+jsStr(c.name)+'\',\''+jsStr(c.num)+'\')"><i data-lucide="message-circle"></i></button>'+
       '</div></div>';
   }).join('');
 }

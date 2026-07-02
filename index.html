@@ -817,7 +817,10 @@
             <button class="pattern-tf seg-btn"    id="ptf-monthly" onclick="selectPatternTf('monthly',this)">Monthly</button>
           </div>
         </div>
-        <div id="chart-scroll-wrapper" style="overflow-x:auto;-webkit-overflow-scrolling:touch"><canvas id="patternChart"></canvas></div>
+        <div class="pattern-chart-outer">
+          <div id="pattern-yaxis" class="pattern-yaxis"></div>
+          <div id="chart-scroll-wrapper" style="overflow-x:auto;-webkit-overflow-scrolling:touch"><canvas id="patternChart"></canvas></div>
+        </div>
       </div>
     </div>
 
