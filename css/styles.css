@@ -2317,12 +2317,14 @@ body[data-screen="narcan"] .bottom-nav{display:none}
 .ach-locked .ach-name{color:var(--ink-soft)}
 
 /* ============ Rewards celebration hero (rethink) ============ */
-.rwx-hero{position:relative;overflow:hidden;text-align:center;border-radius:26px;margin:2px 0 18px;padding:22px 18px 20px;
-  background:linear-gradient(168deg,#FCF5E4 0%,#F6EACB 40%,#E9F0E9 100%);
-  box-shadow:0 18px 42px rgba(154,124,40,.16),inset 0 1px 0 rgba(255,255,255,.6)}
-.rwx-hero::before{content:"";position:absolute;top:-130px;left:50%;width:330px;height:330px;transform:translateX(-50%);
-  background:radial-gradient(circle,rgba(232,184,74,.34),transparent 60%);pointer-events:none}
-.rwx-hero > *{position:relative}
+.rwx-hero{position:relative;overflow:hidden;text-align:center;border-radius:26px;margin:2px 0 18px;padding:26px 18px 20px;
+  background:#F4E3A2;
+  box-shadow:0 18px 42px rgba(154,124,40,.18),inset 0 1px 0 rgba(255,255,255,.5)}
+.rwx-hero > *{position:relative;z-index:1}
+/* faded reward icons scattered across the hero background */
+.rwx-deco{position:absolute;inset:0;z-index:0;pointer-events:none}
+.rwx-deco-i{position:absolute;color:#C9962E;opacity:.15}
+.rwx-deco-i i,.rwx-deco-i svg{width:26px;height:26px;stroke-width:2}
 .rwx-eyebrow{display:inline-flex;align-items:center;gap:6px;font-family:var(--font-ui);font-size:11px;font-weight:800;
   letter-spacing:1.4px;text-transform:uppercase;color:#B08A2E;margin-bottom:12px}
 .rwx-eyebrow i,.rwx-eyebrow svg{width:14px;height:14px}
