@@ -1970,7 +1970,9 @@ body.is-desktop .tx-meta{position:absolute;right:6px;top:50%;transform:translate
 .lpill-xp{color:#9A6B16;background:#FFF1D6}
 .lpill-sage{color:#3F5E41;background:#EAF1E9}
 /* segmented controls (timeframe / item pickers) */
-.tf-seg{display:flex;gap:6px;flex-wrap:wrap;position:static;width:auto;height:auto}
+.tf-seg{display:flex;gap:6px;flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;max-width:100%;min-width:0;position:static;width:auto;height:auto}
+.tf-seg::-webkit-scrollbar{display:none}
+.tf-seg .seg-btn{flex:0 0 auto}
 .seg-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;width:100%}
 /* SOS / naloxone screen */
 .sos-lead{font-family:var(--font-display);font-size:22px;font-weight:700;color:#5E8560;text-align:center;line-height:1.25;margin:4px 6px 18px}
