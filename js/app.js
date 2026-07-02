@@ -228,7 +228,7 @@ function updatePatternChart(){
   var tf=currentPatternTf;
   var data=tf==='month'?item.month:tf==='weekly'?item.weekly:item.monthly;
   var labels=getPatternLabels(tf);
-  document.getElementById('pattern-title').textContent=item.label;
+  var _pt=document.getElementById('pattern-title'); if(_pt){ _pt.textContent=item.label; _pt.style.color=item.hex; }
   var wrapper=document.getElementById('chart-scroll-wrapper');
   var containerW=wrapper.clientWidth||320;
   var ptSpacing=tf==='month'?13:60;

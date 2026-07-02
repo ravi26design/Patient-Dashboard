@@ -2347,3 +2347,16 @@ body[data-screen="narcan"] .bottom-nav{display:none}
 .rwx-stat-n{font-family:var(--font-display);font-size:21px;font-weight:700;color:var(--ink);line-height:1}
 .rwx-stat-l{font-family:var(--font-ui);font-size:9px;font-weight:700;letter-spacing:.3px;text-transform:uppercase;color:var(--ink-soft);margin-top:4px}
 .rwx-hero .rwh-prog{max-width:300px;margin:16px auto 0}
+
+/* Pattern selector: each category carries its own colour (matches the graph line) */
+.pattern-item.seg-btn:not(.on){
+  background:color-mix(in srgb, var(--cat,#6E9E80) 10%, #fff)!important;
+  border-color:color-mix(in srgb, var(--cat,#6E9E80) 32%, #fff)!important;
+  color:color-mix(in srgb, var(--cat,#6E9E80) 82%, #2A2421)!important;
+}
+.pattern-item.seg-btn.on{
+  background:var(--cat,#6E9E80)!important;
+  border-color:var(--cat,#6E9E80)!important;
+  color:#fff!important;
+  box-shadow:0 6px 14px color-mix(in srgb, var(--cat,#6E9E80) 42%, transparent);
+}
