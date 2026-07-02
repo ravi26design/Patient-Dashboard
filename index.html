@@ -791,7 +791,10 @@
             <button class="rh-tf seg-btn"    id="rhtf-monthly" onclick="selectRHTf('monthly',this)">Monthly</button>
           </div>
         </div>
-        <div id="rh-scroll-wrapper" style="overflow-x:auto;-webkit-overflow-scrolling:touch"><canvas id="recoveryHealthChart"></canvas></div>
+        <div class="pattern-chart-outer">
+          <div id="rh-yaxis" class="pattern-yaxis"></div>
+          <div id="rh-scroll-wrapper" style="overflow-x:auto;-webkit-overflow-scrolling:touch"><canvas id="recoveryHealthChart"></canvas></div>
+        </div>
       </div>
 
       <!-- Item selector -->

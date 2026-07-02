@@ -155,7 +155,8 @@ function updateRecoveryHealthChart(){
   var wrapper = document.getElementById('rh-scroll-wrapper');
   var containerW = wrapper ? wrapper.clientWidth : 320;
   var ptSpacing = tf==='month' ? 13 : 60;
-  var chartW = Math.max(containerW, labels.length * ptSpacing);
+  var AXISW = 30;   /* room reserved for the fixed y-axis strip (0–100 labels) */
+  var chartW = Math.max(containerW, labels.length * ptSpacing + AXISW);
   var canvas = document.getElementById('recoveryHealthChart');
   if(!canvas) return;
   canvas.width = chartW; canvas.height = 160;
@@ -180,13 +181,15 @@ function updateRecoveryHealthChart(){
     options: {
       responsive: false,
       animation: { duration: 300 },
+      layout: { padding: { left: AXISW } },   /* plot starts right of the fixed y-axis */
       plugins: { legend: { display: false }, tooltip: { callbacks: { label: function(c){ return 'Score: ' + c.parsed.y; } } } },
       scales: {
-        y: { min: 0, max: 100, ticks: { stepSize: 25, font: { size: 8 }, color: '#8a7e76' }, grid: { color: 'rgba(0,0,0,0.04)' }, border: { display: false } },
+        y: { min: 0, max: 100, ticks: { stepSize: 25, display: false }, grid: { color: 'rgba(0,0,0,0.04)' }, border: { display: false } },
         x: { ticks: { font: { size: 7 }, maxRotation: 45, color: '#8a7e76' }, grid: { display: false } }
       }
     }
   });
+  drawFixedYAxis(recoveryHealthChart, 'rh-yaxis');
 }
 
 function selectRHTf(tf, btn){
@@ -229,7 +232,7 @@ function updatePatternChart(){
   var wrapper=document.getElementById('chart-scroll-wrapper');
   var containerW=wrapper.clientWidth||320;
   var ptSpacing=tf==='month'?13:60;
-  var AXISW=28;   /* room reserved for the fixed y-axis strip */
+  var AXISW=30;   /* room reserved for the fixed y-axis strip */
   var chartW=Math.max(containerW,labels.length*ptSpacing+AXISW);
   var canvas=document.getElementById('patternChart');
   canvas.width=chartW; canvas.height=160;
@@ -252,18 +255,19 @@ function updatePatternChart(){
   renderPatternYAxis();
 }
 
-/* Draw the y-axis labels in a fixed left strip, aligned to the chart's real
-   pixel positions so they stay put while the plot scrolls horizontally. */
-function renderPatternYAxis(){
-  var yEl=document.getElementById('pattern-yaxis');
-  if(!yEl||!patternChart||!patternChart.scales||!patternChart.scales.y) return;
-  var ys=patternChart.scales.y,html='';
-  for(var v=5;v>=1;v--){
-    var py=Math.round(ys.getPixelForValue(v));
-    html+='<span style="top:'+py+'px">'+v+'</span>';
-  }
+/* Draw a chart's y-axis labels in a fixed left strip, aligned to the chart's
+   real pixel positions so they stay put while the plot scrolls horizontally. */
+function drawFixedYAxis(chart, elId){
+  var yEl=document.getElementById(elId);
+  if(!yEl||!chart||!chart.scales||!chart.scales.y) return;
+  var ys=chart.scales.y, ticks=ys.ticks||[], html='';
+  ticks.forEach(function(t){
+    var py=Math.round(ys.getPixelForValue(t.value));
+    html+='<span style="top:'+py+'px">'+t.value+'</span>';
+  });
   yEl.innerHTML=html;
 }
+function renderPatternYAxis(){ drawFixedYAxis(patternChart, 'pattern-yaxis'); }
 
 function selectPatternItem(key,btn){
   currentPatternItem=key;
