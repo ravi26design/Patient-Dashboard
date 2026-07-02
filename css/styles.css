@@ -2300,3 +2300,18 @@ body[data-screen="narcan"] .bottom-nav{display:none}
 .pattern-chart-outer{position:relative}
 .pattern-yaxis{position:absolute;left:0;top:0;width:30px;height:160px;z-index:2;background:#fff;pointer-events:none;border-right:1px solid rgba(0,0,0,.05)}
 .pattern-yaxis span{position:absolute;right:6px;transform:translateY(-50%);font-family:var(--font-ui);font-size:8px;font-weight:600;color:#8a7e76}
+
+/* ============ Rewards module: make it FEEL like rewards ============ */
+/* warm, celebratory atmosphere when you land on the Rewards screen */
+#screen-rewards{background:radial-gradient(135% 52% at 50% -3%, rgba(232,184,74,.14), rgba(232,184,74,0) 58%)}
+
+/* Achievements as real earned medals (shine + depth), locked ones muted */
+.ach-item{text-align:center;background:#fff;border-radius:16px;box-shadow:var(--card-shadow);padding:14px 6px}
+.ach-medal{position:relative;width:46px;height:46px;border-radius:50%;margin:0 auto 8px;display:flex;align-items:center;justify-content:center;color:#fff;font-family:var(--font-ui);font-weight:800;font-size:13px;letter-spacing:.2px;background:linear-gradient(145deg,var(--m1,#EEC85E),var(--m2,#C9962E));box-shadow:0 4px 10px rgba(58,51,48,.16),inset 0 2px 3px rgba(255,255,255,.45),inset 0 -3px 5px rgba(0,0,0,.14)}
+.ach-medal::after{content:"";position:absolute;top:6px;left:9px;width:13px;height:8px;border-radius:50%;background:rgba(255,255,255,.55);filter:blur(1.5px)}
+.ach-medal i,.ach-medal svg{width:18px;height:18px;stroke-width:2.4}
+.ach-name{font-family:var(--font-ui);font-size:11px;font-weight:700;color:var(--ink)}
+.ach-locked{opacity:.62}
+.ach-locked .ach-medal{background:#ECE6DF;color:var(--ink-soft);box-shadow:inset 0 2px 3px rgba(255,255,255,.6),inset 0 -2px 4px rgba(0,0,0,.06)}
+.ach-locked .ach-medal::after{display:none}
+.ach-locked .ach-name{color:var(--ink-soft)}
