@@ -1289,7 +1289,7 @@ function confirmDob(){
 }
 
 /* ═══ PROFILE SHEET ═══ */
-function pfInitials(name){ var p=(name||'').trim().split(/\s+/); var s=((p[0]||'')[0]||'')+((p[1]||'')[0]||''); return (s||'U').toUpperCase(); }
+function pfInitials(name){ var p=(name||'').replace(/[^A-Za-z\s]+/g,' ').trim().split(/\s+/).filter(Boolean); var s=((p[0]||'')[0]||'')+((p[1]||'')[0]||''); return (s||'U').toUpperCase(); }
 function pfSet(id,v){ var el=document.getElementById(id); if(el) el.textContent=(v&&String(v).trim())?v:'—'; }
 function openProfile(){
   var p=document.getElementById('profileSheet'); if(!p) return;

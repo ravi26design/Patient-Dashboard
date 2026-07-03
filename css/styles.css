@@ -2119,14 +2119,15 @@ body.is-mobile .scr-card{padding:16px}
 .pf-sgc{font-family:var(--font-ui);font-size:12px;font-weight:600;color:var(--ink-soft);background:#fff;border:1.5px solid rgba(54,59,59,.14);border-radius:999px;padding:7px 13px;cursor:pointer;transition:transform .12s ease}
 .pf-sgc:active{transform:scale(.95)}
 /* contact rows (call/text) */
-.pf-contact{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--border)}
+.pf-contact{display:flex;align-items:center;gap:11px;padding:11px 0;border-bottom:1px solid var(--border)}
 .pf-contact:last-child{border-bottom:none}
-.pf-contact-av{flex-shrink:0;width:42px;height:42px;border-radius:13px;display:flex;align-items:center;justify-content:center;font-size:19px}
+.pf-contact-av{flex-shrink:0;width:40px;height:40px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:19px}
 .pf-contact-main{flex:1;min-width:0}
 .pf-contact-name{font-family:var(--font-ui);font-size:13px;font-weight:700;color:var(--ink);line-height:1.25}
 .pf-contact-role{font-family:var(--font-ui);font-size:12px;color:var(--ink-soft);margin-top:1px}
-.pf-contact-btns{display:flex;gap:7px;flex-shrink:0}
-.pf-cbtn{display:inline-flex;align-items:center;gap:5px;font-family:var(--font-ui);font-size:12px;font-weight:700;border:none;border-radius:999px;padding:7px 13px;cursor:pointer;text-decoration:none;transition:transform .12s ease}
+.pf-contact-btns{display:flex;gap:8px;flex-shrink:0}
+.pf-cbtn{display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;padding:0;border:none;border-radius:50%;cursor:pointer;text-decoration:none;transition:transform .12s ease}
+.pf-cbtn i,.pf-cbtn svg{width:17px;height:17px}
 .pf-cbtn:active{transform:scale(.95)}
 .pf-cbtn.call{background:var(--sage);color:#fff}
 .pf-cbtn.text{background:var(--blue-lt);color:var(--blue)}
