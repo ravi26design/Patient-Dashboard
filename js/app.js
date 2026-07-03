@@ -801,13 +801,28 @@ function buildHealthGauge(){
   var sinT=Math.sin(th), cosT=Math.cos(th);
   var b1x=(cx+sinT*bw).toFixed(1), b1y=(cy+cosT*bw).toFixed(1);
   var b2x=(cx-sinT*bw).toFixed(1), b2y=(cy-cosT*bw).toFixed(1);
-  s+='<polygon points="'+b1x+','+b1y+' '+tx+','+ty+' '+b2x+','+b2y+'" fill="#2A2421"/>';
+  var reduce=false; try{ reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches; }catch(e){}
+  var needle='<polygon points="'+b1x+','+b1y+' '+tx+','+ty+' '+b2x+','+b2y+'" fill="#2A2421"/>';
+  if(reduce){ s+=needle; }
+  else {
+    /* sweep the needle from 0 (leftmost) up to the value */
+    var startA=(-(val/100)*180).toFixed(1);
+    s+='<g>'+needle+'<animateTransform attributeName="transform" type="rotate" from="'+startA+' '+cx+' '+cy+'" to="0 '+cx+' '+cy+'" dur="1.2s" begin="0s" fill="freeze" calcMode="spline" keyTimes="0;1" keySplines="0.3 0.9 0.35 1"/></g>';
+  }
   s+='<circle cx="'+cx+'" cy="'+cy+'" r="11" fill="#2A2421"/><circle cx="'+cx+'" cy="'+cy+'" r="4" fill="#fff"/>';
   s+='</svg>';
   el.insertAdjacentHTML('afterbegin', s);
   var card=el.closest('.gauge-card')||document;
-  var num=card.querySelector('.rh-num b'); if(num) num.textContent=val;
+  var num=card.querySelector('.rh-num b');
+  if(num){ if(reduce){ num.textContent=val; } else { num.textContent='0'; rhCountUp(num, val, 1200); } }
   var pill=card.querySelector('.rh-pill'); if(pill) pill.textContent = val>=85?'Excellent':val>=70?'Above Average':val>=55?'Good':'Needs Care';
+}
+/* count a number up to `to` over `dur` ms, ease-out */
+function rhCountUp(node, to, dur){
+  var start=null;
+  function step(ts){ if(start==null) start=ts; var p=Math.min(1,(ts-start)/dur); var e=1-Math.pow(1-p,3);
+    node.textContent=Math.round(e*to); if(p<1) requestAnimationFrame(step); }
+  requestAnimationFrame(step);
 }
 buildHealthGauge();
 
