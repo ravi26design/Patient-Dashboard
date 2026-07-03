@@ -929,7 +929,7 @@ function submitDetails(){
   window.__profile={name:nameVal, email:emailVal, phone:(window.__phone||null), dob:(window.__dob||null), age:(window.__dob?window.__dob.age:null)};
   var rn=document.getElementById('rhName'); if(rn) rn.textContent=nameVal.split(' ')[0];   /* greet by first name */
   try{ localStorage.setItem('rh_onboarded','1'); localStorage.setItem('rh_profile', JSON.stringify(window.__profile)); }catch(e){}
-  showMoudScreen();      /* next step: MOUD medication */
+  onbShow('connectCareScreen');   /* next step: connect to clinic (MOUD/Triggers/Relief removed) */
   hideDetailsScreen();
 }
 /* ═══ ONBOARDING STEP FORM (MOUD -> triggers -> relief -> care -> reminders -> privacy -> done) ═══ */
@@ -937,14 +937,14 @@ function onbShow(id){ var e=document.getElementById(id); if(e){ e.style.display=
 function onbHide(id){ var e=document.getElementById(id); if(!e) return; e.classList.add('hide');
   setTimeout(function(){ e.style.display='none'; e.classList.remove('show','hide'); }, 420); }
 function onbStep(from,to){ onbShow(to); onbHide(from); }
-var ONB_ORDER=['moudScreen','triggersScreen','reliefScreen','connectCareScreen','privacyScreen'];
+var ONB_ORDER=['connectCareScreen','privacyScreen'];   /* MOUD/Triggers/Relief removed from onboarding (Triggers/Relief still used by daily check-in) */
 function onbBack(curId){
   if(window.__ciMode){   /* check-in intro: relief -> triggers -> cancel to home */
     if(curId==='reliefScreen'){ onbStep('reliefScreen','triggersScreen'); ciConfigTriggers(); ciGate(); return; }
     if(curId==='triggersScreen'){ ciCancel(); return; }
   }
   var i=ONB_ORDER.indexOf(curId);
-  if(i<=0){ onbShow('detailsScreen'); onbHide('moudScreen'); return; }   /* first step back -> details */
+  if(i<=0){ onbShow('detailsScreen'); onbHide(curId); return; }   /* first step back -> details */
   onbStep(curId, ONB_ORDER[i-1]);
 }
 function onbSkip(step){ if(step==='relief'){ onbStep('reliefScreen','connectCareScreen'); } }

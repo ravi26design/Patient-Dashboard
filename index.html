@@ -134,21 +134,6 @@
 </div>
 
 <!-- ═══ ONBOARDING STEP FORM (MOUD -> Triggers -> Relief -> Care team -> Reminders -> Privacy -> Done) ═══ -->
-<div id="moudScreen" class="step-screen" aria-hidden="true">
-  <div class="onb-top"><button class="onb-back" type="button" onclick="onbBack('moudScreen')" aria-label="Back"><i data-lucide="arrow-left"></i></button><div class="onb-steps"><div class="onb-steps-fill" style="width:20%"></div></div><div class="onb-count">1<span>/5</span></div></div>
-  <div class="onb-inner">
-    <h1 class="ph-title">Are you taking medication for opioid use disorder?</h1>
-    <p class="ph-sub">MOUD like buprenorphine cuts overdose risk dramatically. There's no wrong answer — I'll set your tracker to match.</p>
-    <div class="moud-opts">
-      <button class="moud-opt" type="button" onclick="selectMoud('Suboxone / buprenorphine')">Suboxone / buprenorphine</button>
-      <button class="moud-opt" type="button" onclick="selectMoud('Methadone')">Methadone</button>
-      <button class="moud-opt" type="button" onclick="selectMoud('Naltrexone / Vivitrol')">Naltrexone / Vivitrol</button>
-      <button class="moud-opt" type="button" onclick="selectMoud('Not right now')">Not right now</button>
-      <button class="moud-opt" type="button" onclick="selectMoud('Prefer not to say')">Prefer not to say</button>
-    </div>
-  </div>
-</div>
-
 <div id="triggersScreen" class="step-screen" aria-hidden="true">
   <div class="onb-top"><button class="onb-back" type="button" onclick="onbBack('triggersScreen')" aria-label="Back"><i data-lucide="arrow-left"></i></button><div class="onb-steps"><div class="onb-steps-fill" style="width:40%"></div></div><div class="onb-count">2<span>/5</span></div></div>
   <div class="onb-inner">
@@ -203,7 +188,7 @@
 </div>
 
 <div id="connectCareScreen" class="step-screen" aria-hidden="true">
-  <div class="onb-top"><button class="onb-back" type="button" onclick="onbBack('connectCareScreen')" aria-label="Back"><i data-lucide="arrow-left"></i></button><div class="onb-steps"><div class="onb-steps-fill" style="width:80%"></div></div><div class="onb-count">4<span>/5</span></div></div>
+  <div class="onb-top"><button class="onb-back" type="button" onclick="onbBack('connectCareScreen')" aria-label="Back"><i data-lucide="arrow-left"></i></button><div class="onb-steps"><div class="onb-steps-fill" style="width:50%"></div></div><div class="onb-count">1<span>/2</span></div></div>
   <div class="onb-inner">
     <h1 class="ph-title">Want to connect your care team?</h1>
     <p class="ph-sub">If you're seeing a clinic, Rudra can securely sync your appointments and MOUD plan through your health record. Enter your clinic's name or the code they gave you. You're always in control of what's shared.</p>
@@ -222,7 +207,7 @@
 </div>
 
 <div id="privacyScreen" class="step-screen" aria-hidden="true">
-  <div class="onb-top"><button class="onb-back" type="button" onclick="onbBack('privacyScreen')" aria-label="Back"><i data-lucide="arrow-left"></i></button><div class="onb-steps"><div class="onb-steps-fill" style="width:100%"></div></div><div class="onb-count">5<span>/5</span></div></div>
+  <div class="onb-top"><button class="onb-back" type="button" onclick="onbBack('privacyScreen')" aria-label="Back"><i data-lucide="arrow-left"></i></button><div class="onb-steps"><div class="onb-steps-fill" style="width:100%"></div></div><div class="onb-count">2<span>/2</span></div></div>
   <div class="onb-inner">
     <h1 class="ph-title">Your privacy, in plain terms.</h1>
     <p class="ph-sub">Records about substance use disorder get extra federal protection. Here's what you're agreeing to.</p>
@@ -641,7 +626,7 @@
       </div>
 
       <!-- 3. Anonymous Leaderboard -->
-      <div class="scr-eyebrow" style="display:flex;align-items:center;justify-content:space-between"><span>Anonymous Leaderboard</span><span style="font-family:var(--font-ui);font-size:11px;font-weight:600;color:#5E8560;letter-spacing:0;text-transform:none">Day 30-90 Tier</span></div>
+      <div class="rw-lbhead"><span class="rw-lbhead-t">Anonymous Leaderboard</span><span class="rw-lbhead-tag">Day 30–90 Tier</span></div>
       <div class="scr-card" style="padding:6px 0">
         <div class="lb-row"><div class="lb-rank">1</div><div class="lb-av" style="background:#7BA47E;font-size:13px;width:36px;height:36px">P</div><div style="flex:1"><div style="font-family:var(--font-ui);font-size:14px;font-weight:700;color:var(--ink)">Phoenix123</div><div style="font-family:var(--font-ui);font-size:12px;color:var(--ink-soft)">68-day streak · L5 Flourish</div></div><div style="font-family:var(--font-ui);font-size:15px;font-weight:700;color:var(--gold-dk)">3,840</div></div>
         <div class="lb-row"><div class="lb-rank">2</div><div class="lb-av" style="background:#9C8FC4;font-size:13px;width:36px;height:36px">R</div><div style="flex:1"><div style="font-family:var(--font-ui);font-size:14px;font-weight:700;color:var(--ink)">RisingTide</div><div style="font-family:var(--font-ui);font-size:12px;color:var(--ink-soft)">52-day streak · L4 Bloom</div></div><div style="font-family:var(--font-ui);font-size:15px;font-weight:700;color:var(--gold-dk)">2,960</div></div>
