@@ -1394,7 +1394,7 @@ function renderProfileLists(){
 function contactsHTML(){
   return RH_PF.contacts.map(function(c){
     return '<div class="pf-contact">'+
-      '<div class="pf-contact-av" style="background:'+c.color+'22;color:'+c.color+'">'+esc(pfInitials(c.name))+'</div>'+
+      '<div class="pf-contact-av" style="background:'+c.color+';color:#fff">'+esc(pfInitials(c.name))+'</div>'+
       '<div class="pf-contact-main"><div class="pf-contact-name">'+esc(c.name)+'</div><div class="pf-contact-role">'+esc(c.role)+'</div></div>'+
       '<div class="pf-contact-btns">'+
         '<button class="pf-cbtn call" type="button" aria-label="Call '+esc(c.name)+'" onclick="callContact(\''+jsStr(c.name)+'\',\''+jsStr(c.num)+'\')"><i data-lucide="phone"></i></button>'+
