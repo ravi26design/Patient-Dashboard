@@ -1750,7 +1750,8 @@ body.is-desktop .brand-img{height:26px}
 .bottom-nav .nav-sos{flex:1;opacity:1 !important;padding:2px 5px;position:relative;align-self:auto;
   display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;z-index:3}
 .bottom-nav .nav-sos .nav-icon{position:static;transform:none;margin:0;
-  width:40px;height:40px;border-radius:13px;background:linear-gradient(150deg,#D98C7D,#C4604A) !important;color:#fff !important;
+  min-width:46px;height:40px;padding:0 12px;border-radius:13px;background:linear-gradient(150deg,#D98C7D,#C4604A) !important;color:#fff !important;
+  font-family:var(--font-ui);font-size:11px;font-weight:800;letter-spacing:.6px;
   display:flex;align-items:center;justify-content:center;
   box-shadow:0 5px 13px rgba(196,96,72,.34);pointer-events:auto}
 .bottom-nav .nav-sos .nav-icon svg,.bottom-nav .nav-sos .nav-icon i{pointer-events:none}
