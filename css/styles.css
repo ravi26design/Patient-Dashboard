@@ -2407,5 +2407,5 @@ body.is-mobile .lb-row > div:last-child{font-size:13px !important}
 .loc-opt:active{transform:scale(.99)}
 .loc-opt.sel{border-color:#5E8560;background:#F3F8F2;color:#3F5E41;font-weight:600}
 
-/* Desktop: Profile is a single centered column (not the 2-column dashboard grid) */
-body.is-desktop #screen-profile.active{display:block;max-width:600px;margin-left:auto;margin-right:auto}
+/* Desktop: Profile is a single full-width column (not the 2-column dashboard grid) so the hero + cards sit full width below the title */
+body.is-desktop #screen-profile.active{display:block}
