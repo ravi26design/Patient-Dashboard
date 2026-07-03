@@ -1403,6 +1403,13 @@ function contactsHTML(){
       '</div></div>';
   }).join('');
 }
+/* Frequent Location Check-in: pick a place type, award XP, close */
+function locAnswer(btn){
+  var opts=btn.parentNode.querySelectorAll('.loc-opt');
+  for(var i=0;i<opts.length;i++) opts[i].classList.remove('sel');
+  btn.classList.add('sel');
+  setTimeout(function(){ closeOv(); if(typeof showXPPopup==='function') showXPPopup(30); }, 500);
+}
 function pfTelHref(num){ return 'tel:'+String(num).replace(/[^\d+]/g,''); }
 function callContact(name,num){ try{ window.location.href=pfTelHref(num); }catch(e){} }
 function textContact(name,num){ try{ window.location.href='sms:'+String(num).replace(/[^\d+]/g,''); }catch(e){} }

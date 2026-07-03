@@ -399,7 +399,7 @@
   <div class="app-header">
     <button class="avatar-btn" aria-label="Profile" onclick="openProfileFull()"><i data-lucide="user-round"></i></button>
     <div class="app-logo"><img class="brand-img" src="assets/Logo.png" alt="RudraHealth ai"></div>
-    <button class="notif-btn nav-soon" aria-label="Location"><i data-lucide="map-pin"></i></button>
+    <button class="notif-btn" aria-label="Location" onclick="openOv('location-checkin')"><i data-lucide="map-pin"></i></button>
   </div>
 
   <div class="screen-area" id="screenArea">
@@ -2038,6 +2038,43 @@
         <div id="ea-list" class="pf-chips" style="margin-top:14px"></div>
         <div class="pf-sugg-label">Ideas — tap to add</div>
         <div class="pf-sugg" id="ea-sugg"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ FREQUENT LOCATION CHECK-IN ═══ -->
+  <div class="overlay" id="ov-location-checkin" style="background:var(--app-bg)">
+    <div class="ov-header" style="background:linear-gradient(135deg,#8FBE86,#5E8560);border-bottom:none">
+      <button class="ov-back" style="background:rgba(255,255,255,.2);color:#fff" onclick="closeOv()">&larr;</button>
+      <div>
+        <div style="font-family:var(--font-display);font-size:17px;font-weight:700;color:#fff">Frequent Location Check-in</div>
+        <div style="font-family:var(--font-ui);font-size:11px;color:rgba(255,255,255,.85)">Help us understand your environment · +30 XP</div>
+      </div>
+    </div>
+    <div class="ov-body" style="padding-top:12px">
+      <div class="loc-map">
+        <svg viewBox="0 0 300 190" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+          <rect width="300" height="190" fill="#ECE7DE"/>
+          <rect x="0" y="0" width="300" height="12" fill="#C7DDE3"/>
+          <path d="M0 118 Q45 100 90 116 T175 126 L175 190 L0 190 Z" fill="#CFE3B8"/>
+          <rect x="214" y="18" width="86" height="66" rx="5" fill="#CFE3B8"/>
+          <g stroke="#fff" stroke-width="7" fill="none"><path d="M-10 58 L310 50"/><path d="M-10 138 L310 150"/><path d="M92 -10 L108 200"/><path d="M198 -10 L216 200"/></g>
+          <g stroke="#E7CFC4" stroke-width="2" stroke-dasharray="5 5" fill="none"><path d="M-10 98 L310 94"/><path d="M150 -10 L150 200"/></g>
+          <g fill="#D9D3C9"><rect x="28" y="68" width="52" height="56" rx="3"/><rect x="118" y="64" width="60" height="60" rx="3"/><rect x="230" y="98" width="58" height="46" rx="3"/><rect x="30" y="150" width="46" height="30" rx="3"/></g>
+        </svg>
+        <span class="loc-map-pill">You visited this place 4× recently</span>
+        <div class="loc-zoom"><button type="button" aria-label="Zoom in">+</button><button type="button" aria-label="Zoom out">−</button></div>
+        <span class="loc-pin"><svg viewBox="0 0 24 24" fill="#C25445" aria-hidden="true"><path d="M12 2C8.1 2 5 5.1 5 9c0 5.2 7 13 7 13s7-7.8 7-13c0-3.9-3.1-7-7-7z"/><circle cx="12" cy="9" r="2.6" fill="#fff"/></svg></span>
+      </div>
+      <div class="scr-card">
+        <div class="loc-q">Which of the following best describes this place?</div>
+        <div class="loc-opts">
+          <button class="loc-opt" type="button" onclick="locAnswer(this)">My home</button>
+          <button class="loc-opt" type="button" onclick="locAnswer(this)">Someone else's home</button>
+          <button class="loc-opt" type="button" onclick="locAnswer(this)">A shelter, group home, hotel, or other temporary place I stayed</button>
+          <button class="loc-opt" type="button" onclick="locAnswer(this)">A restaurant, business, public place, or other non-residential place</button>
+          <button class="loc-opt" type="button" onclick="locAnswer(this)">I do not recognize this location or was just passing by</button>
+        </div>
       </div>
     </div>
   </div>
