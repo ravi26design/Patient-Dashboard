@@ -1747,15 +1747,15 @@ body.is-desktop .brand-img{height:26px}
 .bottom-nav .nav-tab.active .nav-icon svg{fill:currentColor;stroke:currentColor}   /* filled icon when active */
 .bottom-nav .nav-tab.active .nav-label{color:var(--hb-teal-deep) !important;font-weight:700;font-size:8px !important}
 /* center SOS = raised circular FAB */
-.bottom-nav .nav-sos{flex:0 0 62px;opacity:1 !important;padding:0;position:relative;align-self:stretch;
-  display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:3}
-.bottom-nav .nav-sos .nav-icon{position:absolute;left:50%;top:-22px;transform:translateX(-50%);margin:0;
-  width:46px;height:46px;border-radius:50%;background:var(--coral) !important;color:#fff !important;
+.bottom-nav .nav-sos{flex:1;opacity:1 !important;padding:2px 5px;position:relative;align-self:auto;
+  display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;z-index:3}
+.bottom-nav .nav-sos .nav-icon{position:static;transform:none;margin:0;
+  width:40px;height:40px;border-radius:13px;background:linear-gradient(150deg,#D98C7D,#C4604A) !important;color:#fff !important;
   display:flex;align-items:center;justify-content:center;
-  box-shadow:0 8px 20px rgba(196,96,72,.40);z-index:4;pointer-events:auto}
+  box-shadow:0 5px 13px rgba(196,96,72,.34);pointer-events:auto}
 .bottom-nav .nav-sos .nav-icon svg,.bottom-nav .nav-sos .nav-icon i{pointer-events:none}
-.bottom-nav .nav-sos .nav-icon svg{width:22px;height:22px;color:#fff !important}
-.bottom-nav .nav-sos .nav-label{display:none !important}
+.bottom-nav .nav-sos .nav-icon svg{width:21px;height:21px;color:#fff !important}
+.bottom-nav .nav-sos .nav-label{display:block !important;color:#C4604A !important;font-weight:700}
 
 /* Returning user (already onboarded): no splash on refresh — land on the same page */
 html.returning #splash{display:none !important}
