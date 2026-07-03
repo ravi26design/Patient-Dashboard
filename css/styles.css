@@ -2030,7 +2030,7 @@ body.is-mobile .sos-lead{text-align:left;margin-left:2px;margin-right:2px}
 .lr-future .lr-name{color:var(--ink-soft);font-weight:600}
 .lr-current .lr-name{color:#9A6B16}
 .lr-note{font-family:var(--font-ui);font-size:12px;color:var(--ink-soft);margin-top:2px}
-.lr-current .lr-note{color:#9A6B16;font-weight:600}
+.lr-current .lr-note{color:#9A6B16;font-weight:700}
 .lr-status{flex-shrink:0;font-family:var(--font-ui);font-size:10px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;padding:5px 11px;border-radius:999px}
 .lr-st-done{background:#EAF1E9;color:#5E8560}
 .lr-st-now{background:#FBF1DC;color:#9A6B16}
@@ -2083,10 +2083,10 @@ body.is-mobile .sos-lead{text-align:left;margin-left:2px;margin-right:2px}
 @media (prefers-reduced-motion:reduce){ .rw-flame::before{animation:none} }
 /* achievements: horizontal scroll, 3 visible then scroll */
 .ach-scroll{display:flex;gap:10px;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;scroll-snap-type:x proximity;
-  margin:0 -12px 14px;padding:4px 12px}   /* full-bleed: cards scroll to the screen edges */
+  margin:0 -12px 14px 0;padding:4px 0}   /* left inset from the screen, cards bleed off the right edge */
 .ach-scroll::-webkit-scrollbar{display:none}
 .ach-scroll > div{flex:0 0 30%;scroll-snap-align:start}   /* 3 full + a peek of the 4th */
-body.is-tablet .ach-scroll{margin-left:-18px;margin-right:-18px;padding-left:18px;padding-right:18px}
+body.is-tablet .ach-scroll{margin-right:-18px}
 .seg-btn{padding:8px 13px;border-radius:999px;border:1.5px solid rgba(54,59,59,.14);background:#fff;color:var(--ink-soft);font-family:var(--font-ui);font-size:12px;font-weight:600;cursor:pointer;transition:all .15s ease;white-space:nowrap}
 .seg-grid .seg-btn{border-radius:12px;text-align:center;padding:10px 6px}
 .seg-btn.on{background:#7BA47E;color:#fff;border-color:#7BA47E}
@@ -2343,7 +2343,7 @@ body[data-screen="narcan"] .bottom-nav{display:none}
 .rwx-ic-gold{background:#FBF1DC;color:#C9962E}
 .rwx-ic-sage{background:#EAF1E9;color:#5E8560}
 .rwx-ic-coral{background:#FAE7E2;color:#D17A6B}
-.rwx-stat-n{font-family:var(--font-display);font-size:25px;font-weight:700;line-height:1}
+.rwx-stat-n{font-family:var(--font-display);font-size:21px;font-weight:700;line-height:1}
 .rwx-stat:nth-child(1) .rwx-stat-n{color:#C9962E}
 .rwx-stat:nth-child(2) .rwx-stat-n{color:#5E8560}
 .rwx-stat:nth-child(3) .rwx-stat-n{color:#D17A6B}
@@ -2373,3 +2373,12 @@ body[data-screen="narcan"] .bottom-nav{display:none}
 .lrow-earned{align-items:flex-start}
 .lrow-earned .lrow-t{display:block;-webkit-line-clamp:unset;overflow:visible}
 .lpill-earned{float:right;margin:0 0 4px 10px;color:var(--sage-dk);background:#fff;box-shadow:inset 0 0 0 1px rgba(94,133,96,.28)}
+
+/* ===== Rewards: desktop full-width sections + mobile title/number sizing ===== */
+/* section eyebrows and the leaderboard header span both desktop columns */
+body.is-desktop .screen.active > .scr-eyebrow,
+body.is-desktop .screen.active > .rw-lbhead{grid-column:1 / -1}
+/* roadmap level names read smaller on mobile */
+body.is-mobile .lr-name{font-size:13px}
+/* leaderboard score numbers smaller on mobile */
+body.is-mobile .lb-row > div:last-child{font-size:13px !important}
