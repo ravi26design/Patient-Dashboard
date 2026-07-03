@@ -824,6 +824,19 @@ function rhCountUp(node, to, dur){
     node.textContent=Math.round(e*to); if(p<1) requestAnimationFrame(step); }
   requestAnimationFrame(step);
 }
+/* home stats: count numbers up from 0 (and sweep the Recovery Journey bar) on load */
+function animateHomeStats(){
+  var reduce=false; try{ reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches; }catch(e){}
+  if(reduce) return;
+  var sf=document.querySelectorAll('.sf-num');
+  for(var i=0;i<sf.length;i++){ var t=parseInt(sf[i].textContent,10)||0; sf[i].textContent='0'; rhCountUp(sf[i], t, 1100); }
+  var rb=document.querySelector('.rj-big');
+  if(rb){ var rt=parseInt((rb.textContent||'').replace(/[^\d]/g,''),10)||0; rb.textContent='0'; rhCountUp(rb, rt, 1200); }
+  var rf=document.querySelector('.rj-fill');
+  if(rf){ var w=rf.style.width||'78%'; rf.style.width='0%';
+    requestAnimationFrame(function(){ requestAnimationFrame(function(){ rf.style.width=w; }); }); }
+}
+animateHomeStats();
 buildHealthGauge();
 
 /* Recovery Today starts empty (0/4) */
