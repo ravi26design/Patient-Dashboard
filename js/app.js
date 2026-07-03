@@ -1002,7 +1002,9 @@ function onbNext(step){
     rhRegisterUser(pf);                 /* remember this number so it skips onboarding next time */
     var dn=document.getElementById('doneName'); if(dn) dn.textContent=first;
     onbHide('privacyScreen');           /* reveal home behind */
-    setTimeout(showLocModal, 260);      /* ask location -> notifications -> done -> home */
+    showDoneModal();                    /* confirmation first */
+    if(window.__doneTimer) clearTimeout(window.__doneTimer);
+    window.__doneTimer=setTimeout(doneThenLocation, 2600);   /* ...then ask for location */
   }
 }
 function showDoneModal(){ var m=document.getElementById('doneModal'); if(m){ m.classList.remove('hide'); m.classList.add('show'); } }
@@ -1010,6 +1012,12 @@ function finishOnb(){ if(window.__doneTimer){ clearTimeout(window.__doneTimer); 
   var m=document.getElementById('doneModal'); if(!m) return;
   m.classList.add('hide'); setTimeout(function(){ m.classList.remove('show','hide'); m.style.display='none'; }, 400);
   scheduleCheckin();   /* prompt daily check-in shortly after landing on home */
+}
+/* confirmation is shown first; dismiss it, then ask for location permission */
+function doneThenLocation(){ if(window.__doneTimer){ clearTimeout(window.__doneTimer); window.__doneTimer=null; }
+  var m=document.getElementById('doneModal');
+  if(m){ m.classList.add('hide'); setTimeout(function(){ m.classList.remove('show','hide'); m.style.display='none'; }, 400); }
+  setTimeout(showLocModal, 460);   /* location permission after the confirmation */
 }
 function scheduleCheckin(){ if(window.__checkinTimer) clearTimeout(window.__checkinTimer);
   window.__checkinTimer=setTimeout(showCheckinModal, 2000); }   /* every time home is shown, after 2s */
@@ -1059,9 +1067,9 @@ function allowLocation(){
       );
     }
   }catch(e){}
-  finishOnbFlow();            /* straight to done -> home (no notifications prompt) */
+  setTimeout(scheduleCheckin, 360);            /* confirmation already shown -> land on home */
 }
-function skipLocation(){ hideLocModal(); finishOnbFlow(); }
+function skipLocation(){ hideLocModal(); setTimeout(scheduleCheckin, 360); }
 function showPushModal(){ var m=document.getElementById('pushModal'); if(!m) return;
   m.style.display=''; m.classList.remove('hide'); m.classList.add('show');
   if(window.lucide&&lucide.createIcons) lucide.createIcons(); }
