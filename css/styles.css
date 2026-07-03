@@ -2384,3 +2384,10 @@ body.is-desktop .screen.active > .rw-lbhead{grid-column:1 / -1}
 body.is-mobile .lr-name{font-size:13px}
 /* leaderboard score numbers smaller on mobile */
 body.is-mobile .lb-row > div:last-child{font-size:13px !important}
+
+/* Icon consistency: profile list avatars (Care Team / Family / Medication / nav) circular like My People + leaderboard */
+.pf-rav{border-radius:50%}
+/* Edit overlays (My Triggers / What Helps Me): proper bordered input field + always-solid Add CTA */
+#ov-edit-triggers .onb-input,#ov-edit-activities .onb-input{border:1.5px solid rgba(54,59,59,.14);box-shadow:none;font-size:15px}
+#ov-edit-triggers .onb-input:focus,#ov-edit-activities .onb-input:focus{border-color:var(--sage)}
+#ov-edit-triggers .onb-add,#ov-edit-activities .onb-add{background:var(--sage)!important;color:#fff!important;box-shadow:0 6px 16px rgba(110,158,128,.28)!important}

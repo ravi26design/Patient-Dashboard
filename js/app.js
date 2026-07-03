@@ -1382,12 +1382,13 @@ function jsStr(s){ return String(s).replace(/\\/g,'\\\\').replace(/'/g,"\\'"); }
 /* render the 3 profile-screen containers */
 function renderProfileLists(){
   pfSeedFromProfile();
+  /* only overwrite when we actually have content, so a refresh never blanks a section */
   var t=document.getElementById('pf-triggers');
-  if(t) t.innerHTML=RH_PF.triggers.map(function(x){return '<span class="pf-chip trig">'+esc(x)+'</span>';}).join('') || '<span class="pf-empty">None added yet</span>';
+  if(t){ var th=RH_PF.triggers.map(function(x){return '<span class="pf-chip trig">'+esc(x)+'</span>';}).join(''); if(th) t.innerHTML=th; }
   var a=document.getElementById('pf-activities');
-  if(a) a.innerHTML=RH_PF.activities.map(function(x){return '<span class="pf-chip">'+actIcon(x)+' '+esc(x)+'</span>';}).join('') || '<span class="pf-empty">None added yet</span>';
+  if(a){ var ah=RH_PF.activities.map(function(x){return '<span class="pf-chip">'+actIcon(x)+' '+esc(x)+'</span>';}).join(''); if(ah) a.innerHTML=ah; }
   var c=document.getElementById('pf-contacts');
-  if(c) c.innerHTML=contactsHTML();
+  if(c){ var ch=contactsHTML(); if(ch) c.innerHTML=ch; }
   if(window.lucide && lucide.createIcons) lucide.createIcons();
 }
 
