@@ -2249,13 +2249,12 @@ body.is-mobile .scr-card-t{font-size:15px}
 /* 2) Profile as a complete page with a green back-arrow header (the "top pin" style) */
 body[data-screen="profile"] .app-header{display:none}
 body[data-screen="profile"] .bottom-nav{display:none}
-.pf-fullhead{margin:0 -12px 16px;padding:16px 16px 18px;padding-top:max(16px,env(safe-area-inset-top));background:linear-gradient(135deg,var(--sage) 0%,var(--sage-dk) 100%);display:flex;align-items:center;gap:12px;border-radius:0 0 22px 22px;box-shadow:0 8px 20px rgba(78,123,94,.20)}
-.pf-back{flex:0 0 auto;width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;border:none;cursor:pointer;color:#fff;background:rgba(255,255,255,.18);transition:background .2s;-webkit-tap-highlight-color:transparent}
-.pf-back:active{background:rgba(255,255,255,.30)}
+.pf-fullhead{margin:0 0 14px;padding-top:max(8px,env(safe-area-inset-top));display:flex;align-items:center;gap:12px}
+.pf-back{flex:0 0 auto;width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;border:none;cursor:pointer;color:var(--ink);background:#fff;box-shadow:0 2px 8px rgba(58,51,48,.10);transition:background .2s;-webkit-tap-highlight-color:transparent}
+.pf-back:active{background:#f4efe9}
 .pf-back i,.pf-back svg{width:20px;height:20px;stroke-width:2.2}
-.pf-fullhead-title{font-family:var(--font-display,'Fraunces','Cormorant Garamond',serif);font-size:21px;font-weight:700;color:#fff;line-height:1.1}
-.pf-fullhead-sub{font-size:11px;color:rgba(255,255,255,.85);margin-top:3px;letter-spacing:.3px}
-body.is-desktop .pf-fullhead{margin-left:0;margin-right:0;border-radius:18px}
+.pf-fullhead-title{font-family:var(--font-display,'Fraunces','Cormorant Garamond',serif);font-size:20px;font-weight:700;color:var(--ink);line-height:1.1}
+.pf-fullhead-sub{font-family:var(--font-ui);font-size:12px;color:var(--ink-soft);margin-top:2px;letter-spacing:.2px}
 
 /* Bottom nav: keep every tab equal-width so tapping never shifts the others
    (an earlier override left the active tab at flex:0 0 auto) */
