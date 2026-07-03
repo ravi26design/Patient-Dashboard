@@ -1050,6 +1050,7 @@ function doneThenLocation(){ if(window.__doneTimer){ clearTimeout(window.__doneT
 function scheduleCheckin(){ if(window.__checkinTimer) clearTimeout(window.__checkinTimer);
   window.__checkinTimer=setTimeout(showCheckinModal, 2000); }   /* every time home is shown, after 2s */
 function showCheckinModal(){ var m=document.getElementById('checkinModal'); if(!m) return;
+  if((document.body.getAttribute('data-screen')||'home')!=='home') return;   /* daily check-in prompt only on the home page */
   m.classList.remove('hide'); m.classList.add('show'); if(window.lucide&&lucide.createIcons) lucide.createIcons(); }
 function hideCheckinModal(){ if(window.__checkinTimer){ clearTimeout(window.__checkinTimer); window.__checkinTimer=null; }
   var m=document.getElementById('checkinModal'); if(!m) return;
