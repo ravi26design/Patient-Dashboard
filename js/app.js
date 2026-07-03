@@ -544,7 +544,7 @@ var REFLECT_Q=[
     {key:'confidence', label:'How confident are you in your ability to avoid using opioids for non-medical reasons within the next week?', lo:'Not confident', hi:'Extremely confident'}
   ]},
   /* 6 — medication taken (single-choice, reuse our option-card style) */
-  {type:'multi', single:true, q:'Have you taken your medication today?', sub:'Suboxone 8mg/2mg · daily', lucideIcons:true,
+  {type:'multi', single:true, q:'Have you taken your medication today?', lucideIcons:true,
     icons:['circle-check','clock'], options:['Yes — I’ve taken it today','Not yet']}
 ];
 var REFLECT_TOTAL=REFLECT_Q.length;   /* 7 */
