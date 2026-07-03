@@ -886,8 +886,7 @@ var __wc={start:function(){},stop:function(){}};
 })();
 function enterApp(){
   __wc.stop();
-  showPhoneScreen();                         /* mobile-number page underneath */
-  showLocModal();                            /* location modal OVER the mobile-number page */
+  showPhoneScreen();                         /* mobile-number page */
   var w=document.getElementById('welcome');
   if(w){ w.classList.add('hide'); setTimeout(function(){ w.style.display='none'; }, 520); }
 }
@@ -1003,9 +1002,7 @@ function onbNext(step){
     rhRegisterUser(pf);                 /* remember this number so it skips onboarding next time */
     var dn=document.getElementById('doneName'); if(dn) dn.textContent=first;
     onbHide('privacyScreen');           /* reveal home behind */
-    showDoneModal();                    /* confirmation in a modal over home */
-    if(window.__doneTimer) clearTimeout(window.__doneTimer);
-    window.__doneTimer=setTimeout(finishOnb, 3400);   /* auto-dismiss to home after a few seconds */
+    setTimeout(showLocModal, 260);      /* ask location -> notifications -> done -> home */
   }
 }
 function showDoneModal(){ var m=document.getElementById('doneModal'); if(m){ m.classList.remove('hide'); m.classList.add('show'); } }
@@ -1070,8 +1067,9 @@ function showPushModal(){ var m=document.getElementById('pushModal'); if(!m) ret
   if(window.lucide&&lucide.createIcons) lucide.createIcons(); }
 function hidePushModal(){ var m=document.getElementById('pushModal'); if(!m) return;
   m.classList.add('hide'); setTimeout(function(){ m.style.display='none'; m.classList.remove('show','hide'); }, 320); }
-function allowPush(){ hidePushModal(); try{ if('Notification' in window && Notification.requestPermission) Notification.requestPermission(); }catch(e){} }
-function skipPush(){ hidePushModal(); }
+function allowPush(){ hidePushModal(); try{ if('Notification' in window && Notification.requestPermission) Notification.requestPermission(); }catch(e){} finishOnbFlow(); }
+function skipPush(){ hidePushModal(); finishOnbFlow(); }
+function finishOnbFlow(){ setTimeout(function(){ showDoneModal(); if(window.__doneTimer) clearTimeout(window.__doneTimer); window.__doneTimer=setTimeout(finishOnb, 3400); }, 360); }
 (function(){
   var sp=document.getElementById('splash'); if(!sp) return;
   var onboarded=false; try{ onboarded=localStorage.getItem('rh_onboarded')==='1'; }catch(e){}
