@@ -1059,9 +1059,9 @@ function allowLocation(){
       );
     }
   }catch(e){}
-  setTimeout(showPushModal, 360);            /* then ask about notifications */
+  finishOnbFlow();            /* straight to done -> home (no notifications prompt) */
 }
-function skipLocation(){ hideLocModal(); setTimeout(showPushModal, 360); }
+function skipLocation(){ hideLocModal(); finishOnbFlow(); }
 function showPushModal(){ var m=document.getElementById('pushModal'); if(!m) return;
   m.style.display=''; m.classList.remove('hide'); m.classList.add('show');
   if(window.lucide&&lucide.createIcons) lucide.createIcons(); }
