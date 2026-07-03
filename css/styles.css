@@ -2365,5 +2365,7 @@ body[data-screen="narcan"] .bottom-nav{display:none}
 
 /* Leaderboard section header: single tidy line + tier as a compact pill */
 .rw-lbhead{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:6px 2px 12px}
-.rw-lbhead-t{font-family:var(--font-ui);font-size:11px;font-weight:800;letter-spacing:.8px;text-transform:uppercase;color:#5E8560;white-space:nowrap}
-.rw-lbhead-tag{flex:0 0 auto;font-family:var(--font-ui);font-size:11px;font-weight:700;letter-spacing:.2px;color:#5E8560;background:var(--sage-lt);padding:5px 11px;border-radius:999px;white-space:nowrap}
+.rw-lbhead-t{min-width:0;flex:1 1 auto;font-family:var(--font-ui);font-size:11px;font-weight:800;letter-spacing:.8px;text-transform:uppercase;color:#5E8560;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rw-lbhead-tag{flex:0 0 auto;display:inline-flex;align-items:center;gap:5px;font-family:var(--font-ui);font-size:11px;font-weight:700;letter-spacing:.2px;color:var(--sage-dk);background:var(--sage-lt);padding:5px 12px;border-radius:999px;white-space:nowrap;box-shadow:inset 0 0 0 1px rgba(94,133,96,.14)}
+.rw-lbhead-tag::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--sage-dk);flex:0 0 auto}
+body.is-mobile .rw-lbhead-t{font-size:10.5px;letter-spacing:.4px}
