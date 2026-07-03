@@ -2362,3 +2362,8 @@ body[data-screen="narcan"] .bottom-nav{display:none}
   color:#fff!important;
   box-shadow:0 6px 14px color-mix(in srgb, var(--cat,#6E9E80) 42%, transparent);
 }
+
+/* Leaderboard section header: single tidy line + tier as a compact pill */
+.rw-lbhead{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:6px 2px 12px}
+.rw-lbhead-t{font-family:var(--font-ui);font-size:11px;font-weight:800;letter-spacing:.8px;text-transform:uppercase;color:#5E8560;white-space:nowrap}
+.rw-lbhead-tag{flex:0 0 auto;font-family:var(--font-ui);font-size:11px;font-weight:700;letter-spacing:.2px;color:#5E8560;background:var(--sage-lt);padding:5px 11px;border-radius:999px;white-space:nowrap}
