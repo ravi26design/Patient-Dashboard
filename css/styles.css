@@ -770,8 +770,8 @@ body.is-desktop .home-sec{padding:20px;margin-bottom:24px}
    (Recovery Health | Recovery Today, then Treatments | Journey) */
 body.is-desktop .screen.active{
   display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:24px;
+  grid-template-columns:1fr;
+  gap:18px;
   align-items:start;
 }
 body.is-desktop .screen.active > .section-label{grid-column:1 / -1}
