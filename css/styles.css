@@ -857,8 +857,8 @@ body.is-mobile .task-grid > .task{
 .reflect-prog{height:4px;background:#E6E2DB;border-radius:999px;overflow:hidden;margin-top:4px}
 .reflect-prog-fill{height:100%;background:#7BA47E;border-radius:999px;transition:width .3s}
 .reflect-step{text-align:center;font-size:11px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--ink-soft);margin-bottom:9px}
-.reflect-q{font-family:var(--font-display);font-size:24px;font-weight:700;color:var(--ink);line-height:1.22;text-align:center;margin:2px 0 5px}
-.reflect-qsub{font-family:var(--font-ui);font-size:13px;color:var(--ink-soft);text-align:center;margin-bottom:4px}
+.reflect-q{font-family:var(--font-display);font-size:22px;font-weight:700;color:var(--ink);line-height:1.22;text-align:center;margin:2px 0 5px}
+.reflect-qsub{font-family:var(--font-ui);font-size:12px;color:var(--ink-soft);text-align:center;margin-bottom:4px}
 .reflect-opts{display:flex;flex-direction:column;gap:14px;margin-top:18px}
 .reflect-opt{display:flex;align-items:center;gap:16px;width:100%;text-align:left;
   background:#fff;border:2px solid transparent;border-radius:18px;box-shadow:var(--card-shadow);
@@ -957,13 +957,14 @@ body.is-desktop .overlay.active > .reflect-footer{max-width:620px;margin-left:au
 /* ── Check-in: free-text + voice (step 0) ── */
 .rf-textcard{padding:18px}
 .rf-tc-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px}
-.rf-tc-k{font-family:var(--font-ui);font-size:11px;font-weight:700;letter-spacing:.7px;text-transform:uppercase;color:#5E8560}
+.rf-tc-k{font-family:var(--font-ui);font-size:11px;font-weight:700;letter-spacing:.4px;text-transform:uppercase;color:#5E8560;white-space:nowrap}
 .rf-tc-opt{color:var(--ink-soft);font-weight:600}
 .rf-voice-toggle{display:inline-flex;align-items:center;gap:6px;margin:0;padding:8px 13px;border-radius:999px;border:none;background:#EAF1E9;color:#3F5E41;font-family:var(--font-ui);font-size:12px;font-weight:700;cursor:pointer;transition:background .15s ease,transform .12s ease;flex-shrink:0}
 .rf-voice-toggle:active{transform:scale(.96)}
 .rf-voice-toggle.rf-voice-on{background:#7BA47E;color:#fff}
-.rf-vt-ic{font-size:13px}
-.rf-textarea{width:100%;min-height:132px;box-sizing:border-box;border:1.5px solid rgba(54,59,59,.12);border-radius:14px;padding:14px 15px;font-family:var(--font-ui);font-size:14px;color:var(--ink);line-height:1.55;resize:none;background:#FCFAF4}
+.rf-vt-ic{display:inline-flex;align-items:center}
+.rf-vt-ic i,.rf-vt-ic svg{width:14px;height:14px;stroke-width:2.2}
+.rf-textarea{width:100%;min-height:92px;box-sizing:border-box;border:1.5px solid rgba(54,59,59,.12);border-radius:14px;padding:13px 14px;font-family:var(--font-ui);font-size:13px;color:var(--ink);line-height:1.5;resize:none;background:#FCFAF4}
 .rf-textarea:focus{outline:none;border-color:#7BA47E}
 .rf-textarea::placeholder{color:var(--ink-soft)}
 .rf-voice-cap{text-align:center;padding:8px 0 4px}

@@ -630,7 +630,7 @@ function renderReflect(){
         '<div class="rf-tc-head">'+
           '<span class="rf-tc-k">In your own words</span>'+
           '<button id="rf-voice-btn" class="rf-voice-toggle'+(reflectVoiceMode?' rf-voice-on':'')+'" onclick="reflectToggleVoice()">'+
-            '<span class="rf-vt-ic">🎤</span><span class="rf-vt-label">'+(reflectVoiceMode?'Typing':'Speak')+'</span></button>'+
+            '<span class="rf-vt-ic"><i data-lucide="mic"></i></span><span class="rf-vt-label">'+(reflectVoiceMode?'Typing':'Speak')+'</span></button>'+
         '</div>'+
         '<div id="rf-type-cap" style="display:'+(reflectVoiceMode?'none':'block')+'">'+
           '<textarea class="rf-textarea" oninput="reflectText(this)" placeholder="'+esc(item.placeholder||'')+'">'+esc(txt)+'</textarea>'+
