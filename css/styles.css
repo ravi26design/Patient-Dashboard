@@ -2268,10 +2268,10 @@ body.is-mobile .scr-card-t{font-size:15px}
 body[data-screen="profile"] .app-header{display:none}
 body[data-screen="profile"] .bottom-nav{display:none}
 .pf-fullhead{margin:0 0 14px;padding-top:max(8px,env(safe-area-inset-top));display:flex;align-items:center;gap:12px}
-.pf-back{flex:0 0 auto;width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;border:none;cursor:pointer;color:var(--ink);background:#fff;box-shadow:0 2px 8px rgba(58,51,48,.10);transition:background .2s;-webkit-tap-highlight-color:transparent}
+.pf-back{flex:0 0 auto;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;border:none;cursor:pointer;color:var(--ink);background:#fff;box-shadow:0 2px 8px rgba(58,51,48,.10);transition:background .2s;-webkit-tap-highlight-color:transparent}
 .pf-back:active{background:#f4efe9}
-.pf-back i,.pf-back svg{width:20px;height:20px;stroke-width:2.2}
-.pf-fullhead-title{font-family:var(--font-display,'Fraunces','Cormorant Garamond',serif);font-size:20px;font-weight:700;color:var(--ink);line-height:1.1}
+.pf-back i,.pf-back svg{width:18px;height:18px;stroke-width:2.2}
+.pf-fullhead-title{font-family:var(--font-display,'Fraunces','Cormorant Garamond',serif);font-size:17px;font-weight:700;color:var(--ink);line-height:1.1}
 .pf-fullhead-sub{font-family:var(--font-ui);font-size:12px;color:var(--ink-soft);margin-top:2px;letter-spacing:.2px}
 
 /* Bottom nav: keep every tab equal-width so tapping never shifts the others
@@ -2287,12 +2287,12 @@ body[data-screen="profile"] .bottom-nav{display:none}
 body[data-screen="narcan"] .app-header{display:none}
 body[data-screen="narcan"] .bottom-nav{display:none}
 .sos-head{margin:0 0 8px;padding-top:max(8px,env(safe-area-inset-top));display:flex;align-items:center;gap:14px}
-.sos-head-title{display:none;font-family:var(--font-display);font-size:18px;font-weight:700;color:var(--ink)}
+.sos-head-title{display:none;font-family:var(--font-display);font-size:17px;font-weight:700;color:var(--ink)}
 body.is-desktop .sos-head-title{display:block}
 .sos-back-btn{flex:0 0 auto;display:flex;align-items:center;justify-content:center;background:none;border:none;cursor:pointer;color:var(--ink);-webkit-tap-highlight-color:transparent}
-.sos-back-ic{width:40px;height:40px;border-radius:50%;background:#fff;box-shadow:0 2px 8px rgba(58,51,48,.10);display:flex;align-items:center;justify-content:center;transition:background .2s}
+.sos-back-ic{width:32px;height:32px;border-radius:50%;background:#fff;box-shadow:0 2px 8px rgba(58,51,48,.10);display:flex;align-items:center;justify-content:center;transition:background .2s}
 .sos-back-btn:active .sos-back-ic{background:#f4efe9}
-.sos-back-ic i,.sos-back-ic svg{width:20px;height:20px;stroke-width:2.4}
+.sos-back-ic i,.sos-back-ic svg{width:18px;height:18px;stroke-width:2.4}
 
 /* ============ Profile page — unified design-system look ============ */
 .pf-hero{text-align:center;padding:22px 18px}
