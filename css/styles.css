@@ -2495,7 +2495,10 @@ body.is-mobile .rl-acts{grid-template-columns:1fr}
 .ct-btn i,.ct-btn svg{width:20px;height:20px}
 .ct-btn.call{background:var(--sage);color:#fff}
 .ct-btn.text{background:#E3EEF7;color:#5B92CE}
-.cs-note{background:#FAE7E2;border-radius:14px;padding:12px 15px;font-family:var(--font-ui);font-size:12px;line-height:1.5;color:#8A4A3E;margin-bottom:6px}
+.cs-note{display:flex;gap:12px;align-items:flex-start;background:#FBEBE6;border:1px solid #F0D2CA;border-radius:16px;padding:14px 15px;margin-bottom:6px}
+.cs-note-ic{flex-shrink:0;width:32px;height:32px;border-radius:10px;background:#D98A7D;color:#fff;display:flex;align-items:center;justify-content:center}
+.cs-note-ic i,.cs-note-ic svg{width:18px;height:18px}
+.cs-note-tx{font-family:var(--font-ui);font-size:12.5px;line-height:1.55;color:#8A4A3E}
 .cs-note b{color:#B4433A;font-weight:700}
 .cs-arrow{flex-shrink:0;color:var(--ink-soft);width:20px;height:20px}
 .cs-footer{background:var(--sage-lt);border-radius:16px;padding:20px 18px;text-align:center;margin-top:8px}
