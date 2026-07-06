@@ -385,6 +385,7 @@
     <button class="dn-item" data-screen="rewards" onclick="goScreen('rewards')"><i data-lucide="trophy"></i><span>Rewards</span></button>
     <button class="dn-item" data-screen="appointments" onclick="goScreen('appointments')"><i data-lucide="calendar"></i><span>Appointments</span></button>
     <button class="dn-item dn-sos" data-screen="narcan" onclick="openSOS()"><i data-lucide="life-buoy"></i><span>SOS</span></button>
+    <button class="dn-item" onclick="openOv('location-checkin')"><i data-lucide="map-pin"></i><span>Check-in</span></button>
   </nav>
   <button class="dn-foot" onclick="openProfileFull()">
     <div class="dn-avatar">AM</div>
@@ -1132,7 +1133,6 @@
           <div class="pf-rav pf-av-rose">Sp</div>
           <div class="pf-contact-main"><div class="pf-contact-name">Mike R.</div><div class="pf-contact-role">Sponsor · CPRS</div></div>
         </div>
-        <button onclick="openFindProvider('profile')" class="btn-primary btn-block" style="margin-top:12px"><i data-lucide="search"></i> Find a Treatment Provider</button>
       </div>
 
       <!-- Family Connected -->
@@ -2094,9 +2094,9 @@
 
   <!-- ═══ FREQUENT LOCATION CHECK-IN ═══ -->
   <div class="overlay" id="ov-location-checkin" style="background:var(--app-bg)">
-    <div class="ov-header" style="background:linear-gradient(135deg,#8FBE86,#5E8560);border-bottom:none;align-items:center">
-      <button class="ov-back" style="background:rgba(255,255,255,.2);color:#fff" onclick="closeOv()">&larr;</button>
-      <div style="font-family:var(--font-display);font-size:17px;font-weight:700;color:#fff;line-height:1.15">Location Check&#8209;in</div>
+    <div class="ov-header" style="background:transparent;border-bottom:none;align-items:center">
+      <button class="ov-back" style="background:#fff;color:var(--ink);box-shadow:0 2px 8px rgba(58,51,48,.10)" onclick="closeOv()">&larr;</button>
+      <div style="font-family:var(--font-display);font-size:18px;font-weight:700;color:var(--ink);line-height:1.15">Location Check&#8209;in</div>
     </div>
     <div class="ov-body" style="padding-top:12px">
       <div class="loc-map">
