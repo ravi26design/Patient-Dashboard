@@ -2190,11 +2190,12 @@ body[data-screen="rewards"] #screen-rewards{padding-top:26px}
 .rl-step-tx{font-family:var(--font-ui);font-size:13px;color:var(--ink);line-height:1.5}
 .rl-step-h{font-family:var(--font-ui);font-weight:700;font-size:13px;color:var(--ink)}
 .rl-step-s{font-family:var(--font-ui);font-size:12px;color:var(--ink-soft);margin-top:1px}
-.rl-done{width:100%;margin-top:12px;padding:16px;border-radius:16px;border:none;background:var(--sage);color:#fff;font-family:var(--font-ui);font-weight:700;font-size:15px;cursor:pointer;box-shadow:0 10px 24px rgba(110,158,128,.3)}
+.rl-done{display:flex;align-items:center;justify-content:center;gap:9px;width:100%;margin-top:12px;padding:15px;border-radius:16px;border:none;background:var(--sage);color:#fff;font-family:var(--font-ui);font-weight:700;font-size:15px;cursor:pointer;box-shadow:0 10px 24px rgba(110,158,128,.3)}
 .rl-done:active{transform:scale(.98)}
 .rl-done-light{background:#fff;color:#5E8560;box-shadow:none}
 .rl-done-soft{background:#fff;color:var(--ink-soft);border:1px solid rgba(54,59,59,.12);font-weight:600;font-size:13px;box-shadow:none}
-.rl-xp{font-weight:500;opacity:.85;font-size:12px}
+.rl-xp{font-weight:600;font-size:12px;background:rgba(255,255,255,.2);padding:3px 10px;border-radius:999px}
+.rl-done-light .rl-xp{background:rgba(94,133,96,.14)}
 
 /* breathing orb */
 .breath-orb{width:180px;height:180px;border-radius:50%;margin:0 auto;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.16);border:2px solid rgba(255,255,255,.55);color:#fff;font-family:'Josefin Sans',sans-serif;font-size:14px;font-weight:700;letter-spacing:2px;transition:transform 4s ease-in-out;will-change:transform}
@@ -2415,4 +2416,4 @@ body.is-desktop #screen-profile.active{display:block}
 .rl-hero-ic i,.rl-hero-ic svg{width:27px;height:27px;color:var(--sage-dk);stroke-width:2}
 
 /* Relief 'done' buttons: inline Lucide check icon (was emoji/✓) */
-.rl-done i,.rl-done svg{width:17px;height:17px;vertical-align:-3px;stroke-width:2.6}
+.rl-done i,.rl-done svg{width:18px;height:18px;stroke-width:2.6;flex-shrink:0}
