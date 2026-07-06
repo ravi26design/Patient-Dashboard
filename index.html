@@ -2103,7 +2103,6 @@
       </svg>
       <img class="loc-map-img" alt="" src="https://staticmap.openstreetmap.de/staticmap.php?center=45.5152,-122.6784&zoom=16&size=680x560&maptype=mapnik" onerror="this.remove()">
       <button class="loc-fab loc-fab-back" type="button" onclick="closeOv()" aria-label="Back"><i data-lucide="arrow-left"></i></button>
-      <span class="loc-map-pill"><i data-lucide="history"></i> Visited 4× recently</span>
       <div class="loc-zoom"><button type="button" aria-label="Zoom in">+</button><button type="button" aria-label="Zoom out">−</button></div>
       <button class="loc-fab loc-fab-locate" type="button" aria-label="Recenter"><i data-lucide="locate-fixed"></i></button>
       <span class="loc-pin"><svg viewBox="0 0 24 24" fill="#C25445" aria-hidden="true"><path d="M12 2C8.1 2 5 5.1 5 9c0 5.2 7 13 7 13s7-7.8 7-13c0-3.9-3.1-7-7-7z"/><circle cx="12" cy="9" r="2.6" fill="#fff"/></svg></span>
@@ -2120,6 +2119,7 @@
         <button class="loc-opt" type="button" onclick="locAnswer(this)">A restaurant, business, public place, or other non-residential place</button>
         <button class="loc-opt" type="button" onclick="locAnswer(this)">I do not recognize this location or was just passing by</button>
       </div>
+      <button class="loc-submit" id="loc-submit" type="button" onclick="locSubmit()">Submit · +30 XP</button>
       <div class="loc-note">
         <i data-lucide="shield-check"></i>
         <div>Your location helps personalize your recovery insights. It stays private on your device and is never shared.</div>

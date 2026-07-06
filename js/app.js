@@ -27,6 +27,7 @@ function openOv(id){
   el.scrollTop=0; var b=el.querySelector('.ov-body'); if(b) b.scrollTop=0;
   if(id==='relief-breath' && typeof startBreath==='function') startBreath();           /* start 4-7-8 cycle */
   if(id==='relief-game'   && typeof gameInit==='function')   gameInit();               /* build distraction grid */
+  if(id==='location-checkin'){ el.querySelectorAll('.loc-opt.sel').forEach(function(o){o.classList.remove('sel');}); var _sb=document.getElementById('loc-submit'); if(_sb) _sb.classList.remove('ready'); }  /* fresh state each open */
   try{localStorage.setItem('rh_ov',id);}catch(e){}
 }
 function closeOv(){if(typeof stopBreath==='function')stopBreath();if(typeof stopUrgeBreath==='function')stopUrgeBreath();if(call911Timer){clearInterval(call911Timer);call911Timer=null;}document.querySelectorAll('.overlay').forEach(function(o){o.classList.remove('active');o.style.zoom='';});try{localStorage.removeItem('rh_ov');}catch(e){}}
@@ -1470,8 +1471,9 @@ function locAnswer(btn){
   var opts=btn.parentNode.querySelectorAll('.loc-opt');
   for(var i=0;i<opts.length;i++) opts[i].classList.remove('sel');
   btn.classList.add('sel');
-  setTimeout(function(){ closeOv(); if(typeof showXPPopup==='function') showXPPopup(30); }, 500);
+  var sb=document.getElementById('loc-submit'); if(sb) sb.classList.add('ready');  /* enable the Submit CTA */
 }
+function locSubmit(){ closeOv(); if(typeof showXPPopup==='function') showXPPopup(30); }
 function pfTelHref(num){ return 'tel:'+String(num).replace(/[^\d+]/g,''); }
 function callContact(name,num){ try{ window.location.href=pfTelHref(num); }catch(e){} }
 function textContact(name,num){ try{ window.location.href='sms:'+String(num).replace(/[^\d+]/g,''); }catch(e){} }
