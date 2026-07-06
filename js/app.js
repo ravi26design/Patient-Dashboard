@@ -1478,17 +1478,23 @@ function textContact(name,num){ try{ window.location.href='sms:'+String(num).rep
 
 /* edit-overlay rendering: live chip list (with remove) + suggestion strip */
 function renderProfileEdit(){
-  var et=document.getElementById('et-list');
-  if(et) et.innerHTML=RH_PF.triggers.map(function(x,i){return '<span class="pf-tagchip trig">'+esc(x)+'<span class="x" onclick="pfRemoveTrigger('+i+')">×</span></span>';}).join('') || '<span class="pf-empty">None yet — add some below.</span>';
+  /* One unified grid of check/uncheck cards (selected first, then remaining suggestions) */
   var es=document.getElementById('et-sugg');
-  if(es) es.innerHTML='<div class="helps-grid">'+TRIGGER_SUGG.filter(function(s){return RH_PF.triggers.indexOf(s)<0;}).map(function(s,i){var c=HELPS_COLORS[i%HELPS_COLORS.length];return '<button class="helps-card helps-card-plain" style="background:'+c.bg+';color:'+c.ic+'" type="button" onclick="pfAddTriggerVal(\''+jsStr(s)+'\')"><span class="helps-card-t">'+esc(s)+'</span><i data-lucide="plus" class="helps-card-plus"></i></button>';}).join('')+'</div>';
-  var ea=document.getElementById('ea-list');
-  if(ea) ea.innerHTML=RH_PF.activities.map(function(x,i){return '<span class="pf-tagchip"><i data-lucide="'+actLucide(x)+'"></i>'+esc(x)+'<span class="x" onclick="pfRemoveActivity('+i+')">×</span></span>';}).join('') || '<span class="pf-empty">None yet — add some below.</span>';
+  if(es){
+    var optsT=RH_PF.triggers.concat(TRIGGER_SUGG.filter(function(s){return RH_PF.triggers.indexOf(s)<0;}));
+    es.innerHTML='<div class="helps-grid">'+optsT.map(function(s,i){var c=HELPS_COLORS[i%HELPS_COLORS.length];var on=RH_PF.triggers.indexOf(s)>=0;return '<button class="helps-card helps-card-plain'+(on?' is-sel':'')+'" style="background:'+c.bg+';color:'+c.ic+'" type="button" onclick="pfToggleTrigger(\''+jsStr(s)+'\')"><span class="helps-card-t">'+esc(s)+'</span><i data-lucide="'+(on?'check':'plus')+'" class="helps-card-plus"></i></button>';}).join('')+'</div>';
+  }
   var eas=document.getElementById('ea-sugg');
-  if(eas) eas.innerHTML='<div class="helps-grid">'+ACTIVITY_SUGG.filter(function(s){return RH_PF.activities.indexOf(s)<0;}).map(function(s,i){var c=HELPS_COLORS[i%HELPS_COLORS.length];return '<button class="helps-card" style="background:'+c.bg+';color:'+c.ic+'" type="button" onclick="pfAddActivityVal(\''+jsStr(s)+'\')"><span class="helps-card-ic"><i data-lucide="'+actLucide(s)+'"></i></span><span class="helps-card-t">'+esc(s)+'</span><i data-lucide="plus" class="helps-card-plus"></i></button>';}).join('')+'</div>';
+  if(eas){
+    var optsA=RH_PF.activities.concat(ACTIVITY_SUGG.filter(function(s){return RH_PF.activities.indexOf(s)<0;}));
+    eas.innerHTML='<div class="helps-grid">'+optsA.map(function(s,i){var c=HELPS_COLORS[i%HELPS_COLORS.length];var on=RH_PF.activities.indexOf(s)>=0;return '<button class="helps-card'+(on?' is-sel':'')+'" style="background:'+c.bg+';color:'+c.ic+'" type="button" onclick="pfToggleActivity(\''+jsStr(s)+'\')"><span class="helps-card-ic"><i data-lucide="'+actLucide(s)+'"></i></span><span class="helps-card-t">'+esc(s)+'</span><i data-lucide="'+(on?'check':'plus')+'" class="helps-card-plus"></i></button>';}).join('')+'</div>';
+  }
   if(window.lucide && lucide.createIcons) lucide.createIcons();
 }
 function pfRefresh(){ renderProfileEdit(); renderProfileLists(); pfPersist(); if(window.lucide && lucide.createIcons) lucide.createIcons(); }
+/* tap a card to check/uncheck (select or deselect) */
+function pfToggleTrigger(v){ v=(v||'').trim(); if(!v) return; var i=RH_PF.triggers.indexOf(v); if(i>=0) RH_PF.triggers.splice(i,1); else RH_PF.triggers.push(v); pfRefresh(); }
+function pfToggleActivity(v){ v=(v||'').trim(); if(!v) return; var i=RH_PF.activities.indexOf(v); if(i>=0) RH_PF.activities.splice(i,1); else RH_PF.activities.push(v); pfRefresh(); }
 function pfAddTriggerVal(v){ v=(v||'').trim(); if(!v) return; if(RH_PF.triggers.indexOf(v)<0) RH_PF.triggers.push(v); pfRefresh(); }
 function pfAddTrigger(){ var i=document.getElementById('et-input'); if(!i) return; pfAddTriggerVal(i.value); i.value=''; i.focus(); }
 function pfRemoveTrigger(i){ RH_PF.triggers.splice(i,1); pfRefresh(); }
