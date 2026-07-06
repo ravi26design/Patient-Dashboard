@@ -2510,11 +2510,11 @@ body.is-desktop .ct-row:has(.ct-btns) .ct-btn{flex:none;padding:0 18px}
 .cs-note-tx{font-family:var(--font-ui);font-size:12.5px;line-height:1.55;color:#8A4A3E}
 .cs-note b{color:#B4433A;font-weight:700}
 .cs-arrow{flex-shrink:0;color:var(--ink-soft);width:20px;height:20px}
-.cs-footer{background:linear-gradient(160deg,#EAF3EC,#DCEAE0);border:1px solid rgba(110,158,128,.14);border-radius:20px;padding:26px 22px;text-align:center;margin-top:10px}
-.cs-footer-ic{width:48px;height:48px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;margin:0 auto 14px;box-shadow:0 5px 16px rgba(78,123,94,.16)}
+.cs-footer{background:linear-gradient(160deg,#5E8D6E,#4E7B5E);border:none;border-radius:20px;padding:28px 22px;text-align:center;margin-top:10px}
+.cs-footer-ic{width:48px;height:48px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;margin:0 auto 14px;box-shadow:0 5px 16px rgba(0,0,0,.14)}
 .cs-footer-ic i,.cs-footer-ic svg{width:24px;height:24px;color:var(--sage-dk)}
-.cs-footer-t{font-family:var(--font-display);font-size:20px;font-weight:700;color:var(--sage-dk);line-height:1.25}
-.cs-footer-d{font-family:var(--font-ui);font-size:13px;color:var(--ink-soft);margin:10px auto 0;line-height:1.55;max-width:290px}
+.cs-footer-t{font-family:var(--font-display);font-size:20px;font-weight:700;color:#fff;line-height:1.25}
+.cs-footer-d{font-family:var(--font-ui);font-size:13px;color:rgba(255,255,255,.82);margin:10px auto 0;line-height:1.55;max-width:290px}
 
 /* Emergency-tone SOS options (urge + crisis) */
 .sos-opt-emerg .sos-opt-t{color:#C4453A}
