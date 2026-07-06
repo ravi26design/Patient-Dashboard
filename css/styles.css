@@ -2413,3 +2413,6 @@ body.is-desktop #screen-profile.active{display:block}
 /* Relief tool hero: Lucide icon in a soft white badge (was an emoji) */
 .rl-hero-ic{width:54px;height:54px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;margin:0 auto;box-shadow:0 4px 12px rgba(78,123,94,.14)}
 .rl-hero-ic i,.rl-hero-ic svg{width:27px;height:27px;color:var(--sage-dk);stroke-width:2}
+
+/* Relief 'done' buttons: inline Lucide check icon (was emoji/✓) */
+.rl-done i,.rl-done svg{width:17px;height:17px;vertical-align:-3px;stroke-width:2.6}
