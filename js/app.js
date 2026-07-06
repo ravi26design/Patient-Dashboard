@@ -587,7 +587,7 @@ function reflectToggleVoice(){
   reflectVoiceMode=!reflectVoiceMode;
   var b=document.getElementById('rf-voice-btn');
   if(b){ b.classList.toggle('rf-voice-on', reflectVoiceMode);
-    var lbl=b.querySelector('.rf-vt-label'); if(lbl) lbl.textContent=reflectVoiceMode?'Voice on':'Speak instead of typing'; }
+    var lbl=b.querySelector('.rf-vt-label'); if(lbl) lbl.textContent=reflectVoiceMode?'Type':'Speak'; }
   var tc=document.getElementById('rf-type-cap'), vc=document.getElementById('rf-voice-cap');
   if(tc) tc.style.display=reflectVoiceMode?'none':'block';
   if(vc) vc.style.display=reflectVoiceMode?'block':'none';
@@ -623,11 +623,10 @@ function renderReflect(){
           '<div class="rf-yg-ribbon">🎉 You got!</div>'+
           '<div class="rf-yg-title">Check-in complete!</div>'+
           '<div class="rf-yg-tiles">'+
-            '<div class="rf-yg-tile"><div class="rf-yg-ic rf-yg-ic-gold"><i data-lucide="sparkles"></i></div><div class="rf-yg-amt">+20</div><div class="rf-yg-lbl">Check-in</div></div>'+
-            '<div class="rf-yg-tile"><div class="rf-yg-ic rf-yg-ic-sage"><i data-lucide="gift"></i></div><div class="rf-yg-amt">+50</div><div class="rf-yg-lbl">Bonus</div></div>'+
-            '<div class="rf-yg-tile"><div class="rf-yg-ic rf-yg-ic-coral"><i data-lucide="flame"></i></div><div class="rf-yg-amt">+1</div><div class="rf-yg-lbl">Streak</div></div>'+
+            '<div class="rf-yg-tile"><div class="rf-yg-ic rf-yg-ic-gold"><i data-lucide="sparkles"></i></div><div class="rf-yg-amt" style="color:#B98A2E">+20</div><div class="rf-yg-lbl">Check-in</div></div>'+
+            '<div class="rf-yg-tile"><div class="rf-yg-ic rf-yg-ic-sage"><i data-lucide="gift"></i></div><div class="rf-yg-amt" style="color:#5E8560">+50</div><div class="rf-yg-lbl">Bonus</div></div>'+
+            '<div class="rf-yg-tile"><div class="rf-yg-ic rf-yg-ic-coral"><i data-lucide="flame"></i></div><div class="rf-yg-amt" style="color:#C25445">+1</div><div class="rf-yg-lbl">Streak</div></div>'+
           '</div>'+
-          '<div class="rf-yg-streak"><span>🔥</span> Daily streak extended · come back tomorrow</div>'+
           '<button class="rf-yg-confirm" onclick="reflectDone()">Confirm · 70 XP</button>'+
         '</div>'+
       '</div>';
@@ -644,7 +643,7 @@ function renderReflect(){
         '<div class="rf-tc-head">'+
           '<span class="rf-tc-k">In your own words</span>'+
           '<button id="rf-voice-btn" class="rf-voice-toggle'+(reflectVoiceMode?' rf-voice-on':'')+'" onclick="reflectToggleVoice()">'+
-            '<span class="rf-vt-ic"><i data-lucide="mic"></i></span><span class="rf-vt-label">'+(reflectVoiceMode?'Typing':'Speak')+'</span></button>'+
+            '<span class="rf-vt-ic"><i data-lucide="mic"></i></span><span class="rf-vt-label">'+(reflectVoiceMode?'Type':'Speak')+'</span></button>'+
         '</div>'+
         '<div id="rf-type-cap" style="display:'+(reflectVoiceMode?'none':'block')+'">'+
           '<textarea class="rf-textarea" oninput="reflectText(this)" placeholder="'+esc(item.placeholder||'')+'">'+esc(txt)+'</textarea>'+
