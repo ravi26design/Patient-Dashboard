@@ -2409,3 +2409,7 @@ body.is-mobile .lb-row > div:last-child{font-size:13px !important}
 
 /* Desktop: Profile is a single full-width column (not the 2-column dashboard grid) so the hero + cards sit full width below the title */
 body.is-desktop #screen-profile.active{display:block}
+
+/* Relief tool hero: Lucide icon in a soft white badge (was an emoji) */
+.rl-hero-ic{width:54px;height:54px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;margin:0 auto;box-shadow:0 4px 12px rgba(78,123,94,.14)}
+.rl-hero-ic i,.rl-hero-ic svg{width:27px;height:27px;color:var(--sage-dk);stroke-width:2}
