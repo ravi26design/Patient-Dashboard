@@ -2109,10 +2109,10 @@ body.is-mobile .scr-card{padding:16px}
 .pf-chips{display:flex;flex-wrap:wrap;gap:8px}
 .pf-chip{display:inline-flex;align-items:center;gap:5px;font-family:var(--font-ui);font-size:12px;font-weight:600;padding:7px 13px;border-radius:999px;background:var(--sage-lt);color:var(--sage-dk)}
 .pf-chip.trig{background:var(--high-lt);color:var(--high)}
-/* What Helps Me (profile): single-row horizontal scroll */
-#pf-activities{flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding-bottom:2px}
-#pf-activities::-webkit-scrollbar{display:none}
-#pf-activities .pf-chip{flex:0 0 auto;white-space:nowrap}
+/* What Helps Me + My Triggers (profile): single-row horizontal scroll */
+#pf-activities,#pf-triggers{flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding-bottom:2px}
+#pf-activities::-webkit-scrollbar,#pf-triggers::-webkit-scrollbar{display:none}
+#pf-activities .pf-chip,#pf-triggers .pf-chip{flex:0 0 auto;white-space:nowrap}
 .pf-empty{font-family:var(--font-ui);font-size:12px;color:var(--muted)}
 /* editable tag chip (with remove ×) */
 .pf-tagchip{display:inline-flex;align-items:center;gap:7px;font-family:var(--font-ui);font-size:13px;font-weight:600;padding:7px 9px 7px 13px;border-radius:999px;background:var(--sage-lt);color:var(--sage-dk)}
