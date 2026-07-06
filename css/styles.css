@@ -981,18 +981,18 @@ body.is-desktop .overlay.active > .reflect-footer{max-width:620px;margin-left:au
 .rf-starter:nth-child(8n+8){--sbg:#E6D3C7;--sacc:#946A52}
 .rf-textarea:focus{outline:none;border-color:#7BA47E}
 .rf-textarea::placeholder{color:var(--ink-soft)}
-.rf-voice-cap{text-align:center;padding:8px 0 4px}
-.rf-mic-orb{width:78px;height:78px;border-radius:50%;background:#EAF1E9;border:2px solid #7BA47E;display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 12px;cursor:pointer;transition:transform .2s,box-shadow .2s}
-.rf-mic-orb.live{box-shadow:0 0 0 8px rgba(122,164,126,.18);transform:scale(.86)}
-/* voice waveform — hidden until recording, then bars animate (blue → orange) */
-.rf-wave{display:flex;align-items:center;justify-content:center;gap:2.5px;height:46px;max-width:250px;margin:12px auto 4px;opacity:0;pointer-events:none;transition:opacity .3s ease}
-.rf-bar{width:3px;min-height:3px;border-radius:2px;transform-origin:center;transform:scaleY(.4)}
+.rf-voice-cap{text-align:center;padding:18px 0 8px}
+/* live listening waveform — a strip that scrolls right → left, bars pulse (blue → orange) */
+.rf-wave{overflow:hidden;height:52px;max-width:280px;margin:6px auto 16px;
+  -webkit-mask-image:linear-gradient(90deg,transparent,#000 14%,#000 86%,transparent);
+  mask-image:linear-gradient(90deg,transparent,#000 14%,#000 86%,transparent)}
+.rf-wave-track{display:flex;align-items:center;gap:2.5px;height:100%;width:max-content;animation:rfScroll 7s linear infinite}
+@keyframes rfScroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.rf-bar{width:3px;min-height:3px;border-radius:2px;flex-shrink:0;transform-origin:center;animation:rfWave .8s ease-in-out infinite alternate}
 .rf-bar-l{background:#4A7ED9}
 .rf-bar-r{background:#E08A3C}
-.rf-mic-orb.live ~ .rf-wave{opacity:1}
-.rf-mic-orb.live ~ .rf-wave .rf-bar{animation:rfWave .85s ease-in-out infinite alternate}
-@keyframes rfWave{from{transform:scaleY(.26)}to{transform:scaleY(1)}}
-@media (prefers-reduced-motion:reduce){ .rf-mic-orb.live ~ .rf-wave .rf-bar{animation:none;transform:scaleY(.7)} }
+@keyframes rfWave{from{transform:scaleY(.3)}to{transform:scaleY(1)}}
+@media (prefers-reduced-motion:reduce){ .rf-wave-track{animation:none} .rf-bar{animation:none;transform:scaleY(.7)} }
 .rf-vr-status{font-family:var(--font-ui);font-size:13px;color:var(--ink-soft);line-height:1.5}
 
 /* ── Check-in: grouped 0–10 sliders (one card, N rows) ── */

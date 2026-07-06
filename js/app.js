@@ -582,36 +582,37 @@ function reflectSlider(key,v){
   var a=reflectAns(); a.sliders=a.sliders||{}; a.sliders[key]=+v;
   var el=document.getElementById('rf-sv-'+key); if(el) el.textContent=v;
 }
-/* Voice: swap textarea for a mic orb (ported from reference toggleVoiceMode). */
+/* Voice toggle: switch between typing and the live listening waveform (no mic orb). */
 function reflectToggleVoice(){
   reflectVoiceMode=!reflectVoiceMode;
   var b=document.getElementById('rf-voice-btn');
   if(b){ b.classList.toggle('rf-voice-on', reflectVoiceMode);
-    var lbl=b.querySelector('.rf-vt-label'); if(lbl) lbl.textContent=reflectVoiceMode?'Type':'Speak'; }
+    var lbl=b.querySelector('.rf-vt-label'); if(lbl) lbl.textContent=reflectVoiceMode?'Voice on':'Speak'; }
   var tc=document.getElementById('rf-type-cap'), vc=document.getElementById('rf-voice-cap');
   if(tc) tc.style.display=reflectVoiceMode?'none':'block';
   if(vc) vc.style.display=reflectVoiceMode?'block':'none';
+  if(reflectVoiceMode) rfStartListening(); else rfStopListening();
 }
-/* voice waveform bars (blue left → orange right), animated only while recording */
+function rfStartListening(){
+  var st=document.getElementById('rf-vr-status'); var s=0;
+  if(st) st.textContent='Listening… 0:00';
+  if(window._rfVrTimer) clearInterval(window._rfVrTimer);
+  window._rfVrTimer=setInterval(function(){ s++; if(st) st.textContent='Listening… 0:'+(s<10?'0':'')+s; },1000);
+}
+function rfStopListening(){
+  if(window._rfVrTimer){ clearInterval(window._rfVrTimer); window._rfVrTimer=null; }
+  var stub='Today was hard but I made it through.';   /* stubbed transcription drops into the textarea */
+  reflectAns().text=stub;
+  var ta=document.querySelector('#rf-type-cap .rf-textarea'); if(ta) ta.value=stub;
+}
+/* voice waveform bars (blue left → orange right); the strip scrolls right→left while listening */
 function rfWaveBars(){
   var h=[22,38,55,32,68,46,26,58,78,44,64,84,52,72,92,74,54,82,62,42,78,56,28,48,66,34,52,38,22,44], s='';
   for(var i=0;i<h.length;i++){ s+='<span class="rf-bar '+(i<h.length/2?'rf-bar-l':'rf-bar-r')+'" style="height:'+h[i]+'%;animation-delay:'+(i*0.045).toFixed(2)+'s"></span>'; }
   return s;
 }
-/* Simple recording stub (mirrors reference vrRecord — visual only). */
-function reflectVrRecord(orb){
-  var status=orb.parentElement.querySelector('.rf-vr-status');
-  if(orb.classList.contains('live')){
-    orb.classList.remove('live'); if(window._rfVrTimer){ clearInterval(window._rfVrTimer); window._rfVrTimer=null; }
-    reflectAns().text='Today was hard but I made it through.';
-    if(status) status.innerHTML='✓ Captured — <span style="color:#5E8560">“Today was hard but I made it through.”</span>';
-    return;
-  }
-  orb.classList.add('live'); var s=0;
-  if(status) status.textContent='Listening… 0:00';
-  window._rfVrTimer=setInterval(function(){ s++; if(status) status.textContent='Listening… 0:'+(s<10?'0':'')+s; },1000);
-}
 function renderReflect(){
+  if(window._rfVrTimer){ clearInterval(window._rfVrTimer); window._rfVrTimer=null; }   /* stop any listening timer before re-render */
   var body=document.getElementById('reflect-body');
   var foot=document.getElementById('reflect-footer');
   body.classList.toggle('rf-body-center', reflectStep>=REFLECT_TOTAL);   /* center the celebration */
@@ -651,9 +652,8 @@ function renderReflect(){
             '<div class="rf-starters">'+item.starters.map(function(w){return '<button type="button" class="rf-starter" onclick="reflectStarter(\''+jsStr(w)+'\')">'+esc(w)+'</button>';}).join('')+'</div>':'')+
         '</div>'+
         '<div id="rf-voice-cap" class="rf-voice-cap" style="display:'+(reflectVoiceMode?'block':'none')+'">'+
-          '<div class="rf-mic-orb" onclick="reflectVrRecord(this)">🎙️</div>'+
-          '<div class="rf-wave" aria-hidden="true">'+rfWaveBars()+'</div>'+
-          '<div class="rf-vr-status">'+(txt?('✓ Captured — <span style="color:#5E8560">“'+esc(txt)+'”</span>'):'Tap to record · we’ll transcribe it for you')+'</div>'+
+          '<div class="rf-wave" aria-hidden="true"><div class="rf-wave-track">'+rfWaveBars()+rfWaveBars()+'</div></div>'+
+          '<div class="rf-vr-status" id="rf-vr-status">Listening…</div>'+
         '</div>'+
       '</div>';
   } else if(item.type==='multi'){
@@ -691,6 +691,7 @@ function renderReflect(){
     foot.innerHTML='<button class="rf-btn rf-primary rf-full" onclick="reflectNext()">'+(n===0?'Continue':'Next')+' →</button>';
   }
   if(window.lucide && lucide.createIcons) lucide.createIcons();   /* render any data-lucide icons in the step */
+  if(item && item.type==='text' && reflectVoiceMode) rfStartListening();   /* resume listening if voice mode is on */
 }
 function reflectDone(){
   closeOv();
