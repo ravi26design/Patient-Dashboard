@@ -2583,3 +2583,6 @@ body.is-desktop .ct-row:has(.ct-btns) .ct-btn{flex:none;padding:0 18px}
 .loc-note > div{font-family:var(--font-ui);font-size:12px;color:var(--ink-soft);line-height:1.5}
 /* desktop: keep the map screen a comfortable width */
 body.is-desktop #ov-location-checkin.loc-fullmap.active{max-width:620px;margin:0 auto}
+
+/* ===== Global screen background — soft lavender (every screen + overlay; splash stays white) ===== */
+:root{--app-bg:#F1F1F8}
