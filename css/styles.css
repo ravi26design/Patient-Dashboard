@@ -56,7 +56,7 @@ body{font-family:'Cormorant Garamond',Georgia,serif;background:var(--taupe);disp
 .header-right{display:flex;align-items:center;gap:8px}
 .xp-pill{background:var(--gold-lt);border-radius:2px;padding:3px 9px;display:flex;align-items:center;gap:3px;font-family:'Josefin Sans',sans-serif;font-size:10px;font-weight:500;color:var(--gold-dk);cursor:pointer}
 .xp-pill:hover{background:var(--gold);color:#fff}
-.notif-btn,.avatar-btn{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;border:none;position:relative}
+.notif-btn,.avatar-btn{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;border:none;position:relative}
 .notif-btn{background:var(--beige);font-size:11px;border:2px solid var(--rose);font-family:'Josefin Sans',sans-serif;font-weight:600;color:var(--rose-dk)}
 .avatar-btn{background:var(--rose-lt);border:2px solid var(--rose);font-family:'Josefin Sans',sans-serif;font-size:9px;font-weight:600;color:var(--rose-dk);letter-spacing:1px}
 .notif-badge{position:absolute;top:-3px;right:-3px;width:13px;height:13px;border-radius:50%;background:var(--coral);border:1.5px solid var(--cream);font-family:'Josefin Sans',sans-serif;font-size:7px;font-weight:700;color:#fff;display:flex;align-items:center;justify-content:center}
