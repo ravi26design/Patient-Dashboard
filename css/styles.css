@@ -966,7 +966,9 @@ body.is-desktop .overlay.active > .reflect-footer{max-width:620px;margin-left:au
 .rf-vt-ic i,.rf-vt-ic svg{width:14px;height:14px;stroke-width:2.2}
 .rf-textarea{width:100%;min-height:92px;box-sizing:border-box;border:1.5px solid rgba(54,59,59,.12);border-radius:14px;padding:13px 14px;font-family:var(--font-ui);font-size:13px;color:var(--ink);line-height:1.5;resize:none;background:#FCFAF4}
 .rf-starter-lbl{font-family:var(--font-ui);font-size:11.5px;color:var(--ink-soft);margin:14px 2px 8px}
-.rf-starters{display:flex;flex-wrap:wrap;gap:7px}
+.rf-starters{display:flex;flex-wrap:nowrap;overflow-x:auto;gap:8px;scrollbar-width:none;padding-bottom:2px}
+.rf-starters::-webkit-scrollbar{display:none}
+.rf-starters .rf-starter{flex:0 0 auto;white-space:nowrap}
 .rf-starter{font-family:var(--font-ui);font-size:12px;font-weight:700;color:var(--sacc,#5E8560);background:var(--sbg,#EAF1E9);border:none;border-radius:999px;padding:8px 14px;cursor:pointer;transition:transform .12s ease,filter .15s ease}
 .rf-starter:active{transform:scale(.95)}
 .rf-starter:hover{filter:brightness(.97)}
@@ -1541,8 +1543,8 @@ body.is-desktop .brand-img{height:26px}
 #checkinModal.show{display:flex;animation:lmFade .3s ease both}
 #checkinModal.hide{opacity:0;pointer-events:none;transition:opacity .34s ease}
 .ci-card{max-width:360px;padding:30px 26px 22px;text-align:center;animation:lmPop .38s cubic-bezier(.2,.8,.3,1) both}
-.ci-icon{width:84px;height:84px;border-radius:22px;background:var(--gold-lt);
-  display:flex;align-items:center;justify-content:center;margin:0 auto 18px;box-shadow:0 8px 20px rgba(201,168,76,.22)}
+.ci-icon{width:84px;height:84px;border-radius:22px;background:#D8AD63;
+  display:flex;align-items:center;justify-content:center;margin:0 auto 18px;box-shadow:0 8px 20px rgba(201,168,76,.3)}
 .ci-icon i{width:30px;height:30px;color:var(--gold-dk);stroke-width:1.9}
 .ci-icon .ci-illus{width:64px;height:64px;display:block}
 .ci-tick{transform-box:fill-box;transform-origin:center;opacity:0;animation:ciTick 3.8s ease-in-out infinite}
