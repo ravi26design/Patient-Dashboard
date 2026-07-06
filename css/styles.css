@@ -2217,8 +2217,8 @@ body[data-screen="rewards"] #screen-rewards{padding-top:26px}
 
 /* urge toolkit */
 .rl-urge-hero{background:linear-gradient(150deg,#EAF1E9,#DDEBDD);border-radius:18px;padding:18px 16px;text-align:center;margin-bottom:14px}
-.rl-urge-ring{position:relative;width:124px;height:124px;border-radius:50%;border:none;margin:2px auto 14px;display:flex;align-items:center;justify-content:center;background:rgba(123,164,126,.10);animation:ruScale 11s ease-in-out infinite}
-.ru-ring{position:absolute;inset:0;width:124px;height:124px;transform:rotate(-90deg)}
+.rl-urge-ring{position:relative;width:150px;height:150px;border-radius:50%;border:none;margin:4px auto 16px;display:flex;align-items:center;justify-content:center;background:rgba(123,164,126,.10);animation:ruScale 11s ease-in-out infinite}
+.ru-ring{position:absolute;inset:0;width:150px;height:150px;transform:rotate(-90deg)}
 .ru-ring-bg{fill:none;stroke:rgba(94,133,96,.18);stroke-width:3.5}
 .ru-ring-fg{fill:none;stroke:var(--sage);stroke-width:3.5;stroke-linecap:round;stroke-dasharray:289;stroke-dashoffset:289;animation:ruFill 11s ease-in-out infinite}
 @keyframes ruFill{0%{stroke-dashoffset:289}36%{stroke-dashoffset:0}64%{stroke-dashoffset:0}100%{stroke-dashoffset:289}}
@@ -2464,3 +2464,8 @@ body.is-desktop #ov-relief-game .game-grid{max-width:300px;margin:0 auto 12px;ga
 body.is-desktop #ov-relief-game .game-cell{font-size:24px}
 body.is-desktop #ov-relief-game .game-bar,
 body.is-desktop #ov-relief-game .rl-done{max-width:300px;margin-left:auto;margin-right:auto}
+
+/* Desktop Distraction game: hide the long intro copy + tighten grid so the whole game sits on one screen */
+body.is-desktop #ov-relief-game .rl-hero-d{display:none}
+body.is-desktop #ov-relief-game .rl-hero{padding:12px 18px;margin-bottom:10px}
+body.is-desktop #ov-relief-game .game-grid{max-width:278px;margin-bottom:10px}
