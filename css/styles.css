@@ -1990,7 +1990,7 @@ body.is-mobile .sos-lead{text-align:left;margin-left:2px;margin-right:2px}
 .sos-911-arrow{width:20px;height:20px;color:rgba(255,255,255,.85);flex-shrink:0;align-self:center}
 .sos-opt{display:flex;align-items:flex-start;gap:15px;background:#fff;border-radius:18px;box-shadow:var(--card-shadow);padding:16px;margin-bottom:12px;text-decoration:none;cursor:pointer;transition:transform .12s ease}
 .sos-opt:active{transform:scale(.99)}
-.sos-opt-crisis{background:#FDEEF3}
+.sos-opt-crisis{background:#fff}
 .sos-opt-ic{width:52px;height:52px;border-radius:15px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .sos-opt-ic i,.sos-opt-ic svg{width:26px;height:26px;stroke-width:2}
 .sos-opt-main{flex:1;min-width:0}
