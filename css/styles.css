@@ -2480,3 +2480,27 @@ body.is-mobile .rl-acts{grid-template-columns:1fr}
 .call911-hang{margin:0 auto 8vh;width:72px;height:72px;border-radius:50%;border:none;background:#D46A63;color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 0 44px rgba(212,90,69,.5);transition:transform .12s ease}
 .call911-hang i,.call911-hang svg{width:30px;height:30px}
 .call911-hang:active{transform:scale(.93)}
+
+/* ============ Crisis support + Reach-my-team pages ============ */
+.ct-row{display:flex;align-items:center;gap:12px;background:#fff;border-radius:16px;box-shadow:var(--card-shadow);padding:13px 15px;margin-bottom:10px}
+.ct-av{flex-shrink:0;width:52px;height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:22px;color:#fff;font-weight:700}
+.ct-av i,.ct-av svg{width:22px;height:22px}
+.ct-main{flex:1;min-width:0}
+.ct-name{font-family:var(--font-ui);font-size:15px;font-weight:700;color:var(--ink);line-height:1.25}
+.ct-role{font-family:var(--font-ui);font-size:12px;color:var(--ink-soft);margin-top:1px}
+.ct-num{font-family:var(--font-ui);font-size:12px;font-weight:600;color:#5B92CE;margin-top:2px}
+.ct-btns{display:flex;gap:8px;flex-shrink:0}
+.ct-btn{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;width:50px;height:50px;border-radius:14px;font-family:var(--font-ui);font-size:10px;font-weight:700;text-decoration:none;cursor:pointer;border:none;transition:transform .12s ease}
+.ct-btn:active{transform:scale(.95)}
+.ct-btn i,.ct-btn svg{width:18px;height:18px}
+.ct-btn.call{background:var(--sage);color:#fff}
+.ct-btn.text{background:#DCE7F2;color:#4A7EA8}
+.cs-note{background:#FAE7E2;border-radius:14px;padding:12px 15px;font-family:var(--font-ui);font-size:12px;line-height:1.5;color:#8A4A3E;margin-bottom:6px}
+.cs-note b{color:#B4433A;font-weight:700}
+.cs-arrow{flex-shrink:0;color:var(--ink-soft);width:20px;height:20px}
+.cs-footer{background:var(--sage-lt);border-radius:16px;padding:20px 18px;text-align:center;margin-top:8px}
+.cs-footer-t{font-family:var(--font-display);font-size:20px;font-weight:700;color:var(--sage-dk);line-height:1.2}
+.cs-footer-d{font-family:var(--font-ui);font-size:13px;color:var(--ink-soft);margin-top:8px;line-height:1.5}
+
+/* Emergency-tone SOS options (urge + crisis) */
+.sos-opt-emerg .sos-opt-t{color:#C4453A}

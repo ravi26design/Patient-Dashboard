@@ -810,17 +810,17 @@
       </div>
 
       <div class="scr-eyebrow" style="margin-top:18px">What's going on?</div>
-      <div class="sos-opt" onclick="openUrge()">
-        <div class="sos-opt-ic" style="background:#E4EEF4;color:#5B92CE"><i data-lucide="waves"></i></div>
+      <div class="sos-opt sos-opt-emerg" onclick="openUrge()">
+        <div class="sos-opt-ic" style="background:#FBE0DB;color:#C4453A"><i data-lucide="waves"></i></div>
         <div class="sos-opt-main"><div class="sos-opt-t">I'm having an urge</div><div class="sos-opt-d">Ride it out — breathing, grounding &amp; your people</div></div>
         <i data-lucide="chevron-right" class="sos-opt-arrow"></i>
       </div>
-      <a class="sos-opt sos-opt-crisis" href="tel:988">
-        <div class="sos-opt-ic" style="background:#FBE3EC;color:#C25A8A"><i data-lucide="heart-pulse"></i></div>
+      <div class="sos-opt sos-opt-emerg" onclick="openOv('crisis')">
+        <div class="sos-opt-ic" style="background:#FBE0DB;color:#C4453A"><i data-lucide="heart-pulse"></i></div>
         <div class="sos-opt-main"><div class="sos-opt-t">I'm in crisis</div><div class="sos-opt-d">988 Lifeline, crisis text line &amp; naloxone help</div></div>
         <i data-lucide="chevron-right" class="sos-opt-arrow"></i>
-      </a>
-      <div class="sos-opt" onclick="openProfile()">
+      </div>
+      <div class="sos-opt" onclick="openOv('support-team')">
         <div class="sos-opt-ic" style="background:#EAF1E9;color:#5E8560"><i data-lucide="handshake"></i></div>
         <div class="sos-opt-main"><div class="sos-opt-t">Reach my support team</div><div class="sos-opt-d">Family, friends, sponsor, coach, peer, therapist &amp; doctor</div></div>
         <i data-lucide="chevron-right" class="sos-opt-arrow"></i>
@@ -2134,6 +2134,122 @@
       <div class="call911-status" id="call911-status">connecting…</div>
     </div>
     <button class="call911-hang" type="button" onclick="endCall911()" aria-label="End call"><i data-lucide="phone-off"></i></button>
+  </div>
+
+  <!-- ═══ CRISIS SUPPORT PAGE ═══ -->
+  <div class="overlay" id="ov-crisis" style="background:var(--app-bg)">
+    <div class="ov-header" style="background:linear-gradient(110deg,#D4736A 0%,#B87C86 55%,#8F9DC4 100%);border-bottom:none">
+      <button class="ov-back" style="background:rgba(255,255,255,.22);color:#fff" onclick="closeOv()">&larr;</button>
+      <div>
+        <div style="font-family:var(--font-display);font-size:18px;font-weight:700;color:#fff">Crisis support</div>
+        <div style="font-family:var(--font-ui);font-size:12px;color:rgba(255,255,255,.85)">You matter. Help is one tap away.</div>
+      </div>
+    </div>
+    <div class="ov-body" style="padding-top:14px">
+      <div class="sos-911" role="button" onclick="call911Open()">
+        <div class="sos-911-ic"><i data-lucide="phone"></i></div>
+        <div class="sos-911-main"><div class="sos-911-t">Call 911</div><div class="sos-911-d">Overdose or medical emergency — call now</div></div>
+        <i data-lucide="chevron-right" class="sos-911-arrow"></i>
+      </div>
+      <div class="cs-note"><b>Possible overdose?</b> Signs: can't wake them, slow or stopped breathing, blue lips or fingertips. Call 911, give naloxone, stay with them.</div>
+
+      <div class="scr-eyebrow" style="margin:16px 0 10px">More ways to get help right now</div>
+      <div class="ct-row">
+        <div class="ct-av" style="background:#C97B6F;font-size:15px">988</div>
+        <div class="ct-main"><div class="ct-name">988 Suicide &amp; Crisis Lifeline</div><div class="ct-role">Free &amp; confidential · 24/7 · call or text</div></div>
+        <div class="ct-btns"><a class="ct-btn call" href="tel:988"><i data-lucide="phone"></i>Call</a><a class="ct-btn text" href="sms:988"><i data-lucide="message-circle"></i>Text</a></div>
+      </div>
+      <div class="ct-row">
+        <div class="ct-av" style="background:#4A6D9A"><i data-lucide="message-circle"></i></div>
+        <div class="ct-main"><div class="ct-name">Crisis Text Line</div><div class="ct-role">Text HOME to 741741 · 24/7</div></div>
+        <div class="ct-btns"><a class="ct-btn text" href="sms:741741&body=HOME"><i data-lucide="message-circle"></i>Text</a></div>
+      </div>
+      <div class="ct-row" role="button" onclick="openOv('support-team')" style="cursor:pointer">
+        <div class="ct-av" style="background:#7BA47E">💊</div>
+        <div class="ct-main"><div class="ct-name">Find naloxone near me</div><div class="ct-role">Pharmacies &amp; free distribution points</div></div>
+        <i data-lucide="chevron-right" class="cs-arrow"></i>
+      </div>
+
+      <div class="scr-eyebrow" style="margin:18px 0 10px">Reach a person on your team</div>
+      <div class="ct-row">
+        <div class="ct-av" style="background:#6E9E80">🎧</div>
+        <div class="ct-main"><div class="ct-name">Daniel Ruiz</div><div class="ct-role">Your recovery coach</div><div class="ct-num">(310) 555-0142</div></div>
+        <div class="ct-btns"><a class="ct-btn call" href="tel:3105550142"><i data-lucide="phone"></i>Call</a><a class="ct-btn text" href="sms:3105550142"><i data-lucide="message-circle"></i>Text</a></div>
+      </div>
+      <div class="ct-row">
+        <div class="ct-av" style="background:#4A90D9">🤝</div>
+        <div class="ct-main"><div class="ct-name">Tasha Brooks</div><div class="ct-role">Your peer specialist</div><div class="ct-num">(310) 555-0188</div></div>
+        <div class="ct-btns"><a class="ct-btn call" href="tel:3105550188"><i data-lucide="phone"></i>Call</a><a class="ct-btn text" href="sms:3105550188"><i data-lucide="message-circle"></i>Text</a></div>
+      </div>
+      <div class="ct-row">
+        <div class="ct-av" style="background:#C97B6F">🧭</div>
+        <div class="ct-main"><div class="ct-name">Mike R.</div><div class="ct-role">Sponsor</div><div class="ct-num">(323) 555-0117</div></div>
+        <div class="ct-btns"><a class="ct-btn call" href="tel:3235550117"><i data-lucide="phone"></i>Call</a><a class="ct-btn text" href="sms:3235550117"><i data-lucide="message-circle"></i>Text</a></div>
+      </div>
+      <div class="ct-row">
+        <div class="ct-av" style="background:#4A90D9">🛏️</div>
+        <div class="ct-main"><div class="ct-name">Dr. Elena Rivera</div><div class="ct-role">Therapist · LCSW</div><div class="ct-num">(310) 555-0164</div></div>
+        <div class="ct-btns"><a class="ct-btn call" href="tel:3105550164"><i data-lucide="phone"></i>Call</a><a class="ct-btn text" href="sms:3105550164"><i data-lucide="message-circle"></i>Text</a></div>
+      </div>
+
+      <div class="cs-footer">
+        <div class="cs-footer-t">This moment is not the whole story.</div>
+        <div class="cs-footer-d">You've made it through hard moments before. You can make it through this one too.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ REACH MY SUPPORT TEAM PAGE ═══ -->
+  <div class="overlay" id="ov-support-team" style="background:var(--app-bg)">
+    <div class="ov-header" style="background:linear-gradient(135deg,#7BA778,#5E8560);border-bottom:none">
+      <button class="ov-back" style="background:rgba(255,255,255,.22);color:#fff" onclick="closeOv()">&larr;</button>
+      <div>
+        <div style="font-family:var(--font-display);font-size:18px;font-weight:700;color:#fff">Reach my support team</div>
+        <div style="font-family:var(--font-ui);font-size:12px;color:rgba(255,255,255,.85)">The people in your corner — call or text anytime</div>
+      </div>
+    </div>
+    <div class="ov-body" style="padding-top:16px">
+      <div class="ct-row">
+        <div class="ct-av" style="background:#C0504A">❤️</div>
+        <div class="ct-main"><div class="ct-name">Mom (Linda)</div><div class="ct-role">Family</div><div class="ct-num">(562) 555-0193</div></div>
+        <div class="ct-btns"><a class="ct-btn call" href="tel:5625550193"><i data-lucide="phone"></i>Call</a><a class="ct-btn text" href="sms:5625550193"><i data-lucide="message-circle"></i>Text</a></div>
+      </div>
+      <div class="ct-row">
+        <div class="ct-av" style="background:#E0A93C">👋</div>
+        <div class="ct-main"><div class="ct-name">Jack P.</div><div class="ct-role">Supportive friend</div><div class="ct-num">(213) 555-0175</div></div>
+        <div class="ct-btns"><a class="ct-btn call" href="tel:2135550175"><i data-lucide="phone"></i>Call</a><a class="ct-btn text" href="sms:2135550175"><i data-lucide="message-circle"></i>Text</a></div>
+      </div>
+      <div class="ct-row">
+        <div class="ct-av" style="background:#C97B8A">💖</div>
+        <div class="ct-main"><div class="ct-name">Sam</div><div class="ct-role">Loved one</div><div class="ct-num">(310) 555-0151</div></div>
+        <div class="ct-btns"><a class="ct-btn call" href="tel:3105550151"><i data-lucide="phone"></i>Call</a><a class="ct-btn text" href="sms:3105550151"><i data-lucide="message-circle"></i>Text</a></div>
+      </div>
+      <div class="ct-row">
+        <div class="ct-av" style="background:#C97B6F">🧭</div>
+        <div class="ct-main"><div class="ct-name">Mike R.</div><div class="ct-role">Sponsor</div><div class="ct-num">(323) 555-0117</div></div>
+        <div class="ct-btns"><a class="ct-btn call" href="tel:3235550117"><i data-lucide="phone"></i>Call</a><a class="ct-btn text" href="sms:3235550117"><i data-lucide="message-circle"></i>Text</a></div>
+      </div>
+      <div class="ct-row">
+        <div class="ct-av" style="background:#6E9E80">🎧</div>
+        <div class="ct-main"><div class="ct-name">Daniel Ruiz</div><div class="ct-role">Your recovery coach</div><div class="ct-num">(310) 555-0142</div></div>
+        <div class="ct-btns"><a class="ct-btn call" href="tel:3105550142"><i data-lucide="phone"></i>Call</a><a class="ct-btn text" href="sms:3105550142"><i data-lucide="message-circle"></i>Text</a></div>
+      </div>
+      <div class="ct-row">
+        <div class="ct-av" style="background:#4A90D9">🤝</div>
+        <div class="ct-main"><div class="ct-name">Tasha Brooks</div><div class="ct-role">Your peer specialist</div><div class="ct-num">(310) 555-0188</div></div>
+        <div class="ct-btns"><a class="ct-btn call" href="tel:3105550188"><i data-lucide="phone"></i>Call</a><a class="ct-btn text" href="sms:3105550188"><i data-lucide="message-circle"></i>Text</a></div>
+      </div>
+      <div class="ct-row">
+        <div class="ct-av" style="background:#4A90D9">🛏️</div>
+        <div class="ct-main"><div class="ct-name">Dr. Elena Rivera</div><div class="ct-role">Therapist · LCSW</div><div class="ct-num">(310) 555-0164</div></div>
+        <div class="ct-btns"><a class="ct-btn call" href="tel:3105550164"><i data-lucide="phone"></i>Call</a><a class="ct-btn text" href="sms:3105550164"><i data-lucide="message-circle"></i>Text</a></div>
+      </div>
+      <div class="ct-row">
+        <div class="ct-av" style="background:#4A90D9">🩺</div>
+        <div class="ct-main"><div class="ct-name">Dr. Sarah Okafor</div><div class="ct-role">Your doctor · MD</div><div class="ct-num">(310) 555-0133</div></div>
+        <div class="ct-btns"><a class="ct-btn call" href="tel:3105550133"><i data-lucide="phone"></i>Call</a><a class="ct-btn text" href="sms:3105550133"><i data-lucide="message-circle"></i>Text</a></div>
+      </div>
+    </div>
   </div>
 
   <div class="bottom-nav" id="bottomNav">
