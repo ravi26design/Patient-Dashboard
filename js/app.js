@@ -748,6 +748,10 @@ function startUrgeBreath(){
   run();
 }
 function stopUrgeBreath(){ if(urgeBreathTimer){ clearTimeout(urgeBreathTimer); urgeBreathTimer=null; } }
+/* open a relief tool from the urge page (drop the urge overlay so the tool shows on top) */
+function urgeTool(id){ var u=document.getElementById('ov-urge'); if(u){ u.classList.remove('active'); u.style.zoom=''; } stopUrgeBreath(); openOv(id); if(window.lucide&&lucide.createIcons) lucide.createIcons(); }
+/* finished riding out the urge */
+function urgeDone(){ closeOv(); if(typeof showXPPopup==='function') showXPPopup(30); rlToast('You rode it out — that took real strength.'); }
 
 /* ═══ Distraction mini-game: tap 1→9 in order, track best time ═══ */
 var rlGameNext=1, rlGameStart=0, rlGameBest=null;
