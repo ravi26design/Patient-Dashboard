@@ -2520,3 +2520,14 @@ body.is-desktop .ct-row:has(.ct-btns) .ct-btn{flex:none;padding:0 18px}
 
 /* Emergency-tone SOS options (urge + crisis) */
 .sos-opt-emerg .sos-opt-t{color:#C4453A}
+
+/* ===== What Helps Me — colorful idea cards (2-col, reference-style) ===== */
+.helps-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px;width:100%}
+.helps-card{position:relative;display:flex;flex-direction:column;align-items:flex-start;gap:9px;border:none;border-radius:16px;padding:13px 14px;cursor:pointer;text-align:left;font-family:var(--font-ui);overflow:hidden;transition:transform .12s ease}
+.helps-card::before{content:'';position:absolute;right:-22px;bottom:-26px;width:78px;height:78px;border-radius:50%;background:rgba(255,255,255,.30)}
+.helps-card:active{transform:scale(.97)}
+.helps-card-ic{position:relative;z-index:1;width:34px;height:34px;border-radius:11px;background:rgba(255,255,255,.6);display:flex;align-items:center;justify-content:center}
+.helps-card-ic i,.helps-card-ic svg{width:18px;height:18px}
+.helps-card-t{position:relative;z-index:1;font-size:13px;font-weight:700;color:var(--ink);line-height:1.25}
+.helps-card-plus{position:absolute;top:11px;right:11px;width:15px;height:15px;opacity:.55;z-index:1}
+.pf-tagchip i,.pf-tagchip svg{width:15px;height:15px}

@@ -1392,6 +1392,11 @@ var RH_PF = {
 };
 var TRIGGER_SUGG = ['Payday','Stress','Loneliness','Certain people','Old neighborhood','Boredom','Physical pain','Arguments','Parties','Anxiety','Can’t sleep','Seeing paraphernalia'];
 var ACTIVITY_SUGG = ['Go for a walk','Call a friend','Listen to music','Workout','Cold shower','Play a game','Cook something','Pray / meditate','Journal','Watch a show','Deep breathing','Pet my dog'];
+/* soft pastel palette for the What-Helps-Me idea cards (bg + matching icon accent) */
+var HELPS_COLORS = [
+  {bg:'#F6DDCD',ic:'#C1744C'},{bg:'#CFDCEC',ic:'#5E7CA6'},{bg:'#F3D0D9',ic:'#C06E82'},{bg:'#CFE6F3',ic:'#5591B6'},
+  {bg:'#D7E7C2',ic:'#6E9B57'},{bg:'#F4E1B2',ic:'#C0973B'},{bg:'#DED2EC',ic:'#8A6FB0'},{bg:'#E6D3C7',ic:'#A97C64'}
+];
 var ACT_ICONS = {
   'Go for a walk':'🚶','Call someone I trust':'📞','Call someone':'📞','Call a friend':'📞',
   'Listen to music':'🎵','Music':'🎵','Take a hot shower':'🚿','Hot shower':'🚿','Cold shower':'🚿',
@@ -1478,9 +1483,9 @@ function renderProfileEdit(){
   var es=document.getElementById('et-sugg');
   if(es) es.innerHTML=TRIGGER_SUGG.filter(function(s){return RH_PF.triggers.indexOf(s)<0;}).map(function(s){return '<button class="pf-sgc" type="button" onclick="pfAddTriggerVal(\''+jsStr(s)+'\')">+ '+esc(s)+'</button>';}).join('');
   var ea=document.getElementById('ea-list');
-  if(ea) ea.innerHTML=RH_PF.activities.map(function(x,i){return '<span class="pf-tagchip">'+actIcon(x)+' '+esc(x)+'<span class="x" onclick="pfRemoveActivity('+i+')">×</span></span>';}).join('') || '<span class="pf-empty">None yet — add some below.</span>';
+  if(ea) ea.innerHTML=RH_PF.activities.map(function(x,i){return '<span class="pf-tagchip"><i data-lucide="'+actLucide(x)+'"></i>'+esc(x)+'<span class="x" onclick="pfRemoveActivity('+i+')">×</span></span>';}).join('') || '<span class="pf-empty">None yet — add some below.</span>';
   var eas=document.getElementById('ea-sugg');
-  if(eas) eas.innerHTML=ACTIVITY_SUGG.filter(function(s){return RH_PF.activities.indexOf(s)<0;}).map(function(s){return '<button class="pf-sgc" type="button" onclick="pfAddActivityVal(\''+jsStr(s)+'\')">+ '+esc(s)+'</button>';}).join('');
+  if(eas) eas.innerHTML='<div class="helps-grid">'+ACTIVITY_SUGG.filter(function(s){return RH_PF.activities.indexOf(s)<0;}).map(function(s,i){var c=HELPS_COLORS[i%HELPS_COLORS.length];return '<button class="helps-card" style="background:'+c.bg+';color:'+c.ic+'" type="button" onclick="pfAddActivityVal(\''+jsStr(s)+'\')"><span class="helps-card-ic"><i data-lucide="'+actLucide(s)+'"></i></span><span class="helps-card-t">'+esc(s)+'</span><i data-lucide="plus" class="helps-card-plus"></i></button>';}).join('')+'</div>';
   if(window.lucide && lucide.createIcons) lucide.createIcons();
 }
 function pfRefresh(){ renderProfileEdit(); renderProfileLists(); pfPersist(); if(window.lucide && lucide.createIcons) lucide.createIcons(); }
