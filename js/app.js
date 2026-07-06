@@ -1446,9 +1446,9 @@ function renderProfileLists(){
   pfSeedFromProfile();
   /* only overwrite when we actually have content, so a refresh never blanks a section */
   var t=document.getElementById('pf-triggers');
-  if(t){ var th=RH_PF.triggers.map(function(x){return '<span class="pf-chip trig">'+esc(x)+'</span>';}).join(''); if(th) t.innerHTML=th; }
+  if(t){ var th=RH_PF.triggers.map(function(x,i){var c=HELPS_COLORS[i%HELPS_COLORS.length];return '<button class="helps-card helps-card-plain hp-scrollcard" style="background:'+c.bg+';color:'+c.ic+'" type="button" onclick="renderProfileEdit();openOv(\'edit-triggers\')"><span class="helps-card-t">'+esc(x)+'</span></button>';}).join(''); if(th) t.innerHTML=th; }
   var a=document.getElementById('pf-activities');
-  if(a){ var ah=RH_PF.activities.map(function(x){return '<span class="pf-chip">'+actIcon(x)+' '+esc(x)+'</span>';}).join(''); if(ah) a.innerHTML=ah; }
+  if(a){ var ah=RH_PF.activities.map(function(x,i){var c=HELPS_COLORS[i%HELPS_COLORS.length];return '<button class="helps-card hp-scrollcard" style="background:'+c.bg+';color:'+c.ic+'" type="button" onclick="renderProfileEdit();openOv(\'edit-activities\')"><span class="helps-card-ic"><i data-lucide="'+actLucide(x)+'"></i></span><span class="helps-card-t">'+esc(x)+'</span></button>';}).join(''); if(ah) a.innerHTML=ah; }
   var c=document.getElementById('pf-contacts');
   if(c){ var ch=contactsHTML(); if(ch) c.innerHTML=ch; }
   if(window.lucide && lucide.createIcons) lucide.createIcons();

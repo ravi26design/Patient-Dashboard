@@ -2546,14 +2546,19 @@ body.is-desktop .ct-row:has(.ct-btns) .ct-btn{flex:none;padding:0 18px}
 .helps-card:active{transform:scale(.97)}
 .helps-card-ic{position:relative;z-index:1;width:34px;height:34px;border-radius:11px;background:rgba(255,255,255,.6);display:flex;align-items:center;justify-content:center}
 .helps-card-ic i,.helps-card-ic svg{width:18px;height:18px}
-.helps-card-t{position:relative;z-index:1;font-size:13px;font-weight:700;color:var(--ink);line-height:1.25}
+.helps-card-t{position:relative;z-index:1;font-size:12px;font-weight:700;color:var(--ink);line-height:1.25}
 .helps-card-plus{position:absolute;top:11px;right:11px;width:15px;height:15px;opacity:.55;z-index:1}
 /* icon-less variant (My Triggers) — label-only card like the reference */
 .helps-card-plain{justify-content:center;min-height:62px;padding-right:32px}
-.helps-card-plain .helps-card-t{font-size:14px}
+.helps-card-plain .helps-card-t{font-size:12.5px}
 /* selected (checked) state — accent ring + solid check so it's easy to recognise */
 .helps-card.is-sel{box-shadow:inset 0 0 0 2px currentColor}
 .helps-card.is-sel .helps-card-plus{opacity:1;top:10px;right:10px}
+/* compact horizontal-scroll display cards (profile My Triggers / What Helps Me) */
+.hp-scrollcard{flex:0 0 auto;flex-direction:row;align-items:center;gap:9px;min-height:0;padding:10px 15px;border-radius:14px}
+.hp-scrollcard .helps-card-t{white-space:nowrap}
+.hp-scrollcard .helps-card-ic{width:26px;height:26px;border-radius:8px}
+.hp-scrollcard .helps-card-ic i,.hp-scrollcard .helps-card-ic svg{width:15px;height:15px}
 .pf-tagchip i,.pf-tagchip svg{width:15px;height:15px}
 
 /* ===== Location Check-in — Google-Maps-style: fixed map + scrolling info sheet ===== */
