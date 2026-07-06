@@ -349,7 +349,7 @@ function showMysteryXP(){
 (function(){
   var p=document.getElementById('phone');if(!p)return;
   var b=document.body;
-  var MOBILE=640, DESIGN_W=290;
+  var MOBILE=640, DESIGN_W=312;
   function clamp(v,lo,hi){return Math.min(Math.max(v,lo),hi);}
   function vh(){ return (window.visualViewport && window.visualViewport.height) || window.innerHeight; }
   function apply(){
@@ -358,7 +358,7 @@ function showMysteryXP(){
       /* phones — fill the viewport edge to edge */
       b.classList.add('is-mobile'); b.classList.remove('is-framed'); b.classList.remove('is-desktop'); b.classList.remove('is-tablet');
       window.__deskF=null;
-      var F=clamp(vw/DESIGN_W,1.35,1.7);
+      var F=clamp(vw/DESIGN_W,1.22,1.62);
       p.style.width=(vw/F)+'px';
       p.style.height=(H/F)+'px';
       p.style.transform='scale('+F+')';
