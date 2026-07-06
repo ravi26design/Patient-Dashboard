@@ -2444,3 +2444,15 @@ body.is-desktop #screen-profile.active{display:block}
 .rl-toast.show{opacity:1;transform:translate(-50%,0)}
 .rl-toast-ic{flex-shrink:0;width:26px;height:26px;border-radius:50%;background:#7BA47E;display:flex;align-items:center;justify-content:center}
 .rl-toast-ic svg{width:15px;height:15px;color:#fff}
+
+/* Desktop: keep the Distraction game compact + centered so it fits the screen without scrolling */
+body.is-desktop #ov-relief-game .ov-body{display:flex;flex-direction:column;justify-content:center;padding-top:8px;padding-bottom:14px}
+body.is-desktop #ov-relief-game .rl-hero{padding:14px 18px;margin-bottom:12px}
+body.is-desktop #ov-relief-game .rl-hero-ic{width:42px;height:42px;margin-bottom:2px}
+body.is-desktop #ov-relief-game .rl-hero-ic i,body.is-desktop #ov-relief-game .rl-hero-ic svg{width:21px;height:21px}
+body.is-desktop #ov-relief-game .rl-hero-t{font-size:17px;margin-top:2px}
+body.is-desktop #ov-relief-game .rl-hero-d{font-size:12px;margin-top:4px;line-height:1.4}
+body.is-desktop #ov-relief-game .game-grid{max-width:300px;margin:0 auto 12px;gap:9px}
+body.is-desktop #ov-relief-game .game-cell{font-size:24px}
+body.is-desktop #ov-relief-game .game-bar,
+body.is-desktop #ov-relief-game .rl-done{max-width:300px;margin-left:auto;margin-right:auto}
