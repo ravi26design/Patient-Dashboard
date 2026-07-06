@@ -1931,7 +1931,13 @@
       </div>
     </div>
     <div class="ov-body" style="padding-top:28px;text-align:center">
-      <div class="breath-orb" id="breath-orb">BREATHE IN</div>
+      <div class="breath-orb-wrap">
+        <svg class="breath-ring" viewBox="0 0 200 200" aria-hidden="true">
+          <circle class="breath-ring-bg" cx="100" cy="100" r="92"></circle>
+          <circle class="breath-ring-fg" id="breath-ring" cx="100" cy="100" r="92"></circle>
+        </svg>
+        <div class="breath-orb" id="breath-orb">BREATHE IN</div>
+      </div>
       <div id="breath-phase" class="breath-phase">Inhale through your nose · 4</div>
       <div class="breath-help">Breathe in for 4, hold for 7, exhale slowly for 8. Follow the circle. Four rounds is usually enough to feel your body settle.</div>
       <button class="rl-done rl-done-light" onclick="reliefDone('Breathing')">I feel calmer <i data-lucide="check"></i> <span class="rl-xp" style="color:var(--sage-dk)">+20 XP</span></button>

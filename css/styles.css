@@ -2198,7 +2198,11 @@ body[data-screen="rewards"] #screen-rewards{padding-top:26px}
 .rl-done-light .rl-xp{background:rgba(94,133,96,.14)}
 
 /* breathing orb */
-.breath-orb{width:180px;height:180px;border-radius:50%;margin:0 auto;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.16);border:2px solid rgba(255,255,255,.55);color:#fff;font-family:'Josefin Sans',sans-serif;font-size:14px;font-weight:700;letter-spacing:2px;transition:transform 4s ease-in-out;will-change:transform}
+.breath-orb-wrap{position:relative;width:200px;height:200px;margin:0 auto;display:flex;align-items:center;justify-content:center}
+.breath-ring{position:absolute;inset:0;width:200px;height:200px;transform:rotate(-90deg)}
+.breath-ring-bg{fill:none;stroke:rgba(255,255,255,.22);stroke-width:5}
+.breath-ring-fg{fill:none;stroke:#fff;stroke-width:5;stroke-linecap:round;stroke-dasharray:578;stroke-dashoffset:578}
+.breath-orb{position:relative;z-index:1;width:168px;height:168px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.16);border:none;color:#fff;font-family:'Josefin Sans',sans-serif;font-size:14px;font-weight:700;letter-spacing:2px;transition:transform 4s ease-in-out;will-change:transform}
 .breath-phase{font-size:13px;color:#fff;letter-spacing:1px;margin-top:18px;font-weight:700}
 .breath-help{font-size:11px;color:rgba(255,255,255,.78);margin-top:10px;line-height:1.6;padding:0 22px}
 

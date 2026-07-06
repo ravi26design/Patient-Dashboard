@@ -762,20 +762,22 @@ function gameTap(n,el){
 var breathTimer=null;
 function startBreath(){
   stopBreath();
+  /* phase: [orb label, caption, ms, orb transform, ring stroke-dashoffset (0=full ring, 578=empty)] */
   var phases=[
-    ['Breathe in','Inhale through your nose · 4',4000,'scale(1.12)'],
-    ['Hold','Hold · 7',7000,'scale(1.12)'],
-    ['Breathe out','Exhale slowly · 8',8000,'scale(.78)']
+    ['Breathe in','Inhale through your nose · 4',4000,'scale(1.12)',0],
+    ['Hold','Hold · 7',7000,'scale(1.12)',0],
+    ['Breathe out','Exhale slowly · 8',8000,'scale(.78)',578]
   ];
   var i=0;
   function run(){
     var p=phases[i%3];
-    var orb=document.getElementById('breath-orb'), ph=document.getElementById('breath-phase');
+    var orb=document.getElementById('breath-orb'), ph=document.getElementById('breath-phase'), ring=document.getElementById('breath-ring');
     if(!orb||!ph){ stopBreath(); return; }
     orb.textContent=p[0].toUpperCase();
     ph.textContent=p[1];
     orb.style.transition='transform '+(p[2]/1000)+'s ease-in-out';
     orb.style.transform=p[3];
+    if(ring){ ring.style.transition='stroke-dashoffset '+(p[2]/1000)+'s '+(i%3===1?'linear':'ease-in-out'); ring.style.strokeDashoffset=p[4]; }
     i++;
     breathTimer=setTimeout(run,p[2]);
   }
