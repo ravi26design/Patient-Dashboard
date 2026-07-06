@@ -511,8 +511,9 @@ function renderLogEntries(){
 var REFLECT_Q=[
   /* 0 — opening reflection, optional free-text + voice */
   {type:'text', q:'How are you, really?',
-    sub:'Takes about a minute.',
-    placeholder:'A sentence or two about how today felt… (optional)'},
+    sub:'No right answer — just be honest. Takes about a minute.',
+    placeholder:'A sentence or two about how today felt… (optional)',
+    starters:['Grateful','Anxious','Tired','Hopeful','Overwhelmed','Proud','Calm','Lonely']},
   /* 1 — drug use multi-select (reuse our substance list + emoji icons) */
   {type:'multi', q:'Which of these drugs have you used in the past 24 hours?', lucideIcons:true,
     icons:['beer','leaf','zap','wind','pill','sparkles','syringe','circle-check'], options:[
@@ -557,6 +558,12 @@ function reflectBack(){ if(reflectStep<=0){ closeOv(); return; } reflectStep--; 
 function esc(s){ return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 function reflectAns(){ return reflectAnswers[reflectStep]||(reflectAnswers[reflectStep]={}); }
 function reflectText(el){ reflectAns().text=el.value; }
+function reflectStarter(w){
+  var ta=document.querySelector('#rf-type-cap .rf-textarea'); if(!ta) return;
+  var stub='I felt '+String(w).toLowerCase()+' today because ';
+  ta.value=stub; reflectAns().text=stub; ta.focus();
+  try{ ta.setSelectionRange(stub.length, stub.length); }catch(e){}
+}
 function reflectToggleOpt(btn,i){
   var a=reflectAns(); var item=REFLECT_Q[reflectStep];
   if(item.single){
@@ -635,6 +642,8 @@ function renderReflect(){
         '</div>'+
         '<div id="rf-type-cap" style="display:'+(reflectVoiceMode?'none':'block')+'">'+
           '<textarea class="rf-textarea" oninput="reflectText(this)" placeholder="'+esc(item.placeholder||'')+'">'+esc(txt)+'</textarea>'+
+          (item.starters?'<div class="rf-starter-lbl">Not sure where to start? Tap a feeling</div>'+
+            '<div class="rf-starters">'+item.starters.map(function(w){return '<button type="button" class="rf-starter" onclick="reflectStarter(\''+jsStr(w)+'\')">'+esc(w)+'</button>';}).join('')+'</div>':'')+
         '</div>'+
         '<div id="rf-voice-cap" class="rf-voice-cap" style="display:'+(reflectVoiceMode?'block':'none')+'">'+
           '<div class="rf-mic-orb" onclick="reflectVrRecord(this)">🎙️</div>'+

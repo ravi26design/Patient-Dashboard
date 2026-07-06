@@ -965,6 +965,11 @@ body.is-desktop .overlay.active > .reflect-footer{max-width:620px;margin-left:au
 .rf-vt-ic{display:inline-flex;align-items:center}
 .rf-vt-ic i,.rf-vt-ic svg{width:14px;height:14px;stroke-width:2.2}
 .rf-textarea{width:100%;min-height:92px;box-sizing:border-box;border:1.5px solid rgba(54,59,59,.12);border-radius:14px;padding:13px 14px;font-family:var(--font-ui);font-size:13px;color:var(--ink);line-height:1.5;resize:none;background:#FCFAF4}
+.rf-starter-lbl{font-family:var(--font-ui);font-size:11.5px;color:var(--ink-soft);margin:14px 2px 8px}
+.rf-starters{display:flex;flex-wrap:wrap;gap:7px}
+.rf-starter{font-family:var(--font-ui);font-size:12px;font-weight:600;color:var(--sage-dk);background:var(--sage-lt);border:none;border-radius:999px;padding:7px 13px;cursor:pointer;transition:transform .12s ease,background .15s ease}
+.rf-starter:active{transform:scale(.95)}
+.rf-starter:hover{background:#DCE7DC}
 .rf-textarea:focus{outline:none;border-color:#7BA47E}
 .rf-textarea::placeholder{color:var(--ink-soft)}
 .rf-voice-cap{text-align:center;padding:8px 0 4px}
