@@ -1771,8 +1771,10 @@ body.is-framed:not(.is-desktop) .bottom-nav{margin-bottom:0}
 .bottom-nav .nav-tab:nth-child(2){transform:translateX(6px)}
 
 /* ═══ HOME WIDGET — Your streak, by focus ═══ */
-.sf-eyebrow{font-family:var(--font-ui);font-size:10px;font-weight:700;letter-spacing:1.5px;
-  text-transform:uppercase;color:var(--muted);margin-bottom:14px}
+.sf-eyebrow{font-family:var(--font-ui);font-size:11px;font-weight:700;letter-spacing:1.2px;
+  text-transform:uppercase;color:#5E8560;margin-bottom:14px}
+/* unify all patient section-titles to the same sage eyebrow colour */
+#patient-view .section-label{font-family:var(--font-ui);font-size:11px;font-weight:700;letter-spacing:1.2px;color:#5E8560}
 .sf-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .sf-stat{min-width:0;text-align:center;border-radius:16px;padding:16px 6px;
   display:flex;flex-direction:column;justify-content:center}
@@ -2104,7 +2106,8 @@ body.is-mobile .scr-title{font-size:19px}
 body.is-mobile .scr-card{padding:16px}
 
 /* ═══ PROFILE — triggers / activities / contacts ═══ */
-.pf-edit-btn{font-family:var(--font-ui);font-size:11px;font-weight:700;letter-spacing:.3px;text-transform:none;color:var(--sage-dk);background:var(--sage-lt);border:none;border-radius:999px;padding:5px 13px;cursor:pointer;transition:transform .12s ease}
+.pf-edit-btn{display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;padding:0;color:var(--sage-dk);background:var(--sage-lt);border:none;border-radius:50%;cursor:pointer;transition:transform .12s ease}
+.pf-edit-btn i,.pf-edit-btn svg{width:16px;height:16px}
 .pf-edit-btn:active{transform:scale(.95)}
 .pf-chips{display:flex;flex-wrap:wrap;gap:8px}
 .pf-chip{display:inline-flex;align-items:center;gap:5px;font-family:var(--font-ui);font-size:12px;font-weight:600;padding:7px 13px;border-radius:999px;background:var(--sage-lt);color:var(--sage-dk)}
@@ -2306,11 +2309,11 @@ body.is-desktop .sos-head-title{display:block}
 /* list-row avatar used across Medication / Care Team / Family / nav */
 .pf-rav{flex-shrink:0;width:42px;height:42px;border-radius:13px;display:flex;align-items:center;justify-content:center;font-family:var(--font-ui);font-weight:700;font-size:13px;letter-spacing:.3px}
 .pf-rav i,.pf-rav svg{width:19px;height:19px}
-.pf-av-sage{background:var(--sage-lt);color:var(--sage-dk)}
-.pf-av-purple{background:var(--purple-lt);color:var(--purple)}
-.pf-av-rose{background:var(--rose-lt);color:var(--rose-dk)}
-.pf-av-gold{background:var(--gold-lt);color:var(--gold-dk)}
-.pf-av-beige{background:var(--beige);color:var(--ink-soft)}
+.pf-av-sage{background:#6E9E80;color:#fff}
+.pf-av-purple{background:#8A6FB0;color:#fff}
+.pf-av-rose{background:#C97B6F;color:#fff}
+.pf-av-gold{background:#D8AD63;color:#fff}
+.pf-av-beige{background:#9C938D;color:#fff}
 .pf-row-end{flex-shrink:0;color:var(--muted);width:18px;height:18px}
 /* tappable settings / privacy / logout rows */
 .pf-nav-row{display:flex;align-items:center;gap:12px;width:100%;text-align:left;background:#fff;border:none;border-radius:18px;box-shadow:var(--card-shadow);padding:13px 16px;margin-bottom:12px;cursor:pointer;font:inherit;transition:transform .12s ease}
