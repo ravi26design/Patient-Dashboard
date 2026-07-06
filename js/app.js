@@ -511,7 +511,7 @@ function renderLogEntries(){
 var REFLECT_Q=[
   /* 0 — opening reflection, optional free-text + voice */
   {type:'text', q:'How are you, really?',
-    sub:'No right answer — just be honest. Takes about a minute.',
+    sub:'No right answer — just be honest.',
     placeholder:'A sentence or two about how today felt… (optional)',
     starters:['Grateful','Anxious','Tired','Hopeful','Overwhelmed','Proud','Calm','Lonely']},
   /* 1 — drug use multi-select (reuse our substance list + emoji icons) */
@@ -592,6 +592,12 @@ function reflectToggleVoice(){
   if(tc) tc.style.display=reflectVoiceMode?'none':'block';
   if(vc) vc.style.display=reflectVoiceMode?'block':'none';
 }
+/* voice waveform bars (blue left → orange right), animated only while recording */
+function rfWaveBars(){
+  var h=[22,38,55,32,68,46,26,58,78,44,64,84,52,72,92,74,54,82,62,42,78,56,28,48,66,34,52,38,22,44], s='';
+  for(var i=0;i<h.length;i++){ s+='<span class="rf-bar '+(i<h.length/2?'rf-bar-l':'rf-bar-r')+'" style="height:'+h[i]+'%;animation-delay:'+(i*0.045).toFixed(2)+'s"></span>'; }
+  return s;
+}
 /* Simple recording stub (mirrors reference vrRecord — visual only). */
 function reflectVrRecord(orb){
   var status=orb.parentElement.querySelector('.rf-vr-status');
@@ -647,6 +653,7 @@ function renderReflect(){
         '</div>'+
         '<div id="rf-voice-cap" class="rf-voice-cap" style="display:'+(reflectVoiceMode?'block':'none')+'">'+
           '<div class="rf-mic-orb" onclick="reflectVrRecord(this)">🎙️</div>'+
+          '<div class="rf-wave" aria-hidden="true">'+rfWaveBars()+'</div>'+
           '<div class="rf-vr-status">'+(txt?('✓ Captured — <span style="color:#5E8560">“'+esc(txt)+'”</span>'):'Tap to record · we’ll transcribe it for you')+'</div>'+
         '</div>'+
       '</div>';
