@@ -2466,3 +2466,6 @@ body.is-desktop #ov-relief-game .rl-done{max-width:300px;margin-left:auto;margin
 body.is-desktop #ov-relief-game .rl-hero-d{display:none}
 body.is-desktop #ov-relief-game .rl-hero{padding:12px 18px;margin-bottom:10px}
 body.is-desktop #ov-relief-game .game-grid{max-width:278px;margin-bottom:10px}
+
+/* Urge 'Do something that helps you': full-width cards on mobile so titles fit on one line */
+body.is-mobile .rl-acts{grid-template-columns:1fr}
