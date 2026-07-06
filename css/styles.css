@@ -1918,17 +1918,29 @@ body.is-desktop .tx-meta{position:absolute;right:6px;top:50%;transform:translate
 .onb-add:active{transform:scale(.97)}
 .onb-input:not(:placeholder-shown) + .onb-add{background:var(--sage);color:#fff;box-shadow:0 8px 20px rgba(110,158,128,.32)}
 .onb-hint{font-family:var(--font-ui);font-size:11px;font-weight:600;letter-spacing:.4px;color:var(--brown);margin-bottom:14px}
-.onb-chips{display:flex;flex-wrap:wrap;justify-content:center;gap:11px;width:100%;margin-bottom:24px}
-.onb-chip{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.6);border:1px solid rgba(255,255,255,.5);border-radius:999px;padding:13px 18px;
-  font-family:var(--font-ui);font-size:14px;font-weight:600;color:var(--ink);cursor:pointer;transition:all .15s ease}
-.onb-chip i,.onb-chip svg{width:16px;height:16px;flex-shrink:0;color:var(--sage)}
-.onb-chip.sel{background:#EBA63A;color:#fff;border-color:#EBA63A}
-.onb-chip.sel i,.onb-chip.sel svg{color:#fff}
-/* user-added chips are removable via the × */
-.onb-chip-custom{padding-right:12px}
-.onb-chip-x{display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;border-radius:50%;
-  font-size:15px;line-height:1;flex-shrink:0;color:inherit;background:rgba(255,255,255,.32);transition:background .12s ease}
-.onb-chip:not(.sel) .onb-chip-x{background:rgba(58,51,48,.10)}
+/* colorful toggle cards — same style as the edit-profile trigger/helps editor */
+.onb-chips{display:grid;grid-template-columns:1fr 1fr;gap:10px;width:100%;margin-bottom:24px}
+.onb-chip{position:relative;display:flex;align-items:center;justify-content:flex-start;min-height:54px;background:var(--cbg,#EAE7F0);border:none;border-radius:16px;padding:12px 32px 12px 15px;overflow:hidden;font-family:var(--font-ui);font-size:13.5px;font-weight:700;color:var(--ink);cursor:pointer;text-align:left;transition:transform .12s ease,box-shadow .2s ease}
+.onb-chip::before{content:'';position:absolute;right:-20px;bottom:-24px;width:70px;height:70px;border-radius:50%;background:rgba(255,255,255,.28)}
+.onb-chip::after{content:'+';position:absolute;top:9px;right:12px;font-size:15px;font-weight:700;line-height:1;color:var(--cacc,#8A6FB0);opacity:.5;z-index:2}
+.onb-chip > *{position:relative;z-index:1}
+.onb-chip:active{transform:scale(.97)}
+.onb-chip.sel{box-shadow:inset 0 0 0 2px var(--cacc,#8A6FB0)}
+.onb-chip.sel::after{content:'✓';opacity:1}
+.onb-chip:nth-child(8n+1){--cbg:#F6DDCD;--cacc:#C1744C}
+.onb-chip:nth-child(8n+2){--cbg:#CFDCEC;--cacc:#5E7CA6}
+.onb-chip:nth-child(8n+3){--cbg:#F3D0D9;--cacc:#C06E82}
+.onb-chip:nth-child(8n+4){--cbg:#CFE6F3;--cacc:#5591B6}
+.onb-chip:nth-child(8n+5){--cbg:#D7E7C2;--cacc:#6E9B57}
+.onb-chip:nth-child(8n+6){--cbg:#F4E1B2;--cacc:#C0973B}
+.onb-chip:nth-child(8n+7){--cbg:#DED2EC;--cacc:#8A6FB0}
+.onb-chip:nth-child(8n+8){--cbg:#E6D3C7;--cacc:#A97C64}
+.onb-chip i,.onb-chip svg{width:16px;height:16px;flex-shrink:0}
+/* user-added chips are removable via the × (top-right, replacing the +/✓ indicator) */
+.onb-chip-custom{padding-right:32px}
+.onb-chip-custom::after{display:none}
+.onb-chip-x{position:absolute;top:8px;right:10px;z-index:3;display:inline-flex;align-items:center;justify-content:center;width:19px;height:19px;border-radius:50%;
+  font-size:14px;line-height:1;flex-shrink:0;color:var(--cacc,#8A6FB0);background:rgba(58,51,48,.10);transition:background .12s ease}
 .onb-chip-x:hover{background:rgba(255,255,255,.5)}
 .onb-chip:not(.sel) .onb-chip-x:hover{background:rgba(58,51,48,.18)}
 .onb-continue{position:sticky;bottom:0;margin-top:auto;max-width:none;flex-shrink:0}
