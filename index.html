@@ -2088,9 +2088,9 @@
 
   <!-- ═══ FREQUENT LOCATION CHECK-IN ═══ -->
   <div class="overlay loc-fullmap" id="ov-location-checkin" style="background:#E6E2DB">
-    <!-- Fixed map view -->
+    <!-- Sticky map — real map image with a stylized SVG fallback -->
     <div class="loc-map-fixed">
-      <svg viewBox="0 0 300 260" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+      <svg class="loc-map-svg" viewBox="0 0 300 260" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
         <rect width="300" height="260" fill="#ECE7DE"/>
         <rect x="0" y="0" width="300" height="16" fill="#C7DDE3"/>
         <path d="M0 150 Q45 132 90 148 T175 160 L175 260 L0 260 Z" fill="#CFE3B8"/>
@@ -2101,6 +2101,7 @@
         <g stroke="#E7CFC4" stroke-width="2" stroke-dasharray="5 5" fill="none"><path d="M-10 130 L310 126"/></g>
         <g fill="#D9D3C9"><rect x="26" y="86" width="54" height="60" rx="3"/><rect x="118" y="84" width="62" height="62" rx="3"/><rect x="232" y="130" width="58" height="46" rx="3"/><rect x="28" y="200" width="48" height="34" rx="3"/><rect x="120" y="196" width="60" height="40" rx="3"/></g>
       </svg>
+      <img class="loc-map-img" alt="" src="https://staticmap.openstreetmap.de/staticmap.php?center=45.5152,-122.6784&zoom=16&size=680x560&maptype=mapnik" onerror="this.remove()">
       <button class="loc-fab loc-fab-back" type="button" onclick="closeOv()" aria-label="Back"><i data-lucide="arrow-left"></i></button>
       <span class="loc-map-pill"><i data-lucide="history"></i> Visited 4× recently</span>
       <div class="loc-zoom"><button type="button" aria-label="Zoom in">+</button><button type="button" aria-label="Zoom out">−</button></div>
@@ -2108,28 +2109,17 @@
       <span class="loc-pin"><svg viewBox="0 0 24 24" fill="#C25445" aria-hidden="true"><path d="M12 2C8.1 2 5 5.1 5 9c0 5.2 7 13 7 13s7-7.8 7-13c0-3.9-3.1-7-7-7z"/><circle cx="12" cy="9" r="2.6" fill="#fff"/></svg></span>
     </div>
 
-    <!-- Scrolling info sheet -->
+    <!-- Sheet scrolls up over the map -->
     <div class="loc-sheet">
       <div class="loc-grab"></div>
-      <div class="loc-place">
-        <div class="loc-place-ic"><i data-lucide="map-pin"></i></div>
-        <div class="loc-place-main">
-          <div class="loc-place-name">Current location</div>
-          <div class="loc-place-addr">1240 Rosewood Ave · Portland, OR</div>
-        </div>
+      <div class="loc-q">Which of the following best describes this place?</div>
+      <div class="loc-opts">
+        <button class="loc-opt" type="button" onclick="locAnswer(this)">My home</button>
+        <button class="loc-opt" type="button" onclick="locAnswer(this)">Someone else's home</button>
+        <button class="loc-opt" type="button" onclick="locAnswer(this)">A shelter, group home, hotel, or other temporary place I stayed</button>
+        <button class="loc-opt" type="button" onclick="locAnswer(this)">A restaurant, business, public place, or other non-residential place</button>
+        <button class="loc-opt" type="button" onclick="locAnswer(this)">I do not recognize this location or was just passing by</button>
       </div>
-
-      <div class="scr-card" style="margin-top:4px">
-        <div class="loc-q">Which of the following best describes this place?</div>
-        <div class="loc-opts">
-          <button class="loc-opt" type="button" onclick="locAnswer(this)">My home</button>
-          <button class="loc-opt" type="button" onclick="locAnswer(this)">Someone else's home</button>
-          <button class="loc-opt" type="button" onclick="locAnswer(this)">A shelter, group home, hotel, or other temporary place I stayed</button>
-          <button class="loc-opt" type="button" onclick="locAnswer(this)">A restaurant, business, public place, or other non-residential place</button>
-          <button class="loc-opt" type="button" onclick="locAnswer(this)">I do not recognize this location or was just passing by</button>
-        </div>
-      </div>
-
       <div class="loc-note">
         <i data-lucide="shield-check"></i>
         <div>Your location helps personalize your recovery insights. It stays private on your device and is never shared.</div>

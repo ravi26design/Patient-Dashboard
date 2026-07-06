@@ -2129,7 +2129,7 @@ body.is-mobile .scr-card{padding:16px}
 .pf-tagchip{display:inline-flex;align-items:center;gap:7px;font-family:var(--font-ui);font-size:13px;font-weight:600;padding:7px 9px 7px 13px;border-radius:999px;background:var(--sage-lt);color:var(--sage-dk)}
 .pf-tagchip.trig{background:var(--high-lt);color:var(--high)}
 .pf-tagchip .x{width:18px;height:18px;border-radius:50%;background:rgba(46,50,56,.12);display:flex;align-items:center;justify-content:center;font-size:13px;line-height:1;cursor:pointer}
-.pf-sugg-label{font-family:var(--font-ui);font-size:12.5px;font-weight:600;letter-spacing:0;text-transform:none;color:var(--sage-dk);margin:18px 2px 12px}
+.pf-sugg-label{font-family:var(--font-ui);font-size:12px;font-weight:500;letter-spacing:0;text-transform:none;color:var(--ink-soft);margin:16px 2px 12px;line-height:1.5}
 .pf-sugg{display:flex;flex-wrap:wrap;gap:8px}
 .pf-sgc{font-family:var(--font-ui);font-size:12px;font-weight:600;color:var(--ink-soft);background:#fff;border:1.5px solid rgba(54,59,59,.14);border-radius:999px;padding:7px 13px;cursor:pointer;transition:transform .12s ease}
 .pf-sgc:active{transform:scale(.95)}
@@ -2570,15 +2570,17 @@ body.is-desktop .ct-row:has(.ct-btns) .ct-btn{flex:none;padding:0 18px}
 .pf-tagchip i,.pf-tagchip svg{width:15px;height:15px}
 
 /* ===== Location Check-in — Google-Maps-style: fixed map + scrolling info sheet ===== */
-#ov-location-checkin.loc-fullmap.active{display:flex;flex-direction:column;padding:0;overflow:hidden}
-.loc-map-fixed{position:relative;flex:0 0 42%;min-height:220px;overflow:hidden;background:#ECE7DE}
-.loc-map-fixed > svg{width:100%;height:100%;display:block}
+#ov-location-checkin.loc-fullmap.active{display:block;padding:0;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch}
+.loc-map-fixed{position:sticky;top:0;height:44%;min-height:230px;overflow:hidden;background:#E4E7EC}
+.loc-map-svg{position:absolute;inset:0;width:100%;height:100%;display:block}
+.loc-map-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
 .loc-fab{position:absolute;width:42px;height:42px;border-radius:50%;border:none;background:#fff;box-shadow:0 3px 12px rgba(58,51,48,.22);display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--ink);z-index:6;transition:transform .12s ease}
 .loc-fab:active{transform:scale(.92)}
 .loc-fab i,.loc-fab svg{width:20px;height:20px}
 .loc-fab-back{top:16px;left:16px}
 .loc-fab-locate{right:16px;bottom:34px;color:#5B92CE}
-.loc-sheet{flex:1;min-height:0;overflow-y:auto;-webkit-overflow-scrolling:touch;background:var(--app-bg);border-radius:22px 22px 0 0;margin-top:-22px;position:relative;z-index:5;padding:6px 16px 32px;box-shadow:0 -8px 22px rgba(58,51,48,.10)}
+.loc-sheet{position:relative;z-index:3;min-height:100%;background:var(--app-bg);border-radius:22px 22px 0 0;margin-top:-24px;padding:6px 16px 44px;box-shadow:0 -8px 22px rgba(58,51,48,.12)}
+.loc-sheet .loc-q{margin-top:6px}
 .loc-grab{width:38px;height:4px;border-radius:2px;background:rgba(58,51,48,.14);margin:6px auto 12px}
 .loc-place{display:flex;align-items:center;gap:12px;padding:2px 2px 14px}
 .loc-place-ic{flex-shrink:0;width:46px;height:46px;border-radius:50%;background:#6E9E80;color:#fff;display:flex;align-items:center;justify-content:center}
