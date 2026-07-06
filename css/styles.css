@@ -2469,3 +2469,14 @@ body.is-desktop #ov-relief-game .game-grid{max-width:278px;margin-bottom:10px}
 
 /* Urge 'Do something that helps you': full-width cards on mobile so titles fit on one line */
 body.is-mobile .rl-acts{grid-template-columns:1fr}
+
+/* ============ Simulated Emergency 911 call screen ============ */
+.call911-inner{flex:1;display:flex;flex-direction:column;align-items:center;text-align:center;padding-top:13vh}
+.call911-av{width:120px;height:120px;border-radius:50%;background:#D46A63;display:flex;align-items:center;justify-content:center;box-shadow:0 0 0 6px rgba(255,255,255,.06),0 12px 34px rgba(212,90,69,.4)}
+.call911-av i,.call911-av svg{width:44px;height:44px;color:#fff;stroke-width:2}
+.call911-name{font-family:var(--font-display);font-size:28px;font-weight:700;color:#fff;margin-top:22px}
+.call911-num{font-family:var(--font-ui);font-size:15px;color:rgba(255,255,255,.55);margin-top:5px}
+.call911-status{font-family:var(--font-ui);font-size:14px;color:rgba(255,255,255,.42);margin-top:16px;letter-spacing:.3px}
+.call911-hang{margin:0 auto 8vh;width:72px;height:72px;border-radius:50%;border:none;background:#D46A63;color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 0 44px rgba(212,90,69,.5);transition:transform .12s ease}
+.call911-hang i,.call911-hang svg{width:30px;height:30px}
+.call911-hang:active{transform:scale(.93)}

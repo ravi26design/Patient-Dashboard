@@ -803,11 +803,11 @@
       </div>
       <div class="sos-lead">Reaching out is a strength, not a setback.</div>
 
-      <a class="sos-911" href="tel:911">
+      <div class="sos-911" role="button" onclick="call911Open()">
         <div class="sos-911-ic"><i data-lucide="phone"></i></div>
         <div class="sos-911-main"><div class="sos-911-t">Call 911</div><div class="sos-911-d">Overdose or medical emergency — call now</div></div>
         <i data-lucide="chevron-right" class="sos-911-arrow"></i>
-      </a>
+      </div>
 
       <div class="scr-eyebrow" style="margin-top:18px">What's going on?</div>
       <div class="sos-opt" onclick="openUrge()">
@@ -2123,6 +2123,17 @@
         </div>
       </div>
     </div>
+  </div>
+
+  <!-- ═══ EMERGENCY CALL SCREEN (simulated) ═══ -->
+  <div class="overlay call911-ov" id="ov-call911" style="background:linear-gradient(180deg,#2E333B,#20242B)">
+    <div class="call911-inner">
+      <div class="call911-av"><i data-lucide="phone"></i></div>
+      <div class="call911-name">Emergency</div>
+      <div class="call911-num">911</div>
+      <div class="call911-status" id="call911-status">connecting…</div>
+    </div>
+    <button class="call911-hang" type="button" onclick="endCall911()" aria-label="End call"><i data-lucide="phone-off"></i></button>
   </div>
 
   <div class="bottom-nav" id="bottomNav">

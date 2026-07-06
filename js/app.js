@@ -29,7 +29,7 @@ function openOv(id){
   if(id==='relief-game'   && typeof gameInit==='function')   gameInit();               /* build distraction grid */
   try{localStorage.setItem('rh_ov',id);}catch(e){}
 }
-function closeOv(){if(typeof stopBreath==='function')stopBreath();if(typeof stopUrgeBreath==='function')stopUrgeBreath();document.querySelectorAll('.overlay').forEach(function(o){o.classList.remove('active');o.style.zoom='';});try{localStorage.removeItem('rh_ov');}catch(e){}}
+function closeOv(){if(typeof stopBreath==='function')stopBreath();if(typeof stopUrgeBreath==='function')stopUrgeBreath();if(call911Timer){clearInterval(call911Timer);call911Timer=null;}document.querySelectorAll('.overlay').forEach(function(o){o.classList.remove('active');o.style.zoom='';});try{localStorage.removeItem('rh_ov');}catch(e){}}
 function closeTopOv(id){var el=document.getElementById('ov-'+id);if(el){el.classList.remove('active');el.style.zoom='';}try{localStorage.removeItem('rh_ov');}catch(e){}}
 
 /* ═══ FIND PROVIDER — engagement-instrumented ═══ */
@@ -752,6 +752,24 @@ function stopUrgeBreath(){ if(urgeBreathTimer){ clearTimeout(urgeBreathTimer); u
 function urgeTool(id){ var u=document.getElementById('ov-urge'); if(u){ u.classList.remove('active'); u.style.zoom=''; } stopUrgeBreath(); openOv(id); if(window.lucide&&lucide.createIcons) lucide.createIcons(); }
 /* finished riding out the urge */
 function urgeDone(){ closeOv(); if(typeof showXPPopup==='function') showXPPopup(30); rlToast('You rode it out — that took real strength.'); }
+/* Simulated Emergency 911 call screen */
+var call911Timer=null;
+function call911Open(){
+  openOv('call911');
+  var st=document.getElementById('call911-status');
+  if(st) st.textContent='connecting…';
+  if(call911Timer){ clearInterval(call911Timer); call911Timer=null; }
+  setTimeout(function(){
+    var ov=document.getElementById('ov-call911'); if(!ov||!ov.classList.contains('active')) return;
+    var n=0; if(st) st.textContent='connected · 00:00';
+    call911Timer=setInterval(function(){
+      n++; var m=Math.floor(n/60), s=n%60;
+      if(st) st.textContent='connected · '+(m<10?'0'+m:m)+':'+(s<10?'0'+s:s);
+    },1000);
+  },1300);
+  if(window.lucide&&lucide.createIcons) lucide.createIcons();
+}
+function endCall911(){ if(call911Timer){ clearInterval(call911Timer); call911Timer=null; } closeOv(); }
 
 /* ═══ Distraction mini-game: tap 1→9 in order, track best time ═══ */
 var rlGameNext=1, rlGameStart=0, rlGameBest=null;
