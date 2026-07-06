@@ -2109,6 +2109,9 @@ body.is-mobile .scr-card{padding:16px}
 .pf-edit-btn{display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;padding:0;color:var(--sage-dk);background:var(--sage-lt);border:none;border-radius:50%;cursor:pointer;transition:transform .12s ease}
 .pf-edit-btn i,.pf-edit-btn svg{width:16px;height:16px}
 .pf-edit-btn:active{transform:scale(.95)}
+/* whole section header is the tap target (reliable vs the small pencil next to the horizontal scroller) */
+.pf-sec-head{touch-action:manipulation;-webkit-tap-highlight-color:transparent}
+.pf-sec-head:active .pf-edit-btn{transform:scale(.92);background:#DCE7DC}
 .pf-chips{display:flex;flex-wrap:wrap;gap:8px}
 .pf-chip{display:inline-flex;align-items:center;gap:5px;font-family:var(--font-ui);font-size:12px;font-weight:600;padding:7px 13px;border-radius:999px;background:var(--sage-lt);color:var(--sage-dk)}
 .pf-chip.trig{background:var(--high-lt);color:var(--high)}
