@@ -1518,15 +1518,15 @@ body.is-desktop .brand-img{height:26px}
 #checkinModal.show{display:flex;animation:lmFade .3s ease both}
 #checkinModal.hide{opacity:0;pointer-events:none;transition:opacity .34s ease}
 .ci-card{max-width:360px;padding:30px 26px 22px;text-align:center;animation:lmPop .38s cubic-bezier(.2,.8,.3,1) both}
-.ci-icon{width:92px;height:92px;border-radius:24px;background:var(--gold-lt);
-  display:flex;align-items:center;justify-content:center;margin:0 auto 16px}
+.ci-icon{width:84px;height:84px;border-radius:22px;background:var(--gold-lt);
+  display:flex;align-items:center;justify-content:center;margin:0 auto 18px;box-shadow:0 8px 20px rgba(201,168,76,.22)}
 .ci-icon i{width:30px;height:30px;color:var(--gold-dk);stroke-width:1.9}
 .ci-icon .ci-illus{width:64px;height:64px;display:block}
 .ci-tick{transform-box:fill-box;transform-origin:center;opacity:0;animation:ciTick 3.8s ease-in-out infinite}
 @keyframes ciTick{0%{opacity:0;transform:scale(.3)}10%{opacity:1;transform:scale(1)}78%{opacity:1;transform:scale(1)}88%{opacity:0;transform:scale(.3)}100%{opacity:0}}
 @media (prefers-reduced-motion:reduce){ .ci-tick{animation:none;opacity:1} }
-.ci-title{font-family:var(--font-display);font-size:24px;font-weight:700;color:var(--ink);margin-bottom:12px}
-.ci-sub{font-family:var(--font-ui);font-size:14px;line-height:1.6;color:var(--brown);margin-bottom:20px}
+.ci-title{font-family:var(--font-display);font-size:22px;font-weight:700;color:var(--ink);margin-bottom:10px}
+.ci-sub{font-family:var(--font-ui);font-size:13.5px;line-height:1.6;color:var(--brown);margin-bottom:20px}
 .ci-sub b{color:var(--ink);font-weight:700}
 .ci-xp{color:var(--gold-dk);font-weight:700}
 .ci-begin{width:100%;padding:16px;border:none;border-radius:14px;background:var(--sage);color:#fff;
@@ -1786,7 +1786,8 @@ body.is-framed:not(.is-desktop) .bottom-nav{margin-bottom:0}
   color:var(--muted);margin-top:5px}
 
 /* ═══ HOME WIDGET — Recovery Journey milestone ═══ */
-.rj-card{background:#84B27F;padding:22px}
+.rj-card{background:linear-gradient(150deg,#90BE88 0%,#7BA875 55%,#6B9C73 100%);padding:24px;position:relative;overflow:hidden;box-shadow:0 10px 26px rgba(107,156,115,.28)}
+.rj-card::before{content:'';position:absolute;right:-40px;top:-46px;width:150px;height:150px;border-radius:50%;background:rgba(255,255,255,.10);pointer-events:none}
 .rj-eyebrow{font-family:var(--font-ui);font-size:10px;font-weight:700;letter-spacing:2.2px;
   text-transform:uppercase;color:rgba(255,255,255,.88);margin-bottom:8px}
 .rj-title{font-family:var(--font-display);font-size:19px;font-weight:700;color:#fff;
@@ -1797,8 +1798,8 @@ body.is-framed:not(.is-desktop) .bottom-nav{margin-bottom:0}
 .rj-cap{font-family:var(--font-ui);font-size:10px;font-weight:700;letter-spacing:1.5px;
   text-transform:uppercase;color:rgba(255,255,255,.92)}
 .rj-heart{color:#fff}
-.rj-bar{height:9px;border-radius:999px;background:rgba(255,255,255,.4);overflow:hidden;margin-bottom:14px}
-.rj-fill{height:100%;width:78%;border-radius:999px;background:#fff;transition:width 1.15s cubic-bezier(.3,.9,.35,1)}
+.rj-bar{position:relative;height:10px;border-radius:999px;background:rgba(255,255,255,.28);overflow:hidden;margin-bottom:14px;box-shadow:inset 0 1px 2px rgba(58,51,48,.10)}
+.rj-fill{height:100%;width:78%;border-radius:999px;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.12);transition:width 1.15s cubic-bezier(.3,.9,.35,1)}
 .rj-sub{font-family:var(--font-ui);font-size:12px;color:rgba(255,255,255,.9);line-height:1.4}
 
 /* Active bottom-nav tab in #84B27F */
@@ -1973,6 +1974,7 @@ body.is-desktop .tx-meta{position:absolute;right:6px;top:50%;transform:translate
 .lpill{flex-shrink:0;font-family:var(--font-ui);font-size:11px;font-weight:700;padding:6px 12px;border-radius:999px;white-space:nowrap}
 .lpill-xp{color:#9A6B16;background:#FFF1D6}
 .lpill-sage{color:#3F5E41;background:#EAF1E9}
+.lpill-earned{color:#3F5E41;background:#fff;box-shadow:0 1px 4px rgba(58,51,48,.08)}
 /* segmented controls (timeframe / item pickers) */
 .tf-seg{display:flex;gap:6px;flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;max-width:100%;min-width:0;position:static;width:auto;height:auto}
 .tf-seg::-webkit-scrollbar{display:none}
