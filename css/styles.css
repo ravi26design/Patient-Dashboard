@@ -2182,9 +2182,9 @@ body[data-screen="rewards"] #screen-rewards{padding-top:26px}
 .rl-stat-l{font-family:var(--font-ui);font-size:11px;color:var(--ink-soft);margin-top:5px;letter-spacing:.2px}
 
 /* ═══ RELIEF OVERLAYS ═══ */
-.rl-hero{background:linear-gradient(150deg,#84B27F,#5E8560);color:#fff;border-radius:18px;padding:22px 18px;text-align:center;margin-bottom:14px}
-.rl-hero-t{font-family:var(--font-display);font-size:22px;font-weight:700;margin-top:4px}
-.rl-hero-d{font-family:var(--font-ui);font-size:13px;opacity:.94;margin-top:8px;line-height:1.5}
+.rl-hero{background:var(--sage-lt);color:var(--ink);border-radius:18px;padding:22px 18px;text-align:center;margin-bottom:14px}
+.rl-hero-t{font-family:var(--font-display);font-size:19px;font-weight:700;color:var(--sage-dk);margin-top:4px}
+.rl-hero-d{font-family:var(--font-ui);font-size:13px;color:var(--ink-soft);margin-top:8px;line-height:1.5}
 .rl-step{display:flex;align-items:flex-start;gap:12px;background:#fff;border:none;box-shadow:var(--card-shadow);border-radius:14px;padding:13px 15px;margin-bottom:10px}
 .rl-num{width:30px;height:30px;border-radius:50%;background:#EAF1E9;color:#5E8560;font-family:var(--font-ui);font-weight:700;font-size:15px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .rl-step-tx{font-family:var(--font-ui);font-size:13px;color:var(--ink);line-height:1.5}
