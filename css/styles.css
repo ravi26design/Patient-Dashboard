@@ -2417,3 +2417,20 @@ body.is-desktop #screen-profile.active{display:block}
 
 /* Relief 'done' buttons: inline Lucide check icon (was emoji/✓) */
 .rl-done i,.rl-done svg{width:18px;height:18px;stroke-width:2.6;flex-shrink:0}
+
+/* ===== Relief tools: each internal page matches its Activities tile colour ===== */
+/* Urge surfing = blue */
+#ov-relief-surf .rl-hero{background:#5B92CE}
+#ov-relief-surf .rl-hero-ic i,#ov-relief-surf .rl-hero-ic svg{color:#4E82C0}
+#ov-relief-surf .rl-num{background:#E4EEF4;color:#4E82C0}
+#ov-relief-surf .rl-done{background:#5B92CE;box-shadow:0 10px 24px rgba(91,146,206,.28)}
+/* 5-4-3-2-1 grounding = gold */
+#ov-relief-ground .rl-hero{background:#C9962E}
+#ov-relief-ground .rl-hero-ic i,#ov-relief-ground .rl-hero-ic svg{color:#C9962E}
+#ov-relief-ground .rl-num{background:#FBF1DC;color:#AE811E}
+#ov-relief-ground .rl-done{background:#C9962E;box-shadow:0 10px 24px rgba(201,150,46,.28)}
+/* Distraction game = coral */
+#ov-relief-game .rl-hero{background:#CC6E5D}
+#ov-relief-game .rl-hero-ic i,#ov-relief-game .rl-hero-ic svg{color:#C56A5A}
+#ov-relief-game .game-new{background:#D17A6B}
+#ov-relief-game .game-read b{color:#C56A5A}

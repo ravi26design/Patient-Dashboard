@@ -732,7 +732,7 @@ var rlGameNext=1, rlGameStart=0, rlGameBest=null;
 function gameInit(){
   var nums=[1,2,3,4,5,6,7,8,9];
   for(var i=nums.length-1;i>0;i--){ var j=Math.floor(Math.random()*(i+1)); var t=nums[i]; nums[i]=nums[j]; nums[j]=t; }
-  var colors=['#84B27F','#7BA47E','#A6C9AD','#6E9E80','#5E8560','#9BC0A0','#84B27F','#6E9E80','#A6C9AD'];
+  var colors=['#D98878','#C97B6F','#E2A497','#C56A5A','#D17A6B','#E8B0A5','#C97B6F','#D98878','#C56A5A'];
   var g=document.getElementById('game-grid'); if(!g) return;
   g.innerHTML=nums.map(function(n,i){
     return '<button class="game-cell" data-n="'+n+'" onclick="gameTap('+n+',this)" style="background:'+colors[i%colors.length]+'">'+n+'</button>';
