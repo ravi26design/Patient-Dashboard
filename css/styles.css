@@ -2535,6 +2535,9 @@ body.is-desktop .ct-row:has(.ct-btns) .ct-btn{flex:none;padding:0 18px}
 .helps-card-ic i,.helps-card-ic svg{width:18px;height:18px}
 .helps-card-t{position:relative;z-index:1;font-size:13px;font-weight:700;color:var(--ink);line-height:1.25}
 .helps-card-plus{position:absolute;top:11px;right:11px;width:15px;height:15px;opacity:.55;z-index:1}
+/* icon-less variant (My Triggers) — label-only card like the reference */
+.helps-card-plain{justify-content:center;min-height:62px;padding-right:32px}
+.helps-card-plain .helps-card-t{font-size:14px}
 .pf-tagchip i,.pf-tagchip svg{width:15px;height:15px}
 
 /* ===== Location Check-in — Google-Maps-style: fixed map + scrolling info sheet ===== */

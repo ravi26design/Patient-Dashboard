@@ -1481,7 +1481,7 @@ function renderProfileEdit(){
   var et=document.getElementById('et-list');
   if(et) et.innerHTML=RH_PF.triggers.map(function(x,i){return '<span class="pf-tagchip trig">'+esc(x)+'<span class="x" onclick="pfRemoveTrigger('+i+')">×</span></span>';}).join('') || '<span class="pf-empty">None yet — add some below.</span>';
   var es=document.getElementById('et-sugg');
-  if(es) es.innerHTML=TRIGGER_SUGG.filter(function(s){return RH_PF.triggers.indexOf(s)<0;}).map(function(s){return '<button class="pf-sgc" type="button" onclick="pfAddTriggerVal(\''+jsStr(s)+'\')">+ '+esc(s)+'</button>';}).join('');
+  if(es) es.innerHTML='<div class="helps-grid">'+TRIGGER_SUGG.filter(function(s){return RH_PF.triggers.indexOf(s)<0;}).map(function(s,i){var c=HELPS_COLORS[i%HELPS_COLORS.length];return '<button class="helps-card helps-card-plain" style="background:'+c.bg+';color:'+c.ic+'" type="button" onclick="pfAddTriggerVal(\''+jsStr(s)+'\')"><span class="helps-card-t">'+esc(s)+'</span><i data-lucide="plus" class="helps-card-plus"></i></button>';}).join('')+'</div>';
   var ea=document.getElementById('ea-list');
   if(ea) ea.innerHTML=RH_PF.activities.map(function(x,i){return '<span class="pf-tagchip"><i data-lucide="'+actLucide(x)+'"></i>'+esc(x)+'<span class="x" onclick="pfRemoveActivity('+i+')">×</span></span>';}).join('') || '<span class="pf-empty">None yet — add some below.</span>';
   var eas=document.getElementById('ea-sugg');
