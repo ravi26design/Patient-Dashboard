@@ -695,10 +695,12 @@ function reflectDone(){
 function rlToast(msg){
   try{
     var t=document.createElement('div');
-    t.textContent=msg;
-    t.style.cssText='position:fixed;left:50%;bottom:96px;transform:translateX(-50%);background:rgba(58,51,48,.94);color:#fff;font-family:\'Josefin Sans\',sans-serif;font-size:12px;padding:10px 16px;border-radius:999px;z-index:99999;max-width:80%;text-align:center;box-shadow:0 8px 24px rgba(0,0,0,.25)';
+    t.className='rl-toast';
+    t.innerHTML='<span class="rl-toast-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span class="rl-toast-tx"></span>';
+    t.querySelector('.rl-toast-tx').textContent=msg;
     document.body.appendChild(t);
-    setTimeout(function(){ t.style.transition='opacity .4s'; t.style.opacity='0'; setTimeout(function(){ t.remove(); },420); },1800);
+    requestAnimationFrame(function(){ t.classList.add('show'); });
+    setTimeout(function(){ t.classList.remove('show'); setTimeout(function(){ t.remove(); },340); },2400);
   }catch(e){}
 }
 
@@ -753,7 +755,7 @@ function gameTap(n,el){
     var secs=((Date.now()-rlGameStart)/1000).toFixed(1);
     if(rlGameBest===null || +secs<rlGameBest) rlGameBest=+secs;
     var bb=document.getElementById('game-best'); if(bb) bb.textContent=rlGameBest+'s';
-    rlToast('Done in '+secs+'s! Mind busy = craving quiet 🌿');
+    rlToast('Done in '+secs+'s · Mind busy, craving quiet');
     setTimeout(gameInit,900);
   }
 }

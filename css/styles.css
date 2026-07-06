@@ -2438,3 +2438,9 @@ body.is-desktop #screen-profile.active{display:block}
 #ov-relief-game .rl-hero-ic i,#ov-relief-game .rl-hero-ic svg{color:#8A6FB0}
 #ov-relief-game .game-new{background:#8A6FB0}
 #ov-relief-game .game-read b{color:#7A6AA8}
+
+/* Toast (game completion + relief confirmations): clean dark toast with a check icon */
+.rl-toast{position:fixed;left:50%;bottom:100px;transform:translate(-50%,14px);opacity:0;z-index:99999;display:flex;align-items:center;gap:10px;max-width:82%;background:#2A2421;color:#fff;font-family:var(--font-ui);font-size:13px;font-weight:600;letter-spacing:.1px;padding:11px 18px 11px 12px;border-radius:14px;box-shadow:0 14px 32px rgba(0,0,0,.30);transition:opacity .3s ease,transform .34s cubic-bezier(.2,.9,.3,1)}
+.rl-toast.show{opacity:1;transform:translate(-50%,0)}
+.rl-toast-ic{flex-shrink:0;width:26px;height:26px;border-radius:50%;background:#7BA47E;display:flex;align-items:center;justify-content:center}
+.rl-toast-ic svg{width:15px;height:15px;color:#fff}
