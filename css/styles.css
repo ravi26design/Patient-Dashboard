@@ -2316,6 +2316,16 @@ body.is-desktop .sos-head-title{display:block}
 .pf-nav-row{display:flex;align-items:center;gap:12px;width:100%;text-align:left;background:#fff;border:none;border-radius:18px;box-shadow:var(--card-shadow);padding:13px 16px;margin-bottom:12px;cursor:pointer;font:inherit;transition:transform .12s ease}
 .pf-nav-row:active{transform:scale(.99)}
 .pf-logout .pf-contact-name{color:var(--coral-dk)}
+/* iOS-settings-style grouped menu: rounded-square colored icon tiles + dividers */
+.pf-menu{background:#fff;border-radius:18px;box-shadow:var(--card-shadow);overflow:hidden;margin-bottom:12px}
+.pf-menu-row{display:flex;align-items:center;gap:13px;width:100%;text-align:left;background:none;border:none;padding:12px 15px;cursor:pointer;font:inherit;transition:background .15s ease}
+.pf-menu-row:not(:last-child){border-bottom:1px solid rgba(58,51,48,.07)}
+.pf-menu-row:active{background:#F7F3EE}
+.pf-menu-ic{flex-shrink:0;width:34px;height:34px;border-radius:10px;display:flex;align-items:center;justify-content:center}
+.pf-menu-ic i,.pf-menu-ic svg{width:19px;height:19px}
+.pf-menu-t{flex:1;min-width:0;font-family:var(--font-ui);font-size:14px;font-weight:600;color:var(--ink)}
+.pf-menu-logout .pf-menu-t{color:#C4453A}
+.pf-menu-arrow{flex-shrink:0;width:18px;height:18px;color:var(--muted)}
 
 /* Patterns chart: fixed y-axis strip while the plot scrolls horizontally */
 .pattern-chart-outer{position:relative}

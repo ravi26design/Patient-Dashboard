@@ -1150,20 +1150,22 @@
       </div>
 
       <!-- Settings / Privacy / Log out -->
-      <button class="pf-nav-row" type="button">
-        <div class="pf-rav pf-av-beige"><i data-lucide="settings"></i></div>
-        <div class="pf-contact-main"><div class="pf-contact-name">Settings &amp; Preferences</div></div>
-        <i data-lucide="chevron-right" class="pf-row-end"></i>
-      </button>
-      <button class="pf-nav-row" type="button">
-        <div class="pf-rav pf-av-beige"><i data-lucide="shield"></i></div>
-        <div class="pf-contact-main"><div class="pf-contact-name">Privacy &amp; Data Sharing</div></div>
-        <i data-lucide="chevron-right" class="pf-row-end"></i>
-      </button>
-      <button class="pf-nav-row pf-logout" type="button" onclick="logout()">
-        <div class="pf-rav pf-av-beige"><i data-lucide="log-out"></i></div>
-        <div class="pf-contact-main"><div class="pf-contact-name">Log out</div></div>
-      </button>
+      <div class="pf-menu">
+        <button class="pf-menu-row" type="button">
+          <div class="pf-menu-ic" style="background:var(--sage-lt);color:var(--sage-dk)"><i data-lucide="settings"></i></div>
+          <div class="pf-menu-t">Settings &amp; Preferences</div>
+          <i data-lucide="chevron-right" class="pf-menu-arrow"></i>
+        </button>
+        <button class="pf-menu-row" type="button">
+          <div class="pf-menu-ic" style="background:#E3EEF7;color:#5B92CE"><i data-lucide="shield"></i></div>
+          <div class="pf-menu-t">Privacy &amp; Data Sharing</div>
+          <i data-lucide="chevron-right" class="pf-menu-arrow"></i>
+        </button>
+        <button class="pf-menu-row pf-menu-logout" type="button" onclick="logout()">
+          <div class="pf-menu-ic" style="background:#FBE0DB;color:#C4453A"><i data-lucide="log-out"></i></div>
+          <div class="pf-menu-t">Log out</div>
+        </button>
+      </div>
     </div>
 
   </div>
