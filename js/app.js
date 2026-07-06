@@ -719,7 +719,7 @@ function openUrge(){
   var acts=document.getElementById('urge-acts');
   if(acts){
     acts.innerHTML = RH_PF.activities.map(function(a){
-      return '<div class="rl-act" onclick="urgeAct(\''+jsStr(a)+'\')"><div class="rl-act-ic">'+actIcon(a)+'</div><div class="rl-act-lb">'+esc(a)+'</div></div>';
+      return '<div class="rl-act" onclick="urgeAct(\''+jsStr(a)+'\')"><div class="rl-act-ic"><i data-lucide="'+actLucide(a)+'"></i></div><div class="rl-act-lb">'+esc(a)+'</div></div>';
     }).join('') || '<div class="rl-act-empty">Add relief activities in your profile to see them here.</div>';
   }
   var contacts=document.getElementById('urge-contacts');
@@ -1359,6 +1359,16 @@ var ACT_ICONS = {
   'Journal':'📓','Cook something':'🍳','Watch a show':'📺'
 };
 function actIcon(a){ return ACT_ICONS[a] || '✨'; }
+/* Lucide-icon equivalents (design-system icons instead of emoji) */
+var ACT_LUCIDE = {
+  'Go for a walk':'footprints','Call someone I trust':'phone','Call someone':'phone','Call a friend':'phone',
+  'Listen to music':'music','Music':'music','Take a hot shower':'shower-head','Hot shower':'shower-head','Cold shower':'shower-head',
+  'Breathing exercise':'wind','Breathe':'wind','Deep breathing':'wind','Play a game':'gamepad-2',
+  'Pray or meditate':'sparkles','Pray / meditate':'sparkles','Work out':'dumbbell','Workout':'dumbbell',
+  'Drink cold water':'droplet','Cold water':'droplet','Pet my dog':'dog','My pet':'dog','Pet my cat':'cat',
+  'Journal':'pen-line','Cook something':'utensils-crossed','Watch a show':'tv'
+};
+function actLucide(a){ return ACT_LUCIDE[a] || 'sparkles'; }
 
 /* persist into our existing rh_profile blob (alongside onboarding fields) */
 function pfPersist(){
