@@ -2157,7 +2157,7 @@ body[data-screen="rewards"] #screen-rewards{padding-top:26px}
 .rl-tile:nth-child(1) .rl-emoji{background:#E4EEF4;color:#5B92CE}
 .rl-tile:nth-child(2) .rl-emoji{background:#FBF1DC;color:#C9962E}
 .rl-tile:nth-child(3) .rl-emoji{background:#E7F0EA;color:#5E8560}
-.rl-tile:nth-child(4) .rl-emoji{background:#FAE7E2;color:#D17A6B}
+.rl-tile:nth-child(4) .rl-emoji{background:#EFEAF6;color:#8A6FB0}
 .rl-title{font-family:var(--font-ui);font-size:13px;font-weight:700;color:var(--ink);line-height:1.25}
 .rl-dur{display:flex;align-items:center;gap:5px;font-family:var(--font-ui);font-size:12px;color:var(--ink-soft);margin-top:auto}
 .rl-dur .rl-clock{width:13px;height:13px;stroke-width:2.2}
@@ -2433,8 +2433,8 @@ body.is-desktop #screen-profile.active{display:block}
 #ov-relief-ground .rl-hero-ic i,#ov-relief-ground .rl-hero-ic svg{color:#C9962E}
 #ov-relief-ground .rl-num{background:#FBF1DC;color:#AE811E}
 #ov-relief-ground .rl-done{background:#C9962E;box-shadow:0 10px 24px rgba(201,150,46,.28)}
-/* Distraction game = coral */
-#ov-relief-game .rl-hero{background:#CC6E5D}
-#ov-relief-game .rl-hero-ic i,#ov-relief-game .rl-hero-ic svg{color:#C56A5A}
-#ov-relief-game .game-new{background:#D17A6B}
-#ov-relief-game .game-read b{color:#C56A5A}
+/* Distraction game = purple */
+#ov-relief-game .rl-hero{background:#7E68A8}
+#ov-relief-game .rl-hero-ic i,#ov-relief-game .rl-hero-ic svg{color:#8A6FB0}
+#ov-relief-game .game-new{background:#8A6FB0}
+#ov-relief-game .game-read b{color:#7A6AA8}
