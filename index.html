@@ -2093,27 +2093,39 @@
   </div>
 
   <!-- ═══ FREQUENT LOCATION CHECK-IN ═══ -->
-  <div class="overlay" id="ov-location-checkin" style="background:var(--app-bg)">
-    <div class="ov-header" style="background:transparent;border-bottom:none;align-items:center">
-      <button class="ov-back" style="background:#fff;color:var(--ink);box-shadow:0 2px 8px rgba(58,51,48,.10)" onclick="closeOv()">&larr;</button>
-      <div style="font-family:var(--font-display);font-size:18px;font-weight:700;color:var(--ink);line-height:1.15">Location Check&#8209;in</div>
+  <div class="overlay loc-fullmap" id="ov-location-checkin" style="background:#E6E2DB">
+    <!-- Fixed map view -->
+    <div class="loc-map-fixed">
+      <svg viewBox="0 0 300 260" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+        <rect width="300" height="260" fill="#ECE7DE"/>
+        <rect x="0" y="0" width="300" height="16" fill="#C7DDE3"/>
+        <path d="M0 150 Q45 132 90 148 T175 160 L175 260 L0 260 Z" fill="#CFE3B8"/>
+        <rect x="210" y="24" width="90" height="80" rx="6" fill="#CFE3B8"/>
+        <path d="M-10 220 Q120 205 310 224 L310 260 L-10 260 Z" fill="#DFE9CE"/>
+        <g stroke="#fff" stroke-width="8" fill="none"><path d="M-10 74 L310 66"/><path d="M-10 182 L310 196"/><path d="M92 -10 L108 270"/><path d="M204 -10 L222 270"/></g>
+        <g stroke="#fff" stroke-width="4" fill="none"><path d="M-10 126 L310 120"/><path d="M150 -10 L150 270"/></g>
+        <g stroke="#E7CFC4" stroke-width="2" stroke-dasharray="5 5" fill="none"><path d="M-10 130 L310 126"/></g>
+        <g fill="#D9D3C9"><rect x="26" y="86" width="54" height="60" rx="3"/><rect x="118" y="84" width="62" height="62" rx="3"/><rect x="232" y="130" width="58" height="46" rx="3"/><rect x="28" y="200" width="48" height="34" rx="3"/><rect x="120" y="196" width="60" height="40" rx="3"/></g>
+      </svg>
+      <button class="loc-fab loc-fab-back" type="button" onclick="closeOv()" aria-label="Back"><i data-lucide="arrow-left"></i></button>
+      <span class="loc-map-pill"><i data-lucide="history"></i> Visited 4× recently</span>
+      <div class="loc-zoom"><button type="button" aria-label="Zoom in">+</button><button type="button" aria-label="Zoom out">−</button></div>
+      <button class="loc-fab loc-fab-locate" type="button" aria-label="Recenter"><i data-lucide="locate-fixed"></i></button>
+      <span class="loc-pin"><svg viewBox="0 0 24 24" fill="#C25445" aria-hidden="true"><path d="M12 2C8.1 2 5 5.1 5 9c0 5.2 7 13 7 13s7-7.8 7-13c0-3.9-3.1-7-7-7z"/><circle cx="12" cy="9" r="2.6" fill="#fff"/></svg></span>
     </div>
-    <div class="ov-body" style="padding-top:12px">
-      <div class="loc-map">
-        <svg viewBox="0 0 300 190" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-          <rect width="300" height="190" fill="#ECE7DE"/>
-          <rect x="0" y="0" width="300" height="12" fill="#C7DDE3"/>
-          <path d="M0 118 Q45 100 90 116 T175 126 L175 190 L0 190 Z" fill="#CFE3B8"/>
-          <rect x="214" y="18" width="86" height="66" rx="5" fill="#CFE3B8"/>
-          <g stroke="#fff" stroke-width="7" fill="none"><path d="M-10 58 L310 50"/><path d="M-10 138 L310 150"/><path d="M92 -10 L108 200"/><path d="M198 -10 L216 200"/></g>
-          <g stroke="#E7CFC4" stroke-width="2" stroke-dasharray="5 5" fill="none"><path d="M-10 98 L310 94"/><path d="M150 -10 L150 200"/></g>
-          <g fill="#D9D3C9"><rect x="28" y="68" width="52" height="56" rx="3"/><rect x="118" y="64" width="60" height="60" rx="3"/><rect x="230" y="98" width="58" height="46" rx="3"/><rect x="30" y="150" width="46" height="30" rx="3"/></g>
-        </svg>
-        <span class="loc-map-pill">You visited this place 4× recently</span>
-        <div class="loc-zoom"><button type="button" aria-label="Zoom in">+</button><button type="button" aria-label="Zoom out">−</button></div>
-        <span class="loc-pin"><svg viewBox="0 0 24 24" fill="#C25445" aria-hidden="true"><path d="M12 2C8.1 2 5 5.1 5 9c0 5.2 7 13 7 13s7-7.8 7-13c0-3.9-3.1-7-7-7z"/><circle cx="12" cy="9" r="2.6" fill="#fff"/></svg></span>
+
+    <!-- Scrolling info sheet -->
+    <div class="loc-sheet">
+      <div class="loc-grab"></div>
+      <div class="loc-place">
+        <div class="loc-place-ic"><i data-lucide="map-pin"></i></div>
+        <div class="loc-place-main">
+          <div class="loc-place-name">Current location</div>
+          <div class="loc-place-addr">1240 Rosewood Ave · Portland, OR</div>
+        </div>
       </div>
-      <div class="scr-card">
+
+      <div class="scr-card" style="margin-top:4px">
         <div class="loc-q">Which of the following best describes this place?</div>
         <div class="loc-opts">
           <button class="loc-opt" type="button" onclick="locAnswer(this)">My home</button>
@@ -2122,6 +2134,11 @@
           <button class="loc-opt" type="button" onclick="locAnswer(this)">A restaurant, business, public place, or other non-residential place</button>
           <button class="loc-opt" type="button" onclick="locAnswer(this)">I do not recognize this location or was just passing by</button>
         </div>
+      </div>
+
+      <div class="loc-note">
+        <i data-lucide="shield-check"></i>
+        <div>Your location helps personalize your recovery insights. It stays private on your device and is never shared.</div>
       </div>
     </div>
   </div>
