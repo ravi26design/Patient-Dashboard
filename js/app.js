@@ -718,7 +718,7 @@ function openUrge(){
   if(why){ var w=(window.__profile&&window.__profile.why)||''; why.textContent = w ? 'Remember: '+w : ''; }
   var acts=document.getElementById('urge-acts');
   if(acts){
-    acts.innerHTML = RH_PF.activities.map(function(a){
+    acts.innerHTML = RH_PF.activities.slice(0,4).map(function(a){
       return '<div class="rl-act" onclick="urgeAct(\''+jsStr(a)+'\')"><div class="rl-act-ic"><i data-lucide="'+actLucide(a)+'"></i></div><div class="rl-act-lb">'+esc(a)+'</div></div>';
     }).join('') || '<div class="rl-act-empty">Add relief activities in your profile to see them here.</div>';
   }
