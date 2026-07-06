@@ -2217,8 +2217,14 @@ body[data-screen="rewards"] #screen-rewards{padding-top:26px}
 
 /* urge toolkit */
 .rl-urge-hero{background:linear-gradient(150deg,#EAF1E9,#DDEBDD);border-radius:18px;padding:18px 16px;text-align:center;margin-bottom:14px}
-.rl-urge-ring{width:86px;height:86px;border-radius:50%;border:3px solid var(--sage);margin:0 auto 12px;display:flex;align-items:center;justify-content:center;background:rgba(123,164,126,.08);animation:rlBreathe 8s ease-in-out infinite}
-.rl-urge-ring span{font-size:10px;color:var(--sage-dk);letter-spacing:2.5px;font-weight:700;font-family:'Josefin Sans',sans-serif}
+.rl-urge-ring{position:relative;width:124px;height:124px;border-radius:50%;border:none;margin:2px auto 14px;display:flex;align-items:center;justify-content:center;background:rgba(123,164,126,.10);animation:ruScale 11s ease-in-out infinite}
+.ru-ring{position:absolute;inset:0;width:124px;height:124px;transform:rotate(-90deg)}
+.ru-ring-bg{fill:none;stroke:rgba(94,133,96,.18);stroke-width:3.5}
+.ru-ring-fg{fill:none;stroke:var(--sage);stroke-width:3.5;stroke-linecap:round;stroke-dasharray:289;stroke-dashoffset:289;animation:ruFill 11s ease-in-out infinite}
+@keyframes ruFill{0%{stroke-dashoffset:289}36%{stroke-dashoffset:0}64%{stroke-dashoffset:0}100%{stroke-dashoffset:289}}
+@keyframes ruScale{0%{transform:scale(.9)}36%{transform:scale(1.06)}64%{transform:scale(1.06)}100%{transform:scale(.9)}}
+@media (prefers-reduced-motion:reduce){.rl-urge-ring{animation:none}.ru-ring-fg{animation:none;stroke-dashoffset:72}}
+.rl-urge-ring span{position:relative;z-index:1;font-size:11px;color:var(--sage-dk);letter-spacing:2.5px;font-weight:700;font-family:var(--font-ui)}
 .rl-urge-headline{font-family:'Cormorant Garamond',serif;font-size:22px;color:var(--espresso);line-height:1.3}
 .rl-urge-sub{font-size:11px;color:var(--muted);margin-top:6px;line-height:1.5}
 .rl-urge-why{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:15px;color:var(--sage-dk);margin-top:10px}
