@@ -29,7 +29,7 @@ function openOv(id){
   if(id==='relief-game'   && typeof gameInit==='function')   gameInit();               /* build distraction grid */
   try{localStorage.setItem('rh_ov',id);}catch(e){}
 }
-function closeOv(){if(typeof stopBreath==='function')stopBreath();document.querySelectorAll('.overlay').forEach(function(o){o.classList.remove('active');o.style.zoom='';});try{localStorage.removeItem('rh_ov');}catch(e){}}
+function closeOv(){if(typeof stopBreath==='function')stopBreath();if(typeof stopUrgeBreath==='function')stopUrgeBreath();document.querySelectorAll('.overlay').forEach(function(o){o.classList.remove('active');o.style.zoom='';});try{localStorage.removeItem('rh_ov');}catch(e){}}
 function closeTopOv(id){var el=document.getElementById('ov-'+id);if(el){el.classList.remove('active');el.style.zoom='';}try{localStorage.removeItem('rh_ov');}catch(e){}}
 
 /* ═══ FIND PROVIDER — engagement-instrumented ═══ */
@@ -725,9 +725,29 @@ function openUrge(){
   var contacts=document.getElementById('urge-contacts');
   if(contacts) contacts.innerHTML = contactsHTML();
   openOv('urge');
+  startUrgeBreath();
   if(window.lucide && lucide.createIcons) lucide.createIcons();
 }
 function urgeAct(a){ rlToast('Nice — '+String(a).toLowerCase()+'. Stay with it.'); }
+/* Urge page breathe ring — same 4-7-8 cycle as the breathing screen (fill/hold/empty + phase text) */
+var urgeBreathTimer=null;
+function startUrgeBreath(){
+  stopUrgeBreath();
+  var ring=document.querySelector('#ov-urge .rl-urge-ring'); if(!ring) return;
+  var fg=ring.querySelector('.ru-ring-fg'), span=ring.querySelector('span');
+  var reduce=false; try{ reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches; }catch(e){}
+  if(reduce){ if(fg) fg.style.strokeDashoffset='72'; if(span) span.textContent='Breathe'; return; }
+  var seq=[['Breathe in',4000,0,'1.06'],['Hold',7000,0,'1.06'],['Breathe out',8000,289,'.9']];
+  var i=0;
+  function run(){ var s=seq[i%3];
+    if(span) span.textContent=s[0];
+    if(fg){ fg.style.transition='stroke-dashoffset '+(s[1]/1000)+'s '+(i%3===1?'linear':'ease-in-out'); fg.style.strokeDashoffset=s[2]; }
+    ring.style.transition='transform '+(s[1]/1000)+'s ease-in-out'; ring.style.transform='scale('+s[3]+')';
+    i++; urgeBreathTimer=setTimeout(run,s[1]);
+  }
+  run();
+}
+function stopUrgeBreath(){ if(urgeBreathTimer){ clearTimeout(urgeBreathTimer); urgeBreathTimer=null; } }
 
 /* ═══ Distraction mini-game: tap 1→9 in order, track best time ═══ */
 var rlGameNext=1, rlGameStart=0, rlGameBest=null;
