@@ -817,21 +817,16 @@ body.is-desktop{background:#EAF0EF}
 .task-grid{grid-template-columns:1fr 1fr}
 .ic-tile.t-slate{background:#C97C5D}
 
-/* Mobile — Recovery Today tiles scroll horizontally */
+/* Mobile — Recovery Today: all 4 tiles in a 2×2 grid (no horizontal scroll) */
 body.is-mobile .task-grid{
-  display:flex;
+  display:grid;
+  grid-template-columns:1fr 1fr;
   gap:10px;
-  overflow-x:auto;
-  scroll-snap-type:x proximity;
-  -webkit-overflow-scrolling:touch;
-  margin:0 -2px;
-  padding:2px 2px 6px;
+  margin:0;
+  padding:2px 0 0;
+  overflow:visible;
 }
-body.is-mobile .task-grid::-webkit-scrollbar{display:none}
-body.is-mobile .task-grid > .task{
-  flex:0 0 41%;
-  scroll-snap-align:start;
-}
+body.is-mobile .task-grid > .task{flex:initial}
 
 /* ═══ LOG OPIOID USE — calendar + time picker ═══ */
 .log-cal{display:grid;grid-template-columns:repeat(7,1fr);gap:2px}
@@ -1014,18 +1009,17 @@ body.is-desktop .overlay.active > .reflect-footer{max-width:620px;margin-left:au
 .nav-soon{cursor:default;pointer-events:none}
 .nav-soon:active{transform:none !important}
 
-/* Mobile — Recovery Today carousel bleeds full-width; first tile stays aligned with the title */
+/* Mobile — Recovery Today is a 2×2 grid (carousel breakout removed) */
 body.is-mobile .task-grid{
-  margin-left:-18px;
-  margin-right:-18px;
-  padding:2px 18px 8px 18px;
-  scroll-padding-left:18px;
+  margin-left:0;
+  margin-right:0;
+  padding:2px 0 0;
 }
-body.is-mobile .task-grid > .task{flex:0 0 44%}
+body.is-mobile .task-grid > .task{flex:initial}
 
 /* Mobile — card container padding = 16px (carousel breakout matches) */
 body.is-mobile .home-sec{padding:16px}
-body.is-mobile .task-grid{margin-left:-16px;margin-right:-16px;padding:2px 16px 8px 16px;scroll-padding-left:16px}
+body.is-mobile .task-grid{margin-left:0;margin-right:0;padding:2px 0 0}
 
 /* Move the +20 XP chip to the bottom of each Recovery Today tile */
 .task{display:flex;flex-direction:column;align-items:center}
