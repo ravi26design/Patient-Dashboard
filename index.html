@@ -757,10 +757,16 @@
         <div class="scr-card-h">
           <div><div class="scr-card-t">Recovery Health</div><div class="scr-card-s">Scale 0 (lowest) – 100 (highest)</div></div>
           <div class="tf-seg">
-            <button class="rh-tf seg-btn on" id="rhtf-month"   onclick="selectRHTf('month',this)">Past Month</button>
-            <button class="rh-tf seg-btn"    id="rhtf-monthly" onclick="selectRHTf('monthly',this)">Monthly</button>
-            <button class="rh-tf seg-btn"    id="rhtf-weekly"  onclick="selectRHTf('weekly',this)">Weekly</button>
+            <button class="rh-tf seg-btn on" onclick="selectRHTf('W',this)">W</button>
+            <button class="rh-tf seg-btn"    onclick="selectRHTf('M',this)">M</button>
+            <button class="rh-tf seg-btn"    onclick="selectRHTf('6M',this)">6M</button>
+            <button class="rh-tf seg-btn"    onclick="selectRHTf('Y',this)">Y</button>
           </div>
+        </div>
+        <div class="wk-nav" id="rh-wknav">
+          <button class="wk-arrow" id="rh-wkprev" type="button" onclick="rhWeekStep(1)" aria-label="Previous week"><i data-lucide="chevron-left"></i></button>
+          <span class="wk-label" id="rh-wklabel">This week</span>
+          <button class="wk-arrow" id="rh-wknext" type="button" onclick="rhWeekStep(-1)" aria-label="Next week"><i data-lucide="chevron-right"></i></button>
         </div>
         <div class="pattern-chart-outer">
           <div id="rh-yaxis" class="pattern-yaxis"></div>
@@ -786,10 +792,16 @@
         <div class="scr-card-h">
           <div><div class="scr-card-t" id="pattern-title">Urge</div><div class="scr-card-s">Scale 1 (lowest) – 5 (highest)</div></div>
           <div class="tf-seg">
-            <button class="pattern-tf seg-btn on" id="ptf-month"   onclick="selectPatternTf('month',this)">Past Month</button>
-            <button class="pattern-tf seg-btn"    id="ptf-monthly" onclick="selectPatternTf('monthly',this)">Monthly</button>
-            <button class="pattern-tf seg-btn"    id="ptf-weekly"  onclick="selectPatternTf('weekly',this)">Weekly</button>
+            <button class="pattern-tf seg-btn on" onclick="selectPatternTf('W',this)">W</button>
+            <button class="pattern-tf seg-btn"    onclick="selectPatternTf('M',this)">M</button>
+            <button class="pattern-tf seg-btn"    onclick="selectPatternTf('6M',this)">6M</button>
+            <button class="pattern-tf seg-btn"    onclick="selectPatternTf('Y',this)">Y</button>
           </div>
+        </div>
+        <div class="wk-nav" id="pattern-wknav">
+          <button class="wk-arrow" id="pattern-wkprev" type="button" onclick="patternWeekStep(1)" aria-label="Previous week"><i data-lucide="chevron-left"></i></button>
+          <span class="wk-label" id="pattern-wklabel">This week</span>
+          <button class="wk-arrow" id="pattern-wknext" type="button" onclick="patternWeekStep(-1)" aria-label="Next week"><i data-lucide="chevron-right"></i></button>
         </div>
         <div class="pattern-chart-outer">
           <div id="pattern-yaxis" class="pattern-yaxis"></div>

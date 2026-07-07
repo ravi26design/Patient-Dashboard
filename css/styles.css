@@ -2648,3 +2648,11 @@ body.is-desktop #ov-location-checkin.loc-fullmap.active{max-width:620px;margin:0
 
 /* ===== Global screen background — soft lavender (every screen + overlay; splash stays white) ===== */
 :root{--app-bg:#F1F1F8}
+
+/* Progress chart — previous/next week navigation */
+.wk-nav{display:flex;align-items:center;justify-content:center;gap:14px;margin:2px 0 10px}
+.wk-arrow{width:28px;height:28px;border-radius:50%;border:1px solid rgba(58,51,48,.14);background:#fff;color:var(--ink);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:opacity .15s ease,transform .12s ease}
+.wk-arrow i,.wk-arrow svg{width:16px;height:16px}
+.wk-arrow:disabled{opacity:.32;cursor:default}
+.wk-arrow:not(:disabled):active{transform:scale(.9)}
+.wk-label{font-family:var(--font-ui);font-size:12px;font-weight:600;color:var(--ink-soft);min-width:88px;text-align:center}

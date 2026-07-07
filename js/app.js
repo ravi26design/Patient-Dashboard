@@ -141,57 +141,81 @@ function logUse(card){
 }
 /* ═══ RECOVERY HEALTH CHART ═══ */
 var recoveryHealthChart = null;
-var currentRHTf = 'month';
+var currentRHTf = 'W', rhWeekOffset = 0;
 
-var rhData = {
-  month:   [49,51,48,53,55,52,57,56,59,58,61,60,58,62,64,63,61,65,64,67,66,68,65,69,70,68,71,70,72,73],
-  weekly:  [50,54,58,62,66,70,73],
-  monthly: [52,62,73]
-};
+/* deterministic series generator (runs in the browser) */
+function _gen(n, from, to, lo, hi, seed){
+  var out=[];
+  for(var i=0;i<n;i++){
+    var t=n>1?i/(n-1):0, base=from+(to-from)*t;
+    var w=Math.sin((i+seed)*1.7)*(hi-lo)*0.11 + Math.sin((i+seed)*0.6)*(hi-lo)*0.07;
+    var v=Math.round((base+w)*10)/10;
+    out.push(Math.max(lo,Math.min(hi,v)));
+  }
+  return out;
+}
+var _DOW=['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
+var _MON=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+/* slice a daily(84) + monthly(12) series for a time frame: W=1 week, M=4 weeks, 6M=6 months, Y=12 months */
+function tfSeries(daily, monthly, tf, weekOffset){
+  weekOffset=weekOffset||0;
+  if(tf==='W'){
+    var end=daily.length-7*weekOffset, start=Math.max(0,end-7);
+    return { data:daily.slice(start,end), labels:_DOW.slice(0,end-start) };
+  }
+  if(tf==='M'){
+    var d=daily.slice(-28), labs=[];
+    for(var i=0;i<d.length;i++) labs.push(i%7===0?('Wk '+(Math.floor(i/7)+1)):'');
+    return { data:d, labels:labs };
+  }
+  if(tf==='6M') return { data:monthly.slice(0,6), labels:_MON.slice(0,6) };
+  return { data:monthly.slice(0,12), labels:_MON.slice(0,12) };   /* Y */
+}
+function _maxWeek(daily){ return Math.floor(daily.length/7)-1; }
+function _weekLabel(off){ return off===0?'This week':off===1?'Last week':(off+' weeks ago'); }
+/* show/disable the prev/next week controls for a chart */
+function updateWeekNav(which, tf, offset, daily){
+  var nav=document.getElementById(which+'-wknav'); if(!nav) return;
+  nav.style.display = tf==='W' ? 'flex' : 'none';
+  var lbl=document.getElementById(which+'-wklabel'); if(lbl) lbl.textContent=_weekLabel(offset);
+  var prev=document.getElementById(which+'-wkprev'), next=document.getElementById(which+'-wknext');
+  if(prev) prev.disabled = offset>=_maxWeek(daily);   /* further back */
+  if(next) next.disabled = offset<=0;                 /* toward present */
+}
+
+var rhDaily = _gen(84,48,74,0,100,1);
+var rhMonthly = _gen(12,46,76,0,100,7);
 
 function updateRecoveryHealthChart(){
-  var tf = currentRHTf;
-  var data = rhData[tf];
-  var labels = getPatternLabels(tf);
+  var s = tfSeries(rhDaily, rhMonthly, currentRHTf, rhWeekOffset);
+  var canvas = document.getElementById('recoveryHealthChart'); if(!canvas) return;
   var wrapper = document.getElementById('rh-scroll-wrapper');
-  var containerW = wrapper ? wrapper.clientWidth : 320;
-  var ptSpacing = tf==='month' ? 13 : 60;
-  var AXISW = 30;   /* room reserved for the fixed y-axis strip (0–100 labels) */
-  var chartW = Math.max(containerW, labels.length * ptSpacing + AXISW);
-  var canvas = document.getElementById('recoveryHealthChart');
-  if(!canvas) return;
-  canvas.width = chartW; canvas.height = 160;
-  canvas.style.width = chartW + 'px'; canvas.style.height = '160px';
+  var containerW = wrapper ? (wrapper.clientWidth||320) : 320;
+  var AXISW = 30;
+  canvas.width = containerW; canvas.height = 160;
+  canvas.style.width = containerW + 'px'; canvas.style.height = '160px';
   if(recoveryHealthChart){ recoveryHealthChart.destroy(); recoveryHealthChart = null; }
   recoveryHealthChart = new Chart(canvas, {
     type: 'bar',
-    data: {
-      labels: labels,
-      datasets: [{
-        data: data,
-        backgroundColor: '#6E9E80',
-        borderRadius: 4,
-        borderWidth: 0,
-        barPercentage: 0.62,
-        categoryPercentage: 0.72
-      }]
-    },
+    data: { labels: s.labels, datasets: [{ data: s.data, backgroundColor: '#6E9E80', borderRadius: 4, borderWidth: 0, barPercentage: 0.6, categoryPercentage: 0.74 }] },
     options: {
       responsive: false,
       animation: { duration: 300 },
-      layout: { padding: { left: AXISW } },   /* plot starts right of the fixed y-axis */
+      layout: { padding: { left: AXISW } },
       plugins: { legend: { display: false }, tooltip: { callbacks: { label: function(c){ return 'Score: ' + c.parsed.y; } } } },
       scales: {
         y: { min: 0, max: 100, ticks: { stepSize: 25, display: false }, grid: { color: 'rgba(0,0,0,0.04)' }, border: { display: false } },
-        x: { ticks: { font: { size: 7 }, maxRotation: 45, color: '#8a7e76' }, grid: { display: false } }
+        x: { ticks: { font: { size: 8 }, autoSkip: false, maxRotation: 0, color: '#8a7e76' }, grid: { display: false } }
       }
     }
   });
   drawFixedYAxis(recoveryHealthChart, 'rh-yaxis');
+  updateWeekNav('rh', currentRHTf, rhWeekOffset, rhDaily);
 }
+function rhWeekStep(dir){ rhWeekOffset = Math.max(0, Math.min(_maxWeek(rhDaily), rhWeekOffset + dir)); updateRecoveryHealthChart(); }
 
 function selectRHTf(tf, btn){
-  currentRHTf = tf;
+  currentRHTf = tf; if(tf==='W') rhWeekOffset = 0;
   document.querySelectorAll('.rh-tf').forEach(function(b){ b.classList.remove('on'); });
   btn.classList.add('on');
   updateRecoveryHealthChart();
@@ -200,57 +224,44 @@ function selectRHTf(tf, btn){
 /* ═══ PATTERN CHART ═══ */
 var patternChart = null;
 var currentPatternItem = 'urge';
-var currentPatternTf = 'month';
+var currentPatternTf = 'W', patternWeekOffset = 0;
 
 var patternData = {
-  urge:     { label:'Urge',             hex:'#D4736A', bg:'rgba(212,115,106,0.08)', month:[4,3,5,4,3,4,2,3,4,3,2,3,4,3,2,3,2,3,2,1,3,2,3,2,1,2,3,2,1,2], weekly:[4.1,3.8,3.5,3.2,2.9,2.7,2.4], monthly:[3.8,3.2,2.5] },
-  pain:     { label:'Pain',             hex:'#C9A84C', bg:'rgba(201,168,76,0.08)',  month:[3,4,3,4,2,3,4,3,2,3,4,2,3,2,3,2,4,3,2,3,2,2,3,2,1,2,3,2,1,2], weekly:[3.8,3.5,3.2,2.9,2.7,2.5,2.3], monthly:[3.5,2.9,2.4] },
-  stress:   { label:'Stressful Events', hex:'#8B7EC8', bg:'rgba(139,126,200,0.08)', month:[4,5,3,4,3,4,3,2,3,4,2,3,4,3,2,3,2,3,2,3,2,3,2,1,2,3,2,2,1,2], weekly:[4.2,3.8,3.5,3.1,2.8,2.5,2.2], monthly:[4.0,3.2,2.5] },
-  pleasant: { label:'Pleasant Events',  hex:'#4A7E5C', bg:'rgba(74,126,92,0.08)',   month:[2,1,2,3,2,3,2,3,2,3,3,2,3,3,4,3,2,3,4,3,4,3,4,4,3,4,4,5,4,4], weekly:[1.8,2.1,2.5,2.8,3.1,3.4,3.7], monthly:[1.8,2.6,3.6] },
-  risky:    { label:'Risky Situations', hex:'#D4612A', bg:'rgba(212,97,42,0.08)',   month:[5,4,5,4,3,4,3,4,3,2,3,4,3,2,3,2,3,2,3,2,2,3,2,1,2,2,1,2,1,2], weekly:[4.5,4.0,3.5,3.1,2.8,2.4,2.1], monthly:[4.2,3.2,2.1] },
-  sleep:    { label:'Sleep Quality',    hex:'#4A90D9', bg:'rgba(74,144,217,0.08)',  month:[2,2,3,2,3,2,3,3,2,3,3,4,3,3,4,3,4,3,4,4,4,3,4,4,5,4,4,5,4,5], weekly:[2.0,2.3,2.8,3.0,3.2,3.5,3.8], monthly:[2.0,2.8,3.8] }
+  urge:     { label:'Urge',             hex:'#D4736A', daily:_gen(84,4.1,2.4,1,5,1),  monthly:_gen(12,4.3,2.2,1,5,11) },
+  pain:     { label:'Pain',             hex:'#C9A84C', daily:_gen(84,3.8,2.3,1,5,2),  monthly:_gen(12,4.0,2.1,1,5,12) },
+  stress:   { label:'Stressful Events', hex:'#8B7EC8', daily:_gen(84,4.2,2.2,1,5,3),  monthly:_gen(12,4.4,2.0,1,5,13) },
+  pleasant: { label:'Pleasant Events',  hex:'#4A7E5C', daily:_gen(84,1.8,3.7,1,5,4),  monthly:_gen(12,1.6,3.9,1,5,14) },
+  risky:    { label:'Risky Situations', hex:'#D4612A', daily:_gen(84,4.5,2.1,1,5,5),  monthly:_gen(12,4.6,1.9,1,5,15) },
+  sleep:    { label:'Sleep Quality',    hex:'#4A90D9', daily:_gen(84,2.0,3.8,1,5,6),  monthly:_gen(12,1.9,4.0,1,5,16) }
 };
-
-function getPatternLabels(tf){
-  if(tf==='month'){
-    var out=[],d=new Date(2026,3,19),mn=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-    for(var i=0;i<30;i++){out.push(mn[d.getMonth()]+' '+d.getDate());d.setDate(d.getDate()+1);}
-    return out;
-  }
-  if(tf==='weekly') return ['Wk 1','Wk 2','Wk 3','Wk 4','Wk 5','Wk 6','Wk 7'];
-  return ['Mar','Apr','May'];
-}
+function patternWeekStep(dir){ patternWeekOffset = Math.max(0, Math.min(_maxWeek(patternData[currentPatternItem].daily), patternWeekOffset + dir)); updatePatternChart(); }
 
 function updatePatternChart(){
   var item=patternData[currentPatternItem];
-  var tf=currentPatternTf;
-  var data=tf==='month'?item.month:tf==='weekly'?item.weekly:item.monthly;
-  var labels=getPatternLabels(tf);
+  var s=tfSeries(item.daily, item.monthly, currentPatternTf, patternWeekOffset);
   var _pt=document.getElementById('pattern-title'); if(_pt){ _pt.textContent=item.label; _pt.style.color=item.hex; }
+  var canvas=document.getElementById('patternChart'); if(!canvas) return;
   var wrapper=document.getElementById('chart-scroll-wrapper');
-  var containerW=wrapper.clientWidth||320;
-  var ptSpacing=tf==='month'?13:60;
-  var AXISW=30;   /* room reserved for the fixed y-axis strip */
-  var chartW=Math.max(containerW,labels.length*ptSpacing+AXISW);
-  var canvas=document.getElementById('patternChart');
-  canvas.width=chartW; canvas.height=160;
-  canvas.style.width=chartW+'px'; canvas.style.height='160px';
+  var containerW=wrapper?(wrapper.clientWidth||320):320, AXISW=30;
+  canvas.width=containerW; canvas.height=160;
+  canvas.style.width=containerW+'px'; canvas.style.height='160px';
   if(patternChart){patternChart.destroy();patternChart=null;}
   patternChart=new Chart(canvas,{
     type:'bar',
-    data:{labels:labels,datasets:[{data:data,backgroundColor:item.hex,borderRadius:4,borderWidth:0,barPercentage:0.62,categoryPercentage:0.72}]},
+    data:{labels:s.labels,datasets:[{data:s.data,backgroundColor:item.hex,borderRadius:4,borderWidth:0,barPercentage:0.6,categoryPercentage:0.74}]},
     options:{
       responsive:false,
       animation:{duration:300},
-      layout:{padding:{left:AXISW}},   /* plot starts right of the fixed y-axis */
+      layout:{padding:{left:AXISW}},
       plugins:{legend:{display:false},tooltip:{callbacks:{label:function(c){return 'Score: '+c.parsed.y;}}}},
       scales:{
         y:{min:1,max:5,ticks:{display:false},grid:{color:'rgba(0,0,0,0.04)'},border:{display:false}},
-        x:{ticks:{font:{size:7},maxRotation:45,color:'#8a7e76'},grid:{display:false}}
+        x:{ticks:{font:{size:8},autoSkip:false,maxRotation:0,color:'#8a7e76'},grid:{display:false}}
       }
     }
   });
   renderPatternYAxis();
+  updateWeekNav('pattern', currentPatternTf, patternWeekOffset, item.daily);
 }
 
 /* Draw a chart's y-axis labels in a fixed left strip, aligned to the chart's
@@ -275,7 +286,7 @@ function selectPatternItem(key,btn){
 }
 
 function selectPatternTf(tf,btn){
-  currentPatternTf=tf;
+  currentPatternTf=tf; if(tf==='W') patternWeekOffset=0;
   document.querySelectorAll('.pattern-tf').forEach(function(b){b.classList.remove('on');});
   btn.classList.add('on');
   updatePatternChart();
