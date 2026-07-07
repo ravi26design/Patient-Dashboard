@@ -154,6 +154,17 @@ function _gen(n, from, to, lo, hi, seed){
   }
   return out;
 }
+/* lighten a #hex toward white by amt (0..1) */
+function _lighten(hex, amt){
+  var n=parseInt(hex.slice(1),16), r=(n>>16)&255, g=(n>>8)&255, b=n&255;
+  r=Math.round(r+(255-r)*amt); g=Math.round(g+(255-g)*amt); b=Math.round(b+(255-b)*amt);
+  return 'rgb('+r+','+g+','+b+')';
+}
+/* vertical bar gradient: lighter at top → solid colour at the base */
+function _barGrad(canvas, hex){
+  var ctx=canvas.getContext('2d'); var g=ctx.createLinearGradient(0,12,0,150);
+  g.addColorStop(0,_lighten(hex,0.30)); g.addColorStop(1,hex); return g;
+}
 var _DOW=['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
 var _MON=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
 /* slice a daily(84) + monthly(12) series for a time frame: W=1 week, M=4 weeks, 6M=6 months, Y=12 months */
@@ -197,14 +208,14 @@ function updateRecoveryHealthChart(){
   if(recoveryHealthChart){ recoveryHealthChart.destroy(); recoveryHealthChart = null; }
   recoveryHealthChart = new Chart(canvas, {
     type: 'bar',
-    data: { labels: s.labels, datasets: [{ data: s.data, backgroundColor: '#6E9E80', borderRadius: 4, borderWidth: 0, barPercentage: 0.6, categoryPercentage: 0.74 }] },
+    data: { labels: s.labels, datasets: [{ data: s.data, backgroundColor: _barGrad(canvas,'#6E9E80'), borderRadius: 6, borderWidth: 0, barPercentage: 0.62, categoryPercentage: 0.72 }] },
     options: {
       responsive: false,
-      animation: { duration: 300 },
+      animation: { duration: 450 },
       layout: { padding: { left: AXISW } },
       plugins: { legend: { display: false }, tooltip: { callbacks: { label: function(c){ return 'Score: ' + c.parsed.y; } } } },
       scales: {
-        y: { min: 0, max: 100, ticks: { stepSize: 25, display: false }, grid: { color: 'rgba(0,0,0,0.04)' }, border: { display: false } },
+        y: { min: 0, max: 100, ticks: { stepSize: 25, display: false }, grid: { color: 'rgba(58,51,48,0.05)', drawTicks:false }, border: { display: false } },
         x: { ticks: { font: { size: 8 }, autoSkip: false, maxRotation: 0, color: '#8a7e76' }, grid: { display: false } }
       }
     }
@@ -248,14 +259,14 @@ function updatePatternChart(){
   if(patternChart){patternChart.destroy();patternChart=null;}
   patternChart=new Chart(canvas,{
     type:'bar',
-    data:{labels:s.labels,datasets:[{data:s.data,backgroundColor:item.hex,borderRadius:4,borderWidth:0,barPercentage:0.6,categoryPercentage:0.74}]},
+    data:{labels:s.labels,datasets:[{data:s.data,backgroundColor:_barGrad(canvas,item.hex),borderRadius:6,borderWidth:0,barPercentage:0.62,categoryPercentage:0.72}]},
     options:{
       responsive:false,
-      animation:{duration:300},
+      animation:{duration:450},
       layout:{padding:{left:AXISW}},
       plugins:{legend:{display:false},tooltip:{callbacks:{label:function(c){return 'Score: '+c.parsed.y;}}}},
       scales:{
-        y:{min:1,max:5,ticks:{display:false},grid:{color:'rgba(0,0,0,0.04)'},border:{display:false}},
+        y:{min:1,max:5,ticks:{display:false},grid:{color:'rgba(58,51,48,0.05)',drawTicks:false},border:{display:false}},
         x:{ticks:{font:{size:8},autoSkip:false,maxRotation:0,color:'#8a7e76'},grid:{display:false}}
       }
     }
