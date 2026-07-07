@@ -31,11 +31,16 @@ function openOv(id){
   if(id==='insights'){ if(typeof buildArcGauge==='function') buildArcGauge('insightsGauge', 44); if(typeof applyRecState==='function') applyRecState(); }   /* insights gauge + recommended completion state */
   if(id==='ifthen-detail' && typeof iftSync==='function') iftSync();   /* set Save button enabled/disabled from current selection */
   if(id==='threegood-detail' && typeof tgSync==='function') tgSync();   /* set Save button state from the three inputs */
+  if(id==='urge' && typeof populateUrge==='function') populateUrge();   /* fill relief activities + contacts (e.g. after refresh-restore) */
   if(id==='location-checkin'){ el.querySelectorAll('.loc-opt.sel').forEach(function(o){o.classList.remove('sel');}); var _sb=document.getElementById('loc-submit'); if(_sb) _sb.classList.remove('ready'); }  /* fresh state each open */
   try{localStorage.setItem('rh_ov',id);}catch(e){}
 }
 function closeOv(){if(typeof stopBreath==='function')stopBreath();if(typeof stopUrgeBreath==='function')stopUrgeBreath();if(call911Timer){clearInterval(call911Timer);call911Timer=null;}document.querySelectorAll('.overlay').forEach(function(o){o.classList.remove('active');o.style.zoom='';});try{localStorage.removeItem('rh_ov');}catch(e){}}
-function closeTopOv(id){var el=document.getElementById('ov-'+id);if(el){el.classList.remove('active');el.style.zoom='';}try{localStorage.removeItem('rh_ov');}catch(e){}}
+/* keep rh_ov pointing at the topmost overlay still open (or clear it) so a refresh restores the real current view */
+function syncOv(){var a=document.querySelectorAll('.overlay.active');var top=a.length?a[a.length-1].id:'';try{if(top)localStorage.setItem('rh_ov',top.replace(/^ov-/,''));else localStorage.removeItem('rh_ov');}catch(e){}}
+/* close a single detail overlay and re-sync rh_ov to whatever is left underneath */
+function closeDetail(id){var el=document.getElementById('ov-'+id);if(el){el.classList.remove('active');el.style.zoom='';}syncOv();}
+function closeTopOv(id){var el=document.getElementById('ov-'+id);if(el){el.classList.remove('active');el.style.zoom='';}syncOv();}
 
 /* ═══ FIND PROVIDER — engagement-instrumented ═══ */
 window.FP_ANALYTICS={opens:0,searches:0,calls:0,directions:0,bySource:{home:0,tools:0,profile:0}};
@@ -753,20 +758,26 @@ function reliefDone(label){
 }
 
 /* open the urge toolkit: populate "why", relief actions and contacts */
-function openUrge(){
+/* fill the Ride-out-the-urge page — relief activities + "reach your people" contacts */
+function populateUrge(){
   var why=document.getElementById('urge-why');
   if(why){ var w=(window.__profile&&window.__profile.why)||''; why.textContent = w ? 'Remember: '+w : ''; }
   var acts=document.getElementById('urge-acts');
   if(acts){
-    acts.innerHTML = RH_PF.activities.slice(0,4).map(function(a){
-      return '<div class="rl-act" onclick="urgeAct(\''+jsStr(a)+'\')"><div class="rl-act-ic"><i data-lucide="'+actLucide(a)+'"></i></div><div class="rl-act-lb">'+esc(a)+'</div></div>';
+    var ACT_COLORS=['#5E8B6E','#4E7FA8','#C58A5E','#8A6DAF','#C0748A','#3F7D6F'];
+    acts.innerHTML = RH_PF.activities.slice(0,4).map(function(a,i){
+      var c=ACT_COLORS[i%ACT_COLORS.length];
+      return '<div class="rl-act" onclick="urgeAct(\''+jsStr(a)+'\')"><div class="rl-act-ic" style="background:'+c+';color:#fff"><i data-lucide="'+actLucide(a)+'"></i></div><div class="rl-act-lb">'+esc(a)+'</div></div>';
     }).join('') || '<div class="rl-act-empty">Add relief activities in your profile to see them here.</div>';
   }
   var contacts=document.getElementById('urge-contacts');
   if(contacts) contacts.innerHTML = contactsHTML();
+  if(window.lucide && lucide.createIcons) lucide.createIcons();
+}
+function openUrge(){
+  populateUrge();
   openOv('urge');
   startUrgeBreath();
-  if(window.lucide && lucide.createIcons) lucide.createIcons();
 }
 function urgeAct(a){ rlToast('Nice — '+String(a).toLowerCase()+'. Stay with it.'); }
 /* Urge page breathe ring — same 4-7-8 cycle as the breathing screen (fill/hold/empty + phase text) */
@@ -972,7 +983,7 @@ function markThreeGoodDone(){
   try{ localStorage.setItem('rh_threegood_done','1'); }catch(e){}
   applyRecState();
   if(!already && typeof showXPPopup==='function') showXPPopup(15);
-  var d=document.getElementById('ov-threegood-detail'); if(d) d.classList.remove('active');
+  closeDetail('threegood-detail');
 }
 /* ===== Community feed (Connect) interactions ===== */
 /* composer: single-select a circle chip */
@@ -1113,7 +1124,7 @@ function activityComplete(){
   var first=!actDone(id);
   try{ localStorage.setItem('rh_act_'+id,'1'); }catch(e){}
   actzPaintTiles();
-  document.getElementById('ov-activity').classList.remove('active');
+  closeDetail('activity');
   if(first && typeof showXPPopup==='function') showXPPopup(a.pts);
 }
 /* paint completed tiles on the Activities screen */
@@ -1193,7 +1204,7 @@ function markCommunityDone(){
   try{ localStorage.setItem('rh_community_done','1'); }catch(e){}
   applyRecState();
   if(!already && typeof showXPPopup==='function') showXPPopup(20);
-  var d=document.getElementById('ov-community-detail'); if(d) d.classList.remove('active');
+  closeDetail('community-detail');
   if(typeof openOv==='function') openOv('connect');
 }
 /* user taps "Mark as done" on the relief detail page */
@@ -1202,7 +1213,7 @@ function markReliefDone(){
   try{ localStorage.setItem('rh_relief_done','1'); }catch(e){}
   applyRecState();
   if(!already && typeof showXPPopup==='function') showXPPopup(20);
-  var d=document.getElementById('ov-relief-detail'); if(d) d.classList.remove('active');
+  closeDetail('relief-detail');
 }
 /* if-then builder: single-select a chip within its group */
 function iftPick(btn){
@@ -1239,7 +1250,7 @@ function markIfThenDone(){
   try{ localStorage.setItem('rh_ifthen_done','1'); }catch(e){}
   applyRecState();
   if(!already && typeof showXPPopup==='function') showXPPopup(20);
-  var d=document.getElementById('ov-ifthen-detail'); if(d) d.classList.remove('active');
+  closeDetail('ifthen-detail');
 }
 /* count a number up to `to` over `dur` ms, ease-out */
 function rhCountUp(node, to, dur){
@@ -1554,7 +1565,7 @@ function finishOnbFlow(){ setTimeout(function(){ showDoneModal(); if(window.__do
     /* reopen the overlay/detail page the user was viewing before the refresh */
     var lastOv=null; try{ lastOv=localStorage.getItem('rh_ov'); }catch(e){}
     if(lastOv && document.getElementById('ov-'+lastOv) && typeof openOv==='function'){
-      if(lastOv==='relief-detail' || lastOv==='ifthen-detail' || lastOv==='community-detail' || lastOv==='threegood-detail') openOv('insights');   /* keep the parent Insights screen beneath the detail */
+      if(lastOv==='relief-detail' || lastOv==='ifthen-detail' || lastOv==='community-detail' || lastOv==='threegood-detail' || lastOv==='insights-yesterday') openOv('insights');   /* keep the parent Insights screen beneath the detail */
       if(lastOv==='post-detail'){
         openOv('connect');
         var pid=null; try{ pid=localStorage.getItem('rh_post'); }catch(e){}

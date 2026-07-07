@@ -871,6 +871,15 @@ body.is-mobile .task-grid > .task{flex:initial}
 /* Desktop — overlays become viewport-fixed modals (visible regardless of page scroll) */
 body.is-desktop .overlay.active{position:fixed;inset:0;z-index:9000}
 body.is-desktop .overlay.active > .ov-body{max-width:620px;margin-left:auto;margin-right:auto;width:100%}
+/* align the overlay back+title header with the centered 620px body on desktop */
+/* full-width header bar, but back+title aligned to the centered 620px body */
+body.is-desktop .overlay.active > .ov-header{width:100%;max-width:none;padding-left:calc((100% - 620px) / 2 + 16px);padding-right:calc((100% - 620px) / 2 + 16px)}
+/* the transparent-header detail pages get a solid white top bar on desktop (like Daily Insight) */
+body.is-desktop #ov-relief-detail > .ov-header,
+body.is-desktop #ov-ifthen-detail > .ov-header,
+body.is-desktop #ov-community-detail > .ov-header,
+body.is-desktop #ov-threegood-detail > .ov-header,
+body.is-desktop #ov-activity > .ov-header{background:#fff !important;border-bottom:1px solid rgba(54,59,59,.06) !important}
 
 /* ═══ DAILY REFLECTION — fixed footer CTAs + larger type ═══ */
 #ov-reflect .ov-body{padding-bottom:18px}
@@ -2677,7 +2686,8 @@ body.is-desktop #ov-location-checkin.loc-fullmap.active{max-width:620px;margin:0
 .ins-rec-head{display:flex;align-items:center;justify-content:space-between;margin:4px 2px 4px}
 .ins-rec-prog{font-size:10px;font-weight:700;color:var(--hb-teal-deep,#3C6B4E);background:#E7F0EA;padding:3px 10px;border-radius:999px}
 .ins-rec-sub{font-size:11px;color:var(--ink-soft);margin:0 2px 12px}
-.ins-rec-grid{display:grid;grid-template-columns:1fr 1fr;gap:11px;margin-bottom:2px}
+.ins-rec-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px;margin-bottom:2px}
+.ins-rec-card,.ins-rec-body{min-width:0}
 .ins-rec-body{display:flex;flex-direction:column;align-items:center}
 /* mobile: one card per row, icon left + text right */
 body.is-mobile .ins-rec-grid{grid-template-columns:1fr}
@@ -2901,3 +2911,11 @@ body.is-desktop .actz-card:hover{transform:translateY(-2px);box-shadow:0 12px 26
 .actz-card.actz-done{box-shadow:inset 0 0 0 2px var(--ac)}
 .actz-done .actz-start{background:var(--ac)!important;color:#fff!important;display:inline-flex;align-items:center;gap:5px}
 .actz-done .actz-start i{width:13px;height:13px}
+
+/* ============ RESPONSIVE SAFETY NETS ============ */
+/* Overlays clip stray horizontal overflow (the phone shell clips → cutoff otherwise) */
+.ov-body{overflow-x:hidden}
+/* Long unbroken strings (handles, URLs, typed input) never force the canvas wider */
+.cm-post-txt,.cm-cmt-txt,.cm-handle,.rd-p,.rd-txt,.act-step-d,.ins-tk-list li{overflow-wrap:anywhere}
+/* Any 2-up card grid must be able to shrink below its content's min-size */
+.ins-rec-grid>*,.actz-grid>*,.rl-acts>*,.helps-grid>*,.g2>*,.stat-grid>*{min-width:0}
