@@ -981,6 +981,16 @@ function enterApp(){
   var w=document.getElementById('welcome');
   if(w){ w.classList.add('hide'); setTimeout(function(){ w.style.display='none'; }, 520); }
 }
+/* Guest: skip onboarding and drop straight onto the home screen */
+function loginAsGuest(){
+  if(window.__wc && __wc.stop) __wc.stop();
+  window.__profile = window.__profile || { name:'Guest' };
+  try{ localStorage.setItem('rh_onboarded','1'); localStorage.setItem('rh_profile', JSON.stringify(window.__profile)); }catch(e){}
+  var w=document.getElementById('welcome');
+  if(w){ w.classList.add('hide'); setTimeout(function(){ w.style.display='none'; }, 420); }
+  if(typeof goScreen==='function') goScreen('home');
+  if(typeof scheduleCheckin==='function') scheduleCheckin();
+}
 /* ═══ MOBILE NUMBER ═══ */
 function showPhoneScreen(){ var p=document.getElementById('phoneScreen'); if(p) p.classList.add('show'); }
 function hidePhoneScreen(){ var p=document.getElementById('phoneScreen'); if(!p) return;
