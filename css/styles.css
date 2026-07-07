@@ -1809,15 +1809,11 @@ body.is-framed:not(.is-desktop) .bottom-nav{margin-bottom:0}
   text-transform:uppercase;color:#5E8560;margin-bottom:14px}
 /* unify all patient section-titles to the same sage eyebrow colour */
 #patient-view .section-label{font-family:var(--font-ui);font-size:11px;font-weight:700;letter-spacing:1.2px;color:#5E8560}
-.sf-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.sf-stat{min-width:0;text-align:center;border-radius:16px;padding:16px 6px;
-  display:flex;flex-direction:column;justify-content:center}
-.sf-ic{width:34px;height:34px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;
-  margin:0 auto 8px;box-shadow:0 2px 6px rgba(58,51,48,.07)}
-.sf-ic i,.sf-ic svg{width:17px;height:17px;stroke-width:2}
-.sf-num{font-family:var(--font-display);font-size:22px;font-weight:700;line-height:1}
-.sf-lbl{font-family:var(--font-ui);font-size:9px;font-weight:600;letter-spacing:.2px;
-  color:var(--muted);margin-top:5px}
+/* compact number + label row (no cards / icons) */
+.sf-row{display:flex;align-items:flex-start;justify-content:space-between;gap:8px}
+.sf-stat{flex:1;min-width:0;text-align:center;display:flex;flex-direction:column;align-items:center;gap:6px}
+.sf-num{font-family:var(--font-display);font-size:24px;font-weight:700;line-height:1}
+.sf-lbl{font-family:var(--font-ui);font-size:10px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;color:var(--muted)}
 
 /* ═══ HOME WIDGET — Recovery Journey milestone ═══ */
 .rj-card{background:linear-gradient(150deg,#90BE88 0%,#7BA875 55%,#6B9C73 100%);padding:24px;position:relative;overflow:hidden;box-shadow:0 10px 26px rgba(107,156,115,.28)}
