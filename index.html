@@ -890,136 +890,47 @@
       <!-- ═══ FIND RELIEF ═══ -->
       <div class="scr-head">
         <div class="scr-title">Activities</div>
-        <div class="scr-sub">A craving is a wave it rises and passes. Pick a quick tool to ride it out.</div>
+        <div class="scr-sub">Short, guided exercises to steady you — pick one and start.</div>
       </div>
-      <div class="rl-grid">
-        <div class="rl-tile" onclick="openOv('relief-surf')">
-          <div class="rl-emoji"><i data-lucide="waves"></i></div>
-          <div class="rl-title">Urge surfing</div>
-          <div class="rl-dur"><i data-lucide="clock" class="rl-clock"></i>3 min</div>
-        </div>
-        <div class="rl-tile" onclick="openOv('relief-ground')">
-          <div class="rl-emoji"><i data-lucide="hand"></i></div>
-          <div class="rl-title">5-4-3-2-1 grounding</div>
-          <div class="rl-dur"><i data-lucide="clock" class="rl-clock"></i>2 min</div>
-        </div>
-        <div class="rl-tile" onclick="openOv('relief-breath')">
-          <div class="rl-emoji"><i data-lucide="wind"></i></div>
-          <div class="rl-title">4-7-8 breathing</div>
-          <div class="rl-dur"><i data-lucide="clock" class="rl-clock"></i>2 min</div>
-        </div>
-        <div class="rl-tile" onclick="openOv('relief-game')">
-          <div class="rl-emoji"><i data-lucide="gamepad-2"></i></div>
-          <div class="rl-title">Distraction game</div>
-          <div class="rl-dur"><i data-lucide="clock" class="rl-clock"></i>1 min</div>
-        </div>
-      </div>
-
-      <!-- ═══ HAVING AN URGE CTA ═══ -->
-      <div class="rl-urge-cta" onclick="openUrge()">
-        <div class="rl-urge-ic"><i data-lucide="life-buoy"></i></div>
-        <div class="rl-urge-main">
-          <div class="rl-urge-t">Having an urge right now?</div>
-          <div class="rl-urge-d">Open your toolkit — breathing, grounding &amp; your people</div>
-        </div>
-        <div class="rl-urge-arrow"><i data-lucide="chevron-right"></i></div>
-      </div>
-
-      <!-- ═══ SCORE TREND ═══ -->
-      <div class="scr-card">
-        <div class="scr-eyebrow" style="margin:0 0 10px">Score trend</div>
-        <svg viewBox="0 0 240 80" width="100%" height="80" preserveAspectRatio="none" aria-hidden="true" style="display:block">
-          <rect x="6"   y="44" width="20" height="36" rx="4" fill="#CFE0D2"/>
-          <rect x="34"  y="34" width="20" height="46" rx="4" fill="#BBD4C0"/>
-          <rect x="62"  y="48" width="20" height="32" rx="4" fill="#CFE0D2"/>
-          <rect x="90"  y="26" width="20" height="54" rx="4" fill="#A6C9AD"/>
-          <rect x="118" y="20" width="20" height="60" rx="4" fill="#84B27F"/>
-          <rect x="146" y="32" width="20" height="48" rx="4" fill="#A6C9AD"/>
-          <rect x="174" y="14" width="20" height="66" rx="4" fill="#7BA47E"/>
-          <rect x="202" y="8"  width="20" height="72" rx="4" fill="#5E8560"/>
-        </svg>
-        <div style="font-size:11px;color:var(--muted);margin-top:8px;letter-spacing:.3px">Last 8 activities · higher is stronger coping</div>
+      <div class="actz-grid">
+        <button class="actz-card" id="actz-tile-crave" style="--ac:#4E7FA8;--acbg:#E3EDF6" onclick="openActivity('crave')">
+          <span class="actz-ic"><i data-lucide="life-buoy"></i></span>
+          <span class="actz-t">Managing Cravings</span>
+          <span class="actz-d">Surf the urge until it passes</span>
+          <span class="actz-start" id="actz-go-crave">Start &middot; 4 min</span>
+        </button>
+        <button class="actz-card" id="actz-tile-stress" style="--ac:#B5893E;--acbg:#FBF0D3" onclick="openActivity('stress')">
+          <span class="actz-ic"><i data-lucide="heart-pulse"></i></span>
+          <span class="actz-t">Coping with Stressors</span>
+          <span class="actz-d">Calm your body's stress response</span>
+          <span class="actz-start" id="actz-go-stress">Start &middot; 5 min</span>
+        </button>
+        <button class="actz-card" id="actz-tile-breathe" style="--ac:#5E8B6E;--acbg:#E7F0EA" onclick="openActivity('breathe')">
+          <span class="actz-ic"><i data-lucide="wind"></i></span>
+          <span class="actz-t">Mindful Breathing</span>
+          <span class="actz-d">One quiet minute to reset</span>
+          <span class="actz-start" id="actz-go-breathe">Start &middot; 1 min</span>
+        </button>
+        <button class="actz-card" id="actz-tile-map" style="--ac:#8A6DAF;--acbg:#EDE8F4" onclick="openActivity('map')">
+          <span class="actz-ic"><i data-lucide="map"></i></span>
+          <span class="actz-t">Trigger Mapping</span>
+          <span class="actz-d">Know your cues before they hit</span>
+          <span class="actz-start" id="actz-go-map">Start &middot; 6 min</span>
+        </button>
+        <button class="actz-card" id="actz-tile-surf" style="--ac:#C0748A;--acbg:#F6E4E7" onclick="openActivity('surf')">
+          <span class="actz-ic"><i data-lucide="waves"></i></span>
+          <span class="actz-t">Urge Surfing</span>
+          <span class="actz-d">Ride the wave — don't fight it</span>
+          <span class="actz-start" id="actz-go-surf">Start &middot; 3 min</span>
+        </button>
+        <button class="actz-card" id="actz-tile-sleep" style="--ac:#5A7A9A;--acbg:#E7ECF2" onclick="openActivity('sleep')">
+          <span class="actz-ic"><i data-lucide="moon"></i></span>
+          <span class="actz-t">Sleep Hygiene</span>
+          <span class="actz-d">Set yourself up for real rest</span>
+          <span class="actz-start" id="actz-go-sleep">Start &middot; 5 min</span>
+        </button>
       </div>
 
-      <!-- ═══ SUMMARY STATS ═══ -->
-      <div class="scr-card">
-        <div class="rl-stats">
-          <div class="rl-stat">
-            <div class="rl-stat-n">14</div>
-            <div class="rl-stat-l">Activities</div>
-          </div>
-          <div class="rl-stat">
-            <div class="rl-stat-n">4</div>
-            <div class="rl-stat-l">This week</div>
-          </div>
-          <div class="rl-stat">
-            <div class="rl-stat-n">68</div>
-            <div class="rl-stat-l">Avg score</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="scr-eyebrow">Completed Activities</div>
-      <a class="act-row" href="https://dionysus.psych.wisc.edu/rudrahealth/triggers.html" target="_blank">
-        <div class="act-row-top">
-          <div class="lrow-ic" style="background:#EAF1E9;color:#5E8560">▶</div>
-          <div class="lrow-main">
-            <div class="lrow-t">Managing Cravings</div>
-            <div class="lrow-d">Today · Jun 11 · <b style="color:#9A6B16">+20 XP</b></div>
-          </div>
-        </div>
-        <div class="act-bar"><div class="act-bar-fill" style="width:73%;background:#7BA47E"></div></div>
-      </a>
-      <a class="act-row" href="https://dionysus.psych.wisc.edu/rudrahealth/reducing_stress.html" target="_blank">
-        <div class="act-row-top">
-          <div class="lrow-ic" style="background:#FFF1D6;color:#9A6B16">▶</div>
-          <div class="lrow-main">
-            <div class="lrow-t">Coping with Stressors</div>
-            <div class="lrow-d">Yesterday · Jun 10 · <b style="color:#9A6B16">+20 XP</b></div>
-          </div>
-        </div>
-        <div class="act-bar"><div class="act-bar-fill" style="width:60%;background:#E0A93C"></div></div>
-      </a>
-      <a class="act-row" href="#">
-        <div class="act-row-top">
-          <div class="lrow-ic" style="background:#EAF1E9;color:#5E8560">▶</div>
-          <div class="lrow-main">
-            <div class="lrow-t">Mindful Breathing</div>
-            <div class="lrow-d">Mon · Jun 9 · <b style="color:#9A6B16">+20 XP</b></div>
-          </div>
-        </div>
-        <div class="act-bar"><div class="act-bar-fill" style="width:81%;background:#7BA47E"></div></div>
-      </a>
-      <a class="act-row" href="#">
-        <div class="act-row-top">
-          <div class="lrow-ic" style="background:#FFF1D6;color:#9A6B16">▶</div>
-          <div class="lrow-main">
-            <div class="lrow-t">Trigger Mapping</div>
-            <div class="lrow-d">Sat · Jun 7 · <b style="color:#9A6B16">+20 XP</b></div>
-          </div>
-        </div>
-        <div class="act-bar"><div class="act-bar-fill" style="width:67%;background:#E0A93C"></div></div>
-      </a>
-      <a class="act-row" href="#">
-        <div class="act-row-top">
-          <div class="lrow-ic" style="background:#FFF1D6;color:#9A6B16">▶</div>
-          <div class="lrow-main">
-            <div class="lrow-t">Urge Surfing</div>
-            <div class="lrow-d">Thu · Jun 5 · <b style="color:#9A6B16">+20 XP</b></div>
-          </div>
-        </div>
-        <div class="act-bar"><div class="act-bar-fill" style="width:58%;background:#E0A93C"></div></div>
-      </a>
-      <a class="act-row" href="#">
-        <div class="act-row-top">
-          <div class="lrow-ic" style="background:#FCE9E4;color:#C97B6F">▶</div>
-          <div class="lrow-main">
-            <div class="lrow-t">Sleep Hygiene</div>
-            <div class="lrow-d">Tue · Jun 3 · <b style="color:#9A6B16">+20 XP</b></div>
-          </div>
-        </div>
-        <div class="act-bar"><div class="act-bar-fill" style="width:49%;background:#C97B6F"></div></div>
-      </a>
     </div>
 
     <!-- ═══ CHECK-IN SCREEN ═══ -->
@@ -1196,15 +1107,89 @@
       </div>
     </div>
     <div class="ov-body" style="padding-top:14px">
-      <div style="background:#fff;border-radius:16px;box-shadow:var(--card-shadow);padding:14px 16px;margin-bottom:14px">
-        <div style="font-size:13px;color:#4A5453;line-height:1.55">A private space for RudraHealth AI members to share experiences and support each other in recovery.</div>
+
+      <!-- Composer -->
+      <div class="cm-compose">
+        <div class="cm-eyebrow"><i data-lucide="sparkles"></i> Start a conversation</div>
+        <textarea class="cm-textarea" id="cm-text" rows="3" oninput="cmComposeSync()" placeholder="Share a win, ask a question, or offer a little encouragement — your words might be exactly what someone needs today…"></textarea>
+        <div class="cm-circle-label">Post to a circle:</div>
+        <div class="cm-chips">
+          <button type="button" class="cm-chip" onclick="cmPick(this)"><i data-lucide="stethoscope"></i> Ask a Clinician</button>
+          <button type="button" class="cm-chip sel" onclick="cmPick(this)"><i data-lucide="star"></i> Wins &amp; Milestones</button>
+          <button type="button" class="cm-chip" onclick="cmPick(this)"><i data-lucide="waves"></i> Cravings &amp; Coping</button>
+        </div>
+        <div class="cm-compose-foot">
+          <button class="cm-share-btn" id="cm-share-btn" disabled onclick="cmShare()">Share &middot; +20 XP</button>
+        </div>
       </div>
-      <button class="conn-card" onclick="openOv('thread-cravings')"><div class="conn-ic" style="background:#6E9E80"><i data-lucide="waves"></i></div><div class="conn-body"><div class="conn-title">Coping with Cravings</div><div class="conn-sub">What triggers your cravings, and what helps?</div><div class="conn-meta"><span class="conn-tag">9 replies</span><span class="conn-tag">2h ago</span><span class="conn-tag on">Active</span></div></div><i data-lucide="chevron-right" class="conn-chev"></i></button>
-      <button class="conn-card" onclick="openOv('thread-stress')"><div class="conn-ic" style="background:#3F7D6F"><i data-lucide="wind"></i></div><div class="conn-body"><div class="conn-title">Stress Management</div><div class="conn-sub">Finding calm when stress becomes a craving trigger</div><div class="conn-meta"><span class="conn-tag">7 replies</span><span class="conn-tag">5h ago</span></div></div><i data-lucide="chevron-right" class="conn-chev"></i></button>
-      <button class="conn-card" onclick="openOv('thread-family')"><div class="conn-ic" style="background:#D8AD63"><i data-lucide="house"></i></div><div class="conn-body"><div class="conn-title">Family Struggles</div><div class="conn-sub">Navigating relationships with family during recovery</div><div class="conn-meta"><span class="conn-tag">7 replies</span><span class="conn-tag">1 day ago</span></div></div><i data-lucide="chevron-right" class="conn-chev"></i></button>
-      <button class="conn-card" onclick="openOv('thread-pain')"><div class="conn-ic" style="background:#C39078"><i data-lucide="heart-pulse"></i></div><div class="conn-body"><div class="conn-title">Managing Pain</div><div class="conn-sub">Living with chronic pain while staying in recovery</div><div class="conn-meta"><span class="conn-tag">7 replies</span><span class="conn-tag">1 day ago</span></div></div><i data-lucide="chevron-right" class="conn-chev"></i></button>
-      <button class="conn-card" onclick="openOv('thread-friends')"><div class="conn-ic" style="background:#3F6650"><i data-lucide="handshake"></i></div><div class="conn-body"><div class="conn-title">Making New Friends</div><div class="conn-sub">Building new social connections in sobriety</div><div class="conn-meta"><span class="conn-tag">8 replies</span><span class="conn-tag">2 days ago</span></div></div><i data-lucide="chevron-right" class="conn-chev"></i></button>
+
+      <!-- Circle filter tabs -->
+      <div class="cm-tabs">
+        <button class="cm-tab on" onclick="cmTab(this,'all')"><i data-lucide="house"></i> All <span class="cm-tab-count">3</span></button>
+        <button class="cm-tab" onclick="cmTab(this,'wins')"><i data-lucide="star"></i> Wins &amp; Milestones <span class="cm-tab-count">1</span></button>
+        <button class="cm-tab" onclick="cmTab(this,'cravings')"><i data-lucide="waves"></i> Cravings &amp; Coping <span class="cm-tab-count">1</span></button>
+        <button class="cm-tab" onclick="cmTab(this,'sleep')"><i data-lucide="moon"></i> Sleep &amp; Self-Care <span class="cm-tab-count">1</span></button>
+      </div>
+
+      <!-- Feed -->
+      <div class="cm-post cm-tap" data-circle="sleep" onclick="openPost('gentle_tide')">
+        <div class="cm-post-head">
+          <div class="cm-avatar" style="background:#8FA9C7">GE</div>
+          <div class="cm-post-id"><div class="cm-handle">@gentle_tide</div><div class="cm-time">1d ago</div></div>
+          <span class="cm-tag cm-tag--sleep"><i data-lucide="moon"></i> Sleep &amp; Self-Care</span>
+        </div>
+        <div class="cm-post-txt">Third night in a row of actual sleep after months of tossing. The wind-down routine from the workbook (no phone + tea + the 4-7-8 breath) is quietly changing my life.</div>
+        <div class="cm-actions">
+          <button class="cm-act" onclick="event.stopPropagation();cmSupport(this)"><i data-lucide="heart"></i> <span class="cm-act-n">11</span> <span class="cm-act-lbl">support</span></button>
+          <button class="cm-act" onclick="event.stopPropagation();openPost('gentle_tide')"><i data-lucide="message-circle"></i> <span class="cm-act-n">1</span> <span class="cm-act-lbl">comment</span></button>
+          <button class="cm-act" onclick="event.stopPropagation();cmFollow(this)"><i data-lucide="bell-plus"></i> <span class="cm-act-lbl">Follow</span></button>
+        </div>
+      </div>
+
+      <div class="cm-post cm-tap" data-circle="wins" onclick="openPost('steady_climb')">
+        <div class="cm-post-head">
+          <div class="cm-avatar" style="background:#7FB08A">SC</div>
+          <div class="cm-post-id"><div class="cm-handle">@steady_climb</div><div class="cm-time">3h ago</div></div>
+          <span class="cm-tag cm-tag--wins"><i data-lucide="star"></i> Wins &amp; Milestones</span>
+        </div>
+        <div class="cm-post-txt">90 days today. Didn't think I'd make it past week one. To anyone in the early days — it does get easier, and you're not doing it alone.</div>
+        <div class="cm-actions">
+          <button class="cm-act" onclick="event.stopPropagation();cmSupport(this)"><i data-lucide="heart"></i> <span class="cm-act-n">24</span> <span class="cm-act-lbl">support</span></button>
+          <button class="cm-act" onclick="event.stopPropagation();openPost('steady_climb')"><i data-lucide="message-circle"></i> <span class="cm-act-n">5</span> <span class="cm-act-lbl">comments</span></button>
+          <button class="cm-act" onclick="event.stopPropagation();cmFollow(this)"><i data-lucide="bell-plus"></i> <span class="cm-act-lbl">Follow</span></button>
+        </div>
+      </div>
+
+      <div class="cm-post cm-tap" data-circle="cravings" onclick="openPost('quiet_harbor')">
+        <div class="cm-post-head">
+          <div class="cm-avatar" style="background:#C39078">QH</div>
+          <div class="cm-post-id"><div class="cm-handle">@quiet_harbor</div><div class="cm-time">6h ago</div></div>
+          <span class="cm-tag cm-tag--cravings"><i data-lucide="waves"></i> Cravings &amp; Coping</span>
+        </div>
+        <div class="cm-post-txt">Rough afternoon — a big craving hit out of nowhere. Tried the urge-surfing exercise and it passed in about 15 minutes. Still a little shaky, but I didn't act on it.</div>
+        <div class="cm-actions">
+          <button class="cm-act" onclick="event.stopPropagation();cmSupport(this)"><i data-lucide="heart"></i> <span class="cm-act-n">8</span> <span class="cm-act-lbl">support</span></button>
+          <button class="cm-act" onclick="event.stopPropagation();openPost('quiet_harbor')"><i data-lucide="message-circle"></i> <span class="cm-act-n">3</span> <span class="cm-act-lbl">comments</span></button>
+          <button class="cm-act" onclick="event.stopPropagation();cmFollow(this)"><i data-lucide="bell-plus"></i> <span class="cm-act-lbl">Follow</span></button>
+        </div>
+      </div>
+
       <div style="height:8px"></div>
+    </div>
+  </div>
+
+  <!-- ═══ POST DETAIL (comments) ═══ -->
+  <div class="overlay" id="ov-post-detail" style="background:var(--app-bg)">
+    <div class="ov-header" style="background:#fff;border-bottom:1px solid var(--border)">
+      <button class="ov-back" style="background:#F0EBE2;color:var(--ink)" onclick="closeTopOv('post-detail')">&larr;</button>
+      <div>
+        <div style="font-family:var(--font-display);font-size:16px;font-weight:700;color:var(--ink)">Post</div>
+      </div>
+    </div>
+    <div class="ov-body" id="cm-detail-body" style="padding-top:14px"></div>
+    <div class="cm-detail-foot">
+      <input type="text" id="cm-detail-input" class="cm-addinput" placeholder="Add a supportive comment…" onkeydown="if(event.key==='Enter')cmDetailSend()">
+      <button class="cm-send" onclick="cmDetailSend()">Send</button>
     </div>
   </div>
 
@@ -2386,73 +2371,82 @@
     <div class="ov-header" style="background:#fff;border-bottom:1px solid rgba(54,59,59,.06)">
       <button class="ov-back" style="background:#F0F3F3;color:var(--ink)" onclick="closeOv()">&larr;</button>
       <div>
-        <div style="font-size:13px;font-weight:700;color:var(--ink)">Today's Insight</div>
+        <div style="font-size:13px;font-weight:700;color:var(--ink)">Daily Insight</div>
       </div>
     </div>
     <div class="ov-body" style="padding-top:14px">
 
-      <!-- Score hero -->
-      <div style="background:#fff;border-radius:20px;box-shadow:var(--card-shadow);padding:18px;margin-bottom:14px">
-        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
-          <span style="font-size:10px;font-weight:700;color:var(--hb-teal-deep);background:#E7F0EA;padding:4px 11px;border-radius:999px">Today · Jun 11</span>
-          <span style="font-size:10px;font-weight:600;color:var(--ink-soft)">Above average</span>
-        </div>
-        <div class="insight-hero" style="display:flex;align-items:flex-end;gap:14px">
-          <div style="font-family:var(--font-display);font-weight:700;font-size:46px;line-height:.85;color:var(--ink);letter-spacing:-1.5px">73<span style="font-size:17px;color:var(--ink-soft);font-weight:500;letter-spacing:0">/100</span></div>
-          <div style="flex:1;padding-bottom:4px">
-            <div style="height:8px;border-radius:999px;background:#E3EAEA;overflow:hidden;margin-bottom:6px"><div style="height:100%;width:73%;border-radius:999px;background:#4E7B5E"></div></div>
-            <div style="font-size:10px;color:var(--ink-soft)">Recovery Health score · up 13 this month</div>
-          </div>
-        </div>
+      <!-- Recovery Health gauge — same speedometer as home -->
+      <div class="ins-card ins-gauge-card rh-inner">
+        <div class="rh-eyebrow">Recovery Health</div>
+        <div class="rh-gauge ins-gauge" id="insightsGauge"></div>
+        <div class="rh-num"><b id="insightsGaugeNum">44</b></div>
+        <div class="rh-outof">out of 100</div>
+        <div class="rh-pill">Average</div>
       </div>
 
-      <!-- A note for you -->
-      <div style="background:#fff;border-radius:20px;box-shadow:var(--card-shadow);padding:18px;margin-bottom:14px">
-        <div style="display:flex;align-items:center;gap:9px;margin-bottom:11px">
-          <div style="width:34px;height:34px;border-radius:11px;background:var(--hb-teal);color:#fff;display:flex;align-items:center;justify-content:center;flex-shrink:0"><i data-lucide="sparkles"></i></div>
-          <div style="font-size:12px;font-weight:700;color:var(--ink)">A note for you today</div>
-        </div>
-        <div style="font-size:13px;color:#4A5453;line-height:1.7;margin-bottom:14px">Your recovery health score is a <b style="color:var(--ink)">73</b> — something to feel good about. You've been putting in real work, and it shows. One thing standing out today is <b style="color:var(--hb-teal-deep)">cravings</b>. The good news: you already have the strength and skills to handle them. You've gotten through tough moments before, and that same grit is still with you.</div>
-        <div style="display:flex;gap:8px;flex-wrap:wrap">
-          <span style="font-size:10px;font-weight:600;color:#B5764F;background:#FCE7DC;padding:4px 11px;border-radius:999px">Focus · Cravings</span>
-          <span style="font-size:10px;font-weight:600;color:var(--hb-teal-deep);background:#E7F0EA;padding:4px 11px;border-radius:999px">Trend · Improving</span>
-        </div>
+      <!-- Key takeaways -->
+      <div class="ins-card ins-takeaway">
+        <div class="home-title ins-tk-title">Key Takeaways</div>
+        <div class="ins-tk-lead">Your <b>44</b> means recovery is holding steady today — right in the middle range, and trending up.</div>
+        <ul class="ins-tk-list">
+          <li>Day-to-day dips are normal — your direction over the last few weeks is what matters, and it's up.</li>
+          <li>Keep the medication streak going and give the 7&nbsp;PM window a small plan.</li>
+          <li>Your care team sees the same picture and is walking with you.</li>
+        </ul>
       </div>
 
-      <!-- Recommended activity -->
-      <div style="font-size:10px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;color:var(--ink-soft);margin:4px 2px 8px">Recommended for you</div>
-      <a href="https://dionysus.psych.wisc.edu/rudrahealth/triggers.html" target="_blank" style="display:flex;align-items:flex-start;gap:12px;text-decoration:none;background:#fff;border-radius:18px;box-shadow:var(--card-shadow);padding:14px;margin-bottom:18px">
-        <div style="width:46px;height:46px;border-radius:15px;background:var(--hb-teal);color:#fff;display:flex;align-items:center;justify-content:center;flex-shrink:0"><i data-lucide="play"></i></div>
-        <div style="flex:1;min-width:0">
-          <div style="font-size:12px;font-weight:700;color:var(--ink)">Managing Cravings</div>
-          <div style="font-size:10px;color:var(--ink-soft);margin-top:3px">Guided activity · about 5 min</div>
-          <span style="display:inline-block;font-size:9px;font-weight:700;color:#9A6B16;background:#FFF1D6;padding:2px 9px;border-radius:999px;margin-top:7px">+20 XP</span>
-        </div>
-        <div style="color:var(--ink-soft);flex-shrink:0;display:flex;align-self:center"><i data-lucide="chevron-right"></i></div>
-      </a>
+      <!-- Recommended for you -->
+      <div class="ins-rec-head">
+        <span class="home-title" style="margin:0">Recommended for you</span>
+        <span class="ins-rec-prog">0 of 4 done</span>
+      </div>
+      <div class="ins-rec-sub">Matched to today's score of 44 · tap a button to read &amp; earn</div>
+      <div class="ins-rec-grid">
+        <button class="ins-rec-card" id="rec-ifthen" style="--rca:#C58A5E;--rcbg:#FBEBE1" onclick="openOv('ifthen-detail')">
+          <span class="ins-rec-badge"><i data-lucide="check"></i></span>
+          <span class="ins-rec-ic"><i data-lucide="route"></i></span>
+          <span class="ins-rec-body">
+            <span class="ins-rec-t">Make an if-then plan</span>
+            <span class="ins-rec-pts">+20 pts</span>
+          </span>
+        </button>
+        <button class="ins-rec-card" id="rec-relief" style="--rca:#5E8B6E;--rcbg:#E7F0EA" onclick="openOv('relief-detail')">
+          <span class="ins-rec-badge"><i data-lucide="check"></i></span>
+          <span class="ins-rec-ic"><i data-lucide="leaf"></i></span>
+          <span class="ins-rec-body">
+            <span class="ins-rec-t">Do one relief activity</span>
+            <span class="ins-rec-pts">+20 pts</span>
+          </span>
+        </button>
+        <button class="ins-rec-card" id="rec-community" style="--rca:#4E7FA8;--rcbg:#E3EDF6" onclick="openOv('community-detail')">
+          <span class="ins-rec-badge"><i data-lucide="check"></i></span>
+          <span class="ins-rec-ic"><i data-lucide="heart-handshake"></i></span>
+          <span class="ins-rec-body">
+            <span class="ins-rec-t">Encourage someone in Community</span>
+            <span class="ins-rec-pts">+20 pts</span>
+          </span>
+        </button>
+        <button class="ins-rec-card" id="rec-threegood" style="--rca:#C0748A;--rcbg:#F6E4E7" onclick="openOv('threegood-detail')">
+          <span class="ins-rec-badge"><i data-lucide="check"></i></span>
+          <span class="ins-rec-ic"><i data-lucide="sparkles"></i></span>
+          <span class="ins-rec-body">
+            <span class="ins-rec-t">Three good things</span>
+            <span class="ins-rec-pts">+15 pts</span>
+          </span>
+        </button>
+      </div>
 
       <!-- Past week -->
-      <div style="font-size:10px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;color:var(--ink-soft);margin:4px 2px 8px">Past Week</div>
-      <div style="background:#fff;border-radius:18px;box-shadow:var(--card-shadow);overflow:hidden">
-        <div onclick="openOv('insights-yesterday')" style="display:flex;align-items:center;gap:12px;padding:13px 14px;cursor:pointer;border-bottom:1px solid rgba(54,59,59,.06)">
-          <div style="flex:1"><div style="font-size:12px;font-weight:600;color:var(--ink)">Yesterday</div><div style="font-size:10px;color:var(--ink-soft);margin-top:1px">Jun 10</div></div>
-          <div style="width:60px;height:6px;border-radius:999px;background:#E3EAEA;overflow:hidden"><div style="height:100%;width:60%;background:#EBA63A"></div></div>
-          <div style="font-family:var(--font-display);font-weight:700;font-size:15px;color:var(--ink);width:24px;text-align:right">60</div>
-          <div style="color:var(--ink-soft);flex-shrink:0;display:flex"><i data-lucide="chevron-right"></i></div>
-        </div>
-        <div style="display:flex;align-items:center;gap:12px;padding:13px 14px;border-bottom:1px solid rgba(54,59,59,.06)">
-          <div style="flex:1"><div style="font-size:12px;font-weight:600;color:var(--ink)">Monday</div><div style="font-size:10px;color:var(--ink-soft);margin-top:1px">Jun 9</div></div>
-          <div style="width:60px;height:6px;border-radius:999px;background:#E3EAEA;overflow:hidden"><div style="height:100%;width:58%;background:#EBA63A"></div></div>
-          <div style="font-family:var(--font-display);font-weight:700;font-size:15px;color:var(--ink);width:24px;text-align:right">58</div>
-          <div style="color:var(--ink-soft);flex-shrink:0;display:flex"><i data-lucide="chevron-right"></i></div>
-        </div>
-        <div style="display:flex;align-items:center;gap:12px;padding:13px 14px">
-          <div style="flex:1"><div style="font-size:12px;font-weight:600;color:var(--ink)">Sunday</div><div style="font-size:10px;color:var(--ink-soft);margin-top:1px">Jun 8</div></div>
-          <div style="width:60px;height:6px;border-radius:999px;background:#E3EAEA;overflow:hidden"><div style="height:100%;width:64%;background:#4E7B5E"></div></div>
-          <div style="font-family:var(--font-display);font-weight:700;font-size:15px;color:var(--ink);width:24px;text-align:right">64</div>
-          <div style="color:var(--ink-soft);flex-shrink:0;display:flex"><i data-lucide="chevron-right"></i></div>
-        </div>
-      </div>
+      <div class="ins-eyebrow" style="margin-top:20px">Past Week</div>
+      <button class="ins-past-row" onclick="openOv('insights-yesterday')">
+        <span class="ins-past-main"><span class="ins-past-day">Yesterday</span><span class="ins-past-date">Jun 10</span></span>
+        <span class="ins-past-score">Score <b>60</b></span>
+        <i data-lucide="chevron-right" class="ins-past-arrow"></i>
+      </button>
+
+      <!-- Mark reviewed -->
+      <button class="ins-review-btn" onclick="markInsightReviewed()">Mark insight reviewed · +20 XP</button>
     </div>
   </div>
 
@@ -2496,6 +2490,296 @@
         </div>
         <div style="color:var(--ink-soft);flex-shrink:0;display:flex"><i data-lucide="chevron-right"></i></div>
       </a>
+    </div>
+  </div>
+
+  <!-- ═══ RELIEF ACTIVITY DETAIL ═══ -->
+  <div class="overlay" id="ov-relief-detail" style="background:var(--app-bg)">
+    <div class="ov-header" style="background:transparent;border-bottom:none">
+      <button class="ov-back" style="background:#fff;color:var(--ink);box-shadow:0 2px 8px rgba(58,51,48,.10)" onclick="document.getElementById('ov-relief-detail').classList.remove('active')">&larr;</button>
+      <div>
+        <div style="font-family:var(--font-display);font-size:17px;font-weight:700;color:var(--ink)">Do one relief activity</div>
+      </div>
+    </div>
+    <div class="ov-body" style="padding-top:18px">
+
+      <!-- Lead: centered icon, why-this-helps, earn pill below (one card) -->
+      <div class="rd-card rd-lead">
+        <div class="rd-hero-ic"><i data-lucide="leaf"></i></div>
+        <div class="home-title rd-h">Why this helps today</div>
+        <p class="rd-p">&ldquo;Go for a walk&rdquo; &mdash; the things you chose work because they're <b>yours</b>.</p>
+        <span class="rd-earn">Earn +20 pts</span>
+      </div>
+
+      <!-- Go do it now -->
+      <div class="rd-card">
+        <div class="home-title rd-h">Go do it now</div>
+        <button class="rd-go" onclick="document.getElementById('ov-relief-detail').classList.remove('active');openOv('edit-activities')">
+          <div class="rd-go-txt">
+            <div class="rd-go-t"><i data-lucide="leaf"></i> Open My Relief Toolkit</div>
+            <div class="rd-go-s">The activities you chose, ready to go &middot; earns +20 pts</div>
+          </div>
+          <i data-lucide="chevron-right" class="rd-go-arrow"></i>
+        </button>
+      </div>
+
+      <!-- How to do it -->
+      <div class="rd-card">
+        <div class="home-title rd-h">How to do it</div>
+        <p class="rd-sub">Tap each step to check it off as you go &mdash; the activity above is what earns your points.</p>
+        <div class="rd-step" onclick="this.classList.toggle('done')">
+          <span class="rd-num"><span class="rd-n">1</span><span class="rd-ck">&#10003;</span></span>
+          <span class="rd-txt">Open your relief list &mdash; the activities <b>you</b> chose (Go for a walk is at the top).</span>
+        </div>
+        <div class="rd-step" onclick="this.classList.toggle('done')">
+          <span class="rd-num"><span class="rd-n">2</span><span class="rd-ck">&#10003;</span></span>
+          <span class="rd-txt">Pick the first one that's possible in the next 10 minutes. Not the best one &mdash; the possible one.</span>
+        </div>
+        <div class="rd-step" onclick="this.classList.toggle('done')">
+          <span class="rd-num"><span class="rd-n">3</span><span class="rd-ck">&#10003;</span></span>
+          <span class="rd-txt">Set a 10-minute timer and start, imperfectly.</span>
+        </div>
+        <div class="rd-step" onclick="this.classList.toggle('done')">
+          <span class="rd-num"><span class="rd-n">4</span><span class="rd-ck">&#10003;</span></span>
+          <span class="rd-txt">When the timer ends, check: where's the stress or urge number now?</span>
+        </div>
+      </div>
+
+      <!-- Clinician's note -->
+      <div class="rd-card rd-note">
+        <div class="home-title rd-h rd-note-h"><i data-lucide="stethoscope"></i> Why this works &middot; Clinician's note</div>
+        <p class="rd-p">You built that list on a good day, for exactly this moment. Pre-decided coping removes the hardest step &mdash; deciding while stressed &mdash; and using it keeps the habit loop pointed at things that actually restore you.</p>
+      </div>
+
+      <!-- Mark as done -->
+      <button class="rd-done-btn" id="rd-done-btn" onclick="markReliefDone()">Mark as done &middot; +20 pts</button>
+
+    </div>
+  </div>
+
+  <!-- ═══ MAKE AN IF-THEN PLAN DETAIL ═══ -->
+  <div class="overlay" id="ov-ifthen-detail" style="background:var(--app-bg)">
+    <div class="ov-header" style="background:transparent;border-bottom:none">
+      <button class="ov-back" style="background:#fff;color:var(--ink);box-shadow:0 2px 8px rgba(58,51,48,.10)" onclick="document.getElementById('ov-ifthen-detail').classList.remove('active')">&larr;</button>
+      <div>
+        <div style="font-family:var(--font-display);font-size:17px;font-weight:700;color:var(--ink)">Make an if-then plan</div>
+      </div>
+    </div>
+    <div class="ov-body" style="padding-top:18px">
+
+      <!-- Lead: centered icon, why-this-helps, earn pill below -->
+      <div class="rd-card rd-lead">
+        <div class="rd-hero-ic" style="background:#C58A5E;color:#fff"><i data-lucide="route"></i></div>
+        <div class="home-title rd-h">Why this helps today</div>
+        <p class="rd-p">&ldquo;If stress shows up, then I will&hellip;&rdquo; &mdash; deciding now makes the moment easier.</p>
+        <span class="rd-earn">Earn +20 pts</span>
+      </div>
+
+      <!-- Do it right here — the builder -->
+      <div class="rd-card">
+        <div class="home-title rd-h">Do it right here</div>
+
+        <!-- live sentence preview -->
+        <div class="ift-preview">If <span class="ift-pv" id="ift-pv-if">this happens</span> shows up, then I will <span class="ift-pv" id="ift-pv-then">my tiny step</span>.</div>
+
+        <div class="ift-label"><span class="ift-step-n">1</span> IF this shows up&hellip; <span class="ift-hint">tap one of your triggers</span></div>
+        <div class="ift-chips ift-if">
+          <button type="button" class="ift-chip sel" onclick="iftPick(this)">Stress</button>
+          <button type="button" class="ift-chip" onclick="iftPick(this)">Evenings / nighttime</button>
+          <button type="button" class="ift-chip" onclick="iftPick(this)">Physical pain</button>
+          <button type="button" class="ift-chip" onclick="iftPick(this)">Old neighborhood</button>
+        </div>
+        <div class="ift-label" style="margin-top:18px"><span class="ift-step-n">2</span> &hellip;THEN I will <span class="ift-hint">tiny — under 2 minutes</span></div>
+        <div class="ift-chips ift-then">
+          <button type="button" class="ift-chip" onclick="iftPick(this)">take 3 slow breaths</button>
+          <button type="button" class="ift-chip" onclick="iftPick(this)">step outside</button>
+          <button type="button" class="ift-chip" onclick="iftPick(this)">text someone I trust</button>
+          <button type="button" class="ift-chip" onclick="iftPick(this)">open my urge toolkit</button>
+        </div>
+        <input type="text" id="ift-own" class="ift-own" placeholder="…or type your own &ldquo;then&rdquo;" oninput="iftOwn()">
+        <button class="ift-save-btn" id="ift-save-btn" disabled onclick="markIfThenDone()">Save my if-then plan &middot; +20 pts</button>
+      </div>
+
+      <!-- How to do it -->
+      <div class="rd-card">
+        <div class="home-title rd-h">How to do it</div>
+        <p class="rd-sub">Tap each step to check it off as you go &mdash; the activity above is what earns your points.</p>
+        <div class="rd-step" onclick="this.classList.toggle('done')">
+          <span class="rd-num"><span class="rd-n">1</span><span class="rd-ck">&#10003;</span></span>
+          <span class="rd-txt">Name the trigger most likely to show up this week &mdash; for you, <b>stress</b>.</span>
+        </div>
+        <div class="rd-step" onclick="this.classList.toggle('done')">
+          <span class="rd-num"><span class="rd-n">2</span><span class="rd-ck">&#10003;</span></span>
+          <span class="rd-txt">Complete the sentence: <i>&ldquo;If stress shows up, then I will ___.&rdquo;</i></span>
+        </div>
+        <div class="rd-step" onclick="this.classList.toggle('done')">
+          <span class="rd-num"><span class="rd-n">3</span><span class="rd-ck">&#10003;</span></span>
+          <span class="rd-txt">Make the &ldquo;then&rdquo; tiny &mdash; doable in under 2 minutes (breathe, step outside, text someone).</span>
+        </div>
+        <div class="rd-step" onclick="this.classList.toggle('done')">
+          <span class="rd-num"><span class="rd-n">4</span><span class="rd-ck">&#10003;</span></span>
+          <span class="rd-txt">Say the full sentence out loud twice.</span>
+        </div>
+        <div class="rd-step" onclick="this.classList.toggle('done')">
+          <span class="rd-num"><span class="rd-n">5</span><span class="rd-ck">&#10003;</span></span>
+          <span class="rd-txt">Write it where you'll see it tonight &mdash; notes app, sticky note, lock screen.</span>
+        </div>
+      </div>
+
+      <!-- Clinician's note -->
+      <div class="rd-card rd-note">
+        <div class="home-title rd-h rd-note-h"><i data-lucide="stethoscope"></i> Why this works &middot; Clinician's note</div>
+        <p class="rd-p">This is an implementation intention &mdash; one of the best-replicated findings in behavior science. Deciding <i>in advance</i> roughly doubles follow-through, because in the hot moment the choice is already made.</p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ═══ ENCOURAGE SOMEONE IN COMMUNITY DETAIL ═══ -->
+  <div class="overlay" id="ov-community-detail" style="background:var(--app-bg)">
+    <div class="ov-header" style="background:transparent;border-bottom:none">
+      <button class="ov-back" style="background:#fff;color:var(--ink);box-shadow:0 2px 8px rgba(58,51,48,.10)" onclick="document.getElementById('ov-community-detail').classList.remove('active')">&larr;</button>
+      <div>
+        <div style="font-family:var(--font-display);font-size:17px;font-weight:700;color:var(--ink)">Encourage someone in Community</div>
+      </div>
+    </div>
+    <div class="ov-body" style="padding-top:18px">
+
+      <!-- Lead: centered icon, why-this-helps, earn pill below -->
+      <div class="rd-card rd-lead">
+        <div class="rd-hero-ic" style="background:#4E7FA8;color:#fff"><i data-lucide="heart-handshake"></i></div>
+        <div class="home-title rd-h">Why this helps today</div>
+        <p class="rd-p">Helping another person in recovery reinforces your own.</p>
+        <span class="rd-earn">Earn +20 pts</span>
+      </div>
+
+      <!-- Go do it now -->
+      <div class="rd-card">
+        <div class="home-title rd-h">Go do it now</div>
+        <button class="rd-go" onclick="markCommunityDone()">
+          <div class="rd-go-txt">
+            <div class="rd-go-t"><i data-lucide="heart-handshake"></i> Take me to Community &mdash; encourage someone</div>
+            <div class="rd-go-s">One specific, kind reply &middot; earns +20 pts</div>
+          </div>
+          <i data-lucide="chevron-right" class="rd-go-arrow"></i>
+        </button>
+      </div>
+
+      <!-- How to do it -->
+      <div class="rd-card">
+        <div class="home-title rd-h">How to do it</div>
+        <p class="rd-sub">Tap each step to check it off as you go &mdash; the activity above is what earns your points.</p>
+        <div class="rd-step" onclick="this.classList.toggle('done')">
+          <span class="rd-num"><span class="rd-n">1</span><span class="rd-ck">&#10003;</span></span>
+          <span class="rd-txt">Open Community and read until one post genuinely resonates.</span>
+        </div>
+        <div class="rd-step" onclick="this.classList.toggle('done')">
+          <span class="rd-num"><span class="rd-n">2</span><span class="rd-ck">&#10003;</span></span>
+          <span class="rd-txt">Reply with encouragement plus <b>one specific thing</b> you related to.</span>
+        </div>
+        <div class="rd-step" onclick="this.classList.toggle('done')">
+          <span class="rd-num"><span class="rd-n">3</span><span class="rd-ck">&#10003;</span></span>
+          <span class="rd-txt">If they're struggling, share one thing that helped <i>you</i> &mdash; experience, not advice.</span>
+        </div>
+        <div class="rd-step" onclick="this.classList.toggle('done')">
+          <span class="rd-num"><span class="rd-n">4</span><span class="rd-ck">&#10003;</span></span>
+          <span class="rd-txt">Notice how you feel after sending it.</span>
+        </div>
+      </div>
+
+      <!-- Clinician's note -->
+      <div class="rd-card rd-note">
+        <div class="home-title rd-h rd-note-h"><i data-lucide="stethoscope"></i> Why this works &middot; Clinician's note</div>
+        <p class="rd-p">This is the helper-therapy principle: giving support strengthens your own recovery even more than receiving it. Encouraging someone else quietly rehearses your own reasons and skills.</p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ═══ THREE GOOD THINGS DETAIL ═══ -->
+  <div class="overlay" id="ov-threegood-detail" style="background:var(--app-bg)">
+    <div class="ov-header" style="background:transparent;border-bottom:none">
+      <button class="ov-back" style="background:#fff;color:var(--ink);box-shadow:0 2px 8px rgba(58,51,48,.10)" onclick="document.getElementById('ov-threegood-detail').classList.remove('active')">&larr;</button>
+      <div>
+        <div style="font-family:var(--font-display);font-size:17px;font-weight:700;color:var(--ink)">Three good things</div>
+      </div>
+    </div>
+    <div class="ov-body" style="padding-top:18px">
+
+      <!-- Lead: centered icon, why-this-helps, earn pill below -->
+      <div class="rd-card rd-lead">
+        <div class="rd-hero-ic" style="background:#C0748A;color:#fff"><i data-lucide="sparkles"></i></div>
+        <div class="home-title rd-h">Why this helps today</div>
+        <p class="rd-p">Writing down three good moments retrains attention toward what's working.</p>
+        <span class="rd-earn">Earn +15 pts</span>
+      </div>
+
+      <!-- Do it right here — the builder -->
+      <div class="rd-card">
+        <div class="home-title rd-h">Do it right here</div>
+        <div class="tg-num">1.</div>
+        <input type="text" id="tg1" class="ift-own tg-input" placeholder="First good thing — tiny counts (good coffee, a text back…)" oninput="tgSync()">
+        <div class="tg-num">2.</div>
+        <input type="text" id="tg2" class="ift-own tg-input" placeholder="Second good thing" oninput="tgSync()">
+        <div class="tg-num">3.</div>
+        <input type="text" id="tg3" class="ift-own tg-input" placeholder="Third good thing" oninput="tgSync()">
+        <button class="ift-save-btn" id="tg-save-btn" disabled onclick="markThreeGoodDone()">Save my three good things &middot; +15 pts</button>
+      </div>
+
+      <!-- How to do it -->
+      <div class="rd-card">
+        <div class="home-title rd-h">How to do it</div>
+        <p class="rd-sub">Tap each step to check it off as you go &mdash; the activity above is what earns your points.</p>
+        <div class="rd-step" onclick="this.classList.toggle('done')">
+          <span class="rd-num"><span class="rd-n">1</span><span class="rd-ck">&#10003;</span></span>
+          <span class="rd-txt">Think back over the last 24 hours.</span>
+        </div>
+        <div class="rd-step" onclick="this.classList.toggle('done')">
+          <span class="rd-num"><span class="rd-n">2</span><span class="rd-ck">&#10003;</span></span>
+          <span class="rd-txt">Write down <b>3 things that went well</b> &mdash; tiny counts (good coffee, a text back, you showed up).</span>
+        </div>
+        <div class="rd-step" onclick="this.classList.toggle('done')">
+          <span class="rd-num"><span class="rd-n">3</span><span class="rd-ck">&#10003;</span></span>
+          <span class="rd-txt">For each one, add a single line: <i>why</i> did it happen &mdash; and what was your part in it?</span>
+        </div>
+      </div>
+
+      <!-- Clinician's note -->
+      <div class="rd-card rd-note">
+        <div class="home-title rd-h rd-note-h"><i data-lucide="stethoscope"></i> Why this works &middot; Clinician's note</div>
+        <p class="rd-p">&ldquo;Three good things&rdquo; is one of the most-studied exercises in psychology. Recovery tunes attention toward threat and craving; this retrains it toward reward that's already in your day. The effect compounds over 1&ndash;2 weeks of practice.</p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ═══ GUIDED ACTIVITY PLAYER ═══ -->
+  <div class="overlay" id="ov-activity" style="background:var(--app-bg)">
+    <div class="ov-header" style="background:transparent;border-bottom:none">
+      <button class="ov-back" style="background:#fff;color:var(--ink);box-shadow:0 2px 8px rgba(58,51,48,.10)" onclick="document.getElementById('ov-activity').classList.remove('active')">&larr;</button>
+      <div>
+        <div id="act-title" style="font-family:var(--font-display);font-size:17px;font-weight:700;color:var(--ink)">Activity</div>
+      </div>
+    </div>
+    <div class="ov-body" style="padding-top:18px">
+
+      <!-- Why this works -->
+      <div class="rd-card rd-note" id="act-why-card">
+        <div class="home-title rd-h rd-note-h" id="act-why-h"><i data-lucide="sparkles"></i> Why this works</div>
+        <p class="rd-p" id="act-why"></p>
+      </div>
+
+      <!-- Follow along -->
+      <div class="rd-card">
+        <div class="home-title rd-h">Follow along</div>
+        <p class="rd-sub">Tap each step to check it off as you go — take all the time you need.</p>
+        <div id="act-steps"></div>
+      </div>
+
+      <!-- Complete -->
+      <button class="act-complete" id="act-complete" onclick="activityComplete()">I did it &middot; +20 XP</button>
+      <p class="act-foot">There's no timer and no wrong way. Completing an activity syncs to your care team.</p>
+
     </div>
   </div>
 

@@ -17,6 +17,7 @@ function goScreen(id){
   if(id==='mat'){ setTimeout(updatePatternChart,50); setTimeout(updateRecoveryHealthChart,50); }
   if(id==='home' && typeof scheduleCheckin==='function') scheduleCheckin();   /* daily check-in prompt 2s after landing on home */
   if(id==='profile' && typeof renderProfileLists==='function') renderProfileLists();   /* triggers / relief / contacts */
+  if(id==='tools' && typeof actzPaintTiles==='function') actzPaintTiles();   /* mark completed activities */
 }
 function openOv(id){
   var el=document.getElementById('ov-'+id);if(!el)return;
@@ -27,6 +28,9 @@ function openOv(id){
   el.scrollTop=0; var b=el.querySelector('.ov-body'); if(b) b.scrollTop=0;
   if(id==='relief-breath' && typeof startBreath==='function') startBreath();           /* start 4-7-8 cycle */
   if(id==='relief-game'   && typeof gameInit==='function')   gameInit();               /* build distraction grid */
+  if(id==='insights'){ if(typeof buildArcGauge==='function') buildArcGauge('insightsGauge', 44); if(typeof applyRecState==='function') applyRecState(); }   /* insights gauge + recommended completion state */
+  if(id==='ifthen-detail' && typeof iftSync==='function') iftSync();   /* set Save button enabled/disabled from current selection */
+  if(id==='threegood-detail' && typeof tgSync==='function') tgSync();   /* set Save button state from the three inputs */
   if(id==='location-checkin'){ el.querySelectorAll('.loc-opt.sel').forEach(function(o){o.classList.remove('sel');}); var _sb=document.getElementById('loc-submit'); if(_sb) _sb.classList.remove('ready'); }  /* fresh state each open */
   try{localStorage.setItem('rh_ov',id);}catch(e){}
 }
@@ -899,6 +903,344 @@ function buildHealthGauge(){
   if(num){ if(reduce){ num.textContent=val; } else { num.textContent='0'; rhCountUp(num, val, 1200); } }
   var pill=card.querySelector('.rh-pill'); if(pill) pill.textContent = val>=85?'Excellent':val>=70?'Above Average':val>=55?'Good':'Needs Care';
 }
+/* reusable arc gauge (0–100) with an animated needle — used by the Insights screen */
+function buildArcGauge(elId, val){
+  var el=document.getElementById(elId); if(!el || el.querySelector('.speedo')) return;
+  var cx=150, cy=158, r=112, sw=22;
+  function pt(deg){ var a=deg*Math.PI/180; return [(cx+r*Math.cos(a)).toFixed(1),(cy-r*Math.sin(a)).toFixed(1)]; }
+  function arc(d1,d2,col){ var p1=pt(d1),p2=pt(d2); return '<path d="M'+p1[0]+','+p1[1]+' A'+r+','+r+' 0 0 1 '+p2[0]+','+p2[1]+'" fill="none" stroke="'+col+'" stroke-width="'+sw+'" stroke-linecap="round"/>'; }
+  var s='<svg class="speedo" viewBox="0 0 300 192" xmlns="http://www.w3.org/2000/svg">';
+  s+=arc(180,144,'#D98279')+arc(144,108,'#E5A05F')+arc(108,72,'#E8C76A')+arc(72,36,'#AECB96')+arc(36,0,'#84B27F');
+  s+='<text x="12" y="185" font-size="13" font-weight="600" fill="#C56A5E">Needs care</text>';
+  s+='<text x="288" y="185" text-anchor="end" font-size="13" font-weight="600" fill="#5E8B6E">Thriving</text>';
+  var th=(180-(val/100)*180)*Math.PI/180, L=84, bw=6;
+  var tx=(cx+L*Math.cos(th)).toFixed(1), ty=(cy-L*Math.sin(th)).toFixed(1);
+  var sinT=Math.sin(th), cosT=Math.cos(th);
+  var needle='<polygon points="'+(cx+sinT*bw).toFixed(1)+','+(cy+cosT*bw).toFixed(1)+' '+tx+','+ty+' '+(cx-sinT*bw).toFixed(1)+','+(cy-cosT*bw).toFixed(1)+'" fill="#2A2421"/>';
+  var reduce=false; try{ reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches; }catch(e){}
+  if(reduce){ s+=needle; }
+  else { var startA=(-(val/100)*180).toFixed(1); s+='<g>'+needle+'<animateTransform attributeName="transform" type="rotate" from="'+startA+' '+cx+' '+cy+'" to="0 '+cx+' '+cy+'" dur="1.1s" fill="freeze" calcMode="spline" keyTimes="0;1" keySplines="0.3 0.9 0.35 1"/></g>'; }
+  s+='<circle cx="'+cx+'" cy="'+cy+'" r="11" fill="#2A2421"/><circle cx="'+cx+'" cy="'+cy+'" r="4" fill="#fff"/></svg>';
+  el.insertAdjacentHTML('afterbegin', s);
+  var numEl=document.getElementById('insightsGaugeNum');
+  if(numEl){ if(reduce){ numEl.textContent=val; } else { numEl.textContent='0'; rhCountUp(numEl, val, 1100); } }
+}
+/* Insights: mark the daily insight reviewed → award XP and close */
+function markInsightReviewed(){ if(typeof showXPPopup==='function') showXPPopup(20); closeOv(); }
+/* Insights: recommended-activity completion, driven from the detail page */
+function updateRecCount(){
+  var grid=document.querySelector('.ins-rec-grid'); if(!grid) return;
+  var total=grid.querySelectorAll('.ins-rec-card').length;
+  var done=grid.querySelectorAll('.ins-rec-card.is-done').length;
+  var el=document.querySelector('.ins-rec-prog'); if(el) el.textContent=done+' of '+total+' done';
+}
+/* reflect saved completion state on the recommended cards (called when Insights opens) */
+function applyRecState(){
+  /* relief activity */
+  var reliefDone=false; try{ reliefDone=localStorage.getItem('rh_relief_done')==='1'; }catch(e){}
+  var rc=document.getElementById('rec-relief'); if(rc) rc.classList.toggle('is-done', reliefDone);
+  var rb=document.getElementById('rd-done-btn');
+  if(rb){ if(reliefDone){ rb.textContent='Completed ✓'; rb.disabled=true; rb.classList.add('is-done'); }
+          else { rb.textContent='Mark as done · +20 pts'; rb.disabled=false; rb.classList.remove('is-done'); } }
+  /* if-then plan */
+  var iftDone=false; try{ iftDone=localStorage.getItem('rh_ifthen_done')==='1'; }catch(e){}
+  var ic=document.getElementById('rec-ifthen'); if(ic) ic.classList.toggle('is-done', iftDone);
+  var ib=document.getElementById('ift-save-btn');
+  if(ib){ if(iftDone){ ib.textContent='Saved ✓'; ib.disabled=true; ib.classList.add('is-done'); }
+          else { ib.textContent='Save my if-then plan · +20 pts'; ib.classList.remove('is-done'); iftSync(); } }
+  /* encourage someone in community */
+  var commDone=false; try{ commDone=localStorage.getItem('rh_community_done')==='1'; }catch(e){}
+  var cc=document.getElementById('rec-community'); if(cc) cc.classList.toggle('is-done', commDone);
+  /* three good things */
+  var tgDone=false; try{ tgDone=localStorage.getItem('rh_threegood_done')==='1'; }catch(e){}
+  var tc=document.getElementById('rec-threegood'); if(tc) tc.classList.toggle('is-done', tgDone);
+  var tb=document.getElementById('tg-save-btn');
+  if(tb){ if(tgDone){ tb.textContent='Saved ✓'; tb.disabled=true; tb.classList.add('is-done'); }
+          else { tb.textContent='Save my three good things · +15 pts'; tb.classList.remove('is-done'); tgSync(); } }
+  updateRecCount();
+}
+/* three good things: enable Save once all three are filled */
+function tgSync(){
+  var a=document.getElementById('tg1'), b=document.getElementById('tg2'), c=document.getElementById('tg3');
+  var ready=a&&b&&c&&a.value.trim()&&b.value.trim()&&c.value.trim();
+  var btn=document.getElementById('tg-save-btn');
+  if(btn && !btn.classList.contains('is-done')) btn.disabled=!ready;
+}
+/* user taps "Save my three good things" */
+function markThreeGoodDone(){
+  var already=false; try{ already=localStorage.getItem('rh_threegood_done')==='1'; }catch(e){}
+  try{ localStorage.setItem('rh_threegood_done','1'); }catch(e){}
+  applyRecState();
+  if(!already && typeof showXPPopup==='function') showXPPopup(15);
+  var d=document.getElementById('ov-threegood-detail'); if(d) d.classList.remove('active');
+}
+/* ===== Community feed (Connect) interactions ===== */
+/* composer: single-select a circle chip */
+function cmPick(btn){
+  var g=btn.parentElement; if(g) g.querySelectorAll('.cm-chip').forEach(function(c){ c.classList.remove('sel'); });
+  btn.classList.add('sel');
+}
+/* filter the feed by circle */
+function cmTab(btn,key){
+  var tabs=btn.parentElement; if(tabs) tabs.querySelectorAll('.cm-tab').forEach(function(t){ t.classList.remove('on'); });
+  btn.classList.add('on');
+  document.querySelectorAll('#ov-connect .cm-post').forEach(function(p){
+    p.style.display=(key==='all'||p.getAttribute('data-circle')===key)?'':'none';
+  });
+}
+/* toggle support (heart) on a post */
+function cmSupport(btn){
+  var n=btn.querySelector('.cm-act-n'); if(!n) return;
+  var v=parseInt(n.textContent,10)||0;
+  if(btn.classList.toggle('on')){ n.textContent=v+1; } else { n.textContent=Math.max(0,v-1); }
+}
+/* enable Share only when there's something to post */
+function cmComposeSync(){
+  var t=document.getElementById('cm-text'), b=document.getElementById('cm-share-btn');
+  if(t&&b) b.disabled=!t.value.trim();
+}
+/* post a new conversation from the composer */
+function cmShare(){
+  var t=document.getElementById('cm-text'); if(!t) return;
+  if(!t.value.trim()) return;
+  t.value=''; cmComposeSync();
+  if(typeof showXPPopup==='function') showXPPopup(20);
+}
+/* toggle follow on a post */
+function cmFollow(btn){
+  var lbl=btn.querySelector('.cm-act-lbl');
+  if(btn.classList.toggle('following')){ if(lbl) lbl.textContent='Following'; }
+  else { if(lbl) lbl.textContent='Follow'; }
+}
+/* ============ GUIDED ACTIVITY PLAYER (Activities screen) ============
+   Content adapted from the RudraHealth clinician-designed micro-interventions. */
+var ACTS={
+  crave:{name:'Managing Cravings',icon:'life-buoy',mins:4,pts:20,ac:'#4E7FA8',tint:'#E3EDF6',sub:'Surf the urge until it passes',
+    why:'A craving is a brain signal, not a command — it builds, peaks within about 15–20 minutes, and fades whether or not you act on it. This 5-D sequence (Delay · Distance · Distract · Dial · Decide) buys time, and time is what dissolves a craving.',
+    steps:[
+      ['Name it and rate it','Say it plainly: “I’m having a craving.” Rate it 1–10. Naming it moves it from the driver’s seat to the passenger seat — you’re observing it now, not obeying it.'],
+      ['Delay — set a 15-minute deal','You don’t have to promise forever, just 15 minutes. Tell yourself “I can revisit this in 15 minutes” and set an actual timer. Almost every craving loses its grip inside that window.'],
+      ['Distance — change your surroundings','Leave the room, step outside, put physical space between you and the cue. Cravings feed on cues; starve this one.'],
+      ['Distract — give your hands and mind a job','Splash cold water on your face, do 10 slow squats, play the number game, make tea. Strong sensation + simple task = the craving loses your attention.'],
+      ['Dial — reach one person','Text or call someone from your support list, even just: “Rough moment, riding it out.” Saying it out loud cuts a craving’s intensity more than almost anything else.'],
+      ['Decide and review','When the timer ends, re-rate it 1–10. Notice it dropped — that’s proof, not luck. Jot one line about what triggered it; every craving you outlast makes the next one weaker.']
+    ]},
+  stress:{name:'Coping with Stressors',icon:'heart-pulse',mins:5,pts:20,ac:'#B5893E',tint:'#FBF0D3',sub:"Calm your body's stress response",
+    why:'Stress is the most common relapse trigger there is — not because stress itself is dangerous, but because a stressed body screams for fast relief. This sequence calms the body first, then sorts what you can control from what you can’t, and ends with one small doable step.',
+    steps:[
+      ['Calm the body first — two sighs','Breathe in through the nose, then a second short sip of air on top, then a long slow exhale through the mouth. Do it twice. This “physiological sigh” is the fastest known way to lower the body’s alarm.'],
+      ['Name the stressor — one sentence','“The thing stressing me right now is …” Be specific: not “everything,” but “rent is due Friday.” Vague stress feels infinite; named stress has edges.'],
+      ['Sort it — my hands or not my hands?','Draw the line: what part can I actually influence, and what part is out of my control? Energy spent on the second pile is stolen from the first.'],
+      ['Take one small step','Not the whole problem — one 10-minute step: send the email, make the call, ask for the extension. Action, however small, is the antidote to the helpless feeling stress feeds on.'],
+      ['Release the rest — unclench on purpose','Squeeze your shoulders up to your ears for 5 seconds, then drop them. Fists tight, then open. Tell the uncontrollable pile: “not mine to carry tonight.”'],
+      ['Close with kindness','One sentence to yourself, the way you’d talk to a friend: “This is hard, and I’m handling it without using. That counts.”']
+    ]},
+  breathe:{name:'Mindful Breathing',icon:'wind',mins:1,pts:15,ac:'#5E8B6E',tint:'#E7F0EA',sub:'One quiet minute to reset',
+    why:'Slow, extended exhales activate your parasympathetic nervous system — the body’s natural brake. In under a minute this quiets the stress response that cravings ride on.',
+    steps:[
+      ['Get comfortable','Sit or stand somewhere you can be still for one minute. Soften your shoulders and let your jaw unclench.'],
+      ['Breathe in — 4 counts','Inhale slowly through your nose for a count of four. Let your belly, not your chest, do the work.'],
+      ['Hold — 2 counts','A gentle pause at the top. Nothing forced.'],
+      ['Breathe out — 6 counts','Exhale slowly through your mouth for six. The long exhale is where the calm happens.'],
+      ['Repeat × 5','Five more rounds. If your mind wanders — that’s normal — just return to the count.']
+    ]},
+  map:{name:'Trigger Mapping',icon:'map',mins:6,pts:20,ac:'#8A6DAF',tint:'#EDE8F4',sub:'Know your cues before they hit',
+    why:'Cravings rarely come out of nowhere — they follow a chain: trigger → thought → feeling → urge. Mapping the chain while you’re calm makes it far easier to interrupt when it’s live. This is the heart of CBT for substance use.',
+    steps:[
+      ['Pick one recent urge','Think of the last time a craving showed up. Just one moment — recent and specific.'],
+      ['Name the trigger','Where were you? Who was there? What time was it? (Evenings and stress are two of the most common.)'],
+      ['Catch the thought','What went through your mind right before the urge? “Just once won’t hurt” and “I can’t handle this feeling” are the classics.'],
+      ['Name the feeling','Under the thought there’s usually a feeling — bored, lonely, anxious, in pain. Naming it takes away some of its power.'],
+      ['Plan your exit','Finish this sentence: “Next time that trigger shows up, I will…” — text someone, leave the room, breathe, open this app. Deciding now makes the moment easier.']
+    ]},
+  surf:{name:'Urge Surfing',icon:'waves',mins:3,pts:20,ac:'#C0748A',tint:'#F6E4E7',sub:"Ride the wave — don't fight it",
+    why:'An urge behaves like a wave: it rises, crests, and — if you don’t feed it — falls, usually within 15–20 minutes. Fighting it or obeying it both make it stronger next time. Riding it teaches your brain that urges pass on their own.',
+    steps:[
+      ['Notice it without judgment','Say to yourself: “An urge is here.” Not “I’m weak” — just a wave arriving. You are the surfer, not the wave.'],
+      ['Find it in your body','Where do you feel it — chest, stomach, hands, jaw? Get curious about it like a scientist.'],
+      ['Breathe into that spot','Slow breaths, aimed right at the sensation. Notice how it shifts, pulses, changes shape.'],
+      ['Watch it crest','Rate it 1–10 every minute or so. Watch the number climb… then — always — begin to fall.'],
+      ['Ride it down','Stay with it until it drops. Every wave you ride makes the next one smaller. That’s not a metaphor — it’s how the brain relearns.']
+    ]},
+  sleep:{name:'Sleep Hygiene',icon:'moon',mins:5,pts:20,ac:'#5A7A9A',tint:'#E7ECF2',sub:'Set yourself up for real rest',
+    why:'Poor sleep is one of the strongest next-day predictors of craving intensity — a tired brain reaches for fast relief. Building a steady wind-down routine protects tomorrow’s recovery tonight.',
+    steps:[
+      ['Set a screens-down time','Pick a time 30–60 minutes before bed when the phone goes face-down. Blue light and doom-scrolling both delay sleep.'],
+      ['Dim and cool the room','Lower the lights, crack a window or set the thermostat cooler. Your body reads darkness and cool as “sleep now.”'],
+      ['Do one quiet thing','Warm shower, herbal tea, a few pages of a book, or the 4-7-8 breath. The same thing nightly — routine is the signal.'],
+      ['Park tomorrow’s worries','Keep paper by the bed. If your mind starts listing problems, write them down — they’ll keep until morning.'],
+      ['Same wake time, every day','Even after a rough night. A steady wake time is the single most powerful lever for better sleep.']
+    ]}
+};
+function actDone(id){ try{ return localStorage.getItem('rh_act_'+id)==='1'; }catch(e){ return false; } }
+/* open the guided player for an activity */
+function openActivity(id){
+  var a=ACTS[id]; if(!a) return;
+  try{ localStorage.setItem('rh_act_current', id); }catch(e){}
+  var done=actDone(id);
+  function set(el,fn){ var n=document.getElementById(el); if(n) fn(n); }
+  set('act-title',function(n){ n.textContent=a.name; });
+  set('act-name', function(n){ n.textContent=a.name; });
+  set('act-sub',  function(n){ n.textContent=a.sub; });
+  set('act-ic',   function(n){ n.style.background=a.ac; n.style.color='#fff'; n.innerHTML='<i data-lucide="'+a.icon+'"></i>'; });
+  set('act-earn', function(n){ n.textContent=done?'Completed today ✓':'Earn +'+a.pts+' pts'; });
+  set('act-why',  function(n){ n.textContent=a.why; });
+  set('act-why-card', function(n){ n.style.background=a.tint; n.style.borderColor=a.ac+'33'; });
+  set('act-why-h',function(n){ n.style.color=a.ac; });
+  set('act-steps',function(n){
+    var h='';
+    a.steps.forEach(function(sp,i){
+      h+='<div class="act-step" onclick="this.classList.toggle(\'done\')">'+
+         '<span class="act-step-n" style="--ac:'+a.ac+';border-color:'+a.ac+'66;color:'+a.ac+'">'+(i+1)+'</span>'+
+         '<span class="act-step-b"><span class="act-step-t">'+cmEsc(sp[0])+'</span><span class="act-step-d">'+cmEsc(sp[1])+'</span></span></div>';
+    });
+    n.innerHTML=h;
+  });
+  set('act-complete',function(n){
+    n.style.background=done?'#E7F0EA':a.ac;
+    n.style.color=done?'#3C6B4E':'#fff';
+    n.style.boxShadow=done?'none':'0 8px 20px -8px '+a.ac+'99';
+    n.textContent=done?'Completed today ✓ · do it again anytime':'I did it · +'+a.pts+' XP';
+  });
+  if(typeof lucide!=='undefined' && lucide.createIcons) lucide.createIcons();
+  openOv('activity');
+  var b=document.querySelector('#ov-activity .ov-body'); if(b) b.scrollTop=0;
+}
+/* mark the current activity complete */
+function activityComplete(){
+  var id=null; try{ id=localStorage.getItem('rh_act_current'); }catch(e){}
+  var a=ACTS[id]; if(!a) return;
+  var first=!actDone(id);
+  try{ localStorage.setItem('rh_act_'+id,'1'); }catch(e){}
+  actzPaintTiles();
+  document.getElementById('ov-activity').classList.remove('active');
+  if(first && typeof showXPPopup==='function') showXPPopup(a.pts);
+}
+/* paint completed tiles on the Activities screen */
+function actzPaintTiles(){
+  Object.keys(ACTS).forEach(function(id){
+    var tile=document.getElementById('actz-tile-'+id), go=document.getElementById('actz-go-'+id);
+    if(!tile||!go) return;
+    if(actDone(id)){ tile.classList.add('actz-done'); go.innerHTML='<i data-lucide="check"></i> Done · +'+ACTS[id].pts+' XP'; }
+    else { tile.classList.remove('actz-done'); }
+  });
+  if(typeof lucide!=='undefined' && lucide.createIcons) lucide.createIcons();
+}
+/* ---- Post detail (full post + all comments) ---- */
+var CM_POSTS={
+  gentle_tide:{av:'GE',avc:'#8FA9C7',handle:'@gentle_tide',time:'1d ago',tag:'Sleep & Self-Care',tagIcon:'moon',circle:'sleep',support:11,
+    text:'Third night in a row of actual sleep after months of tossing. The wind-down routine from the workbook (no phone + tea + the 4-7-8 breath) is quietly changing my life.',
+    comments:[
+      {av:'ML',avc:'#7FB08A',handle:'@morning_light',time:'20h ago',text:'Trying this tonight. Thank you for sharing.'}
+    ]},
+  steady_climb:{av:'SC',avc:'#7FB08A',handle:'@steady_climb',time:'3h ago',tag:'Wins & Milestones',tagIcon:'star',circle:'wins',support:24,
+    text:"90 days today. Didn't think I'd make it past week one. To anyone in the early days — it does get easier, and you're not doing it alone.",
+    comments:[
+      {av:'RS',avc:'#C39078',handle:'@river_stone',time:'2h ago',text:'90 days is huge. Congratulations — that is real work.'},
+      {av:'FL',avc:'#8FA9C7',handle:'@first_light',time:'2h ago',text:'This gave me hope today. Thank you.'},
+      {av:'SO',avc:'#6E9E80',handle:'@steady_on',time:'1h ago',text:'Week one was the hardest for me too. So proud of you.'},
+      {av:'QH',avc:'#C0748A',handle:'@quiet_harbor',time:'1h ago',text:'Needed to read this. One day at a time.'},
+      {av:'ML',avc:'#7FB08A',handle:'@morning_light',time:'40m ago',text:"That's amazing. Keep going."}
+    ]},
+  quiet_harbor:{av:'QH',avc:'#C39078',handle:'@quiet_harbor',time:'6h ago',tag:'Cravings & Coping',tagIcon:'waves',circle:'cravings',support:8,
+    text:"Rough afternoon — a big craving hit out of nowhere. Tried the urge-surfing exercise and it passed in about 15 minutes. Still a little shaky, but I didn't act on it.",
+    comments:[
+      {av:'RS',avc:'#8FA9C7',handle:'@river_stone',time:'5h ago',text:"Proud of you for riding it out. That's the hardest part."},
+      {av:'GE',avc:'#6E9E80',handle:'@gentle_tide',time:'4h ago',text:'Urge surfing saved me last week too. It really does pass.'},
+      {av:'FL',avc:'#C0748A',handle:'@first_light',time:'3h ago',text:"You didn't act on it — that's the whole win. Well done."}
+    ]}
+};
+function cmEsc(s){ return String(s).replace(/[&<>"]/g,function(m){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m];}); }
+function cmCommentHTML(c){
+  return '<div class="cm-cmt"><div class="cm-cmt-av" style="background:'+c.avc+'">'+cmEsc(c.av)+'</div>'+
+         '<div class="cm-cmt-body"><div class="cm-cmt-top"><span class="cm-cmt-handle">'+cmEsc(c.handle)+'</span><span class="cm-cmt-time">'+cmEsc(c.time)+'</span></div>'+
+         '<div class="cm-cmt-txt">'+cmEsc(c.text)+'</div></div></div>';
+}
+/* open the full post page with all comments */
+function openPost(id){
+  var p=CM_POSTS[id]; if(!p) return;
+  try{ localStorage.setItem('rh_post', id); }catch(e){}
+  var b=document.getElementById('cm-detail-body'); if(!b) return;
+  var h='<div class="cm-post" style="margin-bottom:12px">'+
+    '<div class="cm-post-head"><div class="cm-avatar" style="background:'+p.avc+'">'+cmEsc(p.av)+'</div>'+
+    '<div class="cm-post-id"><div class="cm-handle">'+cmEsc(p.handle)+'</div><div class="cm-time">'+cmEsc(p.time)+'</div></div>'+
+    '<span class="cm-tag cm-tag--'+(p.circle||'')+'"><i data-lucide="'+p.tagIcon+'"></i> '+cmEsc(p.tag)+'</span></div>'+
+    '<div class="cm-post-txt">'+cmEsc(p.text)+'</div>'+
+    '<div class="cm-actions"><button class="cm-act" onclick="cmSupport(this)"><i data-lucide="heart"></i> <span class="cm-act-n">'+p.support+'</span> <span class="cm-act-lbl">support</span></button>'+
+    '<button class="cm-act"><i data-lucide="message-circle"></i> <span class="cm-act-n">'+p.comments.length+'</span> <span class="cm-act-lbl">comments</span></button>'+
+    '<button class="cm-act" onclick="cmFollow(this)"><i data-lucide="bell-plus"></i> <span class="cm-act-lbl">Follow</span></button></div></div>'+
+    '<div class="cm-cmt-head">Comments <span id="cm-detail-count">'+p.comments.length+'</span></div><div id="cm-cmt-list">';
+  p.comments.forEach(function(c){ h+=cmCommentHTML(c); });
+  h+='</div>';
+  b.innerHTML=h;
+  if(typeof lucide!=='undefined' && lucide.createIcons) lucide.createIcons();
+  openOv('post-detail');
+  b.scrollTop=0;
+}
+/* post a comment on the open post */
+function cmDetailSend(){
+  var inp=document.getElementById('cm-detail-input'); if(!inp || !inp.value.trim()) return;
+  var list=document.getElementById('cm-cmt-list'); if(!list) return;
+  list.insertAdjacentHTML('beforeend', cmCommentHTML({av:'JO',avc:'#6DA0CC',handle:'@john',time:'now',text:inp.value.trim()}));
+  var cnt=document.getElementById('cm-detail-count'); if(cnt) cnt.textContent=(parseInt(cnt.textContent,10)||0)+1;
+  inp.value=''; inp.blur();
+  if(typeof lucide!=='undefined' && lucide.createIcons) lucide.createIcons();
+  var b=document.getElementById('cm-detail-body'); if(b) b.scrollTop=b.scrollHeight;
+}
+/* user taps "Take me to Community" — mark done, award XP, open Community */
+function markCommunityDone(){
+  var already=false; try{ already=localStorage.getItem('rh_community_done')==='1'; }catch(e){}
+  try{ localStorage.setItem('rh_community_done','1'); }catch(e){}
+  applyRecState();
+  if(!already && typeof showXPPopup==='function') showXPPopup(20);
+  var d=document.getElementById('ov-community-detail'); if(d) d.classList.remove('active');
+  if(typeof openOv==='function') openOv('connect');
+}
+/* user taps "Mark as done" on the relief detail page */
+function markReliefDone(){
+  var already=false; try{ already=localStorage.getItem('rh_relief_done')==='1'; }catch(e){}
+  try{ localStorage.setItem('rh_relief_done','1'); }catch(e){}
+  applyRecState();
+  if(!already && typeof showXPPopup==='function') showXPPopup(20);
+  var d=document.getElementById('ov-relief-detail'); if(d) d.classList.remove('active');
+}
+/* if-then builder: single-select a chip within its group */
+function iftPick(btn){
+  var group=btn.parentElement; if(group) group.querySelectorAll('.ift-chip').forEach(function(c){ c.classList.remove('sel'); });
+  btn.classList.add('sel');
+  /* picking a THEN chip clears any typed-your-own text (they're mutually exclusive) */
+  if(group && group.classList.contains('ift-then')){ var own=document.getElementById('ift-own'); if(own) own.value=''; }
+  iftSync();
+}
+/* typing your own "then" clears the selected THEN chip */
+function iftOwn(){
+  var ov=document.getElementById('ov-ifthen-detail');
+  if(ov) ov.querySelectorAll('.ift-then .ift-chip.sel').forEach(function(c){ c.classList.remove('sel'); });
+  iftSync();
+}
+/* enable Save once an IF and a THEN are chosen — and mirror it in the live sentence */
+function iftSync(){
+  var ov=document.getElementById('ov-ifthen-detail'); if(!ov) return;
+  var ifSel=ov.querySelector('.ift-if .ift-chip.sel');
+  var thenSel=ov.querySelector('.ift-then .ift-chip.sel');
+  var own=document.getElementById('ift-own'); var typed=own && own.value.trim();
+  var thenText=typed || (thenSel? thenSel.textContent : '');
+  var ifText=ifSel? ifSel.textContent : '';
+  var pvIf=document.getElementById('ift-pv-if');
+  if(pvIf){ pvIf.textContent=ifText||'this happens'; pvIf.classList.toggle('set', !!ifText); }
+  var pvThen=document.getElementById('ift-pv-then');
+  if(pvThen){ pvThen.textContent=thenText||'my tiny step'; pvThen.classList.toggle('set', !!thenText); }
+  var btn=document.getElementById('ift-save-btn');
+  if(btn && !btn.classList.contains('is-done')) btn.disabled=!(ifText && thenText);
+}
+/* user taps "Save my if-then plan" */
+function markIfThenDone(){
+  var already=false; try{ already=localStorage.getItem('rh_ifthen_done')==='1'; }catch(e){}
+  try{ localStorage.setItem('rh_ifthen_done','1'); }catch(e){}
+  applyRecState();
+  if(!already && typeof showXPPopup==='function') showXPPopup(20);
+  var d=document.getElementById('ov-ifthen-detail'); if(d) d.classList.remove('active');
+}
 /* count a number up to `to` over `dur` ms, ease-out */
 function rhCountUp(node, to, dur){
   var start=null;
@@ -1209,6 +1551,21 @@ function finishOnbFlow(){ setTimeout(function(){ showDoneModal(); if(window.__do
       var rn=document.getElementById('rhName'); if(rn && pf.name) rn.textContent=String(pf.name).split(' ')[0]; } }catch(e){}
     var last=null; try{ last=localStorage.getItem('rh_screen'); }catch(e){}
     if(last && document.getElementById('screen-'+last)) goScreen(last); else goScreen('home');
+    /* reopen the overlay/detail page the user was viewing before the refresh */
+    var lastOv=null; try{ lastOv=localStorage.getItem('rh_ov'); }catch(e){}
+    if(lastOv && document.getElementById('ov-'+lastOv) && typeof openOv==='function'){
+      if(lastOv==='relief-detail' || lastOv==='ifthen-detail' || lastOv==='community-detail' || lastOv==='threegood-detail') openOv('insights');   /* keep the parent Insights screen beneath the detail */
+      if(lastOv==='post-detail'){
+        openOv('connect');
+        var pid=null; try{ pid=localStorage.getItem('rh_post'); }catch(e){}
+        if(pid && typeof openPost==='function') openPost(pid);
+      } else if(lastOv==='activity'){
+        var aid=null; try{ aid=localStorage.getItem('rh_act_current'); }catch(e){}
+        if(aid && typeof openActivity==='function') openActivity(aid);
+      } else {
+        openOv(lastOv);
+      }
+    }
     return;
   }
   /* new user — run the full flow: splash -> intro -> mobile number -> OTP -> details -> location -> home */
