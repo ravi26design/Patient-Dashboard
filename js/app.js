@@ -164,19 +164,16 @@ function updateRecoveryHealthChart(){
   canvas.style.width = chartW + 'px'; canvas.style.height = '160px';
   if(recoveryHealthChart){ recoveryHealthChart.destroy(); recoveryHealthChart = null; }
   recoveryHealthChart = new Chart(canvas, {
-    type: 'line',
+    type: 'bar',
     data: {
       labels: labels,
       datasets: [{
         data: data,
-        borderColor: '#6E9E80',
-        backgroundColor: 'rgba(110,158,128,0.10)',
-        borderWidth: 2,
-        fill: true,
-        tension: 0.4,
-        pointRadius: 3,
-        pointHoverRadius: 5,
-        pointBackgroundColor: '#6E9E80'
+        backgroundColor: '#6E9E80',
+        borderRadius: 4,
+        borderWidth: 0,
+        barPercentage: 0.62,
+        categoryPercentage: 0.72
       }]
     },
     options: {
@@ -240,8 +237,8 @@ function updatePatternChart(){
   canvas.style.width=chartW+'px'; canvas.style.height='160px';
   if(patternChart){patternChart.destroy();patternChart=null;}
   patternChart=new Chart(canvas,{
-    type:'line',
-    data:{labels:labels,datasets:[{data:data,borderColor:item.hex,backgroundColor:item.bg,borderWidth:2,fill:true,tension:0.4,pointRadius:3,pointHoverRadius:5,pointBackgroundColor:item.hex}]},
+    type:'bar',
+    data:{labels:labels,datasets:[{data:data,backgroundColor:item.hex,borderRadius:4,borderWidth:0,barPercentage:0.62,categoryPercentage:0.72}]},
     options:{
       responsive:false,
       animation:{duration:300},
