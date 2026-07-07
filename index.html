@@ -420,14 +420,50 @@
         </div>
       </div>
 
-      <!-- Your streak, by focus -->
-      <div class="home-sec sf-card">
-        <div class="sf-eyebrow">Your streak, by focus</div>
-        <div class="sf-row">
-          <div class="sf-stat"><div class="sf-num" style="color:var(--hb-teal-deep)">12</div><div class="sf-lbl">Insights</div></div>
-          <div class="sf-stat"><div class="sf-num" style="color:#3A6B9A">8</div><div class="sf-lbl">Activities</div></div>
-          <div class="sf-stat"><div class="sf-num" style="color:#5B92CE">15</div><div class="sf-lbl">Reflect</div></div>
-          <div class="sf-stat"><div class="sf-num" style="color:var(--gold-dk)">47</div><div class="sf-lbl">MOUD</div></div>
+      <!-- Recovery Today -->
+      <div class="home-sec rt-section">
+        <div>
+          <div class="rt-head">
+            <div class="home-title">Recovery Today</div>
+            <div class="rt-prog"><span id="rt-done">0</span><span class="rt-prog-total">/4 done</span></div>
+          </div>
+          <div class="task-grid">
+            <div class="task" id="focus-card" onclick="confirmFocus(this)">
+              <span class="xp-chip xp-corner">+20 XP</span>
+              <div class="task-ic-wrap">
+                <div class="ic-tile t-coral" id="focus-icon"><i data-lucide="lightbulb"></i></div>
+                <div class="task-check" style="display:none" id="focus-check">&#10003;</div>
+              </div>
+              <div class="task-name" id="focus-label">Insights</div>
+              <div class="task-time" id="focus-time">8:00 AM</div>
+            </div>
+            <div class="task" id="checkin-card" onclick="openReflect()">
+              <span class="xp-chip xp-corner">+20 XP</span>
+              <div class="task-ic-wrap">
+                <div class="ic-tile t-lilac" id="checkin-icon"><i data-lucide="pen-line"></i></div>
+                <div class="task-check" style="display:none" id="checkin-check">&#10003;</div>
+              </div>
+              <div class="task-name" id="checkin-label">Reflect</div>
+              <div class="task-time" id="checkin-time">5:00 PM</div>
+            </div>
+            <div class="task" id="connect-card" onclick="confirmConnect(this)">
+              <span class="xp-chip xp-corner">+20 XP</span>
+              <div class="task-ic-wrap">
+                <div class="ic-tile t-teal" id="connect-icon"><i data-lucide="users"></i></div>
+                <div class="task-check" style="display:none" id="connect-check">&#10003;</div>
+              </div>
+              <div class="task-name" id="connect-label">Connect</div>
+              <div class="task-time" id="connect-time">Anytime</div>
+            </div>
+            <div class="task" id="log-card" onclick="openLogUse()">
+              <div class="task-ic-wrap">
+                <div class="ic-tile t-slate" id="log-icon"><i data-lucide="clipboard-list"></i></div>
+                <div class="task-check" style="display:none" id="log-check">&#10003;</div>
+              </div>
+              <div class="task-name" id="log-label">Log Use</div>
+              <div class="task-time" id="log-time">Anytime</div>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -530,50 +566,14 @@
 
       
 
-      <!-- Recovery Today -->
-      <div class="home-sec rt-section">
-        <div>
-          <div class="rt-head">
-            <div class="home-title">Recovery Today</div>
-            <div class="rt-prog"><span id="rt-done">0</span><span class="rt-prog-total">/4 done</span></div>
-          </div>
-          <div class="task-grid">
-            <div class="task" id="focus-card" onclick="confirmFocus(this)">
-              <span class="xp-chip xp-corner">+20 XP</span>
-              <div class="task-ic-wrap">
-                <div class="ic-tile t-coral" id="focus-icon"><i data-lucide="lightbulb"></i></div>
-                <div class="task-check" style="display:none" id="focus-check">&#10003;</div>
-              </div>
-              <div class="task-name" id="focus-label">Insights</div>
-              <div class="task-time" id="focus-time">8:00 AM</div>
-            </div>
-            <div class="task" id="checkin-card" onclick="openReflect()">
-              <span class="xp-chip xp-corner">+20 XP</span>
-              <div class="task-ic-wrap">
-                <div class="ic-tile t-lilac" id="checkin-icon"><i data-lucide="pen-line"></i></div>
-                <div class="task-check" style="display:none" id="checkin-check">&#10003;</div>
-              </div>
-              <div class="task-name" id="checkin-label">Reflect</div>
-              <div class="task-time" id="checkin-time">5:00 PM</div>
-            </div>
-            <div class="task" id="connect-card" onclick="confirmConnect(this)">
-              <span class="xp-chip xp-corner">+20 XP</span>
-              <div class="task-ic-wrap">
-                <div class="ic-tile t-teal" id="connect-icon"><i data-lucide="users"></i></div>
-                <div class="task-check" style="display:none" id="connect-check">&#10003;</div>
-              </div>
-              <div class="task-name" id="connect-label">Connect</div>
-              <div class="task-time" id="connect-time">Anytime</div>
-            </div>
-            <div class="task" id="log-card" onclick="openLogUse()">
-              <div class="task-ic-wrap">
-                <div class="ic-tile t-slate" id="log-icon"><i data-lucide="clipboard-list"></i></div>
-                <div class="task-check" style="display:none" id="log-check">&#10003;</div>
-              </div>
-              <div class="task-name" id="log-label">Log Use</div>
-              <div class="task-time" id="log-time">Anytime</div>
-            </div>
-          </div>
+      <!-- Your streak, by focus -->
+      <div class="home-sec sf-card">
+        <div class="sf-eyebrow">Your streak, by focus</div>
+        <div class="sf-row">
+          <div class="sf-stat"><div class="sf-num" style="color:var(--hb-teal-deep)">12</div><div class="sf-lbl">Insights</div></div>
+          <div class="sf-stat"><div class="sf-num" style="color:#3A6B9A">8</div><div class="sf-lbl">Activities</div></div>
+          <div class="sf-stat"><div class="sf-num" style="color:#5B92CE">15</div><div class="sf-lbl">Reflect</div></div>
+          <div class="sf-stat"><div class="sf-num" style="color:var(--gold-dk)">47</div><div class="sf-lbl">MOUD</div></div>
         </div>
       </div>
 
