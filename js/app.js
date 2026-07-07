@@ -176,7 +176,7 @@ function tfSeries(daily, monthly, tf, weekOffset){
   }
   if(tf==='M'){
     var d=daily.slice(-28), labs=[];
-    for(var i=0;i<d.length;i++) labs.push(i%7===0?('Wk '+(Math.floor(i/7)+1)):'');
+    for(var i=0;i<d.length;i++) labs.push(i%7===3?('Wk '+(Math.floor(i/7)+1)):'');   /* label the middle bar of each 7-day week so it centers under the group */
     return { data:d, labels:labs };
   }
   if(tf==='6M') return { data:monthly.slice(0,6), labels:_MON.slice(0,6) };
