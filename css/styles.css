@@ -1453,19 +1453,19 @@ body.is-desktop .brand-img{height:26px}
   color:var(--hb-teal-deep);margin-bottom:18px}
 .wc-body{font-family:var(--font-ui);font-size:14px;line-height:1.66;
   color:var(--brown);margin-bottom:40px;max-width:320px}
-/* Primary CTA — solid gradient fill */
+/* Primary CTA — solid blue gradient fill */
 .wc-begin{width:100%;max-width:320px;display:flex;align-items:center;justify-content:center;gap:8px;
-  padding:17px 18px;border:none;border-radius:18px;background:linear-gradient(180deg,#83AC85,#6E9E80);color:#fff;
+  padding:17px 18px;border:none;border-radius:18px;background:linear-gradient(180deg,#84A6CE,#577CAE);color:#fff;
   font-family:var(--font-ui);font-size:16px;font-weight:700;letter-spacing:.3px;cursor:pointer;
-  box-shadow:0 12px 28px rgba(110,158,128,.34);transition:transform .12s ease, filter .15s ease}
+  box-shadow:0 12px 28px rgba(87,124,174,.34);transition:transform .12s ease, filter .15s ease}
 .wc-begin:hover{filter:brightness(1.04)}
 .wc-begin:active{transform:scale(.98)}
-/* Secondary CTA — outlined */
+/* Secondary CTA — outlined blue */
 .wc-guest{flex-shrink:0;width:100%;max-width:320px;display:flex;align-items:center;justify-content:center;
-  margin-top:12px;padding:16px 18px;border:1.5px solid var(--sage);border-radius:18px;background:transparent;
-  font-family:var(--font-ui);font-size:15px;font-weight:700;letter-spacing:.3px;color:var(--sage-dk);cursor:pointer;
+  margin-top:12px;padding:16px 18px;border:1.5px solid #9DB4D6;border-radius:18px;background:transparent;
+  font-family:var(--font-ui);font-size:15px;font-weight:700;letter-spacing:.3px;color:#456695;cursor:pointer;
   transition:background .15s ease,transform .12s ease}
-.wc-guest:hover{background:rgba(110,158,128,.07)}
+.wc-guest:hover{background:rgba(87,124,174,.07)}
 .wc-guest:active{transform:scale(.98)}
 .wc-skip{margin-top:18px;background:none;border:none;cursor:pointer;
   font-family:var(--font-ui);font-size:14px;font-weight:600;color:var(--muted)}
