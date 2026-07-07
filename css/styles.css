@@ -2650,10 +2650,10 @@ body.is-desktop #ov-location-checkin.loc-fullmap.active{max-width:620px;margin:0
 :root{--app-bg:#F1F1F8}
 
 /* Progress chart — previous/next week navigation (outlined pill) */
-.wk-nav{display:flex;align-items:center;gap:4px;width:fit-content;margin:2px auto 10px;border:1.5px solid rgba(58,51,48,.14);border-radius:999px;padding:3px 5px;background:#fff}
+.wk-nav{display:flex;align-items:center;gap:4px;width:100%;margin:2px 0 10px;border:1.5px solid rgba(58,51,48,.14);border-radius:999px;padding:3px 8px;background:#fff}
 .wk-arrow{width:28px;height:28px;border-radius:50%;border:none;background:transparent;color:var(--ink);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:opacity .15s ease,transform .12s ease,background .15s ease}
 .wk-arrow:not(:disabled):hover{background:rgba(58,51,48,.06)}
 .wk-arrow i,.wk-arrow svg{width:16px;height:16px}
 .wk-arrow:disabled{opacity:.3;cursor:default}
 .wk-arrow:not(:disabled):active{transform:scale(.9)}
-.wk-label{font-family:var(--font-ui);font-size:12px;font-weight:600;color:var(--ink-soft);min-width:84px;text-align:center}
+.wk-label{flex:1;font-family:var(--font-ui);font-size:12px;font-weight:600;color:var(--ink-soft);text-align:center}
