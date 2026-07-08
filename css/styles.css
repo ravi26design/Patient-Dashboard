@@ -1925,14 +1925,14 @@ body.is-desktop .tx-meta{position:absolute;right:6px;top:50%;transform:translate
     var(--app-bg)}
 .step-screen.show{display:flex;animation:wcIn .5s cubic-bezier(.2,.7,.3,1) both}
 .step-screen.hide{opacity:0;visibility:hidden;pointer-events:none;transition:opacity .4s ease, visibility .4s ease}
-/* Desktop: match the flat, centered app design — wider column, content centred, CTA right after the chips */
-body.is-desktop .step-screen{background:var(--app-bg)}
-body.is-desktop .onb-top{max-width:560px}
-body.is-desktop .onb-inner{max-width:560px;justify-content:center;padding:24px 0}
-body.is-desktop .onb-addrow{max-width:560px}
-body.is-desktop .onb-continue{margin-top:26px}
-/* screens whose CTA sits in a sticky footer (relief) — bring it up right after the chips too */
-body.is-desktop .onb-foot{position:static;margin-top:26px}
+/* Desktop: match the check-in flow — white full-width header bar + wide centred content */
+body.is-desktop .step-screen{background:var(--app-bg);padding:0 0 calc(34px + env(safe-area-inset-bottom))}
+body.is-desktop .onb-top{max-width:none;width:100%;margin:0;background:#fff;border-bottom:1px solid rgba(54,59,59,.06);box-shadow:0 2px 10px -6px rgba(60,50,45,.25);padding:16px calc((100% - 760px) / 2 + 16px)}
+body.is-desktop .onb-inner{max-width:760px;justify-content:flex-start;padding:28px 16px 128px}
+body.is-desktop .onb-addrow{max-width:760px}
+/* CTA pinned to the bottom of the viewport (fixed footer); content scrolls above it */
+body.is-desktop .onb-inner > .onb-continue{position:absolute;left:16px;right:16px;bottom:30px;margin:0 auto;width:auto;max-width:760px;z-index:10}
+body.is-desktop .onb-foot{position:absolute;left:16px;right:16px;bottom:22px;margin:0 auto;width:auto;max-width:760px;z-index:10}
 .onb-top{display:flex;align-items:center;gap:12px;width:100%;max-width:380px;margin:0 auto;flex-shrink:0}
 .onb-back{flex-shrink:0;width:34px;height:34px;border-radius:50%;border:none;cursor:pointer;
   background:rgba(255,255,255,.6);display:flex;align-items:center;justify-content:center;color:var(--ink);
