@@ -97,9 +97,9 @@ body{font-family:'Cormorant Garamond',Georgia,serif;background:var(--taupe);disp
 .overlay{display:none;position:absolute;inset:0;z-index:300;animation:oi .3s ease}
 .overlay.active{display:flex;flex-direction:column}
 @keyframes oi{from{opacity:0}to{opacity:1}}
-.ov-header{padding:14px 16px;display:flex;align-items:center;gap:10px;flex-shrink:0}
-.ov-back{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:15px;cursor:pointer;border:none;color:#fff;background:rgba(255,255,255,.15);transition:background .2s;font-family:sans-serif;-webkit-tap-highlight-color:transparent}
-.ov-back:hover{background:rgba(255,255,255,.25)}
+.ov-header{padding:12px 16px;min-height:58px;display:flex;align-items:center;gap:10px;flex-shrink:0}
+.ov-back{width:36px;height:36px;flex-shrink:0;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px;cursor:pointer;border:none;color:#fff;background:rgba(255,255,255,.15);transition:filter .2s;font-family:sans-serif;-webkit-tap-highlight-color:transparent}
+.ov-back:hover{filter:brightness(.96)}
 .ov-body{flex:1;overflow-y:auto;padding:0 16px 20px}
 .ov-body::-webkit-scrollbar{display:none}
 
@@ -314,9 +314,7 @@ body.is-mobile .bottom-nav{padding-bottom:max(6px,env(safe-area-inset-bottom))}
 
 /* ——— Tablet & desktop: centered, readable app surface ——— */
 body.is-framed{
-  background:
-    radial-gradient(1200px 600px at 50% -10%, rgba(196,160,136,.18), transparent 60%),
-    var(--taupe);
+  background:var(--app-bg);
   padding:0;margin:0;
   height:100dvh;overflow:hidden;
   align-items:center;justify-content:flex-start;
@@ -596,9 +594,7 @@ body{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;text-r
 
 /* Desktop/tablet backdrop → soft teal-tinted */
 body.is-framed{
-  background:
-    radial-gradient(1100px 560px at 50% -10%, rgba(110,158,128,.12), transparent 60%),
-    #E6EDED;
+  background:var(--app-bg);
 }
 
 /* ═══ RECOVERY TODAY — daily ritual tracker ═══ */
@@ -719,7 +715,8 @@ body.is-desktop .bottom-nav{display:none}   /* sidebar replaces the tab bar */
   border-top:1px solid rgba(54,59,59,.07);margin-top:6px;transition:background .15s;
 }
 .dn-foot:hover{background:#F0F3F3}
-.dn-avatar{width:38px;height:38px;border-radius:50%;background:var(--hb-teal);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;flex-shrink:0}
+.dn-avatar{width:38px;height:38px;border-radius:50%;background:#fff;border:1px solid rgba(60,50,45,.10);color:var(--hb-teal-deep);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.dn-avatar i,.dn-avatar svg{width:19px;height:19px;stroke-width:2}
 .dn-user{text-align:left;font-family:var(--font-ui)}
 .dn-user div{font-size:13px;font-weight:700;color:var(--ink)}
 .dn-user small{font-size:11px;font-weight:500;color:var(--ink-soft)}
@@ -741,8 +738,14 @@ body.is-desktop .app-header{display:none}          /* top bar replaces the in-ca
 .dn-list{flex-direction:row;flex:0 0 auto;gap:4px;align-items:center}
 .dn-item{width:auto;padding:8px 15px;border-radius:999px;font-size:13px;gap:8px}
 .dn-sos{margin-top:0}
-.dn-foot{flex:1;justify-content:flex-end;border-top:none;margin:0;padding:5px 6px;width:auto}
+.dn-foot{flex:0 0 auto;justify-content:flex-end;border-top:none;margin:0;padding:5px 6px;width:auto}
 .dn-foot .dn-user{display:none}                    /* just the avatar on the top bar */
+/* Right cluster: Check-in as an icon-only button, just left of the profile avatar */
+.dn-right{display:flex;align-items:center;gap:10px;flex:1;justify-content:flex-end}
+.dn-checkin{display:flex;align-items:center;justify-content:center;width:38px;height:38px;flex-shrink:0;
+  border-radius:50%;border:1px solid rgba(60,50,45,.10);background:#fff;color:var(--hb-teal-deep);cursor:pointer;transition:background .15s}
+.dn-checkin:hover{background:#F0F3F3}
+.dn-checkin i,.dn-checkin svg{width:19px;height:19px;stroke-width:2}
 
 /* ═══ DESKTOP — wide dashboard panel, cards in 2 columns ═══ */
 body.is-desktop .phone{border-radius:24px}
@@ -870,7 +873,8 @@ body.is-mobile .task-grid > .task{flex:initial}
 
 /* Desktop — overlays become viewport-fixed modals (visible regardless of page scroll) */
 body.is-desktop .overlay.active{position:fixed;inset:0;z-index:9000}
-body.is-desktop .overlay.active > .ov-body{max-width:620px;margin-left:auto;margin-right:auto;width:100%}
+/* full-width scroll area (scroll works anywhere on screen), content still centered to 620px */
+body.is-desktop .overlay.active > .ov-body{max-width:none;width:100%;padding-left:calc((100% - 620px) / 2 + 16px);padding-right:calc((100% - 620px) / 2 + 16px)}
 /* align the overlay back+title header with the centered 620px body on desktop */
 /* full-width header bar, but back+title aligned to the centered 620px body */
 body.is-desktop .overlay.active > .ov-header{width:100%;max-width:none;padding-left:calc((100% - 620px) / 2 + 16px);padding-right:calc((100% - 620px) / 2 + 16px)}
@@ -879,7 +883,11 @@ body.is-desktop #ov-relief-detail > .ov-header,
 body.is-desktop #ov-ifthen-detail > .ov-header,
 body.is-desktop #ov-community-detail > .ov-header,
 body.is-desktop #ov-threegood-detail > .ov-header,
-body.is-desktop #ov-activity > .ov-header{background:#fff !important;border-bottom:1px solid rgba(54,59,59,.06) !important}
+body.is-desktop #ov-activity > .ov-header,
+body.is-desktop #ov-crisis > .ov-header,
+body.is-desktop #ov-support-team > .ov-header,
+body.is-desktop #ov-urge > .ov-header,
+body.is-desktop #ov-relief-detail > .ov-header{background:#fff !important;border-bottom:1px solid rgba(54,59,59,.06) !important}
 
 /* ═══ DAILY REFLECTION — fixed footer CTAs + larger type ═══ */
 #ov-reflect .ov-body{padding-bottom:18px}
@@ -942,7 +950,21 @@ body.is-desktop #ov-activity > .ov-header{background:#fff !important;border-bott
 #ov-reflect .onb-top{margin-bottom:20px}
 .reflect-opt{padding:14px 16px}
 body.is-mobile .reflect-footer{padding-bottom:max(14px,env(safe-area-inset-bottom))}
-body.is-desktop .overlay.active > .reflect-footer{max-width:620px;margin-left:auto;margin-right:auto;width:100%}
+/* Reflect on desktop: white backdrop + full-width footer bar (Continue button aligned to the 620px column) */
+body.is-desktop #ov-reflect:not(.rf-modal){background:var(--app-bg)!important}
+body.is-desktop .overlay.active > .reflect-footer{max-width:none;width:100%;background:#fff;border-top:1px solid rgba(54,59,59,.06);padding-left:calc((100% - 760px) / 2 + 16px);padding-right:calc((100% - 760px) / 2 + 16px)}
+/* full-bleed white progress bar (like the other page headers) + centered question content */
+body.is-desktop #ov-reflect > .ov-body{padding-left:0;padding-right:0;padding-top:0!important}
+body.is-desktop #ov-reflect .onb-top{position:sticky;top:0;z-index:5;max-width:none;margin:0 0 22px;background:#fff;border-bottom:1px solid rgba(54,59,59,.06);border-radius:0;box-shadow:0 2px 10px -6px rgba(60,50,45,.25);padding:16px calc((100% - 760px) / 2 + 16px)}
+body.is-desktop #ov-reflect .reflect-q,
+body.is-desktop #ov-reflect .reflect-qsub,
+body.is-desktop #ov-reflect .reflect-opts,
+body.is-desktop #ov-reflect .rf-sliders,
+body.is-desktop #ov-reflect > .ov-body > .rf-card{max-width:760px;margin-left:auto;margin-right:auto;padding-left:16px;padding-right:16px}
+/* slider cards fill the centered container so every card is the same width */
+body.is-desktop #ov-reflect .rf-sliders > .rf-card{max-width:none;width:100%;margin:0}
+/* completion celebration: keep it a centered modal card (not full-width) */
+body.is-desktop #ov-reflect .rf-complete{max-width:460px;margin:0 auto;padding:0 16px}
 
 /* Reflect cards share the app's standard card style (like Insights) */
 .rf-card{background:#fff;border-radius:20px;box-shadow:var(--card-shadow);padding:20px;margin-bottom:14px}
@@ -1754,7 +1776,6 @@ body.is-desktop .brand-img{height:26px}
 .rh-pill{display:inline-block;width:auto;max-width:max-content;background:var(--sage-lt);color:var(--hb-teal-deep);border-radius:999px;
   padding:5px 12px;font-family:var(--font-ui);font-size:9px;font-weight:700;letter-spacing:.5px;
   text-transform:uppercase;margin:8px auto 0}
-.rh-pill::before{content:'\2191  '}
 .rh-stats{display:flex;gap:8px;margin-top:16px}
 .rh-stat{flex:1;min-width:0;background:var(--beige);border-radius:14px;padding:12px 4px;
   box-shadow:0 2px 8px rgba(58,51,48,.04)}
@@ -1904,6 +1925,14 @@ body.is-desktop .tx-meta{position:absolute;right:6px;top:50%;transform:translate
     var(--app-bg)}
 .step-screen.show{display:flex;animation:wcIn .5s cubic-bezier(.2,.7,.3,1) both}
 .step-screen.hide{opacity:0;visibility:hidden;pointer-events:none;transition:opacity .4s ease, visibility .4s ease}
+/* Desktop: match the flat, centered app design — wider column, content centred, CTA right after the chips */
+body.is-desktop .step-screen{background:var(--app-bg)}
+body.is-desktop .onb-top{max-width:560px}
+body.is-desktop .onb-inner{max-width:560px;justify-content:center;padding:24px 0}
+body.is-desktop .onb-addrow{max-width:560px}
+body.is-desktop .onb-continue{margin-top:26px}
+/* screens whose CTA sits in a sticky footer (relief) — bring it up right after the chips too */
+body.is-desktop .onb-foot{position:static;margin-top:26px}
 .onb-top{display:flex;align-items:center;gap:12px;width:100%;max-width:380px;margin:0 auto;flex-shrink:0}
 .onb-back{flex-shrink:0;width:34px;height:34px;border-radius:50%;border:none;cursor:pointer;
   background:rgba(255,255,255,.6);display:flex;align-items:center;justify-content:center;color:var(--ink);
@@ -2071,6 +2100,10 @@ body.is-mobile .sos-lead{text-align:left;margin-left:2px;margin-right:2px}
 .grat-btn:hover{filter:brightness(1.04)}
 .grat-btn:active{transform:scale(.99)}
 .grat-btn.grat-done{background:#EAF1E9;color:#5E8560;cursor:default}
+/* Desktop: CTA sits inline on the right instead of full-width below */
+body.is-desktop .grat-card{display:flex;align-items:center;gap:18px}
+body.is-desktop .grat-top{flex:1;margin-bottom:0;min-width:0}
+body.is-desktop .grat-btn{width:auto;flex-shrink:0;padding:12px 26px;white-space:nowrap}
 /* level roadmap as a vertical timeline */
 .lr-card{padding:8px 18px}
 .lr-item{display:flex;gap:14px;padding:12px 0;position:relative}
@@ -2204,6 +2237,8 @@ body[data-screen="rewards"] .app-header{display:none}
 #screen-tools{padding-top:26px}
 body[data-screen="mat"] #screen-mat{padding-top:26px}
 body[data-screen="rewards"] #screen-rewards{padding-top:26px}
+/* Desktop: match the Help title top spacing to Progress (sos-head is hidden on desktop) */
+body.is-desktop #screen-narcan{padding-top:26px}
 
 /* ═══ Recent activity rows with score progress bar ═══ */
 .act-row{display:flex;flex-direction:column;gap:12px;background:#fff;border-radius:16px;box-shadow:var(--card-shadow);padding:14px 16px;margin-bottom:12px;text-decoration:none;cursor:pointer;transition:transform .12s ease}
@@ -2344,9 +2379,11 @@ body[data-screen="profile"] .bottom-nav{display:none}
 /* SOS = full-page takeover: no app-header, no bottom bar, own back arrow */
 body[data-screen="narcan"] .app-header{display:none}
 body[data-screen="narcan"] .bottom-nav{display:none}
-.sos-head{margin:0 0 8px;padding-top:max(8px,env(safe-area-inset-top));display:flex;align-items:center;gap:14px}
+.sos-head{margin:0 0 2px;padding-top:max(22px,env(safe-area-inset-top));display:flex;align-items:center;gap:14px}
 .sos-head-title{display:none;font-family:var(--font-display);font-size:17px;font-weight:700;color:var(--ink)}
 body.is-desktop .sos-head-title{display:block}
+/* desktop: the top nav handles navigation, so the Help screen's back+title header is redundant */
+body.is-desktop #screen-narcan .sos-head{display:none}
 .sos-back-btn{flex:0 0 auto;display:flex;align-items:center;justify-content:center;background:none;border:none;cursor:pointer;color:var(--ink);-webkit-tap-highlight-color:transparent}
 .sos-back-ic{width:32px;height:32px;border-radius:50%;background:#fff;box-shadow:0 2px 8px rgba(58,51,48,.10);display:flex;align-items:center;justify-content:center;transition:background .2s}
 .sos-back-btn:active .sos-back-ic{background:#f4efe9}
@@ -2390,9 +2427,9 @@ body.is-desktop .sos-head-title{display:block}
 .pattern-yaxis{position:absolute;left:0;top:0;width:30px;height:160px;z-index:2;background:#fff;pointer-events:none;border-right:1px solid rgba(0,0,0,.05)}
 .pattern-yaxis span{position:absolute;right:6px;transform:translateY(-50%);font-family:var(--font-ui);font-size:8px;font-weight:600;color:#8a7e76}
 
-/* ============ Rewards module: make it FEEL like rewards ============ */
-/* warm, celebratory atmosphere when you land on the Rewards screen */
-#screen-rewards{background:radial-gradient(135% 52% at 50% -3%, rgba(232,184,74,.14), rgba(232,184,74,0) 58%)}
+/* ============ Rewards module ============ */
+/* flat background — no warm gradient behind the hero card */
+#screen-rewards{background:transparent}
 
 /* Achievements as real earned medals (shine + depth), locked ones muted */
 .ach-item{text-align:center;background:#fff;border-radius:16px;box-shadow:var(--card-shadow);padding:14px 6px}
@@ -2459,9 +2496,9 @@ body.is-desktop .sos-head-title{display:block}
 .rw-lbhead-tag::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--sage-dk);flex:0 0 auto}
 
 /* 'Earned' reward card: visible badge floated top-right, text flows full width */
-.lrow-earned{align-items:flex-start}
+.lrow-earned{align-items:center}
 .lrow-earned .lrow-t{display:block;-webkit-line-clamp:unset;overflow:visible}
-.lpill-earned{float:right;margin:0 0 4px 10px;color:var(--sage-dk);background:#fff;box-shadow:inset 0 0 0 1px rgba(94,133,96,.28)}
+.lpill-earned{float:none;margin:0;color:#fff;background:linear-gradient(135deg,#7FB08A,#5E8B6E);box-shadow:0 2px 7px -1px rgba(94,139,110,.5)}
 
 /* ===== Rewards: desktop full-width sections + mobile title/number sizing ===== */
 /* section eyebrows and the leaderboard header span both desktop columns */
@@ -2496,7 +2533,23 @@ body.is-mobile .lb-row > div:last-child{font-size:13px !important}
 .loc-opt.sel{border-color:#5E8560;background:#F3F8F2;color:#3F5E41;font-weight:600}
 
 /* Desktop: Profile is a single full-width column (not the 2-column dashboard grid) so the hero + cards sit full width below the title */
-body.is-desktop #screen-profile.active{display:block}
+body.is-desktop #screen-profile.active{display:block;column-count:1;grid-template-columns:none}
+/* Desktop: Profile is a focused takeover page — hide the main top nav so the "My Profile" header is the only header */
+body.is-desktop[data-screen="profile"] #dnav{display:none}
+/* Desktop: render profile full-bleed at native scale (no 680px phone box / page-zoom) so the header can span edge-to-edge */
+body.is-desktop[data-screen="profile"] .phone{zoom:1 !important;width:100% !important;max-width:none !important;margin:0 !important}
+body.is-desktop[data-screen="profile"] #patient-view{padding-top:0 !important}
+body.is-desktop #screen-profile.active{padding-left:0;padding-right:0}
+/* Full-width white header bar flush to the top; its content aligns with the centered card column */
+body.is-desktop #screen-profile .pf-fullhead{
+  position:sticky;top:0;z-index:6;margin:0 0 22px;
+  padding:16px calc((100% - 760px) / 2);
+  background:#fff;border-bottom:1px solid rgba(54,59,59,.06);
+}
+/* Cards sit in a comfortable centered column */
+body.is-desktop #screen-profile.active > *:not(.pf-fullhead){max-width:760px;margin-left:auto;margin-right:auto}
+body.is-desktop #screen-profile .pf-back{width:36px;height:36px;background:#EEF0F0;color:var(--ink);box-shadow:none}
+body.is-desktop #screen-profile .pf-back:hover{background:#E4E7E7}
 
 /* Relief tool hero: Lucide icon in a soft white badge (was an emoji) */
 .rl-hero-ic{width:54px;height:54px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;margin:0 auto;box-shadow:0 4px 12px rgba(78,123,94,.14)}
@@ -2644,8 +2697,17 @@ body.is-desktop .ct-row:has(.ct-btns) .ct-btn{flex:none;padding:0 18px}
 .loc-note{display:flex;gap:11px;align-items:flex-start;background:#fff;border-radius:14px;padding:13px 15px;margin-top:14px;box-shadow:var(--card-shadow)}
 .loc-note i,.loc-note svg{width:18px;height:18px;color:var(--sage);flex-shrink:0;margin-top:1px}
 .loc-note > div{font-family:var(--font-ui);font-size:12px;color:var(--ink-soft);line-height:1.5}
-/* desktop: keep the map screen a comfortable width */
-body.is-desktop #ov-location-checkin.loc-fullmap.active{max-width:620px;margin:0 auto}
+/* desktop: full-viewport modal at native scale (the page-zoom counter-scale breaks the sticky map + centering) */
+body.is-desktop #ov-location-checkin.loc-fullmap.active{
+  zoom:1 !important;
+  position:fixed;inset:0;z-index:9000;max-width:none;margin:0;
+  display:block;overflow-y:auto;background:var(--app-bg)}
+/* map spans full width with a comfortable fixed height */
+body.is-desktop #ov-location-checkin .loc-map-fixed{height:340px;min-height:0}
+/* keep the question + options in a readable centered column */
+body.is-desktop #ov-location-checkin .loc-sheet{
+  padding-left:calc((100% - 600px) / 2 + 16px);
+  padding-right:calc((100% - 600px) / 2 + 16px)}
 
 /* ===== Global screen background — soft lavender (every screen + overlay; splash stays white) ===== */
 :root{--app-bg:#F1F1F8}
@@ -2701,11 +2763,12 @@ body.is-mobile .ins-rec-t{line-height:1.25}
 .ins-rec-ic i{width:21px;height:21px}
 .ins-rec-t{font-family:'Josefin Sans',sans-serif;font-size:12.5px;font-weight:600;letter-spacing:.2px;color:var(--espresso,#4A3F35);line-height:1.3}
 .ins-rec-sub2{font-family:'Josefin Sans',sans-serif;font-size:10px;color:var(--muted,#8A827C);margin-top:4px}
-.ins-rec-pts{font-family:'Josefin Sans',sans-serif;font-size:9px;font-weight:700;letter-spacing:.5px;color:var(--rca,#5E8B6E);background:var(--rcbg,#F0F0F0);padding:4px 11px;border-radius:999px;margin-top:10px}
+/* points/XP badge — ONE consistent gold style app-wide (see .xp-chip): gold pill = points */
+.ins-rec-pts{font-family:'Josefin Sans',sans-serif;font-size:9px;font-weight:700;letter-spacing:.5px;color:#9A6B16;background:#FFF1D6;padding:4px 11px;border-radius:999px;margin-top:10px}
 /* done state — completed activity (matches home task.done green tint) */
 .ins-rec-card.is-done{background:var(--rcbg,#E7F0EA);border-color:rgba(78,123,94,.3)}
 .ins-rec-card.is-done .ins-rec-t{color:var(--hb-teal-deep,#3C6B4E)}
-.ins-rec-card.is-done .ins-rec-pts{background:#fff;color:var(--hb-teal-deep,#3C6B4E)}
+.ins-rec-card.is-done .ins-rec-pts{background:#FFF1D6;color:#9A6B16}
 .ins-rec-badge{display:none;position:absolute;top:9px;right:9px;width:22px;height:22px;border-radius:50%;background:#5E8B6E;color:#fff;align-items:center;justify-content:center}
 .ins-rec-card.is-done .ins-rec-badge{display:flex}
 .ins-rec-badge i{width:13px;height:13px}
@@ -2791,7 +2854,8 @@ body.is-mobile .ins-rec-t{line-height:1.25}
 /* ============ COMMUNITY / CONNECT FEED ============ */
 /* composer */
 .cm-compose{background:#fff;border:1px solid rgba(54,59,59,.07);box-shadow:var(--card-shadow);border-radius:20px;padding:18px;margin-bottom:16px}
-.cm-eyebrow{display:flex;align-items:center;gap:7px;font-family:'Josefin Sans',sans-serif;font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#5E8560;margin-bottom:12px}
+.cm-eyebrow{display:flex;align-items:center;justify-content:space-between;gap:10px;font-family:'Josefin Sans',sans-serif;font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#5E8560;margin-bottom:12px}
+.cm-eyebrow .cm-mic{width:34px;height:34px}
 .cm-eyebrow i{width:15px;height:15px}
 .cm-textarea{width:100%;border:1.5px solid rgba(58,51,48,.14);border-radius:14px;background:#fff;padding:14px;font-family:var(--font-ui);font-size:13.5px;color:var(--ink);line-height:1.55;resize:none;outline:none}
 .cm-textarea::placeholder{color:var(--ink-soft)}
@@ -2799,8 +2863,8 @@ body.is-mobile .ins-rec-t{line-height:1.25}
 .cm-circle-label{font-family:var(--font-ui);font-size:12px;font-weight:600;color:var(--ink-soft);margin:14px 0 9px}
 .cm-chips{display:flex;flex-wrap:nowrap;gap:8px;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding-bottom:2px}
 .cm-chips::-webkit-scrollbar{display:none}
-.cm-chip{display:inline-flex;align-items:center;gap:6px;flex-shrink:0;white-space:nowrap;font-family:var(--font-ui);font-size:12px;font-weight:600;color:var(--ink);background:#fff;border:1.5px solid rgba(58,51,48,.14);border-radius:999px;padding:8px 13px;cursor:pointer;transition:all .15s ease}
-.cm-chip i{width:14px;height:14px;color:var(--ink-soft)}
+.cm-chip{display:inline-flex;align-items:center;gap:5px;flex-shrink:0;white-space:nowrap;font-family:var(--font-ui);font-size:11px;font-weight:600;color:var(--ink);background:#fff;border:1.5px solid rgba(58,51,48,.14);border-radius:999px;padding:6px 11px;cursor:pointer;transition:all .15s ease}
+.cm-chip i{width:12px;height:12px;color:var(--ink-soft)}
 .cm-chip:active{transform:scale(.97)}
 .cm-chip.sel{color:#3F6E99;border-color:#9DB4D6;background:#EAF1F8}
 .cm-chip.sel i{color:#3F6E99}
@@ -2812,11 +2876,11 @@ body.is-mobile .ins-rec-t{line-height:1.25}
 /* filter tabs */
 .cm-tabs{display:flex;gap:8px;overflow-x:auto;-webkit-overflow-scrolling:touch;padding-bottom:4px;margin-bottom:14px;scrollbar-width:none}
 .cm-tabs::-webkit-scrollbar{display:none}
-.cm-tab{display:inline-flex;align-items:center;gap:6px;white-space:nowrap;flex-shrink:0;font-family:var(--font-ui);font-size:12.5px;font-weight:600;color:var(--ink);background:#fff;border:1.5px solid rgba(58,51,48,.12);border-radius:999px;padding:8px 13px;cursor:pointer;transition:all .15s ease}
-.cm-tab i{width:14px;height:14px;color:var(--ink-soft)}
-.cm-tab-count{font-family:'Josefin Sans',sans-serif;font-size:11px;font-weight:700;color:var(--ink-soft);background:#F0ECE4;border-radius:999px;padding:1px 8px}
-.cm-tab.on{color:#3F6E99;border-color:#9DB4D6;background:#EAF1F8}
-.cm-tab.on i{color:#3F6E99}
+.cm-tab{display:inline-flex;align-items:center;gap:5px;white-space:nowrap;flex-shrink:0;font-family:var(--font-ui);font-size:11px;font-weight:600;color:var(--ink);background:#fff;border:1.5px solid rgba(58,51,48,.12);border-radius:999px;padding:6px 11px;cursor:pointer;transition:all .15s ease}
+.cm-tab i{width:12px;height:12px;color:var(--ink-soft)}
+.cm-tab-count{font-family:'Josefin Sans',sans-serif;font-size:10px;font-weight:700;color:var(--ink-soft);background:#F0ECE4;border-radius:999px;padding:1px 7px}
+.cm-tab.on{color:#fff;border-color:#3F6E99;background:#3F6E99}
+.cm-tab.on i{color:#fff}
 .cm-tab.on .cm-tab-count{color:#3F6E99;background:#fff}
 /* post card */
 .cm-post{background:#fff;border:1px solid rgba(54,59,59,.07);border-radius:20px;box-shadow:0 3px 12px rgba(60,50,45,.04);padding:16px;margin-bottom:14px}
@@ -2868,6 +2932,8 @@ body.is-mobile .cm-act-lbl{display:none}
 .cm-cmt-time{font-size:10.5px;color:var(--ink-soft)}
 .cm-cmt-txt{font-size:13px;color:#3A4443;line-height:1.5;word-wrap:break-word;overflow-wrap:anywhere}
 .cm-detail-foot{display:flex;gap:8px;padding:12px 16px;background:#fff;border-top:1px solid var(--border);flex-shrink:0}
+/* desktop: align the comment composer to the centered 620px content column */
+body.is-desktop .overlay.active > .cm-detail-foot{padding-left:calc((100% - 620px) / 2 + 16px);padding-right:calc((100% - 620px) / 2 + 16px)}
 .cm-detail-foot .cm-addinput{flex:1}
 
 /* ---- Community UX polish ---- */
@@ -2919,3 +2985,85 @@ body.is-desktop .actz-card:hover{transform:translateY(-2px);box-shadow:0 12px 26
 .cm-post-txt,.cm-cmt-txt,.cm-handle,.rd-p,.rd-txt,.act-step-d,.ins-tk-list li{overflow-wrap:anywhere}
 /* Any 2-up card grid must be able to shrink below its content's min-size */
 .ins-rec-grid>*,.actz-grid>*,.rl-acts>*,.helps-grid>*,.g2>*,.stat-grid>*{min-width:0}
+
+/* ===== Client feedback batch ===== */
+/* Welcome: guest login moved to top-right */
+.wc-guest-top{display:flex;justify-content:flex-end;width:100%;margin:0 0 2px}
+.wc-guest-top .wc-guest{width:auto;margin:0;padding:8px 14px;font-size:13px;border-radius:999px}
+/* Desktop: flat background; move "Log in as guest" to a full-width secondary CTA just above Begin */
+body.is-desktop #welcome{background:var(--app-bg)}
+body.is-desktop #welcome .wc-guest-top{order:1;justify-content:center;width:100%;max-width:320px;margin:0 auto}
+body.is-desktop #welcome .wc-guest-top .wc-guest{width:100%;max-width:320px;margin:0;padding:16px 18px;font-size:15px;border-radius:18px}
+body.is-desktop #welcome .wc-begin{order:2;margin-top:12px}
+/* Home gauge trend box (below the Above Average pill) */
+.rh-trend{display:inline-flex;align-items:center;gap:8px;margin:10px auto 0;background:#fff;border:1px solid rgba(54,59,59,.1);border-radius:12px;padding:7px 14px;box-shadow:0 2px 8px rgba(60,50,45,.05)}
+.rh-trend-delta{font-family:var(--font-display);font-size:15px;font-weight:700;color:var(--hb-teal-deep)}
+.rh-trend-lbl{font-family:var(--font-ui);font-size:11px;font-weight:600;letter-spacing:.3px;color:var(--ink-soft)}
+/* Streaks section: row 1 = Recovery Journey box, row 2 = focus stat boxes w/ XP multipliers */
+.streaks-rj{background:linear-gradient(150deg,#90BE88 0%,#7BA875 55%,#6B9C73 100%);border-radius:18px;padding:20px;position:relative;overflow:hidden;box-shadow:0 8px 22px -10px rgba(107,156,115,.4);margin-bottom:12px}
+.streaks-rj::before{content:'';position:absolute;right:-40px;top:-46px;width:150px;height:150px;border-radius:50%;background:rgba(255,255,255,.1);pointer-events:none}
+.streaks-rj .rj-stat{margin-bottom:14px}
+.streaks-rj .rj-title{font-size:18px;margin-bottom:12px}
+/* Streak stat boxes styled like Recovery Today task cards — number in place of the icon, gold XP pill at the bottom */
+.sf-card .sf-row{gap:10px}
+.sf-card .sf-stat{flex:1;min-width:0;display:flex;flex-direction:column;align-items:center;gap:8px;background:#fff;border:1px solid rgba(54,59,59,.07);box-shadow:0 3px 12px rgba(60,50,45,.04);border-radius:16px;padding:16px 6px 14px}
+.sf-card .sf-num{font-size:28px}
+.sf-card .sf-lbl{font-size:9px}
+.sf-xp{margin-top:2px;font-family:'Josefin Sans',sans-serif;font-size:8.5px;font-weight:700;letter-spacing:.3px;color:#9A6B16;background:#FFF1D6;padding:3px 9px;border-radius:999px;line-height:1.2}
+/* Insights: Today's Risk box */
+.ins-risk-card{display:flex;align-items:center;gap:12px;background:#fff;border-radius:16px;box-shadow:var(--card-shadow);padding:14px 16px;margin-bottom:14px}
+.ins-risk-ic{width:42px;height:42px;flex-shrink:0;border-radius:12px;background:#FCE4DA;color:#C56A5E;display:flex;align-items:center;justify-content:center}
+.ins-risk-ic i{width:21px;height:21px}
+.ins-risk-eyebrow{font-family:var(--font-ui);font-size:10px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;color:var(--ink-soft)}
+.ins-risk-val{font-family:var(--font-display);font-size:17px;font-weight:700;color:var(--ink);margin-top:2px}
+/* Insights: single full-width recommended activity */
+.ins-rec-single{grid-template-columns:1fr}
+.ins-rec-single .ins-rec-card{flex-direction:row;align-items:center;text-align:left;gap:14px;padding:15px 16px}
+.ins-rec-single .ins-rec-ic{margin-bottom:0}
+.ins-rec-single .ins-rec-body{align-items:flex-start}
+/* Connect: mic button on composer + comment inputs */
+.cm-mic{flex-shrink:0;width:40px;height:40px;border-radius:50%;border:1.5px solid rgba(58,51,48,.16);background:#fff;color:var(--ink-soft);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .15s ease}
+.cm-mic i{width:18px;height:18px}
+.cm-mic:active{transform:scale(.95)}
+.cm-mic.rec{background:#FCE4DA;border-color:#E8A896;color:#C56A5E}
+.cm-compose-foot{flex-direction:row!important;align-items:center;gap:10px;justify-content:flex-end}
+.cm-compose-foot .cm-mic{margin-right:auto}
+body.is-mobile .cm-compose-foot .cm-share-btn{width:auto;flex:1;order:0}
+/* Urge: "Recommended" badge on top relief activity */
+.rl-act-rec{display:inline-flex;align-items:center;gap:3px;font-family:var(--font-ui);font-size:9px;font-weight:800;letter-spacing:.6px;text-transform:uppercase;color:#fff;background:linear-gradient(135deg,#E8C766,#C9A84C);padding:3px 9px 3px 8px;border-radius:999px;vertical-align:middle;margin-left:7px;box-shadow:0 2px 7px -1px rgba(201,168,76,.6)}
+.rl-act-rec::before{content:"\2605";font-size:8.5px;line-height:1}
+/* Rewards: 4 focus-stat boxes (replacing the old 3) */
+.rwx-stats-4{gap:7px}
+.rwx-stats-4 .rwx-stat{padding:13px 4px 11px}
+.rwx-stats-4 .rwx-stat-ic{width:36px;height:36px;margin-bottom:7px}
+.rwx-stats-4 .rwx-stat-ic i{width:18px;height:18px}
+.rwx-stats-4 .rwx-stat-n{font-size:19px}
+.rwx-stats-4 .rwx-stat-l{font-size:8.5px}
+.rwx-stats-4 .rwx-stat:nth-child(4) .rwx-stat-n{color:#C9962E}
+
+/* ===== Mobile: reflect progress bar + gauge trend + streak grid ===== */
+/* white sticky full-width reflect progress bar (mobile + tablet): zero the body side padding so the bar spans edge-to-edge, then re-inset the question content */
+body:not(.is-desktop) #ov-reflect > .ov-body{padding-left:0;padding-right:0;padding-top:0!important}
+body:not(.is-desktop) #ov-reflect .onb-top{position:sticky;top:0;z-index:5;max-width:none;margin:0 0 18px;background:#fff;border-bottom:1px solid rgba(54,59,59,.06);box-shadow:0 2px 10px -6px rgba(60,50,45,.25);padding:16px}
+body:not(.is-desktop) #ov-reflect .reflect-q,
+body:not(.is-desktop) #ov-reflect .reflect-qsub,
+body:not(.is-desktop) #ov-reflect .reflect-opts,
+body:not(.is-desktop) #ov-reflect .rf-sliders{padding-left:16px;padding-right:16px}
+/* "+2 Stable" trend box stacks below the Above Average pill */
+body.is-mobile .rh-trend{display:flex;width:max-content;margin-left:auto;margin-right:auto}
+/* streak stats as a 2×2 grid */
+body.is-mobile .sf-card .sf-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+/* Rewards: space above the streak cards */
+.rwx-sfcard{margin-top:24px}
+
+/* Reach my support team: compact rows — name/role left, icon-only call & text buttons right (like the profile contacts) */
+#ov-support-team .ct-row:has(.ct-btns){display:flex;align-items:center;gap:12px}
+#ov-support-team .ct-row:has(.ct-btns) .ct-av{align-self:center}
+#ov-support-team .ct-row:has(.ct-btns) .ct-main{flex:1;min-width:0}
+#ov-support-team .ct-num{display:none}
+#ov-support-team .ct-row:has(.ct-btns) .ct-btns{border-top:none;padding:0;flex-shrink:0;gap:8px}
+#ov-support-team .ct-row:has(.ct-btns) .ct-btn{flex:none;width:42px;height:42px;padding:0;border-radius:50%;font-size:0;gap:0}
+#ov-support-team .ct-btn i,#ov-support-team .ct-btn svg{width:19px;height:19px}
+/* Help screen: show a "Progress"-style title + subtitle on desktop (mobile keeps the back+title header) */
+.sos-desk-head{display:block}
+body.is-desktop #screen-narcan .sos-lead{display:none}

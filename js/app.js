@@ -28,7 +28,7 @@ function openOv(id){
   el.scrollTop=0; var b=el.querySelector('.ov-body'); if(b) b.scrollTop=0;
   if(id==='relief-breath' && typeof startBreath==='function') startBreath();           /* start 4-7-8 cycle */
   if(id==='relief-game'   && typeof gameInit==='function')   gameInit();               /* build distraction grid */
-  if(id==='insights'){ if(typeof buildArcGauge==='function') buildArcGauge('insightsGauge', 44); if(typeof applyRecState==='function') applyRecState(); }   /* insights gauge + recommended completion state */
+  if(id==='insights'){ if(typeof buildArcGauge==='function') buildArcGauge('insightsGauge', 74); if(typeof applyRecState==='function') applyRecState(); var _rn=document.getElementById('rhName'), _ri=document.getElementById('rhNameIns'); if(_rn&&_ri) _ri.textContent=_rn.textContent; }   /* insights gauge + greeting name + recommended completion state */
   if(id==='ifthen-detail' && typeof iftSync==='function') iftSync();   /* set Save button enabled/disabled from current selection */
   if(id==='threegood-detail' && typeof tgSync==='function') tgSync();   /* set Save button state from the three inputs */
   if(id==='urge' && typeof populateUrge==='function') populateUrge();   /* fill relief activities + contacts (e.g. after refresh-restore) */
@@ -537,12 +537,7 @@ function renderLogEntries(){
    design. Step types: 'text' (heading + textarea + voice toggle),
    'multi' (option cards), 'sliders' (group of 0–10 sliders on one page). */
 var REFLECT_Q=[
-  /* 0 — opening reflection, optional free-text + voice */
-  {type:'text', q:'How are you, really?',
-    sub:'No right answer — just be honest.',
-    placeholder:'A sentence or two about how today felt… (optional)',
-    starters:['Grateful','Anxious','Tired','Hopeful','Overwhelmed','Proud','Calm','Lonely']},
-  /* 1 — drug use multi-select (reuse our substance list + emoji icons) */
+  /* drug use multi-select (reuse our substance list + emoji icons) — Page 1 & Page 7 hidden for focus group */
   {type:'multi', q:'Which of these drugs have you used in the past 24 hours?', lucideIcons:true,
     icons:['beer','leaf','zap','wind','pill','sparkles','syringe','circle-check'], options:[
     'Alcohol','Cannabis (marijuana, pot, hash, K2, spice, etc.)','Stimulants (cocaine, meth, speed, ecstasy, molly, Adderall, etc.)',
@@ -568,14 +563,11 @@ var REFLECT_Q=[
     {key:'sleep', label:'How well did you sleep over the past 24 hours?', lo:'Very poor', hi:'Excellent'},
     {key:'pain', label:'How painful was your most intense pain over the past 24 hours?', lo:'No pain', hi:'Worst pain'}
   ]},
-  /* 5 — next week: motivation & confidence */
+  /* next week: motivation & confidence — final page (Finish here) */
   {type:'sliders', q:'Thinking about the next week…', sliders:[
     {key:'motivation', label:'How motivated are you to avoid using opioids for non-medical reasons within the next week?', lo:'Not motivated', hi:'Extremely motivated'},
     {key:'confidence', label:'How confident are you in your ability to avoid using opioids for non-medical reasons within the next week?', lo:'Not confident', hi:'Extremely confident'}
-  ]},
-  /* 6 — medication taken (single-choice, reuse our option-card style) */
-  {type:'multi', single:true, q:'Have you taken your medication today?', lucideIcons:true,
-    icons:['circle-check','clock'], options:['Yes — I’ve taken it today','Not yet']}
+  ]}
 ];
 var REFLECT_TOTAL=REFLECT_Q.length;   /* 7 */
 var reflectStep=0, reflectAnswers={}, reflectVoiceMode=false;
@@ -713,7 +705,8 @@ function renderReflect(){
     (item.sub?'<div class="reflect-qsub">'+esc(item.sub)+'</div>':'')+
     inner;
   if(n===total-1){
-    var msel=(a.selected&&a.selected.length)?'':' disabled';
+    /* only a multi-select final page needs a choice before Finish; sliders are always valid */
+    var msel=(item.type==='multi' && !(a.selected&&a.selected.length))?' disabled':'';
     foot.innerHTML='<button id="rf-finish" class="rf-btn rf-primary rf-full" onclick="reflectNext()"'+msel+'>Finish · +70 XP 🎉</button>';
   } else {
     foot.innerHTML='<button class="rf-btn rf-primary rf-full" onclick="reflectNext()">'+(n===0?'Continue':'Next')+' →</button>';
@@ -767,7 +760,8 @@ function populateUrge(){
     var ACT_COLORS=['#5E8B6E','#4E7FA8','#C58A5E','#8A6DAF','#C0748A','#3F7D6F'];
     acts.innerHTML = RH_PF.activities.slice(0,4).map(function(a,i){
       var c=ACT_COLORS[i%ACT_COLORS.length];
-      return '<div class="rl-act" onclick="urgeAct(\''+jsStr(a)+'\')"><div class="rl-act-ic" style="background:'+c+';color:#fff"><i data-lucide="'+actLucide(a)+'"></i></div><div class="rl-act-lb">'+esc(a)+'</div></div>';
+      var rec=(i===0)?' <span class="rl-act-rec">Recommended</span>':'';
+      return '<div class="rl-act" onclick="urgeAct(\''+jsStr(a)+'\')"><div class="rl-act-ic" style="background:'+c+';color:#fff"><i data-lucide="'+actLucide(a)+'"></i></div><div class="rl-act-lb">'+esc(a)+rec+'</div></div>';
     }).join('') || '<div class="rl-act-empty">Add relief activities in your profile to see them here.</div>';
   }
   var contacts=document.getElementById('urge-contacts');
@@ -891,8 +885,8 @@ function buildHealthGauge(){
     return '<path d="M'+p1[0]+','+p1[1]+' A'+r+','+r+' 0 0 1 '+p2[0]+','+p2[1]+'" fill="none" stroke="'+col+'" stroke-width="'+sw+'" stroke-linecap="round"/>'; }
   var s='<svg class="speedo" viewBox="0 0 300 192" xmlns="http://www.w3.org/2000/svg">';
   s+=arc(180,144,'#D98279')+arc(144,108,'#E5A05F')+arc(108,72,'#E8C76A')+arc(72,36,'#AECB96')+arc(36,0,'#84B27F');
-  s+='<text x="12" y="185" font-size="13" font-weight="600" fill="#C56A5E">Needs care</text>';
-  s+='<text x="288" y="185" text-anchor="end" font-size="13" font-weight="600" fill="#5E8B6E">Thriving</text>';
+  s+='<text x="12" y="185" font-size="13" font-weight="600" fill="#C56A5E">Low</text>';
+  s+='<text x="288" y="185" text-anchor="end" font-size="13" font-weight="600" fill="#5E8B6E">HIGH</text>';
   var th=(180-(val/100)*180)*Math.PI/180, L=84, bw=6;
   var tx=(cx+L*Math.cos(th)).toFixed(1), ty=(cy-L*Math.sin(th)).toFixed(1);
   var sinT=Math.sin(th), cosT=Math.cos(th);
@@ -922,8 +916,8 @@ function buildArcGauge(elId, val){
   function arc(d1,d2,col){ var p1=pt(d1),p2=pt(d2); return '<path d="M'+p1[0]+','+p1[1]+' A'+r+','+r+' 0 0 1 '+p2[0]+','+p2[1]+'" fill="none" stroke="'+col+'" stroke-width="'+sw+'" stroke-linecap="round"/>'; }
   var s='<svg class="speedo" viewBox="0 0 300 192" xmlns="http://www.w3.org/2000/svg">';
   s+=arc(180,144,'#D98279')+arc(144,108,'#E5A05F')+arc(108,72,'#E8C76A')+arc(72,36,'#AECB96')+arc(36,0,'#84B27F');
-  s+='<text x="12" y="185" font-size="13" font-weight="600" fill="#C56A5E">Needs care</text>';
-  s+='<text x="288" y="185" text-anchor="end" font-size="13" font-weight="600" fill="#5E8B6E">Thriving</text>';
+  s+='<text x="12" y="185" font-size="13" font-weight="600" fill="#C56A5E">Low</text>';
+  s+='<text x="288" y="185" text-anchor="end" font-size="13" font-weight="600" fill="#5E8B6E">HIGH</text>';
   var th=(180-(val/100)*180)*Math.PI/180, L=84, bw=6;
   var tx=(cx+L*Math.cos(th)).toFixed(1), ty=(cy-L*Math.sin(th)).toFixed(1);
   var sinT=Math.sin(th), cosT=Math.cos(th);
@@ -1017,6 +1011,8 @@ function cmShare(){
   t.value=''; cmComposeSync();
   if(typeof showXPPopup==='function') showXPPopup(20);
 }
+/* mic button — toggle a listening/recording state (voice-to-text placeholder) */
+function cmMic(btn){ if(btn) btn.classList.toggle('rec'); }
 /* toggle follow on a post */
 function cmFollow(btn){
   var lbl=btn.querySelector('.cm-act-lbl');
@@ -1573,6 +1569,9 @@ function finishOnbFlow(){ setTimeout(function(){ showDoneModal(); if(window.__do
       } else if(lastOv==='activity'){
         var aid=null; try{ aid=localStorage.getItem('rh_act_current'); }catch(e){}
         if(aid && typeof openActivity==='function') openActivity(aid);
+      } else if(lastOv==='reflect' || lastOv==='edit-activities' || lastOv==='edit-triggers'){
+        /* transient flows whose body is only built on demand — don't restore (would be an empty/stuck overlay); land on the screen instead */
+        try{ localStorage.removeItem('rh_ov'); }catch(e){}
       } else {
         openOv(lastOv);
       }
@@ -1857,6 +1856,10 @@ function jsStr(s){ return String(s).replace(/\\/g,'\\\\').replace(/'/g,"\\'"); }
 
 /* render the 3 profile-screen containers */
 function renderProfileLists(){
+  /* Guard: the refresh-restore runs goScreen() during initial script execution,
+     which can call this before RH_PF is assigned further down. Bail quietly —
+     the window.load handler re-runs this once everything is initialised. */
+  if(typeof RH_PF==='undefined' || RH_PF==null) return;
   pfSeedFromProfile();
   /* only overwrite when we actually have content, so a refresh never blanks a section */
   var t=document.getElementById('pf-triggers');

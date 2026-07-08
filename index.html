@@ -31,6 +31,7 @@
 <!-- ═══ WELCOME SCREEN (after splash) ═══ -->
 <div id="welcome" aria-hidden="true">
   <div class="wc-inner">
+    <div class="wc-guest-top"><button class="wc-guest" type="button" onclick="loginAsGuest()">Log in as guest &rarr;</button></div>
     <div class="wc-stage">
     <div class="wc-slides"><div class="wc-track" id="wcTrack">
       <div class="wc-slide">
@@ -63,7 +64,6 @@
     </div>
     </div>
     <button class="wc-begin" type="button" onclick="enterApp()">Begin <span aria-hidden="true">&rarr;</span></button>
-    <button class="wc-guest" type="button" onclick="loginAsGuest()">Log in as guest</button>
   </div>
 </div>
 
@@ -382,16 +382,18 @@
   <nav class="dn-list">
     <button class="dn-item active" data-screen="home" onclick="goScreen('home')"><i data-lucide="house"></i><span>Home</span></button>
     <button class="dn-item" data-screen="tools" onclick="goScreen('tools')"><i data-lucide="layout-grid"></i><span>Activities</span></button>
+    <button class="dn-item dn-sos" data-screen="narcan" onclick="openSOS()" aria-label="Help"><svg class="sos-cross" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="9.4" y="4" width="5.2" height="16" rx="2.6"/><rect x="4" y="9.4" width="16" height="5.2" rx="2.6"/></svg><span>Help</span></button>
     <button class="dn-item" data-screen="mat" onclick="goScreen('mat')"><i data-lucide="trending-up"></i><span>Progress</span></button>
     <button class="dn-item" data-screen="rewards" onclick="goScreen('rewards')"><i data-lucide="trophy"></i><span>Rewards</span></button>
     <button class="dn-item" data-screen="appointments" onclick="goScreen('appointments')"><i data-lucide="calendar"></i><span>Appointments</span></button>
-    <button class="dn-item dn-sos" data-screen="narcan" onclick="openSOS()" aria-label="Help"><svg class="sos-cross" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="9.4" y="4" width="5.2" height="16" rx="2.6"/><rect x="4" y="9.4" width="16" height="5.2" rx="2.6"/></svg><span>Help</span></button>
-    <button class="dn-item" onclick="openOv('location-checkin')"><i data-lucide="map-pin"></i><span>Check-in</span></button>
   </nav>
-  <button class="dn-foot" onclick="openProfileFull()">
-    <div class="dn-avatar">AM</div>
-    <div class="dn-user"><div>Alex M.</div><small>47-day streak</small></div>
-  </button>
+  <div class="dn-right">
+    <button class="dn-checkin" onclick="openOv('location-checkin')" aria-label="Check-in"><i data-lucide="map-pin"></i></button>
+    <button class="dn-foot" onclick="openProfileFull()">
+      <div class="dn-avatar"><i data-lucide="user-round"></i></div>
+      <div class="dn-user"><div>Alex M.</div><small>47-day streak</small></div>
+    </button>
+  </div>
 </aside>
 
 <!-- ═══ PATIENT APP (mobile-first web app) ═══ -->
@@ -417,6 +419,7 @@
           <div class="rh-num"><b>74</b></div>
           <div class="rh-outof">out of 100</div>
           <div class="rh-pill">Above Average</div>
+          <div class="rh-trend"><span class="rh-trend-delta">+2</span><span class="rh-trend-lbl">Stable</span></div>
         </div>
       </div>
 
@@ -467,15 +470,6 @@
         </div>
       </div>
 
-      <!-- Recovery Journey milestone -->
-      <div class="home-sec rj-card">
-        <div class="rj-eyebrow">Recovery Journey</div>
-        <div class="rj-title">Your longest yet <span class="rj-heart">&#9829;</span></div>
-        <div class="rj-stat"><span class="rj-big">47</span><span class="rj-cap">Days in recovery</span></div>
-        <div class="rj-bar"><div class="rj-fill"></div></div>
-        <div class="rj-sub">13 days to your 60-day milestone</div>
-      </div>
-
       <!-- Recovery Treatments -->
       <div class="home-sec tx-section">
         <div>
@@ -486,7 +480,7 @@
               <div class="tx-name">MOUD Medication</div>
               <div class="tx-sub">Daily 8:00 AM · Suboxone 8mg/2mg</div>
               <div class="tx-meta">
-                <span class="xp-chip">+50 XP</span>
+                <span class="xp-chip">+40 XP</span>
                 <div style="position:relative;flex-shrink:0">
                   <button id="taken-btn" class="chk-btn" onclick="event.stopPropagation();confirmTaken()">Taken</button>
                   <div id="taken-check" class="chk-done">&#10003;</div>
@@ -500,7 +494,7 @@
               <div class="tx-name">Individual Counseling</div>
               <div class="tx-sub">Tue, May 20 · 2:00 PM · Dr. Rivera</div>
               <div class="tx-meta">
-                <span class="xp-chip">+40 XP</span>
+                <span class="xp-chip">+10 XP</span>
                 <div style="position:relative;flex-shrink:0">
                   <button id="attended-btn-ci" class="chk-btn" onclick="event.stopPropagation();confirmAttended('ci')">Attended</button>
                   <div id="attended-check-ci" class="chk-done">&#10003;</div>
@@ -514,7 +508,7 @@
               <div class="tx-name">Group Counseling</div>
               <div class="tx-sub">Wed, May 21 · 10:00 AM · L. Thompson</div>
               <div class="tx-meta">
-                <span class="xp-chip">+30 XP</span>
+                <span class="xp-chip">+10 XP</span>
                 <div style="position:relative;flex-shrink:0">
                   <button id="attended-btn-gp" class="chk-btn" onclick="event.stopPropagation();confirmAttended('gp')">Attended</button>
                   <div id="attended-check-gp" class="chk-done">&#10003;</div>
@@ -528,7 +522,7 @@
               <div class="tx-name">Self-Help</div>
               <div class="tx-sub">Daily · 7:00 PM · NA Meeting</div>
               <div class="tx-meta">
-                <span class="xp-chip">+25 XP</span>
+                <span class="xp-chip">+10 XP</span>
                 <div style="position:relative;flex-shrink:0">
                   <button id="attended-btn-sh" class="chk-btn" onclick="event.stopPropagation();confirmAttended('sh')">Attended</button>
                   <div id="attended-check-sh" class="chk-done">&#10003;</div>
@@ -566,15 +560,24 @@
 
       
 
-      <!-- Your streak, by focus -->
+      <!-- Streaks -->
       <div class="home-sec sf-card">
         <div>
-          <div class="home-title">Your streak, by focus</div>
+          <div class="home-title">Streaks</div>
+          <!-- Row 1: Recovery Journey -->
+          <div class="streaks-rj">
+            <div class="rj-eyebrow">Recovery Journey</div>
+            <div class="rj-title">Your longest yet <span class="rj-heart">&#9829;</span></div>
+            <div class="rj-stat"><span class="rj-big">47</span><span class="rj-cap">Days in recovery</span></div>
+            <div class="rj-bar"><div class="rj-fill"></div></div>
+            <div class="rj-sub">13 days to your 60-day milestone</div>
+          </div>
+          <!-- Row 2: focus streaks with XP multipliers -->
           <div class="sf-row">
-            <div class="sf-stat"><div class="sf-num" style="color:var(--hb-teal-deep)">12</div><div class="sf-lbl">Insights</div></div>
-            <div class="sf-stat"><div class="sf-num" style="color:#3A6B9A">8</div><div class="sf-lbl">Activities</div></div>
-            <div class="sf-stat"><div class="sf-num" style="color:#5B92CE">15</div><div class="sf-lbl">Reflect</div></div>
-            <div class="sf-stat"><div class="sf-num" style="color:var(--gold-dk)">47</div><div class="sf-lbl">MOUD</div></div>
+            <div class="sf-stat"><div class="sf-num" style="color:var(--hb-teal-deep)">12</div><div class="sf-lbl">Insights</div><span class="sf-xp">2x XP</span></div>
+            <div class="sf-stat"><div class="sf-num" style="color:#3A6B9A">6</div><div class="sf-lbl">Activities</div><span class="sf-xp">1x XP</span></div>
+            <div class="sf-stat"><div class="sf-num" style="color:#5B92CE">15</div><div class="sf-lbl">Reflect</div><span class="sf-xp">3x XP</span></div>
+            <div class="sf-stat"><div class="sf-num" style="color:var(--gold-dk)">47</div><div class="sf-lbl">MOUD</div><span class="sf-xp">4x XP</span></div>
           </div>
         </div>
       </div>
@@ -600,21 +603,24 @@
           <div class="rwh-bar"><div class="rwh-bar-fill" style="width:78%"><span class="rwh-bar-dot"></span></div></div>
           <div class="rwh-tonext"><b>660 XP</b> to go to Level 5 · <span class="rwh-pct">78%</span> there</div>
         </div>
-        <div class="rwx-stats">
-          <div class="rwx-stat"><div class="rwx-stat-ic rwx-ic-gold"><i data-lucide="flame"></i></div><div class="rwx-stat-n">47</div><div class="rwx-stat-l">Day Streak</div></div>
-          <div class="rwx-stat"><div class="rwx-stat-ic rwx-ic-sage"><i data-lucide="activity"></i></div><div class="rwx-stat-n">45</div><div class="rwx-stat-l">Days Active</div></div>
-          <div class="rwx-stat"><div class="rwx-stat-ic rwx-ic-coral"><i data-lucide="circle-check"></i></div><div class="rwx-stat-n">142</div><div class="rwx-stat-l">Sessions</div></div>
+        <div class="sf-card rwx-sfcard">
+          <div class="sf-row">
+            <div class="sf-stat"><div class="sf-num" style="color:var(--hb-teal-deep)">12</div><div class="sf-lbl">Insights</div><span class="sf-xp">2x XP</span></div>
+            <div class="sf-stat"><div class="sf-num" style="color:#3A6B9A">6</div><div class="sf-lbl">Activities</div><span class="sf-xp">1x XP</span></div>
+            <div class="sf-stat"><div class="sf-num" style="color:#5B92CE">15</div><div class="sf-lbl">Reflect</div><span class="sf-xp">3x XP</span></div>
+            <div class="sf-stat"><div class="sf-num" style="color:var(--gold-dk)">47</div><div class="sf-lbl">MOUD</div><span class="sf-xp">4x XP</span></div>
+          </div>
         </div>
       </div>
 
       <!-- 3. Anonymous Leaderboard -->
       <div class="rw-lbhead scr-full"><span class="rw-lbhead-t">Anonymous Leaderboard</span><span class="rw-lbhead-tag">Day 30–90 Tier</span></div>
       <div class="scr-card scr-full" style="padding:6px 0">
-        <div class="lb-row"><div class="lb-rank">1</div><div class="lb-av" style="background:#7BA47E;font-size:13px;width:36px;height:36px">P</div><div style="flex:1"><div style="font-family:var(--font-ui);font-size:13px;font-weight:700;color:var(--ink)">Phoenix123</div><div style="font-family:var(--font-ui);font-size:12px;color:var(--ink-soft)">68-day streak · L5 Flourish</div></div><div style="font-family:var(--font-ui);font-size:13px;font-weight:700;color:var(--gold-dk)">3,840</div></div>
-        <div class="lb-row"><div class="lb-rank">2</div><div class="lb-av" style="background:#9C8FC4;font-size:13px;width:36px;height:36px">R</div><div style="flex:1"><div style="font-family:var(--font-ui);font-size:13px;font-weight:700;color:var(--ink)">RisingTide</div><div style="font-family:var(--font-ui);font-size:12px;color:var(--ink-soft)">52-day streak · L4 Bloom</div></div><div style="font-family:var(--font-ui);font-size:13px;font-weight:700;color:var(--gold-dk)">2,960</div></div>
-        <div class="lb-row me"><div class="lb-rank">3</div><div class="lb-av" style="background:#C98FA0;font-size:13px;width:36px;height:36px">ME</div><div style="flex:1"><div style="font-family:var(--font-ui);font-size:13px;font-weight:700;color:var(--ink)">You (VictoryWarrior)</div><div style="font-family:var(--font-ui);font-size:12px;color:var(--ink-soft)">47-day streak · L4 Bloom</div></div><div style="font-family:var(--font-ui);font-size:13px;font-weight:700;color:var(--gold-dk)">2,340</div></div>
-        <div class="lb-row"><div class="lb-rank">4</div><div class="lb-av" style="background:#7FAAC4;font-size:13px;width:36px;height:36px">K</div><div style="flex:1"><div style="font-family:var(--font-ui);font-size:13px;font-weight:700;color:var(--ink)">KindredSpirit</div><div style="font-family:var(--font-ui);font-size:12px;color:var(--ink-soft)">39-day streak · L3 Root</div></div><div style="font-family:var(--font-ui);font-size:13px;font-weight:700;color:var(--ink-soft)">1,810</div></div>
-        <div class="lb-row"><div class="lb-rank">5</div><div class="lb-av" style="background:#D49A78;font-size:13px;width:36px;height:36px">N</div><div style="flex:1"><div style="font-family:var(--font-ui);font-size:13px;font-weight:700;color:var(--ink)">NewDawn44</div><div style="font-family:var(--font-ui);font-size:12px;color:var(--ink-soft)">31-day streak · L3 Root</div></div><div style="font-family:var(--font-ui);font-size:13px;font-weight:700;color:var(--ink-soft)">1,540</div></div>
+        <div class="lb-row"><div class="lb-rank">1</div><div class="lb-av" style="background:#7BA47E;font-size:13px;width:36px;height:36px">P</div><div style="flex:1"><div style="font-family:var(--font-ui);font-size:13px;font-weight:700;color:var(--ink)">Phoenix123</div><div style="font-family:var(--font-ui);font-size:12px;color:var(--ink-soft)">68-days MOUD streak · L5 Flourish</div></div><div style="font-family:var(--font-ui);font-size:13px;font-weight:700;color:var(--gold-dk)">3,840</div></div>
+        <div class="lb-row"><div class="lb-rank">2</div><div class="lb-av" style="background:#9C8FC4;font-size:13px;width:36px;height:36px">R</div><div style="flex:1"><div style="font-family:var(--font-ui);font-size:13px;font-weight:700;color:var(--ink)">RisingTide</div><div style="font-family:var(--font-ui);font-size:12px;color:var(--ink-soft)">52-days MOUD streak · L4 Bloom</div></div><div style="font-family:var(--font-ui);font-size:13px;font-weight:700;color:var(--gold-dk)">2,960</div></div>
+        <div class="lb-row me"><div class="lb-rank">3</div><div class="lb-av" style="background:#C98FA0;font-size:13px;width:36px;height:36px">ME</div><div style="flex:1"><div style="font-family:var(--font-ui);font-size:13px;font-weight:700;color:var(--ink)">You (VictoryWarrior)</div><div style="font-family:var(--font-ui);font-size:12px;color:var(--ink-soft)">47-days MOUD streak · L4 Bloom</div></div><div style="font-family:var(--font-ui);font-size:13px;font-weight:700;color:var(--gold-dk)">2,340</div></div>
+        <div class="lb-row"><div class="lb-rank">4</div><div class="lb-av" style="background:#7FAAC4;font-size:13px;width:36px;height:36px">K</div><div style="flex:1"><div style="font-family:var(--font-ui);font-size:13px;font-weight:700;color:var(--ink)">KindredSpirit</div><div style="font-family:var(--font-ui);font-size:12px;color:var(--ink-soft)">39-days MOUD streak · L3 Root</div></div><div style="font-family:var(--font-ui);font-size:13px;font-weight:700;color:var(--ink-soft)">1,810</div></div>
+        <div class="lb-row"><div class="lb-rank">5</div><div class="lb-av" style="background:#D49A78;font-size:13px;width:36px;height:36px">N</div><div style="flex:1"><div style="font-family:var(--font-ui);font-size:13px;font-weight:700;color:var(--ink)">NewDawn44</div><div style="font-family:var(--font-ui);font-size:12px;color:var(--ink-soft)">31-days MOUD streak · L3 Root</div></div><div style="font-family:var(--font-ui);font-size:13px;font-weight:700;color:var(--ink-soft)">1,540</div></div>
       </div>
 
       <!-- 4. Family Reward Board -->
@@ -623,7 +629,7 @@
         <div class="lrow-ic" style="background:#FBF4E2;color:#9A7C28;font-size:12px">MOM</div>
         <div class="lrow-main">
           <div class="lrow-t">Mom's Reward: Dinner at Olive Garden</div>
-          <div class="lrow-d" style="color:#9A6B16">Unlocks at 60-day Recovery Streak!</div>
+          <div class="lrow-d" style="color:#9A6B16">Unlocks at 60-day MOUD Streak!</div>
         </div>
         <div style="flex-basis:100%;margin-top:10px">
           <div class="scr-bar"><div class="scr-bar-fill" style="width:78%;background:#C9A84C"></div></div>
@@ -647,19 +653,19 @@
         <div class="lrow-ic" style="background:#EFEAF6;color:#7A6AA8;font-size:12px">SIS</div>
         <div class="lrow-main">
           <div class="lrow-t">Emily's Reward: Movie Night Together</div>
-          <div class="lrow-d" style="color:#7A6AA8">Unlocks at 90 days</div>
+          <div class="lrow-d" style="color:#7A6AA8">Unlocks at 30 days reflections</div>
         </div>
         <div style="flex-basis:100%;margin-top:10px">
           <div class="scr-bar"><div class="scr-bar-fill" style="width:52%;background:#84B27F"></div></div>
-          <div style="font-family:var(--font-ui);font-size:12px;color:var(--ink-soft);margin-top:6px">43 days to go</div>
+          <div style="font-family:var(--font-ui);font-size:12px;color:var(--ink-soft);margin-top:6px">15 days to go</div>
         </div>
       </div>
 
-      <div class="lrow lrow-earned" style="background:#EAF1E9">
+      <div class="lrow lrow-earned" style="background:#CBE4C2">
         <div class="lrow-ic" style="background:#7BA47E;color:#fff;font-size:12px">SP</div>
         <div class="lrow-main">
           <div class="lrow-t" style="color:#3F5E41">Sponsor Mike: Fishing Trip</div>
-          <div class="lrow-d" style="color:#5E8560">Claimed at 30 days!</div>
+          <div class="lrow-d" style="color:#5E8560">Claimed at 30 days activities streak</div>
         </div>
         <span class="lpill lpill-earned">✓ Earned</span>
       </div>
@@ -680,7 +686,7 @@
         <div class="grat-top">
           <div class="lrow-ic" style="background:#7BA47E;color:#fff"><i data-lucide="check"></i></div>
           <div class="lrow-main">
-            <div class="lrow-t" style="color:#3F5E41">Sent to Sponsor Mike · 30-Day Milestone</div>
+            <div class="lrow-t" style="color:#3F5E41">Sent to Sponsor Mike · 30-days activities streak</div>
             <div class="lrow-d">"Thank you for the fishing trip. It meant everything."</div>
           </div>
         </div>
@@ -820,7 +826,10 @@
         </button>
         <span class="sos-head-title">Help</span>
       </div>
-      <div class="sos-lead">Reaching out is a strength, not a setback.</div>
+      <div class="scr-head scr-full sos-desk-head">
+        <div class="scr-title">Help</div>
+        <div class="scr-sub">You're not alone. Pick what you need right now.</div>
+      </div>
 
       <div class="sos-911" role="button" onclick="call911Open()">
         <div class="sos-911-ic"><i data-lucide="phone"></i></div>
@@ -829,14 +838,14 @@
       </div>
 
       <div class="scr-eyebrow" style="margin-top:18px">What's going on?</div>
-      <div class="sos-opt sos-opt-emerg" onclick="openUrge()">
-        <div class="sos-opt-ic" style="background:#C4453A;color:#fff"><i data-lucide="waves"></i></div>
-        <div class="sos-opt-main"><div class="sos-opt-t">I'm having an urge</div><div class="sos-opt-d">Ride it out — breathing, grounding &amp; your people</div></div>
-        <i data-lucide="chevron-right" class="sos-opt-arrow"></i>
-      </div>
       <div class="sos-opt sos-opt-emerg" onclick="openOv('crisis')">
         <div class="sos-opt-ic" style="background:#C4453A;color:#fff"><i data-lucide="heart-pulse"></i></div>
         <div class="sos-opt-main"><div class="sos-opt-t">I'm in crisis</div><div class="sos-opt-d">988 Lifeline, crisis text line &amp; naloxone help</div></div>
+        <i data-lucide="chevron-right" class="sos-opt-arrow"></i>
+      </div>
+      <div class="sos-opt sos-opt-emerg" onclick="openUrge()">
+        <div class="sos-opt-ic" style="background:#C4453A;color:#fff"><i data-lucide="waves"></i></div>
+        <div class="sos-opt-main"><div class="sos-opt-t">I'm having an urge</div><div class="sos-opt-d">Ride it out — breathing, grounding &amp; your people</div></div>
         <i data-lucide="chevron-right" class="sos-opt-arrow"></i>
       </div>
       <div class="sos-opt" onclick="openOv('support-team')">
@@ -1101,7 +1110,7 @@
   <!-- ═══ CONNECT OVERLAY ═══ -->
   <div class="overlay" id="ov-connect" style="background:var(--app-bg)">
     <div class="ov-header" style="background:#fff;border-bottom:1px solid var(--border)">
-      <button class="ov-back" style="background:#F0EBE2;color:var(--ink)" onclick="closeOv()">&larr;</button>
+      <button class="ov-back" style="background:#EEF0F0;color:var(--ink)" onclick="closeOv()">&larr;</button>
       <div>
         <div style="font-size:14px;font-weight:700;color:var(--ink)">Connect</div>
       </div>
@@ -1110,13 +1119,13 @@
 
       <!-- Composer -->
       <div class="cm-compose">
-        <div class="cm-eyebrow"><i data-lucide="sparkles"></i> Start a conversation</div>
+        <div class="cm-eyebrow"><span>Start a conversation</span><button class="cm-mic" type="button" aria-label="Record" onclick="cmMic(this)"><i data-lucide="mic"></i></button></div>
         <textarea class="cm-textarea" id="cm-text" rows="3" oninput="cmComposeSync()" placeholder="Share a win, ask a question, or offer a little encouragement — your words might be exactly what someone needs today…"></textarea>
         <div class="cm-circle-label">Post to a circle:</div>
         <div class="cm-chips">
-          <button type="button" class="cm-chip" onclick="cmPick(this)"><i data-lucide="stethoscope"></i> Ask a Clinician</button>
           <button type="button" class="cm-chip sel" onclick="cmPick(this)"><i data-lucide="star"></i> Wins &amp; Milestones</button>
           <button type="button" class="cm-chip" onclick="cmPick(this)"><i data-lucide="waves"></i> Cravings &amp; Coping</button>
+          <button type="button" class="cm-chip" onclick="cmPick(this)"><i data-lucide="moon"></i> Sleep &amp; Self-Care</button>
         </div>
         <div class="cm-compose-foot">
           <button class="cm-share-btn" id="cm-share-btn" disabled onclick="cmShare()">Share &middot; +20 XP</button>
@@ -1181,14 +1190,15 @@
   <!-- ═══ POST DETAIL (comments) ═══ -->
   <div class="overlay" id="ov-post-detail" style="background:var(--app-bg)">
     <div class="ov-header" style="background:#fff;border-bottom:1px solid var(--border)">
-      <button class="ov-back" style="background:#F0EBE2;color:var(--ink)" onclick="closeTopOv('post-detail')">&larr;</button>
+      <button class="ov-back" style="background:#EEF0F0;color:var(--ink)" onclick="closeTopOv('post-detail')">&larr;</button>
       <div>
         <div style="font-family:var(--font-display);font-size:16px;font-weight:700;color:var(--ink)">Post</div>
       </div>
     </div>
     <div class="ov-body" id="cm-detail-body" style="padding-top:14px"></div>
     <div class="cm-detail-foot">
-      <input type="text" id="cm-detail-input" class="cm-addinput" placeholder="Add a supportive comment…" onkeydown="if(event.key==='Enter')cmDetailSend()">
+      <input type="text" id="cm-detail-input" class="cm-addinput" placeholder="Contribute to the conversation…" onkeydown="if(event.key==='Enter')cmDetailSend()">
+      <button class="cm-mic" type="button" aria-label="Record" onclick="cmMic(this)"><i data-lucide="mic"></i></button>
       <button class="cm-send" onclick="cmDetailSend()">Send</button>
     </div>
   </div>
@@ -1196,7 +1206,7 @@
   <!-- THREAD: COPING WITH CRAVINGS -->
   <div class="overlay" id="ov-thread-cravings" style="background:var(--app-bg)">
     <div class="ov-header" style="background:#fff;border-bottom:1px solid var(--border)">
-      <button class="ov-back" style="background:var(--beige);color:var(--espresso)" onclick="closeTopOv('thread-cravings')">&larr;</button>
+      <button class="ov-back" style="background:#EEF0F0;color:var(--ink)" onclick="closeTopOv('thread-cravings')">&larr;</button>
       <div>
         <div class="ui thread-title" style="font-weight:600;color:var(--espresso)">Coping with Cravings</div>
       </div>
@@ -1348,7 +1358,7 @@
   <!-- THREAD: STRESS MANAGEMENT -->
   <div class="overlay" id="ov-thread-stress" style="background:var(--app-bg)">
     <div class="ov-header" style="background:#fff;border-bottom:1px solid var(--border)">
-      <button class="ov-back" style="background:var(--beige);color:var(--espresso)" onclick="closeTopOv('thread-stress')">&larr;</button>
+      <button class="ov-back" style="background:#EEF0F0;color:var(--ink)" onclick="closeTopOv('thread-stress')">&larr;</button>
       <div>
         <div class="ui thread-title" style="font-weight:600;color:var(--espresso)">Stress Management</div>
       </div>
@@ -1470,7 +1480,7 @@
   <!-- THREAD: FAMILY STRUGGLES -->
   <div class="overlay" id="ov-thread-family" style="background:var(--app-bg)">
     <div class="ov-header" style="background:#fff;border-bottom:1px solid var(--border)">
-      <button class="ov-back" style="background:var(--beige);color:var(--espresso)" onclick="closeTopOv('thread-family')">&larr;</button>
+      <button class="ov-back" style="background:#EEF0F0;color:var(--ink)" onclick="closeTopOv('thread-family')">&larr;</button>
       <div>
         <div class="ui thread-title" style="font-weight:600;color:var(--espresso)">Family Struggles</div>
       </div>
@@ -1592,7 +1602,7 @@
   <!-- THREAD: MANAGING PAIN -->
   <div class="overlay" id="ov-thread-pain" style="background:var(--app-bg)">
     <div class="ov-header" style="background:#fff;border-bottom:1px solid var(--border)">
-      <button class="ov-back" style="background:var(--beige);color:var(--espresso)" onclick="closeTopOv('thread-pain')">&larr;</button>
+      <button class="ov-back" style="background:#EEF0F0;color:var(--ink)" onclick="closeTopOv('thread-pain')">&larr;</button>
       <div>
         <div class="ui thread-title" style="font-weight:600;color:var(--espresso)">Managing Pain</div>
       </div>
@@ -1714,7 +1724,7 @@
   <!-- THREAD: MAKING NEW FRIENDS -->
   <div class="overlay" id="ov-thread-friends" style="background:var(--app-bg)">
     <div class="ov-header" style="background:#fff;border-bottom:1px solid var(--border)">
-      <button class="ov-back" style="background:var(--beige);color:var(--espresso)" onclick="closeTopOv('thread-friends')">&larr;</button>
+      <button class="ov-back" style="background:#EEF0F0;color:var(--ink)" onclick="closeTopOv('thread-friends')">&larr;</button>
       <div>
         <div class="ui thread-title" style="font-weight:600;color:var(--espresso)">Making New Friends</div>
       </div>
@@ -1853,7 +1863,7 @@
   <!-- LOG OPIOID USE -->
   <div class="overlay" id="ov-log-use" style="background:var(--app-bg)">
     <div class="ov-header" style="background:#fff;border-bottom:1px solid rgba(54,59,59,.06)">
-      <button class="ov-back" style="background:#F0F3F3;color:var(--ink)" onclick="closeOv()">&larr;</button>
+      <button class="ov-back" style="background:#EEF0F0;color:var(--ink)" onclick="closeOv()">&larr;</button>
       <div style="font-size:14px;font-weight:700;color:var(--ink)">Log Opioid Use</div>
     </div>
     <div class="ov-body" style="padding-top:14px">
@@ -1922,8 +1932,8 @@
 
   <!-- ═══ RELIEF: URGE SURFING ═══ -->
   <div class="overlay" id="ov-relief-surf" style="background:var(--app-bg)">
-    <div class="ov-header" style="background:transparent;border-bottom:none">
-      <button class="ov-back" style="background:#fff;color:var(--ink);box-shadow:0 2px 8px rgba(58,51,48,.10)" onclick="closeOv()">&larr;</button>
+    <div class="ov-header" style="background:#fff;border-bottom:1px solid rgba(54,59,59,.06)">
+      <button class="ov-back" style="background:#EEF0F0;color:var(--ink)" onclick="closeOv()">&larr;</button>
       <div>
         <div style="font-family:var(--font-display);font-size:17px;font-weight:700;color:var(--ink)">Urge surfing</div>
       </div>
@@ -1944,8 +1954,8 @@
 
   <!-- ═══ RELIEF: 5-4-3-2-1 GROUNDING ═══ -->
   <div class="overlay" id="ov-relief-ground" style="background:var(--app-bg)">
-    <div class="ov-header" style="background:transparent;border-bottom:none">
-      <button class="ov-back" style="background:#fff;color:var(--ink);box-shadow:0 2px 8px rgba(58,51,48,.10)" onclick="closeOv()">&larr;</button>
+    <div class="ov-header" style="background:#fff;border-bottom:1px solid rgba(54,59,59,.06)">
+      <button class="ov-back" style="background:#EEF0F0;color:var(--ink)" onclick="closeOv()">&larr;</button>
       <div>
         <div style="font-family:var(--font-display);font-size:17px;font-weight:700;color:var(--ink)">5-4-3-2-1 grounding</div>
       </div>
@@ -1988,8 +1998,8 @@
 
   <!-- ═══ RELIEF: DISTRACTION GAME ═══ -->
   <div class="overlay" id="ov-relief-game" style="background:var(--app-bg)">
-    <div class="ov-header" style="background:transparent;border-bottom:none">
-      <button class="ov-back" style="background:#fff;color:var(--ink);box-shadow:0 2px 8px rgba(58,51,48,.10)" onclick="closeOv()">&larr;</button>
+    <div class="ov-header" style="background:#fff;border-bottom:1px solid rgba(54,59,59,.06)">
+      <button class="ov-back" style="background:#EEF0F0;color:var(--ink)" onclick="closeOv()">&larr;</button>
       <div>
         <div style="font-family:var(--font-display);font-size:17px;font-weight:700;color:var(--ink)">Distraction game</div>
       </div>
@@ -2012,8 +2022,8 @@
 
   <!-- ═══ URGE TOOLKIT ═══ -->
   <div class="overlay" id="ov-urge" style="background:var(--app-bg)">
-    <div class="ov-header" style="background:transparent;border-bottom:none">
-      <button class="ov-back" style="background:#fff;color:var(--ink);box-shadow:0 2px 8px rgba(58,51,48,.10)" onclick="closeOv()">&larr;</button>
+    <div class="ov-header" style="background:#fff;border-bottom:1px solid rgba(54,59,59,.06)">
+      <button class="ov-back" style="background:#EEF0F0;color:var(--ink)" onclick="closeOv()">&larr;</button>
       <div>
         <div style="font-family:var(--font-display);font-size:17px;font-weight:700;color:var(--ink)">Ride out the urge</div>
       </div>
@@ -2038,13 +2048,26 @@
       </div>
 
       <button class="rl-done" style="margin-top:16px" onclick="urgeDone()">I rode it out <i data-lucide="check"></i> <span class="rl-xp">+30 XP</span></button>
+
+      <!-- Crisis lines (duplicated from I'm in crisis) -->
+      <div class="scr-eyebrow" style="margin:20px 0 10px">If you need more support right now</div>
+      <div class="ct-row">
+        <div class="ct-av" style="background:#C97B6F;font-size:15px">988</div>
+        <div class="ct-main"><div class="ct-name">988 Suicide &amp; Crisis Lifeline</div><div class="ct-role">Free &amp; confidential · 24/7 · call or text</div></div>
+        <div class="ct-btns"><a class="ct-btn call" href="tel:988"><i data-lucide="phone"></i>Call</a><a class="ct-btn text" href="sms:988"><i data-lucide="message-circle"></i>Text</a></div>
+      </div>
+      <div class="ct-row">
+        <div class="ct-av" style="background:#4A6D9A"><i data-lucide="message-circle"></i></div>
+        <div class="ct-main"><div class="ct-name">Crisis Text Line</div><div class="ct-role">Text HOME to 741741 · 24/7</div></div>
+        <div class="ct-btns"><a class="ct-btn text" href="sms:741741&body=HOME"><i data-lucide="message-circle"></i>Text</a></div>
+      </div>
     </div>
   </div>
 
   <!-- ═══ EDIT MY TRIGGERS ═══ -->
   <div class="overlay" id="ov-edit-triggers" style="background:var(--app-bg)">
-    <div class="ov-header" style="background:transparent;border-bottom:none">
-      <button class="ov-back" style="background:#fff;color:var(--ink);box-shadow:0 2px 8px rgba(58,51,48,.10)" onclick="closeOv()">&larr;</button>
+    <div class="ov-header" style="background:#fff;border-bottom:1px solid rgba(54,59,59,.06)">
+      <button class="ov-back" style="background:#EEF0F0;color:var(--ink)" onclick="closeOv()">&larr;</button>
       <div>
         <div style="font-family:var(--font-display);font-size:17px;font-weight:700;color:var(--ink)">My Triggers</div>
       </div>
@@ -2063,8 +2086,8 @@
 
   <!-- ═══ EDIT WHAT HELPS ME ═══ -->
   <div class="overlay" id="ov-edit-activities" style="background:var(--app-bg)">
-    <div class="ov-header" style="background:transparent;border-bottom:none">
-      <button class="ov-back" style="background:#fff;color:var(--ink);box-shadow:0 2px 8px rgba(58,51,48,.10)" onclick="closeOv()">&larr;</button>
+    <div class="ov-header" style="background:#fff;border-bottom:1px solid rgba(54,59,59,.06)">
+      <button class="ov-back" style="background:#EEF0F0;color:var(--ink)" onclick="closeOv()">&larr;</button>
       <div>
         <div style="font-family:var(--font-display);font-size:17px;font-weight:700;color:var(--ink)">What Helps Me</div>
       </div>
@@ -2131,8 +2154,8 @@
 
   <!-- ═══ CRISIS SUPPORT PAGE ═══ -->
   <div class="overlay" id="ov-crisis" style="background:var(--app-bg)">
-    <div class="ov-header" style="background:transparent;border-bottom:none">
-      <button class="ov-back" style="background:#fff;color:var(--ink);box-shadow:0 2px 8px rgba(58,51,48,.10)" onclick="closeOv()">&larr;</button>
+    <div class="ov-header" style="background:#fff;border-bottom:1px solid rgba(54,59,59,.06)">
+      <button class="ov-back" style="background:#EEF0F0;color:var(--ink)" onclick="closeOv()">&larr;</button>
       <div>
         <div style="font-family:var(--font-display);font-size:17px;font-weight:700;color:var(--ink)">Crisis support</div>
         </div>
@@ -2196,8 +2219,8 @@
 
   <!-- ═══ REACH MY SUPPORT TEAM PAGE ═══ -->
   <div class="overlay" id="ov-support-team" style="background:var(--app-bg)">
-    <div class="ov-header" style="background:transparent;border-bottom:none">
-      <button class="ov-back" style="background:#fff;color:var(--ink);box-shadow:0 2px 8px rgba(58,51,48,.10)" onclick="closeOv()">&larr;</button>
+    <div class="ov-header" style="background:#fff;border-bottom:1px solid rgba(54,59,59,.06)">
+      <button class="ov-back" style="background:#EEF0F0;color:var(--ink)" onclick="closeOv()">&larr;</button>
       <div>
         <div style="font-family:var(--font-display);font-size:17px;font-weight:700;color:var(--ink)">Reach my support team</div>
       </div>
@@ -2362,7 +2385,7 @@
   <!-- INSIGHTS OVERLAY -->
   <div class="overlay" id="ov-insights" style="background:var(--app-bg)">
     <div class="ov-header" style="background:#fff;border-bottom:1px solid rgba(54,59,59,.06)">
-      <button class="ov-back" style="background:#F0F3F3;color:var(--ink)" onclick="closeOv()">&larr;</button>
+      <button class="ov-back" style="background:#EEF0F0;color:var(--ink)" onclick="closeOv()">&larr;</button>
       <div>
         <div style="font-size:13px;font-weight:700;color:var(--ink)">Daily Insight</div>
       </div>
@@ -2372,16 +2395,27 @@
       <!-- Recovery Health gauge — same speedometer as home -->
       <div class="ins-card ins-gauge-card rh-inner">
         <div class="rh-eyebrow">Recovery Health</div>
+        <div class="rh-greet">You're doing great, <span id="rhNameIns">there</span></div>
         <div class="rh-gauge ins-gauge" id="insightsGauge"></div>
-        <div class="rh-num"><b id="insightsGaugeNum">44</b></div>
+        <div class="rh-num"><b id="insightsGaugeNum">74</b></div>
         <div class="rh-outof">out of 100</div>
-        <div class="rh-pill">Average</div>
+        <div class="rh-pill">Above Average</div>
+        <div class="rh-trend"><span class="rh-trend-delta">+2</span><span class="rh-trend-lbl">Stable</span></div>
+      </div>
+
+      <!-- Today's Risk -->
+      <div class="ins-risk-card">
+        <span class="ins-risk-ic"><i data-lucide="zap"></i></span>
+        <div class="ins-risk-main">
+          <div class="ins-risk-eyebrow">Today's Risk</div>
+          <div class="ins-risk-val">Craving</div>
+        </div>
       </div>
 
       <!-- Key takeaways -->
       <div class="ins-card ins-takeaway">
         <div class="home-title ins-tk-title">Key Takeaways</div>
-        <div class="ins-tk-lead">Your <b>44</b> means recovery is holding steady today — right in the middle range, and trending up.</div>
+        <div class="ins-tk-lead">Your <b>74</b> means recovery is in a strong place today — above average, and trending up.</div>
         <ul class="ins-tk-list">
           <li>Day-to-day dips are normal — your direction over the last few weeks is what matters, and it's up.</li>
           <li>Keep the medication streak going and give the 7&nbsp;PM window a small plan.</li>
@@ -2389,21 +2423,12 @@
         </ul>
       </div>
 
-      <!-- Recommended for you -->
+      <!-- Today's Recommended Activity -->
       <div class="ins-rec-head">
-        <span class="home-title" style="margin:0">Recommended for you</span>
-        <span class="ins-rec-prog">0 of 4 done</span>
+        <span class="home-title" style="margin:0">Today's Recommended Activity</span>
       </div>
-      <div class="ins-rec-sub">Matched to today's score of 44 · tap a button to read &amp; earn</div>
-      <div class="ins-rec-grid">
-        <button class="ins-rec-card" id="rec-ifthen" style="--rca:#C58A5E;--rcbg:#FBEBE1" onclick="openOv('ifthen-detail')">
-          <span class="ins-rec-badge"><i data-lucide="check"></i></span>
-          <span class="ins-rec-ic"><i data-lucide="route"></i></span>
-          <span class="ins-rec-body">
-            <span class="ins-rec-t">Make an if-then plan</span>
-            <span class="ins-rec-pts">+20 pts</span>
-          </span>
-        </button>
+      <div class="ins-rec-sub">Matched to today's recovery health and risk. Tap a button to read &amp; earn</div>
+      <div class="ins-rec-grid ins-rec-single">
         <button class="ins-rec-card" id="rec-relief" style="--rca:#5E8B6E;--rcbg:#E7F0EA" onclick="openOv('relief-detail')">
           <span class="ins-rec-badge"><i data-lucide="check"></i></span>
           <span class="ins-rec-ic"><i data-lucide="leaf"></i></span>
@@ -2412,31 +2437,7 @@
             <span class="ins-rec-pts">+20 pts</span>
           </span>
         </button>
-        <button class="ins-rec-card" id="rec-community" style="--rca:#4E7FA8;--rcbg:#E3EDF6" onclick="openOv('community-detail')">
-          <span class="ins-rec-badge"><i data-lucide="check"></i></span>
-          <span class="ins-rec-ic"><i data-lucide="heart-handshake"></i></span>
-          <span class="ins-rec-body">
-            <span class="ins-rec-t">Encourage someone in Community</span>
-            <span class="ins-rec-pts">+20 pts</span>
-          </span>
-        </button>
-        <button class="ins-rec-card" id="rec-threegood" style="--rca:#C0748A;--rcbg:#F6E4E7" onclick="openOv('threegood-detail')">
-          <span class="ins-rec-badge"><i data-lucide="check"></i></span>
-          <span class="ins-rec-ic"><i data-lucide="sparkles"></i></span>
-          <span class="ins-rec-body">
-            <span class="ins-rec-t">Three good things</span>
-            <span class="ins-rec-pts">+15 pts</span>
-          </span>
-        </button>
       </div>
-
-      <!-- Past week -->
-      <div class="ins-eyebrow" style="margin-top:20px">Past Week</div>
-      <button class="ins-past-row" onclick="openOv('insights-yesterday')">
-        <span class="ins-past-main"><span class="ins-past-day">Yesterday</span><span class="ins-past-date">Jun 10</span></span>
-        <span class="ins-past-score">Score <b>60</b></span>
-        <i data-lucide="chevron-right" class="ins-past-arrow"></i>
-      </button>
 
       <!-- Mark reviewed -->
       <button class="ins-review-btn" onclick="markInsightReviewed()">Mark insight reviewed · +20 XP</button>
@@ -2446,7 +2447,7 @@
   <!-- YESTERDAY'S INSIGHT OVERLAY -->
   <div class="overlay" id="ov-insights-yesterday" style="background:var(--app-bg)">
     <div class="ov-header" style="background:#fff;border-bottom:1px solid var(--border)">
-      <button class="ov-back" style="background:var(--beige);color:var(--espresso)" onclick="document.getElementById('ov-insights-yesterday').classList.remove('active')">&larr;</button>
+      <button class="ov-back" style="background:#EEF0F0;color:var(--ink)" onclick="document.getElementById('ov-insights-yesterday').classList.remove('active')">&larr;</button>
       <div>
         <div class="ui" style="font-size:12px;font-weight:500;color:var(--espresso)">Yesterday &middot; Jun 10</div>
       </div>
@@ -2488,8 +2489,8 @@
 
   <!-- ═══ RELIEF ACTIVITY DETAIL ═══ -->
   <div class="overlay" id="ov-relief-detail" style="background:var(--app-bg)">
-    <div class="ov-header" style="background:transparent;border-bottom:none">
-      <button class="ov-back" style="background:#fff;color:var(--ink);box-shadow:0 2px 8px rgba(58,51,48,.10)" onclick="closeDetail('relief-detail')">&larr;</button>
+    <div class="ov-header" style="background:#fff;border-bottom:1px solid rgba(54,59,59,.06)">
+      <button class="ov-back" style="background:#EEF0F0;color:var(--ink)" onclick="closeDetail('relief-detail')">&larr;</button>
       <div>
         <div style="font-family:var(--font-display);font-size:17px;font-weight:700;color:var(--ink)">Do one relief activity</div>
       </div>
@@ -2552,8 +2553,8 @@
 
   <!-- ═══ MAKE AN IF-THEN PLAN DETAIL ═══ -->
   <div class="overlay" id="ov-ifthen-detail" style="background:var(--app-bg)">
-    <div class="ov-header" style="background:transparent;border-bottom:none">
-      <button class="ov-back" style="background:#fff;color:var(--ink);box-shadow:0 2px 8px rgba(58,51,48,.10)" onclick="closeDetail('ifthen-detail')">&larr;</button>
+    <div class="ov-header" style="background:#fff;border-bottom:1px solid rgba(54,59,59,.06)">
+      <button class="ov-back" style="background:#EEF0F0;color:var(--ink)" onclick="closeDetail('ifthen-detail')">&larr;</button>
       <div>
         <div style="font-family:var(--font-display);font-size:17px;font-weight:700;color:var(--ink)">Make an if-then plan</div>
       </div>
@@ -2630,8 +2631,8 @@
 
   <!-- ═══ ENCOURAGE SOMEONE IN COMMUNITY DETAIL ═══ -->
   <div class="overlay" id="ov-community-detail" style="background:var(--app-bg)">
-    <div class="ov-header" style="background:transparent;border-bottom:none">
-      <button class="ov-back" style="background:#fff;color:var(--ink);box-shadow:0 2px 8px rgba(58,51,48,.10)" onclick="closeDetail('community-detail')">&larr;</button>
+    <div class="ov-header" style="background:#fff;border-bottom:1px solid rgba(54,59,59,.06)">
+      <button class="ov-back" style="background:#EEF0F0;color:var(--ink)" onclick="closeDetail('community-detail')">&larr;</button>
       <div>
         <div style="font-family:var(--font-display);font-size:17px;font-weight:700;color:var(--ink)">Encourage someone in Community</div>
       </div>
@@ -2691,8 +2692,8 @@
 
   <!-- ═══ THREE GOOD THINGS DETAIL ═══ -->
   <div class="overlay" id="ov-threegood-detail" style="background:var(--app-bg)">
-    <div class="ov-header" style="background:transparent;border-bottom:none">
-      <button class="ov-back" style="background:#fff;color:var(--ink);box-shadow:0 2px 8px rgba(58,51,48,.10)" onclick="closeDetail('threegood-detail')">&larr;</button>
+    <div class="ov-header" style="background:#fff;border-bottom:1px solid rgba(54,59,59,.06)">
+      <button class="ov-back" style="background:#EEF0F0;color:var(--ink)" onclick="closeDetail('threegood-detail')">&larr;</button>
       <div>
         <div style="font-family:var(--font-display);font-size:17px;font-weight:700;color:var(--ink)">Three good things</div>
       </div>
@@ -2748,8 +2749,8 @@
 
   <!-- ═══ GUIDED ACTIVITY PLAYER ═══ -->
   <div class="overlay" id="ov-activity" style="background:var(--app-bg)">
-    <div class="ov-header" style="background:transparent;border-bottom:none">
-      <button class="ov-back" style="background:#fff;color:var(--ink);box-shadow:0 2px 8px rgba(58,51,48,.10)" onclick="closeDetail('activity')">&larr;</button>
+    <div class="ov-header" style="background:#fff;border-bottom:1px solid rgba(54,59,59,.06)">
+      <button class="ov-back" style="background:#EEF0F0;color:var(--ink)" onclick="closeDetail('activity')">&larr;</button>
       <div>
         <div id="act-title" style="font-family:var(--font-display);font-size:17px;font-weight:700;color:var(--ink)">Activity</div>
       </div>
@@ -2776,13 +2777,13 @@
     </div>
   </div>
 
-  <!-- NOTIFICATIONS --><div class="overlay" id="ov-notifications" style="background:var(--app-bg)"><div class="ov-header" style="background:#fff;border-bottom:1px solid var(--border)"><button class="ov-back" style="background:var(--beige);color:var(--espresso)" onclick="closeOv()">&larr;</button><div class="ui" style="font-size:12px;font-weight:500;color:var(--espresso);letter-spacing:1px">Notifications</div></div><div class="ov-body" style="padding-top:10px"><div class="card"><div class="card-pad" style="display:flex;align-items:center;gap:8px"><div class="ic" style="background:var(--sage-lt);color:var(--sage)">Rx</div><div style="flex:1"><div class="ui" style="font-size:10px;font-weight:500;color:var(--espresso)">Suboxone dose reminder</div><div class="ui" style="font-size:8px;color:var(--muted)">Due in 30 min · +50 XP</div></div></div></div><div class="card"><div class="card-pad" style="display:flex;align-items:center;gap:8px"><div class="ic" style="background:var(--gold-lt);color:var(--gold-dk)">FM</div><div style="flex:1"><div class="ui" style="font-size:10px;font-weight:500;color:var(--espresso)">Mom added a new reward!</div><div class="ui" style="font-size:8px;color:var(--muted)">"Dinner at Olive Garden at 60 days"</div></div></div></div><div class="card"><div class="card-pad" style="display:flex;align-items:center;gap:8px"><div class="ic" style="background:var(--purple-lt);color:var(--purple)">AI</div><div style="flex:1"><div class="ui" style="font-size:10px;font-weight:500;color:var(--espresso)">AI: Craving window approaching</div><div class="ui" style="font-size:8px;color:var(--muted)">Prepare coping tools for 7 PM</div></div></div></div><div class="card"><div class="card-pad" style="display:flex;align-items:center;gap:8px"><div class="ic" style="background:var(--sage-lt);color:var(--sage)">Dr</div><div style="flex:1"><div class="ui" style="font-size:10px;font-weight:500;color:var(--espresso)">Dr. Rivera: "Great MOUD adherence!"</div><div class="ui" style="font-size:8px;color:var(--muted)">Message from your care team</div></div></div></div></div></div>
+  <!-- NOTIFICATIONS --><div class="overlay" id="ov-notifications" style="background:var(--app-bg)"><div class="ov-header" style="background:#fff;border-bottom:1px solid var(--border)"><button class="ov-back" style="background:#EEF0F0;color:var(--ink)" onclick="closeOv()">&larr;</button><div class="ui" style="font-size:12px;font-weight:500;color:var(--espresso);letter-spacing:1px">Notifications</div></div><div class="ov-body" style="padding-top:10px"><div class="card"><div class="card-pad" style="display:flex;align-items:center;gap:8px"><div class="ic" style="background:var(--sage-lt);color:var(--sage)">Rx</div><div style="flex:1"><div class="ui" style="font-size:10px;font-weight:500;color:var(--espresso)">Suboxone dose reminder</div><div class="ui" style="font-size:8px;color:var(--muted)">Due in 30 min · +50 XP</div></div></div></div><div class="card"><div class="card-pad" style="display:flex;align-items:center;gap:8px"><div class="ic" style="background:var(--gold-lt);color:var(--gold-dk)">FM</div><div style="flex:1"><div class="ui" style="font-size:10px;font-weight:500;color:var(--espresso)">Mom added a new reward!</div><div class="ui" style="font-size:8px;color:var(--muted)">"Dinner at Olive Garden at 60 days"</div></div></div></div><div class="card"><div class="card-pad" style="display:flex;align-items:center;gap:8px"><div class="ic" style="background:var(--purple-lt);color:var(--purple)">AI</div><div style="flex:1"><div class="ui" style="font-size:10px;font-weight:500;color:var(--espresso)">AI: Craving window approaching</div><div class="ui" style="font-size:8px;color:var(--muted)">Prepare coping tools for 7 PM</div></div></div></div><div class="card"><div class="card-pad" style="display:flex;align-items:center;gap:8px"><div class="ic" style="background:var(--sage-lt);color:var(--sage)">Dr</div><div style="flex:1"><div class="ui" style="font-size:10px;font-weight:500;color:var(--espresso)">Dr. Rivera: "Great MOUD adherence!"</div><div class="ui" style="font-size:8px;color:var(--muted)">Message from your care team</div></div></div></div></div></div>
 
-  <!-- MILESTONE SHARE --><div class="overlay" id="ov-milestone-share" style="background:var(--app-bg)"><div class="ov-header" style="padding-top:48px"><button class="ov-back" style="background:var(--taupe);color:var(--espresso)" onclick="closeOv()">&larr;</button></div><div class="ov-body" style="text-align:center"><div style="width:250px;background:#fff;border-radius:4px;padding:24px 20px;box-shadow:0 12px 40px rgba(58,51,48,.08);border:1px solid var(--border);margin:0 auto 14px"><div class="ui" style="font-size:7px;letter-spacing:4px;color:var(--rose);text-transform:uppercase;font-weight:300;margin-bottom:6px">RudraHealth AI · OUD Recovery</div><div style="font-size:48px;font-weight:500;color:var(--espresso);line-height:1">47</div><div style="font-size:14px;font-weight:400;color:var(--rose);margin-bottom:8px"><em>days · Recovery Streak</em></div><div style="display:flex;gap:6px;justify-content:center"><span class="tag" style="background:var(--gold-lt);color:var(--gold-dk)">6 Week Streak</span><span class="tag" style="background:var(--sage-lt);color:var(--sage)">Level 4</span></div></div><div style="display:flex;flex-wrap:wrap;gap:5px;justify-content:center"><span class="tag" style="background:var(--rose-lt);border:1px solid rgba(196,160,136,.2);color:var(--rose-dk)">Family</span><span class="tag" style="background:var(--rose-lt);border:1px solid rgba(196,160,136,.2);color:var(--rose-dk)">Sponsor</span><span class="tag" style="background:#fff;border:1px solid var(--border);color:var(--espresso)">Care Team</span></div></div></div>
+  <!-- MILESTONE SHARE --><div class="overlay" id="ov-milestone-share" style="background:var(--app-bg)"><div class="ov-header" style="padding-top:48px"><button class="ov-back" style="background:#EEF0F0;color:var(--ink)" onclick="closeOv()">&larr;</button></div><div class="ov-body" style="text-align:center"><div style="width:250px;background:#fff;border-radius:4px;padding:24px 20px;box-shadow:0 12px 40px rgba(58,51,48,.08);border:1px solid var(--border);margin:0 auto 14px"><div class="ui" style="font-size:7px;letter-spacing:4px;color:var(--rose);text-transform:uppercase;font-weight:300;margin-bottom:6px">RudraHealth AI · OUD Recovery</div><div style="font-size:48px;font-weight:500;color:var(--espresso);line-height:1">47</div><div style="font-size:14px;font-weight:400;color:var(--rose);margin-bottom:8px"><em>days · Recovery Streak</em></div><div style="display:flex;gap:6px;justify-content:center"><span class="tag" style="background:var(--gold-lt);color:var(--gold-dk)">6 Week Streak</span><span class="tag" style="background:var(--sage-lt);color:var(--sage)">Level 4</span></div></div><div style="display:flex;flex-wrap:wrap;gap:5px;justify-content:center"><span class="tag" style="background:var(--rose-lt);border:1px solid rgba(196,160,136,.2);color:var(--rose-dk)">Family</span><span class="tag" style="background:var(--rose-lt);border:1px solid rgba(196,160,136,.2);color:var(--rose-dk)">Sponsor</span><span class="tag" style="background:#fff;border:1px solid var(--border);color:var(--espresso)">Care Team</span></div></div></div>
 
-  <!-- BODY RECOVERY --><div class="overlay" id="ov-body-recovery" style="background:var(--app-bg)"><div class="ov-header" style="background:#fff;border-bottom:1px solid var(--border)"><button class="ov-back" style="background:var(--beige);color:var(--espresso)" onclick="closeOv()">&larr;</button><div class="ui" style="font-size:12px;font-weight:500;color:var(--espresso)">Body Recovery Timeline</div></div><div class="ov-body" style="padding-top:10px"><div style="font-size:14px;color:var(--brown);line-height:1.6;margin-bottom:14px"><em>Your body is healing from opioid use every day. Here's what's happening at 47 days:</em></div><div class="card" style="border-left:3px solid var(--sage)"><div class="card-pad"><div style="display:flex;justify-content:space-between"><span class="ui" style="font-size:10px;font-weight:500;color:var(--sage)">Week 1-2: Acute Withdrawal Gone</span><span class="tag" style="background:var(--sage-lt);color:var(--sage)">Done</span></div><div class="ui" style="font-size:9px;color:var(--muted);margin-top:3px">Physical withdrawal resolved.</div></div></div><div class="card" style="border-left:3px solid var(--sage)"><div class="card-pad"><div style="display:flex;justify-content:space-between"><span class="ui" style="font-size:10px;font-weight:500;color:var(--sage)">Week 3-4: GI System Healing</span><span class="tag" style="background:var(--sage-lt);color:var(--sage)">Done</span></div><div class="ui" style="font-size:9px;color:var(--muted);margin-top:3px">Digestive recovery. Appetite improving.</div></div></div><div class="card" style="border-left:3px solid var(--gold)"><div class="card-pad"><div style="display:flex;justify-content:space-between"><span class="ui" style="font-size:10px;font-weight:500;color:var(--gold-dk)">Week 5-8: Endorphin Restoration</span><span class="tag" style="background:var(--gold-lt);color:var(--gold-dk)">Now</span></div><div class="ui" style="font-size:9px;color:var(--muted);margin-top:3px">Natural endorphins restarting. Exercise helps accelerate.</div></div></div><div class="card"><div class="card-pad"><div class="ui" style="font-size:10px;font-weight:500;color:var(--t3)">Month 3+: Sleep & Mood Normalization</div><div class="ui" style="font-size:9px;color:var(--t4);margin-top:3px">Full sleep architecture recovery.</div></div></div><div class="card"><div class="card-pad"><div class="ui" style="font-size:10px;font-weight:500;color:var(--t3)">Month 6+: Brain Receptor Healing</div><div class="ui" style="font-size:9px;color:var(--t4);margin-top:3px">Opioid receptors returning to baseline.</div></div></div></div></div>
+  <!-- BODY RECOVERY --><div class="overlay" id="ov-body-recovery" style="background:var(--app-bg)"><div class="ov-header" style="background:#fff;border-bottom:1px solid var(--border)"><button class="ov-back" style="background:#EEF0F0;color:var(--ink)" onclick="closeOv()">&larr;</button><div class="ui" style="font-size:12px;font-weight:500;color:var(--espresso)">Body Recovery Timeline</div></div><div class="ov-body" style="padding-top:10px"><div style="font-size:14px;color:var(--brown);line-height:1.6;margin-bottom:14px"><em>Your body is healing from opioid use every day. Here's what's happening at 47 days:</em></div><div class="card" style="border-left:3px solid var(--sage)"><div class="card-pad"><div style="display:flex;justify-content:space-between"><span class="ui" style="font-size:10px;font-weight:500;color:var(--sage)">Week 1-2: Acute Withdrawal Gone</span><span class="tag" style="background:var(--sage-lt);color:var(--sage)">Done</span></div><div class="ui" style="font-size:9px;color:var(--muted);margin-top:3px">Physical withdrawal resolved.</div></div></div><div class="card" style="border-left:3px solid var(--sage)"><div class="card-pad"><div style="display:flex;justify-content:space-between"><span class="ui" style="font-size:10px;font-weight:500;color:var(--sage)">Week 3-4: GI System Healing</span><span class="tag" style="background:var(--sage-lt);color:var(--sage)">Done</span></div><div class="ui" style="font-size:9px;color:var(--muted);margin-top:3px">Digestive recovery. Appetite improving.</div></div></div><div class="card" style="border-left:3px solid var(--gold)"><div class="card-pad"><div style="display:flex;justify-content:space-between"><span class="ui" style="font-size:10px;font-weight:500;color:var(--gold-dk)">Week 5-8: Endorphin Restoration</span><span class="tag" style="background:var(--gold-lt);color:var(--gold-dk)">Now</span></div><div class="ui" style="font-size:9px;color:var(--muted);margin-top:3px">Natural endorphins restarting. Exercise helps accelerate.</div></div></div><div class="card"><div class="card-pad"><div class="ui" style="font-size:10px;font-weight:500;color:var(--t3)">Month 3+: Sleep & Mood Normalization</div><div class="ui" style="font-size:9px;color:var(--t4);margin-top:3px">Full sleep architecture recovery.</div></div></div><div class="card"><div class="card-pad"><div class="ui" style="font-size:10px;font-weight:500;color:var(--t3)">Month 6+: Brain Receptor Healing</div><div class="ui" style="font-size:9px;color:var(--t4);margin-top:3px">Opioid receptors returning to baseline.</div></div></div></div></div>
 
-  <!-- WITHDRAWAL TRACKER --><div class="overlay" id="ov-withdrawal" style="background:var(--app-bg)"><div class="ov-header" style="background:#fff;border-bottom:1px solid var(--border)"><button class="ov-back" style="background:var(--beige);color:var(--espresso)" onclick="closeOv()">&larr;</button><div class="ui" style="font-size:12px;font-weight:500;color:var(--espresso)">Withdrawal Tracker · +35 XP</div></div><div class="ov-body" style="padding-top:10px"><div class="card" style="border-left:3px solid var(--sage)"><div class="card-pad" style="background:var(--sage-lt)"><div class="ui" style="font-size:9px;color:var(--sage-dk);letter-spacing:1px;text-transform:uppercase;margin-bottom:4px">COWS Score</div><div style="display:flex;align-items:baseline;gap:6px"><span style="font-family:'Fraunces',serif;font-size:28px;font-weight:700;color:var(--sage-dk)">3</span><span class="ui" style="font-size:10px;color:var(--muted)">/48 · Minimal Withdrawal</span></div></div></div><div style="font-size:14px;color:var(--brown);margin-bottom:8px"><em>Rate current symptoms:</em></div><div class="card"><div class="card-pad"><div style="margin-bottom:8px"><div style="display:flex;justify-content:space-between;margin-bottom:2px"><span class="ui" style="font-size:10px;color:var(--brown)">Muscle/bone aches</span><span class="ui" style="font-size:10px;font-weight:500;color:var(--sage)">1</span></div><div class="pbar"><div class="pfill" style="width:33%;background:var(--sage)"></div></div></div><div style="margin-bottom:8px"><div style="display:flex;justify-content:space-between;margin-bottom:2px"><span class="ui" style="font-size:10px;color:var(--brown)">Anxiety/irritability</span><span class="ui" style="font-size:10px;font-weight:500;color:var(--gold-dk)">2</span></div><div class="pbar"><div class="pfill" style="width:66%;background:var(--gold)"></div></div></div><div style="margin-bottom:8px"><div style="display:flex;justify-content:space-between;margin-bottom:2px"><span class="ui" style="font-size:10px;color:var(--brown)">Insomnia</span><span class="ui" style="font-size:10px;font-weight:500;color:var(--sage)">0</span></div><div class="pbar"><div class="pfill" style="width:0%"></div></div></div><div><div style="display:flex;justify-content:space-between;margin-bottom:2px"><span class="ui" style="font-size:10px;color:var(--brown)">Cravings</span><span class="ui" style="font-size:10px;font-weight:500;color:var(--gold-dk)">2</span></div><div class="pbar"><div class="pfill" style="width:66%;background:var(--gold)"></div></div></div></div></div><button style="width:100%;padding:12px;border-radius:2px;border:none;background:var(--espresso);color:var(--cream);font-family:'Josefin Sans',sans-serif;font-size:10px;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;margin-top:6px">Submit to Care Team · +35 XP</button></div></div>
+  <!-- WITHDRAWAL TRACKER --><div class="overlay" id="ov-withdrawal" style="background:var(--app-bg)"><div class="ov-header" style="background:#fff;border-bottom:1px solid var(--border)"><button class="ov-back" style="background:#EEF0F0;color:var(--ink)" onclick="closeOv()">&larr;</button><div class="ui" style="font-size:12px;font-weight:500;color:var(--espresso)">Withdrawal Tracker · +35 XP</div></div><div class="ov-body" style="padding-top:10px"><div class="card" style="border-left:3px solid var(--sage)"><div class="card-pad" style="background:var(--sage-lt)"><div class="ui" style="font-size:9px;color:var(--sage-dk);letter-spacing:1px;text-transform:uppercase;margin-bottom:4px">COWS Score</div><div style="display:flex;align-items:baseline;gap:6px"><span style="font-family:'Fraunces',serif;font-size:28px;font-weight:700;color:var(--sage-dk)">3</span><span class="ui" style="font-size:10px;color:var(--muted)">/48 · Minimal Withdrawal</span></div></div></div><div style="font-size:14px;color:var(--brown);margin-bottom:8px"><em>Rate current symptoms:</em></div><div class="card"><div class="card-pad"><div style="margin-bottom:8px"><div style="display:flex;justify-content:space-between;margin-bottom:2px"><span class="ui" style="font-size:10px;color:var(--brown)">Muscle/bone aches</span><span class="ui" style="font-size:10px;font-weight:500;color:var(--sage)">1</span></div><div class="pbar"><div class="pfill" style="width:33%;background:var(--sage)"></div></div></div><div style="margin-bottom:8px"><div style="display:flex;justify-content:space-between;margin-bottom:2px"><span class="ui" style="font-size:10px;color:var(--brown)">Anxiety/irritability</span><span class="ui" style="font-size:10px;font-weight:500;color:var(--gold-dk)">2</span></div><div class="pbar"><div class="pfill" style="width:66%;background:var(--gold)"></div></div></div><div style="margin-bottom:8px"><div style="display:flex;justify-content:space-between;margin-bottom:2px"><span class="ui" style="font-size:10px;color:var(--brown)">Insomnia</span><span class="ui" style="font-size:10px;font-weight:500;color:var(--sage)">0</span></div><div class="pbar"><div class="pfill" style="width:0%"></div></div></div><div><div style="display:flex;justify-content:space-between;margin-bottom:2px"><span class="ui" style="font-size:10px;color:var(--brown)">Cravings</span><span class="ui" style="font-size:10px;font-weight:500;color:var(--gold-dk)">2</span></div><div class="pbar"><div class="pfill" style="width:66%;background:var(--gold)"></div></div></div></div></div><button style="width:100%;padding:12px;border-radius:2px;border:none;background:var(--espresso);color:var(--cream);font-family:'Josefin Sans',sans-serif;font-size:10px;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;margin-top:6px">Submit to Care Team · +35 XP</button></div></div>
 
   <!-- DTx MODULE --><div class="overlay" id="ov-dtx-module" style="background:var(--app-bg)"><div class="ov-header" style="background:var(--purple);flex-shrink:0"><button class="ov-back" onclick="closeOv()">&larr;</button><div><div class="ui" style="font-size:12px;font-weight:500;color:#fff;letter-spacing:1px">CBT for Substance Use</div><div class="ui" style="font-size:8px;color:rgba(255,255,255,.6)">Evidence-based · Rx by Dr. Rivera · +75 XP per session</div></div></div><div class="ov-body" style="padding-top:12px"><div class="card" style="border-left:3px solid var(--purple)"><div class="card-pad" style="background:var(--purple-lt)"><div class="ui" style="font-size:9px;color:var(--purple);letter-spacing:1px;text-transform:uppercase;margin-bottom:4px">Current Progress</div><div style="display:flex;align-items:baseline;gap:6px"><span style="font-family:'Fraunces',serif;font-size:28px;font-weight:700;color:var(--purple-dk)">Module 3</span><span class="ui" style="font-size:10px;color:var(--muted)">of 8 · Functional Analysis</span></div><div class="pbar" style="margin-top:8px"><div class="pfill" style="width:72%;background:var(--purple)"></div></div></div></div><div class="section-label">Today's Session</div><div class="card" style="cursor:pointer;border-left:3px solid var(--purple)"><div class="card-pad"><div class="ui" style="font-size:10px;font-weight:500;color:var(--espresso);margin-bottom:6px">What triggers your opioid use?</div><div class="ui" style="font-size:9px;color:var(--brown);line-height:1.6;margin-bottom:8px">Map your personal trigger patterns. ~20 min. Data shared with provider.</div><button style="width:100%;padding:10px;border-radius:2px;border:none;background:var(--purple);color:#fff;font-family:'Josefin Sans',sans-serif;font-size:10px;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer">Start Session · +75 XP</button></div></div></div></div>
 
@@ -2792,7 +2793,7 @@
 
   <!-- VOICE JOURNAL --><div class="overlay" id="ov-voice-journal" style="background:var(--navy)"><div class="ov-header"><button class="ov-back" onclick="closeOv()">&larr;</button><div><div class="ui" style="font-size:12px;font-weight:500;color:#fff;letter-spacing:1px">Voice Journal · +25 XP</div><div class="ui" style="font-size:8px;color:rgba(255,255,255,.5)">AI analyzes mood & sentiment for your care team</div></div></div><div class="ov-body" style="text-align:center"><div style="margin-top:30px"><div style="width:100px;height:100px;border-radius:50%;border:3px solid var(--purple);margin:0 auto 14px;display:flex;align-items:center;justify-content:center;cursor:pointer"><span class="ui" style="font-size:11px;color:var(--purple);letter-spacing:2px">RECORD</span></div><div class="ui" style="font-size:10px;color:rgba(255,255,255,.5)">Tap to record. Your words are analyzed for mood patterns and shared with your care team (never raw audio).</div></div><div class="section-label" style="color:rgba(255,255,255,.3);margin-top:20px">Recent Entries</div><div style="background:rgba(255,255,255,.05);border-radius:4px;padding:10px 12px;margin-bottom:6px;text-align:left"><div class="ui" style="font-size:9px;color:rgba(255,255,255,.7)">Today, 7:15 AM · 2:34 min · Mood: Hopeful</div></div><div style="background:rgba(255,255,255,.05);border-radius:4px;padding:10px 12px;margin-bottom:6px;text-align:left"><div class="ui" style="font-size:9px;color:rgba(255,255,255,.7)">Yesterday · 4:12 min · Mood: Anxious about pain</div></div></div></div>
 
-  <!-- PAIN MGMT --><div class="overlay" id="ov-pain-mgmt" style="background:var(--app-bg)"><div class="ov-header" style="background:#fff;border-bottom:1px solid var(--border)"><button class="ov-back" style="background:var(--beige);color:var(--espresso)" onclick="closeOv()">&larr;</button><div class="ui" style="font-size:12px;font-weight:500;color:var(--espresso)">Pain Management · +20 XP</div></div><div class="ov-body" style="padding-top:10px"><div class="card" style="border-left:3px solid var(--purple)"><div class="card-pad" style="background:var(--purple-lt)"><div class="ui" style="font-size:9px;color:var(--purple);letter-spacing:1px;text-transform:uppercase;margin-bottom:3px">Why This Matters</div><div class="ui" style="font-size:9px;color:var(--brown);line-height:1.5">Chronic pain is the #1 trigger for opioid relapse. Learning non-opioid strategies is essential for long-term OUD recovery.</div></div></div><div class="section-label">Non-Opioid Strategies</div><div class="card" style="cursor:pointer"><div class="card-pad" style="display:flex;align-items:center;gap:10px"><div class="ic" style="background:var(--blue-lt);color:var(--blue)">HC</div><div class="ui" style="font-size:10px;font-weight:500;color:var(--espresso)">Heat/Cold Therapy</div></div></div><div class="card" style="cursor:pointer"><div class="card-pad" style="display:flex;align-items:center;gap:10px"><div class="ic" style="background:var(--sage-lt);color:var(--sage)">MF</div><div class="ui" style="font-size:10px;font-weight:500;color:var(--espresso)">Mindfulness for Pain</div></div></div><div class="card" style="cursor:pointer"><div class="card-pad" style="display:flex;align-items:center;gap:10px"><div class="ic" style="background:var(--gold-lt);color:var(--gold-dk)">GM</div><div class="ui" style="font-size:10px;font-weight:500;color:var(--espresso)">Gentle Movement</div></div></div><div class="card" style="cursor:pointer"><div class="card-pad" style="display:flex;align-items:center;gap:10px"><div class="ic" style="background:var(--purple-lt);color:var(--purple)">CB</div><div class="ui" style="font-size:10px;font-weight:500;color:var(--espresso)">CBT for Chronic Pain</div></div></div></div></div>
+  <!-- PAIN MGMT --><div class="overlay" id="ov-pain-mgmt" style="background:var(--app-bg)"><div class="ov-header" style="background:#fff;border-bottom:1px solid var(--border)"><button class="ov-back" style="background:#EEF0F0;color:var(--ink)" onclick="closeOv()">&larr;</button><div class="ui" style="font-size:12px;font-weight:500;color:var(--espresso)">Pain Management · +20 XP</div></div><div class="ov-body" style="padding-top:10px"><div class="card" style="border-left:3px solid var(--purple)"><div class="card-pad" style="background:var(--purple-lt)"><div class="ui" style="font-size:9px;color:var(--purple);letter-spacing:1px;text-transform:uppercase;margin-bottom:3px">Why This Matters</div><div class="ui" style="font-size:9px;color:var(--brown);line-height:1.5">Chronic pain is the #1 trigger for opioid relapse. Learning non-opioid strategies is essential for long-term OUD recovery.</div></div></div><div class="section-label">Non-Opioid Strategies</div><div class="card" style="cursor:pointer"><div class="card-pad" style="display:flex;align-items:center;gap:10px"><div class="ic" style="background:var(--blue-lt);color:var(--blue)">HC</div><div class="ui" style="font-size:10px;font-weight:500;color:var(--espresso)">Heat/Cold Therapy</div></div></div><div class="card" style="cursor:pointer"><div class="card-pad" style="display:flex;align-items:center;gap:10px"><div class="ic" style="background:var(--sage-lt);color:var(--sage)">MF</div><div class="ui" style="font-size:10px;font-weight:500;color:var(--espresso)">Mindfulness for Pain</div></div></div><div class="card" style="cursor:pointer"><div class="card-pad" style="display:flex;align-items:center;gap:10px"><div class="ic" style="background:var(--gold-lt);color:var(--gold-dk)">GM</div><div class="ui" style="font-size:10px;font-weight:500;color:var(--espresso)">Gentle Movement</div></div></div><div class="card" style="cursor:pointer"><div class="card-pad" style="display:flex;align-items:center;gap:10px"><div class="ic" style="background:var(--purple-lt);color:var(--purple)">CB</div><div class="ui" style="font-size:10px;font-weight:500;color:var(--espresso)">CBT for Chronic Pain</div></div></div></div></div>
 
   <!-- DRUG SCREEN TRACKER --><div class="overlay" id="ov-drug-screen" style="background:var(--app-bg)"><div class="ov-header" style="background:var(--amber);flex-shrink:0"><button class="ov-back" onclick="closeOv()">&larr;</button><div><div class="ui" style="font-size:12px;font-weight:500;color:#fff;letter-spacing:1px">Drug Screen Tracker</div><div class="ui" style="font-size:8px;color:rgba(255,255,255,.6)">UDS compliance · Supports G0480–G0483 billing · +30 XP</div></div></div><div class="ov-body" style="padding-top:12px"><div class="card" style="border-left:3px solid var(--sage)"><div class="card-pad" style="background:var(--sage-lt)"><div class="ui" style="font-size:9px;color:var(--sage);letter-spacing:1px;text-transform:uppercase;margin-bottom:4px">UDS Compliance</div><div style="display:flex;align-items:baseline;gap:6px"><span style="font-family:'Fraunces',serif;font-size:28px;font-weight:700;color:var(--sage-dk)">100%</span><span class="ui" style="font-size:10px;color:var(--muted)">12 of 12 screens completed</span></div><div class="pbar" style="margin-top:8px"><div class="pfill" style="width:100%;background:var(--sage)"></div></div></div></div><div class="section-label">Upcoming Screens</div><div class="card"><div class="card-pad" style="display:flex;align-items:center;gap:10px"><div class="ic" style="background:var(--amber-lt);color:var(--amber)">DS</div><div style="flex:1"><div class="ui" style="font-size:10px;font-weight:500;color:var(--espresso)">Next UDS: April 8, 2026</div><div class="ui" style="font-size:9px;color:var(--muted)">Random · Location: Main Clinic Lab</div></div><span class="tag" style="background:var(--amber-lt);color:var(--amber)">3 days</span></div></div><div class="section-label">Recent Results</div><div class="card"><div class="card-pad" style="display:flex;align-items:center;gap:10px"><div class="ic" style="background:var(--sage-lt);color:var(--sage)">✓</div><div style="flex:1"><div class="ui" style="font-size:10px;color:var(--espresso)">Mar 25 — Negative (Buprenorphine detected ✓)</div></div></div></div><div class="card"><div class="card-pad" style="display:flex;align-items:center;gap:10px"><div class="ic" style="background:var(--sage-lt);color:var(--sage)">✓</div><div style="flex:1"><div class="ui" style="font-size:10px;color:var(--espresso)">Mar 11 — Negative (Buprenorphine detected ✓)</div></div></div></div><div class="card"><div class="card-pad" style="display:flex;align-items:center;gap:10px"><div class="ic" style="background:var(--sage-lt);color:var(--sage)">✓</div><div style="flex:1"><div class="ui" style="font-size:10px;color:var(--espresso)">Feb 26 — Negative (Buprenorphine detected ✓)</div></div></div></div><button style="width:100%;padding:12px;border-radius:2px;border:none;background:var(--amber);color:#fff;font-family:'Josefin Sans',sans-serif;font-size:10px;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;margin-top:6px">Confirm Screen Completed · +30 XP</button></div></div>
 
