@@ -3017,12 +3017,28 @@ body.is-desktop .actz-card:hover{transform:translateY(-2px);box-shadow:0 12px 26
 .prev-act-main{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
 .prev-act-t{font-family:var(--font-ui);font-size:14px;font-weight:700;color:var(--ink)}
 .prev-act-d{font-family:var(--font-ui);font-size:12px;color:var(--ink-soft)}
+.prev-act-xp{flex:0 0 auto;font-family:var(--font-ui);font-size:10px;font-weight:800;letter-spacing:.3px;color:#9A6B16;background:#FFF1D6;padding:4px 10px;border-radius:999px;white-space:nowrap}
+.prev-act-xpwrap{flex:0 0 auto;display:flex;align-items:center;gap:7px}
+.prev-act-score{font-family:var(--font-ui);font-size:9px;font-weight:800;letter-spacing:.6px;text-transform:uppercase;color:var(--ink-soft);white-space:nowrap}
+.ins-rec-single .ins-rec-body{flex:1;min-width:0}
+.act-rec-time{margin-top:3px}
+#act-rec-relief .prev-act-xpwrap{margin-right:34px}
+.prev-act-xpwrap .ins-rec-pts{margin-top:0}
+/* Mobile: SCORE +XP drops onto its own line, below the time, aligned under the text */
+body.is-mobile .prev-act{flex-wrap:wrap}
+body.is-mobile .prev-act-check{order:2}
+body.is-mobile .prev-act-xpwrap{order:3;flex:0 0 100%;margin-left:50px;justify-content:flex-start}
+body.is-mobile #act-rec-relief{flex-wrap:wrap}
+body.is-mobile #act-rec-relief .prev-act-xpwrap{flex:0 0 100%;margin-left:60px;margin-right:0;justify-content:flex-start}
 .prev-act-check{flex:0 0 auto;width:20px;height:20px;color:#5E8B6E}
 .prev-act-pending{flex:0 0 auto;width:20px;height:20px;color:#C4CAC8}
 .prev-act .prev-act-d{color:var(--ink-soft)}
 /* Today's Activity card: stays white even when done; a plain check (not a filled circle) appears only when completed — matching the Previous rows */
 #act-rec-relief.is-done{background:#fff;border-color:rgba(54,59,59,.07)}
 #act-rec-relief.is-done .ins-rec-t{color:var(--ink)}
+/* Match the Today's Activity title to the Previous Activity titles (.prev-act-t) */
+#act-rec-relief .ins-rec-t{font-family:var(--font-ui);font-size:14px;font-weight:700;letter-spacing:normal;color:var(--ink);line-height:1.3}
+body.is-mobile #act-rec-relief .ins-rec-t{line-height:1.3}
 #act-rec-relief .ins-rec-badge{top:50%;right:16px;transform:translateY(-50%);width:22px;height:22px;background:none;color:#5E8B6E;box-shadow:none}
 #act-rec-relief .ins-rec-badge i,#act-rec-relief .ins-rec-badge svg{width:22px;height:22px;stroke-width:2.5}
 /* desktop: single full-width column (Today's card + date-grouped list, not the 2-col grid) */
