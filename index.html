@@ -913,17 +913,12 @@
       </div>
       <!-- Today's Activity -->
       <div class="scr-eyebrow" style="margin-bottom:8px">Today's Activity</div>
-      <div class="ins-rec-grid ins-rec-single" style="margin-bottom:2px">
-        <button class="ins-rec-card" id="act-rec-relief" style="--rca:#5E8B6E;--rcbg:#E7F0EA" onclick="openOv('relief-detail')">
-          <span class="ins-rec-badge"><i data-lucide="check"></i></span>
-          <span class="ins-rec-ic"><i data-lucide="leaf"></i></span>
-          <span class="ins-rec-body">
-            <span class="ins-rec-t">Do one relief activity</span>
-            <span class="prev-act-d act-rec-time">Completed &middot; 4 min</span>
-          </span>
-          <span class="prev-act-xpwrap"><span class="prev-act-score">Score : 79</span><span class="ins-rec-pts">+10 XP</span></span>
-        </button>
-      </div>
+      <button class="prev-act" onclick="openOv('relief-detail')">
+        <span class="prev-act-ic" style="background:#5E8B6E"><i data-lucide="leaf"></i></span>
+        <span class="prev-act-main"><span class="prev-act-t">Do one relief activity</span><span class="prev-act-d">Completed &middot; 4 min</span></span>
+        <span class="prev-act-xpwrap"><span class="prev-act-score">Score : 79</span><span class="prev-act-xp">+10 XP</span></span>
+        <i data-lucide="check" class="prev-act-check"></i>
+      </button>
 
       <!-- Previous Activities -->
       <div class="scr-eyebrow" style="margin-top:24px;margin-bottom:2px">Previous Activities</div>
