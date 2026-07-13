@@ -18,6 +18,7 @@ function goScreen(id){
   if(id==='home' && typeof scheduleCheckin==='function') scheduleCheckin();   /* daily check-in prompt 2s after landing on home */
   if(id==='profile' && typeof renderProfileLists==='function') renderProfileLists();   /* triggers / relief / contacts */
   if(id==='tools' && typeof actzPaintTiles==='function') actzPaintTiles();   /* mark completed activities */
+  if(id==='tools' && typeof applyRecState==='function') applyRecState();   /* Today's Activity done-state */
 }
 function openOv(id){
   var el=document.getElementById('ov-'+id);if(!el)return;
@@ -123,7 +124,7 @@ function confirmCheckin(card){
 }
 /* Daily ritual progress \u2014 reflects how many of the 3 tasks are done */
 function updateTodayProgress(){
-  var keys=['focus','checkin','connect','log'], done=0;
+  var keys=['focus','checkin','connect','activities'], done=0;
   keys.forEach(function(k){
     var chk=document.getElementById(k+'-check');
     var card=document.getElementById(k+'-card');
@@ -642,13 +643,8 @@ function renderReflect(){
       '<div class="rf-complete">'+
         '<div class="rf-yg">'+
           '<div class="rf-yg-ribbon">🎉 You got!</div>'+
-          '<div class="rf-yg-title">Check-in complete!</div>'+
-          '<div class="rf-yg-tiles">'+
-            '<div class="rf-yg-tile"><div class="rf-yg-ic rf-yg-ic-gold"><i data-lucide="sparkles"></i></div><div class="rf-yg-amt" style="color:#B98A2E">+20</div><div class="rf-yg-lbl">Check-in</div></div>'+
-            '<div class="rf-yg-tile"><div class="rf-yg-ic rf-yg-ic-sage"><i data-lucide="gift"></i></div><div class="rf-yg-amt" style="color:#5E8560">+50</div><div class="rf-yg-lbl">Bonus</div></div>'+
-            '<div class="rf-yg-tile"><div class="rf-yg-ic rf-yg-ic-coral"><i data-lucide="flame"></i></div><div class="rf-yg-amt" style="color:#C25445">+1</div><div class="rf-yg-lbl">Streak</div></div>'+
-          '</div>'+
-          '<button class="rf-yg-confirm" onclick="reflectDone()">Confirm · 70 XP</button>'+
+          '<div class="rf-yg-title">Reflect Complete!</div>'+
+          '<button class="rf-yg-confirm" onclick="reflectDone()">Confirm · 30 XP</button>'+
         '</div>'+
       '</div>';
     foot.innerHTML='';
@@ -707,7 +703,7 @@ function renderReflect(){
   if(n===total-1){
     /* only a multi-select final page needs a choice before Finish; sliders are always valid */
     var msel=(item.type==='multi' && !(a.selected&&a.selected.length))?' disabled':'';
-    foot.innerHTML='<button id="rf-finish" class="rf-btn rf-primary rf-full" onclick="reflectNext()"'+msel+'>Finish · +70 XP 🎉</button>';
+    foot.innerHTML='<button id="rf-finish" class="rf-btn rf-primary rf-full" onclick="reflectNext()"'+msel+'>Finish · +30 XP 🎉</button>';
   } else {
     foot.innerHTML='<button class="rf-btn rf-primary rf-full" onclick="reflectNext()">'+(n===0?'Continue':'Next')+' →</button>';
   }
@@ -720,7 +716,7 @@ function reflectDone(){
   if(check){ check.style.display='block'; }
   if(time){ time.textContent='Today ✓'; time.style.color='var(--hb-teal)'; }
   updateTodayProgress();
-  if(typeof showXPPopup==='function') showXPPopup(70);
+  if(typeof showXPPopup==='function') showXPPopup(30);
 }
 
 /* ═══════════════════════════════════════════════════════════
@@ -753,12 +749,16 @@ function reliefDone(label){
 /* open the urge toolkit: populate "why", relief actions and contacts */
 /* fill the Ride-out-the-urge page — relief activities + "reach your people" contacts */
 function populateUrge(){
+  /* Guard: the refresh-restore can call this (via the openOv('urge') hook) during
+     initial script execution, before RH_PF is assigned. Bail quietly to avoid
+     aborting the script (which would leave RH_PF undefined for the whole session). */
+  if(typeof RH_PF==='undefined' || RH_PF==null) return;
   var why=document.getElementById('urge-why');
   if(why){ var w=(window.__profile&&window.__profile.why)||''; why.textContent = w ? 'Remember: '+w : ''; }
   var acts=document.getElementById('urge-acts');
   if(acts){
     var ACT_COLORS=['#5E8B6E','#4E7FA8','#C58A5E','#8A6DAF','#C0748A','#3F7D6F'];
-    acts.innerHTML = RH_PF.activities.slice(0,4).map(function(a,i){
+    acts.innerHTML = RH_PF.activities.filter(function(a){ return !/^call\b/i.test(a); }).slice(0,4).map(function(a,i){
       var c=ACT_COLORS[i%ACT_COLORS.length];
       var rec=(i===0)?' <span class="rl-act-rec">Recommended</span>':'';
       return '<div class="rl-act" onclick="urgeAct(\''+jsStr(a)+'\')"><div class="rl-act-ic" style="background:'+c+';color:#fff"><i data-lucide="'+actLucide(a)+'"></i></div><div class="rl-act-lb">'+esc(a)+rec+'</div></div>';
@@ -796,7 +796,7 @@ function stopUrgeBreath(){ if(urgeBreathTimer){ clearTimeout(urgeBreathTimer); u
 /* open a relief tool from the urge page (drop the urge overlay so the tool shows on top) */
 function urgeTool(id){ var u=document.getElementById('ov-urge'); if(u){ u.classList.remove('active'); u.style.zoom=''; } stopUrgeBreath(); openOv(id); if(window.lucide&&lucide.createIcons) lucide.createIcons(); }
 /* finished riding out the urge */
-function urgeDone(){ closeOv(); if(typeof showXPPopup==='function') showXPPopup(30); rlToast('You rode it out — that took real strength.'); }
+function urgeDone(){ closeOv(); rlToast('You rode it out — that took real strength.'); }
 /* Simulated Emergency 911 call screen */
 var call911Timer=null;
 function call911Open(){
@@ -944,9 +944,10 @@ function applyRecState(){
   /* relief activity */
   var reliefDone=false; try{ reliefDone=localStorage.getItem('rh_relief_done')==='1'; }catch(e){}
   var rc=document.getElementById('rec-relief'); if(rc) rc.classList.toggle('is-done', reliefDone);
+  var arc=document.getElementById('act-rec-relief'); if(arc) arc.classList.toggle('is-done', reliefDone);   /* Activities-screen Today's Activity card */
   var rb=document.getElementById('rd-done-btn');
   if(rb){ if(reliefDone){ rb.textContent='Completed ✓'; rb.disabled=true; rb.classList.add('is-done'); }
-          else { rb.textContent='Mark as done · +20 pts'; rb.disabled=false; rb.classList.remove('is-done'); } }
+          else { rb.textContent='Mark as done · +10 XP'; rb.disabled=false; rb.classList.remove('is-done'); } }
   /* if-then plan */
   var iftDone=false; try{ iftDone=localStorage.getItem('rh_ifthen_done')==='1'; }catch(e){}
   var ic=document.getElementById('rec-ifthen'); if(ic) ic.classList.toggle('is-done', iftDone);
@@ -1081,10 +1082,10 @@ var ACTS={
 };
 function actDone(id){ try{ return localStorage.getItem('rh_act_'+id)==='1'; }catch(e){ return false; } }
 /* open the guided player for an activity */
-function openActivity(id){
+function openActivity(id, forceDone){
   var a=ACTS[id]; if(!a) return;
   try{ localStorage.setItem('rh_act_current', id); }catch(e){}
-  var done=actDone(id);
+  var done=!!forceDone || actDone(id);
   function set(el,fn){ var n=document.getElementById(el); if(n) fn(n); }
   set('act-title',function(n){ n.textContent=a.name; });
   set('act-name', function(n){ n.textContent=a.name; });
@@ -1107,7 +1108,9 @@ function openActivity(id){
     n.style.background=done?'#E7F0EA':a.ac;
     n.style.color=done?'#3C6B4E':'#fff';
     n.style.boxShadow=done?'none':'0 8px 20px -8px '+a.ac+'99';
-    n.textContent=done?'Completed today ✓ · do it again anytime':'I did it · +'+a.pts+' XP';
+    n.style.cursor=done?'default':'pointer';
+    n.disabled=!!done;
+    n.textContent=done?'Completed ✓':'I did it · +'+a.pts+' XP';
   });
   if(typeof lucide!=='undefined' && lucide.createIcons) lucide.createIcons();
   openOv('activity');
@@ -1397,7 +1400,7 @@ function submitDetails(){
   window.__profile={name:nameVal, email:emailVal, phone:(window.__phone||null), dob:(window.__dob||null), age:(window.__dob?window.__dob.age:null)};
   var rn=document.getElementById('rhName'); if(rn) rn.textContent=nameVal.split(' ')[0];   /* greet by first name */
   try{ localStorage.setItem('rh_onboarded','1'); localStorage.setItem('rh_profile', JSON.stringify(window.__profile)); }catch(e){}
-  onbShow('connectCareScreen');   /* next step: connect to clinic (MOUD/Triggers/Relief removed) */
+  onbShow('reliefScreen');   /* next step: What brings you relief? → connect clinic → privacy */
   hideDetailsScreen();
 }
 /* ═══ ONBOARDING STEP FORM (MOUD -> triggers -> relief -> care -> reminders -> privacy -> done) ═══ */
@@ -1405,7 +1408,7 @@ function onbShow(id){ var e=document.getElementById(id); if(e){ e.style.display=
 function onbHide(id){ var e=document.getElementById(id); if(!e) return; e.classList.add('hide');
   setTimeout(function(){ e.style.display='none'; e.classList.remove('show','hide'); }, 420); }
 function onbStep(from,to){ onbShow(to); onbHide(from); }
-var ONB_ORDER=['connectCareScreen','privacyScreen'];   /* MOUD/Triggers/Relief removed from onboarding (Triggers/Relief still used by daily check-in) */
+var ONB_ORDER=['reliefScreen','connectCareScreen','privacyScreen'];   /* onboarding: Relief → clinic → privacy (Triggers moved to the daily check-in) */
 function onbBack(curId){
   if(window.__ciMode){   /* check-in intro: relief -> triggers -> cancel to home */
     if(curId==='reliefScreen'){ onbStep('reliefScreen','triggersScreen'); ciConfigTriggers(); ciGate(); return; }
@@ -1448,9 +1451,13 @@ function pvToggle(el){ el.classList.toggle('on');
   if(btn) btn.disabled=!(c1&&c1.classList.contains('on') && c2&&c2.classList.contains('on')); }
 function onbNext(step){
   if(step==='triggers'){
-    if(window.__ciMode && onbSelected('trigChips').length===0) return;   /* must pick at least one */
-    onbSave('triggers', onbSelected('trigChips')); onbStep('triggersScreen','reliefScreen');
-    if(window.__ciMode){ ciConfigRelief(); ciGate(); } }
+    if(window.__ciMode){
+      if(onbSelected('trigChips').length===0) return;   /* must pick at least one */
+      onbSave('triggers', onbSelected('trigChips'));
+      window.__ciMode=false; onbHide('triggersScreen');
+      setTimeout(function(){ if(typeof openReflect==='function') openReflect(); }, 460);   /* then the check-in */
+      return; }
+    onbSave('triggers', onbSelected('trigChips')); onbStep('triggersScreen','reliefScreen'); }
   else if(step==='relief'){
     if(window.__ciMode){
       if(onbSelected('reliefChips').length===0) return;                  /* must pick at least one */
@@ -1498,12 +1505,13 @@ function hideCheckinModal(){ if(window.__checkinTimer){ clearTimeout(window.__ch
   m.classList.add('hide'); setTimeout(function(){ m.classList.remove('show','hide'); m.style.display='none'; }, 340); }
 /* ═══ CHECK-IN INTRO: Let's Begin -> triggers -> relief -> reflection ═══ */
 function ciResetChips(cid){ var c=document.getElementById(cid); if(!c) return; var s=c.querySelectorAll('.onb-chip.sel'); for(var i=0;i<s.length;i++) s[i].classList.remove('sel'); }
-function ciConfig(id, num, pct, ctaHtml, hideSkip){ var s=document.getElementById(id); if(!s) return;
-  var cnt=s.querySelector('.onb-count'); if(cnt) cnt.innerHTML=num+'<span>/2</span>';
+function ciConfig(id, num, pct, ctaHtml, hideSkip, total){ var s=document.getElementById(id); if(!s) return;
+  var cnt=s.querySelector('.onb-count'); if(cnt) cnt.innerHTML=num+'<span>/'+(total||2)+'</span>';
   var fill=s.querySelector('.onb-steps-fill'); if(fill) fill.style.width=pct;
   var cta=s.querySelector('.onb-continue'); if(cta) cta.innerHTML=ctaHtml;
   var skip=s.querySelector('.onb-skip-link'); if(skip) skip.style.display=hideSkip?'none':''; }
-function ciConfigTriggers(){ ciConfig('triggersScreen','1','50%','Next <span aria-hidden="true">&rarr;</span>', false); }
+/* daily check-in prelude = triggers only (relief is collected during onboarding) */
+function ciConfigTriggers(){ ciConfig('triggersScreen','1','100%','Start my check-in <span aria-hidden="true">&rarr;</span>', true, 1); }
 function ciConfigRelief(){ ciConfig('reliefScreen','2','100%','Start my check-in <span aria-hidden="true">&rarr;</span>', true); }
 function ciGate(){ if(!window.__ciMode) return;
   var t=document.getElementById('triggersScreen'), r=document.getElementById('reliefScreen');
@@ -1511,15 +1519,9 @@ function ciGate(){ if(!window.__ciMode) return;
   if(r && r.classList.contains('show')){ var br=r.querySelector('.onb-continue'); if(br) br.disabled=(onbSelected('reliefChips').length===0); } }
 function ciProfile(){ var pf=window.__profile; if(!pf){ try{ pf=JSON.parse(localStorage.getItem('rh_profile')||'null'); }catch(e){} } return pf||{}; }
 function checkinBegin(){ hideCheckinModal();
-  var pf=ciProfile();
-  if((pf.triggers&&pf.triggers.length) && (pf.relief&&pf.relief.length)){
-    if(typeof openReflect==='function') openReflect(); return;   /* already set during onboarding -> straight to check-in */
-  }
-  window.__ciMode=true;
-  ciResetChips('trigChips'); ciResetChips('reliefChips');
-  ciConfigTriggers(); ciConfigRelief();
-  onbShow('triggersScreen');
-  ciGate(); }
+  /* no prelude — go straight to the survey (triggers collected via profile, relief during onboarding) */
+  window.__ciMode=false;
+  if(typeof openReflect==='function') openReflect(); }
 function ciCancel(){ window.__ciMode=false; onbHide('triggersScreen'); onbHide('reliefScreen'); }
 /* ═══ LOCATION PERMISSION ═══ */
 function showLocModal(){ var m=document.getElementById('locModal'); if(m) m.classList.add('show'); }
@@ -1569,7 +1571,7 @@ function finishOnbFlow(){ setTimeout(function(){ showDoneModal(); if(window.__do
       } else if(lastOv==='activity'){
         var aid=null; try{ aid=localStorage.getItem('rh_act_current'); }catch(e){}
         if(aid && typeof openActivity==='function') openActivity(aid);
-      } else if(lastOv==='reflect' || lastOv==='edit-activities' || lastOv==='edit-triggers'){
+      } else if(lastOv==='reflect' || lastOv==='edit-activities' || lastOv==='edit-triggers' || lastOv==='urge'){
         /* transient flows whose body is only built on demand — don't restore (would be an empty/stuck overlay); land on the screen instead */
         try{ localStorage.removeItem('rh_ov'); }catch(e){}
       } else {

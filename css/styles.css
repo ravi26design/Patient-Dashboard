@@ -512,6 +512,18 @@ body.is-framed .phone{background:var(--app-bg)}
 .ic-tile.t-lilac{background:var(--c-lilac)}
 .ic-tile.t-teal{background:var(--c-teal)}
 
+/* Log Use — home-bottom CTA (moved out of Recovery Today) */
+.log-cta{display:flex;align-items:center;gap:14px;width:100%;text-align:left;background:#fff;border:none;border-radius:18px;box-shadow:var(--card-shadow);padding:15px 16px;margin-top:2px;cursor:pointer;transition:transform .12s ease}
+.log-cta:active{transform:scale(.99)}
+.log-cta-ic{flex:0 0 auto;width:46px;height:46px;border-radius:14px;background:#C39078;color:#fff;display:flex;align-items:center;justify-content:center}
+.log-cta-ic i,.log-cta-ic svg{width:22px;height:22px;stroke-width:2}
+.log-cta-main{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
+.log-cta-t{font-family:var(--font-ui);font-size:15px;font-weight:700;color:var(--ink)}
+.log-cta-d{font-family:var(--font-ui);font-size:12.5px;color:var(--ink-soft);line-height:1.35}
+.log-cta-arrow{flex:0 0 auto;width:20px;height:20px;color:var(--ink-soft)}
+/* desktop: span the full width at the bottom of the 2-column home grid */
+body.is-desktop .screen.active > .log-cta{grid-column:1 / -1;column-span:all;margin-top:6px}
+
 /* Recovery Today — soft cream tiles inside the white card */
 .task{background:var(--app-bg);border:none;box-shadow:none;border-radius:16px}
 .task .ic-tile{border-radius:50%;width:46px;height:46px}
@@ -2326,6 +2338,8 @@ body.is-desktop #screen-narcan{padding-top:26px}
 .rl-urge-sub{font-size:12px;color:rgba(255,255,255,.88);margin-top:8px;line-height:1.5}
 .rl-urge-why{font-family:var(--font-ui);font-size:13px;color:rgba(255,255,255,.95);font-weight:600;margin-top:10px}
 .rl-acts{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+/* desktop: relief cards span the full container width (one per row) */
+body.is-desktop .rl-acts{grid-template-columns:1fr}
 .rl-act{display:flex;align-items:center;gap:10px;background:#fff;border:none;box-shadow:var(--card-shadow);border-radius:14px;padding:12px;cursor:pointer;transition:transform .12s ease}
 .rl-act:active{transform:scale(.98)}
 .rl-act:active{transform:scale(.97)}
@@ -2526,6 +2540,8 @@ body.is-mobile .lb-row > div:last-child{font-size:13px !important}
 .loc-zoom button:first-child{border-bottom:1px solid var(--border)}
 .loc-pin{position:absolute;top:50%;left:50%;transform:translate(-50%,-100%);width:30px;height:30px;pointer-events:none}
 .loc-pin svg{width:100%;height:100%;filter:drop-shadow(0 3px 5px rgba(58,51,48,.3))}
+/* secondary frequent-location pins — smaller than the current-location pin */
+.loc-pin-alt{width:23px;height:23px;opacity:.92}
 .loc-q{font-family:var(--font-display);font-size:16px;font-weight:700;color:var(--ink);margin-bottom:12px;line-height:1.3}
 .loc-opts{display:flex;flex-direction:column;gap:10px}
 .loc-opt{width:100%;text-align:left;background:#fff;border:1.5px solid rgba(54,59,59,.14);border-radius:14px;padding:14px 16px;font-family:var(--font-ui);font-size:13px;color:var(--ink);cursor:pointer;transition:border-color .15s ease,background .15s ease,transform .12s ease;line-height:1.35}
@@ -2646,6 +2662,12 @@ body.is-desktop .ct-row:has(.ct-btns) .ct-btn{flex:none;padding:0 18px}
 .cs-footer-ic i,.cs-footer-ic svg{width:24px;height:24px;color:var(--sage-dk)}
 .cs-footer-t{font-family:var(--font-display);font-size:20px;font-weight:700;color:#fff;line-height:1.25}
 .cs-footer-d{font-family:var(--font-ui);font-size:13px;color:rgba(255,255,255,.82);margin:10px auto 0;line-height:1.55;max-width:290px}
+/* Find-naloxone placeholder page */
+.nx-placeholder{text-align:center;padding:40px 22px}
+.nx-placeholder-ic{width:64px;height:64px;border-radius:50%;background:#EAF1E9;color:#5E8560;display:flex;align-items:center;justify-content:center;margin:0 auto 18px}
+.nx-placeholder-ic i,.nx-placeholder-ic svg{width:30px;height:30px}
+.nx-placeholder-t{font-family:var(--font-display);font-size:20px;font-weight:700;color:var(--ink);margin-bottom:10px}
+.nx-placeholder-d{font-family:var(--font-ui);font-size:13.5px;color:var(--ink-soft);line-height:1.6;max-width:340px;margin:0 auto}
 
 /* Emergency-tone SOS options (urge + crisis) */
 .sos-opt-emerg .sos-opt-t{color:#C4453A}
@@ -2977,6 +2999,40 @@ body.is-desktop .actz-card:hover{transform:translateY(-2px);box-shadow:0 12px 26
 .actz-card.actz-done{box-shadow:inset 0 0 0 2px var(--ac)}
 .actz-done .actz-start{background:var(--ac)!important;color:#fff!important;display:inline-flex;align-items:center;gap:5px}
 .actz-done .actz-start i{width:13px;height:13px}
+
+/* ===== Activities screen: Today's Activity + Previous Activities (date-grouped) ===== */
+.act-today{display:flex;align-items:center;gap:14px;width:100%;text-align:left;background:#fff;border:none;border-radius:18px;box-shadow:var(--card-shadow);padding:16px;cursor:pointer;transition:transform .12s ease}
+.act-today:active{transform:scale(.99)}
+.act-today-ic{flex:0 0 auto;width:48px;height:48px;border-radius:14px;color:#fff;display:flex;align-items:center;justify-content:center}
+.act-today-ic i,.act-today-ic svg{width:24px;height:24px;stroke-width:2}
+.act-today-main{flex:1;min-width:0;display:flex;flex-direction:column;gap:3px}
+.act-today-t{font-family:var(--font-ui);font-size:16px;font-weight:700;color:var(--ink)}
+.act-today-d{font-family:var(--font-ui);font-size:13px;color:var(--ink-soft)}
+.act-today-go{flex:0 0 auto;font-family:var(--font-ui);font-size:13px;font-weight:700;border-radius:999px;padding:9px 16px;white-space:nowrap}
+.prev-day{font-family:var(--font-ui);font-size:12px;font-weight:700;color:var(--ink-soft);margin:16px 0 8px;padding-left:2px}
+.prev-act{display:flex;align-items:center;gap:12px;width:100%;text-align:left;background:#fff;border:none;border-radius:14px;box-shadow:var(--card-shadow);padding:12px 14px;cursor:pointer;margin-bottom:8px;transition:transform .12s ease}
+.prev-act:active{transform:scale(.99)}
+.prev-act-ic{flex:0 0 auto;width:38px;height:38px;border-radius:11px;color:#fff;display:flex;align-items:center;justify-content:center}
+.prev-act-ic i,.prev-act-ic svg{width:19px;height:19px;stroke-width:2}
+.prev-act-main{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
+.prev-act-t{font-family:var(--font-ui);font-size:14px;font-weight:700;color:var(--ink)}
+.prev-act-d{font-family:var(--font-ui);font-size:12px;color:var(--ink-soft)}
+.prev-act-check{flex:0 0 auto;width:20px;height:20px;color:#5E8B6E}
+.prev-act-pending{flex:0 0 auto;width:20px;height:20px;color:#C4CAC8}
+.prev-act .prev-act-d{color:var(--ink-soft)}
+/* Today's Activity card: stays white even when done; a plain check (not a filled circle) appears only when completed — matching the Previous rows */
+#act-rec-relief.is-done{background:#fff;border-color:rgba(54,59,59,.07)}
+#act-rec-relief.is-done .ins-rec-t{color:var(--ink)}
+#act-rec-relief .ins-rec-badge{top:50%;right:16px;transform:translateY(-50%);width:22px;height:22px;background:none;color:#5E8B6E;box-shadow:none}
+#act-rec-relief .ins-rec-badge i,#act-rec-relief .ins-rec-badge svg{width:22px;height:22px;stroke-width:2.5}
+/* desktop: single full-width column (Today's card + date-grouped list, not the 2-col grid) */
+body.is-desktop #screen-tools.active{display:block;column-count:1;grid-template-columns:none}
+body.is-desktop #screen-tools .ins-rec-grid,
+body.is-desktop #screen-tools .prev-act{max-width:760px;margin-left:auto;margin-right:auto}
+body.is-desktop #screen-tools .prev-act{margin-bottom:8px}
+body.is-desktop #screen-tools .scr-head,
+body.is-desktop #screen-tools .scr-eyebrow,
+body.is-desktop #screen-tools .prev-day{max-width:760px;margin-left:auto;margin-right:auto}
 
 /* ============ RESPONSIVE SAFETY NETS ============ */
 /* Overlays clip stray horizontal overflow (the phone shell clips → cutoff otherwise) */

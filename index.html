@@ -161,7 +161,7 @@
 </div>
 
 <div id="reliefScreen" class="step-screen" aria-hidden="true">
-  <div class="onb-top"><button class="onb-back" type="button" onclick="onbBack('reliefScreen')" aria-label="Back"><i data-lucide="arrow-left"></i></button><div class="onb-steps"><div class="onb-steps-fill" style="width:60%"></div></div><div class="onb-count">3<span>/5</span></div></div>
+  <div class="onb-top"><button class="onb-back" type="button" onclick="onbBack('reliefScreen')" aria-label="Back"><i data-lucide="arrow-left"></i></button><div class="onb-steps"><div class="onb-steps-fill" style="width:33%"></div></div><div class="onb-count">1<span>/3</span></div></div>
   <div class="onb-inner">
     <h1 class="ph-title">What brings you <em>relief</em>?</h1>
     <p class="ph-sub">Things you enjoy can help an urge pass. I'll keep these one tap away on your Urge button.</p>
@@ -183,13 +183,12 @@
     </div>
     <div class="onb-foot">
       <button class="wc-begin onb-continue" type="button" onclick="onbNext('relief')">Continue <span aria-hidden="true">&rarr;</span></button>
-      <button class="onb-skip-link" type="button" onclick="onbSkip('relief')">Skip for now</button>
     </div>
   </div>
 </div>
 
 <div id="connectCareScreen" class="step-screen" aria-hidden="true">
-  <div class="onb-top"><button class="onb-back" type="button" onclick="onbBack('connectCareScreen')" aria-label="Back"><i data-lucide="arrow-left"></i></button><div class="onb-steps"><div class="onb-steps-fill" style="width:50%"></div></div><div class="onb-count">1<span>/2</span></div></div>
+  <div class="onb-top"><button class="onb-back" type="button" onclick="onbBack('connectCareScreen')" aria-label="Back"><i data-lucide="arrow-left"></i></button><div class="onb-steps"><div class="onb-steps-fill" style="width:66%"></div></div><div class="onb-count">2<span>/3</span></div></div>
   <div class="onb-inner">
     <h1 class="ph-title">Want to connect your care team?</h1>
     <p class="ph-sub">If you're seeing a clinic, Rudra can securely sync your appointments and MOUD plan through your health record. Enter your clinic's name or the code they gave you. You're always in control of what's shared.</p>
@@ -208,7 +207,7 @@
 </div>
 
 <div id="privacyScreen" class="step-screen" aria-hidden="true">
-  <div class="onb-top"><button class="onb-back" type="button" onclick="onbBack('privacyScreen')" aria-label="Back"><i data-lucide="arrow-left"></i></button><div class="onb-steps"><div class="onb-steps-fill" style="width:100%"></div></div><div class="onb-count">2<span>/2</span></div></div>
+  <div class="onb-top"><button class="onb-back" type="button" onclick="onbBack('privacyScreen')" aria-label="Back"><i data-lucide="arrow-left"></i></button><div class="onb-steps"><div class="onb-steps-fill" style="width:100%"></div></div><div class="onb-count">3<span>/3</span></div></div>
   <div class="onb-inner">
     <h1 class="ph-title">Your privacy, in plain terms.</h1>
     <p class="ph-sub">Records about substance use disorder get extra federal protection. Here's what you're agreeing to.</p>
@@ -270,7 +269,7 @@
       </svg>
     </div>
     <h2 class="ci-title">Daily Check-In</h2>
-    <p class="ci-sub"><b>4 quick exercises</b>, about 2 minutes. Finish all four for a <span class="ci-xp">+50 XP bonus</span> — and help your care team show up for you.</p>
+    <p class="ci-sub"><b>4 quick exercises</b>, about 2 minutes. Finish all four for a <span class="ci-xp">+30 XP bonus</span> — and help your care team show up for you.</p>
     <button class="ci-begin" type="button" onclick="checkinBegin()">Let's Begin <span aria-hidden="true">&rarr;</span></button>
     <button class="ci-later" type="button" onclick="hideCheckinModal()">Maybe later</button>
   </div>
@@ -441,7 +440,7 @@
               <div class="task-time" id="focus-time">8:00 AM</div>
             </div>
             <div class="task" id="checkin-card" onclick="openReflect()">
-              <span class="xp-chip xp-corner">+20 XP</span>
+              <span class="xp-chip xp-corner">+30 XP</span>
               <div class="task-ic-wrap">
                 <div class="ic-tile t-lilac" id="checkin-icon"><i data-lucide="pen-line"></i></div>
                 <div class="task-check" style="display:none" id="checkin-check">&#10003;</div>
@@ -450,7 +449,7 @@
               <div class="task-time" id="checkin-time">5:00 PM</div>
             </div>
             <div class="task" id="connect-card" onclick="confirmConnect(this)">
-              <span class="xp-chip xp-corner">+20 XP</span>
+              <span class="xp-chip xp-corner">+10 XP</span>
               <div class="task-ic-wrap">
                 <div class="ic-tile t-teal" id="connect-icon"><i data-lucide="users"></i></div>
                 <div class="task-check" style="display:none" id="connect-check">&#10003;</div>
@@ -458,13 +457,14 @@
               <div class="task-name" id="connect-label">Connect</div>
               <div class="task-time" id="connect-time">Anytime</div>
             </div>
-            <div class="task" id="log-card" onclick="openLogUse()">
+            <div class="task" id="activities-card" onclick="openOv('relief-detail')">
+              <span class="xp-chip xp-corner">+10 XP</span>
               <div class="task-ic-wrap">
-                <div class="ic-tile t-slate" id="log-icon"><i data-lucide="clipboard-list"></i></div>
-                <div class="task-check" style="display:none" id="log-check">&#10003;</div>
+                <div class="ic-tile" style="background:#5B92CE" id="activities-icon"><i data-lucide="layout-grid"></i></div>
+                <div class="task-check" style="display:none" id="activities-check">&#10003;</div>
               </div>
-              <div class="task-name" id="log-label">Log Use</div>
-              <div class="task-time" id="log-time">Anytime</div>
+              <div class="task-name" id="activities-label">Activities</div>
+              <div class="task-time" id="activities-time">Anytime</div>
             </div>
           </div>
         </div>
@@ -581,6 +581,16 @@
           </div>
         </div>
       </div>
+
+      <!-- Log Use — bottom CTA -->
+      <button class="log-cta" type="button" onclick="openLogUse()">
+        <span class="log-cta-ic"><i data-lucide="clipboard-list"></i></span>
+        <span class="log-cta-main">
+          <span class="log-cta-t">Log Use</span>
+          <span class="log-cta-d">Track any substance use — private &amp; judgment-free</span>
+        </span>
+        <i data-lucide="chevron-right" class="log-cta-arrow"></i>
+      </button>
 
       <!-- Narcan Status -->
 
@@ -901,44 +911,70 @@
         <div class="scr-title">Activities</div>
         <div class="scr-sub">Short, guided exercises to steady you — pick one and start.</div>
       </div>
-      <div class="actz-grid">
-        <button class="actz-card" id="actz-tile-crave" style="--ac:#4E7FA8;--acbg:#E3EDF6" onclick="openActivity('crave')">
-          <span class="actz-ic"><i data-lucide="life-buoy"></i></span>
-          <span class="actz-t">Managing Cravings</span>
-          <span class="actz-d">Surf the urge until it passes</span>
-          <span class="actz-start" id="actz-go-crave">Start &middot; 4 min</span>
-        </button>
-        <button class="actz-card" id="actz-tile-stress" style="--ac:#B5893E;--acbg:#FBF0D3" onclick="openActivity('stress')">
-          <span class="actz-ic"><i data-lucide="heart-pulse"></i></span>
-          <span class="actz-t">Coping with Stressors</span>
-          <span class="actz-d">Calm your body's stress response</span>
-          <span class="actz-start" id="actz-go-stress">Start &middot; 5 min</span>
-        </button>
-        <button class="actz-card" id="actz-tile-breathe" style="--ac:#5E8B6E;--acbg:#E7F0EA" onclick="openActivity('breathe')">
-          <span class="actz-ic"><i data-lucide="wind"></i></span>
-          <span class="actz-t">Mindful Breathing</span>
-          <span class="actz-d">One quiet minute to reset</span>
-          <span class="actz-start" id="actz-go-breathe">Start &middot; 1 min</span>
-        </button>
-        <button class="actz-card" id="actz-tile-map" style="--ac:#8A6DAF;--acbg:#EDE8F4" onclick="openActivity('map')">
-          <span class="actz-ic"><i data-lucide="map"></i></span>
-          <span class="actz-t">Trigger Mapping</span>
-          <span class="actz-d">Know your cues before they hit</span>
-          <span class="actz-start" id="actz-go-map">Start &middot; 6 min</span>
-        </button>
-        <button class="actz-card" id="actz-tile-surf" style="--ac:#C0748A;--acbg:#F6E4E7" onclick="openActivity('surf')">
-          <span class="actz-ic"><i data-lucide="waves"></i></span>
-          <span class="actz-t">Urge Surfing</span>
-          <span class="actz-d">Ride the wave — don't fight it</span>
-          <span class="actz-start" id="actz-go-surf">Start &middot; 3 min</span>
-        </button>
-        <button class="actz-card" id="actz-tile-sleep" style="--ac:#5A7A9A;--acbg:#E7ECF2" onclick="openActivity('sleep')">
-          <span class="actz-ic"><i data-lucide="moon"></i></span>
-          <span class="actz-t">Sleep Hygiene</span>
-          <span class="actz-d">Set yourself up for real rest</span>
-          <span class="actz-start" id="actz-go-sleep">Start &middot; 5 min</span>
+      <!-- Today's Activity -->
+      <div class="scr-eyebrow" style="margin-bottom:8px">Today's Activity</div>
+      <div class="ins-rec-grid ins-rec-single" style="margin-bottom:2px">
+        <button class="ins-rec-card" id="act-rec-relief" style="--rca:#5E8B6E;--rcbg:#E7F0EA" onclick="openOv('relief-detail')">
+          <span class="ins-rec-badge"><i data-lucide="check"></i></span>
+          <span class="ins-rec-ic"><i data-lucide="leaf"></i></span>
+          <span class="ins-rec-body">
+            <span class="ins-rec-t">Do one relief activity</span>
+            <span class="ins-rec-pts">+10 XP</span>
+          </span>
         </button>
       </div>
+
+      <!-- Previous Activities -->
+      <div class="scr-eyebrow" style="margin-top:24px;margin-bottom:2px">Previous Activities</div>
+
+      <div class="prev-day">July 6, 2026</div>
+      <button class="prev-act" onclick="openActivity('crave', true)">
+        <span class="prev-act-ic" style="background:#4E7FA8"><i data-lucide="life-buoy"></i></span>
+        <span class="prev-act-main"><span class="prev-act-t">Managing Cravings</span><span class="prev-act-d">Completed &middot; 4 min</span></span>
+        <i data-lucide="check" class="prev-act-check"></i>
+      </button>
+
+      <div class="prev-day">July 5, 2026</div>
+      <button class="prev-act" onclick="openActivity('breathe', true)">
+        <span class="prev-act-ic" style="background:#5E8B6E"><i data-lucide="wind"></i></span>
+        <span class="prev-act-main"><span class="prev-act-t">Mindful Breathing</span><span class="prev-act-d">Completed &middot; 1 min</span></span>
+        <i data-lucide="check" class="prev-act-check"></i>
+      </button>
+
+      <div class="prev-day">July 4, 2026</div>
+      <button class="prev-act" onclick="openActivity('stress', true)">
+        <span class="prev-act-ic" style="background:#B5893E"><i data-lucide="heart-pulse"></i></span>
+        <span class="prev-act-main"><span class="prev-act-t">Coping with Stressors</span><span class="prev-act-d">Completed &middot; 5 min</span></span>
+        <i data-lucide="check" class="prev-act-check"></i>
+      </button>
+
+      <div class="prev-day">July 3, 2026</div>
+      <button class="prev-act" onclick="openActivity('surf', true)">
+        <span class="prev-act-ic" style="background:#C0748A"><i data-lucide="waves"></i></span>
+        <span class="prev-act-main"><span class="prev-act-t">Urge Surfing</span><span class="prev-act-d">Completed &middot; 3 min</span></span>
+        <i data-lucide="check" class="prev-act-check"></i>
+      </button>
+
+      <div class="prev-day">July 2, 2026</div>
+      <button class="prev-act" onclick="openActivity('map', true)">
+        <span class="prev-act-ic" style="background:#8A6DAF"><i data-lucide="map"></i></span>
+        <span class="prev-act-main"><span class="prev-act-t">Trigger Mapping</span><span class="prev-act-d">Completed &middot; 6 min</span></span>
+        <i data-lucide="check" class="prev-act-check"></i>
+      </button>
+
+      <div class="prev-day">July 1, 2026</div>
+      <button class="prev-act" onclick="openActivity('sleep', true)">
+        <span class="prev-act-ic" style="background:#5A7A9A"><i data-lucide="moon"></i></span>
+        <span class="prev-act-main"><span class="prev-act-t">Sleep Hygiene</span><span class="prev-act-d">Completed &middot; 5 min</span></span>
+        <i data-lucide="check" class="prev-act-check"></i>
+      </button>
+
+      <div class="prev-day">June 30, 2026</div>
+      <button class="prev-act" onclick="openActivity('map')">
+        <span class="prev-act-ic" style="background:#8A6DAF"><i data-lucide="map"></i></span>
+        <span class="prev-act-main"><span class="prev-act-t">Trigger Mapping</span><span class="prev-act-d">Not completed</span></span>
+        <i data-lucide="circle" class="prev-act-pending"></i>
+      </button>
 
     </div>
 
@@ -2047,7 +2083,7 @@
         <div id="urge-contacts"></div>
       </div>
 
-      <button class="rl-done" style="margin-top:16px" onclick="urgeDone()">I rode it out <i data-lucide="check"></i> <span class="rl-xp">+30 XP</span></button>
+      <button class="rl-done" style="margin-top:16px" onclick="urgeDone()">I rode it out <i data-lucide="check"></i></button>
 
       <!-- Crisis lines (duplicated from I'm in crisis) -->
       <div class="scr-eyebrow" style="margin:20px 0 10px">If you need more support right now</div>
@@ -2123,7 +2159,11 @@
       <button class="loc-fab loc-fab-back" type="button" onclick="closeOv()" aria-label="Back"><i data-lucide="arrow-left"></i></button>
       <div class="loc-zoom"><button type="button" aria-label="Zoom in">+</button><button type="button" aria-label="Zoom out">−</button></div>
       <button class="loc-fab loc-fab-locate" type="button" aria-label="Recenter"><i data-lucide="locate-fixed"></i></button>
-      <span class="loc-pin"><svg viewBox="0 0 24 24" fill="#C25445" aria-hidden="true"><path d="M12 2C8.1 2 5 5.1 5 9c0 5.2 7 13 7 13s7-7.8 7-13c0-3.9-3.1-7-7-7z"/><circle cx="12" cy="9" r="2.6" fill="#fff"/></svg></span>
+      <span class="loc-pin" style="top:50%;left:50%"><svg viewBox="0 0 24 24" fill="#C25445" aria-hidden="true"><path d="M12 2C8.1 2 5 5.1 5 9c0 5.2 7 13 7 13s7-7.8 7-13c0-3.9-3.1-7-7-7z"/><circle cx="12" cy="9" r="2.6" fill="#fff"/></svg></span>
+      <span class="loc-pin loc-pin-alt" style="top:33%;left:24%"><svg viewBox="0 0 24 24" fill="#6E9E80" aria-hidden="true"><path d="M12 2C8.1 2 5 5.1 5 9c0 5.2 7 13 7 13s7-7.8 7-13c0-3.9-3.1-7-7-7z"/><circle cx="12" cy="9" r="2.6" fill="#fff"/></svg></span>
+      <span class="loc-pin loc-pin-alt" style="top:64%;left:31%"><svg viewBox="0 0 24 24" fill="#6E9E80" aria-hidden="true"><path d="M12 2C8.1 2 5 5.1 5 9c0 5.2 7 13 7 13s7-7.8 7-13c0-3.9-3.1-7-7-7z"/><circle cx="12" cy="9" r="2.6" fill="#fff"/></svg></span>
+      <span class="loc-pin loc-pin-alt" style="top:42%;left:73%"><svg viewBox="0 0 24 24" fill="#6E9E80" aria-hidden="true"><path d="M12 2C8.1 2 5 5.1 5 9c0 5.2 7 13 7 13s7-7.8 7-13c0-3.9-3.1-7-7-7z"/><circle cx="12" cy="9" r="2.6" fill="#fff"/></svg></span>
+      <span class="loc-pin loc-pin-alt" style="top:72%;left:62%"><svg viewBox="0 0 24 24" fill="#6E9E80" aria-hidden="true"><path d="M12 2C8.1 2 5 5.1 5 9c0 5.2 7 13 7 13s7-7.8 7-13c0-3.9-3.1-7-7-7z"/><circle cx="12" cy="9" r="2.6" fill="#fff"/></svg></span>
     </div>
 
     <!-- Sheet scrolls up over the map -->
@@ -2170,6 +2210,12 @@
         <div class="cs-note-tx"><b>Possible overdose?</b> Signs: can't wake them, slow or stopped breathing, blue lips or fingertips. <b>Call 911, give naloxone, stay with them.</b></div>
       </div>
 
+      <div class="ct-row" role="button" onclick="openOv('naloxone')" style="cursor:pointer;margin-top:12px">
+        <div class="ct-av" style="background:#7BA47E"><i data-lucide="pill"></i></div>
+        <div class="ct-main"><div class="ct-name">Find naloxone near me</div><div class="ct-role">Pharmacies &amp; free distribution points</div></div>
+        <i data-lucide="chevron-right" class="cs-arrow"></i>
+      </div>
+
       <div class="scr-eyebrow" style="margin:16px 0 10px">More ways to get help right now</div>
       <div class="ct-row">
         <div class="ct-av" style="background:#C97B6F;font-size:15px">988</div>
@@ -2181,12 +2227,6 @@
         <div class="ct-main"><div class="ct-name">Crisis Text Line</div><div class="ct-role">Text HOME to 741741 · 24/7</div></div>
         <div class="ct-btns"><a class="ct-btn text" href="sms:741741&body=HOME"><i data-lucide="message-circle"></i>Text</a></div>
       </div>
-      <div class="ct-row" role="button" onclick="openOv('support-team')" style="cursor:pointer">
-        <div class="ct-av" style="background:#7BA47E"><i data-lucide="pill"></i></div>
-        <div class="ct-main"><div class="ct-name">Find naloxone near me</div><div class="ct-role">Pharmacies &amp; free distribution points</div></div>
-        <i data-lucide="chevron-right" class="cs-arrow"></i>
-      </div>
-
       <div class="scr-eyebrow" style="margin:18px 0 10px">Reach a person on your team</div>
       <div class="ct-row">
         <div class="ct-av" style="background:#6E9E80"><i data-lucide="headphones"></i></div>
@@ -2213,6 +2253,23 @@
         <div class="cs-footer-ic"><i data-lucide="sprout"></i></div>
         <div class="cs-footer-t">This moment is not the whole story.</div>
         <div class="cs-footer-d">You've made it through hard moments before. You can make it through this one too.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ FIND NALOXONE (placeholder) ═══ -->
+  <div class="overlay" id="ov-naloxone" style="background:var(--app-bg)">
+    <div class="ov-header" style="background:#fff;border-bottom:1px solid rgba(54,59,59,.06)">
+      <button class="ov-back" style="background:#EEF0F0;color:var(--ink)" onclick="closeOv()">&larr;</button>
+      <div>
+        <div style="font-family:var(--font-display);font-size:17px;font-weight:700;color:var(--ink)">Find naloxone</div>
+      </div>
+    </div>
+    <div class="ov-body" style="padding-top:14px">
+      <div class="nx-placeholder">
+        <div class="nx-placeholder-ic"><i data-lucide="pill"></i></div>
+        <div class="nx-placeholder-t">Naloxone finder coming soon</div>
+        <div class="nx-placeholder-d">We're building a map of pharmacies and free distribution points near you. In the meantime, call <b>988</b> or your pharmacy to ask where to get naloxone.</div>
       </div>
     </div>
   </div>
@@ -2434,7 +2491,7 @@
           <span class="ins-rec-ic"><i data-lucide="leaf"></i></span>
           <span class="ins-rec-body">
             <span class="ins-rec-t">Do one relief activity</span>
-            <span class="ins-rec-pts">+20 pts</span>
+            <span class="ins-rec-pts">+10 XP</span>
           </span>
         </button>
       </div>
@@ -2502,7 +2559,7 @@
         <div class="rd-hero-ic"><i data-lucide="leaf"></i></div>
         <div class="home-title rd-h">Why this helps today</div>
         <p class="rd-p">&ldquo;Go for a walk&rdquo; &mdash; the things you chose work because they're <b>yours</b>.</p>
-        <span class="rd-earn">Earn +20 pts</span>
+        <span class="rd-earn">Earn +10 XP</span>
       </div>
 
       <!-- Go do it now -->
@@ -2511,7 +2568,7 @@
         <button class="rd-go" onclick="closeDetail('relief-detail');openOv('edit-activities')">
           <div class="rd-go-txt">
             <div class="rd-go-t"><i data-lucide="leaf"></i> Open My Relief Toolkit</div>
-            <div class="rd-go-s">The activities you chose, ready to go &middot; earns +20 pts</div>
+            <div class="rd-go-s">The activities you chose, ready to go &middot; earns +10 XP</div>
           </div>
           <i data-lucide="chevron-right" class="rd-go-arrow"></i>
         </button>
