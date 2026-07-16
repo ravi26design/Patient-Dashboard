@@ -1115,14 +1115,24 @@
           <div class="pf-contact-main"><div class="pf-contact-name">Emily M. (Sister)</div><div class="pf-contact-role">1 reward pledged</div></div>        </div>
       </div>
 
-      <!-- Settings / Privacy / Log out -->
+      <!-- Guides / Tutorials / Settings / Privacy / Log out -->
       <div class="pf-menu">
-        <button class="pf-menu-row" type="button">
+        <button class="pf-menu-row" type="button" onclick="openOv('guides')">
+          <div class="pf-menu-ic" style="background:#5B92CE;color:#fff"><i data-lucide="book-open"></i></div>
+          <div class="pf-menu-t">Guides</div>
+          <i data-lucide="chevron-right" class="pf-menu-arrow"></i>
+        </button>
+        <button class="pf-menu-row" type="button" onclick="openOv('tutorials')">
+          <div class="pf-menu-ic" style="background:#D8AD63;color:#fff"><i data-lucide="graduation-cap"></i></div>
+          <div class="pf-menu-t">Tutorials</div>
+          <i data-lucide="chevron-right" class="pf-menu-arrow"></i>
+        </button>
+        <button class="pf-menu-row" type="button" onclick="openOv('settings')">
           <div class="pf-menu-ic" style="background:#6E9E80;color:#fff"><i data-lucide="settings"></i></div>
           <div class="pf-menu-t">Settings &amp; Preferences</div>
           <i data-lucide="chevron-right" class="pf-menu-arrow"></i>
         </button>
-        <button class="pf-menu-row" type="button">
+        <button class="pf-menu-row" type="button" onclick="openOv('privacy')">
           <div class="pf-menu-ic" style="background:#5B92CE;color:#fff"><i data-lucide="shield"></i></div>
           <div class="pf-menu-t">Privacy &amp; Data Sharing</div>
           <i data-lucide="chevron-right" class="pf-menu-arrow"></i>
@@ -1134,6 +1144,333 @@
       </div>
     </div>
 
+  </div>
+
+  <!-- ═══ GUIDES ═══ -->
+  <div class="overlay" id="ov-guides" style="background:var(--app-bg)">
+    <div class="ov-header" style="background:#fff;border-bottom:1px solid rgba(54,59,59,.06)">
+      <button class="ov-back" style="background:#EEF0F0;color:var(--ink)" onclick="closeOv()">&larr;</button>
+      <div>
+        <div style="font-family:var(--font-display);font-size:17px;font-weight:700;color:var(--ink)">Guides</div>
+        <div style="font-family:var(--font-ui);font-size:12px;color:var(--ink-soft)">Learn how to make the most of Rudra</div>
+      </div>
+    </div>
+    <div class="ov-body" style="padding-top:14px">
+      <div class="gd-intro">
+        <div class="gd-intro-t">New here, or need a refresher?</div>
+        <div class="gd-intro-d">These two guides walk you through everything — from your first check-in to every feature Rudra offers. Take them at your own pace.</div>
+      </div>
+      <div class="gd-list">
+        <button class="gd-card" type="button" onclick="openOv('guide-quickstart')">
+          <span class="gd-card-ic" style="background:#DCEAF6;color:#4E7FA8"><i data-lucide="rocket"></i></span>
+          <span class="gd-card-main"><span class="gd-card-t">Quick Start Guide</span><span class="gd-card-d">Get going in 5 minutes</span></span>
+          <i data-lucide="chevron-right" class="gd-card-arrow"></i>
+        </button>
+        <button class="gd-card" type="button" onclick="openOv('manual')">
+          <span class="gd-card-ic" style="background:#DDEBD6;color:#5E8B6E"><i data-lucide="book"></i></span>
+          <span class="gd-card-main"><span class="gd-card-t">User Manual</span><span class="gd-card-d">Every feature, explained</span></span>
+          <i data-lucide="chevron-right" class="gd-card-arrow"></i>
+        </button>
+      </div>
+      <div class="gd-foot">Rudra is a recovery companion — not a medical or emergency service. In an emergency, call 911.</div>
+    </div>
+  </div>
+
+  <!-- ═══ GUIDE: QUICK START ═══ -->
+  <div class="overlay" id="ov-guide-quickstart" style="background:var(--app-bg)">
+    <div class="ov-header" style="background:#fff;border-bottom:1px solid rgba(54,59,59,.06)">
+      <button class="ov-back" style="background:#EEF0F0;color:var(--ink)" onclick="closeDetail('guide-quickstart')">&larr;</button>
+      <div>
+        <div style="font-family:var(--font-display);font-size:17px;font-weight:700;color:var(--ink)">Quick Start Guide</div>
+        <div style="font-family:var(--font-ui);font-size:12px;color:var(--ink-soft)">Five steps to get going</div>
+      </div>
+    </div>
+    <div class="ov-body" style="padding-top:14px">
+      <div class="gd-intro">
+        <div class="gd-intro-t">Welcome to Rudra 👋</div>
+        <div class="gd-intro-d">Your recovery companion — here every day, with a real human always one tap away. You don't have to do it all at once. Here's how to get started.</div>
+      </div>
+      <div class="scr-eyebrow" style="color:#4E7FA8;margin:0 0 10px">Get going in 5 steps</div>
+      <div class="gd-steps">
+        <div class="gd-step">
+          <span class="gd-step-n">1</span>
+          <span class="gd-step-b"><span class="gd-step-t">Do your first check-in</span><span class="gd-step-d">Tap <b>Reflect</b> on your home screen. It takes about a minute — your medication, how you're feeling, sleep, and cravings, ending with a short note in your own words. Every check-in earns XP and helps your care team show up for you.</span></span>
+        </div>
+        <div class="gd-step">
+          <span class="gd-step-n">2</span>
+          <span class="gd-step-b"><span class="gd-step-t">Know where Help lives</span><span class="gd-step-d">The bright <b>Help</b> button sits at the top of every screen. Tap it any time to reach the 988 Lifeline, call 911, open your urge toolkit, or reach your own people.</span></span>
+        </div>
+        <div class="gd-step">
+          <span class="gd-step-n">3</span>
+          <span class="gd-step-b"><span class="gd-step-t">When an urge hits, open your toolkit</span><span class="gd-step-d">Tap the <b>Help</b> button for your urge toolkit — a calming breathing guide, your own relief activities, and one-tap ways to reach your people. Most cravings peak and pass in 15–30 minutes — Rudra helps you ride it out.</span></span>
+        </div>
+        <div class="gd-step">
+          <span class="gd-step-n">4</span>
+          <span class="gd-step-b"><span class="gd-step-t">Stay on your medication</span><span class="gd-step-d">Your MOUD (like Suboxone) shows on your home screen and is the very first question in each check-in. Mark every dose to keep your streak going and keep your care team in the loop — no judgment either way.</span></span>
+        </div>
+        <div class="gd-step">
+          <span class="gd-step-n">5</span>
+          <span class="gd-step-b"><span class="gd-step-t">Earn rewards and bring in your people</span><span class="gd-step-d">Every action earns XP toward levels — <b>Seed → Bloom → Flourish</b>. Family and sponsors can pledge real rewards on your <b>Rewards</b> board and cheer you on. Recovery is easier together.</span></span>
+        </div>
+      </div>
+      <div class="gd-tip">🌿 <b>One small thing counts.</b> A single check-in today is a win. Come back tomorrow and you've started a streak.</div>
+    </div>
+  </div>
+
+  <!-- ═══ USER MANUAL ═══ -->
+  <div class="overlay" id="ov-manual" style="background:var(--app-bg)">
+    <div class="ov-header" style="background:#fff;border-bottom:1px solid rgba(54,59,59,.06)">
+      <button class="ov-back" style="background:#EEF0F0;color:var(--ink)" onclick="closeDetail('manual')">&larr;</button>
+      <div>
+        <div style="font-family:var(--font-display);font-size:17px;font-weight:700;color:var(--ink)">User Manual</div>
+        <div style="font-family:var(--font-ui);font-size:12px;color:var(--ink-soft)">Every feature, explained</div>
+      </div>
+    </div>
+    <div class="ov-body" style="padding-top:14px">
+      <div class="gd-intro"><div class="gd-intro-t">Your complete guide to Rudra</div><div class="gd-intro-d">Everything your recovery companion can do, organized by where you'll find it. Skim it now, or come back whenever you need it.</div></div>
+
+      <div class="guide-sec">1 · Getting set up</div>
+      <div class="guide-block"><div class="guide-h4"><span class="guide-ic" style="background:#DCEAF6;color:#4E7FA8"><i data-lucide="lock"></i></span>Your account</div><div class="guide-p">You'll verify your phone number, add a few details, and agree to plain-language privacy terms. Records about substance use get extra federal protection under <b>42 CFR Part 2</b> &amp; HIPAA — nothing is shared without your consent.</div></div>
+      <div class="guide-block"><div class="guide-h4"><span class="guide-ic" style="background:#F6E0DC;color:#C25445"><i data-lucide="target"></i></span>Triggers &amp; relief</div><div class="guide-p">Name what tends to spark a craving (a feeling, place, person, or time of day) and what helps you cope. Rudra uses these to warn you early and to stock your urge toolkit. You can edit both anytime in your profile.</div></div>
+      <div class="guide-block"><div class="guide-h4"><span class="guide-ic" style="background:#DDEBD6;color:#5E8B6E"><i data-lucide="stethoscope"></i></span>Connecting your care team</div><div class="guide-p">The final setup step. Enter your clinic's name or the code they gave you to securely sync your appointments and MOUD plan. You're always in control of what's shared — and you can connect later if you don't have it handy.</div></div>
+
+      <div class="guide-sec">2 · Home — your recovery at a glance</div>
+      <div class="guide-block"><div class="guide-h4"><span class="guide-ic" style="background:#DDEBD6;color:#5E8B6E"><i data-lucide="activity"></i></span>Recovery Health score</div><div class="guide-p">A 0–100 gauge that blends your check-ins, medication, and activity into one friendly number. "Above Average" is a good day — but the <b>trend</b> matters far more than any single score.</div></div>
+      <div class="guide-block"><div class="guide-h4"><span class="guide-ic" style="background:#DCEAF6;color:#4E7FA8"><i data-lucide="list-checks"></i></span>Recovery Today</div><div class="guide-p">Four daily actions, each worth XP:</div><div class="guide-li"><b>Insights</b> — a personalized read on your day</div><div class="guide-li"><b>Reflect</b> — your daily check-in</div><div class="guide-li"><b>Connect</b> — share and connect with peers in Community (usernames only)</div><div class="guide-li"><b>Activities</b> — a guided exercise to steady you</div></div>
+      <div class="guide-block"><div class="guide-h4"><span class="guide-ic" style="background:#FBF0D3;color:#B08A2E"><i data-lucide="sunrise"></i></span>Journey, streaks &amp; medication</div><div class="guide-p">See your <b>days in recovery</b> and progress to your next milestone, your streaks by focus area, and your next <b>MOUD dose</b> — all on one screen.</div></div>
+
+      <div class="guide-sec">3 · The daily check-in (Reflect)</div>
+      <div class="guide-block"><div class="guide-p">About seven quick steps, roughly a minute, and it earns XP. The order is:</div><div class="guide-li"><b>Medication</b> — did you take your MOUD today?</div><div class="guide-li"><b>Substance use</b> — anything in the last 24 hours</div><div class="guide-li"><b>Cravings</b> — how strong, and how you resisted</div><div class="guide-li"><b>Mood &amp; feelings</b> — how the day felt</div><div class="guide-li"><b>Body</b> — sleep and pain</div><div class="guide-li"><b>The week ahead</b> — motivation and confidence</div><div class="guide-li"><b>Reflection</b> — a note in your own words, typed or spoken</div><div class="gd-tip" style="margin-top:12px">Every answer is confidential and shared only with your care team. There's no judgment on anything you report.</div></div>
+
+      <div class="guide-sec">4 · Getting help fast</div>
+      <div class="guide-block"><div class="guide-h4"><span class="guide-ic" style="background:#F6E0DC;color:#C25445"><i data-lucide="life-buoy"></i></span>The Help button</div><div class="guide-p">Always at the top of every screen. It opens your crisis hub:</div><div class="guide-li"><b>I'm in crisis</b> — 988 Lifeline, crisis text line &amp; naloxone help</div><div class="guide-li"><b>Call 911</b> — for an overdose or medical emergency</div><div class="guide-li"><b>I'm having an urge</b> — opens your urge toolkit</div><div class="guide-li"><b>Your support team</b> — real people, one tap away</div></div>
+      <div class="guide-block"><div class="guide-h4"><span class="guide-ic" style="background:#FBF0D3;color:#B08A2E"><i data-lucide="waves"></i></span>Your urge toolkit</div><div class="guide-p">Breathing, grounding, urge surfing, a distraction game, and your own saved relief activities — plus one-tap calling or texting the people you trust.</div></div>
+      <div class="guide-block"><div class="guide-h4"><span class="guide-ic" style="background:#F6E0DC;color:#C25445"><i data-lucide="pill"></i></span>Naloxone (Narcan)</div><div class="guide-p">Keep your naloxone status current and learn the 5 steps to respond to an overdose. It's shared with your care team so they can help you stay prepared.</div></div>
+
+      <div class="guide-sec">5 · Activities, Progress &amp; Community</div>
+      <div class="guide-block"><div class="guide-h4"><span class="guide-ic" style="background:#FBF0D3;color:#B08A2E"><i data-lucide="layout-grid"></i></span>Activities</div><div class="guide-p">Activities picked for you each day, matched to your Recovery Health score — from urge surfing on harder days to gratitude and planning on stronger ones. Complete them to earn points.</div></div>
+      <div class="guide-block"><div class="guide-h4"><span class="guide-ic" style="background:#DCEAF6;color:#4E7FA8"><i data-lucide="trending-up"></i></span>Progress</div><div class="guide-p">Your trends over time — urges, triggers, mood, and sleep — so you and your care team can see what's working and plan for the harder moments.</div></div>
+      <div class="guide-block"><div class="guide-h4"><span class="guide-ic" style="background:#DDEBD6;color:#5E8B6E"><i data-lucide="message-circle"></i></span>Community</div><div class="guide-p">A peer discussion board where members share wins, questions, and encouragement. <b>Only usernames are shown</b> — real names are never displayed.</div></div>
+
+      <div class="guide-sec">6 · Rewards &amp; your people</div>
+      <div class="guide-block"><div class="guide-h4"><span class="guide-ic" style="background:#FBF0D3;color:#B08A2E"><i data-lucide="trophy"></i></span>Rewards</div><div class="guide-p">Earn XP for every recovery action and level up — <b>Seed → Bloom → Flourish</b>. Family and sponsors can pledge real-world rewards on your board and send gratitude gifts to keep you going.</div></div>
+      <div class="guide-block"><div class="guide-h4"><span class="guide-ic" style="background:#EDE8F4;color:#8A6DAF"><i data-lucide="handshake"></i></span>Support team &amp; peers</div><div class="guide-p">Add the people you trust to call or text in one tap. You control who can talk with your clinical team, per person.</div></div>
+
+      <div class="guide-sec">7 · Profile, settings &amp; privacy</div>
+      <div class="guide-block"><div class="guide-p">Your <b>profile</b> holds your medication, relief activities, support team, care team, and connected family — all editable.</div><div class="guide-li"><b>Settings</b> — reminders, accessibility &amp; display, language, and your info</div><div class="guide-li"><b>Privacy &amp; Data Sharing</b> — control exactly what's shared, download your data, or delete your account</div><div class="guide-p" style="margin-top:6px">Nothing about your recovery reaches your care team unless <b>you</b> turn it on.</div></div>
+
+      <div class="guide-sec">8 · Screenings you may see</div>
+      <div class="guide-block"><div class="guide-p">From time to time Rudra may invite you to short check-ins — wellness &amp; social needs, mood, or withdrawal — that help your team tailor your care and connect you with resources like housing, food, or transportation.</div></div>
+
+      <div class="gd-foot">Rudra is a recovery companion and does not replace professional medical care. If you're in danger or think you may be overdosing, call 911. For emotional crisis, call or text 988. Learning content is clinician-reviewed.</div>
+    </div>
+  </div>
+
+  <!-- ═══ TUTORIALS ═══ -->
+  <div class="overlay" id="ov-tutorials" style="background:var(--app-bg)">
+    <div class="ov-header" style="background:#fff;border-bottom:1px solid rgba(54,59,59,.06)">
+      <button class="ov-back" style="background:#EEF0F0;color:var(--ink)" onclick="closeOv()">&larr;</button>
+      <div>
+        <div style="font-family:var(--font-display);font-size:17px;font-weight:700;color:var(--ink)">Tutorials</div>
+        <div style="font-family:var(--font-ui);font-size:12px;color:var(--ink-soft)">Short explainers for key features</div>
+      </div>
+    </div>
+    <div class="ov-body" style="padding-top:14px">
+      <div class="gd-intro"><div class="gd-intro-t">How the key features work</div><div class="gd-intro-d">Quick, plain-language explainers so you always know what Rudra is doing and why.</div></div>
+      <div class="gd-list">
+        <button class="gd-card" type="button" onclick="openOv('tut-alert')">
+          <span class="gd-card-ic" style="background:#DCEAF6;color:#4E7FA8"><i data-lucide="bell"></i></span>
+          <span class="gd-card-main"><span class="gd-card-t">Alert</span><span class="gd-card-d">Gentle nudges after your check-in</span></span>
+          <i data-lucide="chevron-right" class="gd-card-arrow"></i>
+        </button>
+        <button class="gd-card" type="button" onclick="openOv('tut-score')">
+          <span class="gd-card-ic" style="background:#DDEBD6;color:#5E8B6E"><i data-lucide="activity"></i></span>
+          <span class="gd-card-main"><span class="gd-card-t">Recovery Score</span><span class="gd-card-d">What your number means</span></span>
+          <i data-lucide="chevron-right" class="gd-card-arrow"></i>
+        </button>
+        <button class="gd-card" type="button" onclick="openOv('tut-rewards')">
+          <span class="gd-card-ic" style="background:#FBF0D3;color:#B08A2E"><i data-lucide="trophy"></i></span>
+          <span class="gd-card-main"><span class="gd-card-t">Rewards</span><span class="gd-card-d">Earn points &amp; bring in your people</span></span>
+          <i data-lucide="chevron-right" class="gd-card-arrow"></i>
+        </button>
+      </div>
+      <div class="gd-foot">Rudra is a recovery companion — not a medical or emergency service. In an emergency, call 911.</div>
+    </div>
+  </div>
+
+  <!-- ═══ TUTORIAL: ALERT ═══ -->
+  <div class="overlay" id="ov-tut-alert" style="background:var(--app-bg)">
+    <div class="ov-header" style="background:#fff;border-bottom:1px solid rgba(54,59,59,.06)">
+      <button class="ov-back" style="background:#EEF0F0;color:var(--ink)" onclick="closeDetail('tut-alert')">&larr;</button>
+      <div>
+        <div style="font-family:var(--font-display);font-size:17px;font-weight:700;color:var(--ink)">Alert</div>
+        <div style="font-family:var(--font-ui);font-size:12px;color:var(--ink-soft)">Gentle nudges, right when they help</div>
+      </div>
+    </div>
+    <div class="ov-body" style="padding-top:14px">
+      <div class="gd-intro"><div class="gd-intro-t">🔔 What "Alert" does</div><div class="gd-intro-d">Alert is a kind, quiet nudge that appears right after your daily check-in — only on the days you might need a little extra support.</div></div>
+      <div class="guide-block"><div class="guide-h4"><span class="guide-ic" style="background:#DCEAF6;color:#4E7FA8"><i data-lucide="feather"></i></span>When it shows up</div><div class="guide-p">Right after you finish a check-in, Rudra blends your answers into your <b>Recovery Score</b>. If that score dips <b>below "good"</b> for the day, a gentle Alert appears. On strong days, it stays quiet — it will never nag you.</div></div>
+      <div class="guide-block"><div class="guide-h4"><span class="guide-ic" style="background:#DDEBD6;color:#5E8B6E"><i data-lucide="target"></i></span>What it offers</div><div class="guide-p">Two or three small, doable activities — matched to how you actually feel today:</div><div class="guide-li">High cravings → your <b>urge toolkit</b> (breathing, grounding, a quick game)</div><div class="guide-li">Low or heavy mood → a <b>voice journal</b> or a peer who gets it</div><div class="guide-li">Stress or anxiety → a short <b>breathing</b> exercise</div><div class="guide-li">Low motivation → a <b>2-minute lesson</b> or a look at your streaks</div><div class="guide-li">Plus <b>your own relief activities</b> — the things you told us help you</div></div>
+      <div class="guide-block"><div class="guide-h4"><span class="guide-ic" style="background:#FBF0D3;color:#B08A2E"><i data-lucide="star"></i></span>Points for showing up</div><div class="guide-p">Each suggestion shows the <b>XP you'll earn</b> for doing it. Finishing an activity gently nudges your score back up — and your care team sees the effort you're putting in.</div></div>
+      <div class="guide-block"><div class="guide-h4"><span class="guide-ic" style="background:#F6E0DC;color:#C25445"><i data-lucide="heart"></i></span>Always your choice</div><div class="guide-p">A lower day is <b>information, not failure</b>. Alert is never a judgment. You can act on a suggestion or simply tap <b>"Maybe later"</b> — you're always in control.</div></div>
+      <div class="gd-tip">Want to see it? Finish a daily check-in from your home screen. If your score lands below "good," your Alert will appear.</div>
+      <div class="gd-foot">Rudra is a recovery companion and doesn't replace professional care. In an emergency, call 911; for emotional crisis, call or text 988.</div>
+    </div>
+  </div>
+
+  <!-- ═══ TUTORIAL: RECOVERY SCORE ═══ -->
+  <div class="overlay" id="ov-tut-score" style="background:var(--app-bg)">
+    <div class="ov-header" style="background:#fff;border-bottom:1px solid rgba(54,59,59,.06)">
+      <button class="ov-back" style="background:#EEF0F0;color:var(--ink)" onclick="closeDetail('tut-score')">&larr;</button>
+      <div>
+        <div style="font-family:var(--font-display);font-size:17px;font-weight:700;color:var(--ink)">Recovery Score</div>
+        <div style="font-family:var(--font-ui);font-size:12px;color:var(--ink-soft)">Your day, in one friendly number</div>
+      </div>
+    </div>
+    <div class="ov-body" style="padding-top:14px">
+      <div class="gd-intro"><div class="gd-intro-t">📊 Your Recovery Score</div><div class="gd-intro-d">One number, 0–100, that turns your daily check-in into a simple snapshot of how your recovery is going today.</div></div>
+      <div class="guide-block"><div class="guide-h4"><span class="guide-ic" style="background:#DDEBD6;color:#5E8B6E"><i data-lucide="puzzle"></i></span>What goes into it</div><div class="guide-p">Your check-in answers, gently weighted toward what matters most in recovery: taking your medication, cravings, any substance use, mood, sleep, stress, and your confidence for the week ahead.</div></div>
+      <div class="guide-block"><div class="guide-h4"><span class="guide-ic" style="background:#DCEAF6;color:#4E7FA8"><i data-lucide="compass"></i></span>How to read the gauge</div><div class="guide-p">The dial runs from <b>0</b> on the left to <b>100</b> on the right, across five bands. Higher means steadier. A quick guide:</div><div class="guide-li"><b>80–100</b> · High</div><div class="guide-li"><b>60–79</b> · Above Average</div><div class="guide-li"><b>40–59</b> · Average</div><div class="guide-li"><b>20–39</b> · Below Average</div><div class="guide-li"><b>0–19</b> · Low</div></div>
+      <div class="guide-block"><div class="guide-h4"><span class="guide-ic" style="background:#FBF0D3;color:#B08A2E"><i data-lucide="trending-up"></i></span>What matters most</div><div class="guide-p">The <b>trend over days</b> — not any single number. One low day is completely normal and doesn't erase your progress. Watch the direction, not the dot.</div></div>
+      <div class="guide-block"><div class="guide-h4"><span class="guide-ic" style="background:#F6E0DC;color:#C25445"><i data-lucide="sprout"></i></span>How it moves</div><div class="guide-p">Honest check-ins keep it accurate. Staying on your medication and completing activities — especially the ones your <b>Alert</b> suggests — gently nudge it up over time.</div></div>
+      <div class="gd-tip">Your score is for <b>you</b> first. It's a compass for your own reflection, and — only with your permission — a way for your care team to support you between visits.</div>
+      <div class="gd-foot">The score is a supportive estimate, not a medical diagnosis. Always follow your care team's guidance.</div>
+    </div>
+  </div>
+
+  <!-- ═══ TUTORIAL: REWARDS ═══ -->
+  <div class="overlay" id="ov-tut-rewards" style="background:var(--app-bg)">
+    <div class="ov-header" style="background:#fff;border-bottom:1px solid rgba(54,59,59,.06)">
+      <button class="ov-back" style="background:#EEF0F0;color:var(--ink)" onclick="closeDetail('tut-rewards')">&larr;</button>
+      <div>
+        <div style="font-family:var(--font-display);font-size:17px;font-weight:700;color:var(--ink)">Rewards</div>
+        <div style="font-family:var(--font-ui);font-size:12px;color:var(--ink-soft)">Your effort, celebrated</div>
+      </div>
+    </div>
+    <div class="ov-body" style="padding-top:14px">
+      <div class="gd-intro"><div class="gd-intro-t">🏆 How Rewards works</div><div class="gd-intro-d">Recovery is real work. Rewards makes that work visible and celebrated — every healthy step earns points, and the people who love you can cheer you on.</div></div>
+      <div class="guide-block"><div class="guide-h4"><span class="guide-ic" style="background:#FBF0D3;color:#B08A2E"><i data-lucide="star"></i></span>Earn points every day</div><div class="guide-p">Small actions add up to <b>XP</b>. The daily ones:</div><div class="guide-li"><b>Daily check-in</b> — your biggest daily reward, and the heart of your recovery</div><div class="guide-li"><b>Take your medication</b></div><div class="guide-li"><b>Share or connect</b> in the Community board</div><div class="guide-li"><b>Use a relief tool</b> or ride out an urge</div></div>
+      <div class="guide-block" style="border:1px solid rgba(91,146,206,.25);background:#EEF5F1"><div class="guide-h4"><span class="guide-ic" style="background:#fff;color:#4E7FA8"><i data-lucide="clipboard-list"></i></span>Start with your check-in</div><div class="guide-p">If you do one thing a day, make it your <b>daily check-in</b>. It earns the most points, keeps your Recovery Score honest, and helps your care team show up for you — all in about a minute.</div></div>
+      <div class="guide-block"><div class="guide-h4"><span class="guide-ic" style="background:#DDEBD6;color:#5E8B6E"><i data-lucide="sprout"></i></span>Level up as you grow</div><div class="guide-p">Your points move you through levels — <b>Seed → Bloom → Flourish</b> — a gentle picture of how far you've come. Streaks track your consistency, one day at a time.</div></div>
+      <div class="guide-block"><div class="guide-h4"><span class="guide-ic" style="background:#F6E0DC;color:#C25445"><i data-lucide="heart-handshake"></i></span>Bring in your people</div><div class="guide-p">Recovery is easier together. On your <b>Reward Board</b>, the people you invite — family, a sponsor, or a peer — can:</div><div class="guide-li">Pledge a <b>real-world reward</b> (a dinner, a gift card) that unlocks when you hit a milestone</div><div class="guide-li">Send <b>gratitude gifts</b> and encouragement</div><div class="guide-li">Celebrate your streaks and level-ups with you</div></div>
+      <div class="guide-block"><div class="guide-h4"><span class="guide-ic" style="background:#DCEAF6;color:#4E7FA8"><i data-lucide="lock"></i></span>Private by design</div><div class="guide-p">You're always in control of who's involved and what they see. The people you invite see your <b>milestones and streaks</b> — never your private check-in answers or notes. Nothing is shared with anyone, including your care team, unless <b>you</b> turn it on in Privacy settings.</div></div>
+      <div class="gd-tip">Find it all under <b>Rewards</b> in the bottom bar — your level, your streaks, and your Reward Board.</div>
+      <div class="gd-foot">Rewards are here to encourage you, never to pressure you. Your recovery is yours — go at your own pace. 🌿</div>
+    </div>
+  </div>
+
+  <!-- ═══ SETTINGS & PREFERENCES ═══ -->
+  <div class="overlay" id="ov-settings" style="background:var(--app-bg)">
+    <div class="ov-header" style="background:#fff;border-bottom:1px solid rgba(54,59,59,.06)">
+      <button class="ov-back" style="background:#EEF0F0;color:var(--ink)" onclick="closeOv()">&larr;</button>
+      <div>
+        <div style="font-family:var(--font-display);font-size:17px;font-weight:700;color:var(--ink)">Settings &amp; Preferences</div>
+        <div style="font-family:var(--font-ui);font-size:12px;color:var(--ink-soft)">Make Rudra work the way you want</div>
+      </div>
+    </div>
+    <div class="ov-body" style="padding-top:12px">
+      <div class="set-sec">Reminders</div>
+      <div class="set-card">
+        <div class="set-row"><div class="set-lbl"><div class="set-t">Daily check-in reminder</div><div class="set-d">A gentle nudge each day</div></div><button class="set-toggle on" type="button" onclick="this.classList.toggle('on')" aria-label="Toggle"></button></div>
+        <div class="set-row"><div class="set-lbl"><div class="set-t">Medication reminder</div><div class="set-d">Never miss a MOUD dose</div></div><button class="set-toggle on" type="button" onclick="this.classList.toggle('on')" aria-label="Toggle"></button></div>
+        <div class="set-row"><div class="set-lbl"><div class="set-t">Community replies</div><div class="set-d">When someone responds to you</div></div><button class="set-toggle" type="button" onclick="this.classList.toggle('on')" aria-label="Toggle"></button></div>
+      </div>
+      <div class="set-sec">Accessibility &amp; display</div>
+      <div class="set-card">
+        <div class="set-row"><div class="set-lbl"><div class="set-t">Larger text</div><div class="set-d">Increase font size across the app</div></div><button class="set-toggle" type="button" onclick="this.classList.toggle('on')" aria-label="Toggle"></button></div>
+        <div class="set-row"><div class="set-lbl"><div class="set-t">High contrast</div><div class="set-d">Stronger colors for readability</div></div><button class="set-toggle" type="button" onclick="this.classList.toggle('on')" aria-label="Toggle"></button></div>
+        <div class="set-row"><div class="set-lbl"><div class="set-t">Reduce motion</div><div class="set-d">Minimize animations</div></div><button class="set-toggle" type="button" onclick="this.classList.toggle('on')" aria-label="Toggle"></button></div>
+      </div>
+      <div class="set-sec">Language</div>
+      <div class="set-card">
+        <div class="set-row" style="border:none"><div class="set-lbl"><div class="set-t">App language</div><div class="set-d">Choose your preferred language</div></div>
+          <select class="set-select"><option>English</option><option>Español</option><option>中文</option><option>Tiếng Việt</option><option>Tagalog</option></select></div>
+      </div>
+      <div class="set-sec">Your info</div>
+      <div class="set-card">
+        <button class="set-linkrow" type="button"><div class="set-lbl"><div class="set-t">Name</div><div class="set-d">Alex M.</div></div><span class="set-chev">›</span></button>
+        <button class="set-linkrow" type="button"><div class="set-lbl"><div class="set-t">Phone</div><div class="set-d">(310) 555‑0142</div></div><span class="set-chev">›</span></button>
+        <button class="set-linkrow" type="button"><div class="set-lbl"><div class="set-t">Email</div><div class="set-d">alex.m@email.com</div></div><span class="set-chev">›</span></button>
+      </div>
+      <div class="set-sec">Account</div>
+      <div class="set-card">
+        <button class="set-linkrow" type="button" onclick="openManageTeam()"><div class="set-lbl"><div class="set-t">Support team</div><div class="set-d">Add or remove your people</div></div><span class="set-chev">›</span></button>
+        <button class="set-linkrow" type="button" onclick="openOv('privacy')"><div class="set-lbl"><div class="set-t">Privacy &amp; data sharing</div><div class="set-d">Control what's shared</div></div><span class="set-chev">›</span></button>
+        <button class="set-linkrow" type="button" onclick="logout()"><div class="set-lbl"><div class="set-t" style="color:#C4453A">Sign out</div></div><span class="set-chev">›</span></button>
+      </div>
+      <div class="gd-foot" style="margin-top:14px">Rudra · v2.0 · Clinician-reviewed. Not a substitute for medical or emergency care. In an emergency, call 911.</div>
+    </div>
+  </div>
+
+  <!-- ═══ PRIVACY & DATA SHARING ═══ -->
+  <div class="overlay" id="ov-privacy" style="background:var(--app-bg)">
+    <div class="ov-header" style="background:#fff;border-bottom:1px solid rgba(54,59,59,.06)">
+      <button class="ov-back" style="background:#EEF0F0;color:var(--ink)" onclick="closeOv()">&larr;</button>
+      <div>
+        <div style="font-family:var(--font-display);font-size:17px;font-weight:700;color:var(--ink)">Privacy &amp; Data Sharing</div>
+        <div style="font-family:var(--font-ui);font-size:12px;color:var(--ink-soft)">Your recovery, your data, your call</div>
+      </div>
+    </div>
+    <div class="ov-body" style="padding-top:12px">
+      <div class="priv-hero">
+        <div class="priv-hero-ic"><i data-lucide="shield-check"></i></div>
+        <div class="priv-hero-h">You're in control.</div>
+        <div class="priv-hero-p">Nothing about your recovery is shared with your care team unless <b>you</b> turn it on here. You can change any of this anytime.</div>
+      </div>
+      <div class="set-sec">What your care team can see</div>
+      <div class="set-card">
+        <div class="set-row"><div class="set-lbl"><div class="set-t">Daily check-in results</div><div class="set-d">Your Recovery Score &amp; answers</div></div><button class="set-toggle on" type="button" onclick="this.classList.toggle('on')" aria-label="Toggle"></button></div>
+        <div class="set-row"><div class="set-lbl"><div class="set-t">Medication adherence</div><div class="set-d">Whether you took your MOUD</div></div><button class="set-toggle on" type="button" onclick="this.classList.toggle('on')" aria-label="Toggle"></button></div>
+        <div class="set-row"><div class="set-lbl"><div class="set-t">Substance use logs</div><div class="set-d">What you report in check-ins</div></div><button class="set-toggle on" type="button" onclick="this.classList.toggle('on')" aria-label="Toggle"></button></div>
+        <div class="set-row"><div class="set-lbl"><div class="set-t">Reflection notes</div><div class="set-d">Your private written notes</div></div><button class="set-toggle" type="button" onclick="this.classList.toggle('on')" aria-label="Toggle"></button></div>
+      </div>
+      <div class="set-sec">People &amp; permissions</div>
+      <div class="set-card">
+        <button class="set-linkrow" type="button" onclick="openManageTeam()"><div class="set-lbl"><div class="set-t">Who can talk to my clinical team</div><div class="set-d">Manage per-person permissions</div></div><span class="set-chev">›</span></button>
+      </div>
+      <div class="set-sec">How you're protected</div>
+      <div class="set-card"><div style="padding:14px 15px">
+        <div class="priv-law"><span class="priv-law-ic" style="background:#DDEBD6;color:#5E8B6E"><i data-lucide="shield-check"></i></span><div><b>42 CFR Part 2 &amp; HIPAA.</b> Your substance-use records get extra legal protection. Rudra can't disclose them without your written consent.</div></div>
+        <div class="priv-law" style="margin-top:12px"><span class="priv-law-ic" style="background:#F6E0DC;color:#C25445"><i data-lucide="ambulance"></i></span><div><b>One exception:</b> in a life-threatening emergency, we may share only what's needed to keep you safe.</div></div>
+      </div></div>
+      <div class="set-sec">Your data &amp; rights</div>
+      <div class="set-card">
+        <button class="set-linkrow" type="button"><div class="set-lbl"><div class="set-t">Download my data</div><div class="set-d">Get a copy of everything Rudra holds</div></div><span class="set-chev">›</span></button>
+        <button class="set-linkrow" type="button"><div class="set-lbl"><div class="set-t">Privacy policy</div><div class="set-d">Read the full policy in plain language</div></div><span class="set-chev">›</span></button>
+        <button class="set-linkrow" type="button"><div class="set-lbl"><div class="set-t" style="color:#C4453A">Delete my account &amp; data</div><div class="set-d">Permanently remove everything</div></div><span class="set-chev">›</span></button>
+      </div>
+      <div style="height:16px"></div>
+    </div>
+  </div>
+
+  <!-- ═══ MY SUPPORT TEAM (manage) ═══ -->
+  <div class="overlay" id="ov-manage-team" style="background:var(--app-bg)">
+    <div class="ov-header" style="background:#fff;border-bottom:1px solid rgba(54,59,59,.06)">
+      <button class="ov-back" style="background:#EEF0F0;color:var(--ink)" onclick="closeOv()">&larr;</button>
+      <div>
+        <div style="font-family:var(--font-display);font-size:17px;font-weight:700;color:var(--ink)">My Support Team</div>
+        <div style="font-family:var(--font-ui);font-size:12px;color:var(--ink-soft)">Add or remove the people in your corner</div>
+      </div>
+    </div>
+    <div class="ov-body" style="padding-top:14px">
+      <div class="mt-note">The people who show up for you — family, friends, a sponsor, or a loved one.</div>
+      <div id="mt-list"></div>
+      <button class="mt-addbtn" id="mt-addbtn" type="button" onclick="mtOpenAdd()">+ Add someone to my team</button>
+      <div class="mt-form" id="mt-addform" style="display:none">
+        <div class="fl">Their name</div>
+        <input class="mt-inp" id="mt-name" placeholder="e.g. Aunt Rosa" maxlength="40">
+        <div class="fl">Relationship</div>
+        <select class="mt-sel" id="mt-kind">
+          <option>Family</option><option>Friend</option><option>Loved one</option><option>Sponsor</option><option>Therapist</option><option>Doctor / prescriber</option>
+        </select>
+        <div class="fl">Cell number</div>
+        <input class="mt-inp" id="mt-num" type="tel" inputmode="tel" placeholder="(555) 123-4567">
+        <div class="mt-formbtns">
+          <button class="mt-cancel" type="button" onclick="mtCancelAdd()">Cancel</button>
+          <button class="mt-save" type="button" onclick="mtSaveAdd()">Add to my team</button>
+        </div>
+      </div>
+    </div>
   </div>
 
   <!-- ═══ CONNECT OVERLAY ═══ -->
@@ -1226,7 +1563,7 @@
     </div>
     <div class="ov-body" id="cm-detail-body" style="padding-top:14px"></div>
     <div class="cm-detail-foot">
-      <input type="text" id="cm-detail-input" class="cm-addinput" placeholder="Contribute to the conversation…" onkeydown="if(event.key==='Enter')cmDetailSend()">
+      <input type="text" id="cm-detail-input" class="cm-addinput" placeholder="Contribute…" onkeydown="if(event.key==='Enter')cmDetailSend()">
       <button class="cm-mic" type="button" aria-label="Record" onclick="cmMic(this)"><i data-lucide="mic"></i></button>
       <button class="cm-send" onclick="cmDetailSend()">Send</button>
     </div>

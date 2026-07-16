@@ -33,6 +33,7 @@ function openOv(id){
   if(id==='ifthen-detail' && typeof iftSync==='function') iftSync();   /* set Save button enabled/disabled from current selection */
   if(id==='threegood-detail' && typeof tgSync==='function') tgSync();   /* set Save button state from the three inputs */
   if(id==='urge' && typeof populateUrge==='function') populateUrge();   /* fill relief activities + contacts (e.g. after refresh-restore) */
+  if(id==='manage-team' && typeof renderTeam==='function') renderTeam();   /* render the support-team list */
   if(id==='location-checkin'){ el.querySelectorAll('.loc-opt.sel').forEach(function(o){o.classList.remove('sel');}); var _sb=document.getElementById('loc-submit'); if(_sb) _sb.classList.remove('ready'); }  /* fresh state each open */
   try{localStorage.setItem('rh_ov',id);}catch(e){}
 }
@@ -175,6 +176,15 @@ function _barGrad(canvas, hex){
   var ctx=canvas.getContext('2d'); var g=ctx.createLinearGradient(0,12,0,150);
   g.addColorStop(0,_lighten(hex,0.30)); g.addColorStop(1,hex); return g;
 }
+function _hexToRgb(hex){ hex=String(hex).replace('#',''); if(hex.length===3) hex=hex.split('').map(function(c){return c+c;}).join(''); var n=parseInt(hex,16); return [(n>>16)&255,(n>>8)&255,n&255]; }
+/* soft translucent area fill under a line chart */
+function _lineFill(canvas, hex){
+  var ctx=canvas.getContext('2d'); var g=ctx.createLinearGradient(0,12,0,155);
+  var c=_hexToRgb(hex);
+  g.addColorStop(0,'rgba('+c[0]+','+c[1]+','+c[2]+',0.26)');
+  g.addColorStop(1,'rgba('+c[0]+','+c[1]+','+c[2]+',0.02)');
+  return g;
+}
 var _DOW=['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
 var _MON=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
 /* slice a daily(84) + monthly(12) series for a time frame: W=1 week, M=4 weeks, 6M=6 months, Y=12 months */
@@ -217,8 +227,8 @@ function updateRecoveryHealthChart(){
   canvas.style.width = containerW + 'px'; canvas.style.height = '160px';
   if(recoveryHealthChart){ recoveryHealthChart.destroy(); recoveryHealthChart = null; }
   recoveryHealthChart = new Chart(canvas, {
-    type: 'bar',
-    data: { labels: s.labels, datasets: [{ data: s.data, backgroundColor: _barGrad(canvas,'#6E9E80'), borderRadius: 6, borderWidth: 0, barPercentage: 0.62, categoryPercentage: 0.72 }] },
+    type: 'line',
+    data: { labels: s.labels, datasets: [{ data: s.data, borderColor:'#6E9E80', backgroundColor:_lineFill(canvas,'#6E9E80'), fill:true, tension:0.35, borderWidth:2.5, pointRadius:(s.data.length>14?0:3), pointHoverRadius:5, pointBackgroundColor:'#fff', pointBorderColor:'#6E9E80', pointBorderWidth:2 }] },
     options: {
       responsive: false,
       animation: { duration: 450 },
@@ -268,8 +278,8 @@ function updatePatternChart(){
   canvas.style.width=containerW+'px'; canvas.style.height='160px';
   if(patternChart){patternChart.destroy();patternChart=null;}
   patternChart=new Chart(canvas,{
-    type:'bar',
-    data:{labels:s.labels,datasets:[{data:s.data,backgroundColor:_barGrad(canvas,item.hex),borderRadius:6,borderWidth:0,barPercentage:0.62,categoryPercentage:0.72}]},
+    type:'line',
+    data:{labels:s.labels,datasets:[{data:s.data,borderColor:item.hex,backgroundColor:_lineFill(canvas,item.hex),fill:true,tension:0.35,borderWidth:2.5,pointRadius:(s.data.length>14?0:3),pointHoverRadius:5,pointBackgroundColor:'#fff',pointBorderColor:item.hex,pointBorderWidth:2}]},
     options:{
       responsive:false,
       animation:{duration:450},
@@ -1884,6 +1894,38 @@ function contactsHTML(){
       '</div></div>';
   }).join('');
 }
+
+/* ═══ MY SUPPORT TEAM (add / remove) ═══ */
+function contactIsClinical(c){ return /therapist|doctor|lcsw|prescriber|psychiat|physician|\bmd\b/i.test((c&&c.role)||''); }
+function openManageTeam(){ mtCancelAdd(); renderTeam(); openOv('manage-team'); }
+function renderTeam(){
+  var el=document.getElementById('mt-list'); if(!el) return;
+  el.innerHTML = RH_PF.contacts.map(function(c,i){
+    var clinical=contactIsClinical(c);
+    var perm = clinical ? '<div class="mt-perm"><i data-lucide="stethoscope"></i><span>Part of your <b>clinical team</b></span></div>' : '';
+    return '<div class="mt-row"><div class="mt-head">'+
+      '<div class="mt-av" style="background:'+(c.color||'#6E9E80')+'">'+esc(pfInitials(c.name))+'</div>'+
+      '<div class="mt-main"><div class="mt-name">'+esc(c.name)+'</div><div class="mt-meta">'+esc(c.role||'')+(c.num?' · '+esc(c.num):'')+'</div></div>'+
+      (clinical?'':'<button class="mt-del" type="button" onclick="mtDelete('+i+')" aria-label="Remove '+esc(c.name)+'"><i data-lucide="x"></i></button>')+
+      '</div>'+perm+'</div>';
+  }).join('');
+  if(window.lucide && lucide.createIcons) lucide.createIcons();
+}
+function mtDelete(i){ if(i<0||i>=RH_PF.contacts.length) return; RH_PF.contacts.splice(i,1); renderTeam(); if(typeof renderProfileLists==='function') renderProfileLists(); if(typeof pfPersist==='function') pfPersist(); }
+function mtOpenAdd(){ var f=document.getElementById('mt-addform'), b=document.getElementById('mt-addbtn'); if(f){ f.style.display='block'; f.scrollIntoView({behavior:'smooth',block:'center'}); } if(b) b.style.display='none'; }
+function mtCancelAdd(){ var f=document.getElementById('mt-addform'), b=document.getElementById('mt-addbtn'); if(f) f.style.display='none'; if(b) b.style.display='block'; var n=document.getElementById('mt-name'), num=document.getElementById('mt-num'); if(n) n.value=''; if(num) num.value=''; }
+function mtSaveAdd(){
+  var nel=document.getElementById('mt-name'); var name=((nel&&nel.value)||'').trim();
+  var kind=((document.getElementById('mt-kind')||{}).value)||'Family';
+  var num=(((document.getElementById('mt-num')||{}).value)||'').trim();
+  if(!name){ if(nel) nel.focus(); return; }
+  var colors=['#6E9E80','#4A90D9','#C97B6F','#8A6FB0','#D8AD63','#5E8560','#7BA47E'];
+  RH_PF.contacts.push({ name:name, role:kind, num:num||'—', color:colors[RH_PF.contacts.length%colors.length], icon:'' });
+  mtCancelAdd(); renderTeam();
+  if(typeof renderProfileLists==='function') renderProfileLists();
+  if(typeof pfPersist==='function') pfPersist();
+}
+
 /* Frequent Location Check-in: pick a place type, award XP, close */
 function locAnswer(btn){
   var opts=btn.parentNode.querySelectorAll('.loc-opt');

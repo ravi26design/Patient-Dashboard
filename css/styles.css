@@ -2434,6 +2434,108 @@ body.is-desktop #screen-narcan .sos-head{display:none}
 .pf-menu-ic i,.pf-menu-ic svg{width:19px;height:19px}
 .pf-menu-t{flex:1;min-width:0;font-family:var(--font-ui);font-size:14px;font-weight:600;color:var(--ink)}
 .pf-menu-logout .pf-menu-t{color:#C4453A}
+/* ===== Guides page ===== */
+.gd-intro{position:relative;overflow:hidden;background:linear-gradient(135deg,#EFF5FC 0%,#E4EDF8 100%);border:1px solid rgba(91,146,206,.16);border-radius:22px;padding:24px 24px 26px;margin-bottom:18px;box-shadow:0 8px 24px -14px rgba(63,110,153,.4)}
+.gd-intro::before{content:"";position:absolute;top:-40px;right:-30px;width:150px;height:150px;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.55),rgba(255,255,255,0) 70%);pointer-events:none}
+.gd-intro > *{position:relative}
+.gd-intro-t{font-family:var(--font-display);font-size:24px;font-weight:700;color:var(--ink);line-height:1.18;letter-spacing:-.2px;margin-bottom:9px}
+.gd-intro-d{font-family:var(--font-ui);font-size:14px;color:#5C6B79;line-height:1.62}
+.gd-list{background:#fff;border-radius:18px;box-shadow:var(--card-shadow);overflow:hidden}
+.gd-card{display:flex;align-items:center;gap:14px;width:100%;text-align:left;background:none;border:none;padding:16px;cursor:pointer;font:inherit;transition:background .15s ease}
+.gd-card:not(:last-child){border-bottom:1px solid rgba(58,51,48,.08)}
+.gd-card:active{background:#F5F3F0}
+.gd-card-ic{flex:0 0 auto;width:46px;height:46px;border-radius:12px;display:flex;align-items:center;justify-content:center}
+.gd-card-ic i,.gd-card-ic svg{width:24px;height:24px}
+.gd-card-main{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
+.gd-card-t{font-family:var(--font-ui);font-size:16px;font-weight:700;color:var(--ink)}
+.gd-card-d{font-family:var(--font-ui);font-size:13px;color:var(--ink-soft)}
+.gd-card-arrow{flex:0 0 auto;width:18px;height:18px;color:var(--ink-soft)}
+.gd-foot{font-family:var(--font-ui);font-size:12.5px;color:var(--ink-soft);text-align:center;line-height:1.55;margin-top:22px;padding:0 12px}
+/* Guide: numbered steps */
+.gd-steps{background:#fff;border-radius:18px;box-shadow:var(--card-shadow);padding:4px 16px}
+.gd-step{display:flex;gap:14px;padding:18px 0}
+.gd-step:not(:last-child){border-bottom:1px solid rgba(58,51,48,.08)}
+.gd-step-n{flex:0 0 auto;width:34px;height:34px;border-radius:50%;background:#5B92CE;color:#fff;display:flex;align-items:center;justify-content:center;font-family:var(--font-ui);font-size:14px;font-weight:700}
+.gd-step-b{flex:1;min-width:0;display:flex;flex-direction:column;gap:6px;padding-top:3px}
+.gd-step-t{font-family:var(--font-display);font-size:17px;font-weight:700;color:var(--ink);line-height:1.25}
+.gd-step-d{font-family:var(--font-ui);font-size:14px;color:var(--ink-soft);line-height:1.6}
+.gd-step-d b{color:var(--ink);font-weight:700}
+.gd-tip{background:#EAF1F8;border:1px solid rgba(91,146,206,.18);border-radius:16px;padding:16px 18px;margin-top:16px;font-family:var(--font-ui);font-size:14px;line-height:1.55;color:#4E7FA8}
+.gd-tip b{color:var(--ink)}
+/* Guide/Tutorial content pages (User Manual, tutorial explainers) */
+.guide-sec{font-family:var(--font-ui);font-size:11px;font-weight:800;letter-spacing:1.1px;text-transform:uppercase;color:#5E8560;margin:20px 0 10px;padding-left:2px}
+.guide-block{background:#fff;border-radius:16px;box-shadow:var(--card-shadow);padding:16px;margin-bottom:12px}
+.guide-h4{display:flex;align-items:center;gap:11px;font-family:var(--font-display);font-size:16px;font-weight:700;color:var(--ink);margin-bottom:8px;line-height:1.25}
+.guide-ic{flex:0 0 auto;width:34px;height:34px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:17px}
+.guide-ic i,.guide-ic svg{width:18px;height:18px;stroke-width:2}
+.guide-p{font-family:var(--font-ui);font-size:14px;color:var(--ink-soft);line-height:1.6}
+.guide-p b{color:var(--ink);font-weight:700}
+.guide-li{font-family:var(--font-ui);font-size:13.5px;color:var(--ink-soft);line-height:1.5;padding:6px 0 6px 18px;position:relative}
+.guide-li::before{content:"";position:absolute;left:4px;top:14px;width:5px;height:5px;border-radius:50%;background:#9DB08F}
+.guide-li b{color:var(--ink);font-weight:700}
+/* Settings / Privacy list pages */
+.set-sec{font-family:var(--font-ui);font-size:11px;font-weight:800;letter-spacing:1.1px;text-transform:uppercase;color:#5E8560;margin:18px 0 9px;padding-left:2px}
+.set-card{background:#fff;border-radius:16px;box-shadow:var(--card-shadow);overflow:hidden;margin-bottom:4px}
+.set-row,.set-linkrow{display:flex;align-items:center;gap:12px;width:100%;text-align:left;background:none;border:none;padding:14px 16px;cursor:pointer;font:inherit}
+.set-row:not(:last-child),.set-linkrow:not(:last-child){border-bottom:1px solid rgba(58,51,48,.07)}
+.set-linkrow:active{background:#F5F3F0}
+.set-lbl{flex:1;min-width:0}
+.set-t{font-family:var(--font-ui);font-size:14.5px;font-weight:700;color:var(--ink)}
+.set-d{font-family:var(--font-ui);font-size:12.5px;color:var(--ink-soft);margin-top:2px;line-height:1.4}
+.set-chev{flex:0 0 auto;color:var(--ink-soft);font-size:20px;line-height:1}
+.set-select{flex:0 0 auto;font-family:var(--font-ui);font-size:13px;font-weight:600;color:var(--ink);background:#F2F0ED;border:1px solid rgba(58,51,48,.1);border-radius:10px;padding:8px 10px;cursor:pointer}
+/* toggle switch */
+.set-toggle{flex:0 0 auto;position:relative;width:44px;height:26px;border-radius:999px;background:#D6D2CD;border:none;cursor:pointer;transition:background .2s ease}
+.set-toggle::after{content:"";position:absolute;top:3px;left:3px;width:20px;height:20px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.2);transition:transform .2s ease}
+.set-toggle.on{background:#6E9E80}
+.set-toggle.on::after{transform:translateX(18px)}
+/* Privacy hero + law rows */
+.priv-hero{position:relative;overflow:hidden;background:linear-gradient(135deg,#EFF5FC 0%,#E4EDF8 100%);border:1px solid rgba(91,146,206,.16);border-radius:22px;padding:26px 22px 24px;text-align:center;margin-bottom:8px;box-shadow:0 8px 24px -14px rgba(63,110,153,.4)}
+.priv-hero::before{content:"";position:absolute;top:-40px;right:-30px;width:150px;height:150px;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.55),rgba(255,255,255,0) 70%);pointer-events:none}
+.priv-hero > *{position:relative}
+.priv-hero-ic{width:54px;height:54px;border-radius:50%;background:#fff;color:#3F6E99;display:flex;align-items:center;justify-content:center;margin:0 auto 13px;box-shadow:0 6px 16px -6px rgba(63,110,153,.4)}
+.priv-hero-ic i,.priv-hero-ic svg{width:27px;height:27px;stroke-width:2}
+.priv-hero-h{font-family:var(--font-display);font-size:23px;font-weight:700;color:var(--ink);letter-spacing:-.2px;margin-bottom:9px}
+.priv-hero-p{font-family:var(--font-ui);font-size:13.5px;color:#5C6B79;line-height:1.62;max-width:400px;margin:0 auto}
+.priv-hero-p b{color:var(--ink);font-weight:700}
+.priv-law{display:flex;gap:12px;align-items:flex-start;font-family:var(--font-ui);font-size:13.5px;color:var(--ink-soft);line-height:1.55}
+.priv-law-ic{flex:0 0 auto;width:32px;height:32px;border-radius:9px;display:flex;align-items:center;justify-content:center}
+.priv-law-ic i,.priv-law-ic svg{width:17px;height:17px;stroke-width:2}
+.priv-law > div{padding-top:5px}
+.priv-law b{color:var(--ink);font-weight:700}
+/* My Support Team (manage) */
+.mt-note{background:#EAF1E9;border:1px solid rgba(94,133,96,.2);border-radius:16px;padding:15px 17px;margin-bottom:14px;font-family:var(--font-ui);font-size:14px;color:#4A6B4C;line-height:1.55}
+.mt-row{background:#fff;border-radius:16px;box-shadow:var(--card-shadow);padding:14px 16px;margin-bottom:12px}
+.mt-head{display:flex;align-items:center;gap:13px}
+.mt-av{flex:0 0 auto;width:44px;height:44px;border-radius:50%;color:#fff;display:flex;align-items:center;justify-content:center;font-family:var(--font-ui);font-size:13px;font-weight:700;letter-spacing:.5px}
+.mt-main{flex:1;min-width:0}
+.mt-name{font-family:var(--font-display);font-size:17px;font-weight:700;color:var(--ink);line-height:1.2}
+.mt-meta{font-family:var(--font-ui);font-size:12.5px;color:var(--ink-soft);margin-top:2px}
+.mt-del{flex:0 0 auto;width:38px;height:38px;border-radius:50%;border:none;background:#EEF0F0;color:var(--ink-soft);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background .15s}
+.mt-del:hover{background:#E4E7E7}
+.mt-del i,.mt-del svg{width:18px;height:18px}
+.mt-perm{display:flex;align-items:center;gap:9px;background:#F3F5F3;border-radius:12px;padding:10px 13px;margin-top:12px;font-family:var(--font-ui);font-size:13px;color:var(--ink-soft)}
+.mt-perm i,.mt-perm svg{width:17px;height:17px;color:#5E8560;flex:0 0 auto}
+.mt-perm b{color:var(--ink);font-weight:700}
+.mt-addbtn{width:100%;border:1.5px dashed rgba(94,133,96,.5);border-radius:16px;background:transparent;color:#5E8560;font-family:var(--font-ui);font-size:15px;font-weight:700;padding:16px;cursor:pointer;margin-top:2px;transition:background .15s}
+.mt-addbtn:hover{background:rgba(94,133,96,.06)}
+.mt-form{background:#fff;border-radius:16px;box-shadow:var(--card-shadow);padding:18px 16px;margin-top:12px}
+.mt-form .fl{font-family:var(--font-ui);font-size:11px;font-weight:800;letter-spacing:.8px;text-transform:uppercase;color:var(--ink-soft);margin:0 0 7px 2px}
+.mt-inp,.mt-sel{width:100%;font-family:var(--font-ui);font-size:15px;color:var(--ink);background:#fff;border:1.5px solid rgba(58,51,48,.14);border-radius:14px;padding:13px 15px;margin-bottom:14px;box-sizing:border-box}
+.mt-inp:focus,.mt-sel:focus{outline:none;border-color:#7FB08A}
+.mt-formbtns{display:flex;gap:10px;margin-top:2px}
+.mt-cancel{flex:1;border:none;border-radius:14px;background:#EEEDEA;color:var(--ink);font-family:var(--font-ui);font-size:15px;font-weight:700;padding:14px;cursor:pointer}
+.mt-save{flex:1.4;border:none;border-radius:14px;background:linear-gradient(135deg,#8FBE86,#5E8560);color:#fff;font-family:var(--font-ui);font-size:15px;font-weight:700;padding:14px;cursor:pointer;box-shadow:0 8px 20px -8px rgba(94,133,96,.6)}
+/* Guides / Tutorials / Settings / Privacy — match the profile's 760px centered column on desktop */
+body.is-desktop #ov-guides > .ov-body, body.is-desktop #ov-guides > .ov-header,
+body.is-desktop #ov-guide-quickstart > .ov-body, body.is-desktop #ov-guide-quickstart > .ov-header,
+body.is-desktop #ov-manual > .ov-body, body.is-desktop #ov-manual > .ov-header,
+body.is-desktop #ov-tutorials > .ov-body, body.is-desktop #ov-tutorials > .ov-header,
+body.is-desktop #ov-tut-alert > .ov-body, body.is-desktop #ov-tut-alert > .ov-header,
+body.is-desktop #ov-tut-score > .ov-body, body.is-desktop #ov-tut-score > .ov-header,
+body.is-desktop #ov-tut-rewards > .ov-body, body.is-desktop #ov-tut-rewards > .ov-header,
+body.is-desktop #ov-settings > .ov-body, body.is-desktop #ov-settings > .ov-header,
+body.is-desktop #ov-privacy > .ov-body, body.is-desktop #ov-privacy > .ov-header{padding-left:calc((100% - 760px) / 2);padding-right:calc((100% - 760px) / 2)}
 .pf-menu-arrow{flex-shrink:0;width:18px;height:18px;color:var(--muted)}
 
 /* Patterns chart: fixed y-axis strip while the plot scrolls horizontally */
