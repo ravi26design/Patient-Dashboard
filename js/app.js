@@ -1365,7 +1365,9 @@ function enterApp(){
 /* Guest: skip onboarding and drop straight onto the home screen */
 function loginAsGuest(){
   if(window.__wc && __wc.stop) __wc.stop();
-  window.__profile = window.__profile || { name:'Guest' };
+  window.__profile = { name:'Guest' };
+  var _rn=document.getElementById('rhName'); if(_rn) _rn.textContent='Guest';
+  var _ri=document.getElementById('rhNameIns'); if(_ri) _ri.textContent='Guest';
   try{ localStorage.setItem('rh_onboarded','1'); localStorage.setItem('rh_profile', JSON.stringify(window.__profile)); }catch(e){}
   var w=document.getElementById('welcome');
   if(w){ w.classList.add('hide'); setTimeout(function(){ w.style.display='none'; }, 420); }
