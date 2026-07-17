@@ -3166,9 +3166,10 @@ body.is-desktop #screen-tools .prev-day{max-width:760px;margin-left:auto;margin-
 .wc-guest-top .wc-guest{width:auto;margin:0;padding:8px 14px;font-size:13px;border-radius:999px}
 /* Desktop: flat background; move "Log in as guest" to a full-width secondary CTA just above Begin */
 body.is-desktop #welcome{background:var(--app-bg)}
-body.is-desktop #welcome .wc-guest-top{order:1;justify-content:center;width:100%;max-width:320px;margin:0 auto}
-body.is-desktop #welcome .wc-guest-top .wc-guest{width:100%;max-width:320px;margin:0;padding:16px 18px;font-size:15px;border-radius:18px}
-body.is-desktop #welcome .wc-begin{order:2;margin-top:12px}
+/* "Log in as guest" sits as a full-width secondary CTA just above Begin (all breakpoints) */
+#welcome .wc-guest-top{order:1;justify-content:center;width:100%;max-width:320px;margin:0 auto}
+#welcome .wc-guest-top .wc-guest{width:100%;max-width:320px;margin:0;padding:16px 18px;font-size:15px;border-radius:18px}
+#welcome .wc-begin{order:2;margin-top:12px}
 /* Home gauge trend box (below the Above Average pill) */
 .rh-trend{display:inline-flex;align-items:center;gap:8px;margin:10px auto 0;background:#fff;border:1px solid rgba(54,59,59,.1);border-radius:12px;padding:7px 14px;box-shadow:0 2px 8px rgba(60,50,45,.05)}
 .rh-trend-delta{font-family:var(--font-display);font-size:15px;font-weight:700;color:var(--hb-teal-deep)}
