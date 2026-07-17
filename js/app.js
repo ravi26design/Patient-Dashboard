@@ -1407,9 +1407,12 @@ function submitDetails(){
   var name=document.getElementById('dtName'), email=document.getElementById('dtEmail');
   var nameVal=((name&&name.value)||'').trim();
   if(!nameVal){ dtErr('dtNameField'); if(name) name.focus(); return; }
+  var uname=document.getElementById('dtUsername');
+  var unameVal=((uname&&uname.value)||'').trim();
+  if(!unameVal){ dtErr('dtUsernameField'); if(uname) uname.focus(); return; }
   var emailVal=((email&&email.value)||'').trim();
   if(emailVal && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(emailVal)){ dtErr('dtEmailField'); if(email) email.focus(); return; }
-  window.__profile={name:nameVal, email:emailVal, phone:(window.__phone||null), dob:(window.__dob||null), age:(window.__dob?window.__dob.age:null)};
+  window.__profile={name:nameVal, username:unameVal, email:emailVal, phone:(window.__phone||null), dob:(window.__dob||null), age:(window.__dob?window.__dob.age:null)};
   var rn=document.getElementById('rhName'); if(rn) rn.textContent=nameVal.split(' ')[0];   /* greet by first name */
   try{ localStorage.setItem('rh_onboarded','1'); localStorage.setItem('rh_profile', JSON.stringify(window.__profile)); }catch(e){}
   onbShow('reliefScreen');   /* next step: What brings you relief? → connect clinic → privacy */
