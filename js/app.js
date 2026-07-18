@@ -69,7 +69,7 @@ function fpToggleChip(el){
 function fpCall(name){
   FP_ANALYTICS.calls++;
   updateFPDashboard();
-  showXPPopup(25);
+  showXPPopup(25, 'Call Logged!');
 }
 function fpDirections(name){
   FP_ANALYTICS.directions++;
@@ -352,18 +352,20 @@ function confirmMoudDose(card){
 function confirmMat(b){
   var multi=Math.random();
   var xp=50, label='Confirmed! +50 XP';
-  if(multi>.85){xp=250;label='🎉 5× MYSTERY BONUS! +250 XP!';}
-  else if(multi>.65){xp=150;label='✨ 3× BONUS! +150 XP!';}
-  else if(multi>.45){xp=100;label='⚡ 2× BONUS! +100 XP!';}
+  if(multi>.85){xp=250;label='🎉 Confirmed! +250 XP';}
+  else if(multi>.65){xp=150;label='✨ Confirmed! +150 XP';}
+  else if(multi>.45){xp=100;label='⚡ Confirmed! +100 XP';}
   b.textContent=label;b.style.background=multi>.45?'var(--gold)':'var(--sage)';b.style.color='#fff';b.disabled=true;
-  if(multi>.45)showXPPopup(xp);
+  if(multi>.45)showXPPopup(xp, 'Medication Logged!');
 }
 
-/* ═══ MYSTERY XP POPUP ═══ */
-function showXPPopup(xp){
+/* ═══ XP REWARD POPUP — sparkle + XP value + "<Action> Complete!" (no confirm button) ═══ */
+function showXPPopup(xp, label){
   var bg=document.createElement('div');bg.className='xp-popup-bg';
   var pop=document.createElement('div');pop.className='xp-popup';
-  pop.innerHTML='<div style="font-size:32px;margin-bottom:8px">✨</div><div style="font-family:Fraunces,serif;font-size:36px;font-weight:700;color:#C9A84C">+'+xp+' XP</div><div class="ui" style="font-size:12px;color:rgba(255,255,255,.6);margin-top:4px;letter-spacing:1px">MYSTERY BONUS!</div><div class="ui" style="font-size:9px;color:rgba(255,255,255,.3);margin-top:8px">Variable rewards keep recovery exciting</div>';
+  pop.innerHTML='<div style="font-size:34px;margin-bottom:6px;line-height:1">✨</div>'+
+    '<div style="font-family:Fraunces,serif;font-size:40px;font-weight:700;color:#C9A84C;line-height:1">+'+xp+' XP</div>'+
+    '<div class="ui" style="font-size:15px;font-weight:700;color:#fff;margin-top:12px;letter-spacing:.4px">'+(label||'Complete!')+'</div>';
   document.body.appendChild(bg);document.body.appendChild(pop);
   bg.onclick=function(){bg.remove();pop.remove()};
   setTimeout(function(){bg.remove();pop.remove()},3000);
@@ -648,17 +650,8 @@ function renderReflect(){
   var foot=document.getElementById('reflect-footer');
   body.classList.toggle('rf-body-center', reflectStep>=REFLECT_TOTAL);   /* center the celebration */
   var _ov=document.getElementById('ov-reflect'); if(_ov) _ov.classList.toggle('rf-modal', reflectStep>=REFLECT_TOTAL);   /* dim backdrop = modal */
-  if(reflectStep>=REFLECT_TOTAL){   /* ═══ completion screen (modal) ═══ */
-    body.innerHTML=
-      '<div class="rf-complete">'+
-        '<div class="rf-yg">'+
-          '<div class="rf-yg-ribbon">🎉 You got!</div>'+
-          '<div class="rf-yg-title">Reflect Complete!</div>'+
-          '<button class="rf-yg-confirm" onclick="reflectDone()">Confirm · 30 XP</button>'+
-        '</div>'+
-      '</div>';
-    foot.innerHTML='';
-    if(window.lucide && lucide.createIcons) lucide.createIcons();
+  if(reflectStep>=REFLECT_TOTAL){   /* ═══ completion → unified reward popup (no confirm button) ═══ */
+    reflectDone();
     return;
   }
   var n=reflectStep, item=REFLECT_Q[n], total=REFLECT_TOTAL;
@@ -726,7 +719,7 @@ function reflectDone(){
   if(check){ check.style.display='block'; }
   if(time){ time.textContent='Today ✓'; time.style.color='var(--hb-teal)'; }
   updateTodayProgress();
-  if(typeof showXPPopup==='function') showXPPopup(30);
+  if(typeof showXPPopup==='function') showXPPopup(30, 'Reflect Complete!');
 }
 
 /* ═══════════════════════════════════════════════════════════
@@ -752,7 +745,7 @@ function rlToast(msg){
 function reliefDone(label){
   if(typeof stopBreath==='function') stopBreath();
   closeOv();
-  if(typeof showXPPopup==='function') showXPPopup(20);
+  if(typeof showXPPopup==='function') showXPPopup(20, 'Activity Complete!');
   else rlToast((label||'Exercise')+' complete — well done 🌿');
 }
 
@@ -941,7 +934,7 @@ function buildArcGauge(elId, val){
   if(numEl){ if(reduce){ numEl.textContent=val; } else { numEl.textContent='0'; rhCountUp(numEl, val, 1100); } }
 }
 /* Insights: mark the daily insight reviewed → award XP and close */
-function markInsightReviewed(){ if(typeof showXPPopup==='function') showXPPopup(20); closeOv(); }
+function markInsightReviewed(){ if(typeof showXPPopup==='function') showXPPopup(20, 'Insight Reviewed!'); closeOv(); }
 /* Insights: recommended-activity completion, driven from the detail page */
 function updateRecCount(){
   var grid=document.querySelector('.ins-rec-grid'); if(!grid) return;
@@ -987,7 +980,7 @@ function markThreeGoodDone(){
   var already=false; try{ already=localStorage.getItem('rh_threegood_done')==='1'; }catch(e){}
   try{ localStorage.setItem('rh_threegood_done','1'); }catch(e){}
   applyRecState();
-  if(!already && typeof showXPPopup==='function') showXPPopup(15);
+  if(!already && typeof showXPPopup==='function') showXPPopup(15, 'Gratitude Complete!');
   closeDetail('threegood-detail');
 }
 /* ===== Community feed (Connect) interactions ===== */
@@ -1020,7 +1013,7 @@ function cmShare(){
   var t=document.getElementById('cm-text'); if(!t) return;
   if(!t.value.trim()) return;
   t.value=''; cmComposeSync();
-  if(typeof showXPPopup==='function') showXPPopup(20);
+  if(typeof showXPPopup==='function') showXPPopup(20, 'Posted to Community!');
 }
 /* mic button — toggle a listening/recording state (voice-to-text placeholder) */
 function cmMic(btn){ if(btn) btn.classList.toggle('rec'); }
@@ -1134,7 +1127,7 @@ function activityComplete(){
   try{ localStorage.setItem('rh_act_'+id,'1'); }catch(e){}
   actzPaintTiles();
   closeDetail('activity');
-  if(first && typeof showXPPopup==='function') showXPPopup(a.pts);
+  if(first && typeof showXPPopup==='function') showXPPopup(a.pts, 'Activity Complete!');
 }
 /* paint completed tiles on the Activities screen */
 function actzPaintTiles(){
@@ -1212,7 +1205,7 @@ function markCommunityDone(){
   var already=false; try{ already=localStorage.getItem('rh_community_done')==='1'; }catch(e){}
   try{ localStorage.setItem('rh_community_done','1'); }catch(e){}
   applyRecState();
-  if(!already && typeof showXPPopup==='function') showXPPopup(20);
+  if(!already && typeof showXPPopup==='function') showXPPopup(20, 'Connect Complete!');
   closeDetail('community-detail');
   if(typeof openOv==='function') openOv('connect');
 }
@@ -1221,7 +1214,7 @@ function markReliefDone(){
   var already=false; try{ already=localStorage.getItem('rh_relief_done')==='1'; }catch(e){}
   try{ localStorage.setItem('rh_relief_done','1'); }catch(e){}
   applyRecState();
-  if(!already && typeof showXPPopup==='function') showXPPopup(20);
+  if(!already && typeof showXPPopup==='function') showXPPopup(20, 'Activity Complete!');
   closeDetail('relief-detail');
 }
 /* if-then builder: single-select a chip within its group */
@@ -1258,7 +1251,7 @@ function markIfThenDone(){
   var already=false; try{ already=localStorage.getItem('rh_ifthen_done')==='1'; }catch(e){}
   try{ localStorage.setItem('rh_ifthen_done','1'); }catch(e){}
   applyRecState();
-  if(!already && typeof showXPPopup==='function') showXPPopup(20);
+  if(!already && typeof showXPPopup==='function') showXPPopup(20, 'Plan Saved!');
   closeDetail('ifthen-detail');
 }
 /* count a number up to `to` over `dur` ms, ease-out */
@@ -1938,7 +1931,7 @@ function locAnswer(btn){
   btn.classList.add('sel');
   var sb=document.getElementById('loc-submit'); if(sb) sb.classList.add('ready');  /* enable the Submit CTA */
 }
-function locSubmit(){ closeOv(); if(typeof showXPPopup==='function') showXPPopup(30); }
+function locSubmit(){ closeOv(); if(typeof showXPPopup==='function') showXPPopup(30, 'Check-in Complete!'); }
 function pfTelHref(num){ return 'tel:'+String(num).replace(/[^\d+]/g,''); }
 function callContact(name,num){ try{ window.location.href=pfTelHref(num); }catch(e){} }
 function textContact(name,num){ try{ window.location.href='sms:'+String(num).replace(/[^\d+]/g,''); }catch(e){} }

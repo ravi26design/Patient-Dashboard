@@ -421,8 +421,17 @@
           <div class="rh-gauge" id="healthGauge"></div>
           <div class="rh-num"><b>74</b></div>
           <div class="rh-outof">out of 100</div>
-          <div class="rh-pill">Above Average</div>
-          <div class="rh-trend"><span class="rh-trend-delta">+2</span><span class="rh-trend-lbl">Stable</span></div>
+          <div class="rh-badges">
+            <div class="rh-pill">Above Average</div>
+            <div class="rh-trend"><span class="rh-trend-delta">+2</span><span class="rh-trend-lbl">Stable</span></div>
+          </div>
+          <div class="rh-risk">
+            <span class="rh-risk-ic"><i data-lucide="zap"></i></span>
+            <div class="rh-risk-main">
+              <div class="rh-risk-eyebrow">Today's Risk</div>
+              <div class="rh-risk-val">Craving</div>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -2790,16 +2799,16 @@
         <div class="rh-gauge ins-gauge" id="insightsGauge"></div>
         <div class="rh-num"><b id="insightsGaugeNum">74</b></div>
         <div class="rh-outof">out of 100</div>
-        <div class="rh-pill">Above Average</div>
-        <div class="rh-trend"><span class="rh-trend-delta">+2</span><span class="rh-trend-lbl">Stable</span></div>
-      </div>
-
-      <!-- Today's Risk -->
-      <div class="ins-risk-card">
-        <span class="ins-risk-ic"><i data-lucide="zap"></i></span>
-        <div class="ins-risk-main">
-          <div class="ins-risk-eyebrow">Today's Risk</div>
-          <div class="ins-risk-val">Craving</div>
+        <div class="rh-badges">
+          <div class="rh-pill">Above Average</div>
+          <div class="rh-trend"><span class="rh-trend-delta">+2</span><span class="rh-trend-lbl">Stable</span></div>
+        </div>
+        <div class="rh-risk">
+          <span class="rh-risk-ic"><i data-lucide="zap"></i></span>
+          <div class="rh-risk-main">
+            <div class="rh-risk-eyebrow">Today's Risk</div>
+            <div class="rh-risk-val">Craving</div>
+          </div>
         </div>
       </div>
 
@@ -2812,22 +2821,6 @@
           <li>Keep the medication streak going and give the 7&nbsp;PM window a small plan.</li>
           <li>Your care team sees the same picture and is walking with you.</li>
         </ul>
-      </div>
-
-      <!-- Today's Recommended Activity -->
-      <div class="ins-rec-head">
-        <span class="home-title" style="margin:0">Today's Recommended Activity</span>
-      </div>
-      <div class="ins-rec-sub">Matched to today's recovery health and risk. Tap a button to read &amp; earn</div>
-      <div class="ins-rec-grid ins-rec-single">
-        <button class="ins-rec-card" id="rec-relief" style="--rca:#5E8B6E;--rcbg:#E7F0EA" onclick="openOv('relief-detail')">
-          <span class="ins-rec-badge"><i data-lucide="check"></i></span>
-          <span class="ins-rec-ic"><i data-lucide="leaf"></i></span>
-          <span class="ins-rec-body">
-            <span class="ins-rec-t">Do one relief activity</span>
-            <span class="ins-rec-pts">+10 XP</span>
-          </span>
-        </button>
       </div>
 
       <!-- Mark reviewed -->

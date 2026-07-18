@@ -202,7 +202,7 @@ body{font-family:'Cormorant Garamond',Georgia,serif;background:var(--taupe);disp
 .share-btn:active{transform:scale(.95)}
 
 /* ═══ XP POPUP ANIMOUDION ═══ */
-.xp-popup{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:linear-gradient(135deg,#2A2421,var(--espresso));border:2px solid var(--gold);border-radius:8px;padding:24px 32px;text-align:center;z-index:9000;animation:xpPopIn .4s cubic-bezier(.34,1.56,.64,1);box-shadow:0 20px 60px rgba(0,0,0,.4)}
+.xp-popup{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);min-width:230px;background:linear-gradient(135deg,#2A2421,var(--espresso));border:2px solid var(--gold);border-radius:20px;padding:30px 38px;text-align:center;z-index:9000;animation:xpPopIn .4s cubic-bezier(.34,1.56,.64,1);box-shadow:0 20px 60px rgba(0,0,0,.4)}
 @keyframes xpPopIn{from{opacity:0;transform:translate(-50%,-50%) scale(.5)}to{opacity:1;transform:translate(-50%,-50%) scale(1)}}
 .xp-popup-bg{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:8999}
 
@@ -3242,3 +3242,19 @@ body.is-mobile .sf-card .sf-row{display:grid;grid-template-columns:1fr 1fr;gap:1
 /* Help screen: show a "Progress"-style title + subtitle on desktop (mobile keeps the back+title header) */
 .sos-desk-head{display:block}
 body.is-desktop #screen-narcan .sos-lead{display:none}
+
+/* ═══ Recovery Health — pills on one row + inline "Today's Risk" (Home + Daily Insight) ═══ */
+.rh-badges{display:flex;justify-content:center;align-items:stretch;gap:10px;flex-wrap:wrap;margin-top:12px}
+.rh-badges .rh-pill,
+.rh-badges .rh-trend{margin:0;height:36px;padding:0 16px;border-radius:999px;display:inline-flex;align-items:center;justify-content:center}
+.rh-badges .rh-pill{font-family:var(--font-ui);font-size:11px;font-weight:800;letter-spacing:.5px;text-transform:uppercase}
+.rh-badges .rh-trend{gap:7px}
+.rh-badges .rh-trend .rh-trend-delta{font-family:var(--font-ui);font-size:13px;font-weight:800;letter-spacing:.3px;color:var(--hb-teal-deep)}
+.rh-badges .rh-trend .rh-trend-lbl{font-family:var(--font-ui);font-size:11px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:var(--ink-soft)}
+body.is-mobile .rh-badges .rh-trend{margin:0;width:auto}
+.rh-risk{display:inline-flex;align-items:center;justify-content:center;gap:11px;margin-top:16px;background:none;border-radius:0;padding:0}
+.rh-risk-ic{width:40px;height:40px;flex-shrink:0;border-radius:12px;background:#F7E2DC;color:#C56A5E;display:flex;align-items:center;justify-content:center}
+.rh-risk-ic i,.rh-risk-ic svg{width:20px;height:20px;stroke-width:2}
+.rh-risk-main{text-align:left}
+.rh-risk-eyebrow{font-family:var(--font-ui);font-size:9.5px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;color:var(--ink-soft)}
+.rh-risk-val{font-family:var(--font-display);font-size:16px;font-weight:700;color:var(--ink);margin-top:2px;line-height:1.05}
