@@ -3244,9 +3244,9 @@ body.is-mobile .sf-card .sf-row{display:grid;grid-template-columns:1fr 1fr;gap:1
 body.is-desktop #screen-narcan .sos-lead{display:none}
 
 /* ═══ Recovery Health — pills on one row + inline "Today's Risk" (Home + Daily Insight) ═══ */
-.rh-badges{display:flex;justify-content:center;align-items:stretch;gap:10px;flex-wrap:wrap;margin-top:12px}
+.rh-badges{display:flex;justify-content:center;align-items:stretch;gap:8px;flex-wrap:nowrap;margin-top:12px}
 .rh-badges .rh-pill,
-.rh-badges .rh-trend{margin:0;height:36px;padding:0 16px;border-radius:999px;display:inline-flex;align-items:center;justify-content:center}
+.rh-badges .rh-trend{margin:0;height:36px;padding:0 14px;border-radius:999px;display:inline-flex;align-items:center;justify-content:center;white-space:nowrap}
 .rh-badges .rh-pill{font-family:var(--font-ui);font-size:11px;font-weight:800;letter-spacing:.5px;text-transform:uppercase}
 .rh-badges .rh-trend{gap:7px}
 .rh-badges .rh-trend .rh-trend-delta{font-family:var(--font-ui);font-size:13px;font-weight:800;letter-spacing:.3px;color:var(--hb-teal-deep)}

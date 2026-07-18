@@ -934,7 +934,7 @@ function buildArcGauge(elId, val){
   if(numEl){ if(reduce){ numEl.textContent=val; } else { numEl.textContent='0'; rhCountUp(numEl, val, 1100); } }
 }
 /* Insights: mark the daily insight reviewed → award XP and close */
-function markInsightReviewed(){ if(typeof showXPPopup==='function') showXPPopup(20, 'Insight Reviewed!'); closeOv(); }
+function markInsightReviewed(){ if(typeof showXPPopup==='function') showXPPopup(20, 'Insights Reviewed!'); closeOv(); }
 /* Insights: recommended-activity completion, driven from the detail page */
 function updateRecCount(){
   var grid=document.querySelector('.ins-rec-grid'); if(!grid) return;
@@ -1214,7 +1214,7 @@ function markReliefDone(){
   var already=false; try{ already=localStorage.getItem('rh_relief_done')==='1'; }catch(e){}
   try{ localStorage.setItem('rh_relief_done','1'); }catch(e){}
   applyRecState();
-  if(!already && typeof showXPPopup==='function') showXPPopup(20, 'Activity Complete!');
+  if(typeof showXPPopup==='function') showXPPopup(10, 'Activities Reviewed!');
   closeDetail('relief-detail');
 }
 /* if-then builder: single-select a chip within its group */
