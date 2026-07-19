@@ -30,6 +30,7 @@ function openOv(id){
   if(id==='relief-breath' && typeof startBreath==='function') startBreath();           /* start 4-7-8 cycle */
   if(id==='relief-game'   && typeof gameInit==='function')   gameInit();               /* build distraction grid */
   if(id==='insights'){ if(typeof buildArcGauge==='function') buildArcGauge('insightsGauge', 74); if(typeof applyRecState==='function') applyRecState(); var _rn=document.getElementById('rhName'), _ri=document.getElementById('rhNameIns'); if(_rn&&_ri) _ri.textContent=_rn.textContent; }   /* insights gauge + greeting name + recommended completion state */
+  if(id==='relief-detail' && typeof applyRecState==='function') applyRecState();   /* reflect today's done-state on the Mark-as-done button */
   if(id==='ifthen-detail' && typeof iftSync==='function') iftSync();   /* set Save button enabled/disabled from current selection */
   if(id==='threegood-detail' && typeof tgSync==='function') tgSync();   /* set Save button state from the three inputs */
   if(id==='urge' && typeof populateUrge==='function') populateUrge();   /* fill relief activities + contacts (e.g. after refresh-restore) */
@@ -934,7 +935,24 @@ function buildArcGauge(elId, val){
   if(numEl){ if(reduce){ numEl.textContent=val; } else { numEl.textContent='0'; rhCountUp(numEl, val, 1100); } }
 }
 /* Insights: mark the daily insight reviewed → award XP and close */
-function markInsightReviewed(){ if(typeof showXPPopup==='function') showXPPopup(20, 'Insights Reviewed!'); closeOv(); }
+/* daily completion flags — a task counts as "done" only for the current calendar
+   day, so streak buttons reset each day and can't be farmed for repeat XP */
+function _rhToday(){ try{ var d=new Date(); return d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate(); }catch(e){ return 'na'; } }
+function rhDayDone(key){ try{ return localStorage.getItem(key)===_rhToday(); }catch(e){ return false; } }
+function rhSetDayDone(key){ try{ localStorage.setItem(key,_rhToday()); }catch(e){} }
+/* Insights: reflect the "reviewed" state on the bottom button */
+function setInsightReviewedBtn(done){
+  var b=document.getElementById('ins-review-btn'); if(!b) return;
+  if(done){ b.textContent='Reviewed ✓'; b.disabled=true; b.classList.add('is-done'); }
+  else { b.textContent='Mark insight reviewed · +20 XP'; b.disabled=false; b.classList.remove('is-done'); }
+}
+/* Insights: mark reviewed → award XP once per day, then lock the button as checked */
+function markInsightReviewed(){
+  if(rhDayDone('rh_insight_reviewed')) return;   /* already reviewed today — no repeat XP */
+  rhSetDayDone('rh_insight_reviewed');
+  setInsightReviewedBtn(true);
+  if(typeof showXPPopup==='function') showXPPopup(20, 'Insights Reviewed!');
+}
 /* Insights: recommended-activity completion, driven from the detail page */
 function updateRecCount(){
   var grid=document.querySelector('.ins-rec-grid'); if(!grid) return;
@@ -944,13 +962,19 @@ function updateRecCount(){
 }
 /* reflect saved completion state on the recommended cards (called when Insights opens) */
 function applyRecState(){
-  /* relief activity */
-  var reliefDone=false; try{ reliefDone=localStorage.getItem('rh_relief_done')==='1'; }catch(e){}
+  /* relief activity (resets daily) */
+  var reliefDone=rhDayDone('rh_relief_done');
   var rc=document.getElementById('rec-relief'); if(rc) rc.classList.toggle('is-done', reliefDone);
   var arc=document.getElementById('act-rec-relief'); if(arc) arc.classList.toggle('is-done', reliefDone);   /* Activities-screen Today's Activity card */
   var rb=document.getElementById('rd-done-btn');
   if(rb){ if(reliefDone){ rb.textContent='Completed ✓'; rb.disabled=true; rb.classList.add('is-done'); }
           else { rb.textContent='Mark as done · +10 XP'; rb.disabled=false; rb.classList.remove('is-done'); } }
+  /* Recovery Today — the "Activities" task card mirrors the relief-activity state */
+  var achk=document.getElementById('activities-check'); if(achk) achk.style.display=reliefDone?'block':'none';
+  var atime=document.getElementById('activities-time');
+  if(atime){ if(reliefDone){ atime.textContent='Today ✓'; atime.style.color='var(--hb-teal)'; } else { atime.textContent='Anytime'; atime.style.color=''; } }
+  /* Insights — bottom "reviewed" button state (resets daily) */
+  setInsightReviewedBtn(rhDayDone('rh_insight_reviewed'));
   /* if-then plan */
   var iftDone=false; try{ iftDone=localStorage.getItem('rh_ifthen_done')==='1'; }catch(e){}
   var ic=document.getElementById('rec-ifthen'); if(ic) ic.classList.toggle('is-done', iftDone);
@@ -966,6 +990,7 @@ function applyRecState(){
   var tb=document.getElementById('tg-save-btn');
   if(tb){ if(tgDone){ tb.textContent='Saved ✓'; tb.disabled=true; tb.classList.add('is-done'); }
           else { tb.textContent='Save my three good things · +15 pts'; tb.classList.remove('is-done'); tgSync(); } }
+  if(typeof updateTodayProgress==='function') updateTodayProgress();   /* keep the Recovery Today Activities card in sync */
   updateRecCount();
 }
 /* three good things: enable Save once all three are filled */
@@ -1011,9 +1036,49 @@ function cmComposeSync(){
 /* post a new conversation from the composer */
 function cmShare(){
   var t=document.getElementById('cm-text'); if(!t) return;
-  if(!t.value.trim()) return;
+  var txt=t.value.trim(); if(!txt) return;
+  /* which circle is selected in the composer */
+  var chip=document.querySelector('#ov-connect .cm-chip.sel');
+  var label=chip?chip.textContent.trim():'Wins & Milestones';
+  var MAP={'Wins & Milestones':{cls:'wins',ic:'star'},'Cravings & Coping':{cls:'cravings',ic:'waves'},'Sleep & Self-Care':{cls:'sleep',ic:'moon'}};
+  var m=MAP[label]||MAP['Wins & Milestones'];
+  /* handle + initials from the signed-in profile (falls back to "you") */
+  var uname=(window.__profile&&(window.__profile.username||window.__profile.name))||'you';
+  var handle='@'+String(uname).toLowerCase().replace(/\s+/g,'_');
+  var initials=(String(uname).trim().slice(0,2)||'ME').toUpperCase();
+  /* build the post */
+  var post=document.createElement('div');
+  post.className='cm-post cm-post-mine';
+  post.setAttribute('data-circle', m.cls);
+  post.innerHTML=
+    '<div class="cm-post-head">'+
+      '<div class="cm-avatar" style="background:#5E8B6E">'+cmEsc(initials)+'</div>'+
+      '<div class="cm-post-id"><div class="cm-handle">'+cmEsc(handle)+'</div><div class="cm-time">Just now</div></div>'+
+      '<span class="cm-tag cm-tag--'+m.cls+'"><i data-lucide="'+m.ic+'"></i> '+cmEsc(label)+'</span>'+
+    '</div>'+
+    '<div class="cm-post-txt">'+cmEsc(txt)+'</div>'+
+    '<div class="cm-actions">'+
+      '<button class="cm-act" onclick="event.stopPropagation();cmSupport(this)"><i data-lucide="heart"></i> <span class="cm-act-n">0</span> <span class="cm-act-lbl">support</span></button>'+
+      '<button class="cm-act"><i data-lucide="message-circle"></i> <span class="cm-act-n">0</span> <span class="cm-act-lbl">comment</span></button>'+
+      '<button class="cm-act" onclick="event.stopPropagation();cmFollow(this)"><i data-lucide="bell-plus"></i> <span class="cm-act-lbl">Follow</span></button>'+
+    '</div>';
+  /* insert at the top of the feed, just under the circle tabs */
+  var tabs=document.querySelector('#ov-connect .cm-tabs');
+  if(tabs && tabs.parentNode){ tabs.parentNode.insertBefore(post, tabs.nextSibling); }
+  else { var body=document.querySelector('#ov-connect .ov-body'); if(body) body.appendChild(post); }
+  /* respect the currently active circle filter */
+  var activeTab=document.querySelector('#ov-connect .cm-tab.on');
+  var key='all'; if(activeTab){ var km=(activeTab.getAttribute('onclick')||'').match(/cmTab\(this,'([^']+)'\)/); if(km) key=km[1]; }
+  if(!(key==='all'||key===m.cls)) post.style.display='none';
+  /* bump the All + matching-circle tab counts */
+  document.querySelectorAll('#ov-connect .cm-tab').forEach(function(tab){
+    var c=tab.querySelector('.cm-tab-count'); if(!c) return;
+    var oc=tab.getAttribute('onclick')||'';
+    if(/cmTab\(this,'all'\)/.test(oc) || tab.textContent.indexOf(label)>=0){ c.textContent=(parseInt(c.textContent,10)||0)+1; }
+  });
+  if(typeof lucide!=='undefined' && lucide.createIcons) lucide.createIcons();
   t.value=''; cmComposeSync();
-  if(typeof showXPPopup==='function') showXPPopup(20, 'Posted to Community!');
+  if(typeof showXPPopup==='function') showXPPopup(10, 'Posted to Community!');
 }
 /* mic button — toggle a listening/recording state (voice-to-text placeholder) */
 function cmMic(btn){ if(btn) btn.classList.toggle('rec'); }
@@ -1211,10 +1276,10 @@ function markCommunityDone(){
 }
 /* user taps "Mark as done" on the relief detail page */
 function markReliefDone(){
-  var already=false; try{ already=localStorage.getItem('rh_relief_done')==='1'; }catch(e){}
-  try{ localStorage.setItem('rh_relief_done','1'); }catch(e){}
+  var already=rhDayDone('rh_relief_done');
+  rhSetDayDone('rh_relief_done');
   applyRecState();
-  if(typeof showXPPopup==='function') showXPPopup(10, 'Activities Reviewed!');
+  if(!already && typeof showXPPopup==='function') showXPPopup(10, 'Activities Reviewed!');
   closeDetail('relief-detail');
 }
 /* if-then builder: single-select a chip within its group */
