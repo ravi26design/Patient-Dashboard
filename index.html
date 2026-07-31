@@ -67,24 +67,7 @@
   </div>
 </div>
 
-<!-- ═══ MOBILE NUMBER SCREEN (after Begin) ═══ -->
-<div id="phoneScreen" aria-hidden="true">
-  <div class="phone-inner">
-    <div class="ph-stage">
-      <div class="ph-badge ph-badge-ic"><i data-lucide="smartphone"></i></div>
-      <h1 class="ph-title">What's your mobile number?</h1>
-      <p class="ph-sub">Your number is never shared or sold.</p>
-      <div class="ph-row" id="phRow">
-        <button class="ph-cc" id="phCC" type="button" onclick="openCC()">
-          <span class="cc-flag" id="ccFlag">🇺🇸</span><span class="cc-dial" id="ccDial">+1</span><i data-lucide="chevron-down" class="cc-chev"></i>
-        </button>
-        <input id="phoneInput" class="ph-input" type="tel" inputmode="numeric" autocomplete="tel"
-               placeholder="(555) 123-4567" maxlength="14" oninput="fmtPhone(this)">
-      </div>
-    </div>
-    <button class="wc-begin ph-send" type="button" onclick="sendCode()">Send code <span aria-hidden="true">&rarr;</span></button>
-  </div>
-</div>
+<!-- (Mobile-number field merged into the DETAILS screen below) -->
 
 <!-- ═══ OTP VERIFICATION SCREEN ═══ -->
 <div id="otpScreen" aria-hidden="true" onclick="otpBackdrop(event)">
@@ -114,8 +97,17 @@
     <div class="ph-stage dt-stage">
       <div class="ph-badge ph-badge-ic"><i data-lucide="user-round"></i></div>
       <h1 class="ph-title">A little about you</h1>
-      <p class="ph-sub">This helps us personalize your recovery.</p>
+      <p class="ph-sub">This helps us personalize your recovery. Your number is never shared or sold.</p>
       <div class="dt-fields">
+        <div class="dt-field" id="dtPhoneField">
+          <label class="dt-label" for="phoneInput">Mobile number <span class="dt-req">*</span></label>
+          <div class="ph-row dt-phrow" id="phRow">
+            <button class="ph-cc" id="phCC" type="button" onclick="openCC()">
+              <span class="cc-flag" id="ccFlag">🇺🇸</span><span class="cc-dial" id="ccDial">+1</span><i data-lucide="chevron-down" class="cc-chev"></i>
+            </button>
+            <input id="phoneInput" class="ph-input" type="tel" inputmode="numeric" autocomplete="tel" placeholder="(555) 123-4567" maxlength="14" oninput="fmtPhone(this)">
+          </div>
+        </div>
         <div class="dt-field" id="dtNameField">
           <label class="dt-label" for="dtName">Name <span class="dt-req">*</span></label>
           <div class="dt-inwrap"><i data-lucide="user-round"></i><input id="dtName" class="dt-input" type="text" placeholder="Your name" autocomplete="name"></div>

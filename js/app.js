@@ -1416,7 +1416,7 @@ var __wc={start:function(){},stop:function(){}};
 })();
 function enterApp(){
   __wc.stop();
-  showPhoneScreen();                         /* mobile-number page */
+  showDetailsScreen();                        /* combined details + mobile-number page */
   var w=document.getElementById('welcome');
   if(w){ w.classList.add('hide'); setTimeout(function(){ w.style.display='none'; }, 520); }
 }
@@ -1470,11 +1470,15 @@ function submitDetails(){
   if(!unameVal){ dtErr('dtUsernameField'); if(uname) uname.focus(); return; }
   var emailVal=((email&&email.value)||'').trim();
   if(emailVal && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(emailVal)){ dtErr('dtEmailField'); if(email) email.focus(); return; }
-  window.__profile={name:nameVal, username:unameVal, email:emailVal, phone:(window.__phone||null), dob:(window.__dob||null), age:(window.__dob?window.__dob.age:null)};
+  /* validate the mobile number (now collected on this same screen) */
+  var pinp=document.getElementById('phoneInput');
+  var pd=((pinp&&pinp.value)||'').replace(/\D/g,'');
+  if(pd.length<10){ dtErr('dtPhoneField'); var prow=document.getElementById('phRow'); if(prow){ prow.classList.add('err'); setTimeout(function(){ prow.classList.remove('err'); }, 1200); } if(pinp) pinp.focus(); return; }
+  window.__phone=(typeof __cc!=='undefined'&&__cc?__cc.d:'+1')+pd;
+  window.__profile={name:nameVal, username:unameVal, email:emailVal, phone:window.__phone, dob:(window.__dob||null), age:(window.__dob?window.__dob.age:null)};
   var rn=document.getElementById('rhName'); if(rn) rn.textContent=nameVal.split(' ')[0];   /* greet by first name */
-  try{ localStorage.setItem('rh_onboarded','1'); localStorage.setItem('rh_profile', JSON.stringify(window.__profile)); }catch(e){}
-  onbShow('reliefScreen');   /* next step: What brings you relief? → connect clinic → privacy */
-  hideDetailsScreen();
+  try{ localStorage.setItem('rh_profile', JSON.stringify(window.__profile)); }catch(e){}
+  showOtpScreen();   /* verify the number next; onboarding steps continue after OTP */
 }
 /* ═══ ONBOARDING STEP FORM (MOUD -> triggers -> relief -> care -> reminders -> privacy -> done) ═══ */
 function onbShow(id){ var e=document.getElementById(id); if(e){ e.style.display=''; e.classList.remove('hide'); e.classList.add('show'); e.scrollTop=0; } }
@@ -1750,13 +1754,15 @@ function verifyOtp(){
     try{ localStorage.setItem('rh_profile', JSON.stringify(existing)); localStorage.setItem('rh_onboarded','1'); }catch(e){}
     var rn=document.getElementById('rhName'); if(rn && existing.name) rn.textContent=String(existing.name).split(' ')[0];
     hideOtpScreen();
-    hidePhoneScreen();              /* reveal the home dashboard behind */
+    hideDetailsScreen();           /* reveal the home dashboard behind */
     scheduleCheckin();             /* daily check-in prompt 2s after landing on home */
     return;
   }
-  showDetailsScreen();
+  /* new user: details were already collected before OTP → go straight to the onboarding steps */
+  try{ localStorage.setItem('rh_onboarded','1'); if(window.__profile) localStorage.setItem('rh_profile', JSON.stringify(window.__profile)); }catch(e){}
+  onbShow('reliefScreen');
   hideOtpScreen();
-  hidePhoneScreen();                /* dismiss the phone screen sitting behind the sheet */
+  hideDetailsScreen();
 }
 function resendOtp(){
   var btn=document.getElementById('otpResend'); if(btn && btn.disabled) return;   /* still counting down */

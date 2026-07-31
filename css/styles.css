@@ -1708,7 +1708,7 @@ body.is-desktop .brand-img{height:26px}
 @media (min-width:900px){ .dt-input{font-size:17px} .dt-label{font-size:14px} }
 
 /* ═══ OTP VERIFICATION SCREEN ═══ */
-#otpScreen{position:fixed;inset:0;z-index:9555;display:none;
+#otpScreen{position:fixed;inset:0;z-index:9600;display:none;
   align-items:flex-end;justify-content:center;text-align:center;
   background:rgba(40,36,33,.44)}
 #otpScreen.show{display:flex;animation:lmFade .3s ease both}
