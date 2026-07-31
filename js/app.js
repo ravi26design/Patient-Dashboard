@@ -107,6 +107,17 @@ function confirmConnect(card){
   updateTodayProgress();
   openOv('connect');
 }
+function confirmSchedule(card){
+  var check = document.getElementById('schedule-check');
+  var time  = document.getElementById('schedule-time');
+  if(check && check.style.display === 'none'){
+    check.style.display = 'block';
+    time.textContent  = 'Today ✓';
+    time.style.color  = 'var(--hb-teal)';
+  }
+  updateTodayProgress();
+  if(typeof openOv==='function') openOv('schedule');
+}
 function confirmCheckin(card){
   var icon = document.getElementById('checkin-icon');
   var check = document.getElementById('checkin-check');
@@ -126,7 +137,7 @@ function confirmCheckin(card){
 }
 /* Daily ritual progress \u2014 reflects how many of the 3 tasks are done */
 function updateTodayProgress(){
-  var keys=['focus','checkin','connect','activities'], done=0;
+  var keys=['focus','checkin','schedule','activities'], done=0;
   keys.forEach(function(k){
     var chk=document.getElementById(k+'-check');
     var card=document.getElementById(k+'-card');
