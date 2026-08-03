@@ -4269,6 +4269,12 @@ body:has(#ov-rooms.active) #bottomNav{z-index:9600}
 
 /* Community sub-pages must paint ABOVE the Community page (they precede it in the DOM) */
 #ov-request-room.active,#ov-friends.active,#ov-find-coach.active,#ov-na-meetings.active,#ov-na-meeting-detail.active{z-index:9500}
+/* Desktop: Community sub-pages keep their back-arrow + title header, same as mobile */
+body.is-desktop #ov-request-room > .ov-header,
+body.is-desktop #ov-find-coach > .ov-header,
+body.is-desktop #ov-na-meetings > .ov-header,
+body.is-desktop #ov-na-meeting-detail > .ov-header{display:flex !important;align-items:center;background:#fff !important;border-bottom:1px solid rgba(54,59,59,.06) !important}
+#ov-find-coach .ov-header #fcTitle{font-family:var(--font-display);font-size:17px;font-weight:700}
 /* Community sub-pages & sheets are focused windows — hide the bottom bar so they read as full pages / open over it */
 body:has(#ov-find-coach.active) #bottomNav,
 body:has(#ov-na-meetings.active) #bottomNav,
