@@ -5,6 +5,7 @@
 
 /* ═══ NAV ═══ */
 function goScreen(id){
+  if(typeof closeOv==='function') closeOv();   /* switching a main tab dismisses any open overlay (e.g. Community) */
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
   var el=document.getElementById('screen-'+id);if(el)el.classList.add('active');
   document.querySelectorAll('.nav-tab').forEach(t=>t.classList.remove('active'));
@@ -35,6 +36,10 @@ function openOv(id){
   if(id==='threegood-detail' && typeof tgSync==='function') tgSync();   /* set Save button state from the three inputs */
   if(id==='urge' && typeof populateUrge==='function') populateUrge();   /* fill relief activities + contacts (e.g. after refresh-restore) */
   if(id==='manage-team' && typeof renderTeam==='function') renderTeam();   /* render the support-team list */
+  if(id==='friends' && typeof frRender==='function') frRender();   /* followers & friends list */
+  if(id==='rooms'){   /* Community is a nav destination — light up its nav tab */
+    document.querySelectorAll('.bottom-nav .nav-tab, #dnav .dn-item').forEach(function(t){ t.classList.toggle('active', ((t.getAttribute('onclick')||'').indexOf("'rooms'")>=0)); });
+  }
   if(id==='location-checkin'){ el.querySelectorAll('.loc-opt.sel').forEach(function(o){o.classList.remove('sel');}); var _sb=document.getElementById('loc-submit'); if(_sb) _sb.classList.remove('ready'); }  /* fresh state each open */
   try{localStorage.setItem('rh_ov',id);}catch(e){}
 }
@@ -105,7 +110,7 @@ function confirmConnect(card){
     time.style.color  = 'var(--hb-teal)';
   }
   updateTodayProgress();
-  openOv('connect');
+  openOv('rooms');
 }
 function confirmSchedule(card){
   var check = document.getElementById('schedule-check');
@@ -117,6 +122,17 @@ function confirmSchedule(card){
   }
   updateTodayProgress();
   if(typeof openOv==='function') openOv('schedule');
+}
+/* Activities — same flow as Tx Schedule: mark the card done, then open the activities list */
+function confirmActivities(card){
+  var check = document.getElementById('activities-check');
+  var time  = document.getElementById('activities-time');
+  if(check && check.style.display === 'none'){
+    check.style.display = 'block';
+    if(time){ time.textContent = 'Done ✓'; time.style.color = 'var(--hb-teal)'; }
+  }
+  updateTodayProgress();
+  goScreen('tools');
 }
 function confirmCheckin(card){
   var icon = document.getElementById('checkin-icon');
@@ -1283,7 +1299,7 @@ function markCommunityDone(){
   applyRecState();
   if(!already && typeof showXPPopup==='function') showXPPopup(20, 'Connect Complete!');
   closeDetail('community-detail');
-  if(typeof openOv==='function') openOv('connect');
+  if(typeof openOv==='function') openOv('rooms');
 }
 /* user taps "Mark as done" on the relief detail page */
 function markReliefDone(){
@@ -1647,13 +1663,14 @@ function finishOnbFlow(){ setTimeout(function(){ showDoneModal(); if(window.__do
     try{ var pf=JSON.parse(localStorage.getItem('rh_profile')||'null'); if(pf){ window.__profile=pf; if(pf.phone) window.__phone=pf.phone;
       var rn=document.getElementById('rhName'); if(rn && pf.name) rn.textContent=String(pf.name).split(' ')[0]; } }catch(e){}
     var last=null; try{ last=localStorage.getItem('rh_screen'); }catch(e){}
+    /* read the last overlay BEFORE goScreen — goScreen now closes overlays and clears rh_ov */
+    var lastOv=null; try{ lastOv=localStorage.getItem('rh_ov'); }catch(e){}
     if(last && document.getElementById('screen-'+last)) goScreen(last); else goScreen('home');
     /* reopen the overlay/detail page the user was viewing before the refresh */
-    var lastOv=null; try{ lastOv=localStorage.getItem('rh_ov'); }catch(e){}
     if(lastOv && document.getElementById('ov-'+lastOv) && typeof openOv==='function'){
       if(lastOv==='relief-detail' || lastOv==='ifthen-detail' || lastOv==='community-detail' || lastOv==='threegood-detail' || lastOv==='insights-yesterday') openOv('insights');   /* keep the parent Insights screen beneath the detail */
       if(lastOv==='post-detail'){
-        openOv('connect');
+        openOv('rooms');
         var pid=null; try{ pid=localStorage.getItem('rh_post'); }catch(e){}
         if(pid && typeof openPost==='function') openPost(pid);
       } else if(lastOv==='activity'){
@@ -2046,3 +2063,1735 @@ function pfRemoveActivity(i){ RH_PF.activities.splice(i,1); pfRefresh(); }
 
 /* render once on load (in case profile is the restored screen) */
 window.addEventListener('load', function(){ try{ renderProfileLists(); }catch(e){} });
+
+/* ===== COMMUNITY FLOW (ported from Ravi V2) ===== */
+/* ══════════════════════════════════════════════════════════════════
+   COMMUNITY  ·  ported from rudra-app_v22.html
+   Self-contained: runs inside its own closure so nothing here can
+   collide with js/app.js. External helpers from the v22 app are
+   re-implemented locally, or delegated to app.js when it provides
+   a global of the same name.
+   ══════════════════════════════════════════════════════════════════ */
+(function(){
+"use strict";
+
+var ROOT = document.getElementById("s-community");
+if(!ROOT) return;
+
+/* ── local helpers (v22 originals) ── */
+var $  = function(s,r){ return (r||document).querySelector(s); };
+var $$ = function(s,r){ return Array.prototype.slice.call((r||document).querySelectorAll(s)); };
+
+var CURRENT_USERNAME = (typeof window.CURRENT_USERNAME === "string" && window.CURRENT_USERNAME) || "you";
+
+/* XP table — uses app.js's if it exposes one, otherwise the v22 values */
+var XP = window.XP || { task:15, wellness:25, checkin:75, mood:10, cpost:30, creply:15, creact:5, croom:40 };
+
+/* toast — index.html has no #toast node, so the port brings its own */
+var __toastEl = null;
+function toast(msg){
+  if(!__toastEl){
+    __toastEl = document.createElement("div");
+    __toastEl.className = "rc-toast";
+    // must live inside the phone frame — on <body> it renders at the bottom
+    // of the browser window, over whatever else is on the page
+    (document.getElementById("phone") || document.body).appendChild(__toastEl);
+  }
+  __toastEl.textContent = msg;
+  __toastEl.classList.add("on");
+  clearTimeout(__toastEl._x);
+  __toastEl._x = setTimeout(function(){ __toastEl.classList.remove("on"); }, 2200);
+}
+window.rcToast = toast;
+
+function chipVal(groupId, dflt){ var b=$("#"+groupId+" .chip.on"); return b ? b.dataset.val : dflt; }
+
+/* v22 used data-go="…" for tab navigation; map the few the Community
+   screen uses onto index.html's own navigation, if it is available. */
+ROOT.addEventListener("click", function(e){
+  var g = e.target.closest("[data-go]");
+  if(!g) return;
+  var dest = g.dataset.go;
+  if(dest === "emergency"){
+    if(typeof window.openSOS === "function"){ if(typeof window.closeOv==="function") window.closeOv(); window.openSOS(); }
+    return;
+  }
+  if(dest === "findcoach"){
+    // opens the coach & peer finder ported from v22
+    if(typeof window.openOv === "function"){ window.openOv("support-team"); }
+    return;
+  }
+  if(dest === "rewards"){
+    if(typeof window.goScreen === "function"){ if(typeof window.closeOv==="function") window.closeOv(); window.goScreen("rewards"); }
+    return;
+  }
+});
+
+/* ── community ── */
+const CHANNEL_LABEL = {
+  // engagement rooms
+  daily:"Today's question", welcome:"Welcome",
+  // by how you're doing
+  checkin:"Check-in", wins:"Win", questions:"Question", struggling:"Struggling today", latenight:"Late night",
+  // recovery pathways (the method you follow)
+  na:"NA · 12-Step", smart:"SMART Recovery", dharma:"Recovery Dharma", spirituality:"Spirituality & Faith", mat:"MAT & meds", harm:"Harm reduction",
+  // who you are
+  parents:"Parents", lgbtq:"LGBTQ+", veterans:"Veterans", women:"Women", men:"Men", youngadults:"Young adults",
+  // life alongside recovery
+  work:"Work & money", grief:"Grief & loss", relationships:"Relationships", sober_fun:"Sober fun"
+};
+let POSTS = [
+  {id:9, user:"northstar", badge:"peer", tint:"gold", avatar:"⭐", channel:"lgbtq", time:"12m ago",
+   text:"If today's your first day back after a hard stretch — that's not a demotion. Recovery isn't linear for anyone in here. Proud of you for showing up.",
+   hearts:41, supports:19, heartedByMe:false, supportedByMe:false, replies:[]},
+  {id:8, user:"tidewalker", badge:null, tint:"blue", avatar:"🌊", channel:"latenight", time:"38m ago",
+   text:"Anyone else awake at 2am white-knuckling it? Just needed to say it somewhere.",
+   hearts:27, supports:8, heartedByMe:false, supportedByMe:false, replies:[
+     {user:"riverbend", text:"Here. Not going anywhere. What's the loudest thought right now?"}
+   ]},
+  {id:7, user:"Denise R.", badge:"coach", tint:"blue", avatar:"D", channel:"parents", time:"1h ago",
+   text:"Question from a few of you this week: yes, it's normal for cravings to spike around custody visits. It's a trigger, not a setback. Plan the hour before and the hour after, not just the visit itself.",
+   hearts:63, supports:22, heartedByMe:false, supportedByMe:false, replies:[]},
+  {id:6, user:"emberly", badge:null, tint:"coral", avatar:"🔥", channel:"questions", time:"2h ago",
+   text:"Does buprenorphine make anyone else feel foggy in the mornings, or is that just me still adjusting?",
+   hearts:9, supports:4, heartedByMe:false, supportedByMe:false, replies:[
+     {user:"James O.", text:"Common in the first few weeks — worth mentioning your dose timing to your prescriber. Mine moved mine to bedtime and it helped a lot."}
+   ]},
+  {id:5, user:"quietpine", badge:"peer", tint:"sage", avatar:"🌲", channel:"wins", time:"3h ago",
+   text:"Took my kid to school again this morning. Eight years ago I couldn't have named her teacher. Small, but it's mine.",
+   hearts:118, supports:54, heartedByMe:false, supportedByMe:false, replies:[]},
+  {id:4, user:"riverbend", badge:null, tint:"sage", avatar:"🪵", channel:"struggling", time:"5h ago", quiet:true,
+   text:"Nearest meeting is two counties over and today's harder than usual. Anyone from a rural area have tips for the in-between days?",
+   hearts:14, supports:11, heartedByMe:false, supportedByMe:false, replies:[]},
+
+  // ── recovery-pathway rooms ──
+  {id:104, user:"stepbystep", badge:null, tint:"blue", avatar:"🔵", channel:"na", time:"40m ago",
+   text:"90 days today. Working Step 4 with my sponsor this week — the searching-and-fearless part is no joke. Anyone got a gentle way to think about the resentment list?",
+   hearts:52, supports:31, heartedByMe:false, supportedByMe:false, replies:[
+     {user:"Marcus T.", text:"Peer specialist here — a lot of people write the resentment first and the 'my part' column last, on a different day. You don't have to do it all in one sitting."}
+   ]},
+  {id:103, user:"toolbox", badge:null, tint:"gold", avatar:"🧠", channel:"smart", time:"1h ago",
+   text:"Used the SMART cost-benefit worksheet on my 5pm craving instead of just white-knuckling. Writing down what using would actually cost me tomorrow killed most of the urge. Weird how well it works.",
+   hearts:38, supports:16, heartedByMe:false, supportedByMe:false, replies:[]},
+  {id:102, user:"stillwater", badge:"peer", tint:"sage", avatar:"🪷", channel:"dharma", time:"2h ago",
+   text:"Reminder for anyone sitting with a craving right now: you can watch it rise and pass without acting on it. It's a wave, not a command. Ten slow breaths — I'll sit with you.",
+   hearts:74, supports:29, heartedByMe:false, supportedByMe:false, replies:[]},
+  {id:101, user:"dawnlight", badge:null, tint:"blue", avatar:"🕊️", channel:"spirituality", time:"3h ago",
+   text:"Faith is the thing that gets me to my morning meeting some days. Not preaching to anyone — just grateful there's a room here where I can say that without it being weird. What keeps you grounded?",
+   hearts:61, supports:24, heartedByMe:false, supportedByMe:false, replies:[
+     {user:"quietpine", text:"Same. Different faith than you probably, but the 'something bigger than the craving' part is the same. Glad you're here."}
+   ]},
+  {id:100, user:"steady", badge:null, tint:"coral", avatar:"🧡", channel:"harm", time:"4h ago",
+   text:"No shame here — I'm not fully abstinent yet but I carry naloxone now and never use alone. Every safer choice counts. Anyone else building up slowly?",
+   hearts:43, supports:27, heartedByMe:false, supportedByMe:false, replies:[]},
+  {id:99, user:"nightshift", badge:null, tint:"gold", avatar:"💼", channel:"work", time:"6h ago", quiet:true,
+   text:"Do I tell a new employer I'm in recovery? Leaning toward no. Curious how others have handled it without it backfiring.",
+   hearts:19, supports:9, heartedByMe:false, supportedByMe:false, replies:[]},
+  {id:98, user:"holdingon", badge:null, tint:"blue", avatar:"🤍", channel:"grief", time:"8h ago",
+   text:"Lost someone in my home group last month. Grief and recovery at the same time is a lot. Just needed to put that somewhere people would understand.",
+   hearts:88, supports:47, heartedByMe:false, supportedByMe:false, replies:[]}
+];
+const REPLY_DRAFT = {};
+const OPEN_REPLIES = new Set();       // which posts have their reply zone expanded
+const NUDGED = new Set();             // post ids you've sent a silent nudge to
+const DISMISSED = new Set();          // banner ids you've closed this session
+document.addEventListener("input", e=>{
+  const inp = e.target.closest('[id^="replyinput-"]');
+  if(inp) REPLY_DRAFT[inp.id.replace("replyinput-","")] = inp.value;
+});
+
+/* ── community standing: streak, support earned, rank, room badges ── */
+const CSTATE = {
+  streak: 4,                 // seeded demo value; days shown up in Community
+  supportEarned: 0,          // 🙌 + ❤️ your own posts have collected this session
+  postedRooms: new Set(),    // rooms you've contributed to → earns a room badge
+};
+// warm, non-competitive ranks — earned by showing up, never taken away
+const C_RANKS = [
+  {min:0,   name:"Neighbor"},
+  {min:60,  name:"Regular"},
+  {min:180, name:"Encourager"},
+  {min:400, name:"Anchor"},
+];
+function communityRank(){
+  const s = CSTATE.supportEarned + CSTATE.postedRooms.size*20 + CSTATE.streak*5;
+  let r = C_RANKS[0]; C_RANKS.forEach(x=>{ if(s>=x.min) r=x; }); return r.name;
+}
+function renderCommunityStrip(){
+  const st=$("#csStreak"), su=$("#csSupport"), rk=$("#csRank");
+  if(st) st.textContent = CSTATE.streak;
+  if(su) su.textContent = CSTATE.supportEarned;
+  if(rk) rk.textContent = communityRank();
+}
+/* render a stored room-icon token: a Lucide name (ascii) -> <i data-lucide>,
+   otherwise treat it as a legacy emoji glyph (preset rooms still use emoji) */
+function commIcon(tok){ tok=tok||"💬"; return /^[a-z0-9-]+$/.test(tok) ? '<i data-lucide="'+tok+'"></i>' : tok; }
+function renderRoomBadges(){
+  const box=$("#communityRoomBadges"); if(!box) return;
+  const badges=[...CSTATE.postedRooms].map(v=>{
+    const m=ROOM_META[v]||{emoji:"💬",name:CHANNEL_LABEL[v]||v};
+    return '<span class="roombadge"><em>'+commIcon(m.emoji)+'</em>'+(m.name||v)+'</span>';
+  });
+  if(!badges.length){ box.hidden=true; box.innerHTML=""; return; }
+  box.hidden=false;
+  box.innerHTML = '<div style="width:100%;font:800 9px var(--font-ui, Manrope);letter-spacing:.09em;text-transform:uppercase;color:var(--muted);margin-bottom:1px">Rooms you\'ve shown up in</div>'+badges.join("");
+}
+function creditRoomBadge(room){
+  if(room==="all") return;
+  if(!CSTATE.postedRooms.has(room)){
+    CSTATE.postedRooms.add(room);
+    renderRoomBadges();
+    const m=ROOM_META[room]||{name:CHANNEL_LABEL[room]||room};
+    setTimeout(()=>{ if(typeof showReward==="function") showReward({emoji:"🏅", title:"New room badge — "+(m.name||room), body:"First time you've posted here. Showing up in a new room is worth a badge."}); }, 650);
+  }
+}
+/* ── third pass: top-of-feed banners (weekly digest + on-this-day) ── */
+function buildFeedBanners(){
+  // banners only appear in "All rooms" so they don't clutter a focused room
+  const on = $("#communityChannels .chip.on");
+  const filter = on ? on.dataset.val : "all";
+  if(filter!=="all") return "";
+  let html = "";
+  // 1) WEEKLY DIGEST — what happened in your rooms, to pull you back in
+  if(!DISMISSED.has("digest")){
+    html += `<div class="feedbanner digest" data-banner="digest">
+      <button class="fb-x" data-dismiss="digest" aria-label="Dismiss"><i data-lucide="x"></i></button>
+      <div class="hub-card-head">
+        <div class="hub-ic" style="background:linear-gradient(135deg,#6DA0CC,#3F6E99)"><i data-lucide="sparkles"></i></div>
+        <div class="hub-card-tt">
+          <div class="hub-title">3 rooms you follow were busy</div>
+          <div class="hub-sub">Your week in the community</div>
+        </div>
+      </div>
+      <ul class="fb-digest">
+        <li><span class="fb-di c-na"><i data-lucide="footprints"></i></span><div><b>NA · 12-Step</b> — 14 new posts. stepbystep hit 90 days.</div></li>
+        <li><span class="fb-di c-faith"><i data-lucide="heart-handshake"></i></span><div><b>Faith</b> — someone asked what keeps you grounded (24 replies).</div></li>
+        <li><span class="fb-di c-wins"><i data-lucide="trophy"></i></span><div><b>Wins</b> — quietpine's school-run post got 118 hearts.</div></li>
+      </ul>
+      <button class="fb-cta ghost" data-digestopen="na"><span>Jump back into NA</span><i data-lucide="arrow-right"></i></button>
+    </div>`;
+  }
+  return html;
+}
+function renderCommunityFeed(){
+  const on = $("#communityChannels .chip.on");
+  const filter = on ? on.dataset.val : "all";
+  const list = POSTS.filter(p=> filter==="all" || p.channel===filter);
+  const box = $("#communityFeed"); if(!box) return;
+  const banners = buildFeedBanners();
+  if(!list.length){ box.innerHTML = banners + '<div class="emptybox"><b>Quiet in this room right now.</b>Be the first to say something — someone will see it.</div>'; if(window.lucide&&lucide.createIcons) lucide.createIcons(); positionComposeBar(); return; }
+  box.innerHTML = banners + list.map(p=>{
+    const badge = p.badge ? `<span class="kind ${p.badge==='coach'?'coach':'peer'}">${p.badge==='coach'?'Recovery Coach':'Peer Specialist'}</span>` : "";
+    const repliesHTML = p.replies.length
+      ? `<div class="creplies"><div class="crephead">${p.replies.length} ${p.replies.length===1?"reply":"replies"}</div>${p.replies.map(r=>`<div class="creply"><b>${r.user}</b>${r.text}</div>`).join("")}</div>`
+      : "";
+    const roomLabel = CHANNEL_LABEL[p.channel] || (ROOM_META[p.channel]?ROOM_META[p.channel].name:"");
+    const memtag = (ROOM_META[p.channel] && ROOM_META[p.channel].member) ? '<span class="memtag">member room</span>' : "";
+    const supportTotal = (p.hearts||0) + (p.supports||0);
+    // a quiet post (few reactions, no replies) gets a gentle nudge affordance
+    const nudged = NUDGED.has(p.id);
+    const quietTag = (p.quiet && !p.mine) ? `<span class="quiet-tag" title="This person hasn't heard back yet">🌾 quiet</span>` : "";
+    const nudgeBtn = (p.quiet && !p.mine)
+      ? `<button class="nudgebtn ${nudged?"done":""}" data-nudge="${p.id}" ${nudged?"disabled":""} title="Send a silent 'thinking of you'">${nudged?"✓ Nudged":"👋 Nudge"}</button>`
+      : "";
+    const mileCls = p.milestone ? " milestone"+(p.mine?" mine":"") : "";
+    const mileCrown = p.milestone ? `<span class="mile-crown"><i data-lucide="crown"></i></span>` : "";
+    const mileBadge = p.milestone ? `<div class="mile-badge"><i data-lucide="party-popper"></i><span class="mile-num">${p.mileLabel}</span> in recovery</div>` : "";
+    return `<div class="cpost${p.quiet&&!p.mine?" isquiet":""}${mileCls}" data-pid="${p.id}">
+      ${mileCrown}
+      <div class="top">
+        <div class="pic" style="background:var(--${p.tint}-tint);color:var(--${p.tint}-ink)">${p.avatar}</div>
+        <div style="flex:1;min-width:0">
+          <div class="cname">${p.user}${badge}${quietTag}</div>
+          <div class="csub">${p.time} · ${roomLabel}${memtag}</div>
+        </div>
+        ${supportTotal ? `<span class="csupport" title="Support this post has received"><em>🙌</em>${supportTotal}</span>` : ""}
+      </div>
+      ${mileBadge}
+      <p class="ctext">${p.text}</p>
+      <div class="creact">
+        <button class="react1 ${p.r_heart?"on":""}" data-react="heart" data-id="${p.id}" aria-label="Been there">❤️<span>${p.hearts}</span></button>
+        <button class="react1 ${p.r_support?"on":""}" data-react="support" data-id="${p.id}" aria-label="Proud of you">🙌<span>${p.supports}</span></button>
+        <button class="react1 ${p.r_strong?"on":""}" data-react="strong" data-id="${p.id}" aria-label="Stay strong">💪<span>${p.strong||0}</span></button>
+        <button class="react1 ${p.r_pray?"on":""}" data-react="pray" data-id="${p.id}" aria-label="Holding you">🙏<span>${p.pray||0}</span></button>
+        <button class="react1 replytoggle" data-replytoggle="${p.id}" aria-label="Reply">💬<span>${p.replies.length||""}</span></button>
+      </div>
+      ${repliesHTML}
+      <div class="creply-zone" id="replyzone-${p.id}" ${OPEN_REPLIES.has(p.id)?"":"hidden"}>
+        <div class="quickreplies">
+          <button class="qr" data-quickreply="${p.id}" data-text="Proud of you 🙌">Proud of you</button>
+          <button class="qr" data-quickreply="${p.id}" data-text="Been there. You've got this.">Been there</button>
+          <button class="qr" data-quickreply="${p.id}" data-text="Same here 🫂">Same here</button>
+          <button class="qr" data-quickreply="${p.id}" data-text="Here with you.">Here with you</button>
+        </div>
+        <div class="creplybox">
+          <input placeholder="Write a reply…" id="replyinput-${p.id}" value="${(REPLY_DRAFT[p.id]||"").replace(/"/g,"&quot;")}">
+          <button class="reply-mic" data-replymic="${p.id}" aria-label="Speak your reply" title="Speak your reply">
+            <svg viewBox="0 0 24 24"><path d="M12 2a3 3 0 0 0-3 3v6a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg>
+          </button>
+          <button class="reply-send" data-sendreply="${p.id}" aria-label="Send reply">Send</button>
+        </div>
+      </div>
+    </div>`;
+  }).join("");
+  if(window.lucide&&lucide.createIcons) lucide.createIcons();
+  // place the "Share something…" composer bar directly under the
+  // "Your week in the community" banner (falls back to top of feed)
+  positionComposeBar();
+}
+function positionComposeBar(){
+  const bar = $("#composeBar"), card = $("#composeCard"), box = $("#communityFeed");
+  if(!bar || !box) return;
+  const banner = box.querySelector('[data-banner="digest"]');
+  if(banner){ banner.insertAdjacentElement("afterend", bar); }
+  else { box.insertAdjacentElement("afterbegin", bar); }
+  // keep the expanded composer right beneath the bar so it opens in-place
+  if(card) bar.insertAdjacentElement("afterend", card);
+}
+function updateCommunityIdentity(){
+  const nameEl = $("#communityMeName");
+  const initial = (CURRENT_USERNAME.trim()[0]||"Y").toUpperCase();
+  if(nameEl) nameEl.textContent = CURRENT_USERNAME;
+  ["#communityMeAvatar","#communityMeAvatar2"].forEach(sel=>{ const a=$(sel); if(a) a.textContent=initial; });
+  // the peer rooms post under the same anonymous handle.
+  // guarded: this runs during boot, before PEER_ROOMS is initialised further down.
+  try{ renderPeerRooms(); }catch(e){}
+  const prMe = $("#prMeName"); if(prMe) prMe.textContent = CURRENT_USERNAME;
+}
+const REACTIONS = {
+  heart:   {flag:"r_heart",   count:"hearts",  reason:"Sent a heart"},
+  support: {flag:"r_support", count:"supports",reason:"Told someone you're proud"},
+  strong:  {flag:"r_strong",  count:"strong",  reason:"Sent strength"},
+  pray:    {flag:"r_pray",    count:"pray",    reason:"Held someone in mind"},
+};
+function sendReplyTo(id, text){
+  text = (text||"").trim(); if(!text) return false;
+  const p = POSTS.find(x=>x.id===id); if(!p) return false;
+  p.replies.push({user:CURRENT_USERNAME, text});
+  delete REPLY_DRAFT[id];
+  OPEN_REPLIES.add(id);              // keep the thread open after sending
+  renderCommunityFeed();
+  if(typeof awardXP==="function") awardXP(XP.creply, "Replied with support");
+  toast("Reply sent 💬");
+  return true;
+}
+document.addEventListener("click", e=>{
+  if(!e.target.closest("#s-community")) return;
+  if(e.target.closest("#communityChannels .chip")){ renderCommunityFeed(); return; }
+
+  const react = e.target.closest("[data-react]");
+  if(react){
+    const id = +react.dataset.id, kind = react.dataset.react;
+    const cfg = REACTIONS[kind]; if(!cfg) return;
+    const p = POSTS.find(x=>x.id===id); if(!p) return;
+    const now = !p[cfg.flag];
+    p[cfg.flag] = now;
+    p[cfg.count] = (p[cfg.count]||0) + (now?1:-1);
+    if(now){
+      react.classList.add("pop");
+      if(typeof awardXP==="function") awardXP(XP.creact, cfg.reason);
+      if(p.mine){ CSTATE.supportEarned += 1; renderCommunityStrip(); }
+    }
+    renderCommunityFeed();
+    return;
+  }
+
+  // toggle the reply zone open/closed
+  const rt = e.target.closest("[data-replytoggle]");
+  if(rt){
+    const id = +rt.dataset.replytoggle;
+    if(OPEN_REPLIES.has(id)) OPEN_REPLIES.delete(id); else OPEN_REPLIES.add(id);
+    renderCommunityFeed();
+    if(OPEN_REPLIES.has(id)) setTimeout(()=>$("#replyinput-"+id)?.focus(), 40);
+    return;
+  }
+
+  // one-tap suggested reply
+  const qr = e.target.closest("[data-quickreply]");
+  if(qr){ sendReplyTo(+qr.dataset.quickreply, qr.dataset.text); return; }
+
+  const sendReply = e.target.closest("[data-sendreply]");
+  if(sendReply){
+    const id = +sendReply.dataset.sendreply;
+    const inp = $("#replyinput-"+id);
+    sendReplyTo(id, inp ? inp.value : "");
+    return;
+  }
+
+  // ── NUDGE: silent encouragement to a quiet member ──
+  const nudge = e.target.closest("[data-nudge]");
+  if(nudge){
+    const id = +nudge.dataset.nudge;
+    if(NUDGED.has(id)) return;
+    NUDGED.add(id);
+    const p = POSTS.find(x=>x.id===id);
+    // it counts as supporting someone — small XP, keeps the "help others" loop
+    if(typeof awardXP==="function") awardXP(XP.creact, "Nudged someone quiet");
+    renderCommunityFeed();
+    if(typeof showReward==="function"){
+      showReward({emoji:"👋", title:"Nudge sent to "+(p?p.user:"them"),
+        body:"They'll see “someone's thinking of you” — no reply needed. Sometimes that's the thing that keeps a person here."});
+    } else { toast("Nudge sent 👋"); }
+    return;
+  }
+
+  // ── BANNER: dismiss ──
+  const dis = e.target.closest("[data-dismiss]");
+  if(dis){ DISMISSED.add(dis.dataset.dismiss); renderCommunityFeed(); return; }
+
+  // ── ON THIS DAY: share this year's version → opens composer in Wins ──
+  if(e.target.closest("[data-onthisday]")){
+    DISMISSED.add("onthisday");
+    if(typeof openComposer==="function") openComposer();
+    // preselect the Wins room + a warm starter
+    const grid=$("#communityPostTag");
+    if(grid){ grid.querySelectorAll(".chip").forEach(c=>c.classList.remove("on")); grid.querySelector('.chip[data-val="wins"]')?.classList.add("on"); }
+    const ta=$("#communityText");
+    if(ta){ ta.value="One year on from that first weekend — "; ta.dispatchEvent(new Event("input",{bubbles:true})); ta.focus(); }
+    renderCommunityFeed();
+    return;
+  }
+
+  // ── DIGEST: jump into a highlighted room ──
+  const dj = e.target.closest("[data-digestopen]");
+  if(dj){ setRoom(dj.dataset.digestopen); $("#communityFeed")?.scrollIntoView({behavior:"smooth",block:"start"}); return; }
+});
+(function(){
+  const ta=$("#communityText"), btn=$("#communityPostBtn"), cnt=$("#communityCount");
+  if(!ta||!btn) return;
+  function sync(){
+    const n=(ta.value||"").trim().length;
+    btn.disabled = n===0;
+    if(cnt){
+      cnt.textContent = n===0 ? "Anything counts — even one line." : "Ready to post · "+n+" characters";
+      cnt.classList.toggle("ready", n>0);
+    }
+  }
+  ta.addEventListener("input", sync);
+  ta.addEventListener("keydown", e=>{ if(e.key==="Enter" && (e.metaKey||e.ctrlKey)) btn.click(); });
+  window.__composeSync = sync;
+  sync();
+})();
+
+/* ── collapsed composer bar → expands the full box (feed-first, cleaner) ── */
+function openComposer(focus){
+  const bar=$("#composeBar"), card=$("#composeCard");
+  if(bar) bar.hidden=true;
+  if(card){ card.hidden=false; card.classList.add("just-opened"); setTimeout(()=>card.classList.remove("just-opened"),260); }
+  if(focus!==false) setTimeout(()=>$("#communityText")?.focus(), 60);
+}
+function closeComposer(){
+  const bar=$("#composeBar"), card=$("#composeCard");
+  if(card) card.hidden=true;
+  if(bar) bar.hidden=false;
+}
+$("#composeBar")?.addEventListener("click", e=>{
+  // tapping the little mic on the bar opens + starts dictation straight away
+  const wantMic = !!e.target.closest("#composeBarMic");
+  openComposer();
+  if(wantMic) setTimeout(()=> startDictation($("#communityText"), $("#communityMic")), 260);
+});
+$("#composeClose")?.addEventListener("click", closeComposer);
+$("#communityPostBtn").addEventListener("click", ()=>{
+  const text = ($("#communityText").value||"").trim();
+  if(!text){ $("#communityText").focus(); toast('Write something first — even just "here" counts.'); return; }
+  const tag = chipVal("communityPostTag","checkin");
+  const initial = (CURRENT_USERNAME.trim()[0]||"y").toUpperCase();
+  const newPost = {
+    id: Date.now(), user: CURRENT_USERNAME, badge:null, tint:"blue", avatar: initial,
+    channel: tag, time:"Just now", text,
+    hearts:0, supports:0, strong:0, pray:0,
+    r_heart:false, r_support:false, r_strong:false, r_pray:false,
+    replies:[], mine:true
+  };
+  POSTS.unshift(newPost);
+  $("#communityText").value = "";
+  $("#communityText").placeholder = "Anything counts — even one line.";
+  const cnt=$("#communityCount");
+  if(cnt){ cnt.textContent="Anything counts — even one line."; cnt.classList.remove("ready"); }
+  $("#communityPostBtn").disabled = true;
+  closeComposer();
+  if(typeof awardXP==="function") awardXP(XP.cpost, "Posted in the community");
+  creditRoomBadge(tag);
+  renderCommunityStrip();
+
+  // ── engagement-loop hooks ──
+  // answering today's question flips the prompt into its "thank you" state
+  if(window.__answeringDaily || tag==="daily"){ DAILY_ANSWERED = true; renderDailyPrompt(); }
+  window.__answeringDaily = false;
+  // a first post means we no longer need the "new here" nudge
+  renderWelcome();
+  // welcome-room posts get a guaranteed peer-specialist reply
+  if(tag==="welcome"){ guaranteeWelcomeReply(newPost); }
+  window.__welcomePost = false;
+
+  setRoom(tag);
+  toast("Posted anonymously as "+CURRENT_USERNAME+".");
+});
+
+/* ══════════════ VOICE INPUT ══════════════
+   Real Web Speech API where the browser supports it; a gentle simulated
+   fallback (so the feature always demos) everywhere else. Works for the
+   composer AND every reply box. */
+const SpeechRec = window.SpeechRecognition || window.webkitSpeechRecognition;
+let __activeRec = null;
+function stopDictation(){
+  if(__activeRec){ try{__activeRec.stop();}catch(e){} __activeRec=null; }
+  document.querySelectorAll(".mic-btn.listening,.reply-mic.listening,.compose-bar-mic.listening")
+    .forEach(b=>b.classList.remove("listening"));
+}
+function appendToField(field, chunk){
+  if(!field) return;
+  const sep = field.value && !/\s$/.test(field.value) ? " " : "";
+  field.value = (field.value + sep + chunk).replace(/\s+/g," ").trimStart();
+  field.dispatchEvent(new Event("input",{bubbles:true}));
+}
+function startDictation(field, btn){
+  if(!field) return;
+  if(__activeRec){ stopDictation(); return; }         // tap again = stop
+  if(btn) btn.classList.add("listening");
+  toast("Listening… speak now 🎤");
+
+  if(SpeechRec){
+    const rec = new SpeechRec();
+    rec.lang = "en-US"; rec.interimResults = true; rec.continuous = false;
+    let finalText = "";
+    rec.onresult = ev=>{
+      let interim="";
+      for(let i=ev.resultIndex;i<ev.results.length;i++){
+        const t=ev.results[i][0].transcript;
+        if(ev.results[i].isFinal) finalText += t; else interim += t;
+      }
+      // show interim live in the placeholder-ish way via a data attr
+      field.setAttribute("data-interim", interim);
+    };
+    rec.onerror = ()=>{ simulateDictation(field); stopDictation(); };
+    rec.onend = ()=>{
+      if(finalText.trim()) appendToField(field, finalText.trim());
+      field.removeAttribute("data-interim");
+      stopDictation();
+    };
+    __activeRec = rec;
+    try{ rec.start(); }catch(e){ simulateDictation(field); stopDictation(); }
+  } else {
+    // graceful fallback for browsers without the API
+    setTimeout(()=>{ simulateDictation(field); stopDictation(); }, 1400);
+  }
+}
+function simulateDictation(field){
+  const samples = [
+    "Just wanted to say I'm still here today.",
+    "Rough morning but I made it to my meeting.",
+    "Thank you all — reading this room helps more than you know.",
+    "Day at a time. Showing up counts.",
+    "Feeling shaky but I didn't use. That's a win."
+  ];
+  appendToField(field, samples[Math.floor(Math.random()*samples.length)]);
+  toast("Voice added (demo). You can edit before posting.");
+}
+// composer mic
+$("#communityMic")?.addEventListener("click", ()=> startDictation($("#communityText"), $("#communityMic")));
+// reply mics (delegated — they're re-rendered with the feed)
+document.addEventListener("click", e=>{
+  const rm = e.target.closest("[data-replymic]");
+  if(!rm) return;
+  const id = rm.dataset.replymic;
+  startDictation($("#replyinput-"+id), rm);
+});
+
+/* ── community room filter: one clean, comprehensive dropdown ── */
+const ROOM_OPTIONS = [
+  {group:"Browse", items:[
+    {val:"all",         emoji:"🌐", name:"All Rooms",        meta:"everything"},
+  ]},
+  {group:"How you're doing", items:[
+    {val:"checkin",     emoji:"✅", name:"Daily check-in",   meta:"just say you're here"},
+    {val:"wins",        emoji:"🎉", name:"Wins",             meta:"celebrations"},
+    {val:"questions",   emoji:"❓", name:"Questions",        meta:"ask anything"},
+    {val:"struggling",  emoji:"🫂", name:"Struggling today", meta:"hard days"},
+    {val:"latenight",   emoji:"🌙", name:"Late night",       meta:"awake at 3 AM"},
+  ]},
+  {group:"Your recovery path", items:[
+    {val:"na",          emoji:"🔵", name:"NA · 12-Step",     meta:"Narcotics Anonymous"},
+    {val:"smart",       emoji:"🧠", name:"SMART Recovery",   meta:"science-based tools"},
+    {val:"dharma",      emoji:"🪷", name:"Recovery Dharma",  meta:"Buddhist / mindfulness"},
+    {val:"spirituality",emoji:"🕊️", name:"Spirituality & Faith", meta:"any faith welcome"},
+    {val:"mat",         emoji:"💊", name:"MAT & meds",       meta:"bupe · methadone · naltrexone"},
+    {val:"harm",        emoji:"🧡", name:"Harm reduction",   meta:"safety first, no judgment"},
+  ]},
+  {group:"Who you are", items:[
+    {val:"parents",     emoji:"👨‍👧", name:"Parents",          meta:"raising kids"},
+    {val:"lgbtq",       emoji:"🏳️‍🌈", name:"LGBTQ+",           meta:"affirming space"},
+    {val:"veterans",    emoji:"🎖️", name:"Veterans",         meta:"served & recovering"},
+    {val:"women",       emoji:"🌸", name:"Women",            meta:"women's space"},
+    {val:"men",         emoji:"🌾", name:"Men",              meta:"men's space"},
+    {val:"youngadults", emoji:"🌱", name:"Young adults",     meta:"18–25"},
+  ]},
+  {group:"Life alongside recovery", items:[
+    {val:"work",        emoji:"💼", name:"Work & money",     meta:"jobs, bills, stability"},
+    {val:"grief",       emoji:"🤍", name:"Grief & loss",     meta:"holding it together"},
+    {val:"relationships",emoji:"💬", name:"Relationships",   meta:"family, partners, trust"},
+    {val:"sober_fun",   emoji:"🎈", name:"Sober fun",        meta:"joy without using"},
+  ]}
+];
+const ROOM_META = {};
+ROOM_OPTIONS.forEach(g=>g.items.forEach(o=> ROOM_META[o.val]=o));
+
+function currentRoom(){ const c=$("#communityChannels .chip.on"); return c?c.dataset.val:"all"; }
+function roomCount(val){ return val==="all" ? POSTS.length : POSTS.filter(p=>p.channel===val).length; }
+
+function buildRoomMenu(){
+  const menu=$("#communityDDMenu"); if(!menu) return;
+  const cur=currentRoom();
+  menu.innerHTML = ROOM_OPTIONS.map(g=>
+    '<div class="dd-group">'+g.group+'</div>'+
+    g.items.map(o=>{
+      const n=roomCount(o.val);
+      return '<div class="dd-opt'+(o.val===cur?' sel':'')+'" role="option" data-room="'+o.val+'">'+
+        '<span class="dd-emoji">'+commIcon(o.emoji)+'</span>'+
+        '<span class="dd-name">'+o.name+(o.member?'<span class="dd-member">yours</span>':'')+'</span>'+
+        '<span class="dd-meta">'+(n===1?'1 post':n+' posts')+'</span>'+
+        '<svg class="dd-check" viewBox="0 0 24 24"><path d="M5 12l5 5L20 7"/></svg>'+
+      '</div>';
+    }).join("")
+  ).join("");
+}
+function reflectRoomButton(){
+  const o=ROOM_META[currentRoom()]||ROOM_META.all;
+  const em=$("#communityDDEmoji"), lb=$("#communityDDLabel"), ct=$("#communityDDCount");
+  if(em){ em.innerHTML=commIcon(o.emoji); if(window.lucide&&lucide.createIcons) lucide.createIcons(); }
+  if(lb) lb.textContent=o.name;
+  if(ct){ const n=roomCount(o.val); ct.textContent = o.val==="all" ? "" : "· "+(n===1?"1 post":n+" posts"); }
+}
+function setRoom(val){
+  const mirror=$("#communityChannels");
+  if(mirror){ const chip=mirror.querySelector(".chip"); if(chip){ chip.dataset.val=val; chip.classList.add("on"); } }
+  reflectRoomButton();
+  renderCommunityFeed();
+}
+function openRoomDD(open){
+  const dd=$("#communityDD"), btn=$("#communityDDBtn");
+  if(!dd) return;
+  if(open){ buildRoomMenu(); dd.classList.add("open"); btn.setAttribute("aria-expanded","true"); }
+  else{ dd.classList.remove("open"); btn.setAttribute("aria-expanded","false"); }
+}
+(function(){
+  const btn=$("#communityDDBtn"), menu=$("#communityDDMenu"), dd=$("#communityDD");
+  if(!btn) return;
+  btn.addEventListener("click", e=>{ e.stopPropagation(); openRoomDD(!dd.classList.contains("open")); });
+  menu.addEventListener("click", e=>{
+    const opt=e.target.closest("[data-room]"); if(!opt) return;
+    setRoom(opt.dataset.room); openRoomDD(false);
+  });
+  document.addEventListener("click", e=>{ if(dd.classList.contains("open") && !e.target.closest("#communityDD")) openRoomDD(false); });
+})();
+
+/* ── All Rooms · full-list bottom sheet (replaces the inline dropdown that
+      could render behind the feed banner) ── */
+(function(){
+  const scrim=$("#allRoomsScrim"), openBtn=$("#allRoomsBtn"),
+        list=$("#allRoomsList"), closeX=$("#allRoomsClose");
+  if(!scrim || !openBtn) return;
+  function buildList(){
+    if(!list) return;
+    const cur=currentRoom();
+    list.innerHTML = ROOM_OPTIONS.map(g=>
+      '<div class="ar-group">'+g.group+'</div>'+
+      g.items.map(o=>{
+        const n=roomCount(o.val);
+        return '<button type="button" class="ar-opt'+(o.val===cur?' sel':'')+'" data-room="'+o.val+'">'+
+          '<span class="ar-emoji">'+commIcon(o.emoji)+'</span>'+
+          '<span class="ar-main"><span class="ar-name">'+o.name+(o.member?'<span class="ar-member">yours</span>':'')+'</span>'+
+          '<span class="ar-meta">'+o.meta+'</span></span>'+
+          '<span class="ar-count">'+(o.val==="all"?"":(n===1?"1 post":n+" posts"))+'</span>'+
+        '</button>';
+      }).join("")
+    ).join("");
+    if(window.lucide&&lucide.createIcons) lucide.createIcons();
+  }
+  function show(v){
+    if(v) buildList();
+    scrim.classList.toggle("on",v);
+    scrim.setAttribute("aria-hidden", v?"false":"true");
+  }
+  openBtn.addEventListener("click", ()=> show(true));
+  if(closeX) closeX.addEventListener("click", ()=> show(false));
+  scrim.addEventListener("click", e=>{ if(e.target===scrim) show(false); });
+  list.addEventListener("click", e=>{
+    const opt=e.target.closest("[data-room]"); if(!opt) return;
+    setRoom(opt.dataset.room);
+    $("#communityFeed")?.scrollIntoView({behavior:"smooth",block:"start"});
+    show(false);
+  });
+})();
+
+/* ── compose "More rooms": pick any room to post into, using a compact sheet ── */
+(function(){
+  const btn=$("#composeMoreRooms"); if(!btn) return;
+  function setComposeTag(val){
+    const grid=$("#communityPostTag");
+    if(!grid) return;
+    // if a chip for this room already exists, select it; otherwise add a temporary one
+    let chip=grid.querySelector('.chip[data-val="'+val+'"]');
+    if(!chip){
+      const m=ROOM_META[val]||{emoji:"💬",name:CHANNEL_LABEL[val]||val};
+      chip=document.createElement("button");
+      chip.className="chip"; chip.dataset.val=val;
+      chip.innerHTML='<em>'+commIcon(m.emoji)+'</em><span>'+(m.name||val).replace(/ .*/,'').slice(0,10)+'</span>';
+      grid.appendChild(chip);
+      if(window.lucide&&lucide.createIcons) lucide.createIcons();
+    }
+    grid.querySelectorAll(".chip").forEach(c=>c.classList.remove("on"));
+    chip.classList.add("on");
+    chip.scrollIntoView({block:"nearest"});
+    $("#communityText")?.focus();
+  }
+  // reuse the room dropdown as the picker, in "compose mode"
+  btn.addEventListener("click", e=>{
+    e.stopPropagation();
+    const dd=$("#communityDD"); if(!dd) return;
+    dd.dataset.mode="compose";
+    openRoomDD(true);
+    $("#communityDDBtn")?.scrollIntoView({block:"center", behavior:"smooth"});
+    toast("Pick any room to post into.");
+  });
+  // intercept selections while in compose mode
+  const menu=$("#communityDDMenu");
+  if(menu) menu.addEventListener("click", e=>{
+    const dd=$("#communityDD");
+    if(dd && dd.dataset.mode==="compose"){
+      const opt=e.target.closest("[data-room]");
+      if(opt){
+        e.stopImmediatePropagation();
+        const val=opt.dataset.room;
+        dd.dataset.mode="";
+        openRoomDD(false);
+        if(val!=="all") setComposeTag(val);
+      }
+    }
+  }, true);
+})();
+
+/* ══════════════════════════════════════════════════════════════════
+   ENGAGEMENT LOOP  ·  daily prompt → welcome flow → milestone celebration
+   Three additions that share one goal: get people to post, make the first
+   post safe, and reward the ones who stay. All state is in-memory (demo).
+   ══════════════════════════════════════════════════════════════════ */
+
+/* ── 1) DAILY PROMPT ─────────────────────────────────────────────────
+   One rotating question, pinned above the feed. A blank composer is
+   intimidating; a specific question is the single biggest lever for
+   first-time posting. Answers all land in the "Today's question" room,
+   so they cluster into one warm, scannable thread. */
+const DAILY_PROMPTS = [
+  {q:"What's one small thing getting you through today?", meta:"Even a cup of coffee counts."},
+  {q:"What are you grateful for right now — however tiny?", meta:"Name just one."},
+  {q:"What's a craving trigger you've learned to see coming?", meta:"Your heads-up might help someone else."},
+  {q:"Who or what are you leaning on this week?", meta:"A person, a habit, a place."},
+  {q:"What would you tell yourself on day one?", meta:"Someone here is on day one today."},
+  {q:"What's a win from this week that no one else would notice?", meta:"The quiet ones matter most."},
+  {q:"How are you, actually? One honest line.", meta:"No need to be okay."},
+];
+// pick a stable prompt for "today" so it doesn't change on every re-render
+function dailyIndex(){
+  const d = new Date();
+  const dayNum = Math.floor(Date.parse(d.toDateString())/8.64e7);
+  return ((dayNum % DAILY_PROMPTS.length) + DAILY_PROMPTS.length) % DAILY_PROMPTS.length;
+}
+let DAILY_ANSWERED = false;
+function renderDailyPrompt(){
+  const box = $("#communityDaily"); if(box){ box.hidden = true; box.innerHTML=""; }
+  return; // Today's Question removed from Community
+}
+// tapping the prompt opens the composer pre-set to the "daily" room + a hint
+document.addEventListener("click", e=>{
+  const btn = e.target.closest("#dailyAnswerBtn"); if(!btn) return;
+  const p = DAILY_PROMPTS[dailyIndex()];
+  openComposer();
+  // preselect the "daily" room via the compose tag grid (adds a temp chip if needed)
+  const grid = $("#communityPostTag");
+  if(grid){
+    grid.querySelectorAll(".chip.on").forEach(c=>c.classList.remove("on"));
+    let chip = grid.querySelector('.chip[data-val="daily"]');
+    if(!chip){
+      chip = document.createElement("button");
+      chip.className="chip"; chip.dataset.val="daily";
+      chip.innerHTML='<em>💬</em><span>Today</span>';
+      grid.prepend(chip);
+    }
+    chip.classList.add("on");
+  }
+  const ta = $("#communityText");
+  if(ta){ ta.placeholder = p.q; setTimeout(()=>ta.focus(), 80); }
+  // remember this compose is answering the prompt, so we can flip the card on post
+  window.__answeringDaily = true;
+});
+
+/* ── 2) NEW-HERE WELCOME ─────────────────────────────────────────────
+   The first post is the scariest and the most predictive of whether a
+   newcomer stays. This routes them to a dedicated welcome room where a
+   peer specialist is GUARANTEED to reply — the warm first reception that
+   keeps people coming back. Shown until they've posted at least once. */
+function renderWelcome(){
+  const el = $("#communityWelcome"); if(!el) return;
+  // hide once the person has posted anything themselves
+  const hasPosted = POSTS.some(p=>p.mine);
+  el.hidden = hasPosted;
+}
+document.addEventListener("click", e=>{
+  const w = e.target.closest("#communityWelcome"); if(!w) return;
+  openComposer();
+  const grid = $("#communityPostTag");
+  if(grid){
+    grid.querySelectorAll(".chip.on").forEach(c=>c.classList.remove("on"));
+    let chip = grid.querySelector('.chip[data-val="welcome"]');
+    if(!chip){
+      chip = document.createElement("button");
+      chip.className="chip"; chip.dataset.val="welcome";
+      chip.innerHTML='<em>👋</em><span>Welcome</span>';
+      grid.prepend(chip);
+    }
+    chip.classList.add("on");
+  }
+  const ta = $("#communityText");
+  if(ta){ ta.placeholder = "Hi — I'm new here. You don't have to say more than that."; setTimeout(()=>ta.focus(), 80); }
+  window.__welcomePost = true;
+});
+// when someone posts into the welcome room, a peer specialist replies within moments
+function guaranteeWelcomeReply(post){
+  if(!post || post.channel!=="welcome") return;
+  post.replies = post.replies || [];
+  setTimeout(()=>{
+    post.replies.push({
+      user:"Marcus T.",
+      text:"Welcome — really glad you're here. There's no wrong way to do this and you don't owe anyone your story. I'll be around; reply any time. 🫂"
+    });
+    // make the peer's reply visible immediately
+    if(typeof OPEN_REPLIES!=="undefined") OPEN_REPLIES.add(post.id);
+    renderCommunityFeed();
+    toast("A peer specialist replied to your welcome 💬");
+    if(typeof showReward==="function"){
+      showReward({emoji:"👋", title:"Welcome to the community",
+        body:"Marcus, a certified peer specialist, replied to your first post. You can message back any time."});
+    }
+  }, 1600);
+}
+
+/* ── 3) MILESTONE CELEBRATIONS ───────────────────────────────────────
+   You already track streaks + milestones privately in Rewards. This
+   surfaces them, opt-in, as celebration posts the whole room can pile
+   onto — public recognition is one of the strongest retention hooks.
+   Uses the app's real numbers (VictoryWarrior, 47 days, next at 60). */
+function makeMilestonePost({user, avatar, tint, badge, channel, time, days, label, text, hearts, supports, mine}){
+  return {
+    id: 700000 + Math.floor(Math.random()*99999),   // numeric so react/reply handlers work
+    user, avatar, tint: tint||"gold", badge: badge||null,
+    channel: channel||"wins", time: time||"Just now",
+    milestone:true, mileDays:days, mileLabel:label||(days+" days"),
+    text,
+    hearts:hearts||0, supports:supports||0, strong:0, pray:0,
+    r_heart:false, r_support:false, r_strong:false, r_pray:false,
+    replies:[], mine:!!mine
+  };
+}
+// seed a couple of community milestones so the room feels alive on first view
+(function seedMilestones(){
+  if(POSTS.some(p=>p.milestone)) return;
+  POSTS.unshift(makeMilestonePost({
+    user:"stepbystep", avatar:"🔵", tint:"blue", channel:"na", time:"35m ago",
+    days:90, label:"90 days", hearts:96, supports:61,
+    text:"Ninety days today. Ninety. If you're reading this on a hard day — it's built one ordinary day at a time, and every one of them counted. Thank you for being here for it."
+  }));
+})();
+// public API: fire when the current user crosses a milestone (opt-in share).
+// Hooked to the real app state: 47 today, next celebration at 60.
+function celebrateMyMilestone(days, label){
+  const initial = (CURRENT_USERNAME.trim()[0]||"Y").toUpperCase();
+  const post = makeMilestonePost({
+    user:CURRENT_USERNAME, avatar:initial, tint:"gold", channel:"wins",
+    time:"Just now", days, label:label||(days+" days"), mine:true,
+    text:"Hit "+days+" days today. Sharing it here because this room saw the hard ones too. 🙏"
+  });
+  POSTS.unshift(post);
+  setRoom("wins");
+  renderCommunityFeed();
+  renderWelcome();
+  if(typeof awardXP==="function") awardXP(XP.cpost, "Shared a milestone");
+  toast("Milestone shared — the room can celebrate with you 🎉");
+  if(typeof showReward==="function"){
+    showReward({emoji:"🎉", title:days+"-day milestone shared",
+      body:"Your community can now cheer you on. Public recognition helps the next person believe it's possible too."});
+  }
+}
+window.celebrateMyMilestone = celebrateMyMilestone;
+
+updateCommunityIdentity();
+reflectRoomButton();
+renderCommunityStrip();
+renderRoomBadges();
+renderDailyPrompt();
+renderWelcome();
+renderCommunityFeed();
+
+
+/* ── start a room: member-created discussion group ── */
+(function(){
+  const scrim=$("#startRoomScrim"), open=$("#startRoomBtn"),
+        name=$("#srName"), desc=$("#srDesc"), create=$("#srCreate"),
+        cancel=$("#srCancel"), emojis=$("#srEmojis");
+  if(!scrim||!open) return;
+  let chosenEmoji="sparkles";
+  function show(v){ scrim.classList.toggle("on",v); scrim.setAttribute("aria-hidden", v?"false":"true"); if(v) setTimeout(()=>name.focus(),240); }
+  function sync(){ create.disabled = (name.value||"").trim().length<3; }
+  open.addEventListener("click", ()=> show(true));
+  cancel.addEventListener("click", ()=> show(false));
+  const closeX=$("#srClose"); if(closeX) closeX.addEventListener("click", ()=> show(false));
+  scrim.addEventListener("click", e=>{ if(e.target===scrim) show(false); });
+  name.addEventListener("input", sync);
+  emojis.addEventListener("click", e=>{
+    const b=e.target.closest("[data-emoji]"); if(!b) return;
+    emojis.querySelectorAll("button").forEach(x=>x.classList.remove("on"));
+    b.classList.add("on"); chosenEmoji=b.dataset.emoji;
+  });
+  create.addEventListener("click", ()=>{
+    const nm=(name.value||"").trim(); if(nm.length<3) return;
+    const val="room_"+Date.now();
+    const meta={val, emoji:chosenEmoji, name:nm, meta:(desc.value||"").trim()||"a room you started", member:true};
+    // register the room so it appears in the filter + compose paths
+    ROOM_META[val]=meta;
+    CHANNEL_LABEL[val]=nm;
+    let grp=ROOM_OPTIONS.find(g=>g.group==="Rooms members started");
+    if(!grp){ grp={group:"Rooms members started", items:[]}; ROOM_OPTIONS.push(grp); }
+    grp.items.unshift(meta);
+    // seed a warm welcome post from a peer specialist so the room isn't empty
+    POSTS.unshift({
+      id:Date.now()+1, user:"riverguide", badge:"peer", tint:"sage", avatar:"🕯️",
+      channel:val, time:"Just now",
+      text:"Welcome to “"+nm+".” You made a place for people to find each other — that matters. I'll be checking in here. First question: what made you want to start this room?",
+      hearts:3, supports:1, heartedByMe:false, supportedByMe:false, replies:[]
+    });
+    // reset + close + jump into the new room
+    name.value=""; desc.value=""; sync();
+    show(false);
+    creditRoomBadge(val);
+    if(typeof awardXP==="function") awardXP(XP.croom, "Started a room");
+    renderCommunityStrip();
+    setRoom(val);
+    toast("Room “"+nm+"” is live. A peer specialist will review it.");
+    $("#s-community")?.scrollIntoView({behavior:"smooth"});
+  });
+})();
+
+/* ── entry point for index.html: called whenever the Connect/Community
+      overlay is opened, so the feed is fresh and the dropdown is closed. ── */
+window.rcRefreshCommunity = function(){
+  openRoomDD(false);
+  reflectRoomButton();
+  renderCommunityStrip();
+  renderRoomBadges();
+  renderCommunityFeed();
+};
+
+})();
+
+
+/* ===== COMMUNITY HUB: Followers/Friends + Request-a-room ===== */
+var FR_FRIENDS=[
+  {n:'Daniel Ruiz',h:'@steady_dan',c:'#6E9E80'},{n:'Tasha Brooks',h:'@tasha_b',c:'#4A90D9'},
+  {n:'Mike R.',h:'@mike_r',c:'#C97B6F'},{n:'Emily M.',h:'@em_sun',c:'#8A6FB0'},
+  {n:'Jack P.',h:'@jackp',c:'#5E8560'},{n:'Sarah M.',h:'@sarah_m',c:'#D8AD63'}
+];
+var FR_FOLLOWERS=[
+  {n:'Phoenix123',h:'@phoenix123',c:'#7BA47E'},{n:'RisingTide',h:'@risingtide',c:'#9C8FC4'},
+  {n:'KindredSpirit',h:'@kindred',c:'#7FAAC4'},{n:'NewDawn44',h:'@newdawn44',c:'#D49A78'}
+];
+var FR_TAB='friends';
+function frInitials(n){ return String(n).trim().split(/\s+/).map(function(w){return w[0]||'';}).slice(0,2).join('').toUpperCase()||'ME'; }
+function frRender(){
+  var list=document.getElementById('fr-list'); if(!list) return;
+  var data=FR_TAB==='friends'?FR_FRIENDS:FR_FOLLOWERS;
+  var esf=(typeof esc==='function')?esc:function(s){return s;};
+  if(!data.length){ list.innerHTML='<div class="fr-empty">No '+FR_TAB+' yet.</div>'; }
+  else { list.innerHTML=data.map(function(p){
+    var btn=FR_TAB==='friends'?'<button class="fr-btn on" type="button">Friends</button>'
+      :'<button class="fr-btn" type="button" onclick="frFollowBack(this)">Follow back</button>';
+    return '<div class="fr-row"><span class="fr-av" style="background:'+p.c+'">'+esf(frInitials(p.n))+'</span>'+
+      '<div class="fr-main"><div class="fr-name">'+esf(p.n)+'</div><div class="fr-handle">'+esf(p.h)+'</div></div>'+btn+'</div>';
+  }).join(''); }
+  var fc=document.getElementById('fr-friends-count'); if(fc) fc.textContent=FR_FRIENDS.length;
+  var lc=document.getElementById('fr-followers-count'); if(lc) lc.textContent=FR_FOLLOWERS.length;
+}
+function frTab(which){
+  FR_TAB=which;
+  var tabs=document.querySelectorAll('#ov-friends .fr-tab');
+  for(var i=0;i<tabs.length;i++) tabs[i].classList.toggle('on',(i===0)===(which==='friends'));
+  frRender();
+}
+function frAddFriend(){
+  var inp=document.getElementById('friend-add-input'); if(!inp) return;
+  var v=(inp.value||'').trim().replace(/^@/,''); if(!v){ inp.focus(); return; }
+  var handle='@'+v.toLowerCase().replace(/\s+/g,'_');
+  FR_FRIENDS.unshift({n:v,h:handle,c:'#5B92CE'});
+  inp.value=''; frTab('friends');
+  if(typeof showXPPopup==='function') showXPPopup(5,'Friend Added!');
+}
+function frFollowBack(btn){ if(btn){ btn.classList.add('on'); btn.textContent='Following'; btn.onclick=null; } }
+function rrSubmit(){
+  var name=document.getElementById('rr-name'); var v=((name&&name.value)||'').trim();
+  if(!v){ if(name){ name.style.borderColor='#D4736A'; setTimeout(function(){name.style.borderColor='';},1200); name.focus(); } return; }
+  var why=document.getElementById('rr-why'); if(name) name.value=''; if(why) why.value='';
+  if(typeof closeDetail==='function') closeDetail('request-room');
+  if(typeof showXPPopup==='function') showXPPopup(10,'Room Requested!');
+}
+
+/* ===== toast shims for ported community subsystems ===== */
+window.toast = window.toast || (typeof rlToast==='function' ? rlToast : function(){});
+window.rcToast = window.rcToast || window.toast;
+
+/* ===== 1:1 SUPPORT coach finder (ported) ===== */
+
+/* ══════════════════════════════════════════════════════════════════
+   FIND SOMEONE TO TALK WITH · coach & peer finder, ported from
+   rudra-app_v22.html. Replaces the old "Reach my support team".
+   Own closure so nothing here collides with js/app.js.
+   ══════════════════════════════════════════════════════════════════ */
+(function(){
+"use strict";
+
+if(!document.getElementById("s-findcoach")) return;
+
+var $  = function(s,r){ return (r||document).querySelector(s); };
+var $$ = function(s,r){ return Array.prototype.slice.call((r||document).querySelectorAll(s)); };
+var toast = function(m){
+  if(typeof window.rcToast === "function") return window.rcToast(m);
+  console.log(m);
+};
+
+/* ── the two panes: results list ⇄ provider profile ── */
+function showProviderPane(on){
+  var find=$("#s-findcoach"), prov=$("#s-provider"), title=$("#fcTitle");
+  if(find) find.hidden = !!on;
+  if(prov) prov.hidden = !on;
+  if(title) title.textContent = on ? "Profile" : "1:1 Support";
+  var b=$(".ov-body", $("#ov-find-coach")); if(b) b.scrollTop = 0;
+}
+/* header back: profile → list, list → close the overlay */
+$("#fcBack").addEventListener("click", function(){
+  if(!$("#s-provider").hidden){ showProviderPane(false); return; }
+  if(typeof window.closeOv === "function") window.closeOv();
+});
+
+/* v22 toggled these from a global controls handler; scoped equivalent.
+   Registered first so the finder's re-render below sees the new state. */
+document.addEventListener("click", function(e){
+  if(!e.target.closest("#s-findcoach")) return;
+  var chip = e.target.closest(".chip");
+  if(chip) chip.classList.toggle("on");
+  var seg = e.target.closest(".seg button");
+  if(seg){
+    $$("button", seg.parentElement).forEach(function(b){ b.classList.remove("on"); });
+    seg.classList.add("on");
+  }
+});
+
+/* ══════════════ COACH & PEER FINDER ══════════════ */
+// tint → hex used to seed matching avatar backgrounds
+const TINT_HEX = {blue:"DEEAF4", gold:"FAEFD6", sage:"E1ECE2", coral:"F8E5E2"};
+function photoFor(p){
+  const style = p.kind==="coach" ? "avataaars" : "identicon"; // coaches: personable illustrated face · peers: abstract, anonymous by design
+  const bg = TINT_HEX[p.tint] || "EEEDE8";
+  return `https://api.dicebear.com/7.x/${style}/svg?seed=${encodeURIComponent(p.name)}&backgroundColor=${bg}&radius=14`;
+}
+// deterministic demo phone number so Call/Text have something to act on
+function phoneFor(p){
+  let h=0; for(let i=0;i<p.name.length;i++){ h=(h*31 + p.name.charCodeAt(i))>>>0; }
+  const mid = 200 + (h % 800);           // 200–999
+  const last = String(h % 10000).padStart(4,"0");
+  return `(310) ${mid}-${last}`;
+}
+const PROVIDERS = [
+  {name:"Denise R.", kind:"coach", avatar:"D", tint:"blue", dist:1.4, formats:["inperson","virtual"], cost:["insurance","sliding"], awake:false,
+   cred:"CADC-II · 9 yrs · in recovery herself", specs:["mat","parents","trauma"], tags:["Buprenorphine","Moms","Trauma-informed"],
+   years:9, langs:["English"], rating:4.9, reviews:112, price:"$70–110 / session · insurance & sliding scale", sessionLen:"50 min, video or in person",
+   response:"Usually replies within 3 hours", availability:["Mon–Thu, 9am–6pm","Sat mornings by request"],
+   bio:"Denise has been a certified alcohol and drug counselor for nine years and has been in her own recovery for fourteen. She specializes in buprenorphine support and works mostly with parents rebuilding routines around a program — not around perfection.",
+   approach:"Structured, plan-first sessions: what worked this week, what didn't, one small adjustment for next week. Homework is optional but she'll ask about it.",
+   testimonials:[{text:"She never made me feel behind. Just asked what Tuesday actually looked like.", tag:"Client, 8 months in"}]},
+  {name:"quietpine", kind:"peer", avatar:"🌲", tint:"sage", dist:2.1, formats:["virtual","inperson"], cost:["free"], awake:true,
+   cred:"Certified peer specialist · 5 yrs · dad of two", specs:["parents","pain","mat"], tags:["Free","Back surgery","Parents"],
+   years:5, langs:["English"], rating:4.8, reviews:64, price:"Free — always", sessionLen:"Flexible, 20–45 min, video or in person",
+   response:"Usually online within the hour", availability:["Evenings, most nights","Weekend afternoons"],
+   bio:"In long-term recovery himself after a back surgery led to a five-year opioid dependence. Now a certified peer specialist who mostly supports other parents juggling work, kids, and a program that has to fit around both.",
+   approach:"No worksheets. Just conversation — what's actually hard this week, and what's helped before. He'll share his own story only if it's useful to you.",
+   testimonials:[{text:"He gets the 2am kind of hard. Never once made me feel like a case.", tag:"Peer match, 6 months"}]},
+  {name:"Marcus T.", kind:"coach", avatar:"M", tint:"coral", dist:3.8, formats:["inperson"], cost:["insurance"], awake:false,
+   cred:"Recovery coach · specializes in return-to-work", specs:["mat","veterans"], tags:["Employment","MAT","Veterans"],
+   years:11, langs:["English"], rating:4.7, reviews:89, price:"$60–95 / session · most insurance accepted", sessionLen:"45 min, in person only",
+   response:"Usually replies within a day", availability:["Tue/Thu afternoons","Fri mornings"],
+   bio:"Eleven years coaching people back into steady work after treatment — resumes, disclosure conversations with employers, and the confidence part nobody prepares you for. Veteran-friendly practice.",
+   approach:"Practical and goal-oriented. Sessions often end with one concrete task for the week, not just a feeling to sit with.",
+   testimonials:[{text:"He helped me figure out what to say to my manager. That conversation had been the whole block.", tag:"Client, 1 year in"}]},
+  {name:"tidewalker", kind:"peer", avatar:"🌊", tint:"blue", dist:4.6, formats:["virtual"], cost:["free"], awake:true,
+   cred:"Peer specialist · 14 mo · works nights", specs:["mat","youth"], tags:["Free","Night shift","Young adults"],
+   years:1, langs:["English"], rating:4.6, reviews:21, price:"Free — always", sessionLen:"Quick check-ins, 15–30 min, video or text",
+   response:"Usually online within 15 minutes, overnight", availability:["Overnight, 10pm–6am","Weekend evenings"],
+   bio:"Fourteen months into recovery and works a night shift, so he's built his peer support hours around the hours nobody else covers — the 2am kind of hard.",
+   approach:"Low-pressure, text-first if that's easier. He'll stay on a call in silence if that's what's needed.",
+   testimonials:[{text:"Only person awake at 3am who didn't make it weird that I texted.", tag:"Peer match, 2 months"}]},
+  {name:"Carla M.", kind:"coach", avatar:"C", tint:"gold", dist:6.2, formats:["inperson","virtual"], cost:["sliding","free"], awake:false,
+   cred:"Bilingüe · CPRS · 7 yrs", specs:["spanish","parents","trauma"], tags:["Español","Sliding scale","Familias"],
+   years:7, langs:["English","Español"], rating:4.9, reviews:73, price:"Sliding scale $0–60 / session", sessionLen:"50 min, video or in person",
+   response:"Usually replies within 4 hours", availability:["Mon/Wed/Fri, 10am–4pm"],
+   bio:"Bilingual certified peer recovery specialist working mostly with parents and families navigating trauma alongside substance use. Sessions run in English or Español, whichever feels like home.",
+   approach:"Family-systems informed — she'll ask who else is in the picture, not just what you're carrying alone.",
+   testimonials:[{text:"Habla conmigo en español y eso cambió todo. Por fin no tuve que traducirme a mí misma.", tag:"Client, 5 months"}]},
+  {name:"emberly", kind:"peer", avatar:"🔥", tint:"coral", dist:7.0, formats:["virtual"], cost:["free"], awake:false,
+   cred:"Peer specialist in training · newer than you", specs:["youth","lgbtq"], tags:["Free","LGBTQ+","Early recovery"],
+   years:0.5, langs:["English"], rating:4.5, reviews:9, price:"Free — always", sessionLen:"20–30 min, video",
+   response:"Usually replies within a day", availability:["Weekday evenings"],
+   bio:"Six months into her own recovery and newly training as a peer specialist under supervision. Works mostly with LGBTQ+ young adults early in the process, because she remembers exactly how that felt.",
+   approach:"No pressure to have language for anything yet — she didn't either, six months ago.",
+   testimonials:[{text:"She's newer, and honestly that's why it felt safe — she wasn't miles ahead of where I am.", tag:"Peer match, 3 weeks"}]},
+  {name:"James O.", kind:"coach", avatar:"J", tint:"sage", dist:9.5, formats:["inperson"], cost:["insurance","sliding"], awake:false,
+   cred:"LADC · pain-and-recovery focus · 12 yrs", specs:["pain","mat","veterans"], tags:["Chronic pain","Veterans","MAT"],
+   years:12, langs:["English"], rating:4.8, reviews:134, price:"$80–120 / session · insurance & sliding scale", sessionLen:"50 min, in person only",
+   response:"Usually replies within a day", availability:["Mon–Fri, 8am–2pm"],
+   bio:"Twelve years as a licensed alcohol and drug counselor with a focus on chronic pain and MAT — the population most likely to get bounced between providers who won't touch both issues at once.",
+   approach:"Coordinates directly with prescribers when a client wants that, so pain management and recovery aren't fighting each other.",
+   testimonials:[{text:"First counselor who didn't treat my pain and my recovery like they were in competition.", tag:"Client, 2 years in"}]},
+  {name:"northstar", kind:"peer", avatar:"⭐", tint:"gold", dist:11.4, formats:["virtual","inperson"], cost:["free"], awake:true,
+   cred:"Certified peer specialist · 3 yrs · LGBTQ+ focus", specs:["lgbtq","trauma","youth"], tags:["Free","LGBTQ+","Trauma"],
+   years:3, langs:["English"], rating:5.0, reviews:47, price:"Free — always", sessionLen:"30–45 min, video or in person",
+   response:"Usually online within 30 minutes", availability:["Most evenings","Sunday afternoons"],
+   bio:"Three years certified, works almost entirely with LGBTQ+ folks whose trauma and substance use are tangled together — often because past providers didn't know how to hold both.",
+   approach:"Goes at your pace. Will name the elephant in the room if you want that, or leave it be if you don't.",
+   testimonials:[{text:"First person in this whole process who didn't need me to explain myself first.", tag:"Peer match, 10 months"}]},
+  {name:"Sofia L.", kind:"coach", avatar:"S", tint:"blue", dist:18.9, formats:["virtual"], cost:["insurance","sliding"], awake:false,
+   cred:"Bilingüe · CADC-I · telehealth only", specs:["spanish","parents","mat"], tags:["Español","Virtual","Moms"],
+   years:4, langs:["English","Español"], rating:4.7, reviews:38, price:"$50–85 / session · insurance & sliding scale", sessionLen:"45 min, video only",
+   response:"Usually replies within a day", availability:["Tue–Thu, 4pm–8pm"],
+   bio:"Telehealth-only practice built for people who can't easily get to an office — new moms especially. Sessions run in English or Español.",
+   approach:"Short, frequent check-ins rather than one long weekly session, since that's what actually fits around a newborn's schedule.",
+   testimonials:[{text:"The only provider who could work around a 2-month-old's nap schedule.", tag:"Client, 3 months"}]},
+  {name:"riverbend", kind:"peer", avatar:"🪵", tint:"sage", dist:34.0, formats:["virtual"], cost:["free"], awake:true,
+   cred:"Peer specialist · 6 yrs · rural outreach", specs:["mat","pain","veterans"], tags:["Free","Veterans","Chronic pain"],
+   years:6, langs:["English"], rating:4.9, reviews:56, price:"Free — always", sessionLen:"30–60 min, video only",
+   response:"Usually online within 20 minutes", availability:["Most days, 6am–9pm"],
+   bio:"Six years in recovery, focused on rural outreach for people who don't have a single provider within an hour's drive. Works entirely over video, often with veterans managing chronic pain and MAT.",
+   approach:"Understands what it's like when the nearest meeting is ninety minutes away — builds a plan around distance, not around an ideal you can't reach.",
+   testimonials:[{text:"Nearest peer group is two counties over. He's the reason I didn't have to drive there.", tag:"Peer match, 1 year"}]}
+];
+
+function fState(){
+  const root = $("#s-findcoach"), sel = s=> $(s, root);
+  const on = s=> $$(s+" .on, "+s+" button.on", root);
+  return {
+    type:   (sel("#fType button.on")||{}).dataset ? sel("#fType button.on").dataset.val : "both",
+    format: (sel("#fFormat button.on")||{}).dataset ? sel("#fFormat button.on").dataset.val : "either",
+    radius: +((sel("#fRadius .rpill.on")||{}).dataset||{mi:999}).mi,
+    cost:   $$("#fCost .chip.on", root).map(b=>b.dataset.val),
+    specs:  $$("#fSpec .chip.on", root).map(b=>b.dataset.val),
+    langs:  $$("#fLang .chip.on", root).map(b=>b.dataset.val),
+    sort:   (sel("#fSort button.on")||{}).dataset ? sel("#fSort button.on").dataset.val : "match",
+    awake:  $("#fAwake", root).classList.contains("on")
+  };
+}
+function renderCoaches(){
+  const f = fState();
+  let list = PROVIDERS.filter(p=>{
+    if(f.type!=="both" && p.kind!==f.type) return false;
+    if(f.radius!==999 && p.dist>f.radius) return false;
+    if(f.format!=="either" && !p.formats.includes(f.format)) return false;
+    if(f.cost.length && !f.cost.some(c=>p.cost.includes(c))) return false;
+    if(f.awake && !p.awake) return false;
+    if(f.specs.length && !f.specs.some(s=>p.specs.includes(s))) return false;
+    if(f.langs.length && !f.langs.some(l=>p.langs.includes(l))) return false;
+    return true;
+  });
+  if(f.sort==="near"){ list.sort((a,b)=> a.dist-b.dist); }
+  else if(f.sort==="rating"){ list.sort((a,b)=> b.rating-a.rating || a.dist-b.dist); }
+  else{
+    list.sort((a,b)=>{
+      const am=f.specs.filter(s=>a.specs.includes(s)).length, bm=f.specs.filter(s=>b.specs.includes(s)).length;
+      return bm-am || a.dist-b.dist;
+    });
+  }
+  const box = $("#coachResults");
+  $("#fCount").textContent = list.length + (list.length===1?" match":" matches");
+  if(typeof updateFilterMeta==="function") updateFilterMeta();
+  if(!list.length){
+    box.innerHTML = '<div class="emptybox"><b>No one fits all of that within range.</b>Widen the radius, or drop a filter. Free peer specialists work over video from anywhere — try setting distance to Anywhere.</div>';
+    return;
+  }
+  box.innerHTML = list.map(p=>{
+    const ph = phoneFor(p);
+    const fmt = p.formats.map(x=> x==="inperson"?"In person":"Virtual").join(" · ");
+    const distTxt = p.dist>=999 ? "Video" : (p.dist<50 ? p.dist.toFixed(1)+" mi" : "Far");
+    return `<div class="result ${p.kind==="peer"?"peerkind":""}" data-name="${p.name}" tabindex="0" role="button" aria-label="View ${p.name}'s profile">
+      <div class="rpic"><img src="${photoFor(p)}" alt="" loading="lazy">${p.awake?'<span class="live"></span>':''}</div>
+      <div style="flex:1;min-width:0">
+        <div class="rnm">${p.name}<span class="kind ${p.kind==="peer"?"peer":"coach"}">${p.kind==="peer"?"Peer":"Coach"}</span></div>
+        <div class="cred">${p.cred}</div>
+        <div class="starrow">${starHTML(p.rating)}<span class="rn">${p.rating.toFixed(1)} · ${p.reviews} reviews</span></div>
+        <div class="rtags">${p.tags.map(t=>`<span class="rtag">${t}</span>`).join("")}</div>
+        <div class="ct-btns" style="display:flex;gap:8px;margin-top:10px">
+          <button class="ct-btn ct-call" type="button" onclick="event.stopPropagation();callContact('${p.name.replace(/'/g,"\\'")}','${ph}')"><i data-lucide="phone"></i>Call</button>
+          <button class="ct-btn ct-text" type="button" onclick="event.stopPropagation();textContact('${p.name.replace(/'/g,"\\'")}','${ph}')"><i data-lucide="message-circle"></i>Text</button>
+        </div>
+      </div>
+      <div class="rmeta">${distTxt}<s>${fmt}</s>${p.awake?'<s style="color:var(--sage-ink)">Awake now</s>':''}</div>
+    </div>`;
+  }).join("");
+  if(window.lucide && lucide.createIcons) lucide.createIcons();
+}
+function starHTML(r){
+  const full=Math.floor(r), half=(r-full)>=0.5;
+  let s="";
+  for(let i=0;i<5;i++){ s += `<span class="star ${i<full?'full':(i===full&&half?'half':'')}">★</span>`; }
+  return `<span class="stars">${s}</span>`;
+}
+
+// one-sentence explainer: what a coach is vs. what a peer specialist is
+const TYPE_INFO = {
+  coach: "A recovery coach is a trained (often certified) professional you can hire to help build and keep your recovery plan — no lived experience with substance use required.",
+  peer:  "A peer support specialist is someone in their own long-term recovery, trained and certified to walk beside you because they've lived what you're living — and it's free."
+};
+function updateTypeInfo(){
+  const box = $("#fTypeExplain"), btn = $("#fType button.on");
+  if(!box || !btn) return;
+  const val = btn.dataset.val;
+  if(val==="both"){ box.classList.remove("on","peer"); box.textContent=""; return; }
+  box.textContent = TYPE_INFO[val];
+  box.classList.add("on");
+  box.classList.toggle("peer", val==="peer");
+}
+
+// re-render whenever a finder control changes (runs after generic toggle handlers)
+document.addEventListener("click", e=>{
+  const root = $("#s-findcoach");
+  if(!root || !e.target.closest("#s-findcoach")) return;
+  const pill = e.target.closest("#fRadius .rpill");
+  if(pill){ $$("#fRadius .rpill", root).forEach(x=>x.classList.remove("on")); pill.classList.add("on"); }
+  const srt = e.target.closest("#fSort button");
+  if(srt){ $$("#fSort button", root).forEach(x=>x.classList.remove("on")); srt.classList.add("on"); }
+  if(e.target.closest("#fType")) updateTypeInfo();
+  if(e.target.closest("#fType, #fFormat, #fCost, #fSpec, #fAvail, #fRadius, #fLang, #fSort")) renderCoaches();
+});
+/* ── collapsible filter card ── */
+function setFiltersOpen(open){
+  var card=$(".fcard", $("#s-findcoach")), body=$("#fBody"), btn=$("#fToggle");
+  if(!card||!body||!btn) return;
+  body.hidden = !open;
+  card.classList.toggle("closed", !open);
+  btn.setAttribute("aria-expanded", open ? "true" : "false");
+}
+(function(){
+  var t=$("#fToggle");
+  if(t) t.addEventListener("click", function(){ setFiltersOpen($("#fBody").hidden); });
+  setFiltersOpen(false);
+})();
+
+// how many filters are on, in words, plus a Clear that only shows when it can do something
+function updateFilterMeta(){
+  const root=$("#s-findcoach"); if(!root) return;
+  const f=fState();
+  let n = f.cost.length + f.specs.length + f.langs.length
+        + (f.awake?1:0)
+        + (f.format!=="either"?1:0) + (f.type!=="both"?1:0);
+  const pill=$("#fActive"), clear=$("#fClear");
+  if(pill){
+    pill.textContent = n ? n+" filter"+(n===1?"":"s")+" on" : "Showing everyone";
+    pill.classList.toggle("on", n>0);
+  }
+  if(clear) clear.classList.toggle("on", n>0);
+}
+(function(){
+  const clear=$("#fClear"); if(!clear) return;
+  clear.addEventListener("click", ()=>{
+    const root=$("#s-findcoach");
+    $$("#fCost .chip, #fSpec .chip, #fLang .chip, #fAvail .chip", root).forEach(c=>c.classList.remove("on"));
+    $$("#fFormat button", root).forEach((b,i)=> b.classList.toggle("on", i===0));
+    $$("#fType button", root).forEach((b,i)=> b.classList.toggle("on", i===0));
+    updateTypeInfo(); renderCoaches();
+    toast("Filters cleared");
+  });
+})();
+$("#fUseLoc").addEventListener("click", ()=>{
+  $("#fLoc").value = "Near you · Los Angeles";
+  $("#fResultLabel").textContent = "Matches near you";
+  toast("Using your location. City only — never a precise pin.");
+  renderCoaches();
+});
+$("#fLoc").addEventListener("input", ()=>{
+  const v = $("#fLoc").value.trim();
+  $("#fResultLabel").textContent = v ? "Matches near "+v.replace(/,.*$/,"") : "Matches near you";
+});
+// connect buttons (delegated, since results are dynamic)
+const circleAdded = new Set();
+function addToCircle(name, kind){
+  if(circleAdded.has(name)) return; circleAdded.add(name);
+  const roster=$("#circleRoster"), inv=$("#circleInviteRow");
+  if(!roster||!inv) return;
+  const tint = kind==="peer" ? "sage" : "blue";
+  const perm = kind==="peer" ? "Anonymous" : "Sessions only";
+  const role = kind==="peer" ? "Peer specialist · new" : "Recovery coach · new";
+  const av = (name.trim()[0]||"?").toUpperCase();
+  const row=document.createElement("div"); row.className="row";
+  row.innerHTML='<div class="pic" style="background:var(--'+tint+'-tint);color:var(--'+tint+'-ink)">'+av+'</div>'+
+    '<div><div class="nm">'+name+'</div><div class="rl">'+role+'</div></div><div class="perm">'+perm+'</div>';
+  roster.insertBefore(row, inv);
+}
+document.addEventListener("click", e=>{
+  const c = e.target.closest(".connect[data-nm]");
+  if(!c) return;
+  e.stopPropagation();
+  const done = c.classList.toggle("done");
+  if(done){
+    c.textContent = c.dataset.kind==="peer" ? "Message sent" : "Intro requested";
+    addToCircle(c.dataset.nm, c.dataset.kind);
+    toast((c.dataset.kind==="peer"?"Said hi to ":"Intro requested with ")+c.dataset.nm+" · added to your circle");
+  } else c.textContent = c.dataset.label;
+});
+
+/* ── open a full profile when a result card (not its connect button) is tapped ── */
+function openProfile(name){
+  const p = PROVIDERS.find(x=>x.name===name);
+  if(!p) return;
+  $("#provBody").innerHTML = renderProfileHTML(p);
+  if(window.lucide && lucide.createIcons) lucide.createIcons();
+  showProviderPane(true);
+}
+document.addEventListener("click", e=>{
+  const card = e.target.closest("#coachResults .result");
+  if(!card || e.target.closest(".connect")) return;
+  openProfile(card.dataset.name);
+});
+document.addEventListener("keydown", e=>{
+  if(e.key!=="Enter" && e.key!==" ") return;
+  const card = e.target.closest && e.target.closest("#coachResults .result");
+  if(!card) return;
+  e.preventDefault(); openProfile(card.dataset.name);
+});
+function renderProfileHTML(p){
+  const kindLab = p.kind==="peer" ? "Peer support specialist" : "Recovery coach";
+  const fmt = p.formats.map(x=> x==="inperson"?"In person":"Virtual").join(" · ");
+  const distTxt = p.dist>=999 ? "Video only" : p.dist.toFixed(1)+" mi away";
+  return `
+    <div class="provhero">
+      <img src="${photoFor(p)}" alt="" class="provphoto">
+      <div class="provname">${p.name}${p.awake?'<span class="live" style="position:static;display:inline-block;margin-left:8px;vertical-align:middle"></span>':''}</div>
+      <span class="kind ${p.kind==="peer"?"peer":"coach"}" style="margin-top:4px">${kindLab}</span>
+      <div class="starrow" style="margin-top:9px;justify-content:center">${starHTML(p.rating)}<span class="rn">${p.rating.toFixed(1)} · ${p.reviews} reviews</span></div>
+    </div>
+    <div class="provstats">
+      <div class="pstat"><b>${distTxt}</b><span>${fmt}</span></div>
+      <div class="pstat"><b>${p.cred.split("·")[0].trim()}</b><span>${p.years<1?Math.round(p.years*12)+" mo":p.years+" yrs"} experience</span></div>
+      <div class="pstat"><b>${p.price.split("·")[0].trim()}</b><span>${p.sessionLen}</span></div>
+    </div>
+    <div class="card">
+      <span class="tag" style="color:var(--blue-ink)"><i style="background:var(--blue)"></i>About</span>
+      <p style="margin-top:9px">${p.bio}</p>
+    </div>
+    <div class="card">
+      <span class="tag" style="color:var(--sage-ink)"><i style="background:var(--sage)"></i>How sessions work</span>
+      <p style="margin-top:9px">${p.approach}</p>
+    </div>
+    <div class="card">
+      <span class="tag" style="color:var(--gold-ink)"><i style="background:var(--gold-ink)"></i>Details</span>
+      <div class="provdetail"><b>Focus areas</b><div class="rtags" style="margin-top:6px">${p.tags.map(t=>`<span class="rtag">${t}</span>`).join("")}</div></div>
+      <div class="provdetail"><b>Languages</b><span>${p.langs.join(", ")}</span></div>
+      <div class="provdetail"><b>Cost</b><span>${p.price}</span></div>
+      <div class="provdetail"><b>Response time</b><span>${p.response}</span></div>
+      <div class="provdetail"><b>Typical availability</b><span>${p.availability.join(" · ")}</span></div>
+    </div>
+    ${p.testimonials.map(t=>`<div class="card blue">
+      <p style="font-style:italic;color:var(--blue-ink)">"${t.text}"</p>
+      <p style="margin-top:6px;font-size:11.5px;color:var(--blue-ink);font-weight:700">— ${t.tag}</p>
+    </div>`).join("")}
+    <div class="ct-btns" style="display:flex;gap:10px;margin-top:4px">
+      <button class="ct-btn ct-call" type="button" style="flex:1" onclick="callContact('${p.name.replace(/'/g,"\\'")}','${phoneFor(p)}')"><i data-lucide="phone"></i>Call</button>
+      <button class="ct-btn ct-text" type="button" style="flex:1" onclick="textContact('${p.name.replace(/'/g,"\\'")}','${phoneFor(p)}')"><i data-lucide="message-circle"></i>Text</button>
+    </div>
+    <div class="card ink" style="margin-top:14px">
+      <p style="font-size:12.2px">Only your city and filters are shared to make this match — never your name, check-ins, or journal, until you choose to share them yourself.</p>
+    </div>`;
+}
+renderCoaches();
+
+
+/* let index.html refresh the list whenever the overlay is opened */
+window.fcRefresh = function(){ showProviderPane(false); renderCoaches(); };
+
+})();
+
+
+
+/* ===== FIND A MEETING (NA, ported) ===== */
+
+/* NOTE for engineering handoff:
+   Real NA meeting data comes from NA World Services' meeting search, built on
+   BMLT (Basic Meeting List Toolkit) — the open-source root-server system NA and
+   most regions run (see na.org/meetingsearch). A production build would call a
+   BMLT root server's GetSearchResults endpoint (JSON) with the same filters
+   below (day, time range, service body/location, formats, weekday) instead of
+   reading MOCK_MEETINGS. The data shape here matches BMLT's real fields
+   (name, day, time, duration, address/city/state/zip, virtual meeting link/
+   phone, and "format" tags like Open/Closed/Discussion/Speaker/etc.) so swapping
+   in a live fetch is a drop-in replacement for loadMeetings(). */
+(function(){
+  "use strict";
+
+  var MOCK_MEETINGS = [
+    { id:"m1", name:"Way Out Group", day:2, time:"19:00", dur:60, format:"in-person",
+      venue:"St. Andrew's Community Hall", address:"412 5th Ave", city:"New York", state:"NY", zip:"10018", distance:1.2,
+      types:["Open","Discussion","Beginner"], lang:"English",
+      contact:{name:"Marcus T.", phone:"(212) 555-0143"} },
+    { id:"m2", name:"Midnight Serenity", day:5, time:"23:30", dur:60, format:"virtual",
+      virtual:{platform:"Zoom", link:"https://zoom.us/j/8813347210", id:"881 334 7210", pw:"9214", phone:"(929) 205-6099,,881334721#"},
+      types:["Open","Speaker"], lang:"English",
+      contact:{name:"Renee K.", phone:"(646) 555-0110"} },
+    { id:"m3", name:"New Freedom Group", day:0, time:"10:00", dur:75, format:"hybrid",
+      venue:"Grace Fellowship Church", address:"88 Riverside Dr", city:"Brooklyn", state:"NY", zip:"11201", distance:3.8,
+      virtual:{platform:"Zoom", link:"https://zoom.us/j/5567012399", id:"556 701 2399", pw:"4471", phone:"(646) 558-8656,,556701239#"},
+      types:["Closed","Step Study"], lang:"English",
+      contact:{name:"Diane P.", phone:"(718) 555-0199"} },
+    { id:"m4", name:"Keep It Simple", day:1, time:"12:15", dur:45, format:"in-person",
+      venue:"Downtown Recovery Center", address:"210 Main St", city:"Los Angeles", state:"CA", zip:"90012", distance:6.4,
+      types:["Open","Discussion","Wheelchair"], lang:"English",
+      contact:{name:"J. Alvarez", phone:"(213) 555-0122"} },
+    { id:"m5", name:"Sunrise Warriors", day:1, time:"06:30", dur:60, format:"virtual",
+      virtual:{platform:"Zoom", link:"https://zoom.us/j/2290187744", id:"229 018 7744", pw:"6630", phone:"(669) 900-6833,,229018774#"},
+      types:["Open","Men","Beginner"], lang:"English",
+      contact:{name:"Coach Dee", phone:"(310) 555-0187"} },
+    { id:"m6", name:"Women in the Solution", day:3, time:"18:30", dur:60, format:"hybrid",
+      venue:"Hope Chapel Annex", address:"75 Ocean Blvd", city:"Long Beach", state:"CA", zip:"90802", distance:9.1,
+      virtual:{platform:"Zoom", link:"https://zoom.us/j/7742210056", id:"774 221 0056", pw:"5581", phone:"(669) 900-6833,,774221005#"},
+      types:["Closed","Women","Discussion"], lang:"English",
+      contact:{name:"Sandra L.", phone:"(562) 555-0166"} },
+    { id:"m7", name:"Loop Lunchtime", day:4, time:"12:00", dur:45, format:"in-person",
+      venue:"First Congregational Church", address:"126 Wabash Ave", city:"Chicago", state:"IL", zip:"60603", distance:2.0,
+      types:["Open","Literature Study"], lang:"English",
+      contact:{name:"Big Mike", phone:"(312) 555-0177"} },
+    { id:"m8", name:"Windy City Young People", day:5, time:"20:00", dur:60, format:"virtual",
+      virtual:{platform:"Zoom", link:"https://zoom.us/j/3391027744", id:"339 102 7744", pw:"7720", phone:"(312) 626-6799,,339102774#"},
+      types:["Open","Young People"], lang:"English",
+      contact:{name:"Priya S.", phone:"(773) 555-0140"} },
+    { id:"m9", name:"Bayou Beginnings", day:6, time:"09:00", dur:60, format:"in-person",
+      venue:"Trinity Recovery House", address:"900 Louisiana St", city:"Houston", state:"TX", zip:"77002", distance:4.5,
+      types:["Open","Beginner","Discussion"], lang:"English",
+      contact:{name:"Ray O.", phone:"(713) 555-0155"} },
+    { id:"m10", name:"Desert Renewal", day:2, time:"17:30", dur:60, format:"hybrid",
+      venue:"Sonoran Wellness Center", address:"33 Camelback Rd", city:"Phoenix", state:"AZ", zip:"85013", distance:5.7,
+      virtual:{platform:"Zoom", link:"https://zoom.us/j/6612209983", id:"661 220 9983", pw:"3308", phone:"(669) 900-6833,,661220998#"},
+      types:["Open","Discussion"], lang:"English",
+      contact:{name:"Nadia F.", phone:"(602) 555-0133"} },
+    { id:"m11", name:"Liberty Bell Group", day:0, time:"19:00", dur:60, format:"in-person",
+      venue:"Old Pine Presbyterian", address:"412 Pine St", city:"Philadelphia", state:"PA", zip:"19107", distance:2.6,
+      types:["Closed","Step Study","LGBTQ+"], lang:"English",
+      contact:{name:"Aiden R.", phone:"(215) 555-0161"} },
+    { id:"m12", name:"Anywhere, Anytime", day:3, time:"14:00", dur:60, format:"virtual",
+      virtual:{platform:"Zoom", link:"https://zoom.us/j/1123456789", id:"112 345 6789", pw:"2024", phone:"(646) 558-8656,,112345678#"},
+      types:["Open","Discussion","Wheelchair"], lang:"English",
+      contact:{name:"NA Helpline Volunteer", phone:"(800) 555-0198"} },
+    { id:"m13", name:"Rebuilding Bridges", day:4, time:"18:00", dur:75, format:"hybrid",
+      venue:"Riverside Recovery Hall", address:"14 Market St", city:"Newark", state:"NJ", zip:"07102", distance:8.9,
+      virtual:{platform:"Zoom", link:"https://zoom.us/j/9945102277", id:"994 510 2277", pw:"1187", phone:"(646) 558-8656,,994510227#"},
+      types:["Open","Speaker","Beginner"], lang:"English",
+      contact:{name:"Teresa V.", phone:"(973) 555-0121"} },
+    { id:"m14", name:"Clean & Serene Sunday", day:0, time:"08:00", dur:45, format:"virtual",
+      virtual:{platform:"Zoom", link:"https://zoom.us/j/4471029983", id:"447 102 9983", pw:"8801", phone:"(929) 205-6099,,447102998#"},
+      types:["Open","Meditation".replace("Meditation","Discussion")], lang:"Spanish",
+      contact:{name:"Lucía M.", phone:"(305) 555-0109"} }
+  ];
+
+  var DAY_NAMES = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+  var DAY_SHORT = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
+
+  var state = { format:["all"], days:[], time:["all"], types:[], dist:25, loc:"", sort:"soonest" };
+  var addedIds = {}; // meetings the user has added to their plan
+  var lastRendered = [];
+
+  function timeSlot(hhmm){
+    var h = parseInt(hhmm.split(":")[0],10);
+    if(h>=4 && h<12) return "morning";
+    if(h>=12 && h<17) return "afternoon";
+    if(h>=17 && h<21) return "evening";
+    return "late";
+  }
+  function fmt12(hhmm){
+    var p = hhmm.split(":"); var h=parseInt(p[0],10), m=p[1];
+    var ap = h>=12 ? "PM" : "AM"; var h12 = h%12; if(h12===0) h12=12;
+    return h12+":"+m+" "+ap;
+  }
+  function minutesUntilNext(day, hhmm){
+    var now = new Date();
+    var target = new Date(now);
+    var p = hhmm.split(":");
+    target.setHours(+p[0], +p[1], 0, 0);
+    var diffDays = (day - now.getDay() + 7) % 7;
+    if(diffDays===0 && target.getTime() < now.getTime()) diffDays = 7;
+    target.setDate(target.getDate()+diffDays);
+    return Math.round((target.getTime()-now.getTime())/60000);
+  }
+  function whenLabel(day, hhmm){
+    var mins = minutesUntilNext(day, hhmm);
+    var lead = mins < 60*20 ? (mins<60*3 && mins>=0 ? "Soon · " : (mins<60*24 ? "Today · " : (mins<60*48 ? "Tomorrow · " : "")))
+             : "";
+    if(mins>=60*48) lead = DAY_NAMES[day]+"s · ";
+    return lead + fmt12(hhmm);
+  }
+
+  function matches(m){
+    // format
+    if(state.format.indexOf("all")<0 && state.format.indexOf(m.format)<0) return false;
+    // day
+    if(state.days.length && state.days.indexOf(m.day)<0) return false;
+    // time of day
+    if(state.time.indexOf("all")<0 && state.time.indexOf(timeSlot(m.time))<0) return false;
+    // distance — only meaningful for in-person/hybrid
+    if(m.format!=="virtual" && m.distance!=null && m.distance>state.dist) return false;
+    // location text — matches city/state/zip; virtual meetings always pass (nationwide)
+    if(state.loc.trim() && m.format!=="virtual"){
+      var q = state.loc.trim().toLowerCase();
+      var hay = ((m.city||"")+" "+(m.state||"")+" "+(m.zip||"")).toLowerCase();
+      if(hay.indexOf(q)<0) return false;
+    }
+    // type tags (AND — meeting must include every selected tag)
+    if(state.types.length){
+      for(var i=0;i<state.types.length;i++){ if(m.types.indexOf(state.types[i])<0) return false; }
+    }
+    return true;
+  }
+
+  function sortList(list){
+    if(state.sort==="nearest"){
+      return list.slice().sort(function(a,b){
+        var da = a.format==="virtual" ? -1 : (a.distance||999);
+        var db = b.format==="virtual" ? -1 : (b.distance||999);
+        return da-db;
+      });
+    }
+    return list.slice().sort(function(a,b){ return minutesUntilNext(a.day,a.time)-minutesUntilNext(b.day,b.time); });
+  }
+
+  function fmtIcon(format){ return format==="in-person" ? "📍" : format==="virtual" ? "💻" : "🔀"; }
+
+  function renderList(){
+    var listEl = document.getElementById("naList");
+    var countEl = document.getElementById("naCount");
+    if(!listEl) return;
+    var filtered = sortList(MOCK_MEETINGS.filter(matches));
+    lastRendered = filtered;
+    countEl.textContent = filtered.length + (filtered.length===1 ? " meeting found" : " meetings found");
+    if(!filtered.length){
+      listEl.innerHTML = '<div class="na-empty"><b>No meetings match yet</b>Try widening your distance or clearing a filter.</div>';
+      return;
+    }
+    listEl.innerHTML = filtered.map(function(m){
+      var where = m.format==="virtual" ? "Virtual · Zoom" : (m.format==="hybrid" ? m.city+", "+m.state+" + Zoom" : m.city+", "+m.state)
+                + (m.format!=="virtual" ? " · "+m.distance+" mi" : "");
+      var tags = m.types.slice(0,3).map(function(t){ return '<span class="na-tag">'+t+'</span>'; }).join("");
+      var extra = m.types.length>3 ? '<span class="na-tag">+'+(m.types.length-3)+'</span>' : "";
+      var added = addedIds[m.id] ? '<span class="na-added-pill on">✓ On your plan</span>' : "";
+      return '<div class="na-card" data-id="'+m.id+'">'
+        + '<div class="na-card-top"><span class="na-fmt '+m.format+'">'+fmtIcon(m.format)+' '+m.format.replace("-"," ")+'</span>'
+        + '<span class="na-card-name">'+m.name+'</span></div>'
+        + '<div class="na-card-when">'+whenLabel(m.day,m.time)+' · '+m.dur+' min</div>'
+        + '<div class="na-card-where">'+where+'</div>'
+        + '<div class="na-card-tags">'+tags+extra+'</div>'
+        + '<div class="na-card-foot">'+added+'</div>'
+        + '</div>';
+    }).join("");
+  }
+
+  // ── filter wiring ──
+  function toggleGroup(containerId, key, exclusive){
+    var el = document.getElementById(containerId);
+    if(!el) return;
+    el.addEventListener("click", function(e){
+      var b = e.target.closest("button"); if(!b) return;
+      var val = b.dataset.val;
+      if(exclusive && val==="all"){
+        el.querySelectorAll("button").forEach(function(x){ x.classList.remove("on"); });
+        b.classList.add("on"); state[key]=["all"]; renderList(); return;
+      }
+      if(exclusive) el.querySelector('[data-val="all"]').classList.remove("on");
+      b.classList.toggle("on");
+      var picked = [].slice.call(el.querySelectorAll("button.on")).map(function(x){return x.dataset.val;});
+      if(exclusive && !picked.length){ el.querySelector('[data-val="all"]').classList.add("on"); picked=["all"]; }
+      state[key] = picked;
+      renderList();
+    });
+  }
+  function toggleDays(){
+    var el = document.getElementById("naDays"); if(!el) return;
+    el.addEventListener("click", function(e){
+      var b = e.target.closest(".na-day"); if(!b) return;
+      b.classList.toggle("on");
+      state.days = [].slice.call(el.querySelectorAll(".na-day.on")).map(function(x){return +x.dataset.val;});
+      renderList();
+    });
+  }
+
+  function init(){
+    toggleGroup("naFormat","format",true);
+    toggleGroup("naTime","time",true);
+    toggleGroup("naType","types",false);
+    toggleDays();
+
+    var loc = document.getElementById("naLoc");
+    if(loc) loc.addEventListener("input", function(){ state.loc = loc.value; renderList(); });
+    var useLoc = document.getElementById("naUseLoc");
+    if(useLoc) useLoc.addEventListener("click", function(){
+      if(!navigator.geolocation){ loc.placeholder="Location unavailable — type a city"; return; }
+      useLoc.innerHTML = '<i data-lucide="loader-2" style="animation:spin 1s linear infinite"></i>';
+      navigator.geolocation.getCurrentPosition(function(){
+        loc.value = "Near me"; state.loc=""; // no geocoding in this mock; show all + note
+        useLoc.innerHTML = '<i data-lucide="crosshair"></i>'; icons(); renderList();
+      }, function(){ useLoc.innerHTML = '<i data-lucide="crosshair"></i>'; icons(); });
+    });
+
+    var dist = document.getElementById("naDist"), distVal = document.getElementById("naDistVal");
+    if(dist) dist.addEventListener("input", function(){
+      state.dist = +dist.value; distVal.textContent = dist.value+" mi";
+      dist.style.setProperty("--pct", ((dist.value-dist.min)/(dist.max-dist.min)*100)+"%");
+      renderList();
+    });
+
+    var moreBtn = document.getElementById("naMoreBtn"), moreBody = document.getElementById("naMoreBody");
+    if(moreBtn) moreBtn.addEventListener("click", function(){
+      var open = moreBody.hidden;
+      moreBody.hidden = !open;
+      moreBtn.setAttribute("aria-expanded", open ? "true":"false");
+    });
+
+    document.querySelectorAll(".na-sort").forEach(function(b){
+      b.addEventListener("click", function(){
+        document.querySelectorAll(".na-sort").forEach(function(x){x.classList.remove("on");});
+        b.classList.add("on"); state.sort=b.dataset.val; renderList();
+      });
+    });
+
+    document.getElementById("naList").addEventListener("click", function(e){
+      var card = e.target.closest(".na-card"); if(!card) return;
+      openDetail(card.dataset.id);
+    });
+
+    renderList();
+  }
+
+  function icons(){ if(window.lucide && lucide.createIcons) lucide.createIcons(); }
+
+  // ── detail view ──
+  function openDetail(id){
+    var m = MOCK_MEETINGS.find(function(x){return x.id===id;});
+    if(!m) return;
+    var box = document.getElementById("naDetail");
+    var fmtClass = m.format, fmtLbl = m.format.replace("-"," ");
+    var tags = m.types.map(function(t){return '<span class="na-tag">'+t+'</span>';}).join("");
+
+    var whereSection = "";
+    if(m.format!=="virtual"){
+      whereSection =
+        '<div class="na-d-section"><div class="na-d-lbl"><i data-lucide="map-pin"></i>Location</div>'
+        + '<div class="na-d-row"><div class="na-d-row-main"><div class="na-d-row-t">'+m.venue+'</div>'
+        + '<div class="na-d-row-s">'+m.address+', '+m.city+', '+m.state+' '+m.zip+' · '+m.distance+' mi away</div></div></div>'
+        + '<div class="na-d-btnrow"><button class="na-d-btn call" onclick="window.open(\'https://maps.google.com/?q='+encodeURIComponent(m.address+", "+m.city+", "+m.state+" "+m.zip)+'\',\'_blank\')"><i data-lucide="navigation"></i>Directions</button></div>'
+        + '</div>';
+    }
+    var virtualSection = "";
+    if(m.virtual){
+      virtualSection =
+        '<div class="na-d-section"><div class="na-d-lbl"><i data-lucide="video"></i>Join virtually · '+m.virtual.platform+'</div>'
+        + '<div class="na-d-row"><div class="na-d-row-main"><div class="na-d-row-t">Meeting link</div><div class="na-d-row-s">'+m.virtual.link+'</div></div>'
+        + '<button class="na-d-copy" onclick="naCopy(\''+m.virtual.link+'\',this)"><i data-lucide="copy"></i></button></div>'
+        + '<div class="na-d-row"><div class="na-d-row-main"><div class="na-d-row-t">Meeting ID</div><div class="na-d-row-s">'+m.virtual.id+' · Password: '+m.virtual.pw+'</div></div>'
+        + '<button class="na-d-copy" onclick="naCopy(\''+m.virtual.id+'\',this)"><i data-lucide="copy"></i></button></div>'
+        + '<div class="na-d-row"><div class="na-d-row-main"><div class="na-d-row-t">Phone dial-in</div><div class="na-d-row-s">'+m.virtual.phone+'</div></div>'
+        + '<button class="na-d-copy" onclick="naCopy(\''+m.virtual.phone+'\',this)"><i data-lucide="copy"></i></button></div>'
+        + '<div class="na-d-btnrow"><a class="na-d-btn join" style="text-decoration:none" href="'+m.virtual.link+'" target="_blank"><i data-lucide="video"></i>Join Zoom</a></div>'
+        + '</div>';
+    }
+
+    box.innerHTML =
+      '<span class="na-d-fmt na-fmt '+fmtClass+'">'+fmtIcon(m.format)+' '+fmtLbl+'</span>'
+      + '<h2 class="na-d-title">'+m.name+'</h2>'
+      + '<div class="na-d-tags">'+tags+'</div>'
+      + '<div class="na-d-section"><div class="na-d-lbl"><i data-lucide="clock"></i>When</div>'
+      + '<div class="na-d-row-t">'+DAY_NAMES[m.day]+'s · '+fmt12(m.time)+'</div>'
+      + '<div class="na-d-row-s">'+m.dur+' minutes · '+whenLabel(m.day,m.time)+'</div></div>'
+      + whereSection + virtualSection
+      + '<div class="na-d-section"><div class="na-d-lbl"><i data-lucide="user-round"></i>Host / contact</div>'
+      + '<div class="na-d-row"><div class="na-d-row-main"><div class="na-d-row-t">'+m.contact.name+'</div><div class="na-d-row-s">'+m.contact.phone+' · '+m.lang+'</div></div></div>'
+      + '<div class="na-d-btnrow">'
+      + '<a class="na-d-btn call" style="text-decoration:none" href="tel:'+m.contact.phone.replace(/[^\d+]/g,"")+'"><i data-lucide="phone"></i>Call</a>'
+      + '<a class="na-d-btn text" style="text-decoration:none" href="sms:'+m.contact.phone.replace(/[^\d+]/g,"")+'"><i data-lucide="message-circle"></i>Text</a>'
+      + '</div></div>'
+      + '<button class="na-d-addbtn'+(addedIds[m.id]?" added":"")+'" id="naAddBtn">'
+      + (addedIds[m.id] ? '<i data-lucide="check"></i>On your plan · reminder set' : '<i data-lucide="calendar-plus"></i>Add to my plan')
+      + '</button>'
+      + '<p class="na-d-note">We\'ll remind you before it starts — whether it\'s virtual, hybrid, or in-person.</p>';
+
+    icons();
+    document.getElementById("naAddBtn").addEventListener("click", function(){ addToPlan(m); });
+    if(typeof window.openOv === "function") window.openOv("na-meeting-detail");
+  }
+
+  window.naCopy = function(text, btn){
+    if(navigator.clipboard) navigator.clipboard.writeText(text).catch(function(){});
+    var orig = btn.innerHTML;
+    btn.innerHTML = '<i data-lucide="check"></i>'; icons();
+    setTimeout(function(){ btn.innerHTML = orig; icons(); }, 1200);
+  };
+
+  // ── add to plan: injects into the matching Today's Plan time slot + sets a reminder ──
+  function addToPlan(m){
+    if(addedIds[m.id]) return;
+    addedIds[m.id] = true;
+
+    var slot = timeSlot(m.time);
+    var todKey = slot==="late" ? "evening" : slot; // fold "late" into the evening/tonight bucket
+    var host = document.querySelector('.tod[data-tod="'+todKey+'"] .plan');
+    if(host){
+      var li = document.createElement("li");
+      li.className = "na-plan-item";
+      li.innerHTML = '<span class="box"><svg viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6.5"/></svg></span>'
+        + '<span class="txt">🧭 '+m.name+' (NA)</span>'
+        + '<span class="meta">'+fmt12(m.time)+' 🔔</span>';
+      li.addEventListener("click", function(){ li.classList.toggle("done"); });
+      host.appendChild(li);
+    }
+
+    // update card badges + detail button live
+    renderList();
+    var btn = document.getElementById("naAddBtn");
+    if(btn){ btn.classList.add("added"); btn.innerHTML = '<i data-lucide="check"></i>On your plan · reminder set'; icons(); }
+
+    if(typeof window.toast === "function") window.toast("Added to your plan · reminder set");
+    try{ document.dispatchEvent(new CustomEvent("rudra:meeting-added", {detail:m})); }catch(_){}
+  }
+
+  window.addEventListener("load", init);
+
+  /* ── safety net: guarantee the Meeting details back button works ──
+     If the app's closeTopOv isn't available (or leaves the detail on top),
+     directly close the detail overlay so the meetings list shows underneath. */
+  window.addEventListener("load", function(){
+    var origCloseTop = window.closeTopOv;
+    window.closeTopOv = function(name){
+      if(typeof origCloseTop === "function"){
+        try{ origCloseTop.apply(this, arguments); }catch(_){}
+      }
+      if(name === "na-meeting-detail"){
+        var d = document.getElementById("ov-na-meeting-detail");
+        if(d){ d.classList.remove("open"); d.setAttribute("aria-hidden","true"); }
+        var list = document.getElementById("ov-na-meetings");
+        if(list && !list.classList.contains("open")){
+          if(typeof window.openOv === "function") window.openOv("na-meetings");
+          else { list.classList.add("open"); list.setAttribute("aria-hidden","false"); }
+        }
+      }
+    };
+  });
+})();
+

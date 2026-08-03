@@ -15,7 +15,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
 <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
-<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/styles.css?v=20260804o">
 </head>
 <body>
 
@@ -376,7 +376,7 @@
   <div class="dn-brand"><img class="brand-img" src="assets/Logo.png" alt="RudraHealth ai"></div>
   <nav class="dn-list">
     <button class="dn-item active" data-screen="home" onclick="goScreen('home')"><i data-lucide="house"></i><span>Home</span></button>
-    <button class="dn-item" data-screen="tools" onclick="goScreen('tools')"><i data-lucide="layout-grid"></i><span>Activities</span></button>
+    <button class="dn-item" onclick="openOv('rooms')"><i data-lucide="users-round"></i><span>Community</span></button>
     <button class="dn-item dn-sos" data-screen="narcan" onclick="openSOS()" aria-label="Help"><svg class="sos-cross" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="9.4" y="4" width="5.2" height="16" rx="2.6"/><rect x="4" y="9.4" width="16" height="5.2" rx="2.6"/></svg><span>Help</span></button>
     <button class="dn-item" data-screen="mat" onclick="goScreen('mat')"><i data-lucide="trending-up"></i><span>Progress</span></button>
     <button class="dn-item" data-screen="rewards" onclick="goScreen('rewards')"><i data-lucide="trophy"></i><span>Rewards</span></button>
@@ -409,7 +409,6 @@
       <div class="home-sec gauge-card rh-card" role="button" tabindex="0" onclick="openOv('insights')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openOv('insights');}">
         <div class="rh-inner">
           <div class="rh-eyebrow">Recovery Health</div>
-          <div class="rh-greet">You're doing good, <span id="rhName">there</span></div>
           <div class="rh-gauge" id="healthGauge"></div>
           <div class="rh-num"><b>74</b></div>
           <div class="rh-outof">out of 100</div>
@@ -420,7 +419,7 @@
           <div class="rh-risk">
             <span class="rh-risk-ic"><i data-lucide="zap"></i></span>
             <div class="rh-risk-main">
-              <div class="rh-risk-eyebrow">Today's Risk</div>
+              <div class="rh-risk-eyebrow">Today's Focus</div>
               <div class="rh-risk-val">Craving</div>
             </div>
           </div>
@@ -454,15 +453,15 @@
               <div class="task-time" id="checkin-time">5:00 PM</div>
             </div>
             <div class="task" id="schedule-card" onclick="confirmSchedule(this)">
-              <span class="xp-chip xp-corner">+10 XP</span>
+              <span class="xp-chip xp-corner">+40 XP</span>
               <div class="task-ic-wrap">
                 <div class="ic-tile" style="background:#9A7C28" id="schedule-icon"><i data-lucide="calendar-clock"></i></div>
                 <div class="task-check" style="display:none" id="schedule-check">&#10003;</div>
               </div>
-              <div class="task-name" id="schedule-label">Schedule</div>
+              <div class="task-name" id="schedule-label">Tx Schedule</div>
               <div class="task-time" id="schedule-time">Today</div>
             </div>
-            <div class="task" id="activities-card" onclick="openOv('relief-detail')">
+            <div class="task" id="activities-card" onclick="confirmActivities(this)">
               <span class="xp-chip xp-corner">+10 XP</span>
               <div class="task-ic-wrap">
                 <div class="ic-tile" style="background:#5B92CE" id="activities-icon"><i data-lucide="layout-grid"></i></div>
@@ -513,9 +512,9 @@
           <div class="streaks-rj">
             <div class="rj-eyebrow">Recovery Journey</div>
             <div class="rj-title">Your longest yet <span class="rj-heart">&#9829;</span></div>
-            <div class="rj-stat"><span class="rj-big">47</span><span class="rj-cap">Days in recovery</span></div>
+            <div class="rj-stat"><span class="rj-big">62</span><span class="rj-cap">Days in recovery</span></div>
             <div class="rj-bar"><div class="rj-fill"></div></div>
-            <div class="rj-sub">13 days to your 60-day milestone</div>
+            <div class="rj-sub">28 days to your 90-day milestone</div>
           </div>
           <!-- Row 2: focus streaks with XP multipliers -->
           <div class="sf-row">
@@ -852,13 +851,13 @@
     <!-- ═══ ACTIVITIES SCREEN ═══ -->
     <div class="screen" id="screen-tools">
       <!-- ═══ FIND RELIEF ═══ -->
-      <div class="scr-head">
+      <div class="scr-head scr-head-back">
+        <button class="scr-back" onclick="goScreen('home')" aria-label="Back"><i data-lucide="arrow-left"></i></button>
         <div class="scr-title">Activities</div>
-        <div class="scr-sub">Short, guided exercises to steady you — pick one and start.</div>
       </div>
       <!-- Today's Activity -->
       <div class="scr-eyebrow" style="margin-bottom:8px">Today's Activity</div>
-      <button class="prev-act" onclick="openOv('relief-detail')">
+      <button class="prev-act today-act" onclick="openOv('relief-detail')">
         <span class="prev-act-ic" style="background:#5E8B6E"><i data-lucide="leaf"></i></span>
         <span class="prev-act-main"><span class="prev-act-t">Do one relief activity</span><span class="prev-act-d">Completed &middot; 4 min</span></span>
         <span class="prev-act-xpwrap"><span class="prev-act-score">Score : 79</span><span class="prev-act-xp">+10 XP</span></span>
@@ -1097,10 +1096,11 @@
       <button class="ov-back" style="background:#EEF0F0;color:var(--ink)" onclick="closeOv()">&larr;</button>
       <div>
         <div style="font-family:var(--font-display);font-size:17px;font-weight:700;color:var(--ink)">Schedule</div>
-        <div style="font-family:var(--font-ui);font-size:12px;color:var(--ink-soft)">Today &middot; meds, therapy &amp; meetings</div>
+        <div style="font-family:var(--font-ui);font-size:12px;color:var(--ink-soft)">Your meds, therapy &amp; meetings</div>
       </div>
     </div>
     <div class="ov-body" style="padding-top:14px">
+      <div class="sch-sec-title">Today</div>
       <div class="sch-cards">
         <div class="sch-card">
           <div class="ic-tile t-coral"><i data-lucide="pill"></i></div>
@@ -1157,6 +1157,67 @@
               <div id="attended-check-sh" class="chk-done">&#10003;</div>
             </div>
           </div>
+        </div>
+      </div>
+
+      <div class="sch-sec-title">Upcoming</div>
+
+      <div class="sch-cards">
+        <div class="sch-card">
+          <div class="ic-tile t-coral"><i data-lucide="pill"></i></div>
+          <div class="sch-card-main">
+            <div class="tx-name">Suboxone 8mg/2mg</div>
+            <div class="tx-sub">Every day · 8:00 AM</div>
+          </div>
+          <span class="sch-when sch-when-daily">Daily</span>
+        </div>
+        <div class="sch-card">
+          <div class="ic-tile t-lilac"><i data-lucide="user"></i></div>
+          <div class="sch-card-main">
+            <div class="tx-name">Individual Counseling</div>
+            <div class="tx-sub">Thu, May 22 · 2:00 PM · Dr. Rivera</div>
+          </div>
+          <span class="sch-when">Thu 22</span>
+        </div>
+        <div class="sch-card">
+          <div class="ic-tile t-teal"><i data-lucide="users"></i></div>
+          <div class="sch-card-main">
+            <div class="tx-name">Group Counseling</div>
+            <div class="tx-sub">Fri, May 23 · 10:00 AM · L. Thompson</div>
+          </div>
+          <span class="sch-when">Fri 23</span>
+        </div>
+        <div class="sch-card">
+          <div class="ic-tile t-coral"><i data-lucide="pill"></i></div>
+          <div class="sch-card-main">
+            <div class="tx-name">Suboxone Refill</div>
+            <div class="tx-sub">Sat, May 24 · Pickup · CVS Pharmacy</div>
+          </div>
+          <span class="sch-when">Sat 24</span>
+        </div>
+        <div class="sch-card">
+          <div class="ic-tile t-lilac"><i data-lucide="stethoscope"></i></div>
+          <div class="sch-card-main">
+            <div class="tx-name">MOUD Prescriber Visit</div>
+            <div class="tx-sub">Mon, May 26 · 11:00 AM · Dr. Rivera</div>
+          </div>
+          <span class="sch-when">Mon 26</span>
+        </div>
+        <div class="sch-card">
+          <div class="ic-tile t-lilac"><i data-lucide="clipboard-list"></i></div>
+          <div class="sch-card-main">
+            <div class="tx-name">Care Team Check-in</div>
+            <div class="tx-sub">Wed, May 28 · 3:30 PM · Case Manager</div>
+          </div>
+          <span class="sch-when">Wed 28</span>
+        </div>
+        <div class="sch-card">
+          <div class="ic-tile t-lilac"><i data-lucide="stethoscope"></i></div>
+          <div class="sch-card-main">
+            <div class="tx-name">Psychiatry Follow-up</div>
+            <div class="tx-sub">Fri, May 30 · 1:00 PM · Dr. Okafor</div>
+          </div>
+          <span class="sch-when">Fri 30</span>
         </div>
       </div>
     </div>
@@ -1489,86 +1550,466 @@
     </div>
   </div>
 
-  <!-- ═══ CONNECT OVERLAY ═══ -->
-  <div class="overlay" id="ov-connect" style="background:var(--app-bg)">
+  <!-- ═══ FOLLOWERS & FRIENDS ═══ -->
+  <div class="overlay" id="ov-friends" style="background:var(--app-bg)">
     <div class="ov-header" style="background:#fff;border-bottom:1px solid var(--border)">
-      <button class="ov-back" style="background:#EEF0F0;color:var(--ink)" onclick="closeOv()">&larr;</button>
+      <button class="ov-back" style="background:#EEF0F0;color:var(--ink)" onclick="closeDetail('friends')">&larr;</button>
+      <div><div style="font-family:var(--font-display);font-size:17px;font-weight:700;color:var(--ink)">Followers &amp; Friends</div></div>
+    </div>
+    <div class="ov-body" style="padding-top:14px">
+      <div class="fr-tabs">
+        <button class="fr-tab on" type="button" onclick="frTab('friends')">Friends <span class="fr-tab-n" id="fr-friends-count">12</span></button>
+        <button class="fr-tab" type="button" onclick="frTab('followers')">Followers <span class="fr-tab-n" id="fr-followers-count">18</span></button>
+      </div>
+      <div class="fr-add">
+        <input id="friend-add-input" class="fr-add-input" type="text" placeholder="Add a friend by username…" onkeydown="if(event.key==='Enter'){event.preventDefault();frAddFriend();}">
+        <button class="fr-add-btn" type="button" onclick="frAddFriend()">Add</button>
+      </div>
+      <div id="fr-list" class="fr-list"></div>
+    </div>
+  </div>
+
+  <!-- ═══ REQUEST A ROOM ═══ -->
+  <div class="overlay" id="ov-request-room" style="background:var(--app-bg)">
+    <div class="ov-header" style="background:#fff;border-bottom:1px solid var(--border)">
+      <button class="ov-back" style="background:#EEF0F0;color:var(--ink)" onclick="closeDetail('request-room')">&larr;</button>
+      <div><div style="font-family:var(--font-display);font-size:17px;font-weight:700;color:var(--ink)">Request a room</div></div>
+    </div>
+    <div class="ov-body" style="padding-top:16px">
+      <div class="rr-intro">Suggest a new room or topic. We review every request and add the ones the community wants most.</div>
+      <label class="rr-label" for="rr-name">Room name</label>
+      <input id="rr-name" class="rr-input" type="text" placeholder="e.g. Parents in Recovery">
+      <label class="rr-label" for="rr-why">What's it for? <span style="color:var(--ink-soft);font-weight:600">(optional)</span></label>
+      <textarea id="rr-why" class="rr-textarea" rows="3" placeholder="A sentence or two about the topic…"></textarea>
+      <button class="rr-submit" type="button" onclick="rrSubmit()">Submit request</button>
+    </div>
+  </div>
+
+  <div class="overlay" id="ov-find-coach" style="background:var(--app-bg)">
+    <div class="ov-header" style="background:#fff;border-bottom:1px solid var(--border)">
+      <button class="ov-back" id="fcBack" style="background:#EEF0F0;color:var(--ink)" type="button">&larr;</button>
       <div>
-        <div style="font-size:14px;font-weight:700;color:var(--ink)">Connect</div>
+        <div id="fcTitle" style="font-size:14px;font-weight:700;color:var(--ink)">1:1 Support</div>
       </div>
     </div>
     <div class="ov-body" style="padding-top:14px">
 
-      <!-- Composer -->
-      <div class="cm-compose">
-        <div class="cm-eyebrow"><span>Start a conversation</span><button class="cm-mic" type="button" aria-label="Record" onclick="cmMic(this)"><i data-lucide="mic"></i></button></div>
-        <textarea class="cm-textarea" id="cm-text" rows="3" oninput="cmComposeSync()" placeholder="Share a win, ask a question, or offer a little encouragement — your words might be exactly what someone needs today…"></textarea>
-        <div class="cm-circle-label">Post to a circle:</div>
-        <div class="cm-chips">
-          <button type="button" class="cm-chip sel" onclick="cmPick(this)"><i data-lucide="star"></i> Wins &amp; Milestones</button>
-          <button type="button" class="cm-chip" onclick="cmPick(this)"><i data-lucide="waves"></i> Cravings &amp; Coping</button>
-          <button type="button" class="cm-chip" onclick="cmPick(this)"><i data-lucide="moon"></i> Sleep &amp; Self-Care</button>
+      <div class="fc-scope" id="s-findcoach">
+        <h2>Find someone to talk with</h2>
+        <p class="lede">Peers are free. Coaches show their cost up front.</p>
+
+        <!-- WHO · single choice, icon-led -->
+        <div class="seg segico" id="fType">
+          <button class="on" data-val="both"><i data-lucide="users-round"></i>Both</button>
+          <button data-val="coach"><i data-lucide="compass"></i>Coach</button>
+          <button data-val="peer"><i data-lucide="handshake"></i>Peer</button>
         </div>
-        <div class="cm-compose-foot">
-          <button class="cm-share-btn" id="cm-share-btn" disabled onclick="cmShare()">Share &middot; +10 XP</button>
+        <div class="typeinfo" id="fTypeExplain"></div>
+
+        <!-- WHERE -->
+        <div class="field">
+          <svg viewBox="0 0 24 24"><path d="M12 21s-7-5.5-7-11a7 7 0 0114 0c0 5.5-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>
+          <input id="fLoc" placeholder="City or ZIP" value="Los Angeles, CA">
+          <button class="loc-btn" id="fUseLoc">Use my location</button>
         </div>
+        <div class="rpills" id="fRadius" style="margin-top:10px">
+          <div class="rpill" data-mi="5">5 mi</div>
+          <div class="rpill on" data-mi="25">25 mi</div>
+          <div class="rpill" data-mi="50">50 mi</div>
+          <div class="rpill" data-mi="999">Anywhere</div>
+        </div>
+
+        <!-- FILTERS · everything visible, nothing hidden behind a link -->
+        <div class="card fcard">
+          <div class="fcard-top">
+            <button class="fcard-toggle" id="fToggle" type="button" aria-expanded="false" aria-controls="fBody">
+              <span class="fico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 5h18M6 12h12M10 19h4"/></svg></span>
+              <span class="fcard-t">Filters</span>
+              <span class="fpill" id="fActive">Showing everyone</span>
+              <svg class="fchev" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+            <button class="fclear" id="fClear">Clear</button>
+          </div>
+          <div class="fbody" id="fBody" hidden>
+
+          <div class="frow">
+            <span class="flab">💵 Cost</span>
+            <div class="fchips" id="fCost">
+              <button class="chip fchip" data-val="free"><em>🆓</em>Free</button>
+              <button class="chip fchip" data-val="insurance"><em>🏥</em>Insurance</button>
+              <button class="chip fchip" data-val="sliding"><em>📉</em>Sliding</button>
+            </div>
+          </div>
+
+          <div class="frow">
+            <span class="flab">🤝 Meet</span>
+            <div class="seg segmini" id="fFormat">
+              <button class="on" data-val="either">Either</button>
+              <button data-val="inperson">🚶 In person</button>
+              <button data-val="virtual">💻 Virtual</button>
+            </div>
+          </div>
+
+          <div class="frow">
+            <span class="flab">🎯 Focus</span>
+            <div class="fchips" id="fSpec">
+              <button class="chip fchip" data-val="mat"><em>💊</em>MAT</button>
+              <button class="chip fchip" data-val="pain"><em>🩹</em>Pain</button>
+              <button class="chip fchip" data-val="parents"><em>👨‍👧</em>Parents</button>
+              <button class="chip fchip" data-val="veterans"><em>🎖️</em>Veterans</button>
+              <button class="chip fchip" data-val="lgbtq"><em>🏳️‍🌈</em>LGBTQ+</button>
+              <button class="chip fchip" data-val="trauma"><em>💔</em>Trauma</button>
+              <button class="chip fchip" data-val="spanish"><em>🗣️</em>Español</button>
+              <button class="chip fchip" data-val="youth"><em>🌱</em>Young</button>
+            </div>
+          </div>
+
+          <div class="frow">
+            <span class="flab">🕐 When</span>
+            <div class="fchips" id="fAvail">
+              <button class="chip fchip live" id="fAwake" data-val="awake"><em>🟢</em>Awake now</button>
+            </div>
+          </div>
+
+          <div class="frow last">
+            <span class="flab">🗣 Speaks</span>
+            <div class="fchips" id="fLang">
+              <button class="chip fchip" data-val="English"><em>🇺🇸</em>English</button>
+              <button class="chip fchip" data-val="Español"><em>🇪🇸</em>Español</button>
+            </div>
+          </div>
+          </div>
+        </div>
+
+        <div class="seg segmini segico" id="fSort" style="margin-bottom:16px">
+          <button class="on" data-val="match"><i data-lucide="sparkles"></i>Best match</button>
+          <button data-val="near"><i data-lucide="map-pin"></i>Nearest</button>
+          <button data-val="rating"><i data-lucide="star"></i>Top rated</button>
+        </div>
+
+        <div style="margin-top:20px">
+          <div class="card-top" style="margin-bottom:12px">
+            <span class="tag" style="color:var(--blue-ink)"><i style="background:var(--blue)"></i><span id="fResultLabel">Matches near Los Angeles</span></span>
+            <span class="resultcount" id="fCount">—</span>
+          </div>
+          <div id="coachResults"></div>
+        </div>
+
       </div>
 
-      <!-- Circle filter tabs -->
-      <div class="cm-tabs">
-        <button class="cm-tab on" onclick="cmTab(this,'all')"><i data-lucide="house"></i> All <span class="cm-tab-count">3</span></button>
-        <button class="cm-tab" onclick="cmTab(this,'wins')"><i data-lucide="star"></i> Wins &amp; Milestones <span class="cm-tab-count">1</span></button>
-        <button class="cm-tab" onclick="cmTab(this,'cravings')"><i data-lucide="waves"></i> Cravings &amp; Coping <span class="cm-tab-count">1</span></button>
-        <button class="cm-tab" onclick="cmTab(this,'sleep')"><i data-lucide="moon"></i> Sleep &amp; Self-Care <span class="cm-tab-count">1</span></button>
-      </div>
+      <!-- ══════════════ COACH / PEER PROFILE ══════════════ -->
 
-      <!-- Feed -->
-      <div class="cm-post cm-tap" data-circle="sleep" onclick="openPost('gentle_tide')">
-        <div class="cm-post-head">
-          <div class="cm-avatar" style="background:#8FA9C7">GE</div>
-          <div class="cm-post-id"><div class="cm-handle">@gentle_tide</div><div class="cm-time">1d ago</div></div>
-          <span class="cm-tag cm-tag--sleep"><i data-lucide="moon"></i> Sleep &amp; Self-Care</span>
-        </div>
-        <div class="cm-post-txt">Third night in a row of actual sleep after months of tossing. The wind-down routine from the workbook (no phone + tea + the 4-7-8 breath) is quietly changing my life.</div>
-        <div class="cm-actions">
-          <button class="cm-act" onclick="event.stopPropagation();cmSupport(this)"><i data-lucide="heart"></i> <span class="cm-act-n">11</span> <span class="cm-act-lbl">support</span></button>
-          <button class="cm-act" onclick="event.stopPropagation();openPost('gentle_tide')"><i data-lucide="message-circle"></i> <span class="cm-act-n">1</span> <span class="cm-act-lbl">comment</span></button>
-          <button class="cm-act" onclick="event.stopPropagation();cmFollow(this)"><i data-lucide="bell-plus"></i> <span class="cm-act-lbl">Follow</span></button>
-        </div>
-      </div>
-
-      <div class="cm-post cm-tap" data-circle="wins" onclick="openPost('steady_climb')">
-        <div class="cm-post-head">
-          <div class="cm-avatar" style="background:#7FB08A">SC</div>
-          <div class="cm-post-id"><div class="cm-handle">@steady_climb</div><div class="cm-time">3h ago</div></div>
-          <span class="cm-tag cm-tag--wins"><i data-lucide="star"></i> Wins &amp; Milestones</span>
-        </div>
-        <div class="cm-post-txt">90 days today. Didn't think I'd make it past week one. To anyone in the early days — it does get easier, and you're not doing it alone.</div>
-        <div class="cm-actions">
-          <button class="cm-act" onclick="event.stopPropagation();cmSupport(this)"><i data-lucide="heart"></i> <span class="cm-act-n">24</span> <span class="cm-act-lbl">support</span></button>
-          <button class="cm-act" onclick="event.stopPropagation();openPost('steady_climb')"><i data-lucide="message-circle"></i> <span class="cm-act-n">5</span> <span class="cm-act-lbl">comments</span></button>
-          <button class="cm-act" onclick="event.stopPropagation();cmFollow(this)"><i data-lucide="bell-plus"></i> <span class="cm-act-lbl">Follow</span></button>
-        </div>
-      </div>
-
-      <div class="cm-post cm-tap" data-circle="cravings" onclick="openPost('quiet_harbor')">
-        <div class="cm-post-head">
-          <div class="cm-avatar" style="background:#C39078">QH</div>
-          <div class="cm-post-id"><div class="cm-handle">@quiet_harbor</div><div class="cm-time">6h ago</div></div>
-          <span class="cm-tag cm-tag--cravings"><i data-lucide="waves"></i> Cravings &amp; Coping</span>
-        </div>
-        <div class="cm-post-txt">Rough afternoon — a big craving hit out of nowhere. Tried the urge-surfing exercise and it passed in about 15 minutes. Still a little shaky, but I didn't act on it.</div>
-        <div class="cm-actions">
-          <button class="cm-act" onclick="event.stopPropagation();cmSupport(this)"><i data-lucide="heart"></i> <span class="cm-act-n">8</span> <span class="cm-act-lbl">support</span></button>
-          <button class="cm-act" onclick="event.stopPropagation();openPost('quiet_harbor')"><i data-lucide="message-circle"></i> <span class="cm-act-n">3</span> <span class="cm-act-lbl">comments</span></button>
-          <button class="cm-act" onclick="event.stopPropagation();cmFollow(this)"><i data-lucide="bell-plus"></i> <span class="cm-act-lbl">Follow</span></button>
-        </div>
+      <!-- coach / peer profile · a second pane inside the same overlay -->
+      <div class="fc-scope" id="s-provider" hidden>
+        <div id="provBody"></div>
       </div>
 
       <div style="height:8px"></div>
     </div>
   </div>
 
+  <div class="overlay" id="ov-na-meetings" style="background:var(--app-bg)">
+    <div class="ov-header" style="background:#fff;border-bottom:1px solid var(--border)">
+      <button class="ov-back" style="background:#EEF0F0;color:var(--ink)" onclick="closeOv()">&larr;</button>
+      <div>
+        <div style="font-family:var(--font-display);font-size:17px;font-weight:700;color:var(--ink)">Find a Meeting</div>
+        <div style="font-family:var(--font-ui);font-size:12px;color:var(--ink-soft)">Narcotics Anonymous · nationwide</div>
+      </div>
+    </div>
+    <div class="ov-body" style="padding-top:12px">
+      <div class="na-scope" id="naScope">
+
+        <!-- location search -->
+        <div class="na-search">
+          <i data-lucide="map-pin" class="na-search-ic"></i>
+          <input id="naLoc" type="text" placeholder="City, state, or ZIP" autocomplete="off">
+          <button class="na-locbtn" id="naUseLoc" type="button" title="Use my location"><i data-lucide="crosshair"></i></button>
+        </div>
+
+        <!-- format -->
+        <div class="na-row-lbl">Format</div>
+        <div class="na-chiprow" id="naFormat">
+          <button class="na-chip on" data-val="all">All</button>
+          <button class="na-chip" data-val="in-person"><i data-lucide="map-pin"></i>In-person</button>
+          <button class="na-chip" data-val="virtual"><i data-lucide="monitor"></i>Virtual</button>
+          <button class="na-chip" data-val="hybrid"><i data-lucide="shuffle"></i>Hybrid</button>
+        </div>
+
+        <!-- day of week -->
+        <div class="na-row-lbl">Day</div>
+        <div class="na-daysrow" id="naDays">
+          <button class="na-day" data-val="0">S</button>
+          <button class="na-day" data-val="1">M</button>
+          <button class="na-day" data-val="2">T</button>
+          <button class="na-day" data-val="3">W</button>
+          <button class="na-day" data-val="4">T</button>
+          <button class="na-day" data-val="5">F</button>
+          <button class="na-day" data-val="6">S</button>
+        </div>
+
+        <!-- time of day -->
+        <div class="na-row-lbl">Time of day</div>
+        <div class="na-chiprow" id="naTime">
+          <button class="na-chip on" data-val="all">Any</button>
+          <button class="na-chip" data-val="morning"><i data-lucide="sunrise"></i>Morning</button>
+          <button class="na-chip" data-val="afternoon"><i data-lucide="sun"></i>Afternoon</button>
+          <button class="na-chip" data-val="evening"><i data-lucide="sunset"></i>Evening</button>
+          <button class="na-chip" data-val="late"><i data-lucide="moon"></i>Late night</button>
+        </div>
+
+        <!-- distance (in-person/hybrid) -->
+        <div class="na-row-lbl" id="naDistLbl">Distance <span id="naDistVal">25 mi</span></div>
+        <input type="range" id="naDist" class="na-slider" min="5" max="100" step="5" value="25">
+
+        <!-- more filters (meeting type) -->
+        <button class="na-more" id="naMoreBtn" type="button" aria-expanded="false">More filters <i data-lucide="chevron-down"></i></button>
+        <div class="na-more-body" id="naMoreBody" hidden>
+          <div class="na-chiprow wrap" id="naType">
+            <button class="na-chip" data-val="Open">Open</button>
+            <button class="na-chip" data-val="Closed">Closed</button>
+            <button class="na-chip" data-val="Discussion">Discussion</button>
+            <button class="na-chip" data-val="Speaker">Speaker</button>
+            <button class="na-chip" data-val="Step Study">Step Study</button>
+            <button class="na-chip" data-val="Literature Study">Literature Study</button>
+            <button class="na-chip" data-val="Beginner">Beginner-friendly</button>
+            <button class="na-chip" data-val="Men">Men only</button>
+            <button class="na-chip" data-val="Women">Women only</button>
+            <button class="na-chip" data-val="LGBTQ+">LGBTQ+</button>
+            <button class="na-chip" data-val="Young People">Young people</button>
+            <button class="na-chip" data-val="Wheelchair">Wheelchair access</button>
+          </div>
+        </div>
+
+        <div class="na-results-head">
+          <span id="naCount">Loading meetings…</span>
+          <div class="na-sortwrap">
+            <button class="na-sort on" data-val="soonest">Soonest</button>
+            <button class="na-sort" data-val="nearest">Nearest</button>
+          </div>
+        </div>
+
+        <div class="na-list" id="naList"></div>
+
+        <p class="na-source">Meeting data modeled on NA World Services' meeting search (na.org/meetingsearch). Always confirm details before attending.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ NA MEETING · detail ═══ -->
+  <div class="overlay" id="ov-na-meeting-detail" style="background:var(--app-bg)">
+    <div class="ov-header" style="background:#fff;border-bottom:1px solid var(--border)">
+      <button class="ov-back" style="background:#EEF0F0;color:var(--ink)" onclick="closeTopOv('na-meeting-detail')">&larr;</button>
+      <div>
+        <div style="font-family:var(--font-display);font-size:17px;font-weight:700;color:var(--ink)">Meeting details</div>
+      </div>
+    </div>
+    <div class="ov-body" style="padding-top:12px">
+      <div class="na-detail" id="naDetail"><!-- populated by JS --></div>
+    </div>
+  </div>
+
+  <!-- ═══ DISCUSSION ROOMS (community feed, opened from the Community hub) ═══ -->
+  <div class="overlay" id="ov-rooms" style="background:var(--app-bg)">
+    <div class="ov-header" style="background:transparent;border-bottom:none;display:block;padding:18px 16px 4px">
+      <div class="scr-title">Community</div>
+      <div class="scr-sub" style="margin-top:2px">Connect, share &amp; find support</div>
+    </div>
+    <div class="ov-body" style="padding-top:14px">
+
+    <div class="rc-scope" id="s-community">
+
+      <!-- ONE compact header: presence + your standing merged into a single quiet strip -->
+      <div class="chead" id="communityHead">
+        <div class="chead-live"><span class="chead-dot"></span><span id="communityPresence">214 here today · peers on duty</span></div>
+        <div class="chead-mine">
+          <button class="chead-stat" data-go="rewards" title="Your streak"><em>🔥</em><b id="csStreak">4</b></button>
+          <button class="chead-stat" data-go="rewards" title="Support you've earned"><em>🙌</em><b id="csSupport">0</b></button>
+          <button class="chead-stat rank" data-go="rewards" title="Your role"><b id="csRank">Neighbor</b></button>
+        </div>
+      </div>
+
+      <!-- help stays pinned to the top-right the whole way down this screen (v19) -->
+
+      <!-- Discussion Rooms · Find your people (now the first card) -->
+      <div class="hub-card" style="margin-bottom:12px">
+        <div class="hub-card-head">
+          <div class="hub-ic" style="background:#5B92CE"><i data-lucide="messages-square"></i></div>
+          <div class="hub-card-tt"><div class="hub-title">Find your people</div><div class="hub-sub">Join the conversation in topic rooms</div></div>
+        </div>
+        <div class="hub-opts">
+          <button class="hub-opt" type="button" id="allRoomsBtn">
+            <span class="hub-opt-ic" style="background:#E4EDF5;color:#4E7FA8"><i data-lucide="globe"></i></span>
+            <span class="hub-opt-t">All Rooms</span>
+            <span class="hub-opt-d">Browse every room</span>
+          </button>
+          <button class="hub-opt" type="button" onclick="openOv('request-room')">
+            <span class="hub-opt-ic" style="background:#FBF1DC;color:#C9962E"><i data-lucide="sparkles"></i></span>
+            <span class="hub-opt-t">Request a Room</span>
+            <span class="hub-opt-d">A topic that matters to you</span>
+          </button>
+        </div>
+        <!-- hidden mirror kept so existing filter code still works -->
+        <div class="dd rooms-dd" id="communityDD" hidden aria-hidden="true">
+          <button class="dd-btn" id="communityDDBtn"><span id="communityDDEmoji">🌐</span><span id="communityDDLabel">All Rooms</span><span id="communityDDCount"></span></button>
+          <div class="dd-menu" id="communityDDMenu"></div>
+        </div>
+      </div>
+
+      <!-- Rudra Followers & Friends -->
+      <div class="hub-card" style="margin-bottom:12px">
+        <div class="hub-card-head">
+          <div class="hub-ic" style="background:#D8AD63"><i data-lucide="users"></i></div>
+          <div class="hub-card-tt"><div class="hub-title">Rudra Followers &amp; Friends</div><div class="hub-sub">Your people on Rudra</div></div>
+        </div>
+        <div class="hub-friends-row">
+          <div class="hub-av-stack">
+            <span class="hub-av" style="background:#6E9E80">DR</span>
+            <span class="hub-av" style="background:#4A90D9">TB</span>
+            <span class="hub-av" style="background:#C97B6F">MR</span>
+            <span class="hub-av hub-av-more">+9</span>
+          </div>
+          <div class="hub-friends-count"><b>12</b> friends &middot; <b>18</b> followers</div>
+        </div>
+        <div class="hub-btns">
+          <button class="hub-btn hub-btn-primary" type="button" onclick="openOv('friends')">View</button>
+          <button class="hub-btn hub-btn-ghost" type="button" onclick="openOv('friends');setTimeout(function(){var i=document.getElementById('friend-add-input');if(i)i.focus();},260)">+ Add friend</button>
+        </div>
+      </div>
+
+      <!-- A safe place, always anonymous · 1:1 peer support -->
+      <div class="hub-card" style="margin-bottom:12px">
+        <div class="hub-card-head">
+          <div class="hub-ic" style="background:#6E9E80"><i data-lucide="shield-check"></i></div>
+          <div class="hub-card-tt"><div class="hub-title">A safe place, always anonymous</div><div class="hub-sub">Support whenever you need it</div></div>
+        </div>
+        <div class="hub-opts">
+          <button class="hub-opt" type="button" onclick="openOv('find-coach')">
+            <span class="hub-opt-ic" style="background:#E7F0EA;color:#5E8560"><i data-lucide="heart-handshake"></i></span>
+            <span class="hub-opt-t">Want 1:1 support?</span>
+            <span class="hub-opt-d">A peer specialist or coach, privately</span>
+          </button>
+          <button class="hub-opt" type="button" onclick="openOv('na-meetings')">
+            <span class="hub-opt-ic" style="background:#FAE7E2;color:#C56A5E"><i data-lucide="compass"></i></span>
+            <span class="hub-opt-t">Find a Meeting</span>
+            <span class="hub-opt-d">In-person, virtual &amp; hybrid</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- COLLAPSED composer: a single friendly bar. Tapping it expands the full box. -->
+      <button class="compose-bar" id="composeBar" type="button">
+        <span class="avatar" id="communityMeAvatar" style="width:30px;height:30px;font-size:11px">Y</span>
+        <span class="compose-bar-ph">Share something, ask, or just say you're here…</span>
+        <span class="compose-bar-mic" id="composeBarMic" aria-label="Speak your post"><i data-lucide="mic"></i></span>
+      </button>
+
+      <div id="communityChannels" hidden><button class="chip on" data-val="all"></button></div>
+
+      <!-- DAILY PROMPT · one rotating question, seeds the composer into today's room -->
+      <div class="dprompt" id="communityDaily" hidden style="display:none"></div>
+
+
+      <!-- EXPANDED composer (hidden until the bar is tapped) -->
+      <div class="card compose" id="composeCard" hidden>
+        <div class="cmp-top">
+          <div class="avatar" style="width:32px;height:32px;font-size:12px" id="communityMeAvatar2">Y</div>
+          <div class="cmp-who">Posting as <b id="communityMeName">you</b><i>Your real name is never shown</i></div>
+          <button class="cmp-close" id="composeClose" aria-label="Close">✕</button>
+        </div>
+
+        <div class="cmp-step"><span>1</span>Pick a room</div>
+        <div class="taggrid radiochips" id="communityPostTag">
+          <button class="chip on" data-val="checkin"><em>✅</em><span>Check-in</span></button>
+          <button class="chip" data-val="wins"><em>🎉</em><span>Win</span></button>
+          <button class="chip" data-val="questions"><em>❓</em><span>Question</span></button>
+          <button class="chip" data-val="struggling"><em>🫂</em><span>Struggling</span></button>
+          <button class="chip" data-val="na"><em>🔵</em><span>NA</span></button>
+          <button class="chip" data-val="smart"><em>🧠</em><span>SMART</span></button>
+          <button class="chip" data-val="dharma"><em>🪷</em><span>Dharma</span></button>
+          <button class="chip" data-val="spirituality"><em>🕊️</em><span>Faith</span></button>
+          <button class="chip" data-val="mat"><em>💊</em><span>MAT</span></button>
+          <button class="chip" data-val="latenight"><em>🌙</em><span>Late night</span></button>
+        </div>
+        <button class="startroom cmp-more" id="composeMoreRooms" type="button">
+          <span class="sr-ico">＋</span>
+          <span class="sr-b">
+            <span class="sr-t">More rooms</span>
+            <span class="sr-s">Parents, LGBTQ+, veterans, grief, sober fun and more.</span>
+          </span>
+          <svg class="sr-chev" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>
+        </button>
+
+        <label class="cmp-step cmp-step2" for="communityText"><span>2</span>Write it here <span class="cmp-orspeak">or tap 🎤 to speak</span></label>
+        <div class="cmp-textwrap">
+          <textarea id="communityText" rows="3" placeholder="Anything counts — even one line."></textarea>
+          <button class="mic-btn" id="communityMic" type="button" aria-label="Speak your post" title="Speak your post">
+            <svg viewBox="0 0 24 24"><path d="M12 2a3 3 0 0 0-3 3v6a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg>
+          </button>
+        </div>
+        <div class="cmp-count" id="communityCount">Anything counts — even one line.</div>
+
+        <button class="cta" id="communityPostBtn" disabled>Post anonymously</button>
+
+        <div class="roombadges" id="communityRoomBadges" hidden></div>
+      </div>
+
+
+      <!-- Start-your-own-room button and the room filter now live in the
+           "Find your people" card above (Start a Room + All Rooms). -->
+      <button class="startroom" id="startRoomBtn" type="button" hidden aria-hidden="true"></button>
+
+      <div id="communityFeed"></div>
+
+      <p class="anon-note">Username only — never your name. Every room is watched by a certified peer specialist. No judgment, nothing for sale.</p>
+    </div>
+
+      <div style="height:8px"></div>
+    </div>
+    <!-- start a room · lives inside #ov-connect so it is positioned by the overlay -->
+  <div class="rc-scope sr-scrim" id="startRoomScrim" aria-hidden="true">
+    <div class="sr-sheet" role="dialog" aria-modal="true" aria-labelledby="srTitle">
+      <button type="button" class="sr-close" id="srClose" aria-label="Close">&times;</button>
+      <h3 id="srTitle">Request a room</h3>
+      <p class="sr-lead">Rooms are how people find their people. Give yours a clear name so the right members can find it. A peer specialist reviews new rooms to keep everyone safe.</p>
+
+      <label for="srName">Room name</label>
+      <input type="text" id="srName" maxlength="32" placeholder="e.g. “Runners in recovery”, “Faith & Fridays”">
+
+      <label>Pick an icon</label>
+      <div class="sr-emojis" id="srEmojis">
+        <button type="button" class="on" data-emoji="sparkles"><i data-lucide="sparkles"></i></button>
+        <button type="button" data-emoji="footprints"><i data-lucide="footprints"></i></button>
+        <button type="button" data-emoji="heart-handshake"><i data-lucide="heart-handshake"></i></button>
+        <button type="button" data-emoji="palette"><i data-lucide="palette"></i></button>
+        <button type="button" data-emoji="guitar"><i data-lucide="guitar"></i></button>
+        <button type="button" data-emoji="book-open"><i data-lucide="book-open"></i></button>
+        <button type="button" data-emoji="paw-print"><i data-lucide="paw-print"></i></button>
+        <button type="button" data-emoji="coffee"><i data-lucide="coffee"></i></button>
+        <button type="button" data-emoji="sprout"><i data-lucide="sprout"></i></button>
+      </div>
+
+      <label for="srDesc">What's it for? (one line)</label>
+      <textarea id="srDesc" rows="2" maxlength="90" placeholder="Who is this room for, and what will you talk about?"></textarea>
+
+      <div class="sr-guard"><em>🛡️</em><span>Rooms that source, sell, or glamorize use aren't allowed — they're removed fast. A certified peer specialist keeps watch here too.</span></div>
+
+      <div class="sr-actions">
+        <button type="button" class="sr-cancel" id="srCancel">Cancel</button>
+        <button type="button" class="sr-create" id="srCreate" disabled>Request Room</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- All Rooms · full list in a bottom sheet (reliable; never hidden behind the feed) -->
+  <div class="rc-scope sr-scrim allrooms-scrim" id="allRoomsScrim" aria-hidden="true">
+    <div class="sr-sheet allrooms-sheet" role="dialog" aria-modal="true" aria-labelledby="arTitle">
+      <button type="button" class="sr-close" id="allRoomsClose" aria-label="Close">&times;</button>
+      <h3 id="arTitle">All Rooms</h3>
+      <p class="sr-lead">Browse every room and jump into the one that fits. Every room is watched over by a certified peer specialist.</p>
+      <div class="ar-list" id="allRoomsList"><!-- populated by JS --></div>
+    </div>
+  </div>
+  </div>
   <!-- ═══ POST DETAIL (comments) ═══ -->
   <div class="overlay" id="ov-post-detail" style="background:var(--app-bg)">
     <div class="ov-header" style="background:#fff;border-bottom:1px solid var(--border)">
@@ -2674,7 +3115,7 @@
 
   <div class="bottom-nav" id="bottomNav">
     <button class="nav-tab active" onclick="goScreen('home')"><span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round" stroke-linecap="round"><path d="M12 2.8 20.2 10.2 20.2 20.2 14 20.2 14 14 10 14 10 20.2 3.8 20.2 3.8 10.2Z"/></svg></span><div class="nav-label">Home</div></button>
-    <button class="nav-tab" onclick="goScreen('tools')"><span class="nav-icon"><i data-lucide="sparkles"></i></span><div class="nav-label">Activities</div></button>
+    <button class="nav-tab" onclick="openOv('rooms')"><span class="nav-icon"><i data-lucide="users-round"></i></span><div class="nav-label">Community</div></button>
     <button class="nav-tab nav-sos" onclick="openSOS()" aria-label="Help"><span class="nav-icon"><svg class="sos-cross" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="9.4" y="4" width="5.2" height="16" rx="2.6"/><rect x="4" y="9.4" width="16" height="5.2" rx="2.6"/></svg><span class="sos-help">HELP</span></span></button>
     <button class="nav-tab" onclick="goScreen('mat')"><span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"><rect x="3.5" y="13.5" width="4" height="7" rx="2"/><rect x="10" y="8.5" width="4" height="12" rx="2"/><rect x="16.5" y="4" width="4" height="16.5" rx="2"/></svg></span><div class="nav-label">Progress</div></button>
     <button class="nav-tab" onclick="goScreen('rewards')"><span class="nav-icon"><i data-lucide="trophy"></i></span><div class="nav-label">Rewards</div></button>
@@ -2798,7 +3239,6 @@
       <!-- Recovery Health gauge — same speedometer as home -->
       <div class="ins-card ins-gauge-card rh-inner">
         <div class="rh-eyebrow">Recovery Health</div>
-        <div class="rh-greet">You're doing good, <span id="rhNameIns">there</span></div>
         <div class="rh-gauge ins-gauge" id="insightsGauge"></div>
         <div class="rh-num"><b id="insightsGaugeNum">74</b></div>
         <div class="rh-outof">out of 100</div>
@@ -2809,7 +3249,7 @@
         <div class="rh-risk">
           <span class="rh-risk-ic"><i data-lucide="zap"></i></span>
           <div class="rh-risk-main">
-            <div class="rh-risk-eyebrow">Today's Risk</div>
+            <div class="rh-risk-eyebrow">Today's Focus</div>
             <div class="rh-risk-val">Craving</div>
           </div>
         </div>
@@ -2880,6 +3320,15 @@
       </div>
     </div>
     <div class="ov-body" style="padding-top:18px">
+
+      <!-- Today's Focus — mirrors the Home/Insight focus so the page's context is clear -->
+      <div class="rd-card rd-focus">
+        <span class="rd-focus-ic"><i data-lucide="zap"></i></span>
+        <div class="rd-focus-main">
+          <div class="rd-focus-eyebrow">Today's Focus</div>
+          <div class="rd-focus-val">Craving</div>
+        </div>
+      </div>
 
       <!-- Lead: centered icon, why-this-helps, earn pill below (one card) -->
       <div class="rd-card rd-lead">
@@ -3375,6 +3824,6 @@
 </div><!-- /phone -->
 </div><!-- /patient-view -->
 
-<script src="js/app.js"></script>
+<script src="js/app.js?v=20260804o"></script>
 </body>
 </html>
