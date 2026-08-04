@@ -2602,36 +2602,36 @@ document.addEventListener("click", e=>{
 /* ── community room filter: one clean, comprehensive dropdown ── */
 const ROOM_OPTIONS = [
   {group:"Browse", items:[
-    {val:"all",         emoji:"🌐", name:"All Rooms",        meta:"everything"},
+    {val:"all",         emoji:"globe", name:"All Rooms",        meta:"everything"},
   ]},
   {group:"How you're doing", items:[
-    {val:"checkin",     emoji:"✅", name:"Daily check-in",   meta:"just say you're here"},
-    {val:"wins",        emoji:"🎉", name:"Wins",             meta:"celebrations"},
-    {val:"questions",   emoji:"❓", name:"Questions",        meta:"ask anything"},
-    {val:"struggling",  emoji:"🫂", name:"Struggling today", meta:"hard days"},
-    {val:"latenight",   emoji:"🌙", name:"Late night",       meta:"awake at 3 AM"},
+    {val:"checkin",     emoji:"calendar-check", name:"Daily check-in",   meta:"just say you're here"},
+    {val:"wins",        emoji:"party-popper", name:"Wins",             meta:"celebrations"},
+    {val:"questions",   emoji:"help-circle", name:"Questions",        meta:"ask anything"},
+    {val:"struggling",  emoji:"heart-handshake", name:"Struggling today", meta:"hard days"},
+    {val:"latenight",   emoji:"moon", name:"Late night",       meta:"awake at 3 AM"},
   ]},
   {group:"Your recovery path", items:[
-    {val:"na",          emoji:"🔵", name:"NA · 12-Step",     meta:"Narcotics Anonymous"},
-    {val:"smart",       emoji:"🧠", name:"SMART Recovery",   meta:"science-based tools"},
-    {val:"dharma",      emoji:"🪷", name:"Recovery Dharma",  meta:"Buddhist / mindfulness"},
-    {val:"spirituality",emoji:"🕊️", name:"Spirituality & Faith", meta:"any faith welcome"},
-    {val:"mat",         emoji:"💊", name:"MAT & meds",       meta:"bupe · methadone · naltrexone"},
-    {val:"harm",        emoji:"🧡", name:"Harm reduction",   meta:"safety first, no judgment"},
+    {val:"na",          emoji:"footprints", name:"NA · 12-Step",     meta:"Narcotics Anonymous"},
+    {val:"smart",       emoji:"brain", name:"SMART Recovery",   meta:"science-based tools"},
+    {val:"dharma",      emoji:"flower-2", name:"Recovery Dharma",  meta:"Buddhist / mindfulness"},
+    {val:"spirituality",emoji:"bird", name:"Spirituality & Faith", meta:"any faith welcome"},
+    {val:"mat",         emoji:"pill", name:"MAT & meds",       meta:"bupe · methadone · naltrexone"},
+    {val:"harm",        emoji:"shield", name:"Harm reduction",   meta:"safety first, no judgment"},
   ]},
   {group:"Who you are", items:[
-    {val:"parents",     emoji:"👨‍👧", name:"Parents",          meta:"raising kids"},
-    {val:"lgbtq",       emoji:"🏳️‍🌈", name:"LGBTQ+",           meta:"affirming space"},
-    {val:"veterans",    emoji:"🎖️", name:"Veterans",         meta:"served & recovering"},
-    {val:"women",       emoji:"🌸", name:"Women",            meta:"women's space"},
-    {val:"men",         emoji:"🌾", name:"Men",              meta:"men's space"},
-    {val:"youngadults", emoji:"🌱", name:"Young adults",     meta:"18–25"},
+    {val:"parents",     emoji:"baby", name:"Parents",          meta:"raising kids"},
+    {val:"lgbtq",       emoji:"rainbow", name:"LGBTQ+",           meta:"affirming space"},
+    {val:"veterans",    emoji:"medal", name:"Veterans",         meta:"served & recovering"},
+    {val:"women",       emoji:"flower", name:"Women",            meta:"women's space"},
+    {val:"men",         emoji:"wheat", name:"Men",              meta:"men's space"},
+    {val:"youngadults", emoji:"sprout", name:"Young adults",     meta:"18–25"},
   ]},
   {group:"Life alongside recovery", items:[
-    {val:"work",        emoji:"💼", name:"Work & money",     meta:"jobs, bills, stability"},
-    {val:"grief",       emoji:"🤍", name:"Grief & loss",     meta:"holding it together"},
-    {val:"relationships",emoji:"💬", name:"Relationships",   meta:"family, partners, trust"},
-    {val:"sober_fun",   emoji:"🎈", name:"Sober fun",        meta:"joy without using"},
+    {val:"work",        emoji:"briefcase", name:"Work & money",     meta:"jobs, bills, stability"},
+    {val:"grief",       emoji:"heart", name:"Grief & loss",     meta:"holding it together"},
+    {val:"relationships",emoji:"messages-square", name:"Relationships",   meta:"family, partners, trust"},
+    {val:"sober_fun",   emoji:"smile", name:"Sober fun",        meta:"joy without using"},
   ]}
 ];
 const ROOM_META = {};
