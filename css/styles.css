@@ -4068,20 +4068,24 @@ body.is-desktop .fc-scope .result .rnm,body.is-desktop .fc-scope .result .cred{p
 
 .fc-scope .fclear.on{display:block}
 
-.fc-scope .frow{display:flex;align-items:flex-start;gap:10px;padding:11px 0;border-bottom:1px solid var(--hair)}
+.fc-scope .frow{display:block;padding:14px 0;border-bottom:1px solid var(--hair)}
 
 .fc-scope .frow.last{border-bottom:0}
 
-.fc-scope .flab{flex:none;width:62px;padding-top:5px;font:800 10.2px var(--font-ui, Manrope);letter-spacing:-.01em;color:var(--muted,#6A6F76);white-space:nowrap}
+.fc-scope .flab{display:flex;align-items:center;gap:6px;width:auto;padding:0;margin-bottom:10px;font:800 10.5px var(--font-ui, Manrope);letter-spacing:.07em;text-transform:uppercase;color:var(--muted,#6A6F76);white-space:nowrap}
+.fc-scope .flab svg{width:15px;height:15px;stroke-width:2.1;color:var(--ink-soft,#7E9393)}
 
-.fc-scope .fchips{flex:1;min-width:0;display:flex;flex-wrap:wrap;gap:5px}
+.fc-scope .fchips{display:flex;flex-wrap:wrap;gap:7px}
 
-.fc-scope .frow .seg{flex:1;min-width:0}
+.fc-scope .frow .seg{width:100%}
 
-.fc-scope .fchip{display:inline-flex;align-items:center;gap:4px;border:1.4px solid var(--hair);background:#fff;border-radius:10px;
-  padding:6px 9px;font:700 10.6px var(--font-ui, Manrope);color:var(--muted,#6A6F76);cursor:pointer;transition:.15s;letter-spacing:-.01em}
+.fc-scope .fchip{display:inline-flex;align-items:center;gap:5px;border:1.4px solid var(--hair);background:#fff;border-radius:11px;
+  padding:8px 12px;font:700 12px var(--font-ui, Manrope);color:var(--muted,#6A6F76);cursor:pointer;transition:.15s;letter-spacing:-.01em}
 
 .fc-scope .fchip em{font-style:normal;font-size:11.5px;line-height:1}
+.fc-scope .fchip svg{width:14px;height:14px;stroke-width:2.1}
+.fc-scope .fchip.live .livedot{width:8px;height:8px;border-radius:50%;background:#57A657;flex:none;box-shadow:0 0 0 3px rgba(87,166,87,.18)}
+.fc-scope .fchip.live.on .livedot{background:#fff;box-shadow:0 0 0 3px rgba(255,255,255,.25)}
 
 .fc-scope .fchip:hover{border-color:var(--blue,#6DA0CC)}
 
