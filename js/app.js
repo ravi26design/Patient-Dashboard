@@ -3605,8 +3605,8 @@ window.fcRefresh = function(){ showProviderPane(false); renderCoaches(); };
       var extra = m.types.length>3 ? '<span class="na-tag">+'+(m.types.length-3)+'</span>' : "";
       var added = addedIds[m.id] ? '<span class="na-added-pill on">✓ On your plan</span>' : "";
       return '<div class="na-card" data-id="'+m.id+'">'
-        + '<div class="na-card-top"><span class="na-fmt '+m.format+'">'+fmtIcon(m.format)+' '+m.format.replace("-"," ")+'</span>'
-        + '<span class="na-card-name">'+m.name+'</span></div>'
+        + '<div class="na-card-top"><span class="na-card-name">'+m.name+'</span></div>'
+        + '<span class="na-fmt na-fmt-b '+m.format+'">'+fmtIcon(m.format)+' '+m.format.replace("-"," ")+'</span>'
         + '<div class="na-card-when">'+whenLabel(m.day,m.time)+' · '+m.dur+' min</div>'
         + '<div class="na-card-where">'+where+'</div>'
         + '<div class="na-card-tags">'+tags+extra+'</div>'
