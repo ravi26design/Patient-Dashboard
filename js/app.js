@@ -3410,9 +3410,9 @@ function renderProfileHTML(p){
       <div class="starrow" style="margin-top:9px;justify-content:center">${starHTML(p.rating)}<span class="rn">${p.rating.toFixed(1)} · ${p.reviews} reviews</span></div>
     </div>
     <div class="provstats">
-      <div class="pstat"><b>${distTxt}</b><span>${fmt}</span></div>
-      <div class="pstat"><b>${p.cred.split("·")[0].trim()}</b><span>${p.years<1?Math.round(p.years*12)+" mo":p.years+" yrs"} experience</span></div>
-      <div class="pstat"><b>${p.price.split("·")[0].trim()}</b><span>${p.sessionLen}</span></div>
+      <div class="pstat"><span class="pstat-ic"><i data-lucide="map-pin"></i></span><b>${distTxt}</b><span>${fmt}</span></div>
+      <div class="pstat"><span class="pstat-ic"><i data-lucide="award"></i></span><b>${p.cred.split("·")[0].trim()}</b><span>${p.years<1?Math.round(p.years*12)+" mo":p.years+" yrs"} experience</span></div>
+      <div class="pstat"><span class="pstat-ic"><i data-lucide="wallet"></i></span><b>${p.price.split("·")[0].trim()}</b><span>${p.sessionLen}</span></div>
     </div>
     <div class="card">
       <span class="tag" style="color:var(--blue-ink)"><i style="background:var(--blue)"></i>About</span>

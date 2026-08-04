@@ -4118,7 +4118,9 @@ body.is-desktop .fc-scope .result .rnm,body.is-desktop .fc-scope .result .cred{p
 
 .fc-scope .provstats{display:flex;gap:8px;margin-bottom:16px}
 
-.fc-scope .pstat{flex:1;background:#fff;border:1px solid var(--hair);border-radius:15px;padding:12px 8px;text-align:center;box-shadow:var(--shadow)}
+.fc-scope .pstat{flex:1;background:#fff;border:1px solid var(--hair);border-radius:15px;padding:14px 8px;text-align:center;box-shadow:var(--shadow)}
+.fc-scope .pstat-ic{width:32px;height:32px;margin:0 auto 8px;border-radius:10px;background:var(--blue-lt,#E0EDF8);display:grid;place-items:center}
+.fc-scope .pstat-ic svg{width:16px;height:16px;color:var(--blue-ink,#3F6E99);stroke-width:2.1}
 
 .fc-scope .pstat b{display:block;font:800 12.5px var(--font-ui, Manrope);letter-spacing:-.01em}
 
