@@ -4218,7 +4218,7 @@ body.is-desktop #naFormat .na-chip.on,body.is-desktop #naTime .na-chip.on{backgr
 .na-more[aria-expanded="true"] svg,.na-more[aria-expanded="true"] i{transform:rotate(180deg)}
 .na-more-body{margin-top:10px;background:#fff;border:1px solid var(--border,rgba(46,50,56,.1));box-shadow:0 1px 2px rgba(46,50,56,.04),0 10px 24px -18px rgba(46,50,56,.4);border-radius:16px;padding:16px}
 .na-more-body .na-chiprow.wrap{gap:8px}
-.na-results-head{display:flex;align-items:center;justify-content:space-between;margin:20px 2px 12px}
+.na-results-head{display:flex;align-items:center;justify-content:space-between;margin:12px 2px 12px}
 .na-results-head span{font:800 13px var(--font-ui,Manrope);color:var(--ink,#2E3238)}
 .na-sortwrap{display:flex;gap:6px;background:var(--paper2,#F1EFEA);border-radius:99px;padding:3px}
 .na-sort{border:none;background:none;cursor:pointer;font:700 11.5px var(--font-ui,Manrope);color:var(--muted,#6A6F76);
