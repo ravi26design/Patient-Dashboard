@@ -2284,7 +2284,7 @@ function renderCommunityFeed(){
     const rm = ROOM_META[filter] || {name:(CHANNEL_LABEL[filter]||filter)};
     const col = rm.color || "#8A7D75";
     roomHdr = '<div class="room-hdr">'
-      + '<button class="room-hdr-back" type="button" onclick="setRoom(\'all\')" aria-label="Back to all rooms"><i data-lucide="arrow-left"></i></button>'
+      + '<button class="room-hdr-back" type="button" aria-label="Back to all rooms"><i data-lucide="arrow-left"></i></button>'
       + '<span class="room-hdr-ic" style="background:color-mix(in srgb, '+col+' 15%, #fff);color:'+col+'">'+commIcon(rm.emoji)+'</span>'
       + '<span class="room-hdr-main"><span class="room-hdr-t">'+(rm.name||filter)+'</span>'+(rm.meta?'<span class="room-hdr-d">'+rm.meta+'</span>':'')+'</span>'
       + '</div>';
@@ -2391,6 +2391,7 @@ function sendReplyTo(id, text){
 }
 document.addEventListener("click", e=>{
   if(!e.target.closest("#s-community")) return;
+  if(e.target.closest(".room-hdr-back")){ setRoom("all"); if(window.lucide&&lucide.createIcons) lucide.createIcons(); return; }
   if(e.target.closest("#communityChannels .chip")){ renderCommunityFeed(); return; }
 
   const react = e.target.closest("[data-react]");
