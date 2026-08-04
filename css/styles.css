@@ -4289,6 +4289,17 @@ body:has(#ov-rooms.active) #bottomNav{z-index:9600}
 
 /* Community page: hide the presence/stats strip ("214 here today · peers on duty" + streak/support/rank) */
 #communityHead{display:none !important}
+/* Room page — header with back arrow shown when a specific room is open; hub cards hidden */
+.rc-scope .room-hdr{display:flex;align-items:center;gap:12px;background:#fff;border-radius:16px;box-shadow:var(--shadow);padding:12px 14px;margin-bottom:14px}
+.rc-scope .room-hdr-back{width:34px;height:34px;flex:none;border:0;border-radius:50%;background:#EEF0F0;color:var(--ink);display:grid;place-items:center;cursor:pointer;transition:.15s}
+.rc-scope .room-hdr-back:hover{background:#E4E7E7}
+.rc-scope .room-hdr-back svg{width:18px;height:18px;stroke-width:2.2}
+.rc-scope .room-hdr-ic{width:40px;height:40px;flex:none;border-radius:12px;display:grid;place-items:center}
+.rc-scope .room-hdr-ic svg{width:20px;height:20px;stroke-width:2.1}
+.rc-scope .room-hdr-main{flex:1;min-width:0}
+.rc-scope .room-hdr-t{display:block;font:800 15px var(--font-ui,Manrope);color:var(--ink)}
+.rc-scope .room-hdr-d{display:block;font-size:12px;color:var(--ink-soft);margin-top:1px}
+body.in-room #s-community > .hub-card{display:none}
 
 /* Community sub-pages must paint ABOVE the Community page (they precede it in the DOM) */
 #ov-request-room.active,#ov-friends.active,#ov-find-coach.active,#ov-na-meetings.active,#ov-na-meeting-detail.active{z-index:9800}

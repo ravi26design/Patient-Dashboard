@@ -2278,9 +2278,21 @@ function renderCommunityFeed(){
   const filter = on ? on.dataset.val : "all";
   const list = POSTS.filter(p=> filter==="all" || p.channel===filter);
   const box = $("#communityFeed"); if(!box) return;
+  // when viewing a specific room, show a room-page header with a back arrow to All Rooms
+  let roomHdr = "";
+  if(filter !== "all"){
+    const rm = ROOM_META[filter] || {name:(CHANNEL_LABEL[filter]||filter)};
+    const col = rm.color || "#8A7D75";
+    roomHdr = '<div class="room-hdr">'
+      + '<button class="room-hdr-back" type="button" onclick="setRoom(\'all\')" aria-label="Back to all rooms"><i data-lucide="arrow-left"></i></button>'
+      + '<span class="room-hdr-ic" style="background:color-mix(in srgb, '+col+' 15%, #fff);color:'+col+'">'+commIcon(rm.emoji)+'</span>'
+      + '<span class="room-hdr-main"><span class="room-hdr-t">'+(rm.name||filter)+'</span>'+(rm.meta?'<span class="room-hdr-d">'+rm.meta+'</span>':'')+'</span>'
+      + '</div>';
+  }
+  document.body.classList.toggle('in-room', filter!=="all");
   const banners = buildFeedBanners();
-  if(!list.length){ box.innerHTML = banners + '<div class="emptybox"><b>Quiet in this room right now.</b>Be the first to say something — someone will see it.</div>'; if(window.lucide&&lucide.createIcons) lucide.createIcons(); positionComposeBar(); return; }
-  box.innerHTML = banners + list.map(p=>{
+  if(!list.length){ box.innerHTML = roomHdr + banners + '<div class="emptybox"><b>Quiet in this room right now.</b>Be the first to say something — someone will see it.</div>'; if(window.lucide&&lucide.createIcons) lucide.createIcons(); positionComposeBar(); return; }
+  box.innerHTML = roomHdr + banners + list.map(p=>{
     const badge = p.badge ? `<span class="kind ${p.badge==='coach'?'coach':'peer'}">${p.badge==='coach'?'Recovery Coach':'Peer Specialist'}</span>` : "";
     const repliesHTML = p.replies.length
       ? `<div class="creplies"><div class="crephead">${p.replies.length} ${p.replies.length===1?"reply":"replies"}</div>${p.replies.map(r=>`<div class="creply"><b>${r.user}</b>${r.text}</div>`).join("")}</div>`
@@ -2343,7 +2355,9 @@ function positionComposeBar(){
   const bar = $("#composeBar"), card = $("#composeCard"), box = $("#communityFeed");
   if(!bar || !box) return;
   const banner = box.querySelector('[data-banner="digest"]');
+  const roomHdr = box.querySelector('.room-hdr');
   if(banner){ banner.insertAdjacentElement("afterend", bar); }
+  else if(roomHdr){ roomHdr.insertAdjacentElement("afterend", bar); }
   else { box.insertAdjacentElement("afterbegin", bar); }
   // keep the expanded composer right beneath the bar so it opens in-place
   if(card) bar.insertAdjacentElement("afterend", card);
