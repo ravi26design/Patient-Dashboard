@@ -15,7 +15,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
 <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
-<link rel="stylesheet" href="css/styles.css?v=20260805a">
+<link rel="stylesheet" href="css/styles.css?v=20260805b">
 </head>
 <body>
 
@@ -1740,7 +1740,7 @@
         </div>
 
         <!-- format -->
-        <div class="na-row-lbl">Format</div>
+        <div class="na-row-lbl"><span class="na-lbl-t"><i data-lucide="video"></i>Format</span></div>
         <div class="na-chiprow" id="naFormat">
           <button class="na-chip on" data-val="all">All</button>
           <button class="na-chip" data-val="in-person"><i data-lucide="map-pin"></i>In-person</button>
@@ -1749,7 +1749,7 @@
         </div>
 
         <!-- day of week -->
-        <div class="na-row-lbl">Day</div>
+        <div class="na-row-lbl"><span class="na-lbl-t"><i data-lucide="calendar-days"></i>Day</span></div>
         <div class="na-daysrow" id="naDays">
           <button class="na-day" data-val="0">S</button>
           <button class="na-day" data-val="1">M</button>
@@ -1761,7 +1761,7 @@
         </div>
 
         <!-- time of day -->
-        <div class="na-row-lbl">Time of day</div>
+        <div class="na-row-lbl"><span class="na-lbl-t"><i data-lucide="clock"></i>Time of day</span></div>
         <div class="na-chiprow" id="naTime">
           <button class="na-chip on" data-val="all">Any</button>
           <button class="na-chip" data-val="morning"><i data-lucide="sunrise"></i>Morning</button>
@@ -1771,7 +1771,7 @@
         </div>
 
         <!-- distance (in-person/hybrid) -->
-        <div class="na-row-lbl" id="naDistLbl">Distance <span id="naDistVal">25 mi</span></div>
+        <div class="na-row-lbl" id="naDistLbl"><span class="na-lbl-t"><i data-lucide="navigation"></i>Distance</span> <span id="naDistVal">25 mi</span></div>
         <input type="range" id="naDist" class="na-slider" min="5" max="100" step="5" value="25">
 
         <!-- more filters (meeting type) -->
@@ -3837,6 +3837,6 @@
 </div><!-- /phone -->
 </div><!-- /patient-view -->
 
-<script src="js/app.js?v=20260805a"></script>
+<script src="js/app.js?v=20260805b"></script>
 </body>
 </html>
