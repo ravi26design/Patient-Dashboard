@@ -4017,11 +4017,13 @@ body.is-mobile .rh-badges .rh-trend{margin:0;width:auto}
 .fc-scope .ct-btn.ct-text{border-color:var(--sage-ink,#587A5E);color:var(--sage-ink,#587A5E)}
 .fc-scope .ct-btn.ct-text:hover{background:var(--sage-ink,#587A5E);color:#fff}
 
-.fc-scope .result .rmeta{position:absolute;top:16px;right:16px;text-align:right;font:700 12px var(--font-ui, Manrope);color:var(--ink,#2E3238);white-space:nowrap}
-/* keep the name + credential clear of the top-right meta; the rest spans full card width so tags autofit + wrap */
-.fc-scope .result .rnm,.fc-scope .result .cred{padding-right:104px}
-
-.fc-scope .result .rmeta s{display:block;text-decoration:none;font-weight:600;font-size:10px;color:var(--muted,#6A6F76);margin-top:3px}
+/* mobile: distance/format sits below the name, in the content flow (full width) */
+.fc-scope .result .rmeta{display:flex;flex-wrap:wrap;align-items:baseline;gap:2px 8px;margin:2px 0 8px;font:700 12px var(--font-ui, Manrope);color:var(--ink,#2E3238)}
+.fc-scope .result .rmeta s{text-decoration:none;font-weight:600;font-size:11.5px;color:var(--muted,#6A6F76)}
+/* desktop: float it to the top-right corner, with the name + credential padded clear of it */
+body.is-desktop .fc-scope .result .rmeta{position:absolute;top:16px;right:16px;display:block;text-align:right;margin:0;white-space:nowrap}
+body.is-desktop .fc-scope .result .rmeta s{display:block;font-size:10px;margin-top:3px}
+body.is-desktop .fc-scope .result .rnm,body.is-desktop .fc-scope .result .cred{padding-right:104px}
 
 .fc-scope .emptybox{text-align:center;padding:32px 18px;color:var(--muted,#6A6F76);font-size:13px;line-height:1.6}
 

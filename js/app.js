@@ -3241,6 +3241,7 @@ function renderCoaches(){
       <div class="rpic"><img src="${photoFor(p)}" alt="" loading="lazy">${p.awake?'<span class="live"></span>':''}</div>
       <div style="flex:1;min-width:0">
         <div class="rnm">${p.name}<span class="kind ${p.kind==="peer"?"peer":"coach"}">${p.kind==="peer"?"Peer":"Coach"}</span></div>
+        <div class="rmeta">${distTxt}<s>${fmt}</s>${p.awake?'<s style="color:var(--sage-ink)">Awake now</s>':''}</div>
         <div class="cred">${p.cred}</div>
         <div class="starrow">${starHTML(p.rating)}<span class="rn">${p.rating.toFixed(1)} · ${p.reviews} reviews</span></div>
         <div class="rtags">${p.tags.map(t=>`<span class="rtag">${t}</span>`).join("")}</div>
@@ -3249,7 +3250,6 @@ function renderCoaches(){
           <button class="ct-btn ct-text" type="button" onclick="event.stopPropagation();textContact('${p.name.replace(/'/g,"\\'")}','${ph}')"><i data-lucide="message-circle"></i>Text</button>
         </div>
       </div>
-      <div class="rmeta">${distTxt}<s>${fmt}</s>${p.awake?'<s style="color:var(--sage-ink)">Awake now</s>':''}</div>
     </div>`;
   }).join("");
   if(window.lucide && lucide.createIcons) lucide.createIcons();
