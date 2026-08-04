@@ -4196,8 +4196,8 @@ body.is-desktop .fc-scope .result .rnm,body.is-desktop .fc-scope .result .cred{p
 .na-chip svg{width:14px;height:14px;stroke-width:2.1}
 .na-chip:hover{border-color:var(--blue,#6DA0CC)}
 .na-chip.on{background:var(--blue-ink,#3F6E99);border-color:var(--blue-ink,#3F6E99);color:#fff;box-shadow:0 6px 14px -7px rgba(63,110,153,.75)}
-.na-daysrow{display:flex;gap:7px;justify-content:center}
-.na-day{flex:1;min-width:0;max-width:46px;aspect-ratio:1;border-radius:50%;border:1.5px solid var(--border,rgba(46,50,56,.14));
+.na-daysrow{display:flex;gap:7px;justify-content:flex-start}
+.na-day{flex:0 0 40px;width:40px;height:40px;border-radius:50%;border:1.5px solid var(--border,rgba(46,50,56,.14));
   background:#fff;font:800 13px var(--font-ui,Manrope);color:var(--muted,#6A6F76);cursor:pointer;transition:.15s;display:grid;place-items:center}
 .na-day:hover{border-color:var(--blue,#6DA0CC);color:var(--ink,#2E3238)}
 .na-day.on{background:var(--blue-ink,#3F6E99);border-color:var(--blue-ink,#3F6E99);color:#fff;box-shadow:0 6px 14px -7px rgba(63,110,153,.75)}
