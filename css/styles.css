@@ -3979,7 +3979,7 @@ body.is-mobile .rh-badges .rh-trend{margin:0;width:auto}
 
 .fc-scope .field .loc-btn:hover{background:var(--blue,#6DA0CC);color:#fff}
 
-.fc-scope .result{display:flex;gap:13px;align-items:flex-start;padding:16px;background:#fff;border-radius:18px;box-shadow:var(--card-shadow, 0 2px 10px rgba(0,0,0,.05));margin-bottom:12px}
+.fc-scope .result{position:relative;display:flex;gap:13px;align-items:flex-start;padding:16px;background:#fff;border-radius:18px;box-shadow:var(--card-shadow, 0 2px 10px rgba(0,0,0,.05));margin-bottom:12px}
 
 .fc-scope .result:last-child{margin-bottom:0}
 
@@ -4017,7 +4017,9 @@ body.is-mobile .rh-badges .rh-trend{margin:0;width:auto}
 .fc-scope .ct-btn.ct-text{border-color:var(--sage-ink,#587A5E);color:var(--sage-ink,#587A5E)}
 .fc-scope .ct-btn.ct-text:hover{background:var(--sage-ink,#587A5E);color:#fff}
 
-.fc-scope .result .rmeta{margin-left:auto;text-align:right;font:700 12px var(--font-ui, Manrope);color:var(--ink,#2E3238);white-space:nowrap}
+.fc-scope .result .rmeta{position:absolute;top:16px;right:16px;text-align:right;font:700 12px var(--font-ui, Manrope);color:var(--ink,#2E3238);white-space:nowrap}
+/* keep the name + credential clear of the top-right meta; the rest spans full card width so tags autofit + wrap */
+.fc-scope .result .rnm,.fc-scope .result .cred{padding-right:104px}
 
 .fc-scope .result .rmeta s{display:block;text-decoration:none;font-weight:600;font-size:10px;color:var(--muted,#6A6F76);margin-top:3px}
 
