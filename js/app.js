@@ -3108,7 +3108,8 @@ document.addEventListener("click", function(e){
 // tint → hex used to seed matching avatar backgrounds
 const TINT_HEX = {blue:"DEEAF4", gold:"FAEFD6", sage:"E1ECE2", coral:"F8E5E2"};
 function photoFor(p){
-  const style = p.kind==="coach" ? "avataaars" : "identicon"; // coaches: personable illustrated face · peers: abstract, anonymous by design
+  // clean illustrated-person avatars that read like real profile photos
+  const style = p.kind==="coach" ? "notionists" : "personas";
   const bg = TINT_HEX[p.tint] || "EEEDE8";
   return `https://api.dicebear.com/7.x/${style}/svg?seed=${encodeURIComponent(p.name)}&backgroundColor=${bg}&radius=14`;
 }
