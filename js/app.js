@@ -2602,36 +2602,36 @@ document.addEventListener("click", e=>{
 /* ── community room filter: one clean, comprehensive dropdown ── */
 const ROOM_OPTIONS = [
   {group:"Browse", items:[
-    {val:"all",         emoji:"globe", name:"All Rooms",        meta:"everything"},
+    {val:"all",         emoji:"globe", color:"#3F6E99", name:"All Rooms",        meta:"everything"},
   ]},
   {group:"How you're doing", items:[
-    {val:"checkin",     emoji:"calendar-check", name:"Daily check-in",   meta:"just say you're here"},
-    {val:"wins",        emoji:"party-popper", name:"Wins",             meta:"celebrations"},
-    {val:"questions",   emoji:"help-circle", name:"Questions",        meta:"ask anything"},
-    {val:"struggling",  emoji:"heart-handshake", name:"Struggling today", meta:"hard days"},
-    {val:"latenight",   emoji:"moon", name:"Late night",       meta:"awake at 3 AM"},
+    {val:"checkin",     emoji:"calendar-check", color:"#5E8B6E", name:"Daily check-in",   meta:"just say you're here"},
+    {val:"wins",        emoji:"party-popper", color:"#C9973B", name:"Wins",             meta:"celebrations"},
+    {val:"questions",   emoji:"help-circle", color:"#4E7FA8", name:"Questions",        meta:"ask anything"},
+    {val:"struggling",  emoji:"heart-handshake", color:"#C4736A", name:"Struggling today", meta:"hard days"},
+    {val:"latenight",   emoji:"moon", color:"#6B5DB0", name:"Late night",       meta:"awake at 3 AM"},
   ]},
   {group:"Your recovery path", items:[
-    {val:"na",          emoji:"footprints", name:"NA · 12-Step",     meta:"Narcotics Anonymous"},
-    {val:"smart",       emoji:"brain", name:"SMART Recovery",   meta:"science-based tools"},
-    {val:"dharma",      emoji:"flower-2", name:"Recovery Dharma",  meta:"Buddhist / mindfulness"},
-    {val:"spirituality",emoji:"bird", name:"Spirituality & Faith", meta:"any faith welcome"},
-    {val:"mat",         emoji:"pill", name:"MAT & meds",       meta:"bupe · methadone · naltrexone"},
-    {val:"harm",        emoji:"shield", name:"Harm reduction",   meta:"safety first, no judgment"},
+    {val:"na",          emoji:"footprints", color:"#3F6650", name:"NA · 12-Step",     meta:"Narcotics Anonymous"},
+    {val:"smart",       emoji:"brain", color:"#8A6FB0", name:"SMART Recovery",   meta:"science-based tools"},
+    {val:"dharma",      emoji:"flower-2", color:"#C06E82", name:"Recovery Dharma",  meta:"Buddhist / mindfulness"},
+    {val:"spirituality",emoji:"bird", color:"#5591B6", name:"Spirituality & Faith", meta:"any faith welcome"},
+    {val:"mat",         emoji:"pill", color:"#C1744C", name:"MAT & meds",       meta:"bupe · methadone · naltrexone"},
+    {val:"harm",        emoji:"shield", color:"#C0873B", name:"Harm reduction",   meta:"safety first, no judgment"},
   ]},
   {group:"Who you are", items:[
-    {val:"parents",     emoji:"baby", name:"Parents",          meta:"raising kids"},
-    {val:"lgbtq",       emoji:"rainbow", name:"LGBTQ+",           meta:"affirming space"},
-    {val:"veterans",    emoji:"medal", name:"Veterans",         meta:"served & recovering"},
-    {val:"women",       emoji:"flower", name:"Women",            meta:"women's space"},
-    {val:"men",         emoji:"wheat", name:"Men",              meta:"men's space"},
-    {val:"youngadults", emoji:"sprout", name:"Young adults",     meta:"18–25"},
+    {val:"parents",     emoji:"baby", color:"#5E9E8E", name:"Parents",          meta:"raising kids"},
+    {val:"lgbtq",       emoji:"rainbow", color:"#9B5FA8", name:"LGBTQ+",           meta:"affirming space"},
+    {val:"veterans",    emoji:"medal", color:"#9A7C28", name:"Veterans",         meta:"served & recovering"},
+    {val:"women",       emoji:"flower", color:"#C06E82", name:"Women",            meta:"women's space"},
+    {val:"men",         emoji:"wheat", color:"#A8823B", name:"Men",              meta:"men's space"},
+    {val:"youngadults", emoji:"sprout", color:"#6E9B57", name:"Young adults",     meta:"18–25"},
   ]},
   {group:"Life alongside recovery", items:[
-    {val:"work",        emoji:"briefcase", name:"Work & money",     meta:"jobs, bills, stability"},
-    {val:"grief",       emoji:"heart", name:"Grief & loss",     meta:"holding it together"},
-    {val:"relationships",emoji:"messages-square", name:"Relationships",   meta:"family, partners, trust"},
-    {val:"sober_fun",   emoji:"smile", name:"Sober fun",        meta:"joy without using"},
+    {val:"work",        emoji:"briefcase", color:"#5E7CA6", name:"Work & money",     meta:"jobs, bills, stability"},
+    {val:"grief",       emoji:"heart", color:"#8A7D75", name:"Grief & loss",     meta:"holding it together"},
+    {val:"relationships",emoji:"messages-square", color:"#B5635A", name:"Relationships",   meta:"family, partners, trust"},
+    {val:"sober_fun",   emoji:"smile", color:"#D48A54", name:"Sober fun",        meta:"joy without using"},
   ]}
 ];
 const ROOM_META = {};
@@ -2648,7 +2648,7 @@ function buildRoomMenu(){
     g.items.map(o=>{
       const n=roomCount(o.val);
       return '<div class="dd-opt'+(o.val===cur?' sel':'')+'" role="option" data-room="'+o.val+'">'+
-        '<span class="dd-emoji">'+commIcon(o.emoji)+'</span>'+
+        '<span class="dd-emoji" style="background:color-mix(in srgb, '+(o.color||'#8A7D75')+' 15%, #fff);color:'+(o.color||'#8A7D75')+'">'+commIcon(o.emoji)+'</span>'+
         '<span class="dd-name">'+o.name+(o.member?'<span class="dd-member">yours</span>':'')+'</span>'+
         '<span class="dd-meta">'+(n===1?'1 post':n+' posts')+'</span>'+
         '<svg class="dd-check" viewBox="0 0 24 24"><path d="M5 12l5 5L20 7"/></svg>'+
@@ -2659,7 +2659,7 @@ function buildRoomMenu(){
 function reflectRoomButton(){
   const o=ROOM_META[currentRoom()]||ROOM_META.all;
   const em=$("#communityDDEmoji"), lb=$("#communityDDLabel"), ct=$("#communityDDCount");
-  if(em){ em.innerHTML=commIcon(o.emoji); if(window.lucide&&lucide.createIcons) lucide.createIcons(); }
+  if(em){ em.innerHTML=commIcon(o.emoji); em.style.color=o.color||''; em.style.background=o.color?'color-mix(in srgb, '+o.color+' 15%, #fff)':''; if(window.lucide&&lucide.createIcons) lucide.createIcons(); }
   if(lb) lb.textContent=o.name;
   if(ct){ const n=roomCount(o.val); ct.textContent = o.val==="all" ? "" : "· "+(n===1?"1 post":n+" posts"); }
 }
@@ -2700,7 +2700,7 @@ function openRoomDD(open){
       g.items.map(o=>{
         const n=roomCount(o.val);
         return '<button type="button" class="ar-opt'+(o.val===cur?' sel':'')+'" data-room="'+o.val+'">'+
-          '<span class="ar-emoji">'+commIcon(o.emoji)+'</span>'+
+          '<span class="ar-emoji" style="background:color-mix(in srgb, '+(o.color||'#8A7D75')+' 15%, #fff);color:'+(o.color||'#8A7D75')+'">'+commIcon(o.emoji)+'</span>'+
           '<span class="ar-main"><span class="ar-name">'+o.name+(o.member?'<span class="ar-member">yours</span>':'')+'</span>'+
           '<span class="ar-meta">'+o.meta+'</span></span>'+
           '<span class="ar-count">'+(o.val==="all"?"":(n===1?"1 post":n+" posts"))+'</span>'+
@@ -3079,6 +3079,7 @@ function showProviderPane(on){
 $("#fcBack").addEventListener("click", function(){
   if(!$("#s-provider").hidden){ showProviderPane(false); return; }
   if(typeof window.closeOv === "function") window.closeOv();
+  if(typeof openOv === "function") openOv('rooms');   /* back returns to the Community page */
 });
 
 /* v22 toggled these from a global controls handler; scoped equivalent.
