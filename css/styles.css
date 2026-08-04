@@ -4268,7 +4268,7 @@ body:has(#ov-rooms.active) #bottomNav{z-index:9600}
 #communityHead{display:none !important}
 
 /* Community sub-pages must paint ABOVE the Community page (they precede it in the DOM) */
-#ov-request-room.active,#ov-friends.active,#ov-find-coach.active,#ov-na-meetings.active,#ov-na-meeting-detail.active{z-index:9500}
+#ov-request-room.active,#ov-friends.active,#ov-find-coach.active,#ov-na-meetings.active,#ov-na-meeting-detail.active{z-index:9800}
 /* Desktop: Community sub-pages keep their back-arrow + title header, same as mobile */
 body.is-desktop #ov-request-room > .ov-header,
 body.is-desktop #ov-find-coach > .ov-header,
