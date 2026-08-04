@@ -15,7 +15,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
 <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
-<link rel="stylesheet" href="css/styles.css?v=20260804u">
+<link rel="stylesheet" href="css/styles.css?v=20260804v">
 </head>
 <body>
 
@@ -1576,12 +1576,25 @@
       <div><div style="font-family:var(--font-display);font-size:17px;font-weight:700;color:var(--ink)">Request a room</div></div>
     </div>
     <div class="ov-body" style="padding-top:16px">
-      <div class="rr-intro">Suggest a new room or topic. We review every request and add the ones the community wants most.</div>
+      <div class="rr-intro">Rooms are how people find their people. Give yours a clear name so the right members can find it. A peer specialist reviews new rooms to keep everyone safe.</div>
       <label class="rr-label" for="rr-name">Room name</label>
-      <input id="rr-name" class="rr-input" type="text" placeholder="e.g. Parents in Recovery">
-      <label class="rr-label" for="rr-why">What's it for? <span style="color:var(--ink-soft);font-weight:600">(optional)</span></label>
-      <textarea id="rr-why" class="rr-textarea" rows="3" placeholder="A sentence or two about the topic…"></textarea>
-      <button class="rr-submit" type="button" onclick="rrSubmit()">Submit request</button>
+      <input id="rr-name" class="rr-input" type="text" placeholder="e.g. &ldquo;Runners in recovery&rdquo;, &ldquo;Faith &amp; Fridays&rdquo;">
+      <label class="rr-label">Pick an icon</label>
+      <div class="rr-icons" id="rrIcons">
+        <button type="button" class="on" data-icon="sparkles"><i data-lucide="sparkles"></i></button>
+        <button type="button" data-icon="footprints"><i data-lucide="footprints"></i></button>
+        <button type="button" data-icon="heart-handshake"><i data-lucide="heart-handshake"></i></button>
+        <button type="button" data-icon="palette"><i data-lucide="palette"></i></button>
+        <button type="button" data-icon="guitar"><i data-lucide="guitar"></i></button>
+        <button type="button" data-icon="book-open"><i data-lucide="book-open"></i></button>
+        <button type="button" data-icon="paw-print"><i data-lucide="paw-print"></i></button>
+        <button type="button" data-icon="coffee"><i data-lucide="coffee"></i></button>
+        <button type="button" data-icon="sprout"><i data-lucide="sprout"></i></button>
+      </div>
+      <label class="rr-label" for="rr-why">What's it for? <span style="color:var(--ink-soft);font-weight:600">(one line)</span></label>
+      <textarea id="rr-why" class="rr-textarea" rows="2" placeholder="Who is this room for, and what will you talk about?"></textarea>
+      <div class="rr-guard"><i data-lucide="shield"></i><span>Rooms that source, sell, or glamorize use aren't allowed — they're removed fast. A certified peer specialist keeps watch here too.</span></div>
+      <button class="rr-submit" type="button" onclick="rrSubmit()">Request Room</button>
     </div>
   </div>
 
@@ -3824,6 +3837,6 @@
 </div><!-- /phone -->
 </div><!-- /patient-view -->
 
-<script src="js/app.js?v=20260804u"></script>
+<script src="js/app.js?v=20260804v"></script>
 </body>
 </html>

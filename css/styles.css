@@ -3814,6 +3814,12 @@ body.is-mobile .rh-badges .rh-trend{margin:0;width:auto}
 .rr-label{display:block;font-family:var(--font-ui);font-size:13px;font-weight:700;color:var(--ink);margin:0 0 7px 2px}
 .rr-input,.rr-textarea{width:100%;background:#fff;border:1.5px solid var(--border);border-radius:14px;padding:13px 15px;font-family:var(--font-ui);font-size:14px;color:var(--ink);outline:none;margin-bottom:16px}
 .rr-input:focus,.rr-textarea:focus{border-color:#6DA0CC}
+.rr-icons{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}
+.rr-icons button{width:44px;height:44px;border-radius:12px;border:1.6px solid var(--border);background:#fff;cursor:pointer;display:grid;place-items:center;color:var(--ink-soft);transition:.14s}
+.rr-icons button svg{width:21px;height:21px;stroke-width:2}
+.rr-icons button.on{border-color:var(--blue-ink,#3F6E99);background:var(--blue-tint,#EAF1F8);color:var(--blue-ink,#3F6E99);transform:translateY(-1px)}
+.rr-guard{display:flex;gap:9px;align-items:flex-start;background:var(--sage-tint,#E4EDE7);border-radius:14px;padding:12px 14px;margin-bottom:16px;font-family:var(--font-ui);font-size:12.5px;color:var(--sage-ink,#587A5E);line-height:1.5}
+.rr-guard svg{width:17px;height:17px;flex:none;margin-top:1px;stroke-width:2.1;color:var(--sage-ink,#587A5E)}
 .rr-textarea{resize:none;line-height:1.5}
 .rr-submit{width:100%;border:none;border-radius:16px;padding:15px;background:linear-gradient(135deg,#6DA0CC,#3F6E99);color:#fff;font-family:var(--font-ui);font-size:15px;font-weight:800;cursor:pointer;box-shadow:0 10px 22px -8px rgba(63,110,153,.5)}
 

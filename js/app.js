@@ -3043,6 +3043,15 @@ function rrSubmit(){
   if(typeof closeDetail==='function') closeDetail('request-room');
   if(typeof showXPPopup==='function') showXPPopup(10,'Room Requested!');
 }
+/* Request-a-room icon picker — single select */
+(function(){
+  var box=document.getElementById('rrIcons'); if(!box) return;
+  box.addEventListener('click', function(e){
+    var b=e.target.closest('[data-icon]'); if(!b) return;
+    box.querySelectorAll('button').forEach(function(x){ x.classList.remove('on'); });
+    b.classList.add('on');
+  });
+})();
 
 /* ===== toast shims for ported community subsystems ===== */
 window.toast = window.toast || (typeof rlToast==='function' ? rlToast : function(){});
