@@ -3585,7 +3585,7 @@ window.fcRefresh = function(){ showProviderPane(false); renderCoaches(); };
     return list.slice().sort(function(a,b){ return minutesUntilNext(a.day,a.time)-minutesUntilNext(b.day,b.time); });
   }
 
-  function fmtIcon(format){ return format==="in-person" ? "📍" : format==="virtual" ? "💻" : "🔀"; }
+  function fmtIcon(format){ var n = format==="in-person" ? "map-pin" : format==="virtual" ? "monitor" : "shuffle"; return '<i data-lucide="'+n+'"></i>'; }
 
   function renderList(){
     var listEl = document.getElementById("naList");
@@ -3613,6 +3613,7 @@ window.fcRefresh = function(){ showProviderPane(false); renderCoaches(); };
         + '<div class="na-card-foot">'+added+'</div>'
         + '</div>';
     }).join("");
+    if(window.lucide && lucide.createIcons) lucide.createIcons();
   }
 
   // ── filter wiring ──
