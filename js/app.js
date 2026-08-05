@@ -1191,13 +1191,10 @@ function openActivity(id, forceDone){
   var done=!!forceDone || actDone(id);
   function set(el,fn){ var n=document.getElementById(el); if(n) fn(n); }
   set('act-title',function(n){ n.textContent=a.name; });
-  set('act-name', function(n){ n.textContent=a.name; });
   set('act-sub',  function(n){ n.textContent=a.sub; });
-  set('act-ic',   function(n){ n.style.background=a.ac; n.style.color='#fff'; n.innerHTML='<i data-lucide="'+a.icon+'"></i>'; });
-  set('act-earn', function(n){ n.textContent=done?'Completed today ✓':'Earn +'+a.pts+' pts'; });
+  set('act-ic',   function(n){ n.style.background=a.ac; n.style.color='#fff'; n.style.boxShadow='0 10px 24px -12px '+a.ac+'99'; n.innerHTML='<i data-lucide="'+a.icon+'"></i>'; });
+  set('act-earn', function(n){ n.textContent=done?'Completed today ✓':'Earn +'+a.pts+' XP'; });
   set('act-why',  function(n){ n.textContent=a.why; });
-  set('act-why-card', function(n){ n.style.background=a.tint; n.style.borderColor=a.ac+'33'; });
-  set('act-why-h',function(n){ n.style.color=a.ac; });
   set('act-steps',function(n){
     var h='';
     a.steps.forEach(function(sp,i){

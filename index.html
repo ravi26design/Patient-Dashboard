@@ -15,7 +15,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
 <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
-<link rel="stylesheet" href="css/styles.css?v=20260805c2">
+<link rel="stylesheet" href="css/styles.css?v=20260805d2">
 </head>
 <body>
 
@@ -3619,17 +3619,34 @@
     </div>
     <div class="ov-body" style="padding-top:18px">
 
-      <!-- Why this works -->
-      <div class="rd-card rd-note" id="act-why-card">
-        <div class="home-title rd-h rd-note-h" id="act-why-h"><i data-lucide="sparkles"></i> Why this works</div>
-        <p class="rd-p" id="act-why"></p>
+      <!-- Today's Focus — mirrors the Home/Insight focus so the page's context is clear -->
+      <div class="rd-card rd-focus">
+        <span class="rd-focus-ic"><i data-lucide="zap"></i></span>
+        <div class="rd-focus-main">
+          <div class="rd-focus-eyebrow">Today's Focus</div>
+          <div class="rd-focus-val">Craving</div>
+        </div>
       </div>
 
-      <!-- Follow along -->
+      <!-- Lead: centered icon, why-this-helps, earn pill below (one card) -->
+      <div class="rd-card rd-lead">
+        <div class="rd-hero-ic" id="act-ic"><i data-lucide="life-buoy"></i></div>
+        <div class="home-title rd-h">Why this helps today</div>
+        <p class="rd-p" id="act-sub"></p>
+        <span class="rd-earn" id="act-earn">Earn +20 XP</span>
+      </div>
+
+      <!-- How to do it -->
       <div class="rd-card">
-        <div class="home-title rd-h">Follow along</div>
+        <div class="home-title rd-h">How to do it</div>
         <p class="rd-sub">Tap each step to check it off as you go — take all the time you need.</p>
         <div id="act-steps"></div>
+      </div>
+
+      <!-- Clinician's note -->
+      <div class="rd-card rd-note">
+        <div class="home-title rd-h rd-note-h"><i data-lucide="stethoscope"></i> Why this works &middot; Clinician's note</div>
+        <p class="rd-p" id="act-why"></p>
       </div>
 
       <!-- Complete -->
@@ -3802,6 +3819,6 @@
 </div><!-- /phone -->
 </div><!-- /patient-view -->
 
-<script src="js/app.js?v=20260805c2"></script>
+<script src="js/app.js?v=20260805d2"></script>
 </body>
 </html>
