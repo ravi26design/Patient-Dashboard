@@ -3450,7 +3450,12 @@ body.is-mobile .rh-badges .rh-trend{margin:0;width:auto}
 .rc-scope .cta:disabled{opacity:.4;cursor:not-allowed}
 .rc-scope .cpost{background:#fff;border-radius:20px;padding:16px 17px;box-shadow:var(--shadow);margin-bottom:12px}
 .rc-scope .cpost .top{display:flex;align-items:center;gap:10px;margin-bottom:9px}
-.rc-scope .cpost .pic{width:34px;height:34px;border-radius:11px;display:grid;place-items:center;font:800 13px var(--font-ui, Manrope);flex:none}
+.rc-scope .cpost .pic{width:38px;height:38px;border-radius:12px;overflow:hidden;flex:none;background:var(--paper2,#EEEDE8)}
+.rc-scope .cpost .pic img{width:100%;height:100%;object-fit:cover;display:block}
+/* room tag — which room the post belongs to */
+.rc-scope .croom{flex:none;display:inline-flex;align-items:center;gap:5px;font:800 11px var(--font-ui, Manrope);border-radius:99px;padding:5px 10px;white-space:nowrap;max-width:46%;overflow:hidden}
+.rc-scope .croom span{overflow:hidden;text-overflow:ellipsis}
+.rc-scope .croom svg{width:13px;height:13px;stroke-width:2.2;flex:none}
 .rc-scope .cname{font:700 12.8px var(--font-ui, Manrope);display:flex;align-items:center;gap:6px;flex-wrap:wrap}
 .rc-scope .csub{font-size:10.6px;color:var(--muted,#6A6F76);margin-top:1px}
 .rc-scope .ctext{margin:0 0 11px;font-size:13.4px;line-height:1.6}

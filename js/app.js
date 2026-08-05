@@ -2299,6 +2299,11 @@ function renderCommunityFeed(){
       : "";
     const roomLabel = CHANNEL_LABEL[p.channel] || (ROOM_META[p.channel]?ROOM_META[p.channel].name:"");
     const memtag = (ROOM_META[p.channel] && ROOM_META[p.channel].member) ? '<span class="memtag">member room</span>' : "";
+    const rmMeta = ROOM_META[p.channel] || {};
+    const rcol = rmMeta.color || "#8A7D75";
+    const croomTag = `<span class="croom" style="background:color-mix(in srgb, ${rcol} 15%, #fff);color:${rcol}">${commIcon(rmMeta.emoji||"messages-square")}<span>${roomLabel||"Community"}</span></span>`;
+    const cAvatarBg = ({blue:"DEEAF4",sage:"E1ECE2",gold:"FAEFD6",coral:"F8E5E2"})[p.tint] || "EEEDE8";
+    const cAvatarUrl = `https://api.dicebear.com/7.x/personas/svg?seed=${encodeURIComponent(p.user)}&backgroundColor=${cAvatarBg}&radius=12`;
     const supportTotal = (p.hearts||0) + (p.supports||0);
     // a quiet post (few reactions, no replies) gets a gentle nudge affordance
     const nudged = NUDGED.has(p.id);
@@ -2312,12 +2317,12 @@ function renderCommunityFeed(){
     return `<div class="cpost${p.quiet&&!p.mine?" isquiet":""}${mileCls}" data-pid="${p.id}">
       ${mileCrown}
       <div class="top">
-        <div class="pic" style="background:var(--${p.tint}-tint);color:var(--${p.tint}-ink)">${p.avatar}</div>
+        <div class="pic"><img src="${cAvatarUrl}" alt="" loading="lazy"></div>
         <div style="flex:1;min-width:0">
           <div class="cname">${p.user}${badge}${quietTag}</div>
-          <div class="csub">${p.time} · ${roomLabel}${memtag}</div>
+          <div class="csub">${p.time}${memtag}</div>
         </div>
-        ${supportTotal ? `<span class="csupport" title="Support this post has received"><em>🙌</em>${supportTotal}</span>` : ""}
+        ${croomTag}
       </div>
       ${mileBadge}
       <p class="ctext">${p.text}</p>
