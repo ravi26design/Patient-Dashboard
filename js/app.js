@@ -2053,6 +2053,57 @@ function locSubmit(){ closeOv(); if(typeof showXPPopup==='function') showXPPopup
 function pfTelHref(num){ return 'tel:'+String(num).replace(/[^\d+]/g,''); }
 function callContact(name,num){ try{ window.location.href=pfTelHref(num); }catch(e){} }
 function textContact(name,num){ try{ window.location.href='sms:'+String(num).replace(/[^\d+]/g,''); }catch(e){} }
+/* ── Add someone to My People (bottom sheet) ── */
+function openAddPerson(){
+  var s=document.getElementById('addPersonSheet'); if(!s) return;
+  ['apsName','apsPhone','apsEmail'].forEach(function(id){ var el=document.getElementById(id); if(el) el.value=''; });
+  var seg=document.getElementById('apsRel');
+  if(seg) seg.querySelectorAll('.aps-seg-b').forEach(function(b,i){ b.classList.toggle('on', i===0); });
+  apsSync();
+  s.classList.add('show'); s.setAttribute('aria-hidden','false');
+  if(window.lucide&&lucide.createIcons) lucide.createIcons();
+}
+function closeAddPerson(){ var s=document.getElementById('addPersonSheet'); if(s){ s.classList.remove('show'); s.setAttribute('aria-hidden','true'); } }
+function apsRel(btn){ var seg=document.getElementById('apsRel'); if(!seg) return; seg.querySelectorAll('.aps-seg-b').forEach(function(b){ b.classList.remove('on'); }); btn.classList.add('on'); }
+function apsSync(){
+  var v=function(id){ var el=document.getElementById(id); return el?el.value.trim():''; };
+  var ok=v('apsName') && (v('apsPhone') || v('apsEmail'));
+  var btn=document.getElementById('apsAdd'); if(btn) btn.disabled=!ok;
+}
+function addPersonSave(){
+  var name=(document.getElementById('apsName').value||'').trim();
+  var phone=(document.getElementById('apsPhone').value||'').trim();
+  var email=(document.getElementById('apsEmail').value||'').trim();
+  var relBtn=document.querySelector('#apsRel .aps-seg-b.on');
+  var rel=relBtn?relBtn.getAttribute('data-val'):'Friend';
+  if(!name || !(phone||email)) return;
+  var parts=name.split(/\s+/);
+  var ini=((parts[0]||'')[0]||'').toUpperCase()+((parts[1]||'')[0]||'').toUpperCase();
+  var colors=['#6E9E80','#4A90D9','#C97B6F','#8A6FB0','#D8AD63','#5E8560'];
+  var color=colors[Math.floor(Math.random()*colors.length)];
+  var list=document.getElementById('pf-contacts'); if(!list) return;
+  var row=document.createElement('div'); row.className='pf-contact';
+  row.innerHTML='<div class="pf-contact-av" style="background:'+color+';color:#fff">'+cmEsc(ini)+'</div>'+
+    '<div class="pf-contact-main"><div class="pf-contact-name">'+cmEsc(name)+'</div><div class="pf-contact-role">'+cmEsc(rel)+'</div></div>'+
+    '<div class="pf-contact-btns"></div>';
+  var btns=row.querySelector('.pf-contact-btns');
+  if(phone){
+    var cb=document.createElement('button'); cb.className='pf-cbtn call'; cb.type='button';
+    cb.setAttribute('aria-label','Call '+name); cb.innerHTML='<i data-lucide="phone"></i>';
+    cb.addEventListener('click',function(){ callContact(name,phone); });
+    btns.appendChild(cb);
+  }
+  if(phone||email){
+    var tb=document.createElement('button'); tb.className='pf-cbtn text'; tb.type='button';
+    var dest=phone||email;
+    tb.setAttribute('aria-label','Text '+name); tb.innerHTML='<i data-lucide="message-circle"></i>';
+    tb.addEventListener('click',function(){ textContact(name,dest); });
+    btns.appendChild(tb);
+  }
+  list.appendChild(row);
+  if(window.lucide&&lucide.createIcons) lucide.createIcons();
+  closeAddPerson();
+}
 
 /* edit-overlay rendering: live chip list (with remove) + suggestion strip */
 function renderProfileEdit(){

@@ -15,7 +15,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
 <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
-<link rel="stylesheet" href="css/styles.css?v=20260805i2">
+<link rel="stylesheet" href="css/styles.css?v=20260805j2">
 </head>
 <body>
 
@@ -350,6 +350,36 @@
     </div>
     <button class="pf-viewfull" type="button" onclick="closeProfile();goScreen('profile')"><i data-lucide="user-round"></i> View full profile <i data-lucide="arrow-right" class="pf-vf-arrow"></i></button>
     <button class="pf-logout" type="button" onclick="logout()"><i data-lucide="log-out"></i> Log out</button>
+  </div>
+</div>
+
+<!-- Add someone to My People · bottom sheet -->
+<div id="addPersonSheet" aria-hidden="true" onclick="if(event.target===this)closeAddPerson()">
+  <div class="pf-sheet aps-sheet">
+    <button class="sheet-close" type="button" onclick="closeAddPerson()" aria-label="Close"><i data-lucide="x"></i></button>
+    <div class="sheet-grab"></div>
+    <h3 class="aps-title">Add to My People</h3>
+    <p class="aps-lead">They'll appear in your Call or Text list.</p>
+
+    <label class="aps-l" for="apsName">Full name</label>
+    <input class="aps-in" type="text" id="apsName" placeholder="e.g. Jordan Lee" autocomplete="off" oninput="apsSync()">
+
+    <label class="aps-l">Relationship</label>
+    <div class="aps-seg" id="apsRel">
+      <button type="button" class="aps-seg-b on" data-val="Friend" onclick="apsRel(this)"><i data-lucide="user-round"></i> Friend</button>
+      <button type="button" class="aps-seg-b" data-val="Family" onclick="apsRel(this)"><i data-lucide="users"></i> Family</button>
+    </div>
+
+    <label class="aps-l" for="apsPhone">Contact number</label>
+    <input class="aps-in" type="tel" id="apsPhone" placeholder="(555) 123-4567" autocomplete="off" oninput="apsSync()">
+
+    <label class="aps-l" for="apsEmail">Email</label>
+    <input class="aps-in" type="email" id="apsEmail" placeholder="name@email.com" autocomplete="off" oninput="apsSync()">
+
+    <div class="aps-actions">
+      <button type="button" class="aps-cancel" onclick="closeAddPerson()">Cancel</button>
+      <button type="button" class="aps-add" id="apsAdd" onclick="addPersonSave()" disabled>Add person</button>
+    </div>
   </div>
 </div>
 
@@ -997,7 +1027,7 @@
 
       <!-- Medication -->
       <div class="scr-card">
-        <div class="home-title" style="margin-bottom:12px">Medication</div>
+        <div class="home-title">Medication</div>
         <div class="pf-contact" style="border-bottom:none;padding:0">
           <div class="pf-rav pf-av-sage"><i data-lucide="pill"></i></div>
           <div class="pf-contact-main">
@@ -1009,7 +1039,7 @@
 
       <!-- What Helps Me -->
       <div class="scr-card">
-        <div class="home-title pf-sec-head" role="button" tabindex="0" aria-label="Edit what helps me" onclick="renderProfileEdit();openOv('edit-activities')" style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;cursor:pointer">
+        <div class="home-title pf-sec-head" role="button" tabindex="0" aria-label="Edit what helps me" onclick="renderProfileEdit();openOv('edit-activities')" style="display:flex;align-items:center;justify-content:space-between;cursor:pointer">
           <span>What Helps Me</span>
           <span class="pf-edit-btn" aria-hidden="true"><i data-lucide="pencil"></i></span>
         </div>
@@ -1018,7 +1048,7 @@
 
       <!-- My People · Call or Text -->
       <div class="scr-card">
-        <div class="home-title" style="margin-bottom:12px">My People · Call or Text</div>
+        <div class="home-title" style="display:flex;align-items:center;justify-content:space-between;gap:10px"><span>My People · Call or Text</span><button class="pf-add-btn" type="button" onclick="openAddPerson()"><i data-lucide="plus"></i> Add</button></div>
         <div id="pf-contacts">
           <div class="pf-contact"><div class="pf-contact-av" style="background:#6E9E80;color:#fff">DR</div><div class="pf-contact-main"><div class="pf-contact-name">Daniel Ruiz</div><div class="pf-contact-role">Your recovery coach</div></div><div class="pf-contact-btns"><button class="pf-cbtn call" type="button" aria-label="Call Daniel Ruiz" onclick="callContact('Daniel Ruiz','(310) 555-0142')"><i data-lucide="phone"></i></button><button class="pf-cbtn text" type="button" aria-label="Text Daniel Ruiz" onclick="textContact('Daniel Ruiz','(310) 555-0142')"><i data-lucide="message-circle"></i></button></div></div>
           <div class="pf-contact"><div class="pf-contact-av" style="background:#4A90D9;color:#fff">TB</div><div class="pf-contact-main"><div class="pf-contact-name">Tasha Brooks</div><div class="pf-contact-role">Your peer specialist</div></div><div class="pf-contact-btns"><button class="pf-cbtn call" type="button" aria-label="Call Tasha Brooks" onclick="callContact('Tasha Brooks','(310) 555-0188')"><i data-lucide="phone"></i></button><button class="pf-cbtn text" type="button" aria-label="Text Tasha Brooks" onclick="textContact('Tasha Brooks','(310) 555-0188')"><i data-lucide="message-circle"></i></button></div></div>
@@ -1031,7 +1061,7 @@
 
       <!-- Care Team -->
       <div class="scr-card">
-        <div class="home-title" style="margin-bottom:6px">Care Team</div>
+        <div class="home-title">Care Team</div>
         <div class="pf-contact">
           <div class="pf-rav pf-av-sage">Dr</div>
           <div class="pf-contact-main"><div class="pf-contact-name">Dr. Rivera</div><div class="pf-contact-role">MOUD Prescriber</div></div>
@@ -1048,7 +1078,7 @@
 
       <!-- Family Connected -->
       <div class="scr-card">
-        <div class="home-title" style="margin-bottom:6px">Family Connected</div>
+        <div class="home-title">Family Connected</div>
         <div class="pf-contact">
           <div class="pf-rav pf-av-gold">M</div>
           <div class="pf-contact-main"><div class="pf-contact-name">Mom (Sarah M.)</div><div class="pf-contact-role">1 reward pledged</div></div>        </div>
@@ -3768,6 +3798,6 @@
 </div><!-- /phone -->
 </div><!-- /patient-view -->
 
-<script src="js/app.js?v=20260805i2"></script>
+<script src="js/app.js?v=20260805j2"></script>
 </body>
 </html>
