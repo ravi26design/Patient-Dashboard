@@ -15,7 +15,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
 <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
-<link rel="stylesheet" href="css/styles.css?v=20260805j2">
+<link rel="stylesheet" href="css/styles.css?v=20260805k2">
 </head>
 <body>
 
@@ -358,8 +358,13 @@
   <div class="pf-sheet aps-sheet">
     <button class="sheet-close" type="button" onclick="closeAddPerson()" aria-label="Close"><i data-lucide="x"></i></button>
     <div class="sheet-grab"></div>
-    <h3 class="aps-title">Add to My People</h3>
-    <p class="aps-lead">They'll appear in your Call or Text list.</p>
+    <div class="aps-head">
+      <span class="aps-head-ic"><i data-lucide="user-round-plus"></i></span>
+      <div class="aps-head-tt">
+        <h3 class="aps-title">Add to My People</h3>
+        <p class="aps-lead">They'll appear in your Call or Text list.</p>
+      </div>
+    </div>
 
     <label class="aps-l" for="apsName">Full name</label>
     <input class="aps-in" type="text" id="apsName" placeholder="e.g. Jordan Lee" autocomplete="off" oninput="apsSync()">
@@ -3798,6 +3803,6 @@
 </div><!-- /phone -->
 </div><!-- /patient-view -->
 
-<script src="js/app.js?v=20260805j2"></script>
+<script src="js/app.js?v=20260805k2"></script>
 </body>
 </html>

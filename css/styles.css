@@ -4378,8 +4378,11 @@ body:not(.in-room) #s-community > .anon-note{ display:none !important; }
 #addPersonSheet.show{display:block}
 #addPersonSheet::before{content:'';position:absolute;inset:0;background:rgba(40,36,33,.45);animation:lmFade .25s ease both}
 .aps-sheet{max-width:420px;margin:0 auto}
-.aps-title{font-family:var(--font-display);font-size:19px;font-weight:700;color:var(--ink);margin:0 0 4px}
-.aps-lead{font-family:var(--font-ui);font-size:12.5px;color:var(--ink-soft);margin:0 0 16px;line-height:1.5}
+.aps-head{display:flex;align-items:center;gap:13px;margin-bottom:20px}
+.aps-head-ic{flex:none;width:46px;height:46px;border-radius:14px;background:var(--blue-lt);color:var(--blue-ink,#3F6E99);display:flex;align-items:center;justify-content:center}
+.aps-head-ic i,.aps-head-ic svg{width:22px;height:22px}
+.aps-title{font-family:var(--font-display);font-size:19px;font-weight:700;color:var(--ink);margin:0}
+.aps-lead{font-family:var(--font-ui);font-size:12.5px;color:var(--ink-soft);margin:2px 0 0;line-height:1.5}
 .aps-l{display:block;font-family:var(--font-ui);font-size:10px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-soft);margin:0 0 7px}
 .aps-in{width:100%;box-sizing:border-box;border:1.6px solid var(--border);border-radius:14px;padding:12px 14px;font-family:var(--font-ui);font-size:14px;color:var(--ink);background:var(--app-bg);outline:none;transition:.18s;margin-bottom:15px}
 .aps-in:focus{background:#fff;border-color:var(--blue);box-shadow:0 0 0 4px rgba(74,144,217,.15)}
@@ -4390,5 +4393,6 @@ body:not(.in-room) #s-community > .anon-note{ display:none !important; }
 .aps-actions{display:flex;gap:9px;margin-top:4px}
 .aps-actions button{flex:1;border:0;border-radius:14px;padding:14px;font-family:var(--font-ui);font-size:13.5px;font-weight:800;cursor:pointer;transition:.16s}
 .aps-cancel{background:var(--app-bg);color:var(--ink)}
-.aps-add{background:var(--blue-ink,#3F6E99);color:#fff}
-.aps-add:disabled{opacity:.4;cursor:not-allowed}
+.aps-add{background:linear-gradient(135deg,#6DA0CC,#3F6E99);color:#fff;box-shadow:0 8px 20px -8px rgba(63,110,153,.6)}
+.aps-add:active{transform:scale(.98)}
+.aps-add:disabled{opacity:.4;box-shadow:none;cursor:not-allowed}
