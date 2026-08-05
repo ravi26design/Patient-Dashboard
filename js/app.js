@@ -923,7 +923,7 @@ function buildHealthGauge(){
   function pt(deg){ var a=deg*Math.PI/180; return [(cx+r*Math.cos(a)).toFixed(1),(cy-r*Math.sin(a)).toFixed(1)]; }
   function arc(d1,d2,col){ var p1=pt(d1),p2=pt(d2);
     return '<path d="M'+p1[0]+','+p1[1]+' A'+r+','+r+' 0 0 1 '+p2[0]+','+p2[1]+'" fill="none" stroke="'+col+'" stroke-width="'+sw+'" stroke-linecap="round"/>'; }
-  var s='<svg class="speedo" viewBox="0 0 300 192" xmlns="http://www.w3.org/2000/svg">';
+  var s='<svg class="speedo" viewBox="0 32 300 160" xmlns="http://www.w3.org/2000/svg">';
   s+=arc(180,144,'#D98279')+arc(144,108,'#E5A05F')+arc(108,72,'#E8C76A')+arc(72,36,'#AECB96')+arc(36,0,'#84B27F');
   s+='<text x="12" y="185" font-size="13" font-weight="600" fill="#C56A5E">Low</text>';
   s+='<text x="288" y="185" text-anchor="end" font-size="13" font-weight="600" fill="#5E8B6E">HIGH</text>';
@@ -954,7 +954,7 @@ function buildArcGauge(elId, val){
   var cx=150, cy=158, r=112, sw=22;
   function pt(deg){ var a=deg*Math.PI/180; return [(cx+r*Math.cos(a)).toFixed(1),(cy-r*Math.sin(a)).toFixed(1)]; }
   function arc(d1,d2,col){ var p1=pt(d1),p2=pt(d2); return '<path d="M'+p1[0]+','+p1[1]+' A'+r+','+r+' 0 0 1 '+p2[0]+','+p2[1]+'" fill="none" stroke="'+col+'" stroke-width="'+sw+'" stroke-linecap="round"/>'; }
-  var s='<svg class="speedo" viewBox="0 0 300 192" xmlns="http://www.w3.org/2000/svg">';
+  var s='<svg class="speedo" viewBox="0 32 300 160" xmlns="http://www.w3.org/2000/svg">';
   s+=arc(180,144,'#D98279')+arc(144,108,'#E5A05F')+arc(108,72,'#E8C76A')+arc(72,36,'#AECB96')+arc(36,0,'#84B27F');
   s+='<text x="12" y="185" font-size="13" font-weight="600" fill="#C56A5E">Low</text>';
   s+='<text x="288" y="185" text-anchor="end" font-size="13" font-weight="600" fill="#5E8B6E">HIGH</text>';

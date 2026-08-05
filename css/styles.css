@@ -3326,7 +3326,7 @@ body.is-mobile .rh-badges .rh-trend{margin:0;width:auto}
 .rh-card:active{transform:scale(.994)}
 /* Home Recovery Health: title styled like the other section headings (bigger, left-aligned) */
 .rh-card .rh-eyebrow,
-.ins-gauge-card .rh-eyebrow{align-self:stretch;text-align:left;font-family:var(--font-ui);font-size:13px;font-weight:600;letter-spacing:.3px;text-transform:none;color:var(--ink);padding-bottom:12px;border-bottom:1px solid var(--border);margin-bottom:14px}
+.ins-gauge-card .rh-eyebrow{align-self:stretch;text-align:left;font-family:var(--font-ui);font-size:13px;font-weight:600;letter-spacing:.3px;text-transform:none;color:var(--ink);padding-bottom:12px;border-bottom:1px solid var(--border);margin-bottom:8px}
 
 /* ═══════════ COMMUNITY FLOW (ported from Ravi V2) ═══════════ */
 
