@@ -4353,13 +4353,15 @@ body.is-desktop #ov-rooms .ov-header .scr-sub{display:none}
 /* Community title uses the same charcoal as the Progress page title */
 #ov-rooms .ov-header .scr-title{color:var(--ink)}
 
-/* ── Community hub: for now, show ONLY the three navigation cards ──
-   Hides the presence strip, composer, daily prompt, post feed and footer note.
-   Remove this block to bring the feed/composer back. */
-#s-community > .chead,
-#s-community > #composeBar,
-#s-community > #composeCard,
-#s-community > #communityDaily,
-#s-community > #communityChannels,
-#s-community > #communityFeed,
-#s-community > .anon-note{ display:none !important; }
+/* ── Community hub: for now, the LANDING shows ONLY the three navigation cards ──
+   Hides the presence strip, composer, daily prompt, post feed and footer note
+   on the hub itself — but NOT once you're inside a room (All Rooms → a room),
+   where the room feed + composer must still appear. Remove this block to bring
+   the hub feed/composer back. */
+body:not(.in-room) #s-community > .chead,
+body:not(.in-room) #s-community > #composeBar,
+body:not(.in-room) #s-community > #composeCard,
+body:not(.in-room) #s-community > #communityDaily,
+body:not(.in-room) #s-community > #communityChannels,
+body:not(.in-room) #s-community > #communityFeed,
+body:not(.in-room) #s-community > .anon-note{ display:none !important; }
