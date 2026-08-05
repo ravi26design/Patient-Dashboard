@@ -56,6 +56,12 @@ js/app.js       # navigation, flows, charts, gamification (no provider code)
   with variable "mystery" bonuses, pattern chart item/timeframe switching, recovery
   health chart timeframes.
 
+## Product notes
+
+- [**Parent Engagement — Why a Parent Uses the App**](docs/parent-engagement.md) —
+  strategy for making a connected parent open the app daily (the "Daily" reassurance
+  hook: on-track status + streak, reward countdown, one-tap encouragement).
+
 ## Notes
 
 - Data is exactly as in the prototype (hard-coded demo data — no backend).
