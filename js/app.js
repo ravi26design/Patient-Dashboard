@@ -352,12 +352,20 @@ function selectPatternTf(tf,btn){
 }
 
 function toggleChk(check, btn){
-  if(!check) return;
+  if(!check) return false;
   var on = check.classList.toggle('on');
   if(btn) btn.style.borderColor = on ? 'var(--hb-teal)' : 'var(--border)';
+  return on;
 }
-function confirmAttended(id){ toggleChk(document.getElementById('attended-check-'+id), document.getElementById('attended-btn-'+id)); }
-function confirmTaken(){ toggleChk(document.getElementById('taken-check'), document.getElementById('taken-btn')); }
+function confirmAttended(id){
+  var on = toggleChk(document.getElementById('attended-check-'+id), document.getElementById('attended-btn-'+id));
+  var labels = {ci:'Individual Counseling done!', gp:'Group Counseling done!', sh:'Self-Help logged!'};
+  if(on && typeof showXPPopup==='function') showXPPopup(10, labels[id] || 'Session Attended!');
+}
+function confirmTaken(){
+  var on = toggleChk(document.getElementById('taken-check'), document.getElementById('taken-btn'));
+  if(on && typeof showXPPopup==='function') showXPPopup(40, 'Medication Taken!');
+}
 function confirmMoudDose(card){
   var pill = document.getElementById('moud-pill-icon');
   var check = document.getElementById('moud-check');
