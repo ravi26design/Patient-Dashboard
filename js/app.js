@@ -2293,7 +2293,7 @@ function renderCommunityFeed(){
   const banners = buildFeedBanners();
   if(!list.length){ box.innerHTML = roomHdr + banners + '<div class="emptybox"><b>Quiet in this room right now.</b>Be the first to say something — someone will see it.</div>'; if(window.lucide&&lucide.createIcons) lucide.createIcons(); positionComposeBar(); return; }
   box.innerHTML = roomHdr + banners + list.map(p=>{
-    const badge = p.badge ? `<span class="kind ${p.badge==='coach'?'coach':'peer'}">${p.badge==='coach'?'Recovery Coach':'Peer Specialist'}</span>` : "";
+    const badge = "";
     const repliesHTML = p.replies.length
       ? `<div class="creplies"><div class="crephead">${p.replies.length} ${p.replies.length===1?"reply":"replies"}</div>${p.replies.map(r=>`<div class="creply"><b>${r.user}</b>${r.text}</div>`).join("")}</div>`
       : "";
@@ -2307,7 +2307,7 @@ function renderCommunityFeed(){
     const supportTotal = (p.hearts||0) + (p.supports||0);
     // a quiet post (few reactions, no replies) gets a gentle nudge affordance
     const nudged = NUDGED.has(p.id);
-    const quietTag = (p.quiet && !p.mine) ? `<span class="quiet-tag" title="This person hasn't heard back yet">🌾 quiet</span>` : "";
+    const quietTag = "";
     const nudgeBtn = (p.quiet && !p.mine)
       ? `<button class="nudgebtn ${nudged?"done":""}" data-nudge="${p.id}" ${nudged?"disabled":""} title="Send a silent 'thinking of you'">${nudged?"✓ Nudged":"👋 Nudge"}</button>`
       : "";
