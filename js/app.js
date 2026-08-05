@@ -2252,8 +2252,8 @@ function buildFeedBanners(){
   const filter = on ? on.dataset.val : "all";
   if(filter!=="all") return "";
   let html = "";
-  // 1) WEEKLY DIGEST — what happened in your rooms, to pull you back in
-  if(!DISMISSED.has("digest")){
+  // 1) WEEKLY DIGEST — removed from the Community feed
+  if(false && !DISMISSED.has("digest")){
     html += `<div class="feedbanner digest" data-banner="digest">
       <button class="fb-x" data-dismiss="digest" aria-label="Dismiss"><i data-lucide="x"></i></button>
       <div class="hub-card-head">
@@ -2911,6 +2911,7 @@ function makeMilestonePost({user, avatar, tint, badge, channel, time, days, labe
 }
 // seed a couple of community milestones so the room feels alive on first view
 (function seedMilestones(){
+  return; // seeded milestone post removed from the Community feed
   if(POSTS.some(p=>p.milestone)) return;
   POSTS.unshift(makeMilestonePost({
     user:"stepbystep", avatar:"🔵", tint:"blue", channel:"na", time:"35m ago",
