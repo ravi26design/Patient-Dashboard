@@ -2065,6 +2065,12 @@ function openAddPerson(){
 }
 function closeAddPerson(){ var s=document.getElementById('addPersonSheet'); if(s){ s.classList.remove('show'); s.setAttribute('aria-hidden','true'); } }
 function apsRel(btn){ var seg=document.getElementById('apsRel'); if(!seg) return; seg.querySelectorAll('.aps-seg-b').forEach(function(b){ b.classList.remove('on'); }); btn.classList.add('on'); }
+/* Contact number: allow digits + standard phone formatting only (no letters) */
+function apsPhoneFilter(el){
+  var cur=el.value, clean=cur.replace(/[^0-9+()\-\s]/g,'');
+  if(clean!==cur){ var p=el.selectionStart; el.value=clean; try{ el.setSelectionRange(p-1,p-1); }catch(e){} }
+  apsSync();
+}
 function apsSync(){
   var v=function(id){ var el=document.getElementById(id); return el?el.value.trim():''; };
   var ok=v('apsName') && (v('apsPhone') || v('apsEmail'));
