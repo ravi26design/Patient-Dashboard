@@ -2278,6 +2278,10 @@ function renderCommunityFeed(){
   const filter = on ? on.dataset.val : "all";
   const list = POSTS.filter(p=> filter==="all" || p.channel===filter);
   const box = $("#communityFeed"); if(!box) return;
+  // the composer gets moved INTO the feed by positionComposeBar; detach it first so
+  // box.innerHTML below doesn't destroy it (otherwise it vanishes on every re-render / room open)
+  var _scEl=$("#s-community"), _cbEl=$("#composeBar"), _ccEl=$("#composeCard");
+  if(_scEl){ if(_cbEl) _scEl.appendChild(_cbEl); if(_ccEl) _scEl.appendChild(_ccEl); }
   // when viewing a specific room, show a room-page header with a back arrow to All Rooms
   let roomHdr = "";
   if(filter !== "all"){
