@@ -3399,8 +3399,8 @@ body.is-mobile .rh-badges .rh-trend{margin:0;width:auto}
 .rc-scope .cmp-who i{display:block;font-style:normal;font-size:10.6px;opacity:.8;margin-top:1px}
 .rc-scope .cmp-step{display:flex;align-items:center;gap:7px;font:800 10px var(--font-ui, Manrope);letter-spacing:.09em;text-transform:uppercase;color:var(--muted,#6A6F76);margin:0 0 8px}
 .rc-scope .cmp-step span{width:16px;height:16px;border-radius:50%;background:var(--blue-ink,#3F6E99);color:#fff;font:800 9.5px var(--font-ui, Manrope);display:grid;place-items:center;letter-spacing:0;flex:none}
-.rc-scope .compose textarea{width:100%;border:1.6px solid var(--hair);border-radius:15px;padding:12px 14px;font:inherit;font-size:13.6px;
-  line-height:1.5;resize:none;outline:none;background:var(--paper2);transition:.18s;color:var(--ink,#2E3238)}
+.rc-scope .compose textarea{width:100%;border:1.6px solid var(--hair);border-radius:16px;padding:13px 15px;font:inherit;font-size:13.6px;
+  line-height:1.5;resize:none;outline:none;background:#fff;box-shadow:0 1px 2px rgba(46,50,56,.03) inset;transition:.18s;color:var(--ink,#2E3238)}
 .rc-scope .compose textarea::placeholder{color:var(--muted,#6A6F76);opacity:.85}
 .rc-scope .compose textarea:focus{background:#fff;border-color:var(--blue,#6DA0CC);box-shadow:0 0 0 4px rgba(109,160,204,.16)}
 .rc-scope .cmp-count{font-size:10.8px;color:var(--muted,#6A6F76);margin:7px 2px 0}
@@ -3542,7 +3542,11 @@ body.is-mobile .rh-badges .rh-trend{margin:0;width:auto}
 .rc-scope .compose.just-opened{animation:composeIn .26s cubic-bezier(.22,1,.36,1)}
 .rc-scope .cmp-close{margin-left:auto;flex:none;width:28px;height:28px;border-radius:50%;border:0;background:var(--paper2);color:var(--muted,#6A6F76);font-size:14px;cursor:pointer;transition:.15s}
 .rc-scope .cmp-close:hover{background:var(--coral-tint);color:var(--coral-ink)}
-.rc-scope .cmp-orspeak{font:600 10.5px var(--font-ui, Manrope);color:var(--blue-ink,#3F6E99);opacity:.85;text-transform:none;letter-spacing:0;margin-left:auto}
+.rc-scope .cmp-step2{flex-wrap:wrap}
+.rc-scope .cmp-orspeak{display:inline-flex;align-items:center;gap:4px;margin-left:auto;flex:none;
+  font:700 10px var(--font-ui, Manrope);color:var(--blue-ink,#3F6E99);text-transform:none;letter-spacing:.01em;
+  background:var(--blue-tint);padding:4px 9px 4px 7px;border-radius:999px}
+.rc-scope .cmp-orspeak i,.rc-scope .cmp-orspeak svg{width:12px;height:12px;stroke:currentColor;stroke-width:2.2}
 .rc-scope .cmp-textwrap{position:relative}
 .rc-scope .cmp-textwrap textarea{padding-right:52px}
 .rc-scope .mic-btn{position:absolute;right:9px;bottom:9px;width:38px;height:38px;border-radius:50%;border:0;background:var(--blue-tint);color:var(--blue-ink,#3F6E99);cursor:pointer;display:grid;place-items:center;transition:.16s}
