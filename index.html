@@ -15,7 +15,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
 <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
-<link rel="stylesheet" href="css/styles.css?v=20260805e2">
+<link rel="stylesheet" href="css/styles.css?v=20260805f2">
 </head>
 <body>
 
@@ -857,11 +857,12 @@
       </div>
       <!-- Today's Activity -->
       <div class="scr-eyebrow" style="margin-bottom:8px">Today's Activity</div>
-      <button class="prev-act today-act" onclick="openActivity('crave', true)">
+      <button class="prev-act today-act" id="today-act-crave" onclick="openActivity('crave')">
         <span class="prev-act-ic" style="background:#4E7FA8"><i data-lucide="life-buoy"></i></span>
-        <span class="prev-act-main"><span class="prev-act-t">Managing Cravings</span><span class="prev-act-d">Completed &middot; 4 min</span></span>
-        <span class="prev-act-xpwrap"><span class="prev-act-score">Score : 76</span><span class="prev-act-xp">+10 XP</span></span>
-        <i data-lucide="check" class="prev-act-check"></i>
+        <span class="prev-act-main"><span class="prev-act-t">Managing Cravings</span><span class="prev-act-d">Guided &middot; 4 min</span></span>
+        <span class="prev-act-xpwrap"><span class="prev-act-xp">+20 XP</span></span>
+        <i data-lucide="circle" class="prev-act-pending"></i>
+        <i data-lucide="check" class="prev-act-check" style="display:none"></i>
       </button>
 
       <!-- Previous Activities -->
@@ -3767,6 +3768,6 @@
 </div><!-- /phone -->
 </div><!-- /patient-view -->
 
-<script src="js/app.js?v=20260805e2"></script>
+<script src="js/app.js?v=20260805f2"></script>
 </body>
 </html>

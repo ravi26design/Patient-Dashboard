@@ -20,6 +20,7 @@ function goScreen(id){
   if(id==='profile' && typeof renderProfileLists==='function') renderProfileLists();   /* triggers / relief / contacts */
   if(id==='tools' && typeof actzPaintTiles==='function') actzPaintTiles();   /* mark completed activities */
   if(id==='tools' && typeof applyRecState==='function') applyRecState();   /* Today's Activity done-state */
+  if(id==='tools' && typeof applyTodayActState==='function') applyTodayActState();   /* Managing Cravings card: check only once marked done */
 }
 function openOv(id){
   var el=document.getElementById('ov-'+id);if(!el)return;
@@ -1216,6 +1217,18 @@ function openActivity(id, forceDone){
   openOv('activity');
   var b=document.querySelector('#ov-activity .ov-body'); if(b) b.scrollTop=0;
 }
+/* reflect the Today's Activity (Managing Cravings) done-state on its card:
+   pending circle by default, check only once the user has marked it done */
+function applyTodayActState(){
+  var card=document.getElementById('today-act-crave'); if(!card) return;
+  var done=actDone('crave');
+  var d=card.querySelector('.prev-act-d');
+  var pend=card.querySelector('.prev-act-pending');
+  var chk=card.querySelector('.prev-act-check');
+  if(d) d.textContent=done?'Completed · 4 min':'Guided · 4 min';
+  if(pend) pend.style.display=done?'none':'';
+  if(chk) chk.style.display=done?'':'none';
+}
 /* mark the current activity complete */
 function activityComplete(){
   var id=null; try{ id=localStorage.getItem('rh_act_current'); }catch(e){}
@@ -1223,6 +1236,7 @@ function activityComplete(){
   var first=!actDone(id);
   try{ localStorage.setItem('rh_act_'+id,'1'); }catch(e){}
   actzPaintTiles();
+  applyTodayActState();
   closeDetail('activity');
   if(first && typeof showXPPopup==='function') showXPPopup(a.pts, 'Activity Complete!');
 }
