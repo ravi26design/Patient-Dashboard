@@ -4314,6 +4314,8 @@ body:has(#ov-rooms.active) #bottomNav{z-index:9600}
 .rc-scope .room-hdr-t{display:block;font:800 15px var(--font-ui,Manrope);color:var(--ink)}
 .rc-scope .room-hdr-d{display:block;font-size:12px;color:var(--ink-soft);margin-top:1px}
 body.in-room #s-community > .hub-card{display:none}
+/* keep the composer visible in a room so you can post into it */
+body.in-room #s-community #composeBar{display:flex}
 
 /* Community sub-pages must paint ABOVE the Community page (they precede it in the DOM) */
 #ov-request-room.active,#ov-friends.active,#ov-find-coach.active,#ov-na-meetings.active,#ov-na-meeting-detail.active{z-index:9800}

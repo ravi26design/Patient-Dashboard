@@ -2290,6 +2290,9 @@ function renderCommunityFeed(){
       + '</div>';
   }
   document.body.classList.toggle('in-room', filter!=="all");
+  // composer names the current room so it's clear you're posting into it
+  var _cbph = $("#composeBar .compose-bar-ph");
+  if(_cbph) _cbph.textContent = (filter!=="all" && ROOM_META[filter]) ? ("Share something in "+ROOM_META[filter].name+"…") : "Share something, ask, or just say you're here…";
   const banners = buildFeedBanners();
   if(!list.length){ box.innerHTML = roomHdr + banners + '<div class="emptybox"><b>Quiet in this room right now.</b>Be the first to say something — someone will see it.</div>'; if(window.lucide&&lucide.createIcons) lucide.createIcons(); positionComposeBar(); return; }
   box.innerHTML = roomHdr + banners + list.map(p=>{
