@@ -3407,15 +3407,17 @@ body.is-mobile .rh-badges .rh-trend{margin:0;width:auto}
 .rc-scope .cmp-step2{margin-top:15px}
 .rc-scope .cmp-count.ready{color:var(--sage-ink,#587A5E);font-weight:700}
 .rc-scope .compose .cta{margin-top:13px;transition:.2s}
-.rc-scope .compose .cta:disabled{opacity:.4;cursor:not-allowed}.rc-scope .taggrid{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:11px}
-.rc-scope .taggrid .chip{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;
-  border:1.4px solid var(--hair);background:#fff;border-radius:13px;padding:9px 2px 8px;cursor:pointer;transition:.15s;color:var(--muted,#6A6F76)}
+.rc-scope .compose .cta:disabled{opacity:.4;cursor:not-allowed}.rc-scope .taggrid{display:flex;flex-wrap:nowrap;overflow-x:auto;gap:8px;margin-top:11px;padding-bottom:4px;-ms-overflow-style:none;scrollbar-width:none}
+.rc-scope .taggrid::-webkit-scrollbar{display:none}
+.rc-scope .taggrid .chip{flex:0 0 84px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;
+  border:1.4px solid var(--hair);background:#fff;border-radius:14px;padding:12px 4px;cursor:pointer;transition:.15s;color:var(--muted,#6A6F76)}
 .rc-scope .taggrid .chip em{font-style:normal;font-size:16px;line-height:1}
 .rc-scope .taggrid .chip svg{width:22px;height:22px;stroke-width:2}
 .rc-scope .taggrid .chip.on i,.rc-scope .taggrid .chip.on svg{color:#fff !important}
 .rc-scope .taggrid .chip span{font:700 9.4px var(--font-ui, Manrope);letter-spacing:-.01em;text-align:center;line-height:1.15}
 .rc-scope .taggrid .chip:hover{border-color:var(--blue,#6DA0CC)}
 .rc-scope .taggrid .chip.on{background:var(--blue-ink,#3F6E99);border-color:var(--blue-ink,#3F6E99);color:#fff}
+.rc-scope #composeMoreRooms{display:none}
 .rc-scope .chip{border:1.4px solid var(--hair);background:#fff;border-radius:999px;padding:8px 13px;font:600 12.5px var(--font-ui, Manrope);cursor:pointer;transition:.15s;color:var(--muted,#6A6F76)}
 .rc-scope .chip:hover{border-color:var(--blue,#6DA0CC)}
 .rc-scope .chip.on{background:var(--blue-ink,#3F6E99);border-color:var(--blue-ink,#3F6E99);color:#fff}
