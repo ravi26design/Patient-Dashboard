@@ -4352,3 +4352,14 @@ body.is-desktop:has(#ov-rooms.active) #dnav{z-index:9700}
 body.is-desktop #ov-rooms .ov-header .scr-sub{display:none}
 /* Community title uses the same charcoal as the Progress page title */
 #ov-rooms .ov-header .scr-title{color:var(--ink)}
+
+/* ── Community hub: for now, show ONLY the three navigation cards ──
+   Hides the presence strip, composer, daily prompt, post feed and footer note.
+   Remove this block to bring the feed/composer back. */
+#s-community > .chead,
+#s-community > #composeBar,
+#s-community > #composeCard,
+#s-community > #communityDaily,
+#s-community > #communityChannels,
+#s-community > #communityFeed,
+#s-community > .anon-note{ display:none !important; }
