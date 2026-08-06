@@ -3011,6 +3011,12 @@ body.is-mobile .ins-rec-t{line-height:1.25}
 .sch-card-main .tx-sub{margin-top:3px}
 .sch-card-meta{flex:0 0 auto;display:flex;align-items:center;gap:10px}
 .sch-card-meta .xp-chip{margin:0}
+/* Mobile: on action cards, drop the XP chip + button to their own row below the time,
+   so the title/time get the full card width and stop wrapping awkwardly. */
+body.is-mobile .sch-card:has(.sch-card-meta){display:grid;grid-template-columns:auto 1fr;grid-template-areas:"icon main" "icon meta";column-gap:14px;row-gap:11px;align-items:center}
+body.is-mobile .sch-card:has(.sch-card-meta) .ic-tile{grid-area:icon;align-self:center}
+body.is-mobile .sch-card:has(.sch-card-meta) .sch-card-main{grid-area:main}
+body.is-mobile .sch-card:has(.sch-card-meta) .sch-card-meta{grid-area:meta;justify-content:flex-start}
 
 /* ============ IF-THEN PLAN BUILDER ============ */
 /* live sentence preview */
