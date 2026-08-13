@@ -1462,9 +1462,21 @@ var __wc={start:function(){},stop:function(){}};
 })();
 function enterApp(){
   __wc.stop();
+  window.__detailsFrom='welcome';
   showDetailsScreen();                        /* combined details + mobile-number page */
   var w=document.getElementById('welcome');
   if(w){ w.classList.add('hide'); setTimeout(function(){ w.style.display='none'; }, 520); }
+}
+/* Register/details back arrow → return to wherever we came from (welcome or the login screen) */
+function detailsBack(){
+  hideDetailsScreen();
+  if(window.__detailsFrom==='login'){
+    showLoginScreen();
+    setTimeout(function(){ var i=document.getElementById('loginPhoneInput'); if(i) i.focus(); }, 320);
+  } else {
+    var w=document.getElementById('welcome'); if(w){ w.style.display=''; w.classList.remove('hide'); w.classList.add('show'); }
+    if(window.__wc && __wc.start) __wc.start();
+  }
 }
 /* Guest: skip onboarding and drop straight onto the home screen */
 function loginAsGuest(){
@@ -1505,6 +1517,7 @@ function loginContinue(){
     showOtpScreen();   /* login screen stays behind the dimmed OTP sheet */
   } else {
     /* first time → send them to Register with the number auto-filled */
+    window.__detailsFrom='login';
     hideLoginScreen();
     showDetailsScreen();
     var pf=document.getElementById('phoneInput'); if(pf) pf.value=(inp?inp.value:'');   /* prefill the formatted number */
