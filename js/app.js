@@ -1859,6 +1859,7 @@ function verifyOtp(){
   }
   /* new user: details were already collected before OTP → go straight to the onboarding steps */
   try{ localStorage.setItem('rh_onboarded','1'); if(window.__profile) localStorage.setItem('rh_profile', JSON.stringify(window.__profile)); }catch(e){}
+  if(window.__profile) rhRegisterUser(window.__profile);   /* remember the verified number now so a later log-in goes straight to OTP */
   onbShow('reliefScreen');
   hideOtpScreen();
   hideDetailsScreen();
