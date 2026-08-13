@@ -1553,6 +1553,10 @@ function showDetailsScreen(){ var d=document.getElementById('detailsScreen'); if
 function hideDetailsScreen(){ var d=document.getElementById('detailsScreen'); if(!d) return;
   d.classList.add('hide'); setTimeout(function(){ d.style.display='none'; }, 420); }
 function dtErr(id){ var f=document.getElementById(id); if(f){ f.classList.add('err'); setTimeout(function(){ f.classList.remove('err'); }, 1200); } }
+/* Language segmented control (English / Spanish) */
+function dtPickLang(btn){ var seg=document.getElementById('dtLang'); if(!seg) return;
+  var bs=seg.querySelectorAll('.dt-seg-b'); for(var i=0;i<bs.length;i++) bs[i].classList.remove('on');
+  btn.classList.add('on'); window.__lang=btn.getAttribute('data-lang'); }
 function submitDetails(){
   var name=document.getElementById('dtName'), email=document.getElementById('dtEmail');
   var nameVal=((name&&name.value)||'').trim();
@@ -1567,7 +1571,7 @@ function submitDetails(){
   var pd=((pinp&&pinp.value)||'').replace(/\D/g,'');
   if(pd.length<10){ dtErr('dtPhoneField'); var prow=document.getElementById('phRow'); if(prow){ prow.classList.add('err'); setTimeout(function(){ prow.classList.remove('err'); }, 1200); } if(pinp) pinp.focus(); return; }
   window.__phone=(typeof __cc!=='undefined'&&__cc?__cc.d:'+1')+pd;
-  window.__profile={name:nameVal, username:unameVal, email:emailVal, phone:window.__phone, dob:(window.__dob||null), age:(window.__dob?window.__dob.age:null)};
+  window.__profile={name:nameVal, username:unameVal, email:emailVal, phone:window.__phone, dob:(window.__dob||null), age:(window.__dob?window.__dob.age:null), lang:(window.__lang||'en')};
   var rn=document.getElementById('rhName'); if(rn) rn.textContent=nameVal.split(' ')[0];   /* greet by first name */
   try{ localStorage.setItem('rh_profile', JSON.stringify(window.__profile)); }catch(e){}
   showOtpScreen();   /* verify the number next; onboarding steps continue after OTP */
