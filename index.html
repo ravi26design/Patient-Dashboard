@@ -15,7 +15,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
 <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
-<link rel="stylesheet" href="css/styles.css?v=20260805s2">
+<link rel="stylesheet" href="css/styles.css?v=20260805t2">
 </head>
 <body>
 
@@ -31,7 +31,7 @@
 <!-- ═══ WELCOME SCREEN (after splash) ═══ -->
 <div id="welcome" aria-hidden="true">
   <div class="wc-inner">
-    <div class="wc-guest-top"><button class="wc-guest" type="button" onclick="loginAsGuest()">Log in &rarr;</button></div>
+    <div class="wc-guest-top"><button class="wc-guest" type="button" onclick="startLogin()">Log in &rarr;</button></div>
     <div class="wc-stage">
     <div class="wc-slides"><div class="wc-track" id="wcTrack">
       <div class="wc-slide">
@@ -88,6 +88,28 @@
     </div>
     <button class="otp-resend" id="otpResend" type="button" onclick="resendOtp()">Resend code</button>
     <button class="wc-begin ph-send" type="button" onclick="verifyOtp()">Verify <span aria-hidden="true">&rarr;</span></button>
+  </div>
+</div>
+
+<!-- ═══ LOGIN SCREEN (mobile number → OTP if registered, else Register with number prefilled) ═══ -->
+<div id="loginScreen" aria-hidden="true">
+  <button class="lg-back" type="button" onclick="loginBack()" aria-label="Back"><i data-lucide="arrow-left"></i></button>
+  <div class="phone-inner">
+    <div class="ph-stage dt-stage">
+      <div class="ph-badge ph-badge-ic"><i data-lucide="smartphone"></i></div>
+      <h1 class="ph-title">Log in</h1>
+      <p class="ph-sub">Enter your mobile number and we'll text you a code.</p>
+      <div class="dt-fields">
+        <div class="dt-field" id="lgPhoneField">
+          <label class="dt-label" for="loginPhoneInput">Mobile number <span class="dt-req">*</span></label>
+          <div class="ph-row dt-phrow" id="loginPhRow">
+            <span class="ph-cc lg-cc"><span class="cc-flag">🇺🇸</span><span class="cc-dial">+1</span></span>
+            <input id="loginPhoneInput" class="ph-input" type="tel" inputmode="numeric" autocomplete="tel" placeholder="(555) 123-4567" maxlength="14" oninput="fmtPhone(this)" onkeydown="if(event.key==='Enter'){event.preventDefault();loginContinue();}">
+          </div>
+        </div>
+      </div>
+    </div>
+    <button class="wc-begin ph-send" type="button" onclick="loginContinue()">Continue <span aria-hidden="true">&rarr;</span></button>
   </div>
 </div>
 
@@ -3803,6 +3825,6 @@
 </div><!-- /phone -->
 </div><!-- /patient-view -->
 
-<script src="js/app.js?v=20260805s2"></script>
+<script src="js/app.js?v=20260805t2"></script>
 </body>
 </html>

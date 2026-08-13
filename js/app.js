@@ -1478,6 +1478,39 @@ function loginAsGuest(){
   if(typeof goScreen==='function') goScreen('home');
   if(typeof scheduleCheckin==='function') scheduleCheckin();
 }
+/* ═══ LOGIN (returning user): number → OTP if registered, else Register with the number prefilled ═══ */
+function showLoginScreen(){ var s=document.getElementById('loginScreen'); if(s){ s.style.display=''; s.classList.remove('hide'); s.classList.add('show'); } }
+function hideLoginScreen(){ var s=document.getElementById('loginScreen'); if(!s) return;
+  s.classList.add('hide'); setTimeout(function(){ s.style.display='none'; s.classList.remove('show','hide'); }, 420); }
+function startLogin(){
+  if(window.__wc && __wc.stop) __wc.stop();
+  var w=document.getElementById('welcome');
+  if(w){ w.classList.add('hide'); setTimeout(function(){ w.style.display='none'; }, 520); }
+  showLoginScreen();
+  setTimeout(function(){ var i=document.getElementById('loginPhoneInput'); if(i) i.focus(); }, 320);
+}
+function loginBack(){
+  hideLoginScreen();
+  var w=document.getElementById('welcome'); if(w){ w.style.display=''; w.classList.remove('hide'); w.classList.add('show'); }
+  if(window.__wc && __wc.start) __wc.start();
+}
+function loginContinue(){
+  var inp=document.getElementById('loginPhoneInput');
+  var d=((inp&&inp.value)||'').replace(/\D/g,'');
+  if(d.length<10){ var row=document.getElementById('loginPhRow'); if(row){ row.classList.add('err'); setTimeout(function(){ row.classList.remove('err'); },1200); } if(inp) inp.focus(); return; }
+  window.__phone=(typeof __cc!=='undefined'&&__cc?__cc.d:'+1')+d;
+  var existing=rhGetUser(window.__phone);
+  if(existing){
+    /* registered → just verify with OTP, then home (verifyOtp routes a known number home) */
+    showOtpScreen();   /* login screen stays behind the dimmed OTP sheet */
+  } else {
+    /* first time → send them to Register with the number auto-filled */
+    hideLoginScreen();
+    showDetailsScreen();
+    var pf=document.getElementById('phoneInput'); if(pf) pf.value=(inp?inp.value:'');   /* prefill the formatted number */
+    setTimeout(function(){ var n=document.getElementById('dtName'); if(n) n.focus(); }, 320);
+  }
+}
 /* ═══ MOBILE NUMBER ═══ */
 function showPhoneScreen(){ var p=document.getElementById('phoneScreen'); if(p) p.classList.add('show'); }
 function hidePhoneScreen(){ var p=document.getElementById('phoneScreen'); if(!p) return;
@@ -1801,7 +1834,9 @@ function verifyOtp(){
     try{ localStorage.setItem('rh_profile', JSON.stringify(existing)); localStorage.setItem('rh_onboarded','1'); }catch(e){}
     var rn=document.getElementById('rhName'); if(rn && existing.name) rn.textContent=String(existing.name).split(' ')[0];
     hideOtpScreen();
+    hideLoginScreen();             /* if we came from the login screen */
     hideDetailsScreen();           /* reveal the home dashboard behind */
+    if(typeof goScreen==='function') goScreen('home');
     scheduleCheckin();             /* daily check-in prompt 2s after landing on home */
     return;
   }

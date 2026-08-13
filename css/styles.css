@@ -1708,6 +1708,22 @@ body.is-desktop .brand-img{height:26px}
 @media (min-width:900px){ .dt-input{font-size:17px} .dt-label{font-size:14px} }
 
 /* ═══ OTP VERIFICATION SCREEN ═══ */
+/* Login screen — same full-screen treatment as the details/register screen */
+#loginScreen{position:fixed;inset:0;z-index:9560;display:none;
+  flex-direction:column;align-items:center;justify-content:flex-start;text-align:center;
+  overflow-y:auto;-webkit-overflow-scrolling:touch;
+  padding:48px 30px calc(34px + env(safe-area-inset-bottom));
+  background:
+    radial-gradient(120% 62% at 50% 6%, rgba(196,160,136,.26), transparent 56%),
+    radial-gradient(120% 70% at 50% 102%, rgba(110,158,128,.20), transparent 60%),
+    var(--app-bg)}
+#loginScreen.show{display:flex;animation:wcIn .55s cubic-bezier(.2,.7,.3,1) both}
+#loginScreen.hide{opacity:0;visibility:hidden;pointer-events:none;transition:opacity .4s ease, visibility .4s ease}
+#loginScreen .phone-inner{flex:0 0 auto;min-height:100%;justify-content:flex-start}
+#loginScreen .ph-send{margin-top:24px}
+#loginScreen .lg-cc{cursor:default}
+.lg-back{position:absolute;top:calc(16px + env(safe-area-inset-top));left:16px;width:40px;height:40px;border-radius:50%;border:none;background:#fff;color:var(--ink);display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 4px 14px -6px rgba(54,59,59,.3);z-index:2}
+.lg-back i,.lg-back svg{width:20px;height:20px}
 #otpScreen{position:fixed;inset:0;z-index:9600;display:none;
   align-items:flex-end;justify-content:center;text-align:center;
   background:rgba(40,36,33,.44)}
