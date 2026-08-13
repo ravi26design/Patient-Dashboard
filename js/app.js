@@ -1549,9 +1549,9 @@ function sendCode(){
   showOtpScreen();       /* OTP slides up as a bottom sheet over the (dimmed) phone screen */
 }
 /* ═══ DETAILS (name / email / age) ═══ */
-function showDetailsScreen(){ var d=document.getElementById('detailsScreen'); if(d) d.classList.add('show'); }
+function showDetailsScreen(){ var d=document.getElementById('detailsScreen'); if(d){ d.style.display=''; d.classList.remove('hide'); d.classList.add('show'); } }
 function hideDetailsScreen(){ var d=document.getElementById('detailsScreen'); if(!d) return;
-  d.classList.add('hide'); setTimeout(function(){ d.style.display='none'; }, 420); }
+  d.classList.add('hide'); setTimeout(function(){ d.style.display='none'; d.classList.remove('show','hide'); }, 420); }
 function dtErr(id){ var f=document.getElementById(id); if(f){ f.classList.add('err'); setTimeout(function(){ f.classList.remove('err'); }, 1200); } }
 /* Language segmented control (English / Spanish) */
 function dtPickLang(btn){ var seg=document.getElementById('dtLang'); if(!seg) return;
