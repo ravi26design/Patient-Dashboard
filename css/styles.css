@@ -4425,3 +4425,9 @@ body:not(.in-room) #s-community > .anon-note{ display:none !important; }
 .aps-add{background:linear-gradient(135deg,#6DA0CC,#3F6E99);color:#fff;box-shadow:0 8px 20px -8px rgba(63,110,153,.6)}
 .aps-add:active{transform:scale(.98)}
 .aps-add:disabled{opacity:.4;box-shadow:none;cursor:not-allowed}
+
+/* ── Community stays a bottom-nav destination: keep the tab bar visible under
+   the Community overlay (inset its bottom by the 60px nav height) so users can
+   tap out to Home/Progress/Rewards. Mobile only (desktop uses the sidebar). ── */
+body.is-mobile #ov-rooms.active{bottom:60px}
+body.is-mobile:has(#ov-rooms.active) .bottom-nav{z-index:400}
