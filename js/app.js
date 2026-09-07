@@ -17,6 +17,7 @@ function goScreen(id){
   document.getElementById('screenArea').scrollTop=0;
   if(id==='mat'){ setTimeout(updatePatternChart,50); setTimeout(updateRecoveryHealthChart,50); }
   if(id==='home' && typeof scheduleCheckin==='function') scheduleCheckin();   /* daily check-in prompt 2s after landing on home */
+  if(id==='home' && typeof maybeStartTour==='function') setTimeout(function(){ if(!document.querySelector('.overlay.active') && (document.body.getAttribute('data-screen')||'')==='home') maybeStartTour(); }, 650);   /* first-run feature tour on a clear home */
   if(id==='profile' && typeof renderProfileLists==='function') renderProfileLists();   /* triggers / relief / contacts */
   if(id==='tools' && typeof actzPaintTiles==='function') actzPaintTiles();   /* mark completed activities */
   if(id==='tools' && typeof applyRecState==='function') applyRecState();   /* Today's Activity done-state */
@@ -1688,7 +1689,7 @@ function tourRect(i){ var s=TOUR_STEPS[i]; if(!s) return null; var el=document.q
   var r=el.getBoundingClientRect(); if(r.width<2||r.height<2) return null; return r; }
 function maybeStartTour(){
   if(window.__tourActive) return false;
-  try{ if(localStorage.getItem('rh_tour_seen')==='1') return false; }catch(e){}
+  try{ if(localStorage.getItem('rh_tour_seen_v2')==='1') return false; }catch(e){}
   var t=document.getElementById('appTour'); if(!t) return false;
   __tourVis=[]; for(var i=0;i<TOUR_STEPS.length;i++){ if(tourRect(i)) __tourVis.push(i); }
   if(!__tourVis.length) return false;   /* nothing on screen to point at yet */
@@ -1737,7 +1738,7 @@ function tourSkip(){ tourDone(); }
 function tourBackdrop(e){ if(e&&e.target&&e.target.id==='appTour') tourNext(); }
 function tourReposition(){ if(window.__tourActive) renderTour(); }
 function tourDone(){
-  try{ localStorage.setItem('rh_tour_seen','1'); }catch(e){}
+  try{ localStorage.setItem('rh_tour_seen_v2','1'); }catch(e){}
   var t=document.getElementById('appTour'); if(t){ t.classList.remove('on'); t.setAttribute('aria-hidden','true'); }
   window.removeEventListener('resize', tourReposition);
   window.__tourActive=false;
@@ -1823,8 +1824,12 @@ function finishOnbFlow(){ setTimeout(function(){ showDoneModal(); if(window.__do
         openOv(lastOv);
       }
     }
-    /* first-run feature tour for users onboarded before it existed — once, only on the home screen */
-    if(!lastOv) setTimeout(function(){ if(typeof maybeStartTour==='function') maybeStartTour(); }, 900);
+    /* first-run feature tour — once, only when we actually land on a clear home (no overlay covering it) */
+    setTimeout(function(){
+      if(document.querySelector('.overlay.active')) return;
+      if((document.body.getAttribute('data-screen')||'home')!=='home') return;
+      if(typeof maybeStartTour==='function') maybeStartTour();
+    }, 900);
     return;
   }
   /* new user — run the full flow: splash -> intro -> mobile number -> OTP -> details -> location -> home */
