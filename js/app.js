@@ -1817,6 +1817,8 @@ function finishOnbFlow(){ setTimeout(function(){ showDoneModal(); if(window.__do
         openOv(lastOv);
       }
     }
+    /* first-run feature tour for users onboarded before it existed — once, only on the home screen */
+    if(!lastOv) setTimeout(function(){ if(typeof maybeStartTour==='function') maybeStartTour(); }, 900);
     return;
   }
   /* new user — run the full flow: splash -> intro -> mobile number -> OTP -> details -> location -> home */
