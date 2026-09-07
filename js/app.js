@@ -1678,10 +1678,10 @@ function showCheckinModal(){ var m=document.getElementById('checkinModal'); if(!
   m.classList.remove('hide'); m.classList.add('show'); if(window.lucide&&lucide.createIcons) lucide.createIcons(); }
 /* ═══ FIRST-RUN FEATURE TOUR (coach marks; shown once, then never again) ═══ */
 var TOUR_STEPS=[
-  {sel:'.rh-card', title:'Recovery Health', text:'Your daily score of how things are going. Tap it any time for a deeper look.'},
-  {sel:'#screen-home .rt-section', title:'Your day, one tap at a time', text:'Meds, a quick reflection and connecting live here — each one earns you XP.'},
-  {sel:'.bottom-nav [onclick*="rooms"]', title:'Community', text:'Find people who get it. Share and get support — always anonymous.'},
-  {sel:'.nav-sos', title:'Help, one tap away', text:'Struggling right now? Tap HELP any time to reach real support fast.'}
+  {sel:'.rh-card', icon:'activity', color:'#5E8B6E', title:'Recovery Health', text:'Your daily score of how recovery is going. Tap it any time for a deeper look.'},
+  {sel:'#screen-home .rt-section', icon:'list-checks', color:'#C9973B', title:'Your daily plan', text:'Meds, a quick reflection and connecting live here — each one earns you XP.'},
+  {sel:'.bottom-nav [onclick*="rooms"]', icon:'users-round', color:'#4E7FA8', title:'Community', text:'Find people who get it. Share and get support — always anonymous.'},
+  {sel:'.nav-sos', icon:'life-buoy', color:'#C56A5E', title:'Help, one tap away', text:'Struggling right now? Tap HELP to reach real support, fast.'}
 ];
 var __tourVis=[], __tourPos=0;
 function tourRect(i){ var s=TOUR_STEPS[i]; if(!s) return null; var el=document.querySelector(s.sel); if(!el) return null;
@@ -1708,12 +1708,18 @@ function renderTour(){
   var spot=document.getElementById('tourSpot');
   spot.style.left=(r.left-pad)+'px'; spot.style.top=(r.top-pad)+'px';
   spot.style.width=(r.width+pad*2)+'px'; spot.style.height=(r.height+pad*2)+'px';
-  document.getElementById('tourStep').textContent=(__tourPos+1)+' of '+__tourVis.length;
+  document.getElementById('tourStep').textContent='Step '+(__tourPos+1)+' of '+__tourVis.length;
   document.getElementById('tourTitle').textContent=s.title;
   document.getElementById('tourText').textContent=s.text;
+  var ic=document.getElementById('tourIc');
+  if(ic){ ic.style.background='color-mix(in srgb, '+s.color+' 15%, #fff)'; ic.style.color=s.color; ic.innerHTML='<i data-lucide="'+s.icon+'"></i>'; }
   var ds=document.querySelectorAll('#tourDots span'); for(var d=0;d<ds.length;d++) ds[d].classList.toggle('on',d===__tourPos);
-  document.getElementById('tourNext').textContent=(__tourPos>=__tourVis.length-1)?'Got it':'Next';
+  var last=(__tourPos>=__tourVis.length-1);
+  var nb=document.getElementById('tourNext'); if(nb) nb.innerHTML = last ? 'Got it' : 'Next <i data-lucide="arrow-right"></i>';
   positionTourTip(r);
+  if(window.lucide&&lucide.createIcons) lucide.createIcons();
+  var tip=document.getElementById('tourTip');
+  if(tip){ tip.classList.remove('pop'); void tip.offsetWidth; tip.classList.add('pop'); }
 }
 function positionTourTip(r){
   var tip=document.getElementById('tourTip'); if(!tip) return;
