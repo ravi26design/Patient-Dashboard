@@ -1489,6 +1489,7 @@ function loginAsGuest(){
   if(w){ w.classList.add('hide'); setTimeout(function(){ w.style.display='none'; }, 420); }
   if(typeof goScreen==='function') goScreen('home');
   if(typeof scheduleCheckin==='function') scheduleCheckin();
+  setTimeout(function(){ if(typeof maybeStartTour==='function') maybeStartTour(); }, 700);   /* first-run feature tour for guests too */
 }
 /* ═══ LOGIN (returning user): number → OTP if registered, else Register with the number prefilled ═══ */
 function showLoginScreen(){ var s=document.getElementById('loginScreen'); if(s){ s.style.display=''; s.classList.remove('hide'); s.classList.add('show'); } }
@@ -1672,7 +1673,70 @@ function scheduleCheckin(){ if(window.__checkinTimer) clearTimeout(window.__chec
   window.__checkinTimer=setTimeout(showCheckinModal, 2000); }   /* every time home is shown, after 2s */
 function showCheckinModal(){ var m=document.getElementById('checkinModal'); if(!m) return;
   if((document.body.getAttribute('data-screen')||'home')!=='home') return;   /* daily check-in prompt only on the home page */
+  if(window.__tourActive) return;                                            /* don't interrupt the first-run tour */
+  if(typeof maybeStartTour==='function' && maybeStartTour()) return;         /* first run: show the feature tour instead */
   m.classList.remove('hide'); m.classList.add('show'); if(window.lucide&&lucide.createIcons) lucide.createIcons(); }
+/* ═══ FIRST-RUN FEATURE TOUR (coach marks; shown once, then never again) ═══ */
+var TOUR_STEPS=[
+  {sel:'.rh-card', title:'Recovery Health', text:'Your daily score of how things are going. Tap it any time for a deeper look.'},
+  {sel:'#screen-home .rt-section', title:'Your day, one tap at a time', text:'Meds, a quick reflection and connecting live here — each one earns you XP.'},
+  {sel:'.bottom-nav [onclick*="rooms"]', title:'Community', text:'Find people who get it. Share and get support — always anonymous.'},
+  {sel:'.nav-sos', title:'Help, one tap away', text:'Struggling right now? Tap HELP any time to reach real support fast.'}
+];
+var __tourVis=[], __tourPos=0;
+function tourRect(i){ var s=TOUR_STEPS[i]; if(!s) return null; var el=document.querySelector(s.sel); if(!el) return null;
+  var r=el.getBoundingClientRect(); if(r.width<2||r.height<2) return null; return r; }
+function maybeStartTour(){
+  if(window.__tourActive) return false;
+  try{ if(localStorage.getItem('rh_tour_seen')==='1') return false; }catch(e){}
+  var t=document.getElementById('appTour'); if(!t) return false;
+  __tourVis=[]; for(var i=0;i<TOUR_STEPS.length;i++){ if(tourRect(i)) __tourVis.push(i); }
+  if(!__tourVis.length) return false;   /* nothing on screen to point at yet */
+  window.__tourActive=true;
+  var dots=document.getElementById('tourDots');
+  if(dots){ var h=''; for(var k=0;k<__tourVis.length;k++) h+='<span></span>'; dots.innerHTML=h; }
+  t.classList.add('on'); t.setAttribute('aria-hidden','false');
+  window.addEventListener('resize', tourReposition);
+  __tourPos=0; renderTour();
+  return true;
+}
+function renderTour(){
+  if(__tourPos>=__tourVis.length){ tourDone(); return; }
+  var idx=__tourVis[__tourPos], r=tourRect(idx);
+  if(!r){ __tourVis.splice(__tourPos,1); if(!__tourVis.length){ tourDone(); return; } renderTour(); return; }
+  var s=TOUR_STEPS[idx], pad=8;
+  var spot=document.getElementById('tourSpot');
+  spot.style.left=(r.left-pad)+'px'; spot.style.top=(r.top-pad)+'px';
+  spot.style.width=(r.width+pad*2)+'px'; spot.style.height=(r.height+pad*2)+'px';
+  document.getElementById('tourStep').textContent=(__tourPos+1)+' of '+__tourVis.length;
+  document.getElementById('tourTitle').textContent=s.title;
+  document.getElementById('tourText').textContent=s.text;
+  var ds=document.querySelectorAll('#tourDots span'); for(var d=0;d<ds.length;d++) ds[d].classList.toggle('on',d===__tourPos);
+  document.getElementById('tourNext').textContent=(__tourPos>=__tourVis.length-1)?'Got it':'Next';
+  positionTourTip(r);
+}
+function positionTourTip(r){
+  var tip=document.getElementById('tourTip'); if(!tip) return;
+  var vw=window.innerWidth, vh=window.innerHeight, gap=14, margin=12;
+  var tw=tip.offsetWidth, th=tip.offsetHeight;
+  var below=(r.bottom+gap+th)<=(vh-margin);
+  var top=below? r.bottom+gap : Math.max(margin, r.top-gap-th);
+  var left=Math.min(Math.max(margin, r.left+r.width/2 - tw/2), vw-tw-margin);
+  tip.classList.toggle('below', below); tip.classList.toggle('above', !below);
+  tip.style.left=left+'px'; tip.style.top=top+'px';
+  tip.style.setProperty('--arrow', Math.min(Math.max(16, (r.left+r.width/2)-left-8), tw-30)+'px');
+}
+function tourNext(){ __tourPos++; renderTour(); }
+function tourSkip(){ tourDone(); }
+function tourBackdrop(e){ if(e&&e.target&&e.target.id==='appTour') tourNext(); }
+function tourReposition(){ if(window.__tourActive) renderTour(); }
+function tourDone(){
+  try{ localStorage.setItem('rh_tour_seen','1'); }catch(e){}
+  var t=document.getElementById('appTour'); if(t){ t.classList.remove('on'); t.setAttribute('aria-hidden','true'); }
+  window.removeEventListener('resize', tourReposition);
+  window.__tourActive=false;
+  if(typeof scheduleCheckin==='function') scheduleCheckin();   /* resume the daily check-in after the tour */
+}
 function hideCheckinModal(){ if(window.__checkinTimer){ clearTimeout(window.__checkinTimer); window.__checkinTimer=null; }
   var m=document.getElementById('checkinModal'); if(!m) return;
   m.classList.add('hide'); setTimeout(function(){ m.classList.remove('show','hide'); m.style.display='none'; }, 340); }
@@ -1699,7 +1763,8 @@ function ciCancel(){ window.__ciMode=false; onbHide('triggersScreen'); onbHide('
 /* ═══ LOCATION PERMISSION ═══ */
 function showLocModal(){ var m=document.getElementById('locModal'); if(m) m.classList.add('show'); }
 function hideLocModal(){ var m=document.getElementById('locModal'); if(!m) return;
-  m.classList.add('hide'); setTimeout(function(){ m.style.display='none'; }, 320); }
+  m.classList.add('hide'); setTimeout(function(){ m.style.display='none'; }, 320);
+  setTimeout(function(){ if(typeof maybeStartTour==='function') maybeStartTour(); }, 520);   /* first-run feature tour once onboarding ends */ }
 function allowLocation(){
   hideLocModal();
   /* trigger the real browser/system location prompt */
