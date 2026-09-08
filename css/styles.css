@@ -4485,5 +4485,6 @@ body.is-desktop .audio-btn{left:auto;right:24px;bottom:24px}
 #appTour.centered{background:rgba(13,15,19,.82)}
 .tour-card:not(.above):not(.below) .tour-beak{display:none}
 
-/* Hide the Listen button on the Profile page (it already has its own menu) */
-body[data-screen="profile"] .audio-btn{display:none}
+/* Hide the Listen button on the Home and Profile pages */
+body[data-screen="profile"] .audio-btn,
+body[data-screen="home"] .audio-btn{display:none}
