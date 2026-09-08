@@ -1491,7 +1491,7 @@ function loginAsGuest(){
   if(w){ w.classList.add('hide'); setTimeout(function(){ w.style.display='none'; }, 420); }
   if(typeof goScreen==='function') goScreen('home');
   if(typeof scheduleCheckin==='function') scheduleCheckin();
-  setTimeout(function(){ if(typeof maybeStartTour==='function') maybeStartTour(); }, 700);   /* first-run feature tour for guests too */
+  if(typeof startTourWatchdog==='function') startTourWatchdog();   /* first-run feature tour for guests too */
 }
 /* ═══ LOGIN (returning user): number → OTP if registered, else Register with the number prefilled ═══ */
 function showLoginScreen(){ var s=document.getElementById('loginScreen'); if(s){ s.style.display=''; s.classList.remove('hide'); s.classList.add('show'); } }
@@ -1779,10 +1779,45 @@ function tourBackdrop(e){ if(e&&e.target&&e.target.id==='appTour') tourNext(); }
 function tourReposition(){ if(window.__tourActive) renderTour(); }
 function tourDone(){
   try{ localStorage.setItem('rh_tour_seen_v2','1'); }catch(e){}
+  if(window.__tourWD){ clearInterval(window.__tourWD); window.__tourWD=null; }
   var t=document.getElementById('appTour'); if(t){ t.classList.remove('on'); t.setAttribute('aria-hidden','true'); }
   window.removeEventListener('resize', tourReposition);
   window.__tourActive=false;
   if(typeof scheduleCheckin==='function') scheduleCheckin();   /* resume the daily check-in after the tour */
+}
+/* is a welcome/onboarding screen or a post-onboarding modal currently covering home? */
+function tourBlockingUiOpen(){
+  var ids=['welcome','splash','detailsScreen','otpScreen','loginScreen'];
+  for(var i=0;i<ids.length;i++){ var e=document.getElementById(ids[i]);
+    if(e && e.classList.contains('show') && getComputedStyle(e).display!=='none') return true; }
+  var mods=['doneModal','locModal','checkinModal'];
+  for(var j=0;j<mods.length;j++){ var m=document.getElementById(mods[j]); if(m && m.classList.contains('show')) return true; }
+  return false;
+}
+/* Watchdog: keep checking until the user is on a clean home screen, then fire the guide once.
+   Robust against onboarding modals, restored overlays, and timing quirks. */
+function startTourWatchdog(){
+  try{ if(localStorage.getItem('rh_tour_seen_v2')==='1') return; }catch(e){}
+  if(window.__tourWD) return;
+  var tries=0;
+  window.__tourWD=setInterval(function(){
+    tries++;
+    var seen=false; try{ seen=localStorage.getItem('rh_tour_seen_v2')==='1'; }catch(e){}
+    if(seen || tries>90){ clearInterval(window.__tourWD); window.__tourWD=null; return; }
+    if(window.__tourActive) return;
+    if(document.querySelector('.overlay.active')) return;
+    if((document.body.getAttribute('data-screen')||'')!=='home') return;
+    if(tourBlockingUiOpen()) return;
+    if(maybeStartTour()){ clearInterval(window.__tourWD); window.__tourWD=null; }
+  }, 700);
+}
+/* Manual replay (from Profile) — clears the seen flag and starts fresh on home */
+function replayTour(){
+  try{ localStorage.removeItem('rh_tour_seen_v2'); }catch(e){}
+  window.__tourActive=false;
+  if(typeof closeOv==='function') closeOv();
+  if(typeof goScreen==='function') goScreen('home');
+  setTimeout(function(){ if(typeof maybeStartTour==='function') maybeStartTour(); }, 450);
 }
 function hideCheckinModal(){ if(window.__checkinTimer){ clearTimeout(window.__checkinTimer); window.__checkinTimer=null; }
   var m=document.getElementById('checkinModal'); if(!m) return;
@@ -1811,7 +1846,7 @@ function ciCancel(){ window.__ciMode=false; onbHide('triggersScreen'); onbHide('
 function showLocModal(){ var m=document.getElementById('locModal'); if(m) m.classList.add('show'); }
 function hideLocModal(){ var m=document.getElementById('locModal'); if(!m) return;
   m.classList.add('hide'); setTimeout(function(){ m.style.display='none'; }, 320);
-  setTimeout(function(){ if(typeof maybeStartTour==='function') maybeStartTour(); }, 520);   /* first-run feature tour once onboarding ends */ }
+  if(typeof startTourWatchdog==='function') startTourWatchdog();   /* first-run feature tour once onboarding ends */ }
 function allowLocation(){
   hideLocModal();
   /* trigger the real browser/system location prompt */
@@ -1864,12 +1899,8 @@ function finishOnbFlow(){ setTimeout(function(){ showDoneModal(); if(window.__do
         openOv(lastOv);
       }
     }
-    /* first-run feature tour — once, only when we actually land on a clear home (no overlay covering it) */
-    setTimeout(function(){
-      if(document.querySelector('.overlay.active')) return;
-      if((document.body.getAttribute('data-screen')||'home')!=='home') return;
-      if(typeof maybeStartTour==='function') maybeStartTour();
-    }, 900);
+    /* first-run feature tour — watchdog fires it once the user is on a clean home screen */
+    if(typeof startTourWatchdog==='function') startTourWatchdog();
     return;
   }
   /* new user — run the full flow: splash -> intro -> mobile number -> OTP -> details -> location -> home */
