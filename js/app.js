@@ -1698,7 +1698,28 @@ var PAGE_NARRATION={
 };
 function currentPageKey(){ var ov=document.querySelector('.overlay.active'); if(ov&&ov.id) return ov.id.replace(/^ov-/,''); return document.body.getAttribute('data-screen')||'home'; }
 function stopPageAudio(){ try{ if(window.speechSynthesis) window.speechSynthesis.cancel(); }catch(e){} window.__speaking=false;
-  var b=document.getElementById('audioBtn'); if(b){ b.classList.remove('speaking'); b.setAttribute('aria-label','Listen to this page'); } }
+  var b=document.getElementById('audioBtn'); if(b){ b.classList.remove('speaking'); b.setAttribute('aria-label','Listen to this page'); }
+  if(window.__audioBtnEl){ window.__audioBtnEl.classList.remove('speaking'); window.__audioBtnEl.setAttribute('aria-label','Listen to this page'); window.__audioBtnEl=null; } }
+/* Speak arbitrary text, toggling a specific button's "speaking" state */
+function speakText(text, btn){
+  if(!('speechSynthesis' in window)){ if(typeof toast==='function') toast("Audio isn't supported on this browser."); return; }
+  if(window.__speaking || window.speechSynthesis.speaking){ stopPageAudio(); return; }   /* tap again = stop */
+  if(!text) return;
+  var u=new SpeechSynthesisUtterance(text); u.rate=1; u.pitch=1; u.lang='en-US';
+  window.__audioBtnEl=btn||null;
+  u.onstart=function(){ window.__speaking=true; if(btn){ btn.classList.add('speaking'); btn.setAttribute('aria-label','Stop narration'); } };
+  u.onend=function(){ window.__speaking=false; if(btn){ btn.classList.remove('speaking'); btn.setAttribute('aria-label','Listen to this page'); } window.__audioBtnEl=null; };
+  u.onerror=u.onend;
+  try{ window.speechSynthesis.cancel(); window.speechSynthesis.speak(u); }catch(e){}
+}
+/* Read the whole Daily Insight page aloud — summary + all Key Takeaways */
+function speakInsight(btn){
+  var parts=["Daily Insight. Here's your recovery summary for today."];
+  var ps=document.querySelectorAll('#ov-insights .ins-tk-p');
+  for(var i=0;i<ps.length;i++){ var t=(ps[i].textContent||'').trim(); if(t) parts.push(t); }
+  if(parts.length===1 && PAGE_NARRATION.insights) parts.push(PAGE_NARRATION.insights);
+  speakText(parts.join(' '), btn);
+}
 function speakPage(){
   if(!('speechSynthesis' in window)){ if(typeof toast==='function') toast("Audio isn't supported on this browser."); return; }
   if(window.__speaking || window.speechSynthesis.speaking){ stopPageAudio(); return; }   /* tap again = stop */
