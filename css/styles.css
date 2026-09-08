@@ -4465,3 +4465,18 @@ body.is-mobile:has(#ov-rooms.active) .bottom-nav{z-index:400}
 .tour-card.below .tour-beak{top:-8px;box-shadow:-3px -3px 9px -5px rgba(0,0,0,.18)}
 .tour-card.above .tour-beak{bottom:-8px;box-shadow:4px 4px 9px -5px rgba(0,0,0,.18)}
 @media (prefers-reduced-motion:reduce){.tour-spot::after,.tour-card.pop,#appTour.on{animation:none}}
+
+/* ═══ Listen-to-page audio button (accessibility) ═══ */
+.audio-btn{position:fixed;left:14px;bottom:calc(74px + env(safe-area-inset-bottom));z-index:9200;width:46px;height:46px;border-radius:50%;border:none;background:#fff;color:var(--blue-ink,#3F6E99);box-shadow:0 6px 18px -6px rgba(58,51,48,.4),0 0 0 1px rgba(60,50,45,.06);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:transform .15s,background .2s}
+.audio-btn > svg,.audio-btn > i[data-lucide]{width:22px;height:22px;stroke-width:2}
+.audio-btn:active{transform:scale(.92)}
+.audio-btn .audio-eq{display:none;align-items:flex-end;gap:2.5px;height:18px}
+.audio-btn .audio-eq i{width:3px;background:#fff;border-radius:2px;transform-origin:bottom;animation:audioEq 1s ease-in-out infinite}
+.audio-btn .audio-eq i:nth-child(1){height:8px}
+.audio-btn .audio-eq i:nth-child(2){height:16px;animation-delay:.18s}
+.audio-btn .audio-eq i:nth-child(3){height:11px;animation-delay:.36s}
+@keyframes audioEq{0%,100%{transform:scaleY(.4)}50%{transform:scaleY(1)}}
+.audio-btn.speaking{background:var(--blue-ink,#3F6E99);color:#fff}
+.audio-btn.speaking > svg,.audio-btn.speaking > i[data-lucide]{display:none}
+.audio-btn.speaking .audio-eq{display:flex}
+body.is-desktop .audio-btn{left:auto;right:24px;bottom:24px}

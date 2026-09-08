@@ -24,6 +24,7 @@ function goScreen(id){
   if(id==='tools' && typeof applyTodayActState==='function') applyTodayActState();   /* Managing Cravings card: check only once marked done */
 }
 function openOv(id){
+  if(typeof stopPageAudio==='function')stopPageAudio();
   var el=document.getElementById('ov-'+id);if(!el)return;
   /* desktop: counter the page zoom so the fixed overlay covers the viewport at native scale */
   if(document.body.classList.contains('is-desktop') && window.__deskF){ var _vw=window.innerWidth; var _t=Math.min(1.3,(_vw-24)/620); el.style.zoom=_t/window.__deskF; }
@@ -45,7 +46,7 @@ function openOv(id){
   if(id==='location-checkin'){ el.querySelectorAll('.loc-opt.sel').forEach(function(o){o.classList.remove('sel');}); var _sb=document.getElementById('loc-submit'); if(_sb) _sb.classList.remove('ready'); }  /* fresh state each open */
   try{localStorage.setItem('rh_ov',id);}catch(e){}
 }
-function closeOv(){if(typeof stopBreath==='function')stopBreath();if(typeof stopUrgeBreath==='function')stopUrgeBreath();if(call911Timer){clearInterval(call911Timer);call911Timer=null;}document.querySelectorAll('.overlay').forEach(function(o){o.classList.remove('active');o.style.zoom='';});try{localStorage.removeItem('rh_ov');}catch(e){}}
+function closeOv(){if(typeof stopPageAudio==='function')stopPageAudio();if(typeof stopBreath==='function')stopBreath();if(typeof stopUrgeBreath==='function')stopUrgeBreath();if(call911Timer){clearInterval(call911Timer);call911Timer=null;}document.querySelectorAll('.overlay').forEach(function(o){o.classList.remove('active');o.style.zoom='';});try{localStorage.removeItem('rh_ov');}catch(e){}}
 /* keep rh_ov pointing at the topmost overlay still open (or clear it) so a refresh restores the real current view */
 function syncOv(){var a=document.querySelectorAll('.overlay.active');var top=a.length?a[a.length-1].id:'';try{if(top)localStorage.setItem('rh_ov',top.replace(/^ov-/,''));else localStorage.removeItem('rh_ov');}catch(e){}}
 /* close a single detail overlay and re-sync rh_ov to whatever is left underneath */
@@ -1678,6 +1679,42 @@ function showCheckinModal(){ var m=document.getElementById('checkinModal'); if(!
   if(typeof maybeStartTour==='function' && maybeStartTour()) return;         /* first run: show the feature tour instead */
   m.classList.remove('hide'); m.classList.add('show'); if(window.lucide&&lucide.createIcons) lucide.createIcons(); }
 /* ═══ FIRST-RUN FEATURE TOUR (coach marks; shown once, then never again) ═══ */
+/* ═══ Listen-to-page audio narration (Web Speech API, no backend) ═══ */
+var PAGE_NARRATION={
+  home:"Welcome to your home dashboard. Here you'll find your Recovery Health score, your plan for today, and quick actions. Check off your medication, reflections and activities to earn points.",
+  tools:"This is your Activities page. Choose a short guided activity, like managing cravings or mindful breathing, to help you through a difficult moment.",
+  mat:"This is your Progress page. It shows your Recovery Health and medication trends over time, so you can see how far you've come.",
+  rewards:"This is your Rewards page. Earn points and unlock rewards as you build healthy streaks and reach milestones.",
+  profile:"This is your Profile. Your medication, your people, your care team and your settings all live here, and everything is editable.",
+  rooms:"This is the Community. Connect with peers who understand, join topic rooms, and share or ask for support. You are always anonymous here.",
+  schedule:"This is your treatment schedule. It shows today's medication, therapy and meetings, along with what's coming up next.",
+  insights:"This is your Insights page. It explains what your Recovery Health score means and what to focus on today.",
+  "find-coach":"This is one-to-one support. Here you can privately connect with a peer specialist or a recovery coach.",
+  "na-meetings":"This is Find a Meeting. Browse in-person, virtual and hybrid recovery meetings and pick one that fits.",
+  urge:"This is your urge toolkit. Quick tools and your chosen relief activities are here to help an urge pass.",
+  guides:"This is Guides. Learn how to make the most of the app, one topic at a time.",
+  settings:"This is Settings and Preferences. Adjust reminders, accessibility, language and your information.",
+  privacy:"This is Privacy and Data Sharing. Control exactly what is shared, download your data, or delete your account."
+};
+function currentPageKey(){ var ov=document.querySelector('.overlay.active'); if(ov&&ov.id) return ov.id.replace(/^ov-/,''); return document.body.getAttribute('data-screen')||'home'; }
+function stopPageAudio(){ try{ if(window.speechSynthesis) window.speechSynthesis.cancel(); }catch(e){} window.__speaking=false;
+  var b=document.getElementById('audioBtn'); if(b){ b.classList.remove('speaking'); b.setAttribute('aria-label','Listen to this page'); } }
+function speakPage(){
+  if(!('speechSynthesis' in window)){ if(typeof toast==='function') toast("Audio isn't supported on this browser."); return; }
+  if(window.__speaking || window.speechSynthesis.speaking){ stopPageAudio(); return; }   /* tap again = stop */
+  var key=currentPageKey(), text=PAGE_NARRATION[key];
+  if(!text){
+    var ov=document.querySelector('.overlay.active'), t='';
+    if(ov){ var el=ov.querySelector('.scr-title, .ov-header b, .ov-header [style*="font-weight:700"]'); t=el?el.textContent.trim():''; }
+    text = t ? ("You are on the "+t+" page.") : "This page shows the current section of your recovery companion.";
+  }
+  var u=new SpeechSynthesisUtterance(text); u.rate=1; u.pitch=1; u.lang='en-US';
+  var b=document.getElementById('audioBtn');
+  u.onstart=function(){ window.__speaking=true; if(b){ b.classList.add('speaking'); b.setAttribute('aria-label','Stop narration'); } };
+  u.onend=function(){ window.__speaking=false; if(b){ b.classList.remove('speaking'); b.setAttribute('aria-label','Listen to this page'); } };
+  u.onerror=u.onend;
+  try{ window.speechSynthesis.cancel(); window.speechSynthesis.speak(u); }catch(e){}
+}
 var TOUR_STEPS=[
   {sel:'.bottom-nav [onclick*="\'home\'"]', icon:'home', color:'#5E8B6E', title:'Home', text:'Your daily dashboard — recovery score, plan and quick actions, all in one place.'},
   {sel:'.bottom-nav [onclick*="rooms"]', icon:'users-round', color:'#4E7FA8', title:'Community', text:'Connect with people who get it. Share and get support — always anonymous.'},
