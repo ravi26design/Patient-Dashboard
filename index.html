@@ -15,7 +15,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
 <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
-<link rel="stylesheet" href="css/styles.css?v=20260908m">
+<link rel="stylesheet" href="css/styles.css?v=20260908n">
 </head>
 <body>
 
@@ -3310,8 +3310,11 @@
       <div class="ins-card ins-takeaway">
         <div class="home-title ins-tk-title">Key Takeaways</div>
         <p class="ins-tk-p">Today's recovery health score is <b>74</b>. That puts it <b>above average</b>. It has also held steady for the past two weeks. Steady counts for a lot in recovery.</p>
-        <p class="ins-tk-p">Cravings look like the biggest challenge today. Cravings are a normal part of this process, and they don't take away from the progress already made. A short activity is ready on the activities page. This one focuses on stress relief, and it only takes a few minutes. Today could be a good day to fit it in.</p>
-        <p class="ins-tk-p">Now for the big news. <b>47 days</b> in recovery without non-medical opioid use. <b>47 days</b> in a row taking Suboxone. That kind of consistency takes real effort, one day at a time. Nobody gets to 47 days by luck. The same skills that built this streak are the ones that will keep it going. Keep at it. <b>This is what capable looks like.</b></p>
+        <div class="ins-tk-more" id="insTkMore" hidden>
+          <p class="ins-tk-p">Cravings look like the biggest challenge today. Cravings are a normal part of this process, and they don't take away from the progress already made. A short activity is ready on the activities page. This one focuses on stress relief, and it only takes a few minutes. Today could be a good day to fit it in.</p>
+          <p class="ins-tk-p">Now for the big news. <b>47 days</b> in recovery without non-medical opioid use. <b>47 days</b> in a row taking Suboxone. That kind of consistency takes real effort, one day at a time. Nobody gets to 47 days by luck. The same skills that built this streak are the ones that will keep it going. Keep at it. <b>This is what capable looks like.</b></p>
+        </div>
+        <button class="ins-tk-toggle" id="insTkToggle" type="button" onclick="toggleInsTk(this)">Read more <i data-lucide="chevron-down"></i></button>
       </div>
 
       <!-- Mark reviewed -->
@@ -3864,6 +3867,6 @@
     </div>
   </div>
 </div>
-<script src="js/app.js?v=20260908m"></script>
+<script src="js/app.js?v=20260908n"></script>
 </body>
 </html>

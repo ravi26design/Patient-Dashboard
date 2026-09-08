@@ -1712,6 +1712,13 @@ function speakText(text, btn){
   u.onerror=u.onend;
   try{ window.speechSynthesis.cancel(); window.speechSynthesis.speak(u); }catch(e){}
 }
+/* Key Takeaways: show only the first paragraph, expand the rest on "Read more" */
+function toggleInsTk(btn){
+  var more=document.getElementById('insTkMore'); if(!more) return;
+  if(more.hasAttribute('hidden')){ more.removeAttribute('hidden'); if(btn) btn.innerHTML='Read less <i data-lucide="chevron-up"></i>'; }
+  else { more.setAttribute('hidden',''); if(btn) btn.innerHTML='Read more <i data-lucide="chevron-down"></i>'; }
+  if(window.lucide&&lucide.createIcons) lucide.createIcons();
+}
 /* Read the whole Daily Insight page aloud — summary + all Key Takeaways */
 function speakInsight(btn){
   var parts=["Daily Insight. Here's your recovery summary for today."];

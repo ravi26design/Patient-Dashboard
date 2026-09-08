@@ -4498,3 +4498,8 @@ body[data-screen="home"] .audio-btn{display:none}
 
 /* On Daily Insight, the header has its own listen button — hide the floating one */
 body:has(#ov-insights.active) .audio-btn{display:none}
+
+/* Key Takeaways "Read more" toggle */
+.ins-tk-toggle{background:none;border:none;padding:8px 0 2px;font-family:var(--font-ui);font-size:13.5px;font-weight:800;color:var(--hb-teal-deep,#3C6B4E);cursor:pointer;display:inline-flex;align-items:center;gap:4px}
+.ins-tk-toggle svg,.ins-tk-toggle i{width:15px;height:15px;stroke-width:2.4}
+.ins-tk-toggle:active{opacity:.7}
