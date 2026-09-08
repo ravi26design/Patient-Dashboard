@@ -1716,13 +1716,15 @@ function speakPage(){
   try{ window.speechSynthesis.cancel(); window.speechSynthesis.speak(u); }catch(e){}
 }
 var TOUR_STEPS=[
+  {sel:'.rh-card', icon:'activity', color:'#5E8B6E', title:'Recovery Health', text:'Your daily score of how recovery is going. Tap it any time for a deeper look at your progress.'},
+  {sel:'#screen-home .rt-section', icon:'list-checks', color:'#C9973B', title:'Your daily plan', text:'Meds, a quick reflection, insights and connecting live here — and each one earns you XP.'},
   {sel:'.bottom-nav [onclick*="\'home\'"]', icon:'home', color:'#5E8B6E', title:'Home', text:'Your daily dashboard — recovery score, plan and quick actions, all in one place.'},
   {sel:'.bottom-nav [onclick*="rooms"]', icon:'users-round', color:'#4E7FA8', title:'Community', text:'Connect with people who get it. Share and get support — always anonymous.'},
   {sel:'.nav-sos', icon:'life-buoy', color:'#C56A5E', title:'Help, anytime', text:'Struggling right now? Tap HELP to reach real, caring support — fast.'},
   {sel:'.bottom-nav [onclick*="mat"]', icon:'bar-chart-3', color:'#8A6FB0', title:'Progress', text:'See your recovery trends, medication and health charts over time.'},
-  {sel:'.bottom-nav [onclick*="rewards"]', icon:'trophy', color:'#C9973B', title:'Rewards', text:'Earn XP and unlock rewards as you build healthy streaks.'},
-  {sel:'.avatar-btn', icon:'user-round', color:'#6E9E80', title:'Your profile', text:'Your meds, people, care team and settings — all editable here.'},
-  {sel:'.notif-btn', icon:'map-pin', color:'#C56A5E', title:'Quick check-in', text:'Share a location check-in with your support circle in a tap.'}
+  {sel:'.bottom-nav [onclick*="rewards"]', icon:'trophy', color:'#C9973B', title:'Rewards', text:'Earn XP and unlock rewards as you build healthy streaks and reach milestones.'},
+  {sel:'.avatar-btn', icon:'user-round', color:'#6E9E80', title:'Your profile', text:'Your meds, people, care team and settings — all editable in one place.'},
+  {sel:'.notif-btn', icon:'map-pin', color:'#C56A5E', title:'Quick check-in', text:'Share a location check-in with your support circle in a single tap.'}
 ];
 var __tourVis=[], __tourPos=0;
 function tourRect(i){ var s=TOUR_STEPS[i]; if(!s) return null; var el=document.querySelector(s.sel); if(!el) return null;
@@ -1731,36 +1733,40 @@ function maybeStartTour(){
   if(window.__tourActive) return false;
   try{ if(localStorage.getItem('rh_tour_seen_v2')==='1') return false; }catch(e){}
   var t=document.getElementById('appTour'); if(!t) return false;
-  __tourVis=[]; for(var i=0;i<TOUR_STEPS.length;i++){ if(tourRect(i)) __tourVis.push(i); }
-  if(!__tourVis.length) return false;   /* nothing on screen to point at yet */
   window.__tourActive=true;
   var dots=document.getElementById('tourDots');
-  if(dots){ var h=''; for(var k=0;k<__tourVis.length;k++) h+='<span></span>'; dots.innerHTML=h; }
+  if(dots){ var h=''; for(var k=0;k<TOUR_STEPS.length;k++) h+='<span></span>'; dots.innerHTML=h; }
   t.classList.add('on'); t.setAttribute('aria-hidden','false');
   window.addEventListener('resize', tourReposition);
   __tourPos=0; renderTour();
-  return true;
+  return true;   /* always shows — no dependency on which elements happen to be on screen */
 }
 function renderTour(){
-  if(__tourPos>=__tourVis.length){ tourDone(); return; }
-  var idx=__tourVis[__tourPos], r=tourRect(idx);
-  if(!r){ __tourVis.splice(__tourPos,1); if(!__tourVis.length){ tourDone(); return; } renderTour(); return; }
-  var s=TOUR_STEPS[idx];
-  /* circular spotlight centred on the target (matches the red-circle reference) */
-  var dia=Math.max(r.width,r.height)+18, cx=r.left+r.width/2, cy=r.top+r.height/2;
-  var spot=document.getElementById('tourSpot');
-  spot.style.left=(cx-dia/2)+'px'; spot.style.top=(cy-dia/2)+'px';
-  spot.style.width=dia+'px'; spot.style.height=dia+'px'; spot.style.borderRadius='50%';
+  if(__tourPos>=TOUR_STEPS.length){ tourDone(); return; }
+  var s=TOUR_STEPS[__tourPos];
   var illus=document.getElementById('tourIllus');
   if(illus){ illus.style.background='color-mix(in srgb, '+s.color+' 15%, #fff)'; illus.style.color=s.color; illus.innerHTML='<i data-lucide="'+s.icon+'"></i>'; }
-  var stepEl=document.getElementById('tourStep'); if(stepEl) stepEl.textContent='Step '+(__tourPos+1)+' of '+__tourVis.length;
+  var stepEl=document.getElementById('tourStep'); if(stepEl) stepEl.textContent='Step '+(__tourPos+1)+' of '+TOUR_STEPS.length;
   var titleEl=document.getElementById('tourTitle'); if(titleEl) titleEl.textContent=s.title;
   var textEl=document.getElementById('tourText'); if(textEl) textEl.textContent=s.text;
   var ds=document.querySelectorAll('#tourDots span'); for(var d=0;d<ds.length;d++) ds[d].classList.toggle('on',d===__tourPos);
-  var nb=document.getElementById('tourNext'); if(nb) nb.textContent=(__tourPos>=__tourVis.length-1)?'Got it':'Got it';
-  positionTourCard(r);
+  var nb=document.getElementById('tourNext'); if(nb) nb.textContent=(__tourPos>=TOUR_STEPS.length-1)?'Finish':'Got it';
+  /* spotlight the live element if it's on screen (mobile); otherwise dim + centre the card (desktop) */
+  var r=tourRect(__tourPos), spot=document.getElementById('tourSpot'), tour=document.getElementById('appTour');
+  var card=document.getElementById('tourCard');
+  if(r){
+    var dia=Math.max(r.width,r.height)+18, cx=r.left+r.width/2, cy=r.top+r.height/2;
+    if(spot){ spot.style.display='block'; spot.style.left=(cx-dia/2)+'px'; spot.style.top=(cy-dia/2)+'px'; spot.style.width=dia+'px'; spot.style.height=dia+'px'; spot.style.borderRadius='50%'; }
+    if(tour) tour.classList.remove('centered');
+    positionTourCard(r);
+  } else {
+    if(spot) spot.style.display='none';
+    if(tour) tour.classList.add('centered');
+    if(card){ card.classList.remove('above','below'); }
+  }
   if(window.lucide&&lucide.createIcons) lucide.createIcons();
-  var card=document.getElementById('tourCard'); if(card){ card.classList.remove('pop'); void card.offsetWidth; card.classList.add('pop'); }
+  if(!r && card){ var cw=card.offsetWidth, ch=card.offsetHeight; card.style.left=Math.max(14,(window.innerWidth-cw)/2)+'px'; card.style.top=Math.max(14,(window.innerHeight-ch)/2)+'px'; }
+  if(card){ card.classList.remove('pop'); void card.offsetWidth; card.classList.add('pop'); }
 }
 function positionTourCard(r){
   var card=document.getElementById('tourCard'); if(!card) return;
