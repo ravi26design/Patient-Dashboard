@@ -4442,28 +4442,26 @@ body.is-mobile:has(#ov-rooms.active) .bottom-nav{z-index:400}
   transition:left .36s cubic-bezier(.4,0,.2,1),top .36s cubic-bezier(.4,0,.2,1),width .36s cubic-bezier(.4,0,.2,1),height .36s cubic-bezier(.4,0,.2,1),border-radius .36s ease}
 .tour-spot::after{content:"";position:absolute;inset:-4px;border-radius:inherit;border:3px solid rgba(255,255,255,.96);animation:tourPulse 1.9s ease-out infinite}
 @keyframes tourPulse{0%{box-shadow:0 0 0 0 rgba(255,255,255,.45)}70%{box-shadow:0 0 0 17px rgba(255,255,255,0)}100%{box-shadow:0 0 0 0 rgba(255,255,255,0)}}
-/* white card tooltip: illustration + title + description + pointer beak */
-.tour-card{position:fixed;z-index:100001;width:min(300px,86vw);background:#fff;border-radius:22px;
-  box-shadow:0 26px 64px -16px rgba(0,0,0,.55);transition:left .32s cubic-bezier(.4,0,.2,1),top .32s cubic-bezier(.4,0,.2,1)}
-.tour-card.pop{animation:tourCardIn .38s cubic-bezier(.34,1.26,.5,1)}
-@keyframes tourCardIn{from{opacity:0;transform:translateY(10px) scale(.97)}to{opacity:1;transform:none}}
-.tour-illus{height:118px;border-radius:22px 22px 0 0;display:flex;align-items:center;justify-content:center;transition:background .25s}
-.tour-illus i,.tour-illus svg{width:54px;height:54px;stroke-width:1.6}
-.tour-cbody{padding:15px 17px 16px}
-.tour-step{font-size:11px;font-weight:800;letter-spacing:.6px;text-transform:uppercase;color:var(--ink-soft,#9C938D)}
-.tour-title{font-family:var(--font-display);font-size:19px;font-weight:700;color:var(--ink);margin:3px 0 5px;line-height:1.18}
-.tour-desc{font-size:13.5px;line-height:1.55;color:var(--brown,#6A6F76)}
-.tour-foot{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:16px}
-.tour-skip{background:none;border:none;font-family:var(--font-ui);font-size:12.5px;font-weight:700;color:var(--ink-soft);cursor:pointer;padding:6px 2px}
-.tour-dots{display:flex;gap:6px;align-items:center}
-.tour-dots span{width:6px;height:6px;border-radius:50%;background:var(--border,#e5e0d8);transition:.25s}
-.tour-dots span.on{background:var(--blue,#6DA0CC);width:18px;border-radius:99px}
-.tour-got{background:linear-gradient(135deg,#6DA0CC,#3F6E99);border:none;color:#fff;font-family:var(--font-ui);font-size:13.5px;font-weight:800;padding:11px 22px;border-radius:12px;cursor:pointer;box-shadow:0 10px 22px -8px rgba(63,110,153,.7);white-space:nowrap;transition:transform .12s}
-.tour-got:active{transform:scale(.96)}
-/* pointer beak */
-.tour-beak{position:absolute;left:var(--beak,40px);width:18px;height:18px;background:#fff;transform:rotate(45deg)}
-.tour-card.below .tour-beak{top:-8px;box-shadow:-3px -3px 9px -5px rgba(0,0,0,.18)}
-.tour-card.above .tour-beak{bottom:-8px;box-shadow:4px 4px 9px -5px rgba(0,0,0,.18)}
+/* compact colored tooltip: bold text + X dismiss + pointer beak (bg set per-feature in JS) */
+.tour-card{position:fixed;z-index:100001;width:min(292px,85vw);color:#fff;border-radius:18px;padding:15px 16px 13px;
+  box-shadow:0 22px 50px -14px rgba(0,0,0,.55);transition:left .32s cubic-bezier(.4,0,.2,1),top .32s cubic-bezier(.4,0,.2,1)}
+.tour-card.pop{animation:tourCardIn .34s cubic-bezier(.34,1.26,.5,1)}
+@keyframes tourCardIn{from{opacity:0;transform:translateY(9px) scale(.97)}to{opacity:1;transform:none}}
+.tour-x{position:absolute;top:9px;right:9px;width:24px;height:24px;border:none;background:rgba(255,255,255,.22);color:#fff;border-radius:50%;font-size:17px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .15s}
+.tour-x:hover{background:rgba(255,255,255,.34)}
+.tour-step{font-family:var(--font-ui);font-size:10.5px;font-weight:800;letter-spacing:.6px;text-transform:uppercase;color:rgba(255,255,255,.75);margin-bottom:4px;padding-right:28px}
+.tour-title{font-family:var(--font-display);font-size:17px;font-weight:700;color:#fff;margin:0 0 4px;line-height:1.2;padding-right:28px}
+.tour-desc{font-family:var(--font-ui);font-size:13px;line-height:1.5;color:rgba(255,255,255,.94)}
+.tour-foot{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:13px}
+.tour-dots{display:flex;gap:5px;align-items:center}
+.tour-dots span{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.38);transition:.25s}
+.tour-dots span.on{background:#fff;width:16px;border-radius:99px}
+.tour-got{background:#fff;color:var(--ink);border:none;border-radius:10px;padding:9px 18px;font-family:var(--font-ui);font-size:13px;font-weight:800;cursor:pointer;transition:transform .12s}
+.tour-got:active{transform:scale(.95)}
+/* pointer beak — bg set in JS to the feature color */
+.tour-beak{position:absolute;left:var(--beak,40px);width:16px;height:16px;transform:rotate(45deg)}
+.tour-card.below .tour-beak{top:-7px}
+.tour-card.above .tour-beak{bottom:-7px}
 @media (prefers-reduced-motion:reduce){.tour-spot::after,.tour-card.pop,#appTour.on{animation:none}}
 
 /* ═══ Listen-to-page audio button (accessibility) ═══ */
@@ -4496,8 +4494,9 @@ body[data-screen="home"] .audio-btn{display:none}
 .ins-audio-btn.speaking{background:var(--blue-ink,#3F6E99);color:#fff;animation:audioPulse2 1.4s ease-in-out infinite}
 @keyframes audioPulse2{0%,100%{box-shadow:0 0 0 0 rgba(63,110,153,.45)}50%{box-shadow:0 0 0 9px rgba(63,110,153,0)}}
 
-/* On Daily Insight, the header has its own listen button — hide the floating one */
-body:has(#ov-insights.active) .audio-btn{display:none}
+/* On pages with their own header listen button, hide the floating one */
+body:has(#ov-insights.active) .audio-btn,
+body:has(#ov-schedule.active) .audio-btn{display:none}
 
 /* Key Takeaways "Read more" toggle */
 .ins-tk-toggle{background:none;border:none;padding:8px 0 2px;font-family:var(--font-ui);font-size:13.5px;font-weight:800;color:var(--hb-teal-deep,#3C6B4E);cursor:pointer;display:inline-flex;align-items:center;gap:4px}

@@ -1719,6 +1719,25 @@ function toggleInsTk(btn){
   else { more.setAttribute('hidden',''); if(btn) btn.innerHTML='Read more <i data-lucide="chevron-down"></i>'; }
   if(window.lucide&&lucide.createIcons) lucide.createIcons();
 }
+/* Read the Schedule page aloud — each section and its items */
+function speakSchedule(btn){
+  var parts=["Your schedule — your meds, therapy and meetings."];
+  var ov=document.getElementById('ov-schedule');
+  if(ov){
+    var nodes=ov.querySelectorAll('.sch-sec-title, .sch-card');
+    for(var i=0;i<nodes.length;i++){ var n=nodes[i];
+      if(n.classList.contains('sch-sec-title')){ parts.push(n.textContent.trim()+'.'); }
+      else {
+        var name=n.querySelector('.tx-name'), sub=n.querySelector('.tx-sub'), xp=n.querySelector('.xp-chip');
+        var line=name?name.textContent.trim():'';
+        if(sub) line+=', '+sub.textContent.trim().replace(/\s*·\s*/g,', ');
+        if(xp) line+=', worth '+xp.textContent.trim();
+        if(line) parts.push(line+'.');
+      }
+    }
+  }
+  speakText(parts.join(' '), btn);
+}
 /* Read the whole Daily Insight page aloud — summary + all Key Takeaways */
 function speakInsight(btn){
   var parts=["Daily Insight. Here's your recovery summary for today."];
@@ -1772,8 +1791,9 @@ function maybeStartTour(){
 function renderTour(){
   if(__tourPos>=TOUR_STEPS.length){ tourDone(); return; }
   var s=TOUR_STEPS[__tourPos];
-  var illus=document.getElementById('tourIllus');
-  if(illus){ illus.style.background='color-mix(in srgb, '+s.color+' 15%, #fff)'; illus.style.color=s.color; illus.innerHTML='<i data-lucide="'+s.icon+'"></i>'; }
+  var bg='color-mix(in srgb, '+s.color+' 82%, #000)';   /* darken the feature colour so white text has contrast */
+  var cardEl=document.getElementById('tourCard'); if(cardEl) cardEl.style.background=bg;
+  var beakEl=document.getElementById('tourBeak'); if(beakEl) beakEl.style.background=bg;
   var stepEl=document.getElementById('tourStep'); if(stepEl) stepEl.textContent='Step '+(__tourPos+1)+' of '+TOUR_STEPS.length;
   var titleEl=document.getElementById('tourTitle'); if(titleEl) titleEl.textContent=s.title;
   var textEl=document.getElementById('tourText'); if(textEl) textEl.textContent=s.text;
