@@ -1679,10 +1679,13 @@ function showCheckinModal(){ var m=document.getElementById('checkinModal'); if(!
   m.classList.remove('hide'); m.classList.add('show'); if(window.lucide&&lucide.createIcons) lucide.createIcons(); }
 /* ═══ FIRST-RUN FEATURE TOUR (coach marks; shown once, then never again) ═══ */
 var TOUR_STEPS=[
-  {sel:'.rh-card', icon:'activity', color:'#5E8B6E', title:'Recovery Health', text:'Your daily score of how recovery is going. Tap it any time for a deeper look.'},
-  {sel:'#screen-home .rt-section', icon:'list-checks', color:'#C9973B', title:'Your daily plan', text:'Meds, a quick reflection and connecting live here — each one earns you XP.'},
-  {sel:'.bottom-nav [onclick*="rooms"]', icon:'users-round', color:'#4E7FA8', title:'Community', text:'Find people who get it. Share and get support — always anonymous.'},
-  {sel:'.nav-sos', icon:'life-buoy', color:'#C56A5E', title:'Help, one tap away', text:'Struggling right now? Tap HELP to reach real support, fast.'}
+  {sel:'.bottom-nav [onclick*="\'home\'"]', icon:'home', color:'#5E8B6E', title:'Home', text:'Your daily dashboard — recovery score, plan and quick actions, all in one place.'},
+  {sel:'.bottom-nav [onclick*="rooms"]', icon:'users-round', color:'#4E7FA8', title:'Community', text:'Connect with people who get it. Share and get support — always anonymous.'},
+  {sel:'.nav-sos', icon:'life-buoy', color:'#C56A5E', title:'Help, anytime', text:'Struggling right now? Tap HELP to reach real, caring support — fast.'},
+  {sel:'.bottom-nav [onclick*="mat"]', icon:'bar-chart-3', color:'#8A6FB0', title:'Progress', text:'See your recovery trends, medication and health charts over time.'},
+  {sel:'.bottom-nav [onclick*="rewards"]', icon:'trophy', color:'#C9973B', title:'Rewards', text:'Earn XP and unlock rewards as you build healthy streaks.'},
+  {sel:'.avatar-btn', icon:'user-round', color:'#6E9E80', title:'Your profile', text:'Your meds, people, care team and settings — all editable here.'},
+  {sel:'.notif-btn', icon:'map-pin', color:'#C56A5E', title:'Quick check-in', text:'Share a location check-in with your support circle in a tap.'}
 ];
 var __tourVis=[], __tourPos=0;
 function tourRect(i){ var s=TOUR_STEPS[i]; if(!s) return null; var el=document.querySelector(s.sel); if(!el) return null;
@@ -1705,33 +1708,33 @@ function renderTour(){
   if(__tourPos>=__tourVis.length){ tourDone(); return; }
   var idx=__tourVis[__tourPos], r=tourRect(idx);
   if(!r){ __tourVis.splice(__tourPos,1); if(!__tourVis.length){ tourDone(); return; } renderTour(); return; }
-  var s=TOUR_STEPS[idx], pad=8;
+  var s=TOUR_STEPS[idx];
+  /* circular spotlight centred on the target (matches the red-circle reference) */
+  var dia=Math.max(r.width,r.height)+18, cx=r.left+r.width/2, cy=r.top+r.height/2;
   var spot=document.getElementById('tourSpot');
-  spot.style.left=(r.left-pad)+'px'; spot.style.top=(r.top-pad)+'px';
-  spot.style.width=(r.width+pad*2)+'px'; spot.style.height=(r.height+pad*2)+'px';
-  document.getElementById('tourStep').textContent='Step '+(__tourPos+1)+' of '+__tourVis.length;
-  document.getElementById('tourTitle').textContent=s.title;
-  document.getElementById('tourText').textContent=s.text;
-  var ic=document.getElementById('tourIc');
-  if(ic){ ic.style.background='color-mix(in srgb, '+s.color+' 15%, #fff)'; ic.style.color=s.color; ic.innerHTML='<i data-lucide="'+s.icon+'"></i>'; }
+  spot.style.left=(cx-dia/2)+'px'; spot.style.top=(cy-dia/2)+'px';
+  spot.style.width=dia+'px'; spot.style.height=dia+'px'; spot.style.borderRadius='50%';
+  var illus=document.getElementById('tourIllus');
+  if(illus){ illus.style.background='color-mix(in srgb, '+s.color+' 15%, #fff)'; illus.style.color=s.color; illus.innerHTML='<i data-lucide="'+s.icon+'"></i>'; }
+  var stepEl=document.getElementById('tourStep'); if(stepEl) stepEl.textContent='Step '+(__tourPos+1)+' of '+__tourVis.length;
+  var titleEl=document.getElementById('tourTitle'); if(titleEl) titleEl.textContent=s.title;
+  var textEl=document.getElementById('tourText'); if(textEl) textEl.textContent=s.text;
   var ds=document.querySelectorAll('#tourDots span'); for(var d=0;d<ds.length;d++) ds[d].classList.toggle('on',d===__tourPos);
-  var last=(__tourPos>=__tourVis.length-1);
-  var nb=document.getElementById('tourNext'); if(nb) nb.innerHTML = last ? 'Got it' : 'Next <i data-lucide="arrow-right"></i>';
-  positionTourTip(r);
+  var nb=document.getElementById('tourNext'); if(nb) nb.textContent=(__tourPos>=__tourVis.length-1)?'Got it':'Got it';
+  positionTourCard(r);
   if(window.lucide&&lucide.createIcons) lucide.createIcons();
-  var tip=document.getElementById('tourTip');
-  if(tip){ tip.classList.remove('pop'); void tip.offsetWidth; tip.classList.add('pop'); }
+  var card=document.getElementById('tourCard'); if(card){ card.classList.remove('pop'); void card.offsetWidth; card.classList.add('pop'); }
 }
-function positionTourTip(r){
-  var tip=document.getElementById('tourTip'); if(!tip) return;
-  var vw=window.innerWidth, vh=window.innerHeight, gap=14, margin=12;
-  var tw=tip.offsetWidth, th=tip.offsetHeight;
-  var below=(r.bottom+gap+th)<=(vh-margin);
-  var top=below? r.bottom+gap : Math.max(margin, r.top-gap-th);
-  var left=Math.min(Math.max(margin, r.left+r.width/2 - tw/2), vw-tw-margin);
-  tip.classList.toggle('below', below); tip.classList.toggle('above', !below);
-  tip.style.left=left+'px'; tip.style.top=top+'px';
-  tip.style.setProperty('--arrow', Math.min(Math.max(16, (r.left+r.width/2)-left-8), tw-30)+'px');
+function positionTourCard(r){
+  var card=document.getElementById('tourCard'); if(!card) return;
+  var vw=window.innerWidth, vh=window.innerHeight, gap=20, m=14;
+  var cw=card.offsetWidth, ch=card.offsetHeight;
+  var below=(r.bottom+gap+ch) <= (vh-m);   /* room below the target? (header icons) else place above (nav) */
+  var top=below ? (r.bottom+gap) : (r.top-gap-ch);
+  var left=Math.min(Math.max(m, r.left+r.width/2 - cw/2), vw-cw-m);
+  card.classList.toggle('below', below); card.classList.toggle('above', !below);
+  card.style.left=left+'px'; card.style.top=Math.max(m, top)+'px';
+  card.style.setProperty('--beak', Math.min(Math.max(16, (r.left+r.width/2)-left-9), cw-34)+'px');
 }
 function tourNext(){ __tourPos++; renderTour(); }
 function tourSkip(){ tourDone(); }

@@ -4,7 +4,7 @@
     {
       "name": "patient-dashboard",
       "runtimeExecutable": "python3",
-      "runtimeArgs": ["/Users/ravi/Documents/Claude-code/Patient Dashboard/.claude/serve.py"],
+      "runtimeArgs": ["-m", "http.server", "4173"],
       "port": 4173
     }
   ]

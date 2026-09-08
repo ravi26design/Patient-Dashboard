@@ -4432,41 +4432,36 @@ body:not(.in-room) #s-community > .anon-note{ display:none !important; }
 body.is-mobile #ov-rooms.active{bottom:60px}
 body.is-mobile:has(#ov-rooms.active) .bottom-nav{z-index:400}
 
-/* ═══ First-run feature tour (coach marks) ═══ */
-#appTour{position:fixed;inset:0;z-index:10000;display:none}
-#appTour.on{display:block}
-#appTour.on::before{content:"";position:fixed;inset:0;background:rgba(18,21,26,.10);animation:tourFade .3s ease both}
+/* ═══ First-run feature tour (spotlight coach marks) ═══ */
+#appTour{position:fixed;inset:0;z-index:100000;display:none;font-family:var(--font-ui)}
+#appTour.on{display:block;animation:tourFade .28s ease both}
 @keyframes tourFade{from{opacity:0}to{opacity:1}}
-.tour-spot{position:fixed;left:0;top:0;width:0;height:0;border-radius:18px;
-  box-shadow:0 0 0 9999px rgba(18,21,26,.78);pointer-events:none;
-  transition:left .34s cubic-bezier(.4,0,.2,1),top .34s cubic-bezier(.4,0,.2,1),width .34s cubic-bezier(.4,0,.2,1),height .34s cubic-bezier(.4,0,.2,1)}
-/* soft white edge + a gentle pulsing halo to pull the eye */
-.tour-spot::after{content:"";position:absolute;inset:-3px;border-radius:21px;border:2.5px solid rgba(255,255,255,.92);animation:tourPulse 1.9s ease-out infinite}
-@keyframes tourPulse{0%{box-shadow:0 0 0 0 rgba(109,160,204,.55)}70%{box-shadow:0 0 0 15px rgba(109,160,204,0)}100%{box-shadow:0 0 0 0 rgba(109,160,204,0)}}
-.tour-tip{position:fixed;z-index:10001;width:min(310px,88vw);background:#fff;border-radius:20px;
-  padding:17px 17px 15px;box-shadow:0 24px 60px -16px rgba(0,0,0,.6);font-family:var(--font-ui);
-  transition:left .3s cubic-bezier(.4,0,.2,1),top .3s cubic-bezier(.4,0,.2,1)}
-.tour-tip.pop{animation:tourTipIn .34s cubic-bezier(.34,1.28,.5,1)}
-@keyframes tourTipIn{from{opacity:0;transform:translateY(9px) scale(.97)}to{opacity:1;transform:none}}
-.tour-tip::before{content:"";position:absolute;left:var(--arrow,28px);width:16px;height:16px;background:#fff;transform:rotate(45deg)}
-.tour-tip.below::before{top:-7px}
-.tour-tip.above::before{bottom:-7px}
-.tour-tip-head{display:flex;align-items:center;gap:12px;margin-bottom:10px}
-.tour-tip-ic{flex:none;width:42px;height:42px;border-radius:13px;display:flex;align-items:center;justify-content:center;background:var(--blue-tint,#E0EDF8);color:var(--blue-ink,#3F6E99);transition:background .25s,color .25s}
-.tour-tip-ic i,.tour-tip-ic svg{width:22px;height:22px;stroke-width:2}
-.tour-tip-headtx{min-width:0}
-.tour-tip-step{font-family:var(--font-ui);font-size:10.5px;font-weight:800;letter-spacing:.6px;text-transform:uppercase;color:var(--ink-soft,#9C938D)}
-.tour-tip-title{font-family:var(--font-display);font-size:17.5px;font-weight:700;color:var(--ink);margin:2px 0 0;line-height:1.18}
-.tour-tip-text{font-size:13.5px;line-height:1.58;color:var(--brown,#6A6F76)}
-.tour-tip-foot{display:flex;align-items:center;justify-content:space-between;margin-top:15px;gap:10px}
+/* the spotlight: a bright cutout in the dim, with a glowing white ring */
+.tour-spot{position:fixed;left:0;top:0;width:0;height:0;border-radius:20px;
+  box-shadow:0 0 0 9999px rgba(13,15,19,.82);pointer-events:none;
+  transition:left .36s cubic-bezier(.4,0,.2,1),top .36s cubic-bezier(.4,0,.2,1),width .36s cubic-bezier(.4,0,.2,1),height .36s cubic-bezier(.4,0,.2,1),border-radius .36s ease}
+.tour-spot::after{content:"";position:absolute;inset:-4px;border-radius:inherit;border:3px solid rgba(255,255,255,.96);animation:tourPulse 1.9s ease-out infinite}
+@keyframes tourPulse{0%{box-shadow:0 0 0 0 rgba(255,255,255,.45)}70%{box-shadow:0 0 0 17px rgba(255,255,255,0)}100%{box-shadow:0 0 0 0 rgba(255,255,255,0)}}
+/* white card tooltip: illustration + title + description + pointer beak */
+.tour-card{position:fixed;z-index:100001;width:min(300px,86vw);background:#fff;border-radius:22px;
+  box-shadow:0 26px 64px -16px rgba(0,0,0,.55);transition:left .32s cubic-bezier(.4,0,.2,1),top .32s cubic-bezier(.4,0,.2,1)}
+.tour-card.pop{animation:tourCardIn .38s cubic-bezier(.34,1.26,.5,1)}
+@keyframes tourCardIn{from{opacity:0;transform:translateY(10px) scale(.97)}to{opacity:1;transform:none}}
+.tour-illus{height:118px;border-radius:22px 22px 0 0;display:flex;align-items:center;justify-content:center;transition:background .25s}
+.tour-illus i,.tour-illus svg{width:54px;height:54px;stroke-width:1.6}
+.tour-cbody{padding:15px 17px 16px}
+.tour-step{font-size:11px;font-weight:800;letter-spacing:.6px;text-transform:uppercase;color:var(--ink-soft,#9C938D)}
+.tour-title{font-family:var(--font-display);font-size:19px;font-weight:700;color:var(--ink);margin:3px 0 5px;line-height:1.18}
+.tour-desc{font-size:13.5px;line-height:1.55;color:var(--brown,#6A6F76)}
+.tour-foot{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:16px}
 .tour-skip{background:none;border:none;font-family:var(--font-ui);font-size:12.5px;font-weight:700;color:var(--ink-soft);cursor:pointer;padding:6px 2px}
-.tour-skip:hover{color:var(--ink)}
 .tour-dots{display:flex;gap:6px;align-items:center}
 .tour-dots span{width:6px;height:6px;border-radius:50%;background:var(--border,#e5e0d8);transition:.25s}
 .tour-dots span.on{background:var(--blue,#6DA0CC);width:18px;border-radius:99px}
-.tour-next{display:inline-flex;align-items:center;gap:6px;background:linear-gradient(135deg,#6DA0CC,#3F6E99);color:#fff;border:none;border-radius:13px;
-  padding:11px 20px;font-family:var(--font-ui);font-size:13.5px;font-weight:800;cursor:pointer;
-  box-shadow:0 10px 20px -8px rgba(63,110,153,.65);white-space:nowrap;transition:transform .12s}
-.tour-next i,.tour-next svg{width:15px;height:15px;stroke-width:2.4}
-.tour-next:active{transform:scale(.96)}
-@media (prefers-reduced-motion:reduce){.tour-spot::after,.tour-tip.pop{animation:none}}
+.tour-got{background:linear-gradient(135deg,#6DA0CC,#3F6E99);border:none;color:#fff;font-family:var(--font-ui);font-size:13.5px;font-weight:800;padding:11px 22px;border-radius:12px;cursor:pointer;box-shadow:0 10px 22px -8px rgba(63,110,153,.7);white-space:nowrap;transition:transform .12s}
+.tour-got:active{transform:scale(.96)}
+/* pointer beak */
+.tour-beak{position:absolute;left:var(--beak,40px);width:18px;height:18px;background:#fff;transform:rotate(45deg)}
+.tour-card.below .tour-beak{top:-8px;box-shadow:-3px -3px 9px -5px rgba(0,0,0,.18)}
+.tour-card.above .tour-beak{bottom:-8px;box-shadow:4px 4px 9px -5px rgba(0,0,0,.18)}
+@media (prefers-reduced-motion:reduce){.tour-spot::after,.tour-card.pop,#appTour.on{animation:none}}
