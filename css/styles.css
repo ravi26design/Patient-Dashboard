@@ -4516,6 +4516,7 @@ body:has(#ov-schedule.active) .audio-btn{display:none}
 .help-i:hover{background:#E3E6E6;color:var(--ink)}
 .help-i:active{transform:scale(.9)}
 .help-pop{position:fixed;inset:0;z-index:10500;display:flex;align-items:center;justify-content:center;background:rgba(20,22,28,.5);padding:24px;animation:tourFade .2s ease both}
+.help-pop[hidden]{display:none}
 .help-pop-card{background:#fff;border-radius:20px;max-width:340px;width:100%;padding:20px;box-shadow:0 26px 64px -16px rgba(0,0,0,.45);position:relative;animation:tourCardIn .28s cubic-bezier(.34,1.26,.5,1)}
 .help-pop-x{position:absolute;top:12px;right:12px;width:26px;height:26px;border:none;background:#EEF0F0;color:var(--ink-soft,#9C938D);border-radius:50%;font-size:16px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center}
 .help-pop-ic{width:44px;height:44px;border-radius:13px;background:var(--blue-tint,#E0EDF8);color:var(--blue-ink,#3F6E99);display:flex;align-items:center;justify-content:center;margin-bottom:12px}
