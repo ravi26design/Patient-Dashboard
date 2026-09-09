@@ -4523,3 +4523,10 @@ body:has(#ov-schedule.active) .audio-btn{display:none}
 .help-pop-ic > svg,.help-pop-ic > i[data-lucide]{width:22px;height:22px}
 .help-pop-t{font-family:var(--font-display);font-size:18px;font-weight:700;color:var(--ink);margin-bottom:8px;padding-right:28px}
 .help-pop-d{font-family:var(--font-ui);font-size:13.5px;line-height:1.6;color:#4A5453}
+
+/* Privacy "eye" toggle on cards — tap to hide/blur the card's data */
+.card-eye{flex:0 0 auto;width:22px;height:22px;border-radius:50%;border:none;background:#EEF0F0;color:var(--ink-soft,#9C938D);display:inline-flex;align-items:center;justify-content:center;cursor:pointer;padding:0;transition:transform .12s,background .15s}
+.card-eye > svg,.card-eye > i[data-lucide]{width:14px;height:14px;stroke-width:2.2}
+.card-eye:hover{background:#E3E6E6;color:var(--ink)}
+.card-eye:active{transform:scale(.9)}
+.scr-card.card-private > :not(.scr-card-h){filter:blur(9px);opacity:.5;transition:filter .22s,opacity .22s;pointer-events:none;user-select:none}

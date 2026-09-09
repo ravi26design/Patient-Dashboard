@@ -1737,6 +1737,14 @@ function showHelp(key){
   var p=document.getElementById('helpPop'); if(p){ p.hidden=false; if(window.lucide&&lucide.createIcons) lucide.createIcons(); }
 }
 function hideHelp(){ var p=document.getElementById('helpPop'); if(p) p.hidden=true; }
+/* Privacy eye: hide/blur a card's data (tap to reveal) */
+function toggleCardPrivacy(btn){
+  var card=btn.closest('.scr-card')||btn.closest('.card')||btn.closest('.hub-card'); if(!card) return;
+  var on=card.classList.toggle('card-private');
+  btn.innerHTML='<i data-lucide="'+(on?'eye-off':'eye')+'"></i>';
+  btn.setAttribute('aria-label', on?'Show this card':'Hide this card');
+  if(window.lucide&&lucide.createIcons) lucide.createIcons();
+}
 /* Key Takeaways: show only the first paragraph, expand the rest on "Read more" */
 function toggleInsTk(btn){
   var more=document.getElementById('insTkMore'); if(!more) return;
