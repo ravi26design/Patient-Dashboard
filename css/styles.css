@@ -4485,7 +4485,9 @@ body.is-desktop .audio-btn{left:auto;right:24px;bottom:24px}
 
 /* Hide the Listen button on the Home and Profile pages */
 body[data-screen="profile"] .audio-btn,
-body[data-screen="home"] .audio-btn{display:none}
+body[data-screen="home"] .audio-btn,
+body:has(#screen-home.active) .audio-btn,
+body:has(#screen-profile.active) .audio-btn{display:none}
 
 /* Daily Insight header "listen" button */
 .ins-audio-btn{margin-left:auto;flex:0 0 auto;width:38px;height:38px;border-radius:50%;border:none;background:#EEF3F8;color:var(--blue-ink,#3F6E99);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:transform .12s,background .2s}
