@@ -1767,6 +1767,11 @@ function wishEsc(s){ return String(s).replace(/[&<>"]/g,function(c){return {'&':
 function wishAdd(name){ name=(name||'').trim(); if(!name) return; var a=wishGet();
   if(a.map(function(x){return x.toLowerCase();}).indexOf(name.toLowerCase())<0){ a.push(name); wishSave(a); renderWish(); if(typeof toast==='function') toast('Added "'+name+'" to your prizes.'); } }
 function wishAddCustom(){ var inp=document.getElementById('wishInput'); if(!inp) return; wishAdd(inp.value); inp.value=''; inp.focus(); }
+/* Add-a-prize bottom sheet */
+function openPrizeSheet(){ var s=document.getElementById('prizeSheet'); if(!s) return; var i=document.getElementById('prizeInput'); if(i) i.value='';
+  s.classList.add('show'); s.setAttribute('aria-hidden','false'); if(window.lucide&&lucide.createIcons) lucide.createIcons(); setTimeout(function(){ if(i) i.focus(); }, 300); }
+function closePrizeSheet(){ var s=document.getElementById('prizeSheet'); if(s){ s.classList.remove('show'); s.setAttribute('aria-hidden','true'); } }
+function prizeSheetAdd(){ var i=document.getElementById('prizeInput'); if(!i) return; var v=(i.value||'').trim(); if(!v){ i.focus(); return; } wishAdd(v); i.value=''; closePrizeSheet(); }
 function wishRemoveAt(i){ var a=wishGet(); a.splice(i,1); wishSave(a); renderWish(); }
 function renderWish(){
   var box=document.getElementById('wishList'); if(!box) return;

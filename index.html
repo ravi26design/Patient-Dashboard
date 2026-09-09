@@ -15,7 +15,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
 <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
-<link rel="stylesheet" href="css/styles.css?v=20260909n">
+<link rel="stylesheet" href="css/styles.css?v=20260909o">
 </head>
 <body>
 
@@ -384,6 +384,27 @@
 </div>
 
 <!-- Add someone to My People · bottom sheet -->
+<!-- Add a prize bottom sheet -->
+<div id="prizeSheet" aria-hidden="true" onclick="if(event.target===this)closePrizeSheet()">
+  <div class="pf-sheet aps-sheet">
+    <button class="sheet-close" type="button" onclick="closePrizeSheet()" aria-label="Close"><i data-lucide="x"></i></button>
+    <div class="sheet-grab"></div>
+    <div class="aps-head">
+      <span class="aps-head-ic" style="background:var(--gold-lt,#FBF4E2);color:#9A6B16"><i data-lucide="gift"></i></span>
+      <div class="aps-head-tt">
+        <h3 class="aps-title">Add a prize</h3>
+        <p class="aps-lead">A reward that would keep you motivated.</p>
+      </div>
+    </div>
+    <label class="aps-l" for="prizeInput">Prize</label>
+    <input class="aps-in" type="text" id="prizeInput" placeholder="e.g. Weekend camping trip" autocomplete="off" onkeydown="if(event.key==='Enter'){event.preventDefault();prizeSheetAdd()}">
+    <div class="aps-actions">
+      <button class="aps-cancel" type="button" onclick="closePrizeSheet()">Cancel</button>
+      <button class="aps-add" type="button" onclick="prizeSheetAdd()">Add prize</button>
+    </div>
+  </div>
+</div>
+
 <div id="addPersonSheet" aria-hidden="true" onclick="if(event.target===this)closeAddPerson()">
   <div class="pf-sheet aps-sheet">
     <button class="sheet-close" type="button" onclick="closeAddPerson()" aria-label="Close"><i data-lucide="x"></i></button>
@@ -643,7 +664,7 @@
       </div>
 
       <!-- Prizes I'd value (personal wishlist) -->
-      <div class="scr-eyebrow" style="display:flex;align-items:center;gap:7px">Prizes I'd value<button class="help-i" type="button" style="text-transform:none;letter-spacing:0" aria-label="About prizes" onclick="showHelp('prizes')"><i data-lucide="info"></i></button></div>
+      <div class="scr-eyebrow" style="display:flex;align-items:center;gap:7px">Prizes I'd value<button class="help-i" type="button" style="text-transform:none;letter-spacing:0" aria-label="About prizes" onclick="showHelp('prizes')"><i data-lucide="info"></i></button><button class="prize-add-cta" type="button" style="margin-left:auto" onclick="openPrizeSheet()"><i data-lucide="plus"></i> Add</button></div>
       <div class="scr-card scr-full">
         <div style="font-family:var(--font-ui);font-size:12.5px;color:var(--ink-soft);margin:0 0 12px">Pick the rewards that would keep you going — your family and care team can pledge these for your milestones.</div>
         <div class="wish-chosen" id="wishList"></div>
@@ -658,10 +679,6 @@
           <button type="button" class="wish-chip" onclick="wishAdd(this.textContent)">Coffee treat</button>
           <button type="button" class="wish-chip" onclick="wishAdd(this.textContent)">Weekend trip</button>
           <button type="button" class="wish-chip" onclick="wishAdd(this.textContent)">Spa day</button>
-        </div>
-        <div class="wish-addrow">
-          <input id="wishInput" class="wish-input" type="text" placeholder="Add your own prize…" onkeydown="if(event.key==='Enter'){event.preventDefault();wishAddCustom()}">
-          <button type="button" class="wish-add" onclick="wishAddCustom()">Add</button>
         </div>
       </div>
 
@@ -3913,6 +3930,6 @@
     <button class="tour-skip" type="button" onclick="tourSkip()">Skip</button>
   </div>
 </div>
-<script src="js/app.js?v=20260909n"></script>
+<script src="js/app.js?v=20260909o"></script>
 </body>
 </html>
