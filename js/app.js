@@ -17,6 +17,7 @@ function goScreen(id){
   document.getElementById('screenArea').scrollTop=0;
   if(id==='mat'){ setTimeout(updatePatternChart,50); setTimeout(updateRecoveryHealthChart,50); }
   if(id==='rewards' && typeof renderWish==='function') renderWish();   /* prizes wishlist */
+  if(id==='rewards' && typeof applyLeaderboardPref==='function') applyLeaderboardPref();   /* leaderboard visibility */
   if(id==='home' && typeof scheduleCheckin==='function') scheduleCheckin();   /* daily check-in prompt 2s after landing on home */
   if(id==='home' && typeof maybeStartTour==='function') setTimeout(function(){ if(!document.querySelector('.overlay.active') && (document.body.getAttribute('data-screen')||'')==='home') maybeStartTour(); }, 650);   /* first-run feature tour on a clear home */
   if(id==='profile' && typeof renderProfileLists==='function') renderProfileLists();   /* triggers / relief / contacts */
@@ -41,6 +42,7 @@ function openOv(id){
   if(id==='urge' && typeof populateUrge==='function') populateUrge();   /* fill relief activities + contacts (e.g. after refresh-restore) */
   if(id==='manage-team' && typeof renderTeam==='function') renderTeam();   /* render the support-team list */
   if(id==='friends' && typeof frRender==='function') frRender();   /* followers & friends list */
+  if(id==='settings' && typeof applyLeaderboardPref==='function') applyLeaderboardPref();   /* sync leaderboard toggle */
   if(id==='rooms'){   /* Community is a nav destination — light up its nav tab */
     document.querySelectorAll('.bottom-nav .nav-tab, #dnav .dn-item').forEach(function(t){ t.classList.toggle('active', ((t.getAttribute('onclick')||'').indexOf("'rooms'")>=0)); });
   }
@@ -1744,6 +1746,20 @@ function showHelp(key){
   var p=document.getElementById('helpPop'); if(p){ p.hidden=false; if(window.lucide&&lucide.createIcons) lucide.createIcons(); }
 }
 function hideHelp(){ var p=document.getElementById('helpPop'); if(p) p.hidden=true; }
+/* ═══ Leaderboard visibility (on by default; toggled in Settings) ═══ */
+function leaderboardOn(){ try{ return localStorage.getItem('rh_show_leaderboard')!=='0'; }catch(e){ return true; } }
+function applyLeaderboardPref(){
+  var on=leaderboardOn();
+  var h=document.getElementById('lbHead'), c=document.getElementById('lbCard');
+  if(h) h.style.display=on?'':'none';
+  if(c) c.style.display=on?'':'none';
+  var t=document.getElementById('lbToggle'); if(t) t.classList.toggle('on', on);
+}
+function toggleLeaderboardPref(){
+  var on=!leaderboardOn();
+  try{ localStorage.setItem('rh_show_leaderboard', on?'1':'0'); }catch(e){}
+  applyLeaderboardPref();
+}
 /* ═══ Prizes I'd value — personal reward wishlist ═══ */
 function wishGet(){ try{ return JSON.parse(localStorage.getItem('rh_wishlist')||'[]'); }catch(e){ return []; } }
 function wishSave(a){ try{ localStorage.setItem('rh_wishlist', JSON.stringify(a)); }catch(e){} }

@@ -15,7 +15,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
 <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
-<link rel="stylesheet" href="css/styles.css?v=20260909m">
+<link rel="stylesheet" href="css/styles.css?v=20260909n">
 </head>
 <body>
 
@@ -632,9 +632,9 @@
         </div>
       </div>
 
-      <!-- 3. Anonymous Leaderboard -->
-      <div class="rw-lbhead scr-full"><span class="rw-lbhead-t">Anonymous Leaderboard</span><span class="rw-lbhead-tag">Day 30–90 Tier</span></div>
-      <div class="scr-card scr-full" style="padding:6px 0">
+      <!-- 3. Anonymous Leaderboard (tier pill hidden for Alpha; whole section toggleable in Settings) -->
+      <div class="rw-lbhead scr-full" id="lbHead"><span class="rw-lbhead-t">Anonymous Leaderboard</span></div>
+      <div class="scr-card scr-full" id="lbCard" style="padding:6px 0">
         <div class="lb-row"><div class="lb-rank">1</div><div class="lb-av" style="background:#7BA47E;font-size:13px;width:36px;height:36px">P</div><div style="flex:1"><div style="font-family:var(--font-ui);font-size:13px;font-weight:700;color:var(--ink)">Phoenix123</div><div style="font-family:var(--font-ui);font-size:12px;color:var(--ink-soft)">68-days MOUD streak · L5 Flourish</div></div><div style="font-family:var(--font-ui);font-size:13px;font-weight:700;color:var(--gold-dk)">3,840</div></div>
         <div class="lb-row"><div class="lb-rank">2</div><div class="lb-av" style="background:#9C8FC4;font-size:13px;width:36px;height:36px">R</div><div style="flex:1"><div style="font-family:var(--font-ui);font-size:13px;font-weight:700;color:var(--ink)">RisingTide</div><div style="font-family:var(--font-ui);font-size:12px;color:var(--ink-soft)">52-days MOUD streak · L4 Bloom</div></div><div style="font-family:var(--font-ui);font-size:13px;font-weight:700;color:var(--gold-dk)">2,960</div></div>
         <div class="lb-row me"><div class="lb-rank">3</div><div class="lb-av" style="background:#C98FA0;font-size:13px;width:36px;height:36px">ME</div><div style="flex:1"><div style="font-family:var(--font-ui);font-size:13px;font-weight:700;color:var(--ink)">You (VictoryWarrior)</div><div style="font-family:var(--font-ui);font-size:12px;color:var(--ink-soft)">47-days MOUD streak · L4 Bloom</div></div><div style="font-family:var(--font-ui);font-size:13px;font-weight:700;color:var(--gold-dk)">2,340</div></div>
@@ -1517,6 +1517,10 @@
         <div class="set-row"><div class="set-lbl"><div class="set-t">Larger text</div><div class="set-d">Increase font size across the app</div></div><button class="set-toggle" type="button" onclick="this.classList.toggle('on')" aria-label="Toggle"></button></div>
         <div class="set-row"><div class="set-lbl"><div class="set-t">High contrast</div><div class="set-d">Stronger colors for readability</div></div><button class="set-toggle" type="button" onclick="this.classList.toggle('on')" aria-label="Toggle"></button></div>
         <div class="set-row"><div class="set-lbl"><div class="set-t">Reduce motion</div><div class="set-d">Minimize animations</div></div><button class="set-toggle" type="button" onclick="this.classList.toggle('on')" aria-label="Toggle"></button></div>
+      </div>
+      <div class="set-sec">Rewards</div>
+      <div class="set-card">
+        <div class="set-row"><div class="set-lbl"><div class="set-t">Show leaderboard</div><div class="set-d">Display the anonymous leaderboard on Rewards</div></div><button class="set-toggle on" id="lbToggle" type="button" onclick="toggleLeaderboardPref(this)" aria-label="Toggle"></button></div>
       </div>
       <div class="set-sec">Language</div>
       <div class="set-card">
@@ -3909,6 +3913,6 @@
     <button class="tour-skip" type="button" onclick="tourSkip()">Skip</button>
   </div>
 </div>
-<script src="js/app.js?v=20260909m"></script>
+<script src="js/app.js?v=20260909n"></script>
 </body>
 </html>
