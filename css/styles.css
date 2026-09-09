@@ -2432,7 +2432,7 @@ body[data-screen="profile"] .bottom-nav{display:none}
 /* SOS = full-page takeover: no app-header, no bottom bar, own back arrow */
 body[data-screen="narcan"] .app-header{display:none}
 body[data-screen="narcan"] .bottom-nav{display:none}
-.sos-head{margin:0 0 2px;padding-top:max(22px,env(safe-area-inset-top));display:flex;align-items:center;gap:14px}
+.sos-head{margin:0 0 16px;padding-top:max(22px,env(safe-area-inset-top));display:flex;align-items:center;gap:14px}
 .sos-head-title{display:none;font-family:var(--font-display);font-size:17px;font-weight:700;color:var(--ink)}
 body.is-desktop .sos-head-title{display:block}
 /* desktop: the top nav handles navigation, so the Help screen's back+title header is redundant */
