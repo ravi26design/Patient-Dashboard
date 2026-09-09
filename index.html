@@ -15,7 +15,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
 <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
-<link rel="stylesheet" href="css/styles.css?v=20260909l">
+<link rel="stylesheet" href="css/styles.css?v=20260909m">
 </head>
 <body>
 
@@ -640,6 +640,29 @@
         <div class="lb-row me"><div class="lb-rank">3</div><div class="lb-av" style="background:#C98FA0;font-size:13px;width:36px;height:36px">ME</div><div style="flex:1"><div style="font-family:var(--font-ui);font-size:13px;font-weight:700;color:var(--ink)">You (VictoryWarrior)</div><div style="font-family:var(--font-ui);font-size:12px;color:var(--ink-soft)">47-days MOUD streak · L4 Bloom</div></div><div style="font-family:var(--font-ui);font-size:13px;font-weight:700;color:var(--gold-dk)">2,340</div></div>
         <div class="lb-row"><div class="lb-rank">4</div><div class="lb-av" style="background:#7FAAC4;font-size:13px;width:36px;height:36px">K</div><div style="flex:1"><div style="font-family:var(--font-ui);font-size:13px;font-weight:700;color:var(--ink)">KindredSpirit</div><div style="font-family:var(--font-ui);font-size:12px;color:var(--ink-soft)">39-days MOUD streak · L3 Root</div></div><div style="font-family:var(--font-ui);font-size:13px;font-weight:700;color:var(--ink-soft)">1,810</div></div>
         <div class="lb-row"><div class="lb-rank">5</div><div class="lb-av" style="background:#D49A78;font-size:13px;width:36px;height:36px">N</div><div style="flex:1"><div style="font-family:var(--font-ui);font-size:13px;font-weight:700;color:var(--ink)">NewDawn44</div><div style="font-family:var(--font-ui);font-size:12px;color:var(--ink-soft)">31-days MOUD streak · L3 Root</div></div><div style="font-family:var(--font-ui);font-size:13px;font-weight:700;color:var(--ink-soft)">1,540</div></div>
+      </div>
+
+      <!-- Prizes I'd value (personal wishlist) -->
+      <div class="scr-eyebrow" style="display:flex;align-items:center;gap:7px">Prizes I'd value<button class="help-i" type="button" style="text-transform:none;letter-spacing:0" aria-label="About prizes" onclick="showHelp('prizes')"><i data-lucide="info"></i></button></div>
+      <div class="scr-card scr-full">
+        <div style="font-family:var(--font-ui);font-size:12.5px;color:var(--ink-soft);margin:0 0 12px">Pick the rewards that would keep you going — your family and care team can pledge these for your milestones.</div>
+        <div class="wish-chosen" id="wishList"></div>
+        <div class="wish-sub">Common prizes</div>
+        <div class="wish-common">
+          <button type="button" class="wish-chip" onclick="wishAdd(this.textContent)">Movie night</button>
+          <button type="button" class="wish-chip" onclick="wishAdd(this.textContent)">Dinner out</button>
+          <button type="button" class="wish-chip" onclick="wishAdd(this.textContent)">A new book</button>
+          <button type="button" class="wish-chip" onclick="wishAdd(this.textContent)">Concert tickets</button>
+          <button type="button" class="wish-chip" onclick="wishAdd(this.textContent)">New clothes</button>
+          <button type="button" class="wish-chip" onclick="wishAdd(this.textContent)">Video game</button>
+          <button type="button" class="wish-chip" onclick="wishAdd(this.textContent)">Coffee treat</button>
+          <button type="button" class="wish-chip" onclick="wishAdd(this.textContent)">Weekend trip</button>
+          <button type="button" class="wish-chip" onclick="wishAdd(this.textContent)">Spa day</button>
+        </div>
+        <div class="wish-addrow">
+          <input id="wishInput" class="wish-input" type="text" placeholder="Add your own prize…" onkeydown="if(event.key==='Enter'){event.preventDefault();wishAddCustom()}">
+          <button type="button" class="wish-add" onclick="wishAddCustom()">Add</button>
+        </div>
       </div>
 
       <!-- 4. Family Reward Board -->
@@ -3886,6 +3909,6 @@
     <button class="tour-skip" type="button" onclick="tourSkip()">Skip</button>
   </div>
 </div>
-<script src="js/app.js?v=20260909l"></script>
+<script src="js/app.js?v=20260909m"></script>
 </body>
 </html>

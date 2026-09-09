@@ -16,6 +16,7 @@ function goScreen(id){
   try{localStorage.setItem('rh_screen',id);}catch(e){}
   document.getElementById('screenArea').scrollTop=0;
   if(id==='mat'){ setTimeout(updatePatternChart,50); setTimeout(updateRecoveryHealthChart,50); }
+  if(id==='rewards' && typeof renderWish==='function') renderWish();   /* prizes wishlist */
   if(id==='home' && typeof scheduleCheckin==='function') scheduleCheckin();   /* daily check-in prompt 2s after landing on home */
   if(id==='home' && typeof maybeStartTour==='function') setTimeout(function(){ if(!document.querySelector('.overlay.active') && (document.body.getAttribute('data-screen')||'')==='home') maybeStartTour(); }, 650);   /* first-run feature tour on a clear home */
   if(id==='profile' && typeof renderProfileLists==='function') renderProfileLists();   /* triggers / relief / contacts */
@@ -1733,7 +1734,8 @@ var HELP_CONTENT={
   'factor-trend':{title:'Factor trend', body:'This chart tracks the factor(s) you selected above, scored 1 to 5, over your chosen timeframe. Use W, M, 6M or Y and the arrows to move through time.'},
   'rooms':{title:'Find your people', body:'Join topic rooms to share and get support from people who understand. Everyone is anonymous — only usernames are shown, never your real name.'},
   'friends':{title:'Followers & Friends', body:'Your connections on Rudra. Follow people whose journey inspires you and add friends you trust — all under usernames, never real names.'},
-  'safe':{title:'Anonymous support', body:'One-to-one support and meetings whenever you need them. Reach a peer specialist or coach privately, or find an in-person, virtual or hybrid meeting.'}
+  'safe':{title:'Anonymous support', body:'One-to-one support and meetings whenever you need them. Reach a peer specialist or coach privately, or find an in-person, virtual or hybrid meeting.'},
+  'prizes':{title:"Prizes I'd value", body:'Build a list of rewards that would genuinely motivate you. Your family, sponsor or care team can pledge these to your milestones. Pick from common prizes or add your own.'}
 };
 function showHelp(key){
   var h=HELP_CONTENT[key]||{title:'Help',body:''};
@@ -1742,6 +1744,23 @@ function showHelp(key){
   var p=document.getElementById('helpPop'); if(p){ p.hidden=false; if(window.lucide&&lucide.createIcons) lucide.createIcons(); }
 }
 function hideHelp(){ var p=document.getElementById('helpPop'); if(p) p.hidden=true; }
+/* ═══ Prizes I'd value — personal reward wishlist ═══ */
+function wishGet(){ try{ return JSON.parse(localStorage.getItem('rh_wishlist')||'[]'); }catch(e){ return []; } }
+function wishSave(a){ try{ localStorage.setItem('rh_wishlist', JSON.stringify(a)); }catch(e){} }
+function wishEsc(s){ return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];}); }
+function wishAdd(name){ name=(name||'').trim(); if(!name) return; var a=wishGet();
+  if(a.map(function(x){return x.toLowerCase();}).indexOf(name.toLowerCase())<0){ a.push(name); wishSave(a); renderWish(); if(typeof toast==='function') toast('Added "'+name+'" to your prizes.'); } }
+function wishAddCustom(){ var inp=document.getElementById('wishInput'); if(!inp) return; wishAdd(inp.value); inp.value=''; inp.focus(); }
+function wishRemoveAt(i){ var a=wishGet(); a.splice(i,1); wishSave(a); renderWish(); }
+function renderWish(){
+  var box=document.getElementById('wishList'); if(!box) return;
+  var a=wishGet();
+  if(!a.length){ box.innerHTML='<div class="wish-empty">No prizes yet — tap a common prize below or add your own.</div>'; }
+  else { box.innerHTML=a.map(function(x,i){ return '<span class="wish-item"><i data-lucide="gift"></i><span>'+wishEsc(x)+'</span><button class="wish-x" type="button" onclick="wishRemoveAt('+i+')" aria-label="Remove">&times;</button></span>'; }).join(''); }
+  var lc=a.map(function(x){return x.toLowerCase();});
+  document.querySelectorAll('.wish-chip').forEach(function(c){ c.classList.toggle('added', lc.indexOf((c.textContent||'').trim().toLowerCase())>=0); });
+  if(window.lucide&&lucide.createIcons) lucide.createIcons();
+}
 /* Privacy eye: hide/blur a card's data (tap to reveal) */
 function toggleCardPrivacy(btn){
   var card=btn.closest('.scr-card')||btn.closest('.card')||btn.closest('.hub-card'); if(!card) return;
