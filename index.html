@@ -15,7 +15,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
 <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
-<link rel="stylesheet" href="css/styles.css?v=20260909a">
+<link rel="stylesheet" href="css/styles.css?v=20260909b">
 </head>
 <body>
 
@@ -3856,15 +3856,23 @@
   <div class="tour-card" id="tourCard">
     <button class="tour-x" type="button" aria-label="Skip guide" onclick="tourSkip()">&times;</button>
     <span class="tour-beak" id="tourBeak"></span>
-    <div class="tour-step" id="tourStep"></div>
-    <div class="tour-title" id="tourTitle"></div>
-    <div class="tour-desc" id="tourText"></div>
+    <div class="tour-row">
+      <span class="tour-ic" id="tourIllus"></span>
+      <div class="tour-txt">
+        <div class="tour-title" id="tourTitle"></div>
+        <div class="tour-desc" id="tourText"></div>
+      </div>
+    </div>
     <div class="tour-foot">
-      <div class="tour-dots" id="tourDots"></div>
-      <button class="tour-got" id="tourNext" type="button" onclick="tourNext()">Got it</button>
+      <span class="tour-step" id="tourStep"></span>
+      <button class="tour-got" id="tourNext" type="button" onclick="tourNext()">Next</button>
     </div>
   </div>
+  <div class="tour-bar">
+    <div class="tour-dots" id="tourDots"></div>
+    <button class="tour-skip" type="button" onclick="tourSkip()">Skip</button>
+  </div>
 </div>
-<script src="js/app.js?v=20260909a"></script>
+<script src="js/app.js?v=20260909b"></script>
 </body>
 </html>

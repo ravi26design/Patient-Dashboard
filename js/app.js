@@ -1791,14 +1791,13 @@ function maybeStartTour(){
 function renderTour(){
   if(__tourPos>=TOUR_STEPS.length){ tourDone(); return; }
   var s=TOUR_STEPS[__tourPos];
-  var bg='color-mix(in srgb, '+s.color+' 82%, #000)';   /* darken the feature colour so white text has contrast */
-  var cardEl=document.getElementById('tourCard'); if(cardEl) cardEl.style.background=bg;
-  var beakEl=document.getElementById('tourBeak'); if(beakEl) beakEl.style.background=bg;
-  var stepEl=document.getElementById('tourStep'); if(stepEl) stepEl.textContent='Step '+(__tourPos+1)+' of '+TOUR_STEPS.length;
-  var titleEl=document.getElementById('tourTitle'); if(titleEl) titleEl.textContent=s.title;
+  var illus=document.getElementById('tourIllus');
+  if(illus){ illus.style.background='color-mix(in srgb, '+s.color+' 15%, #fff)'; illus.style.color=s.color; illus.innerHTML='<i data-lucide="'+s.icon+'"></i>'; }
+  var stepEl=document.getElementById('tourStep'); if(stepEl) stepEl.textContent=(__tourPos+1)+' / '+TOUR_STEPS.length;
+  var titleEl=document.getElementById('tourTitle'); if(titleEl){ titleEl.textContent=s.title; titleEl.style.color=s.color; }
   var textEl=document.getElementById('tourText'); if(textEl) textEl.textContent=s.text;
-  var ds=document.querySelectorAll('#tourDots span'); for(var d=0;d<ds.length;d++) ds[d].classList.toggle('on',d===__tourPos);
-  var nb=document.getElementById('tourNext'); if(nb) nb.textContent=(__tourPos>=TOUR_STEPS.length-1)?'Finish':'Got it';
+  var ds=document.querySelectorAll('#tourDots span'); for(var d=0;d<ds.length;d++){ var on=(d===__tourPos); ds[d].classList.toggle('on',on); ds[d].style.background=on?s.color:''; }
+  var nb=document.getElementById('tourNext'); if(nb){ nb.textContent=(__tourPos>=TOUR_STEPS.length-1)?'Finish':'Next'; nb.style.background=s.color; }
   /* spotlight the live element if it's on screen (mobile); otherwise dim + centre the card (desktop) */
   var r=tourRect(__tourPos), spot=document.getElementById('tourSpot'), tour=document.getElementById('appTour');
   var card=document.getElementById('tourCard');
