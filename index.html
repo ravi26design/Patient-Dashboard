@@ -15,7 +15,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
 <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
-<link rel="stylesheet" href="css/styles.css?v=20260909h">
+<link rel="stylesheet" href="css/styles.css?v=20260909i">
 </head>
 <body>
 
@@ -1885,6 +1885,7 @@
         <div class="hub-card-head">
           <div class="hub-ic" style="background:#5B92CE"><i data-lucide="messages-square"></i></div>
           <div class="hub-card-tt"><div class="hub-title">Find your people</div><div class="hub-sub">Join the conversation in topic rooms</div></div>
+          <button class="help-i" type="button" aria-label="About rooms" onclick="event.stopPropagation();showHelp('rooms')"><i data-lucide="info"></i></button>
         </div>
         <div class="hub-opts">
           <button class="hub-opt" type="button" id="allRoomsBtn">
@@ -1910,6 +1911,7 @@
         <div class="hub-card-head">
           <div class="hub-ic" style="background:#D8AD63"><i data-lucide="users"></i></div>
           <div class="hub-card-tt"><div class="hub-title">Rudra Followers &amp; Friends</div><div class="hub-sub">Your people on Rudra</div></div>
+          <button class="help-i" type="button" aria-label="About followers and friends" onclick="event.stopPropagation();showHelp('friends')"><i data-lucide="info"></i></button>
         </div>
         <div class="hub-friends-row">
           <div class="hub-av-stack">
@@ -1931,6 +1933,7 @@
         <div class="hub-card-head">
           <div class="hub-ic" style="background:#6E9E80"><i data-lucide="shield-check"></i></div>
           <div class="hub-card-tt"><div class="hub-title">A safe place, always anonymous</div><div class="hub-sub">Support whenever you need it</div></div>
+          <button class="help-i" type="button" aria-label="About anonymous support" onclick="event.stopPropagation();showHelp('safe')"><i data-lucide="info"></i></button>
         </div>
         <div class="hub-opts">
           <button class="hub-opt" type="button" onclick="openOv('find-coach')">
@@ -3883,6 +3886,6 @@
     <button class="tour-skip" type="button" onclick="tourSkip()">Skip</button>
   </div>
 </div>
-<script src="js/app.js?v=20260909h"></script>
+<script src="js/app.js?v=20260909i"></script>
 </body>
 </html>

@@ -1730,7 +1730,10 @@ function speakText(text, btn){
 var HELP_CONTENT={
   'recovery-health':{title:'Recovery Health', body:'A 0–100 score that blends your check-ins, medication and activities into one friendly number. Higher is better — but the trend over time matters far more than any single day.'},
   'compare':{title:'Compare factors', body:'Pick up to two daily factors — like Urge and Sleep Quality — to see how they move together over time. Spotting patterns helps you and your care team plan for the harder days.'},
-  'factor-trend':{title:'Factor trend', body:'This chart tracks the factor(s) you selected above, scored 1 to 5, over your chosen timeframe. Use W, M, 6M or Y and the arrows to move through time.'}
+  'factor-trend':{title:'Factor trend', body:'This chart tracks the factor(s) you selected above, scored 1 to 5, over your chosen timeframe. Use W, M, 6M or Y and the arrows to move through time.'},
+  'rooms':{title:'Find your people', body:'Join topic rooms to share and get support from people who understand. Everyone is anonymous — only usernames are shown, never your real name.'},
+  'friends':{title:'Followers & Friends', body:'Your connections on Rudra. Follow people whose journey inspires you and add friends you trust — all under usernames, never real names.'},
+  'safe':{title:'Anonymous support', body:'One-to-one support and meetings whenever you need them. Reach a peer specialist or coach privately, or find an in-person, virtual or hybrid meeting.'}
 };
 function showHelp(key){
   var h=HELP_CONTENT[key]||{title:'Help',body:''};
