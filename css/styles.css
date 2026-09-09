@@ -4530,3 +4530,6 @@ body:has(#ov-schedule.active) .audio-btn{display:none}
 .card-eye:hover{background:#E3E6E6;color:var(--ink)}
 .card-eye:active{transform:scale(.9)}
 .scr-card.card-private > :not(.scr-card-h){filter:blur(9px);opacity:.5;transition:filter .22s,opacity .22s;pointer-events:none;user-select:none}
+
+/* Community hub cards: top-align the info icon */
+.hub-card-head .help-i{align-self:flex-start;margin-top:2px}
