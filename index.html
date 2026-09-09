@@ -15,7 +15,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
 <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
-<link rel="stylesheet" href="css/styles.css?v=20260909f">
+<link rel="stylesheet" href="css/styles.css?v=20260909g">
 </head>
 <body>
 
@@ -803,7 +803,7 @@
 
       <!-- Item selector -->
       <div class="scr-card scr-full">
-        <div class="scr-card-t" style="margin:0 0 4px">Select up to 2 to compare</div>
+        <div style="display:flex;align-items:center;gap:7px;margin:0 0 4px"><div class="scr-card-t">Select up to 2 to compare</div><button class="help-i" type="button" aria-label="About comparing factors" onclick="showHelp('compare')"><i data-lucide="info"></i></button></div>
         <div style="font-family:var(--font-ui);font-size:12px;color:var(--ink-soft);margin:0 0 12px">Tap two factors to see them side by side.</div>
         <div class="seg-grid">
           <button class="pattern-item seg-btn on" id="pitem-urge"     style="--cat:#D4736A" onclick="selectPatternItem('urge',this)">Urge</button>
@@ -818,7 +818,7 @@
       <!-- Selected item chart -->
       <div class="scr-card scr-full">
         <div class="scr-card-h">
-          <div><div class="scr-card-t" id="pattern-title">Urge</div></div>
+          <div style="display:flex;align-items:center;gap:7px"><div class="scr-card-t" id="pattern-title">Urge</div><button class="help-i" type="button" aria-label="About this chart" onclick="showHelp('factor-trend')"><i data-lucide="info"></i></button></div>
           <div class="tf-seg">
             <button class="pattern-tf seg-btn on" onclick="selectPatternTf('W',this)">W</button>
             <button class="pattern-tf seg-btn"    onclick="selectPatternTf('M',this)">M</button>
@@ -3884,6 +3884,6 @@
     <button class="tour-skip" type="button" onclick="tourSkip()">Skip</button>
   </div>
 </div>
-<script src="js/app.js?v=20260909f"></script>
+<script src="js/app.js?v=20260909g"></script>
 </body>
 </html>

@@ -1728,7 +1728,9 @@ function speakText(text, btn){
 }
 /* ═══ Contextual help popups (the "i" icon next to card titles) ═══ */
 var HELP_CONTENT={
-  'recovery-health':{title:'Recovery Health', body:'A 0–100 score that blends your check-ins, medication and activities into one friendly number. Higher is better — but the trend over time matters far more than any single day.'}
+  'recovery-health':{title:'Recovery Health', body:'A 0–100 score that blends your check-ins, medication and activities into one friendly number. Higher is better — but the trend over time matters far more than any single day.'},
+  'compare':{title:'Compare factors', body:'Pick up to two daily factors — like Urge and Sleep Quality — to see how they move together over time. Spotting patterns helps you and your care team plan for the harder days.'},
+  'factor-trend':{title:'Factor trend', body:'This chart tracks the factor(s) you selected above, scored 1 to 5, over your chosen timeframe. Use W, M, 6M or Y and the arrows to move through time.'}
 };
 function showHelp(key){
   var h=HELP_CONTENT[key]||{title:'Help',body:''};
