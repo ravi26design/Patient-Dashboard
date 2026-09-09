@@ -285,7 +285,7 @@ function selectRHTf(tf, btn){
 
 /* ═══ PATTERN CHART ═══ */
 var patternChart = null;
-var currentPatternItem = 'urge';
+var selectedPatternItems = ['urge'];   /* up to 2 items to compare on the graph */
 var currentPatternTf = 'W', patternWeekOffset = 0;
 
 var patternData = {
@@ -296,26 +296,35 @@ var patternData = {
   risky:    { label:'Risky Situations', hex:'#D4612A', daily:_gen(84,4.5,2.1,1,5,5),  monthly:_gen(12,4.6,1.9,1,5,15) },
   sleep:    { label:'Sleep Quality',    hex:'#4A90D9', daily:_gen(84,2.0,3.8,1,5,6),  monthly:_gen(12,1.9,4.0,1,5,16) }
 };
-function patternWeekStep(dir){ patternWeekOffset = Math.max(0, Math.min(_maxWeek(patternData[currentPatternItem].daily), patternWeekOffset + dir)); updatePatternChart(); }
+function patternWeekStep(dir){ patternWeekOffset = Math.max(0, Math.min(_maxWeek(patternData[selectedPatternItems[0]].daily), patternWeekOffset + dir)); updatePatternChart(); }
 
 function updatePatternChart(){
-  var item=patternData[currentPatternItem];
-  var s=tfSeries(item.daily, item.monthly, currentPatternTf, patternWeekOffset);
-  var _pt=document.getElementById('pattern-title'); if(_pt){ _pt.textContent=item.label; _pt.style.color=item.hex; }
+  var keys=(selectedPatternItems&&selectedPatternItems.length)?selectedPatternItems:['urge'];
+  var primary=patternData[keys[0]], multi=keys.length>1;
+  var primarySeries=tfSeries(primary.daily, primary.monthly, currentPatternTf, patternWeekOffset);
+  var _pt=document.getElementById('pattern-title');
+  if(_pt){
+    if(multi){ _pt.style.color=''; _pt.innerHTML=keys.map(function(k){ return '<span style="color:'+patternData[k].hex+'">'+patternData[k].label+'</span>'; }).join('<span style="color:var(--ink-soft,#9C938D);font-weight:600"> vs </span>'); }
+    else { _pt.textContent=primary.label; _pt.style.color=primary.hex; }
+  }
   var canvas=document.getElementById('patternChart'); if(!canvas) return;
   var wrapper=document.getElementById('chart-scroll-wrapper');
   var containerW=wrapper?(wrapper.clientWidth||320):320, AXISW=30;
   canvas.width=containerW; canvas.height=160;
   canvas.style.width=containerW+'px'; canvas.style.height='160px';
   if(patternChart){patternChart.destroy();patternChart=null;}
+  var datasets=keys.map(function(k){
+    var it=patternData[k], s=tfSeries(it.daily, it.monthly, currentPatternTf, patternWeekOffset);
+    return {label:it.label,data:s.data,borderColor:it.hex,backgroundColor:multi?'transparent':_lineFill(canvas,it.hex),fill:!multi,tension:0.35,borderWidth:2.5,pointRadius:(s.data.length>14?0:3),pointHoverRadius:5,pointBackgroundColor:'#fff',pointBorderColor:it.hex,pointBorderWidth:2};
+  });
   patternChart=new Chart(canvas,{
     type:'line',
-    data:{labels:s.labels,datasets:[{data:s.data,borderColor:item.hex,backgroundColor:_lineFill(canvas,item.hex),fill:true,tension:0.35,borderWidth:2.5,pointRadius:(s.data.length>14?0:3),pointHoverRadius:5,pointBackgroundColor:'#fff',pointBorderColor:item.hex,pointBorderWidth:2}]},
+    data:{labels:primarySeries.labels,datasets:datasets},
     options:{
       responsive:false,
       animation:{duration:450},
       layout:{padding:{left:AXISW}},
-      plugins:{legend:{display:false},tooltip:{callbacks:{label:function(c){return 'Score: '+c.parsed.y;}}}},
+      plugins:{legend:{display:multi,position:'top',align:'end',labels:{boxWidth:8,boxHeight:8,usePointStyle:true,pointStyle:'circle',font:{size:9},color:'#6A6F76',padding:10}},tooltip:{callbacks:{label:function(c){return c.dataset.label+': '+c.parsed.y;}}}},
       scales:{
         y:{min:1,max:5,ticks:{display:false},grid:{color:'rgba(58,51,48,0.05)',drawTicks:false},border:{display:false}},
         x:{ticks:{font:{size:8},autoSkip:false,maxRotation:0,color:'#8a7e76'},grid:{display:false}}
@@ -323,7 +332,7 @@ function updatePatternChart(){
     }
   });
   renderPatternYAxis();
-  updateWeekNav('pattern', currentPatternTf, patternWeekOffset, item.daily);
+  updateWeekNav('pattern', currentPatternTf, patternWeekOffset, primary.daily);
 }
 
 /* Draw a chart's y-axis labels in a fixed left strip, aligned to the chart's
@@ -341,9 +350,14 @@ function drawFixedYAxis(chart, elId){
 function renderPatternYAxis(){ drawFixedYAxis(patternChart, 'pattern-yaxis'); }
 
 function selectPatternItem(key,btn){
-  currentPatternItem=key;
-  document.querySelectorAll('.pattern-item').forEach(function(b){b.classList.remove('on');});
-  btn.classList.add('on');
+  if(!selectedPatternItems) selectedPatternItems=[];
+  var i=selectedPatternItems.indexOf(key);
+  if(i>=0){ if(selectedPatternItems.length>1) selectedPatternItems.splice(i,1); }   /* toggle off, but keep at least one */
+  else { if(selectedPatternItems.length>=2) selectedPatternItems.shift(); selectedPatternItems.push(key); }   /* max 2 — drop the oldest */
+  document.querySelectorAll('.pattern-item').forEach(function(b){
+    var k=(b.id||'').replace('pitem-','');
+    b.classList.toggle('on', selectedPatternItems.indexOf(k)>=0);
+  });
   updatePatternChart();
 }
 
@@ -1712,6 +1726,17 @@ function speakText(text, btn){
   u.onerror=u.onend;
   try{ window.speechSynthesis.cancel(); window.speechSynthesis.speak(u); }catch(e){}
 }
+/* ═══ Contextual help popups (the "i" icon next to card titles) ═══ */
+var HELP_CONTENT={
+  'recovery-health':{title:'Recovery Health', body:'A 0–100 score that blends your check-ins, medication and activities into one friendly number. Higher is better — but the trend over time matters far more than any single day.'}
+};
+function showHelp(key){
+  var h=HELP_CONTENT[key]||{title:'Help',body:''};
+  var t=document.getElementById('helpPopTitle'); if(t) t.textContent=h.title;
+  var b=document.getElementById('helpPopBody'); if(b) b.textContent=h.body;
+  var p=document.getElementById('helpPop'); if(p){ p.hidden=false; if(window.lucide&&lucide.createIcons) lucide.createIcons(); }
+}
+function hideHelp(){ var p=document.getElementById('helpPop'); if(p) p.hidden=true; }
 /* Key Takeaways: show only the first paragraph, expand the rest on "Read more" */
 function toggleInsTk(btn){
   var more=document.getElementById('insTkMore'); if(!more) return;
