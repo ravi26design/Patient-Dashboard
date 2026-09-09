@@ -3801,7 +3801,7 @@ body.is-mobile .rh-badges .rh-trend{margin:0;width:auto}
 /* ═══════════ COMMUNITY HUB + Friends + Request-a-room ═══════════ */
 .hub-list{display:flex;flex-direction:column;gap:14px;padding-bottom:20px}
 .hub-card{background:#fff;border-radius:20px;box-shadow:var(--card-shadow);padding:16px}
-.hub-card-head{display:flex;align-items:center;gap:13px;margin-bottom:12px}
+.hub-card-head{display:flex;align-items:flex-start;gap:13px;margin-bottom:12px}
 .hub-ic{flex:0 0 auto;width:46px;height:46px;border-radius:14px;display:flex;align-items:center;justify-content:center;color:#fff}
 .hub-ic i,.hub-ic svg{width:23px;height:23px;stroke-width:2}
 .hub-card-tt{flex:1;min-width:0}
