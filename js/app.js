@@ -3703,13 +3703,15 @@ function renderCoaches(){
     const distTxt = p.dist>=999 ? "Video" : (p.dist<50 ? p.dist.toFixed(1)+" mi" : "Far");
     return `<div class="result ${p.kind==="peer"?"peerkind":""}" data-name="${p.name}" tabindex="0" role="button" aria-label="View ${p.name}'s profile">
       <div class="rpic"><img src="${photoFor(p)}" alt="" loading="lazy">${p.awake?'<span class="live"></span>':''}</div>
-      <div style="flex:1;min-width:0">
+      <div class="rhead">
         <div class="rnm">${p.name}<span class="kind ${p.kind==="peer"?"peer":"coach"}">${p.kind==="peer"?"Peer":"Coach"}</span></div>
         <div class="rmeta">${distTxt}<s>${fmt}</s>${p.awake?'<s style="color:var(--sage-ink)">Awake now</s>':''}</div>
+      </div>
+      <div class="rbody">
         <div class="cred">${p.cred}</div>
         <div class="starrow">${starHTML(p.rating)}<span class="rn">${p.rating.toFixed(1)} · ${p.reviews} reviews</span></div>
         <div class="rtags">${p.tags.map(t=>`<span class="rtag">${t}</span>`).join("")}</div>
-        <div class="ct-btns" style="display:flex;gap:8px;margin-top:10px">
+        <div class="ct-btns" style="display:flex;gap:8px;margin-top:12px">
           <button class="ct-btn ct-call" type="button" onclick="event.stopPropagation();callContact('${p.name.replace(/'/g,"\\'")}','${ph}')"><i data-lucide="phone"></i>Call</button>
           <button class="ct-btn ct-text" type="button" onclick="event.stopPropagation();textContact('${p.name.replace(/'/g,"\\'")}','${ph}')"><i data-lucide="message-circle"></i>Text</button>
         </div>
