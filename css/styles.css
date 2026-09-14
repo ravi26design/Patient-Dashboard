@@ -3946,6 +3946,9 @@ body.is-mobile .rh-badges .rh-trend{margin:0;width:auto}
 .fc-scope .tag{display:inline-flex;align-items:center;gap:6px;font-size:10px;font-weight:700;letter-spacing:.13em;text-transform:uppercase}
 
 .fc-scope .tag i{width:7px;height:7px;border-radius:50%}
+/* Results header ("Matches near …") styled like the Schedule "Today" section title */
+.fc-scope .card-top .tag{font-family:var(--font-ui);font-size:13.5px;font-weight:800;letter-spacing:.2px;text-transform:none;color:var(--ink)}
+.fc-scope .card-top .tag i{display:none}
 
 .fc-scope .card h5{font-family:var(--font-display, Manrope);font-weight:800;font-size:16.5px;letter-spacing:-.015em;margin:0 0 6px}
 
