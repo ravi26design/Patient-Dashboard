@@ -1828,6 +1828,12 @@ function speakInsight(btn){
   if(parts.length===1 && PAGE_NARRATION.insights) parts.push(PAGE_NARRATION.insights);
   speakText(parts.join(' '), btn);
 }
+/* Read the "Request a room" sheet aloud — the intro plus what each field asks for */
+function speakStartRoom(btn){
+  speakText("Request a room. Rooms are how people find their people. Give yours a clear name so the right members can find it. A peer specialist reviews new rooms to keep everyone safe. "+
+    "First, a room name. Then pick an icon. Then, in one line, say what it's for — who is this room for, and what will you talk about? "+
+    "Rooms that source, sell, or glamorize use aren't allowed. A certified peer specialist keeps watch here too.", btn);
+}
 /* Read the current check-in question aloud — the prompt plus its answer options */
 function speakReflect(btn){
   var item=(typeof REFLECT_Q!=='undefined')?REFLECT_Q[reflectStep]:null; if(!item){ return; }

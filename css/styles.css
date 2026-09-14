@@ -3719,6 +3719,13 @@ body.is-mobile .rh-badges .rh-trend{margin:0;width:auto}
   border-radius:50%;background:var(--paper2,#F1EFEA);color:var(--muted,#6A6F76);font-size:22px;line-height:1;
   cursor:pointer;display:grid;place-items:center;transition:.15s;z-index:2}
 .rc-scope .sr-sheet .sr-close:hover{background:#E7E3DD;color:var(--ink,#2E3238);transform:rotate(90deg)}
+.rc-scope .sr-sheet .sr-audio-btn{position:absolute;top:16px;right:58px;width:34px;height:34px;border:0;
+  border-radius:50%;background:#EEF3F8;color:var(--blue-ink,#3F6E99);cursor:pointer;display:grid;place-items:center;
+  transition:transform .12s ease,background .2s;z-index:2}
+.rc-scope .sr-sheet .sr-audio-btn i,.rc-scope .sr-sheet .sr-audio-btn svg{width:17px;height:17px}
+.rc-scope .sr-sheet .sr-audio-btn:active{transform:scale(.92)}
+.rc-scope .sr-sheet .sr-audio-btn.speaking{background:var(--blue-ink,#3F6E99);color:#fff;animation:rfAudioPulse 1.4s ease-in-out infinite}
+.rc-scope .sr-guard em i,.rc-scope .sr-guard em svg{width:15px;height:15px;display:block}
 .rc-scope .sr-sheet{position:relative}
 .rc-scope .sr-sheet .sr-lead{font-size:12.6px;color:var(--muted,#6A6F76);line-height:1.55;margin:0 0 16px}
 .rc-scope .sr-sheet label{display:block;font:800 10px var(--font-ui, Manrope);letter-spacing:.09em;text-transform:uppercase;color:var(--muted,#6A6F76);margin:0 0 7px}
