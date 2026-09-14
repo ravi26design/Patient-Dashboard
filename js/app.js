@@ -1903,13 +1903,14 @@ function maybeStartTour(){
 function renderTour(){
   if(__tourPos>=TOUR_STEPS.length){ tourDone(); return; }
   var s=TOUR_STEPS[__tourPos];
+  var tourEl=document.getElementById('appTour'); if(tourEl) tourEl.style.setProperty('--tour-accent', s.color);   /* accent drives the bubble, beak & ring */
   var illus=document.getElementById('tourIllus');
   if(illus){ illus.style.background='color-mix(in srgb, '+s.color+' 15%, #fff)'; illus.style.color=s.color; illus.innerHTML='<i data-lucide="'+s.icon+'"></i>'; }
   var stepEl=document.getElementById('tourStep'); if(stepEl) stepEl.textContent=(__tourPos+1)+' / '+TOUR_STEPS.length;
-  var titleEl=document.getElementById('tourTitle'); if(titleEl){ titleEl.textContent=s.title; titleEl.style.color=s.color; }
+  var titleEl=document.getElementById('tourTitle'); if(titleEl){ titleEl.textContent=s.title; titleEl.style.color='#fff'; }
   var textEl=document.getElementById('tourText'); if(textEl) textEl.textContent=s.text;
   var ds=document.querySelectorAll('#tourDots span'); for(var d=0;d<ds.length;d++){ var on=(d===__tourPos); ds[d].classList.toggle('on',on); ds[d].style.background=on?s.color:''; }
-  var nb=document.getElementById('tourNext'); if(nb){ nb.textContent=(__tourPos>=TOUR_STEPS.length-1)?'Finish':'Next'; nb.style.background=s.color; }
+  var nb=document.getElementById('tourNext'); if(nb){ nb.textContent=(__tourPos>=TOUR_STEPS.length-1)?'Finish':'Next'; nb.style.background='#fff'; nb.style.color=s.color; }
   /* spotlight the live element if it's on screen (mobile); otherwise dim + centre the card (desktop) */
   var r=tourRect(__tourPos), spot=document.getElementById('tourSpot'), tour=document.getElementById('appTour');
   var card=document.getElementById('tourCard');
