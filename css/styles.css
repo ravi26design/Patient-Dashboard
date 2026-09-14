@@ -611,6 +611,7 @@ body.is-framed{
 
 /* ═══ RECOVERY TODAY — daily ritual tracker ═══ */
 .rt-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.rt-head-r{display:flex;align-items:center;gap:9px}
 .rt-prog{font-family:var(--font-ui);font-size:11px;font-weight:700;color:var(--hb-teal-deep)}
 .rt-prog .rt-prog-total{color:var(--ink-soft);font-weight:600}
 .rt-bar{height:6px;border-radius:999px;background:#E3EAEA;overflow:hidden;margin-bottom:14px}
@@ -1976,6 +1977,15 @@ body.is-desktop .onb-foot{position:absolute;left:16px;right:16px;bottom:22px;mar
 .onb-back:active{transform:scale(.92)}
 .onb-count{flex-shrink:0;font-family:var(--font-ui);font-size:12px;font-weight:700;color:var(--brown);min-width:30px;text-align:right}
 .onb-count span{color:var(--muted);font-weight:600}
+/* Check-in: listen to the question + options */
+.rf-audio-btn{flex:0 0 auto;width:34px;height:34px;border-radius:50%;border:none;cursor:pointer;
+  background:#EEF3F8;color:var(--blue-ink,#3F6E99);display:flex;align-items:center;justify-content:center;
+  box-shadow:0 2px 8px rgba(58,51,48,.06);transition:transform .12s ease,background .2s}
+.rf-audio-btn i,.rf-audio-btn svg{width:17px;height:17px}
+.rf-audio-btn:active{transform:scale(.92)}
+.rf-audio-btn.speaking{background:var(--blue-ink,#3F6E99);color:#fff}
+@keyframes rfAudioPulse{0%,100%{box-shadow:0 0 0 0 rgba(63,110,153,.32)}50%{box-shadow:0 0 0 6px rgba(63,110,153,0)}}
+.rf-audio-btn.speaking{animation:rfAudioPulse 1.4s ease-in-out infinite}
 .onb-skip{flex-shrink:0;background:none;border:none;cursor:pointer;font-family:var(--font-ui);font-size:13px;font-weight:700;color:var(--sage-dk);padding:4px 2px 4px 8px}
 .onb-skip:active{opacity:.55}
 .onb-steps{flex:1;min-width:0;height:6px;border-radius:999px;background:rgba(58,51,48,.1);overflow:hidden}

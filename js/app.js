@@ -702,6 +702,7 @@ function rfWaveBars(){
 }
 function renderReflect(){
   if(window._rfVrTimer){ clearInterval(window._rfVrTimer); window._rfVrTimer=null; }   /* stop any listening timer before re-render */
+  if(typeof stopPageAudio==='function') stopPageAudio();   /* stop narration when moving between questions */
   var body=document.getElementById('reflect-body');
   var foot=document.getElementById('reflect-footer');
   body.classList.toggle('rf-body-center', reflectStep>=REFLECT_TOTAL);   /* center the celebration */
@@ -755,7 +756,8 @@ function renderReflect(){
   body.innerHTML=
     '<div class="onb-top"><button class="onb-back" type="button" onclick="reflectBack()" aria-label="Back"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button>'+
       '<div class="onb-steps"><div class="onb-steps-fill" style="width:'+pct+'%"></div></div>'+
-      '<div class="onb-count">'+(n+1)+'<span>/'+total+'</span></div></div>'+
+      '<div class="onb-count">'+(n+1)+'<span>/'+total+'</span></div>'+
+      '<button class="rf-audio-btn" type="button" aria-label="Listen to the question and options" title="Listen" onclick="speakReflect(this)"><i data-lucide="volume-2"></i></button></div>'+
     '<h2 class="reflect-q">'+esc(item.q)+'</h2>'+
     (item.sub?'<div class="reflect-qsub">'+esc(item.sub)+'</div>':'')+
     inner;
@@ -1824,6 +1826,22 @@ function speakInsight(btn){
   var ps=document.querySelectorAll('#ov-insights .ins-tk-p');
   for(var i=0;i<ps.length;i++){ var t=(ps[i].textContent||'').trim(); if(t) parts.push(t); }
   if(parts.length===1 && PAGE_NARRATION.insights) parts.push(PAGE_NARRATION.insights);
+  speakText(parts.join(' '), btn);
+}
+/* Read the current check-in question aloud — the prompt plus its answer options */
+function speakReflect(btn){
+  var item=(typeof REFLECT_Q!=='undefined')?REFLECT_Q[reflectStep]:null; if(!item){ return; }
+  var parts=[];
+  if(item.q) parts.push(item.q);
+  if(item.sub) parts.push(item.sub);
+  if(item.type==='multi' && item.options){
+    parts.push('Your options are:');
+    item.options.forEach(function(o){ parts.push(o.replace(/\s*\([^)]*\)/g,'')+'.'); });
+  } else if(item.type==='sliders' && item.sliders){
+    item.sliders.forEach(function(s){ parts.push(s.label+' Rate from '+s.lo+' to '+s.hi+'.'); });
+  } else if(item.type==='text'){
+    if(item.placeholder) parts.push(item.placeholder);
+  }
   speakText(parts.join(' '), btn);
 }
 function speakPage(){
