@@ -1742,7 +1742,9 @@ var HELP_CONTENT={
   'prizes':{title:"Prizes I'd value", body:'Build a list of rewards that would genuinely motivate you. Your family, sponsor or care team can pledge these to your milestones. Pick from common prizes or add your own.'},
   'streaks':{title:'Streaks', body:'Your streaks show how many days in a row you\'ve kept up each habit — recovery, insights, activities, reflections and medication. Longer streaks earn bonus XP. Missing a day resets that streak, but you can always start again.'},
   'recovery-today':{title:'Recovery Today', body:'Your daily plan — four quick actions worth XP: Insights (a read on your day), Reflect (your check-in), Tx Schedule (meds, therapy & meetings) and Activities (a guided exercise). Finish all four to complete your day.'},
-  'find-support':{title:'1:1 Support', body:'Connect privately with a recovery coach or a peer specialist. Peers are in their own long-term recovery and free; coaches are trained professionals who show their cost up front. Filter by distance, format and focus to find the right match — then Call or Text them directly.'}
+  'find-support':{title:'1:1 Support', body:'Connect privately with a recovery coach or a peer specialist. Peers are in their own long-term recovery and free; coaches are trained professionals who show their cost up front. Filter by distance, format and focus to find the right match — then Call or Text them directly.'},
+  'rewards-level':{title:'Levels & XP', body:'You earn XP for daily actions — insights, activities, reflections and medication — and grow through levels: Seed, Root, Bloom and Flourish. The multipliers (like 4x) show which habits earn the most. It\'s a gentle picture of how far you\'ve come.'},
+  'leaderboard':{title:'Anonymous Leaderboard', body:'See how your XP compares with others in recovery — always under anonymous usernames, never real names. It\'s here for friendly motivation only; you can hide it anytime from Settings.'}
 };
 function showHelp(key){
   var h=HELP_CONTENT[key]||{title:'Help',body:''};
