@@ -15,7 +15,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
 <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
-<link rel="stylesheet" href="css/styles.css?v=20260909q">
+<link rel="stylesheet" href="css/styles.css?v=20260914a">
 </head>
 <body>
 
@@ -494,7 +494,7 @@
       <!-- Recovery Health -->
       <div class="home-sec gauge-card rh-card" role="button" tabindex="0" onclick="openOv('insights')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openOv('insights');}">
         <div class="rh-inner">
-          <div class="rh-eyebrow">Recovery Health</div>
+          <div class="rh-eyebrow" style="display:flex;align-items:center;gap:7px">Recovery Health<button class="help-i" type="button" style="margin-left:auto" aria-label="About Recovery Health" onclick="event.stopPropagation();showHelp('recovery-health')"><i data-lucide="info"></i></button></div>
           <div class="rh-gauge" id="healthGauge"></div>
           <div class="rh-num"><b>74</b></div>
           <div class="rh-outof">out of 100</div>
@@ -516,7 +516,7 @@
       <div class="home-sec rt-section">
         <div>
           <div class="rt-head">
-            <div class="home-title">Recovery Today</div>
+            <div class="home-title" style="display:flex;align-items:center;gap:7px">Recovery Today<button class="help-i" type="button" aria-label="About Recovery Today" onclick="showHelp('recovery-today')"><i data-lucide="info"></i></button></div>
             <div class="rt-prog"><span id="rt-done">0</span><span class="rt-prog-total">/4 done</span></div>
           </div>
           <div class="task-grid">
@@ -593,7 +593,7 @@
       <!-- Streaks -->
       <div class="home-sec sf-card">
         <div>
-          <div class="home-title">Streaks</div>
+          <div class="home-title" style="display:flex;align-items:center;gap:7px">Streaks<button class="help-i" type="button" style="margin-left:auto" aria-label="About streaks" onclick="showHelp('streaks')"><i data-lucide="info"></i></button></div>
           <!-- Row 1: Recovery Journey -->
           <div class="streaks-rj">
             <div class="rj-eyebrow">Recovery Journey</div>
@@ -3930,6 +3930,6 @@
     <button class="tour-skip" type="button" onclick="tourSkip()">Skip</button>
   </div>
 </div>
-<script src="js/app.js?v=20260909q"></script>
+<script src="js/app.js?v=20260914a"></script>
 </body>
 </html>
