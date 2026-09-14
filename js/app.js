@@ -1741,7 +1741,8 @@ var HELP_CONTENT={
   'safe':{title:'Anonymous support', body:'One-to-one support and meetings whenever you need them. Reach a peer specialist or coach privately, or find an in-person, virtual or hybrid meeting.'},
   'prizes':{title:"Prizes I'd value", body:'Build a list of rewards that would genuinely motivate you. Your family, sponsor or care team can pledge these to your milestones. Pick from common prizes or add your own.'},
   'streaks':{title:'Streaks', body:'Your streaks show how many days in a row you\'ve kept up each habit — recovery, insights, activities, reflections and medication. Longer streaks earn bonus XP. Missing a day resets that streak, but you can always start again.'},
-  'recovery-today':{title:'Recovery Today', body:'Your daily plan — four quick actions worth XP: Insights (a read on your day), Reflect (your check-in), Tx Schedule (meds, therapy & meetings) and Activities (a guided exercise). Finish all four to complete your day.'}
+  'recovery-today':{title:'Recovery Today', body:'Your daily plan — four quick actions worth XP: Insights (a read on your day), Reflect (your check-in), Tx Schedule (meds, therapy & meetings) and Activities (a guided exercise). Finish all four to complete your day.'},
+  'find-support':{title:'1:1 Support', body:'Connect privately with a recovery coach or a peer specialist. Peers are in their own long-term recovery and free; coaches are trained professionals who show their cost up front. Filter by distance, format and focus to find the right match — then Call or Text them directly.'}
 };
 function showHelp(key){
   var h=HELP_CONTENT[key]||{title:'Help',body:''};
