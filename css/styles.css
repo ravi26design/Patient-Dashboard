@@ -4444,6 +4444,9 @@ body:not(.in-room) #s-community > .anon-note{ display:none !important; }
 .prize-add-cta:active{transform:scale(.95)}
 .prize-add-cta > svg,.prize-add-cta > i[data-lucide]{width:14px;height:14px;stroke-width:2.6}
 .aps-sheet{max-width:420px;margin:0 auto}
+/* desktop: widen the sheet to the profile content column (the cards behind it) */
+body.is-desktop .aps-sheet{max-width:652px}
+body.is-desktop .aps-sheet.pf-sheet{padding-left:32px;padding-right:32px}
 .aps-head{display:flex;align-items:center;gap:13px;margin-bottom:20px}
 .aps-head-ic{flex:none;width:46px;height:46px;border-radius:14px;background:var(--blue-lt);color:var(--blue-ink,#3F6E99);display:flex;align-items:center;justify-content:center}
 .aps-head-ic i,.aps-head-ic svg{width:22px;height:22px}
