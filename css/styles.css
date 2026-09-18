@@ -4546,9 +4546,9 @@ body:has(#ov-schedule.active) .audio-btn{display:none}
 .ins-tk-toggle:active{opacity:.7}
 
 /* Contextual help "i" icon + popup */
-.help-i{flex:0 0 auto;width:22px;height:22px;border-radius:50%;border:none;background:#EEF0F0;color:var(--ink-soft,#9C938D);display:inline-flex;align-items:center;justify-content:center;cursor:pointer;padding:0;transition:transform .12s,background .15s}
+.help-i{flex:0 0 auto;width:22px;height:22px;border-radius:50%;border:none;background:none;color:var(--ink-soft,#9C938D);display:inline-flex;align-items:center;justify-content:center;cursor:pointer;padding:0;transition:transform .12s,color .15s}
 .help-i > svg,.help-i > i[data-lucide]{width:14px;height:14px;stroke-width:2.2}
-.help-i:hover{background:#E3E6E6;color:var(--ink)}
+.help-i:hover{color:var(--ink)}
 .help-i:active{transform:scale(.9)}
 .help-pop{position:fixed;inset:0;z-index:10500;display:flex;align-items:center;justify-content:center;background:rgba(20,22,28,.5);padding:24px;animation:tourFade .2s ease both}
 .help-pop[hidden]{display:none}
