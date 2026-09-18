@@ -4452,6 +4452,19 @@ body:not(.in-room) #s-community > .anon-note{ display:none !important; }
 .aps-l{display:block;font-family:var(--font-ui);font-size:10px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-soft);margin:0 0 7px}
 .aps-in{width:100%;box-sizing:border-box;border:1.6px solid var(--border);border-radius:14px;padding:12px 14px;font-family:var(--font-ui);font-size:14px;color:var(--ink);background:var(--app-bg);outline:none;transition:.18s;margin-bottom:15px}
 .aps-in:focus{background:#fff;border-color:var(--blue);box-shadow:0 0 0 4px rgba(74,144,217,.15)}
+/* Give feature access — switch rows for what the added person can see */
+.aps-permhint{font-family:var(--font-ui);font-size:12px;color:var(--ink-soft);margin:-2px 0 10px;line-height:1.45}
+.aps-perms{display:flex;flex-direction:column;gap:8px;margin-bottom:15px}
+.aps-perm{display:flex;align-items:center;gap:11px;width:100%;box-sizing:border-box;border:1.6px solid var(--border);border-radius:14px;padding:11px 13px;background:var(--app-bg);cursor:pointer;transition:border-color .18s,background .18s;text-align:left}
+.aps-perm.on{border-color:var(--blue);background:#fff}
+.aps-perm-ic{flex:0 0 auto;width:32px;height:32px;border-radius:10px;display:flex;align-items:center;justify-content:center;background:#EEF0F0;color:var(--ink-soft);transition:.18s}
+.aps-perm-ic i,.aps-perm-ic svg{width:17px;height:17px}
+.aps-perm.on .aps-perm-ic{background:var(--blue-tint,#E4EDF5);color:var(--blue-ink,#3F6E99)}
+.aps-perm-t{flex:1;min-width:0;font-family:var(--font-ui);font-size:13.5px;font-weight:700;color:var(--ink)}
+.aps-perm-sw{flex:0 0 auto;position:relative;width:42px;height:25px;border-radius:999px;background:#D6D2CD;transition:background .2s ease}
+.aps-perm-sw::after{content:"";position:absolute;top:3px;left:3px;width:19px;height:19px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.2);transition:transform .2s ease}
+.aps-perm.on .aps-perm-sw{background:var(--blue,#6DA0CC)}
+.aps-perm.on .aps-perm-sw::after{transform:translateX(17px)}
 .aps-seg{display:flex;gap:8px;margin-bottom:15px}
 .aps-seg-b{flex:1;display:inline-flex;align-items:center;justify-content:center;gap:6px;border:1.6px solid var(--border);background:#fff;border-radius:14px;padding:11px;font-family:var(--font-ui);font-size:13px;font-weight:700;color:var(--ink-soft);cursor:pointer;transition:.16s}
 .aps-seg-b i,.aps-seg-b svg{width:16px;height:16px}

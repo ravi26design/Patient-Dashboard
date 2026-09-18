@@ -2427,12 +2427,15 @@ function openAddPerson(){
   ['apsName','apsPhone','apsEmail'].forEach(function(id){ var el=document.getElementById(id); if(el) el.value=''; });
   var seg=document.getElementById('apsRel');
   if(seg) seg.querySelectorAll('.aps-seg-b').forEach(function(b,i){ b.classList.toggle('on', i===0); });
+  var perms=document.getElementById('apsPerms');
+  if(perms) perms.querySelectorAll('.aps-perm').forEach(function(b){ b.classList.remove('on'); b.setAttribute('aria-pressed','false'); });
   apsSync();
   s.classList.add('show'); s.setAttribute('aria-hidden','false');
   if(window.lucide&&lucide.createIcons) lucide.createIcons();
 }
 function closeAddPerson(){ var s=document.getElementById('addPersonSheet'); if(s){ s.classList.remove('show'); s.setAttribute('aria-hidden','true'); } }
 function apsRel(btn){ var seg=document.getElementById('apsRel'); if(!seg) return; seg.querySelectorAll('.aps-seg-b').forEach(function(b){ b.classList.remove('on'); }); btn.classList.add('on'); }
+function apsPerm(btn){ var on=!btn.classList.contains('on'); btn.classList.toggle('on', on); btn.setAttribute('aria-pressed', on?'true':'false'); }
 /* Contact number: allow digits + standard phone formatting only (no letters) */
 function apsPhoneFilter(el){
   var cur=el.value, clean=cur.replace(/[^0-9+()\-\s]/g,'');
@@ -2450,6 +2453,7 @@ function addPersonSave(){
   var email=(document.getElementById('apsEmail').value||'').trim();
   var relBtn=document.querySelector('#apsRel .aps-seg-b.on');
   var rel=relBtn?relBtn.getAttribute('data-val'):'Friend';
+  var perms=Array.prototype.map.call(document.querySelectorAll('#apsPerms .aps-perm.on'), function(b){ return b.getAttribute('data-perm'); });
   if(!name || !(phone||email)) return;
   var parts=name.split(/\s+/);
   var ini=((parts[0]||'')[0]||'').toUpperCase()+((parts[1]||'')[0]||'').toUpperCase();
@@ -2457,8 +2461,9 @@ function addPersonSave(){
   var color=colors[Math.floor(Math.random()*colors.length)];
   var list=document.getElementById('pf-contacts'); if(!list) return;
   var row=document.createElement('div'); row.className='pf-contact';
+  var roleTxt=rel+(perms.length?' · can see '+perms.join(', '):'');
   row.innerHTML='<div class="pf-contact-av" style="background:'+color+';color:#fff">'+cmEsc(ini)+'</div>'+
-    '<div class="pf-contact-main"><div class="pf-contact-name">'+cmEsc(name)+'</div><div class="pf-contact-role">'+cmEsc(rel)+'</div></div>'+
+    '<div class="pf-contact-main"><div class="pf-contact-name">'+cmEsc(name)+'</div><div class="pf-contact-role">'+cmEsc(roleTxt)+'</div></div>'+
     '<div class="pf-contact-btns"></div>';
   var btns=row.querySelector('.pf-contact-btns');
   if(phone){

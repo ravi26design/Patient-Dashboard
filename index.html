@@ -15,7 +15,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
 <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
-<link rel="stylesheet" href="css/styles.css?v=20260914m">
+<link rel="stylesheet" href="css/styles.css?v=20260914n">
 </head>
 <body>
 
@@ -431,6 +431,14 @@
 
     <label class="aps-l" for="apsEmail">Email</label>
     <input class="aps-in" type="email" id="apsEmail" placeholder="name@email.com" autocomplete="off" oninput="apsSync()">
+
+    <label class="aps-l">Give feature access</label>
+    <div class="aps-permhint">Choose what this person can see in your app.</div>
+    <div class="aps-perms" id="apsPerms">
+      <button type="button" class="aps-perm" data-perm="Home Overview" aria-pressed="false" onclick="apsPerm(this)"><span class="aps-perm-ic"><i data-lucide="home"></i></span><span class="aps-perm-t">Home Overview</span><span class="aps-perm-sw"></span></button>
+      <button type="button" class="aps-perm" data-perm="Progress" aria-pressed="false" onclick="apsPerm(this)"><span class="aps-perm-ic"><i data-lucide="trending-up"></i></span><span class="aps-perm-t">Progress</span><span class="aps-perm-sw"></span></button>
+      <button type="button" class="aps-perm" data-perm="Rewards" aria-pressed="false" onclick="apsPerm(this)"><span class="aps-perm-ic"><i data-lucide="trophy"></i></span><span class="aps-perm-t">Rewards</span><span class="aps-perm-sw"></span></button>
+    </div>
 
     <div class="aps-actions">
       <button type="button" class="aps-cancel" onclick="closeAddPerson()">Cancel</button>
@@ -3935,6 +3943,6 @@
     <button class="tour-skip" type="button" onclick="tourSkip()">Skip</button>
   </div>
 </div>
-<script src="js/app.js?v=20260914m"></script>
+<script src="js/app.js?v=20260914n"></script>
 </body>
 </html>
