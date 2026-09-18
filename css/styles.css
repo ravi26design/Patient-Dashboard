@@ -3714,6 +3714,8 @@ body.is-mobile .rh-badges .rh-trend{margin:0;width:auto}
 .rc-scope.sr-scrim.on{opacity:1;pointer-events:auto}
 .rc-scope .sr-sheet{width:100%;max-width:390px;background:#fff;border-radius:26px 26px 0 0;padding:22px 20px calc(20px + env(safe-area-inset-bottom));box-shadow:0 -20px 60px -20px rgba(30,45,60,.5);transform:translateY(100%);transition:transform .34s cubic-bezier(.22,1,.36,1);max-height:86%;overflow-y:auto}
 .rc-scope.sr-scrim.on .sr-sheet{transform:none}
+/* desktop: widen the sheet to the content column (matches the cards behind it) */
+body.is-desktop .rc-scope .sr-sheet{max-width:652px;padding-left:32px;padding-right:32px}
 .rc-scope .sr-sheet h3{font:800 18px var(--font-display, Manrope);letter-spacing:-.015em;margin:0 0 4px}
 .rc-scope .sr-sheet .sr-close{position:absolute;top:16px;right:16px;width:34px;height:34px;border:0;padding:0;
   border-radius:50%;background:var(--paper2,#F1EFEA);color:var(--muted,#6A6F76);font-size:22px;line-height:1;
