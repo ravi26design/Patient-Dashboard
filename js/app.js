@@ -1883,7 +1883,7 @@ var TOUR_STEPS=[
   {sel:'.bottom-nav [onclick*="mat"]', icon:'bar-chart-3', color:'#8A6FB0', title:'Progress', text:'See your recovery trends, medication and health charts over time.'},
   {sel:'.bottom-nav [onclick*="rewards"]', icon:'trophy', color:'#C9973B', title:'Rewards', text:'Earn XP and unlock rewards as you build healthy streaks and reach milestones.'},
   {sel:'.avatar-btn', icon:'user-round', color:'#6E9E80', title:'Your profile', text:'Your meds, people, care team and settings — all editable in one place.'},
-  {sel:'.notif-btn', icon:'map-pin', color:'#C56A5E', title:'Quick check-in', text:'Share a location check-in with your support circle in a single tap.'}
+  {sel:'.notif-btn', icon:'map-pin', color:'#C56A5E', title:'Your places', text:'Help us provide you with better insights and activities by describing places you visit frequently.'}
 ];
 var __tourVis=[], __tourPos=0;
 function tourRect(i){ var s=TOUR_STEPS[i]; if(!s) return null; var el=document.querySelector(s.sel); if(!el) return null;
