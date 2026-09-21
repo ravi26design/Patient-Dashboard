@@ -45,6 +45,8 @@ function openOv(id){
   if(id==='settings' && typeof applyLeaderboardPref==='function') applyLeaderboardPref();   /* sync leaderboard toggle */
   if(id==='rooms'){   /* Community is a nav destination — light up its nav tab */
     document.querySelectorAll('.bottom-nav .nav-tab, #dnav .dn-item').forEach(function(t){ t.classList.toggle('active', ((t.getAttribute('onclick')||'').indexOf("'rooms'")>=0)); });
+    /* land on the rooms hub (not a specific room) — the in-room back arrow was removed */
+    if(typeof setRoom==='function' && typeof currentRoom==='function' && currentRoom()!=='all') setRoom('all');
   }
   if(id==='location-checkin'){ el.querySelectorAll('.loc-opt.sel').forEach(function(o){o.classList.remove('sel');}); var _sb=document.getElementById('loc-submit'); if(_sb) _sb.classList.remove('ready'); }  /* fresh state each open */
   try{localStorage.setItem('rh_ov',id);}catch(e){}
@@ -2732,17 +2734,9 @@ function renderCommunityFeed(){
   // box.innerHTML below doesn't destroy it (otherwise it vanishes on every re-render / room open)
   var _scEl=$("#s-community"), _cbEl=$("#composeBar"), _ccEl=$("#composeCard");
   if(_scEl){ if(_cbEl) _scEl.appendChild(_cbEl); if(_ccEl) _scEl.appendChild(_ccEl); }
-  // when viewing a specific room, show a room-page header with a back arrow to All Rooms
+  // room-page header removed by request — the composer names the current room,
+  // and the bottom-nav Community tab returns to the rooms hub
   let roomHdr = "";
-  if(filter !== "all"){
-    const rm = ROOM_META[filter] || {name:(CHANNEL_LABEL[filter]||filter)};
-    const col = rm.color || "#8A7D75";
-    roomHdr = '<div class="room-hdr">'
-      + '<button class="room-hdr-back" type="button" aria-label="Back to all rooms"><i data-lucide="arrow-left"></i></button>'
-      + '<span class="room-hdr-ic" style="background:color-mix(in srgb, '+col+' 15%, #fff);color:'+col+'">'+commIcon(rm.emoji)+'</span>'
-      + '<span class="room-hdr-main"><span class="room-hdr-t">'+(rm.name||filter)+'</span>'+(rm.meta?'<span class="room-hdr-d">'+rm.meta+'</span>':'')+'</span>'
-      + '</div>';
-  }
   document.body.classList.toggle('in-room', filter!=="all");
   // composer names the current room so it's clear you're posting into it
   var _cbph = $("#composeBar .compose-bar-ph");
