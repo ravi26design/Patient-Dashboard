@@ -4402,6 +4402,9 @@ body.in-room #s-community > .hub-card{display:none}
 .rc-scope .room-back:active{transform:scale(.92)}
 /* in-room is a focused reading view — hide the bottom nav (the back arrow exits) */
 body.in-room #bottomNav{display:none !important}
+/* the Community overlay normally leaves a 60px gap for the nav; with the nav hidden,
+   extend it to the bottom so the home screen behind doesn't show through */
+body.in-room #ov-rooms{bottom:0 !important}
 /* keep the composer visible in a room so you can post into it */
 body.in-room #s-community #composeBar{display:flex}
 
