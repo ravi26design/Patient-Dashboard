@@ -2812,6 +2812,7 @@ body.is-desktop .ct-row:has(.ct-btns) .ct-btn{flex:none;padding:0 18px}
 .ct-btn i,.ct-btn svg{width:15px;height:15px}
 .ct-btn.call{background:var(--sage);color:#fff}
 .ct-btn.text{background:#5B92CE;color:#fff}
+.ct-btn.email{background:#C9962E;color:#fff}
 .cs-note{background:#FBEBE6;border:1px solid #F0D2CA;border-radius:16px;padding:15px 16px;margin-top:14px;margin-bottom:6px}
 .cs-note-tx{font-family:var(--font-ui);font-size:12.5px;line-height:1.55;color:#8A4A3E}
 .cs-note b{color:#B4433A;font-weight:700}

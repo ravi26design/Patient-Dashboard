@@ -15,7 +15,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
 <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
-<link rel="stylesheet" href="css/styles.css?v=20260915h">
+<link rel="stylesheet" href="css/styles.css?v=20260915i">
 </head>
 <body>
 
@@ -902,6 +902,13 @@
       <div class="sos-opt" onclick="openOv('support-team')">
         <div class="sos-opt-ic" style="background:#6E9E80;color:#fff"><i data-lucide="handshake"></i></div>
         <div class="sos-opt-main"><div class="sos-opt-t">Reach my support team</div><div class="sos-opt-d">Family, friends, sponsor, coach, peer, therapist &amp; doctor</div></div>
+        <i data-lucide="chevron-right" class="sos-opt-arrow"></i>
+      </div>
+
+      <div class="scr-eyebrow" style="margin-top:18px">New to the app?</div>
+      <div class="sos-opt" onclick="replayTour()">
+        <div class="sos-opt-ic" style="background:#6DA0CC;color:#fff"><i data-lucide="sparkles"></i></div>
+        <div class="sos-opt-main"><div class="sos-opt-t">App Help Guide</div><div class="sos-opt-d">A quick tour of the app's main features</div></div>
         <i data-lucide="chevron-right" class="sos-opt-arrow"></i>
       </div>
 
@@ -3117,11 +3124,6 @@
         <div class="ct-main"><div class="ct-name">Mike R.</div><div class="ct-role">Sponsor</div><div class="ct-num">(323) 555-0117</div></div>
         <div class="ct-btns"><a class="ct-btn call" href="tel:3235550117"><i data-lucide="phone"></i>Call</a><a class="ct-btn text" href="sms:3235550117"><i data-lucide="message-circle"></i>Text</a></div>
       </div>
-      <div class="ct-row">
-        <div class="ct-av" style="background:#8A6FB0"><i data-lucide="sofa"></i></div>
-        <div class="ct-main"><div class="ct-name">Dr. Elena Rivera</div><div class="ct-role">Therapist · LCSW</div><div class="ct-num">(310) 555-0164</div></div>
-        <div class="ct-btns"><a class="ct-btn call" href="tel:3105550164"><i data-lucide="phone"></i>Call</a><a class="ct-btn text" href="sms:3105550164"><i data-lucide="message-circle"></i>Text</a></div>
-      </div>
 
       <div class="cs-footer">
         <div class="cs-footer-ic"><i data-lucide="sprout"></i></div>
@@ -3189,13 +3191,13 @@
       </div>
       <div class="ct-row">
         <div class="ct-av" style="background:#8A6FB0"><i data-lucide="sofa"></i></div>
-        <div class="ct-main"><div class="ct-name">Dr. Elena Rivera</div><div class="ct-role">Therapist · LCSW</div><div class="ct-num">(310) 555-0164</div></div>
-        <div class="ct-btns"><a class="ct-btn call" href="tel:3105550164"><i data-lucide="phone"></i>Call</a><a class="ct-btn text" href="sms:3105550164"><i data-lucide="message-circle"></i>Text</a></div>
+        <div class="ct-main"><div class="ct-name">Dr. Elena Rivera</div><div class="ct-role">Therapist · LCSW</div></div>
+        <div class="ct-btns"><a class="ct-btn email" href="mailto:e.rivera@clinic.example" aria-label="Email Dr. Elena Rivera"><i data-lucide="mail"></i>Email</a></div>
       </div>
       <div class="ct-row">
         <div class="ct-av" style="background:#4FA3A3"><i data-lucide="stethoscope"></i></div>
-        <div class="ct-main"><div class="ct-name">Dr. Sarah Okafor</div><div class="ct-role">Your doctor · MD</div><div class="ct-num">(310) 555-0133</div></div>
-        <div class="ct-btns"><a class="ct-btn call" href="tel:3105550133"><i data-lucide="phone"></i>Call</a><a class="ct-btn text" href="sms:3105550133"><i data-lucide="message-circle"></i>Text</a></div>
+        <div class="ct-main"><div class="ct-name">Dr. Sarah Okafor</div><div class="ct-role">Your doctor · MD</div></div>
+        <div class="ct-btns"><a class="ct-btn email" href="mailto:s.okafor@clinic.example" aria-label="Email Dr. Sarah Okafor"><i data-lucide="mail"></i>Email</a></div>
       </div>
     </div>
   </div>
@@ -3920,6 +3922,6 @@
     <button class="tour-skip" type="button" onclick="tourSkip()">Skip</button>
   </div>
 </div>
-<script src="js/app.js?v=20260915h"></script>
+<script src="js/app.js?v=20260915i"></script>
 </body>
 </html>
