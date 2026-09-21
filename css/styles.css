@@ -3851,6 +3851,8 @@ body.is-desktop .rc-scope .sr-sheet{max-width:652px;padding-left:32px;padding-ri
 .hub-opt{display:flex;flex-direction:column;align-items:flex-start;gap:3px;background:#fff;border:1.5px solid var(--border);border-radius:15px;padding:13px 13px 14px;text-align:left;cursor:pointer;transition:transform .12s ease,border-color .15s ease,box-shadow .15s ease}
 .hub-opt:active{transform:scale(.98)}
 .hub-opt:hover{border-color:#C9D3D0}
+.hub-opt.is-disabled,.hub-opt:disabled{opacity:.5;cursor:not-allowed;pointer-events:none;box-shadow:none}
+.hub-opt.is-disabled:active{transform:none}
 .hub-opt-ic{width:36px;height:36px;border-radius:12px;display:flex;align-items:center;justify-content:center;margin-bottom:6px}
 .hub-opt-ic i,.hub-opt-ic svg{width:19px;height:19px;stroke-width:2}
 .hub-opt-t{font-family:var(--font-ui);font-size:13.5px;font-weight:800;color:var(--ink);line-height:1.2}
