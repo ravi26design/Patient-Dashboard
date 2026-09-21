@@ -2643,6 +2643,7 @@ let POSTS = [
 const REPLY_DRAFT = {};
 const OPEN_REPLIES = new Set();       // which posts have their reply zone expanded
 const NUDGED = new Set();             // post ids you've sent a silent nudge to
+const FLAGGED = new Set((function(){ try{ return JSON.parse(localStorage.getItem('rh_flagged')||'[]'); }catch(e){ return []; } })());   // post ids flagged for review
 const DISMISSED = new Set();          // banner ids you've closed this session
 document.addEventListener("input", e=>{
   const inp = e.target.closest('[id^="replyinput-"]');
@@ -2788,6 +2789,7 @@ function renderCommunityFeed(){
         <button class="react1 ${p.r_strong?"on":""}" data-react="strong" data-id="${p.id}" aria-label="Stay strong">💪<span>${p.strong||0}</span></button>
         <button class="react1 ${p.r_pray?"on":""}" data-react="pray" data-id="${p.id}" aria-label="Holding you">🙏<span>${p.pray||0}</span></button>
         <button class="react1 replytoggle" data-replytoggle="${p.id}" aria-label="Reply">💬<span>${p.replies.length||""}</span></button>
+        <button class="react1 flagbtn ${FLAGGED.has(p.id)?"on":""}" data-flag="${p.id}" title="${FLAGGED.has(p.id)?"Flagged for review":"Flag this post for review"}" aria-label="${FLAGGED.has(p.id)?"Flagged for review":"Flag this post for review"}"><i data-lucide="flag"></i></button>
       </div>
       ${repliesHTML}
       <div class="creply-zone" id="replyzone-${p.id}" ${OPEN_REPLIES.has(p.id)?"":"hidden"}>
@@ -2850,6 +2852,38 @@ function sendReplyTo(id, text){
   toast("Reply sent 💬");
   return true;
 }
+/* ── Flag a post for a peer specialist to review ── */
+function flagSave(){ try{ localStorage.setItem("rh_flagged", JSON.stringify([...FLAGGED])); }catch(e){} }
+function handleFlag(id){
+  if(FLAGGED.has(id)){ FLAGGED.delete(id); flagSave(); renderCommunityFeed(); if(typeof toast==="function") toast("Flag removed."); return; }
+  showFlagConfirm(id);
+}
+function flagPost(id){
+  FLAGGED.add(id); flagSave(); renderCommunityFeed();
+  if(typeof toast==="function") toast("Thanks — a peer specialist will review this post.");
+}
+function hideFlagConfirm(){ var ov=document.getElementById("flagConfirm"); if(ov) ov.hidden=true; }
+function showFlagConfirm(id){
+  var ov=document.getElementById("flagConfirm");
+  if(!ov){
+    ov=document.createElement("div");
+    ov.id="flagConfirm"; ov.className="help-pop"; ov.hidden=true;
+    ov.innerHTML='<div class="help-pop-card flag-card">'+
+      '<div class="flag-ic"><i data-lucide="flag"></i></div>'+
+      '<div class="help-pop-t">Flag this post?</div>'+
+      '<div class="help-pop-d">A certified peer specialist will review it. Your report is anonymous — the poster won\'t know who flagged it.</div>'+
+      '<div class="flag-actions"><button type="button" class="flag-cancel" id="flagCancel">Cancel</button>'+
+      '<button type="button" class="flag-go" id="flagGo">Flag for review</button></div>'+
+    '</div>';
+    ov.addEventListener("click", function(e){ if(e.target===ov) hideFlagConfirm(); });
+    document.body.appendChild(ov);
+    ov.querySelector("#flagCancel").addEventListener("click", hideFlagConfirm);
+    ov.querySelector("#flagGo").addEventListener("click", function(){ var pid=+ov.dataset.pid; hideFlagConfirm(); flagPost(pid); });
+  }
+  ov.dataset.pid=id;
+  ov.hidden=false;
+  if(window.lucide&&lucide.createIcons) lucide.createIcons();
+}
 document.addEventListener("click", e=>{
   if(!e.target.closest("#s-community")) return;
   if(e.target.closest(".room-hdr-back")){ setRoom("all"); if(window.lucide&&lucide.createIcons) lucide.createIcons(); return; }
@@ -2881,6 +2915,10 @@ document.addEventListener("click", e=>{
     if(OPEN_REPLIES.has(id)) setTimeout(()=>$("#replyinput-"+id)?.focus(), 40);
     return;
   }
+
+  // flag a post for a peer specialist to review
+  const flagBtn = e.target.closest("[data-flag]");
+  if(flagBtn){ handleFlag(+flagBtn.dataset.flag); return; }
 
   // one-tap suggested reply
   const qr = e.target.closest("[data-quickreply]");

@@ -3611,6 +3611,12 @@ body.is-mobile .rh-badges .rh-trend{margin:0;width:auto}
 .rc-scope .react1.on{background:var(--sage-tint);border-color:transparent;color:var(--sage-ink,#587A5E)}
 .rc-scope .react1.replytoggle{margin-left:auto;color:var(--blue-ink,#3F6E99);border-color:var(--blue-tint)}
 .rc-scope .react1.replytoggle:hover{border-color:var(--blue,#6DA0CC);background:var(--blue-tint)}
+/* flag-for-review button */
+.rc-scope .react1.flagbtn{color:var(--ink-soft,#9C938D);padding:9px 11px}
+.rc-scope .react1.flagbtn i,.rc-scope .react1.flagbtn svg{width:16px;height:16px}
+.rc-scope .react1.flagbtn:hover{border-color:#D98C7D;color:#C4604A;background:none;transform:translateY(-1px)}
+.rc-scope .react1.flagbtn.on{background:#FBEAE6;border-color:transparent;color:#C4604A}
+.rc-scope .react1.flagbtn.on i,.rc-scope .react1.flagbtn.on svg{fill:currentColor}
 .rc-scope .react1.pop{animation:reactPop .34s cubic-bezier(.22,1.4,.4,1)}
 .rc-scope .creply-zone{margin-top:11px;padding-top:11px;border-top:1px solid var(--hair);animation:fade .22s ease}
 .rc-scope .quickreplies{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:11px}
@@ -4583,6 +4589,17 @@ body:has(#ov-schedule.active) .audio-btn{display:none}
 .help-pop-ic > svg,.help-pop-ic > i[data-lucide]{width:22px;height:22px}
 .help-pop-t{font-family:var(--font-display);font-size:18px;font-weight:700;color:var(--ink);margin-bottom:8px;padding-right:28px}
 .help-pop-d{font-family:var(--font-ui);font-size:13.5px;line-height:1.6;color:#4A5453}
+/* Flag-for-review confirmation */
+.flag-card{text-align:center}
+.flag-card .help-pop-d{margin-top:6px}
+.flag-ic{width:48px;height:48px;border-radius:50%;background:#FBEAE6;color:#C4604A;display:flex;align-items:center;justify-content:center;margin:0 auto 12px}
+.flag-ic i,.flag-ic svg{width:24px;height:24px}
+.flag-actions{display:flex;gap:10px;margin-top:18px}
+.flag-cancel,.flag-go{flex:1;border:none;border-radius:12px;padding:12px;font-family:var(--font-ui);font-size:14px;font-weight:700;cursor:pointer;transition:transform .12s,filter .15s}
+.flag-cancel{background:#EEF0F0;color:var(--ink,#2E3238)}
+.flag-go{background:linear-gradient(150deg,#D98C7D,#C4604A);color:#fff}
+.flag-go:hover{filter:brightness(1.04)}
+.flag-cancel:active,.flag-go:active{transform:scale(.97)}
 
 /* Privacy "eye" toggle on cards — tap to hide/blur the card's data */
 .card-eye{flex:0 0 auto;width:22px;height:22px;border-radius:50%;border:none;background:#EEF0F0;color:var(--ink-soft,#9C938D);display:inline-flex;align-items:center;justify-content:center;cursor:pointer;padding:0;transition:transform .12s,background .15s}
