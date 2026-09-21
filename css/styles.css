@@ -3611,12 +3611,13 @@ body.is-mobile .rh-badges .rh-trend{margin:0;width:auto}
 .rc-scope .react1.on{background:var(--sage-tint);border-color:transparent;color:var(--sage-ink,#587A5E)}
 .rc-scope .react1.replytoggle{margin-left:auto;color:var(--blue-ink,#3F6E99);border-color:var(--blue-tint)}
 .rc-scope .react1.replytoggle:hover{border-color:var(--blue,#6DA0CC);background:var(--blue-tint)}
-/* flag-for-review button */
-.rc-scope .react1.flagbtn{color:var(--ink-soft,#9C938D);padding:9px 11px}
-.rc-scope .react1.flagbtn i,.rc-scope .react1.flagbtn svg{width:16px;height:16px}
-.rc-scope .react1.flagbtn:hover{border-color:#D98C7D;color:#C4604A;background:none;transform:translateY(-1px)}
-.rc-scope .react1.flagbtn.on{background:#FBEAE6;border-color:transparent;color:#C4604A}
-.rc-scope .react1.flagbtn.on i,.rc-scope .react1.flagbtn.on svg{fill:currentColor}
+/* flag-for-review button — sits in the post header, right of the room tag */
+.rc-scope .cpost .top .post-flag{flex:0 0 auto;width:30px;height:30px;border-radius:50%;border:none;background:none;color:var(--ink-soft,#9C938D);display:flex;align-items:center;justify-content:center;cursor:pointer;padding:0;margin-left:-2px;transition:background .15s,color .15s,transform .12s}
+.rc-scope .cpost .top .post-flag i,.rc-scope .cpost .top .post-flag svg{width:15px;height:15px}
+.rc-scope .cpost .top .post-flag:hover{background:#FBEAE6;color:#C4604A}
+.rc-scope .cpost .top .post-flag:active{transform:scale(.9)}
+.rc-scope .cpost .top .post-flag.on{color:#C4604A}
+.rc-scope .cpost .top .post-flag.on i,.rc-scope .cpost .top .post-flag.on svg{fill:currentColor}
 .rc-scope .react1.pop{animation:reactPop .34s cubic-bezier(.22,1.4,.4,1)}
 .rc-scope .creply-zone{margin-top:11px;padding-top:11px;border-top:1px solid var(--hair);animation:fade .22s ease}
 .rc-scope .quickreplies{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:11px}

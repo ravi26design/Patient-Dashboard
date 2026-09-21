@@ -2780,6 +2780,7 @@ function renderCommunityFeed(){
           <div class="csub">${p.time}${memtag}</div>
         </div>
         ${croomTag}
+        <button class="post-flag ${FLAGGED.has(p.id)?"on":""}" data-flag="${p.id}" title="${FLAGGED.has(p.id)?"Flagged for review":"Flag this post for review"}" aria-label="${FLAGGED.has(p.id)?"Flagged for review":"Flag this post for review"}"><i data-lucide="flag"></i></button>
       </div>
       ${mileBadge}
       <p class="ctext">${p.text}</p>
@@ -2789,7 +2790,6 @@ function renderCommunityFeed(){
         <button class="react1 ${p.r_strong?"on":""}" data-react="strong" data-id="${p.id}" aria-label="Stay strong">💪<span>${p.strong||0}</span></button>
         <button class="react1 ${p.r_pray?"on":""}" data-react="pray" data-id="${p.id}" aria-label="Holding you">🙏<span>${p.pray||0}</span></button>
         <button class="react1 replytoggle" data-replytoggle="${p.id}" aria-label="Reply">💬<span>${p.replies.length||""}</span></button>
-        <button class="react1 flagbtn ${FLAGGED.has(p.id)?"on":""}" data-flag="${p.id}" title="${FLAGGED.has(p.id)?"Flagged for review":"Flag this post for review"}" aria-label="${FLAGGED.has(p.id)?"Flagged for review":"Flag this post for review"}"><i data-lucide="flag"></i></button>
       </div>
       ${repliesHTML}
       <div class="creply-zone" id="replyzone-${p.id}" ${OPEN_REPLIES.has(p.id)?"":"hidden"}>
