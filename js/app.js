@@ -2734,9 +2734,12 @@ function renderCommunityFeed(){
   // box.innerHTML below doesn't destroy it (otherwise it vanishes on every re-render / room open)
   var _scEl=$("#s-community"), _cbEl=$("#composeBar"), _ccEl=$("#composeCard");
   if(_scEl){ if(_cbEl) _scEl.appendChild(_cbEl); if(_ccEl) _scEl.appendChild(_ccEl); }
-  // room-page header removed by request — the composer names the current room,
-  // and the bottom-nav Community tab returns to the rooms hub
+  // in a room: just a back arrow at the top (full header card removed by request).
+  // The composer names the current room; the bottom nav is hidden while in a room.
   let roomHdr = "";
+  if(filter !== "all"){
+    roomHdr = '<button class="room-back" type="button" aria-label="Back to all rooms"><i data-lucide="arrow-left"></i></button>';
+  }
   document.body.classList.toggle('in-room', filter!=="all");
   // composer names the current room so it's clear you're posting into it
   var _cbph = $("#composeBar .compose-bar-ph");
@@ -2812,9 +2815,9 @@ function positionComposeBar(){
   const bar = $("#composeBar"), card = $("#composeCard"), box = $("#communityFeed");
   if(!bar || !box) return;
   const banner = box.querySelector('[data-banner="digest"]');
-  const roomHdr = box.querySelector('.room-hdr');
-  if(banner){ banner.insertAdjacentElement("afterend", bar); }
-  else if(roomHdr){ roomHdr.insertAdjacentElement("afterend", bar); }
+  const backBtn = box.querySelector('.room-back');
+  if(backBtn){ backBtn.insertAdjacentElement("afterend", bar); }
+  else if(banner){ banner.insertAdjacentElement("afterend", bar); }
   else { box.insertAdjacentElement("afterbegin", bar); }
   // keep the expanded composer right beneath the bar so it opens in-place
   if(card) bar.insertAdjacentElement("afterend", card);
@@ -2880,7 +2883,7 @@ function showFlagConfirm(id){
 }
 document.addEventListener("click", e=>{
   if(!e.target.closest("#s-community")) return;
-  if(e.target.closest(".room-hdr-back")){ setRoom("all"); if(window.lucide&&lucide.createIcons) lucide.createIcons(); return; }
+  if(e.target.closest(".room-hdr-back, .room-back")){ setRoom("all"); if(window.lucide&&lucide.createIcons) lucide.createIcons(); return; }
   if(e.target.closest("#communityChannels .chip")){ renderCommunityFeed(); return; }
 
   const react = e.target.closest("[data-react]");
