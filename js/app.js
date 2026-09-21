@@ -1881,7 +1881,7 @@ var TOUR_STEPS=[
   {sel:'.bottom-nav [onclick*="rooms"]', icon:'users-round', color:'#4E7FA8', title:'Community', text:'Connect with people who get it. Share and get support — always anonymous.'},
   {sel:'.nav-sos', icon:'life-buoy', color:'#C56A5E', title:'Help, anytime', text:'Struggling right now? Tap HELP to reach real, caring support — fast.'},
   {sel:'.bottom-nav [onclick*="mat"]', icon:'bar-chart-3', color:'#8A6FB0', title:'Progress', text:'See your recovery trends, medication and health charts over time.'},
-  {sel:'.bottom-nav [onclick*="rewards"]', icon:'trophy', color:'#C9973B', title:'Rewards', text:'Earn XP and unlock rewards as you build healthy streaks and reach milestones.'},
+  {sel:'.bottom-nav [onclick*="rewards"]', icon:'trophy', color:'#C9973B', title:'Rewards', text:'Track your XP and rewards as you build health streaks and reach milestones.'},
   {sel:'.avatar-btn', icon:'user-round', color:'#6E9E80', title:'Your profile', text:'Your meds, people, care team and settings — all editable in one place.'},
   {sel:'.notif-btn', icon:'map-pin', color:'#C56A5E', title:'Your places', text:'Help us provide you with better insights and activities by describing places you visit frequently.'}
 ];
