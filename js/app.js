@@ -290,10 +290,11 @@ function selectRHTf(tf, btn){
 
 /* ═══ PATTERN CHART ═══ */
 var patternChart = null;
-var selectedPatternItems = ['urge'];   /* up to 2 items to compare on the graph */
+var selectedPatternItems = ['health'];   /* up to 2 items to compare on the graph */
 var currentPatternTf = 'W', patternWeekOffset = 0;
 
 var patternData = {
+  health:   { label:'Recovery Health',  hex:'#5E8B6E', daily:_gen(84,2.9,4.0,1,5,7),  monthly:_gen(12,2.7,4.1,1,5,17) },
   urge:     { label:'Urge',             hex:'#D4736A', daily:_gen(84,4.1,2.4,1,5,1),  monthly:_gen(12,4.3,2.2,1,5,11) },
   pain:     { label:'Pain',             hex:'#C9A84C', daily:_gen(84,3.8,2.3,1,5,2),  monthly:_gen(12,4.0,2.1,1,5,12) },
   stress:   { label:'Stressful Events', hex:'#8B7EC8', daily:_gen(84,4.2,2.2,1,5,3),  monthly:_gen(12,4.4,2.0,1,5,13) },
@@ -304,7 +305,7 @@ var patternData = {
 function patternWeekStep(dir){ patternWeekOffset = Math.max(0, Math.min(_maxWeek(patternData[selectedPatternItems[0]].daily), patternWeekOffset + dir)); updatePatternChart(); }
 
 function updatePatternChart(){
-  var keys=(selectedPatternItems&&selectedPatternItems.length)?selectedPatternItems:['urge'];
+  var keys=(selectedPatternItems&&selectedPatternItems.length)?selectedPatternItems:['health'];
   var primary=patternData[keys[0]], multi=keys.length>1;
   var primarySeries=tfSeries(primary.daily, primary.monthly, currentPatternTf, patternWeekOffset);
   var _pt=document.getElementById('pattern-title');
