@@ -4602,6 +4602,16 @@ body:has(#ov-schedule.active) .audio-btn{display:none}
 /* Flag-for-review confirmation */
 .flag-card{text-align:center}
 .flag-card .help-pop-d{margin-top:6px}
+.flag-reasons{display:flex;flex-direction:column;gap:8px;margin:16px 0 2px;text-align:left}
+.flag-reason{display:flex;align-items:center;gap:10px;width:100%;box-sizing:border-box;border:1.6px solid var(--border);border-radius:12px;padding:11px 13px;background:var(--app-bg);cursor:pointer;font-family:var(--font-ui);font-size:13px;font-weight:600;color:var(--ink,#2E3238);transition:border-color .15s,background .15s}
+.flag-reason > span:first-child{flex:1;min-width:0}
+.flag-reason:hover{border-color:#D98C7D}
+.flag-reason-tick{flex:0 0 auto;width:20px;height:20px;border-radius:50%;border:1.6px solid var(--border);display:flex;align-items:center;justify-content:center;color:#fff;background:none;transition:.15s}
+.flag-reason-tick i,.flag-reason-tick svg{width:12px;height:12px;opacity:0}
+.flag-reason.on{border-color:#C4604A;background:#FBEAE6}
+.flag-reason.on .flag-reason-tick{background:#C4604A;border-color:#C4604A}
+.flag-reason.on .flag-reason-tick i,.flag-reason.on .flag-reason-tick svg{opacity:1}
+.flag-go:disabled{opacity:.5;cursor:not-allowed}
 .flag-ic{width:48px;height:48px;border-radius:50%;background:#FBEAE6;color:#C4604A;display:flex;align-items:center;justify-content:center;margin:0 auto 12px}
 .flag-ic i,.flag-ic svg{width:24px;height:24px}
 .flag-actions{display:flex;gap:10px;margin-top:18px}

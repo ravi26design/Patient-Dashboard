@@ -2646,6 +2646,7 @@ const REPLY_DRAFT = {};
 const OPEN_REPLIES = new Set();       // which posts have their reply zone expanded
 const NUDGED = new Set();             // post ids you've sent a silent nudge to
 const FLAGGED = new Set((function(){ try{ return JSON.parse(localStorage.getItem('rh_flagged')||'[]'); }catch(e){ return []; } })());   // post ids flagged for review
+window.FLAG_REASON_MAP = (function(){ try{ return JSON.parse(localStorage.getItem('rh_flag_reasons')||'{}'); }catch(e){ return {}; } })();   // post id -> flag reason
 const DISMISSED = new Set();          // banner ids you've closed this session
 document.addEventListener("input", e=>{
   const inp = e.target.closest('[id^="replyinput-"]');
@@ -2850,34 +2851,60 @@ function sendReplyTo(id, text){
   return true;
 }
 /* ── Flag a post for a peer specialist to review ── */
-function flagSave(){ try{ localStorage.setItem("rh_flagged", JSON.stringify([...FLAGGED])); }catch(e){} }
+var FLAG_REASONS = [
+  "Sourcing, selling or glamorizing use",
+  "Harmful, dangerous or triggering",
+  "Harassment, hate or bullying",
+  "Spam or advertising",
+  "Concern for someone's safety",
+  "Something else"
+];
+function flagSave(){
+  try{ localStorage.setItem("rh_flagged", JSON.stringify([...FLAGGED])); }catch(e){}
+  try{ localStorage.setItem("rh_flag_reasons", JSON.stringify(window.FLAG_REASON_MAP||{})); }catch(e){}
+}
 function handleFlag(id){
-  if(FLAGGED.has(id)){ FLAGGED.delete(id); flagSave(); renderCommunityFeed(); if(typeof toast==="function") toast("Flag removed."); return; }
+  if(FLAGGED.has(id)){ FLAGGED.delete(id); if(window.FLAG_REASON_MAP) delete window.FLAG_REASON_MAP[id]; flagSave(); renderCommunityFeed(); if(typeof toast==="function") toast("Flag removed."); return; }
   showFlagConfirm(id);
 }
-function flagPost(id){
-  FLAGGED.add(id); flagSave(); renderCommunityFeed();
+function flagPost(id, reason){
+  FLAGGED.add(id);
+  window.FLAG_REASON_MAP = window.FLAG_REASON_MAP || {};
+  window.FLAG_REASON_MAP[id] = reason || "Something else";
+  flagSave(); renderCommunityFeed();
   if(typeof toast==="function") toast("Thanks — a peer specialist will review this post.");
 }
 function hideFlagConfirm(){ var ov=document.getElementById("flagConfirm"); if(ov) ov.hidden=true; }
+function flagSelectReason(btn){
+  var ov=document.getElementById("flagConfirm"); if(!ov) return;
+  ov.querySelectorAll(".flag-reason").forEach(function(b){ b.classList.remove("on"); });
+  btn.classList.add("on");
+  ov.dataset.reason = btn.getAttribute("data-reason");
+  var go=ov.querySelector("#flagGo"); if(go) go.disabled=false;
+}
 function showFlagConfirm(id){
   var ov=document.getElementById("flagConfirm");
   if(!ov){
     ov=document.createElement("div");
     ov.id="flagConfirm"; ov.className="help-pop"; ov.hidden=true;
+    var reasons=FLAG_REASONS.map(function(r){ return '<button type="button" class="flag-reason" data-reason="'+r.replace(/"/g,"&quot;")+'" onclick="flagSelectReason(this)"><span>'+r+'</span><span class="flag-reason-tick"><i data-lucide="check"></i></span></button>'; }).join("");
     ov.innerHTML='<div class="help-pop-card flag-card">'+
       '<div class="flag-ic"><i data-lucide="flag"></i></div>'+
-      '<div class="help-pop-t">Flag this post?</div>'+
-      '<div class="help-pop-d">A certified peer specialist will review it. Your report is anonymous — the poster won\'t know who flagged it.</div>'+
+      '<div class="help-pop-t">Why flag this post?</div>'+
+      '<div class="help-pop-d">Pick a reason. A certified peer specialist will review it — your report is anonymous.</div>'+
+      '<div class="flag-reasons">'+reasons+'</div>'+
       '<div class="flag-actions"><button type="button" class="flag-cancel" id="flagCancel">Cancel</button>'+
-      '<button type="button" class="flag-go" id="flagGo">Flag for review</button></div>'+
+      '<button type="button" class="flag-go" id="flagGo" disabled>Flag for review</button></div>'+
     '</div>';
     ov.addEventListener("click", function(e){ if(e.target===ov) hideFlagConfirm(); });
     document.body.appendChild(ov);
     ov.querySelector("#flagCancel").addEventListener("click", hideFlagConfirm);
-    ov.querySelector("#flagGo").addEventListener("click", function(){ var pid=+ov.dataset.pid; hideFlagConfirm(); flagPost(pid); });
+    ov.querySelector("#flagGo").addEventListener("click", function(){ if(this.disabled) return; var pid=+ov.dataset.pid; var reason=ov.dataset.reason; hideFlagConfirm(); flagPost(pid, reason); });
   }
-  ov.dataset.pid=id;
+  /* reset selection each time it opens */
+  ov.dataset.pid=id; ov.dataset.reason="";
+  ov.querySelectorAll(".flag-reason").forEach(function(b){ b.classList.remove("on"); });
+  var go=ov.querySelector("#flagGo"); if(go) go.disabled=true;
   ov.hidden=false;
   if(window.lucide&&lucide.createIcons) lucide.createIcons();
 }
