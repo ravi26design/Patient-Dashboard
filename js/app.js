@@ -1878,7 +1878,7 @@ var TOUR_STEPS=[
   {sel:'.rh-card', icon:'activity', color:'#5E8B6E', title:'Recovery Health', text:'Your daily score of how recovery is going. Tap it any time for a deeper look at your progress.'},
   {sel:'#screen-home .rt-section', icon:'list-checks', color:'#C9973B', title:'Your daily plan', text:'Meds, a quick reflection, insights and connecting live here — and each one earns you XP.'},
   {sel:'.bottom-nav [onclick*="\'home\'"]', icon:'home', color:'#5E8B6E', title:'Home', text:'Your daily dashboard — recovery score, plan and quick actions, all in one place.'},
-  {sel:'.bottom-nav [onclick*="rooms"]', icon:'users-round', color:'#4E7FA8', title:'Community', text:'Connect with people who get it. Share and get support — always anonymous.'},
+  {sel:'.bottom-nav [onclick*="rooms"]', icon:'users-round', color:'#4E7FA8', title:'Community', text:'Connect with people who get it. Share and get support'},
   {sel:'.nav-sos', icon:'life-buoy', color:'#C56A5E', title:'Help, anytime', text:'Struggling right now? Tap HELP to reach real, caring support — fast.'},
   {sel:'.bottom-nav [onclick*="mat"]', icon:'bar-chart-3', color:'#8A6FB0', title:'Progress', text:'See your recovery trends and health charts over time—gain further insights into what helps and hurts your recovery.'},
   {sel:'.bottom-nav [onclick*="rewards"]', icon:'trophy', color:'#C9973B', title:'Rewards', text:'Track your XP and rewards as you build health streaks and reach milestones.'},
