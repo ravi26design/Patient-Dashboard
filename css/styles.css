@@ -4397,7 +4397,7 @@ body:has(#ov-rooms.active) #bottomNav{z-index:9600}
 .rc-scope .room-hdr-d{display:block;font-size:12px;color:var(--ink-soft);margin-top:1px}
 body.in-room #s-community > .hub-card{display:none}
 /* in-room: a plain back arrow at the top (replaces the room header card) */
-.rc-scope .room-back{width:36px;height:36px;border-radius:50%;border:none;background:#fff;color:var(--ink,#2E3238);display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 2px 10px rgba(58,51,48,.10);margin:2px 0 12px;transition:transform .12s ease}
+.rc-scope .room-back{width:36px;height:36px;border-radius:50%;border:none;background:#fff;color:var(--ink,#2E3238);display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 2px 10px rgba(58,51,48,.10);margin:18px 0 14px;transition:transform .12s ease}
 .rc-scope .room-back i,.rc-scope .room-back svg{width:19px;height:19px}
 .rc-scope .room-back:active{transform:scale(.92)}
 /* in-room is a focused reading view — hide the bottom nav (the back arrow exits) */
