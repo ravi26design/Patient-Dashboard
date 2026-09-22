@@ -15,7 +15,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
 <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
-<link rel="stylesheet" href="css/styles.css?v=20260915i">
+<link rel="stylesheet" href="css/styles.css?v=20260922a">
 </head>
 <body>
 
@@ -3050,15 +3050,15 @@
     <!-- Sheet scrolls up over the map -->
     <div class="loc-sheet">
       <div class="loc-grab"></div>
-      <div class="loc-q">Which of the following best describes this place?</div>
-      <div class="loc-opts">
-        <button class="loc-opt" type="button" onclick="locAnswer(this)">My home</button>
-        <button class="loc-opt" type="button" onclick="locAnswer(this)">Someone else's home</button>
-        <button class="loc-opt" type="button" onclick="locAnswer(this)">A shelter, group home, hotel, or other temporary place I stayed</button>
-        <button class="loc-opt" type="button" onclick="locAnswer(this)">A restaurant, business, public place, or other non-residential place</button>
-        <button class="loc-opt" type="button" onclick="locAnswer(this)">I do not recognize this location or was just passing by</button>
+      <div class="loc-intro" id="loc-intro">Rudra noticed you recently spent time here. A few quick questions about places you've visited more than once in the past 30 days.</div>
+      <div class="loc-steps" id="loc-steps"></div>
+      <div class="loc-q" id="loc-q"></div>
+      <div class="loc-hint" id="loc-hint"></div>
+      <div class="loc-opts" id="loc-opts"></div>
+      <div class="loc-nav">
+        <button class="loc-back" id="loc-back" type="button" onclick="locBack()"><i data-lucide="arrow-left"></i> Back</button>
+        <button class="loc-submit" id="loc-submit" type="button" onclick="locNext()">Next</button>
       </div>
-      <button class="loc-submit" id="loc-submit" type="button" onclick="locSubmit()">Submit · +30 XP</button>
     </div>
   </div>
 
@@ -3922,6 +3922,6 @@
     <button class="tour-skip" type="button" onclick="tourSkip()">Skip</button>
   </div>
 </div>
-<script src="js/app.js?v=20260915i"></script>
+<script src="js/app.js?v=20260922a"></script>
 </body>
 </html>

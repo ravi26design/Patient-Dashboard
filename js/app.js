@@ -48,7 +48,7 @@ function openOv(id){
     /* land on the rooms hub (not a specific room) — the in-room back arrow was removed */
     if(typeof setRoom==='function' && typeof currentRoom==='function' && currentRoom()!=='all') setRoom('all');
   }
-  if(id==='location-checkin'){ el.querySelectorAll('.loc-opt.sel').forEach(function(o){o.classList.remove('sel');}); var _sb=document.getElementById('loc-submit'); if(_sb) _sb.classList.remove('ready'); }  /* fresh state each open */
+  if(id==='location-checkin' && typeof initLocSurvey==='function'){ initLocSurvey(); }  /* start the location questions fresh */
   try{localStorage.setItem('rh_ov',id);}catch(e){}
 }
 function closeOv(){if(typeof stopPageAudio==='function')stopPageAudio();if(typeof stopBreath==='function')stopBreath();if(typeof stopUrgeBreath==='function')stopUrgeBreath();if(call911Timer){clearInterval(call911Timer);call911Timer=null;}document.querySelectorAll('.overlay').forEach(function(o){o.classList.remove('active');o.style.zoom='';});try{localStorage.removeItem('rh_ov');}catch(e){}}
@@ -2413,14 +2413,85 @@ function mtSaveAdd(){
   if(typeof pfPersist==='function') pfPersist();
 }
 
-/* Frequent Location Check-in: pick a place type, award XP, close */
-function locAnswer(btn){
-  var opts=btn.parentNode.querySelectorAll('.loc-opt');
-  for(var i=0;i<opts.length;i++) opts[i].classList.remove('sel');
-  btn.classList.add('sel');
-  var sb=document.getElementById('loc-submit'); if(sb) sb.classList.add('ready');  /* enable the Submit CTA */
+/* ═══ Location Questions — a short survey about a place Rudra detected ═══ */
+var LOC_Q = [
+  { key:'place', type:'single', q:'Which of the following best describes this place?', options:[
+      {t:'My home'},
+      {t:'Someone else’s home'},
+      {t:'A restaurant, business, public place, or other non-residential place'},
+      {t:'A hotel, vacation rental, shelter, group home, or other temporary residence', end:true},
+      {t:'I do not recognize this location or was just passing by', end:true}
+  ]},
+  { key:'activities', type:'multi', q:'Which of the following best describes what you typically do here?', hint:'Check all that apply.', options:[
+      'Work','Take classes','Religious or spiritual activities','Volunteer or community service',
+      'Exercise or play sports','Visit family or friend(s) at their home','Socialize','Relax','Eat a meal',
+      'Drink a non-alcoholic beverage (e.g., coffee, tea, smoothie)','Drink alcohol',
+      'Shop for food, products, or services','Buy alcohol (for later use; e.g., liquor store)',
+      'Get treatment to manage my recovery (e.g. counseling, therapy, medications)',
+      'Attend an NA/AA or other peer-led group to manage my recovery',
+      'Get general (beyond recovery) mental health care','Get physical health care','None of the above'
+  ]},
+  { key:'pleasant',   type:'single', q:'How often are visits here pleasant?',   options:[{t:'Never'},{t:'Rarely'},{t:'Sometimes'},{t:'Often'},{t:'Always'}]},
+  { key:'unpleasant', type:'single', q:'How often are visits here unpleasant?', options:[{t:'Never'},{t:'Rarely'},{t:'Sometimes'},{t:'Often'},{t:'Always'}]},
+  { key:'support',    type:'single', q:'Do visits here support your recovery?', options:[{t:'No'},{t:'Low support'},{t:'Moderate support'},{t:'High support'}]},
+  { key:'risk',       type:'single', q:'Do visits here present any risk to your recovery?', options:[{t:'No'},{t:'Low risk'},{t:'Moderate risk'},{t:'High risk'}]}
+];
+var locStep = 0, locAns = {}, locSkip = false;
+function _locOptText(o){ return (typeof o === 'string') ? o : o.t; }
+function initLocSurvey(){ locStep = 0; locAns = {}; locSkip = false; renderLocQ(); }
+function renderLocQ(){
+  var item = LOC_Q[locStep]; if(!item) return;
+  var intro = document.getElementById('loc-intro'); if(intro) intro.style.display = (locStep===0) ? 'block' : 'none';
+  var total = locSkip ? 1 : LOC_Q.length;
+  var stepsEl = document.getElementById('loc-steps'); if(stepsEl) stepsEl.textContent = 'Question ' + (locStep+1) + ' of ' + total;
+  var qEl = document.getElementById('loc-q'); if(qEl) qEl.textContent = item.q;
+  var hintEl = document.getElementById('loc-hint'); if(hintEl){ hintEl.textContent = item.hint || ''; hintEl.style.display = item.hint ? 'block' : 'none'; }
+  var sel = locAns[item.key];
+  var box = document.getElementById('loc-opts');
+  if(box){
+    box.innerHTML = item.options.map(function(o, i){
+      var t = _locOptText(o);
+      var on = (item.type==='multi') ? (Array.isArray(sel) && sel.indexOf(t)>=0) : (sel===t);
+      return '<button class="loc-opt'+(on?' sel':'')+(item.type==='multi'?' loc-opt-multi':'')+'" type="button" onclick="locPick('+i+')">'+
+             '<span class="loc-opt-t">'+esc(t)+'</span>'+
+             (item.type==='multi' ? '<span class="loc-check"><i data-lucide="check"></i></span>' : '')+
+             '</button>';
+    }).join('');
+  }
+  var back = document.getElementById('loc-back'); if(back) back.style.visibility = (locStep>0) ? 'visible' : 'hidden';
+  syncLocNext();
+  if(window.lucide && lucide.createIcons) lucide.createIcons();
 }
-function locSubmit(){ closeOv(); if(typeof showXPPopup==='function') showXPPopup(30, 'Check-in Complete!'); }
+function locPick(i){
+  var item = LOC_Q[locStep]; var t = _locOptText(item.options[i]);
+  if(item.type==='multi'){
+    var arr = locAns[item.key] || [];
+    if(t==='None of the above'){ arr = (arr.indexOf(t)>=0) ? [] : [t]; }
+    else { arr = arr.filter(function(x){ return x!=='None of the above'; }); var k = arr.indexOf(t); if(k>=0) arr.splice(k,1); else arr.push(t); }
+    locAns[item.key] = arr;
+  } else {
+    locAns[item.key] = t;
+    if(item.key==='place') locSkip = !!item.options[i].end;   /* temporary place / not recognized → skip to end */
+  }
+  renderLocQ();
+}
+function _locAnswered(){
+  var item = LOC_Q[locStep], sel = locAns[item.key];
+  return item.type==='multi' ? (Array.isArray(sel) && sel.length>0) : !!sel;
+}
+function syncLocNext(){
+  var isLast = locSkip || (locStep >= LOC_Q.length-1);
+  var btn = document.getElementById('loc-submit');
+  if(btn){ btn.textContent = isLast ? 'Submit · +30 XP' : 'Next'; btn.classList.toggle('ready', _locAnswered()); }
+}
+function locNext(){
+  if(!_locAnswered()) return;
+  var isLast = locSkip || (locStep >= LOC_Q.length-1);
+  if(isLast){ locFinish(); return; }
+  locStep++; renderLocQ();
+}
+function locBack(){ if(locStep>0){ locStep--; if(locStep===0) locSkip=false; renderLocQ(); } }
+function locFinish(){ closeOv(); if(typeof showXPPopup==='function') showXPPopup(30, 'Location check-in complete!'); }
 function pfTelHref(num){ return 'tel:'+String(num).replace(/[^\d+]/g,''); }
 function callContact(name,num){ try{ window.location.href=pfTelHref(num); }catch(e){} }
 function textContact(name,num){ try{ window.location.href='sms:'+String(num).replace(/[^\d+]/g,''); }catch(e){} }
