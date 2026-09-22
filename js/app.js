@@ -2458,7 +2458,7 @@ function renderLocQ(){
              '</button>';
     }).join('');
   }
-  var back = document.getElementById('loc-back'); if(back) back.style.visibility = (locStep>0) ? 'visible' : 'hidden';
+  var back = document.getElementById('loc-back'); if(back) back.style.display = (locStep>0) ? 'inline-flex' : 'none';
   syncLocNext();
   if(window.lucide && lucide.createIcons) lucide.createIcons();
 }

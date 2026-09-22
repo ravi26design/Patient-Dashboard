@@ -2715,12 +2715,12 @@ body.is-mobile .lb-row > div:last-child{font-size:13px !important}
 .loc-check i,.loc-check svg{width:14px;height:14px;opacity:0}
 .loc-opt.sel .loc-check{background:#5E8560;border-color:#5E8560}
 .loc-opt.sel .loc-check i,.loc-opt.sel .loc-check svg{opacity:1}
-/* footer nav: Back + Next/Submit */
-.loc-nav{display:flex;align-items:center;gap:10px;margin-top:16px}
-.loc-back{flex:0 0 auto;display:inline-flex;align-items:center;gap:5px;background:none;border:none;color:var(--ink-soft,#6A6F76);font-family:var(--font-ui);font-size:13px;font-weight:700;cursor:pointer;padding:12px 8px}
+/* footer nav: full-width Next/Submit with a centered Back link beneath it */
+.loc-nav{display:flex;flex-direction:column;align-items:stretch;gap:4px;margin-top:16px}
+.loc-back{order:2;align-self:center;display:inline-flex;align-items:center;gap:5px;background:none;border:none;color:var(--ink-soft,#6A6F76);font-family:var(--font-ui);font-size:13px;font-weight:700;cursor:pointer;padding:10px 8px}
 .loc-back i,.loc-back svg{width:15px;height:15px}
 .loc-back:active{transform:scale(.96)}
-.loc-nav .loc-submit{margin-top:0;flex:1}
+.loc-nav .loc-submit{order:1;margin-top:0;width:100%}
 
 /* Desktop: Profile is a single full-width column (not the 2-column dashboard grid) so the hero + cards sit full width below the title */
 body.is-desktop #screen-profile.active{display:block;column-count:1;grid-template-columns:none}
