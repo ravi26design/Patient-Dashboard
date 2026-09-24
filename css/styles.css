@@ -2076,6 +2076,8 @@ body.is-desktop .onb-foot{position:absolute;left:16px;right:16px;bottom:22px;mar
 .pv-check.on .pv-box i,.pv-check.on .pv-box svg{opacity:1}
 .pv-text{font-family:var(--font-ui);font-size:13px;line-height:1.5;color:var(--brown)}
 .pv-text b{color:var(--ink);font-weight:700}
+.pv-text a{color:var(--blue-ink,#3F6E99);text-decoration:underline;text-underline-offset:2px}
+.pv-text a b{color:inherit}
 @media (min-width:900px){ .onb-inner .ph-title{font-size:30px} .moud-opt,.onb-chip{font-size:15px} }
 
 /* ═══════════════════════════════════════════════════════════
