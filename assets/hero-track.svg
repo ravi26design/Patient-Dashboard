@@ -58,12 +58,8 @@
   <!-- header -->
   <circle cx="220" cy="176" r="13" fill="#F3EFDF"/>
   <path d="M220 182 c-7 -5 -9 -11 -5 -14 c3 -2 4 0 5 1 c1 -1 2 -3 5 -1 c4 3 2 9 -5 14 z" fill="#C9962E"/>
-  <g>
-    <rect x="284" y="166" width="34" height="20" rx="10" fill="#E7F1E7"/>
-    <text x="292" y="180" font-family="'Avenir Next','Helvetica Neue',Arial,sans-serif" font-size="10" font-weight="800" fill="#4E7A50">↗ 5</text>
-  </g>
   <text x="242" y="176" font-family="'Avenir Next','Helvetica Neue',Arial,sans-serif" font-size="12" font-weight="800" fill="#2E3238">Recovery</text>
-  <text x="242" y="189" font-family="'Avenir Next','Helvetica Neue',Arial,sans-serif" font-size="9" fill="#8A8F94">This week</text>
+  <text x="242" y="189" font-family="'Avenir Next','Helvetica Neue',Arial,sans-serif" font-size="9" fill="#8A8F94">This week ↗</text>
   <!-- semicircle gauge -->
   <g transform="translate(262 244)">
     <path d="M-42 0 A42 42 0 0 1 42 0" fill="none" stroke="#ECEFEC" stroke-width="11" stroke-linecap="round"/>
