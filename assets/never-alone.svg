@@ -1,34 +1,64 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 320" width="480" height="320">
   <defs>
-    <linearGradient id="naHeart" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#E08C7D"/>
-      <stop offset="1" stop-color="#C56A5E"/>
+    <linearGradient id="naBg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#F8F6F0"/><stop offset="1" stop-color="#EFF3EC"/>
     </linearGradient>
+    <filter id="naSh" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#3A4A3C" flood-opacity="0.14"/>
+    </filter>
   </defs>
-
-  <!-- soft ground -->
-  <ellipse cx="60" cy="98" rx="42" ry="7" fill="#5E8B6E" opacity="0.10"/>
-
-  <!-- back figure (sage) -->
-  <g fill="#7FA980">
-    <path d="M28 100 C28 78 40 70 52 70 C64 70 76 78 76 100 Z"/>
-    <circle cx="52" cy="56" r="16"/>
+  <rect width="480" height="320" fill="url(#naBg)"/>
+  <!-- soft blobs -->
+  <path d="M330 -20 C420 0 470 70 450 150 C540 120 540 -40 420 -50 Z" fill="#DCEAD7" opacity="0.7"/>
+  <circle cx="70" cy="70" r="70" fill="#F6E4DF" opacity="0.55"/>
+  <!-- plants -->
+  <g fill="#8FBF92" opacity="0.9">
+    <path d="M14 300 C4 260 18 232 40 224 C40 262 34 288 22 302 Z"/>
+    <path d="M40 306 C40 266 56 244 78 240 C72 280 60 300 46 308 Z" fill="#A9CFA9"/>
   </g>
-  <!-- front figure (blue), overlapping = togetherness -->
-  <g fill="#6EA0CC">
-    <path d="M50 102 C50 80 62 72 74 72 C86 72 98 80 98 102 Z"/>
-    <circle cx="74" cy="58" r="16"/>
+  <g fill="#8FBF92" opacity="0.9">
+    <path d="M466 306 C476 266 462 238 440 232 C440 272 448 296 460 308 Z"/>
   </g>
-  <!-- subtle rim so the two read apart -->
-  <path d="M50 102 C50 80 62 72 74 72 C86 72 98 80 98 102" fill="none" stroke="#fff" stroke-width="2.5" opacity="0.55"/>
-  <circle cx="74" cy="58" r="16" fill="none" stroke="#fff" stroke-width="2.5" opacity="0.55"/>
 
-  <!-- heart above, connecting them -->
-  <path d="M63 20 C63 13 53 12 53 21 C53 28 63 33 63 33 C63 33 73 28 73 21 C73 12 63 13 63 20 Z" fill="url(#naHeart)"/>
-
-  <!-- delight sparkle -->
-  <g fill="#E0B255">
-    <path d="M96 40 C97 44 98 45 102 46 C98 47 97 48 96 52 C95 48 94 47 90 46 C94 45 95 44 96 40 Z"/>
-    <circle cx="24" cy="44" r="2.4" opacity="0.8"/>
+  <!-- ===== friendly character (coral hoodie) ===== -->
+  <g>
+    <!-- hoodie/body -->
+    <path d="M78 320 C78 250 108 224 150 224 C192 224 222 250 222 320 Z" fill="#E68C85"/>
+    <path d="M112 250 C112 272 188 272 188 250 L188 300 L112 300 Z" fill="#F0F2EE" opacity="0.35"/>
+    <!-- neck -->
+    <rect x="136" y="196" width="28" height="34" rx="12" fill="#EBC29E"/>
+    <!-- head -->
+    <circle cx="150" cy="164" r="44" fill="#F1CBA9"/>
+    <!-- hair -->
+    <path d="M108 168 C104 118 150 104 176 120 C198 132 196 158 192 172 C188 150 180 140 168 138 C170 150 164 156 154 156 C150 150 150 146 150 142 C138 150 120 150 112 172 Z" fill="#4A3A2E"/>
+    <circle cx="150" cy="112" r="14" fill="#4A3A2E"/>
+    <!-- face -->
+    <circle cx="138" cy="166" r="3.4" fill="#3A2E26"/>
+    <circle cx="164" cy="166" r="3.4" fill="#3A2E26"/>
+    <path d="M144 178 C149 183 155 183 160 178" fill="none" stroke="#B96A5E" stroke-width="3" stroke-linecap="round"/>
+    <circle cx="130" cy="176" r="5" fill="#F0B0A6" opacity="0.6"/>
+    <circle cx="172" cy="176" r="5" fill="#F0B0A6" opacity="0.6"/>
   </g>
+
+  <!-- ===== floating Community card ===== -->
+  <g filter="url(#naSh)"><rect x="256" y="78" width="196" height="120" rx="18" fill="#fff"/></g>
+  <text x="276" y="106" font-family="'Avenir Next','Helvetica Neue',Arial,sans-serif" font-size="13" font-weight="800" fill="#2E3238">Your people</text>
+  <text x="276" y="122" font-family="'Avenir Next','Helvetica Neue',Arial,sans-serif" font-size="10" fill="#8A8F94">always one tap away</text>
+  <!-- peer avatars -->
+  <g font-family="'Avenir Next','Helvetica Neue',Arial,sans-serif" font-size="11" font-weight="800" fill="#fff" text-anchor="middle">
+    <circle cx="288" cy="150" r="16" fill="#7FA980"/><text x="288" y="154">R</text>
+    <circle cx="316" cy="150" r="16" fill="#6EA0CC"/><text x="316" y="154">T</text>
+    <circle cx="344" cy="150" r="16" fill="#E0B255"/><text x="344" y="154">M</text>
+    <circle cx="372" cy="150" r="16" fill="#EDECE8"/><text x="372" y="154" fill="#8A8F94">+9</text>
+  </g>
+  <!-- message bubble -->
+  <g>
+    <rect x="276" y="172" width="120" height="14" rx="7" fill="#EAF2EA"/>
+  </g>
+
+  <!-- chat bubble with heart, above the character -->
+  <g filter="url(#naSh)">
+    <path d="M64 44 h74 a15 15 0 0 1 15 15 v24 a15 15 0 0 1 -15 15 h-20 l-12 14 -6 -14 h-21 a15 15 0 0 1 -15 -15 v-24 a15 15 0 0 1 15 -15 z" fill="#fff"/>
+  </g>
+  <path d="M101 62 c-7 -7 -18 -1 -18 8 c0 9 18 17 18 17 c0 0 18 -8 18 -17 c0 -9 -11 -15 -18 -8 z" fill="#D9736A"/>
 </svg>
