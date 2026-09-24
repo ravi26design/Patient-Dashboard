@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
+  <!-- soft ground -->
+  <ellipse cx="60" cy="100" rx="44" ry="7" fill="#5E8B6E" opacity="0.10"/>
+
+  <!-- ascending steps -->
+  <rect x="14" y="74" width="30" height="24" rx="7" fill="#B3D3B0"/>
+  <rect x="40" y="58" width="30" height="40" rx="7" fill="#8FBF92"/>
+  <rect x="66" y="42" width="30" height="56" rx="7" fill="#6E9E80"/>
+
+  <!-- dotted path of small steps up the stairs -->
+  <g fill="#4E7FA8" opacity="0.85">
+    <circle cx="24" cy="68" r="3"/>
+    <circle cx="35" cy="62" r="3"/>
+    <circle cx="50" cy="52" r="3"/>
+    <circle cx="61" cy="46" r="3"/>
+    <circle cx="76" cy="36" r="3"/>
+  </g>
+
+  <!-- sprout on the top step (growth) -->
+  <g transform="translate(81 42)">
+    <path d="M0 0 C0 -8 0 -14 0 -22" stroke="#4E7A50" stroke-width="4" fill="none" stroke-linecap="round"/>
+    <path d="M0 -8 C-14 -8 -22 -18 -24 -32 C-10 -30 2 -20 0 -8 Z" fill="#8FBF92"/>
+    <path d="M0 -13 C14 -13 23 -22 26 -36 C11 -34 -2 -25 0 -13 Z" fill="#A9CFA9"/>
+  </g>
+
+  <!-- delight sparkle -->
+  <g fill="#E0B255">
+    <path d="M100 22 C101 26 102 27 106 28 C102 29 101 30 100 34 C99 30 98 29 94 28 C98 27 99 26 100 22 Z"/>
+  </g>
+</svg>

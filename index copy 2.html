@@ -15,7 +15,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
 <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
-<link rel="stylesheet" href="css/styles.css?v=20260806a">
+<link rel="stylesheet" href="css/styles.css?v=20260922g">
 </head>
 <body>
 
@@ -239,11 +239,11 @@
     <p class="ph-sub">Records about substance use disorder get extra federal protection. Here's what you're agreeing to.</p>
     <button class="pv-check" id="pvCheck1" type="button" onclick="pvToggle(this)">
       <span class="pv-box"><i data-lucide="check"></i></span>
-      <span class="pv-text">I agree to the <b>Terms of Use</b> and understand Rudra is an AI companion, not a medical or emergency service. I've read how my data is protected under <b>42 CFR Part 2</b> &amp; HIPAA, and that nothing is shared without my consent.</span>
+      <span class="pv-text">I agree to Rudra Health AI's <a href="https://www.rudrahealth.ai/#terms-of-use" target="_blank" rel="noopener" onclick="event.stopPropagation()"><b>Terms of Use</b></a> and <a href="https://www.rudrahealth.ai/#privacy-policy" target="_blank" rel="noopener" onclick="event.stopPropagation()"><b>Privacy Policy</b></a>. I've read how my data is protected under <b>42 CFR Part 2</b> &amp; HIPAA, and that nothing is shared without my consent.</span>
     </button>
     <button class="pv-check" id="pvCheck2" type="button" onclick="pvToggle(this)">
       <span class="pv-box"><i data-lucide="check"></i></span>
-      <span class="pv-text"><b>Permission to contact me</b> — I agree to receive text messages and emails from Rudra (dose &amp; check-in reminders, support). Msg &amp; data rates may apply. <span class="pv-opt">Reply STOP to texts or unsubscribe from emails anytime.</span></span>
+      <span class="pv-text"><b>Permission to contact me</b> - I agree to receive text messages (SMS/WhatsApp) and emails from Rudra (dose &amp; check-in reminders, support). Msg &amp; data rates may apply. <span class="pv-opt">Reply STOP to opt-out of texting. Click unsubscribe to opt-out of email.</span></span>
     </button>
     <button class="wc-begin onb-continue" id="pvContinue" type="button" onclick="onbNext('privacy')" disabled>Agree &amp; continue</button>
   </div>
@@ -384,6 +384,27 @@
 </div>
 
 <!-- Add someone to My People · bottom sheet -->
+<!-- Add a prize bottom sheet -->
+<div id="prizeSheet" aria-hidden="true" onclick="if(event.target===this)closePrizeSheet()">
+  <div class="pf-sheet aps-sheet">
+    <button class="sheet-close" type="button" onclick="closePrizeSheet()" aria-label="Close"><i data-lucide="x"></i></button>
+    <div class="sheet-grab"></div>
+    <div class="aps-head">
+      <span class="aps-head-ic" style="background:var(--gold-lt,#FBF4E2);color:#9A6B16"><i data-lucide="gift"></i></span>
+      <div class="aps-head-tt">
+        <h3 class="aps-title">Add a prize</h3>
+        <p class="aps-lead">A reward that would keep you motivated.</p>
+      </div>
+    </div>
+    <label class="aps-l" for="prizeInput">Prize</label>
+    <input class="aps-in" type="text" id="prizeInput" placeholder="e.g. Weekend camping trip" autocomplete="off" onkeydown="if(event.key==='Enter'){event.preventDefault();prizeSheetAdd()}">
+    <div class="aps-actions">
+      <button class="aps-cancel" type="button" onclick="closePrizeSheet()">Cancel</button>
+      <button class="aps-add" type="button" onclick="prizeSheetAdd()">Add prize</button>
+    </div>
+  </div>
+</div>
+
 <div id="addPersonSheet" aria-hidden="true" onclick="if(event.target===this)closeAddPerson()">
   <div class="pf-sheet aps-sheet">
     <button class="sheet-close" type="button" onclick="closeAddPerson()" aria-label="Close"><i data-lucide="x"></i></button>
@@ -410,6 +431,14 @@
 
     <label class="aps-l" for="apsEmail">Email</label>
     <input class="aps-in" type="email" id="apsEmail" placeholder="name@email.com" autocomplete="off" oninput="apsSync()">
+
+    <label class="aps-l">Give feature access</label>
+    <div class="aps-permhint">Choose what this person can see in your app.</div>
+    <div class="aps-perms" id="apsPerms">
+      <button type="button" class="aps-perm" data-perm="Home Overview" aria-pressed="false" onclick="apsPerm(this)"><span class="aps-perm-ic"><i data-lucide="home"></i></span><span class="aps-perm-t">Home Overview</span><span class="aps-perm-sw"></span></button>
+      <button type="button" class="aps-perm" data-perm="Progress" aria-pressed="false" onclick="apsPerm(this)"><span class="aps-perm-ic"><i data-lucide="trending-up"></i></span><span class="aps-perm-t">Progress</span><span class="aps-perm-sw"></span></button>
+      <button type="button" class="aps-perm" data-perm="Rewards" aria-pressed="false" onclick="apsPerm(this)"><span class="aps-perm-ic"><i data-lucide="trophy"></i></span><span class="aps-perm-t">Rewards</span><span class="aps-perm-sw"></span></button>
+    </div>
 
     <div class="aps-actions">
       <button type="button" class="aps-cancel" onclick="closeAddPerson()">Cancel</button>
@@ -473,7 +502,7 @@
       <!-- Recovery Health -->
       <div class="home-sec gauge-card rh-card" role="button" tabindex="0" onclick="openOv('insights')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openOv('insights');}">
         <div class="rh-inner">
-          <div class="rh-eyebrow">Recovery Health</div>
+          <div class="rh-eyebrow" style="display:flex;align-items:center;gap:7px">Recovery Health<button class="help-i" type="button" style="margin-left:auto" aria-label="About Recovery Health" onclick="event.stopPropagation();showHelp('recovery-health')"><i data-lucide="info"></i></button></div>
           <div class="rh-gauge" id="healthGauge"></div>
           <div class="rh-num"><b>74</b></div>
           <div class="rh-outof">out of 100</div>
@@ -496,7 +525,10 @@
         <div>
           <div class="rt-head">
             <div class="home-title">Recovery Today</div>
-            <div class="rt-prog"><span id="rt-done">0</span><span class="rt-prog-total">/4 done</span></div>
+            <div class="rt-head-r">
+              <div class="rt-prog"><span id="rt-done">0</span><span class="rt-prog-total">/4 done</span></div>
+              <button class="help-i" type="button" aria-label="About Recovery Today" onclick="showHelp('recovery-today')"><i data-lucide="info"></i></button>
+            </div>
           </div>
           <div class="task-grid">
             <div class="task" id="focus-card" onclick="confirmFocus(this)">
@@ -572,7 +604,7 @@
       <!-- Streaks -->
       <div class="home-sec sf-card">
         <div>
-          <div class="home-title">Streaks</div>
+          <div class="home-title" style="display:flex;align-items:center;gap:7px">Streaks<button class="help-i" type="button" style="margin-left:auto" aria-label="About streaks" onclick="showHelp('streaks')"><i data-lucide="info"></i></button></div>
           <!-- Row 1: Recovery Journey -->
           <div class="streaks-rj">
             <div class="rj-eyebrow">Recovery Journey</div>
@@ -615,6 +647,7 @@
     <div class="screen" id="screen-rewards">
       <!-- 1 + 2. Celebration hero -->
       <div class="rwx-hero scr-full">
+        <button class="help-i" type="button" style="position:absolute;top:14px;right:14px;z-index:2;background:rgba(255,255,255,.7)" aria-label="About levels & XP" onclick="showHelp('rewards-level')"><i data-lucide="info"></i></button>
         <div class="rwx-medal"><img src="assets/reward-medal.gif" alt="Reward badge"></div>
         <div class="rwx-name">Level 4 Bloom</div>
         <div class="rwx-xp"><b>2,340</b> XP</div>
@@ -632,9 +665,9 @@
         </div>
       </div>
 
-      <!-- 3. Anonymous Leaderboard -->
-      <div class="rw-lbhead scr-full"><span class="rw-lbhead-t">Anonymous Leaderboard</span><span class="rw-lbhead-tag">Day 30–90 Tier</span></div>
-      <div class="scr-card scr-full" style="padding:6px 0">
+      <!-- 3. Anonymous Leaderboard (tier pill hidden for Alpha; whole section toggleable in Settings) -->
+      <div class="rw-lbhead scr-full" id="lbHead"><span class="rw-lbhead-t">Anonymous Leaderboard</span><button class="help-i" type="button" aria-label="About the leaderboard" onclick="showHelp('leaderboard')"><i data-lucide="info"></i></button></div>
+      <div class="scr-card scr-full" id="lbCard" style="padding:6px 0">
         <div class="lb-row"><div class="lb-rank">1</div><div class="lb-av" style="background:#7BA47E;font-size:13px;width:36px;height:36px">P</div><div style="flex:1"><div style="font-family:var(--font-ui);font-size:13px;font-weight:700;color:var(--ink)">Phoenix123</div><div style="font-family:var(--font-ui);font-size:12px;color:var(--ink-soft)">68-days MOUD streak · L5 Flourish</div></div><div style="font-family:var(--font-ui);font-size:13px;font-weight:700;color:var(--gold-dk)">3,840</div></div>
         <div class="lb-row"><div class="lb-rank">2</div><div class="lb-av" style="background:#9C8FC4;font-size:13px;width:36px;height:36px">R</div><div style="flex:1"><div style="font-family:var(--font-ui);font-size:13px;font-weight:700;color:var(--ink)">RisingTide</div><div style="font-family:var(--font-ui);font-size:12px;color:var(--ink-soft)">52-days MOUD streak · L4 Bloom</div></div><div style="font-family:var(--font-ui);font-size:13px;font-weight:700;color:var(--gold-dk)">2,960</div></div>
         <div class="lb-row me"><div class="lb-rank">3</div><div class="lb-av" style="background:#C98FA0;font-size:13px;width:36px;height:36px">ME</div><div style="flex:1"><div style="font-family:var(--font-ui);font-size:13px;font-weight:700;color:var(--ink)">You (VictoryWarrior)</div><div style="font-family:var(--font-ui);font-size:12px;color:var(--ink-soft)">47-days MOUD streak · L4 Bloom</div></div><div style="font-family:var(--font-ui);font-size:13px;font-weight:700;color:var(--gold-dk)">2,340</div></div>
@@ -642,8 +675,27 @@
         <div class="lb-row"><div class="lb-rank">5</div><div class="lb-av" style="background:#D49A78;font-size:13px;width:36px;height:36px">N</div><div style="flex:1"><div style="font-family:var(--font-ui);font-size:13px;font-weight:700;color:var(--ink)">NewDawn44</div><div style="font-family:var(--font-ui);font-size:12px;color:var(--ink-soft)">31-days MOUD streak · L3 Root</div></div><div style="font-family:var(--font-ui);font-size:13px;font-weight:700;color:var(--ink-soft)">1,540</div></div>
       </div>
 
+      <!-- Prizes I'd value (personal wishlist) -->
+      <div class="scr-eyebrow" style="display:flex;align-items:center;gap:7px">Prizes I'd value<button class="help-i" type="button" style="text-transform:none;letter-spacing:0" aria-label="About prizes" onclick="showHelp('prizes')"><i data-lucide="info"></i></button><button class="prize-add-cta" type="button" style="margin-left:auto" onclick="openPrizeSheet()"><i data-lucide="plus"></i> Add</button></div>
+      <div class="scr-card scr-full">
+        <div style="font-family:var(--font-ui);font-size:12.5px;color:var(--ink-soft);margin:0 0 12px">Pick the rewards that would keep you going — your family and care team can pledge these for your milestones.</div>
+        <div class="wish-chosen" id="wishList"></div>
+        <div class="wish-sub">Common prizes</div>
+        <div class="wish-common">
+          <button type="button" class="wish-chip" onclick="wishAdd(this.textContent)">Movie night</button>
+          <button type="button" class="wish-chip" onclick="wishAdd(this.textContent)">Dinner out</button>
+          <button type="button" class="wish-chip" onclick="wishAdd(this.textContent)">A new book</button>
+          <button type="button" class="wish-chip" onclick="wishAdd(this.textContent)">Concert tickets</button>
+          <button type="button" class="wish-chip" onclick="wishAdd(this.textContent)">New clothes</button>
+          <button type="button" class="wish-chip" onclick="wishAdd(this.textContent)">Video game</button>
+          <button type="button" class="wish-chip" onclick="wishAdd(this.textContent)">Coffee treat</button>
+          <button type="button" class="wish-chip" onclick="wishAdd(this.textContent)">Weekend trip</button>
+          <button type="button" class="wish-chip" onclick="wishAdd(this.textContent)">Spa day</button>
+        </div>
+      </div>
+
       <!-- 4. Family Reward Board -->
-      <div class="scr-eyebrow">Family Reward Board</div>
+      <div class="scr-eyebrow" style="display:flex;align-items:center;gap:7px">Family Reward Board<button class="help-i" type="button" style="margin-left:auto" aria-label="About the Family Reward Board" onclick="showHelp('family-rewards')"><i data-lucide="info"></i></button></div>
       <div class="lrow" style="flex-wrap:wrap">
         <div class="lrow-ic" style="background:#FBF4E2;color:#9A7C28;font-size:12px">MOM</div>
         <div class="lrow-main">
@@ -690,7 +742,7 @@
       </div>
 
       <!-- 5. Gratitude Gifts -->
-      <div class="scr-eyebrow">Gratitude Gifts</div>
+      <div class="scr-eyebrow" style="display:flex;align-items:center;gap:7px">Gratitude Gifts<button class="help-i" type="button" style="margin-left:auto" aria-label="About Gratitude Gifts" onclick="showHelp('gratitude-gifts')"><i data-lucide="info"></i></button></div>
       <div class="grat-card">
         <div class="grat-top">
           <div class="lrow-ic" style="background:#D8AD63;color:#fff"><i data-lucide="mail"></i></div>
@@ -714,7 +766,7 @@
 
 
       <!-- 6. Streak Shields -->
-      <div class="scr-eyebrow">Streak Shields</div>
+      <div class="scr-eyebrow" style="display:flex;align-items:center;gap:7px">Streak Shields<button class="help-i" type="button" style="margin-left:auto" aria-label="About Streak Shields" onclick="showHelp('streak-shields')"><i data-lucide="info"></i></button></div>
       <div class="grat-card scr-full">
         <div class="grat-top">
           <div class="lrow-ic" style="background:#C25445;color:#fff"><i data-lucide="shield-check"></i></div>
@@ -727,7 +779,7 @@
       </div>
 
       <!-- 7. Achievements -->
-      <div class="scr-eyebrow">Achievements · 7 of 24</div>
+      <div class="scr-eyebrow" style="display:flex;align-items:center;gap:7px">Achievements · 7 of 24<button class="help-i" type="button" style="margin-left:auto" aria-label="About Achievements" onclick="showHelp('achievements')"><i data-lucide="info"></i></button></div>
       <div class="ach-scroll scr-full">
         <div class="ach-item"><div class="ach-medal" style="--m1:#EEC85E;--m2:#C9962E">30</div><div class="ach-name">30 Day Hero</div></div>
         <div class="ach-item"><div class="ach-medal" style="--m1:#93C085;--m2:#5E8560">Rx</div><div class="ach-name">MOUD Master</div></div>
@@ -740,7 +792,7 @@
       </div>
 
       <!-- 8. Level Roadmap -->
-      <div class="scr-eyebrow">Level Roadmap</div>
+      <div class="scr-eyebrow" style="display:flex;align-items:center;gap:7px">Level Roadmap<button class="help-i" type="button" style="margin-left:auto" aria-label="About the Level Roadmap" onclick="showHelp('level-roadmap')"><i data-lucide="info"></i></button></div>
       <div class="scr-card lr-card scr-full">
         <div class="lr-item">
           <span class="lr-dot lr-fill" style="background:#84B27F"><svg class="lr-chk" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 6"/></svg></span>
@@ -779,45 +831,10 @@
         <div class="scr-sub">See how your recovery health and daily factors trend over time.</div>
       </div>
 
-      <!-- Recovery Health over time -->
-      <div class="scr-card scr-full">
-        <div class="scr-card-h">
-          <div><div class="scr-card-t">Recovery Health</div></div>
-          <div class="tf-seg">
-            <button class="rh-tf seg-btn on" onclick="selectRHTf('W',this)">W</button>
-            <button class="rh-tf seg-btn"    onclick="selectRHTf('M',this)">M</button>
-            <button class="rh-tf seg-btn"    onclick="selectRHTf('6M',this)">6M</button>
-            <button class="rh-tf seg-btn"    onclick="selectRHTf('Y',this)">Y</button>
-          </div>
-        </div>
-        <div class="wk-nav" id="rh-wknav">
-          <button class="wk-arrow" id="rh-wkprev" type="button" onclick="rhWeekStep(1)" aria-label="Previous week"><i data-lucide="chevron-left"></i></button>
-          <span class="wk-label" id="rh-wklabel">This week</span>
-          <button class="wk-arrow" id="rh-wknext" type="button" onclick="rhWeekStep(-1)" aria-label="Next week"><i data-lucide="chevron-right"></i></button>
-        </div>
-        <div class="pattern-chart-outer">
-          <div id="rh-yaxis" class="pattern-yaxis"></div>
-          <div id="rh-scroll-wrapper" style="overflow-x:auto;-webkit-overflow-scrolling:touch"><canvas id="recoveryHealthChart"></canvas></div>
-        </div>
-      </div>
-
-      <!-- Item selector -->
-      <div class="scr-card scr-full">
-        <div class="scr-card-t" style="margin:0 0 12px">Select item to graph</div>
-        <div class="seg-grid">
-          <button class="pattern-item seg-btn on" id="pitem-urge"     style="--cat:#D4736A" onclick="selectPatternItem('urge',this)">Urge</button>
-          <button class="pattern-item seg-btn"    id="pitem-pain"     style="--cat:#C9A84C" onclick="selectPatternItem('pain',this)">Pain</button>
-          <button class="pattern-item seg-btn"    id="pitem-stress"   style="--cat:#8B7EC8" onclick="selectPatternItem('stress',this)">Stressful Events</button>
-          <button class="pattern-item seg-btn"    id="pitem-pleasant" style="--cat:#4A7E5C" onclick="selectPatternItem('pleasant',this)">Pleasant Events</button>
-          <button class="pattern-item seg-btn"    id="pitem-risky"    style="--cat:#D4612A" onclick="selectPatternItem('risky',this)">Risky Situations</button>
-          <button class="pattern-item seg-btn"    id="pitem-sleep"    style="--cat:#4A90D9" onclick="selectPatternItem('sleep',this)">Sleep Quality</button>
-        </div>
-      </div>
-
       <!-- Selected item chart -->
       <div class="scr-card scr-full">
         <div class="scr-card-h">
-          <div><div class="scr-card-t" id="pattern-title">Urge</div></div>
+          <div style="display:flex;align-items:center;gap:7px"><div class="scr-card-t" id="pattern-title">Recovery Health</div><button class="help-i" type="button" style="margin-left:auto" aria-label="About this chart" onclick="showHelp('factor-trend')"><i data-lucide="info"></i></button></div>
           <div class="tf-seg">
             <button class="pattern-tf seg-btn on" onclick="selectPatternTf('W',this)">W</button>
             <button class="pattern-tf seg-btn"    onclick="selectPatternTf('M',this)">M</button>
@@ -833,6 +850,21 @@
         <div class="pattern-chart-outer">
           <div id="pattern-yaxis" class="pattern-yaxis"></div>
           <div id="chart-scroll-wrapper" style="overflow-x:auto;-webkit-overflow-scrolling:touch"><canvas id="patternChart"></canvas></div>
+        </div>
+      </div>
+
+      <!-- Item selector -->
+      <div class="scr-card scr-full">
+        <div style="display:flex;align-items:center;gap:7px;margin:0 0 4px"><div class="scr-card-t">Select up to 2 to compare</div><button class="help-i" type="button" style="margin-left:auto" aria-label="About comparing factors" onclick="showHelp('compare')"><i data-lucide="info"></i></button></div>
+        <div style="font-family:var(--font-ui);font-size:12px;color:var(--ink-soft);margin:0 0 12px">Tap two factors to see them side by side.</div>
+        <div class="seg-grid">
+          <button class="pattern-item seg-btn on" id="pitem-health"   style="--cat:#5E8B6E" onclick="selectPatternItem('health',this)">Recovery Health</button>
+          <button class="pattern-item seg-btn"    id="pitem-urge"     style="--cat:#D4736A" onclick="selectPatternItem('urge',this)">Urge</button>
+          <button class="pattern-item seg-btn"    id="pitem-pain"     style="--cat:#C9A84C" onclick="selectPatternItem('pain',this)">Pain</button>
+          <button class="pattern-item seg-btn"    id="pitem-stress"   style="--cat:#8B7EC8" onclick="selectPatternItem('stress',this)">Stressful Events</button>
+          <button class="pattern-item seg-btn"    id="pitem-pleasant" style="--cat:#4A7E5C" onclick="selectPatternItem('pleasant',this)">Pleasant Events</button>
+          <button class="pattern-item seg-btn"    id="pitem-risky"    style="--cat:#D4612A" onclick="selectPatternItem('risky',this)">Risky Situations</button>
+          <button class="pattern-item seg-btn"    id="pitem-sleep"    style="--cat:#4A90D9" onclick="selectPatternItem('sleep',this)">Sleep Quality</button>
         </div>
       </div>
     </div>
@@ -870,6 +902,13 @@
       <div class="sos-opt" onclick="openOv('support-team')">
         <div class="sos-opt-ic" style="background:#6E9E80;color:#fff"><i data-lucide="handshake"></i></div>
         <div class="sos-opt-main"><div class="sos-opt-t">Reach my support team</div><div class="sos-opt-d">Family, friends, sponsor, coach, peer, therapist &amp; doctor</div></div>
+        <i data-lucide="chevron-right" class="sos-opt-arrow"></i>
+      </div>
+
+      <div class="scr-eyebrow" style="margin-top:18px">New to the app?</div>
+      <div class="sos-opt" onclick="replayTour()">
+        <div class="sos-opt-ic" style="background:#6DA0CC;color:#fff"><i data-lucide="sparkles"></i></div>
+        <div class="sos-opt-main"><div class="sos-opt-t">App Help Guide</div><div class="sos-opt-d">A quick tour of the app's main features</div></div>
         <i data-lucide="chevron-right" class="sos-opt-arrow"></i>
       </div>
 
@@ -1147,6 +1186,11 @@
           <div class="pf-menu-t">Privacy &amp; Data Sharing</div>
           <i data-lucide="chevron-right" class="pf-menu-arrow"></i>
         </button>
+        <button class="pf-menu-row" type="button" onclick="replayTour()">
+          <div class="pf-menu-ic" style="background:#6DA0CC;color:#fff"><i data-lucide="sparkles"></i></div>
+          <div class="pf-menu-t">App Help Guide</div>
+          <i data-lucide="chevron-right" class="pf-menu-arrow"></i>
+        </button>
         <button class="pf-menu-row pf-menu-logout" type="button" onclick="logout()">
           <div class="pf-menu-ic" style="background:#C4453A;color:#fff"><i data-lucide="log-out"></i></div>
           <div class="pf-menu-t">Log out</div>
@@ -1164,6 +1208,7 @@
         <div style="font-family:var(--font-display);font-size:17px;font-weight:700;color:var(--ink)">Schedule</div>
         <div style="font-family:var(--font-ui);font-size:12px;color:var(--ink-soft)">Your meds, therapy &amp; meetings</div>
       </div>
+      <button class="ins-audio-btn" type="button" aria-label="Listen to this page" title="Listen to this page" onclick="speakSchedule(this)"><i data-lucide="volume-2"></i></button>
     </div>
     <div class="ov-body" style="padding-top:14px">
       <div class="sch-sec-title">Today</div>
@@ -1276,7 +1321,7 @@
         </button>
         <button class="gd-card" type="button" onclick="openOv('manual')">
           <span class="gd-card-ic" style="background:#DDEBD6;color:#5E8B6E"><i data-lucide="book"></i></span>
-          <span class="gd-card-main"><span class="gd-card-t">User Manual</span><span class="gd-card-d">Every feature, explained</span></span>
+          <span class="gd-card-main"><span class="gd-card-t">User/App Manual</span><span class="gd-card-d">Every feature, explained</span></span>
           <i data-lucide="chevron-right" class="gd-card-arrow"></i>
         </button>
       </div>
@@ -1330,47 +1375,46 @@
     <div class="ov-header" style="background:#fff;border-bottom:1px solid rgba(54,59,59,.06)">
       <button class="ov-back" style="background:#EEF0F0;color:var(--ink)" onclick="closeDetail('manual')">&larr;</button>
       <div>
-        <div style="font-family:var(--font-display);font-size:17px;font-weight:700;color:var(--ink)">User Manual</div>
+        <div style="font-family:var(--font-display);font-size:17px;font-weight:700;color:var(--ink)">User/App Manual</div>
         <div style="font-family:var(--font-ui);font-size:12px;color:var(--ink-soft)">Every feature, explained</div>
       </div>
     </div>
     <div class="ov-body" style="padding-top:14px">
       <div class="gd-intro"><div class="gd-intro-t">Your complete guide to Rudra</div><div class="gd-intro-d">Everything your recovery companion can do, organized by where you'll find it. Skim it now, or come back whenever you need it.</div></div>
 
-      <div class="guide-sec">1 · Getting set up</div>
+      <div class="guide-sec">Getting set up</div>
       <div class="guide-block"><div class="guide-h4"><span class="guide-ic" style="background:#DCEAF6;color:#4E7FA8"><i data-lucide="lock"></i></span>Your account</div><div class="guide-p">You'll verify your phone number, add a few details, and agree to plain-language privacy terms. Records about substance use get extra federal protection under <b>42 CFR Part 2</b> &amp; HIPAA — nothing is shared without your consent.</div></div>
       <div class="guide-block"><div class="guide-h4"><span class="guide-ic" style="background:#F6E0DC;color:#C25445"><i data-lucide="target"></i></span>Triggers &amp; relief</div><div class="guide-p">Name what tends to spark a craving (a feeling, place, person, or time of day) and what helps you cope. Rudra uses these to warn you early and to stock your urge toolkit. You can edit both anytime in your profile.</div></div>
       <div class="guide-block"><div class="guide-h4"><span class="guide-ic" style="background:#DDEBD6;color:#5E8B6E"><i data-lucide="stethoscope"></i></span>Connecting your care team</div><div class="guide-p">The final setup step. Enter your clinic's name or the code they gave you to securely sync your appointments and MOUD plan. You're always in control of what's shared — and you can connect later if you don't have it handy.</div></div>
 
-      <div class="guide-sec">2 · Home — your recovery at a glance</div>
+      <div class="guide-sec">Home — your recovery at a glance</div>
       <div class="guide-block"><div class="guide-h4"><span class="guide-ic" style="background:#DDEBD6;color:#5E8B6E"><i data-lucide="activity"></i></span>Recovery Health score</div><div class="guide-p">A 0–100 gauge that blends your check-ins, medication, and activity into one friendly number. "Above Average" is a good day — but the <b>trend</b> matters far more than any single score.</div></div>
       <div class="guide-block"><div class="guide-h4"><span class="guide-ic" style="background:#DCEAF6;color:#4E7FA8"><i data-lucide="list-checks"></i></span>Recovery Today</div><div class="guide-p">Four daily actions, each worth XP:</div><div class="guide-li"><b>Insights</b> — a personalized read on your day</div><div class="guide-li"><b>Reflect</b> — your daily check-in</div><div class="guide-li"><b>Connect</b> — share and connect with peers in Community (usernames only)</div><div class="guide-li"><b>Activities</b> — a guided exercise to steady you</div></div>
       <div class="guide-block"><div class="guide-h4"><span class="guide-ic" style="background:#FBF0D3;color:#B08A2E"><i data-lucide="sunrise"></i></span>Journey, streaks &amp; medication</div><div class="guide-p">See your <b>days in recovery</b> and progress to your next milestone, your streaks by focus area, and your next <b>MOUD dose</b> — all on one screen.</div></div>
 
-      <div class="guide-sec">3 · The daily check-in (Reflect)</div>
+      <div class="guide-sec">The daily check-in (Reflect)</div>
       <div class="guide-block"><div class="guide-p">About seven quick steps, roughly a minute, and it earns XP. The order is:</div><div class="guide-li"><b>Medication</b> — did you take your MOUD today?</div><div class="guide-li"><b>Substance use</b> — anything in the last 24 hours</div><div class="guide-li"><b>Cravings</b> — how strong, and how you resisted</div><div class="guide-li"><b>Mood &amp; feelings</b> — how the day felt</div><div class="guide-li"><b>Body</b> — sleep and pain</div><div class="guide-li"><b>The week ahead</b> — motivation and confidence</div><div class="guide-li"><b>Reflection</b> — a note in your own words, typed or spoken</div><div class="gd-tip" style="margin-top:12px">Every answer is confidential and shared only with your care team. There's no judgment on anything you report.</div></div>
 
-      <div class="guide-sec">4 · Getting help fast</div>
+      <div class="guide-sec">Getting help fast</div>
       <div class="guide-block"><div class="guide-h4"><span class="guide-ic" style="background:#F6E0DC;color:#C25445"><i data-lucide="life-buoy"></i></span>The Help button</div><div class="guide-p">Always at the top of every screen. It opens your crisis hub:</div><div class="guide-li"><b>I'm in crisis</b> — 988 Lifeline, crisis text line &amp; naloxone help</div><div class="guide-li"><b>Call 911</b> — for an overdose or medical emergency</div><div class="guide-li"><b>I'm having an urge</b> — opens your urge toolkit</div><div class="guide-li"><b>Your support team</b> — real people, one tap away</div></div>
       <div class="guide-block"><div class="guide-h4"><span class="guide-ic" style="background:#FBF0D3;color:#B08A2E"><i data-lucide="waves"></i></span>Your urge toolkit</div><div class="guide-p">Breathing, grounding, urge surfing, a distraction game, and your own saved relief activities — plus one-tap calling or texting the people you trust.</div></div>
       <div class="guide-block"><div class="guide-h4"><span class="guide-ic" style="background:#F6E0DC;color:#C25445"><i data-lucide="pill"></i></span>Naloxone (Narcan)</div><div class="guide-p">Keep your naloxone status current and learn the 5 steps to respond to an overdose. It's shared with your care team so they can help you stay prepared.</div></div>
 
-      <div class="guide-sec">5 · Activities, Progress &amp; Community</div>
+      <div class="guide-sec">Activities, Progress &amp; Community</div>
       <div class="guide-block"><div class="guide-h4"><span class="guide-ic" style="background:#FBF0D3;color:#B08A2E"><i data-lucide="layout-grid"></i></span>Activities</div><div class="guide-p">Activities picked for you each day, matched to your Recovery Health score — from urge surfing on harder days to gratitude and planning on stronger ones. Complete them to earn points.</div></div>
       <div class="guide-block"><div class="guide-h4"><span class="guide-ic" style="background:#DCEAF6;color:#4E7FA8"><i data-lucide="trending-up"></i></span>Progress</div><div class="guide-p">Your trends over time — urges, triggers, mood, and sleep — so you and your care team can see what's working and plan for the harder moments.</div></div>
       <div class="guide-block"><div class="guide-h4"><span class="guide-ic" style="background:#DDEBD6;color:#5E8B6E"><i data-lucide="message-circle"></i></span>Community</div><div class="guide-p">A peer discussion board where members share wins, questions, and encouragement. <b>Only usernames are shown</b> — real names are never displayed.</div></div>
 
-      <div class="guide-sec">6 · Rewards &amp; your people</div>
+      <div class="guide-sec">Rewards &amp; your people</div>
       <div class="guide-block"><div class="guide-h4"><span class="guide-ic" style="background:#FBF0D3;color:#B08A2E"><i data-lucide="trophy"></i></span>Rewards</div><div class="guide-p">Earn XP for every recovery action and level up — <b>Seed → Bloom → Flourish</b>. Family and sponsors can pledge real-world rewards on your board and send gratitude gifts to keep you going.</div></div>
       <div class="guide-block"><div class="guide-h4"><span class="guide-ic" style="background:#EDE8F4;color:#8A6DAF"><i data-lucide="handshake"></i></span>Support team &amp; peers</div><div class="guide-p">Add the people you trust to call or text in one tap. You control who can talk with your clinical team, per person.</div></div>
 
-      <div class="guide-sec">7 · Profile, settings &amp; privacy</div>
+      <div class="guide-sec">Profile, settings &amp; privacy</div>
       <div class="guide-block"><div class="guide-p">Your <b>profile</b> holds your medication, relief activities, support team, care team, and connected family — all editable.</div><div class="guide-li"><b>Settings</b> — reminders, accessibility &amp; display, language, and your info</div><div class="guide-li"><b>Privacy &amp; Data Sharing</b> — control exactly what's shared, download your data, or delete your account</div><div class="guide-p" style="margin-top:6px">Nothing about your recovery reaches your care team unless <b>you</b> turn it on.</div></div>
 
-      <div class="guide-sec">8 · Screenings you may see</div>
+      <div class="guide-sec">Screenings you may see</div>
       <div class="guide-block"><div class="guide-p">From time to time Rudra may invite you to short check-ins — wellness &amp; social needs, mood, or withdrawal — that help your team tailor your care and connect you with resources like housing, food, or transportation.</div></div>
 
-      <div class="gd-foot">Rudra is a recovery companion and does not replace professional medical care. If you're in danger or think you may be overdosing, call 911. For emotional crisis, call or text 988. Learning content is clinician-reviewed.</div>
     </div>
   </div>
 
@@ -1488,6 +1532,10 @@
         <div class="set-row"><div class="set-lbl"><div class="set-t">Larger text</div><div class="set-d">Increase font size across the app</div></div><button class="set-toggle" type="button" onclick="this.classList.toggle('on')" aria-label="Toggle"></button></div>
         <div class="set-row"><div class="set-lbl"><div class="set-t">High contrast</div><div class="set-d">Stronger colors for readability</div></div><button class="set-toggle" type="button" onclick="this.classList.toggle('on')" aria-label="Toggle"></button></div>
         <div class="set-row"><div class="set-lbl"><div class="set-t">Reduce motion</div><div class="set-d">Minimize animations</div></div><button class="set-toggle" type="button" onclick="this.classList.toggle('on')" aria-label="Toggle"></button></div>
+      </div>
+      <div class="set-sec">Rewards</div>
+      <div class="set-card">
+        <div class="set-row"><div class="set-lbl"><div class="set-t">Show leaderboard</div><div class="set-d">Display the anonymous leaderboard on Rewards</div></div><button class="set-toggle on" id="lbToggle" type="button" onclick="toggleLeaderboardPref(this)" aria-label="Toggle"></button></div>
       </div>
       <div class="set-sec">Language</div>
       <div class="set-card">
@@ -1639,7 +1687,7 @@
     <div class="ov-body" style="padding-top:14px">
 
       <div class="fc-scope" id="s-findcoach">
-        <h2>Find someone to talk with</h2>
+        <h2 style="display:flex;align-items:center;gap:9px">Find someone to talk with<button class="help-i" type="button" style="margin-left:auto" aria-label="About 1:1 Support" onclick="showHelp('find-support')"><i data-lucide="info"></i></button></h2>
         <p class="lede">Peers are free. Coaches show their cost up front.</p>
 
         <!-- WHO · single choice, icon-led -->
@@ -1733,7 +1781,7 @@
 
         <div style="margin-top:20px">
           <div class="card-top" style="margin-bottom:12px">
-            <span class="tag" style="color:var(--blue-ink)"><i style="background:var(--blue)"></i><span id="fResultLabel">Matches near Los Angeles</span></span>
+            <span class="tag"><span id="fResultLabel">Matches near Los Angeles</span></span>
             <span class="resultcount" id="fCount">—</span>
           </div>
           <div id="coachResults"></div>
@@ -1879,6 +1927,7 @@
         <div class="hub-card-head">
           <div class="hub-ic" style="background:#5B92CE"><i data-lucide="messages-square"></i></div>
           <div class="hub-card-tt"><div class="hub-title">Find your people</div><div class="hub-sub">Join the conversation in topic rooms</div></div>
+          <button class="help-i" type="button" aria-label="About rooms" onclick="event.stopPropagation();showHelp('rooms')"><i data-lucide="info"></i></button>
         </div>
         <div class="hub-opts">
           <button class="hub-opt" type="button" id="allRoomsBtn">
@@ -1886,10 +1935,10 @@
             <span class="hub-opt-t">All Rooms</span>
             <span class="hub-opt-d">Browse every room</span>
           </button>
-          <button class="hub-opt" type="button" onclick="openOv('request-room')">
+          <button class="hub-opt is-disabled" type="button" disabled aria-disabled="true">
             <span class="hub-opt-ic" style="background:#FBF1DC;color:#C9962E"><i data-lucide="sparkles"></i></span>
             <span class="hub-opt-t">Request a Room</span>
-            <span class="hub-opt-d">A topic that matters to you</span>
+            <span class="hub-opt-d">Coming soon</span>
           </button>
         </div>
         <!-- hidden mirror kept so existing filter code still works -->
@@ -1904,6 +1953,7 @@
         <div class="hub-card-head">
           <div class="hub-ic" style="background:#D8AD63"><i data-lucide="users"></i></div>
           <div class="hub-card-tt"><div class="hub-title">Rudra Followers &amp; Friends</div><div class="hub-sub">Your people on Rudra</div></div>
+          <button class="help-i" type="button" aria-label="About followers and friends" onclick="event.stopPropagation();showHelp('friends')"><i data-lucide="info"></i></button>
         </div>
         <div class="hub-friends-row">
           <div class="hub-av-stack">
@@ -1925,6 +1975,7 @@
         <div class="hub-card-head">
           <div class="hub-ic" style="background:#6E9E80"><i data-lucide="shield-check"></i></div>
           <div class="hub-card-tt"><div class="hub-title">A safe place, always anonymous</div><div class="hub-sub">Support whenever you need it</div></div>
+          <button class="help-i" type="button" aria-label="About anonymous support" onclick="event.stopPropagation();showHelp('safe')"><i data-lucide="info"></i></button>
         </div>
         <div class="hub-opts">
           <button class="hub-opt" type="button" onclick="openOv('find-coach')">
@@ -2003,8 +2054,6 @@
       <button class="startroom" id="startRoomBtn" type="button" hidden aria-hidden="true"></button>
 
       <div id="communityFeed"></div>
-
-      <p class="anon-note">Username only — never your name. Every room is watched by a certified peer specialist. No judgment, nothing for sale.</p>
     </div>
 
       <div style="height:8px"></div>
@@ -2013,6 +2062,7 @@
   <div class="rc-scope sr-scrim" id="startRoomScrim" aria-hidden="true">
     <div class="sr-sheet" role="dialog" aria-modal="true" aria-labelledby="srTitle">
       <button type="button" class="sr-close" id="srClose" aria-label="Close">&times;</button>
+      <button type="button" class="sr-audio-btn" aria-label="Listen to how this works" title="Listen" onclick="speakStartRoom(this)"><i data-lucide="volume-2"></i></button>
       <h3 id="srTitle">Request a room</h3>
       <p class="sr-lead">Rooms are how people find their people. Give yours a clear name so the right members can find it. A peer specialist reviews new rooms to keep everyone safe.</p>
 
@@ -2035,7 +2085,7 @@
       <label for="srDesc">What's it for? (one line)</label>
       <textarea id="srDesc" rows="2" maxlength="90" placeholder="Who is this room for, and what will you talk about?"></textarea>
 
-      <div class="sr-guard"><em>🛡️</em><span>Rooms that source, sell, or glamorize use aren't allowed — they're removed fast. A certified peer specialist keeps watch here too.</span></div>
+      <div class="sr-guard"><em><i data-lucide="shield"></i></em><span>Rooms that source, sell, or glamorize use aren't allowed — they're removed fast. A certified peer specialist keeps watch here too.</span></div>
 
       <div class="sr-actions">
         <button type="button" class="sr-cancel" id="srCancel">Cancel</button>
@@ -3000,15 +3050,15 @@
     <!-- Sheet scrolls up over the map -->
     <div class="loc-sheet">
       <div class="loc-grab"></div>
-      <div class="loc-q">Which of the following best describes this place?</div>
-      <div class="loc-opts">
-        <button class="loc-opt" type="button" onclick="locAnswer(this)">My home</button>
-        <button class="loc-opt" type="button" onclick="locAnswer(this)">Someone else's home</button>
-        <button class="loc-opt" type="button" onclick="locAnswer(this)">A shelter, group home, hotel, or other temporary place I stayed</button>
-        <button class="loc-opt" type="button" onclick="locAnswer(this)">A restaurant, business, public place, or other non-residential place</button>
-        <button class="loc-opt" type="button" onclick="locAnswer(this)">I do not recognize this location or was just passing by</button>
+      <div class="loc-intro" id="loc-intro">Rudra noticed you recently spent time here. A few quick questions about places you've visited more than once in the past 30 days.</div>
+      <div class="loc-steps" id="loc-steps"></div>
+      <div class="loc-q" id="loc-q"></div>
+      <div class="loc-hint" id="loc-hint"></div>
+      <div class="loc-opts" id="loc-opts"></div>
+      <div class="loc-nav">
+        <button class="loc-back" id="loc-back" type="button" onclick="locBack()"><i data-lucide="arrow-left"></i> Back</button>
+        <button class="loc-submit" id="loc-submit" type="button" onclick="locNext()">Next</button>
       </div>
-      <button class="loc-submit" id="loc-submit" type="button" onclick="locSubmit()">Submit · +30 XP</button>
     </div>
   </div>
 
@@ -3073,11 +3123,6 @@
         <div class="ct-av" style="background:#C97B6F"><i data-lucide="compass"></i></div>
         <div class="ct-main"><div class="ct-name">Mike R.</div><div class="ct-role">Sponsor</div><div class="ct-num">(323) 555-0117</div></div>
         <div class="ct-btns"><a class="ct-btn call" href="tel:3235550117"><i data-lucide="phone"></i>Call</a><a class="ct-btn text" href="sms:3235550117"><i data-lucide="message-circle"></i>Text</a></div>
-      </div>
-      <div class="ct-row">
-        <div class="ct-av" style="background:#8A6FB0"><i data-lucide="sofa"></i></div>
-        <div class="ct-main"><div class="ct-name">Dr. Elena Rivera</div><div class="ct-role">Therapist · LCSW</div><div class="ct-num">(310) 555-0164</div></div>
-        <div class="ct-btns"><a class="ct-btn call" href="tel:3105550164"><i data-lucide="phone"></i>Call</a><a class="ct-btn text" href="sms:3105550164"><i data-lucide="message-circle"></i>Text</a></div>
       </div>
 
       <div class="cs-footer">
@@ -3146,16 +3191,18 @@
       </div>
       <div class="ct-row">
         <div class="ct-av" style="background:#8A6FB0"><i data-lucide="sofa"></i></div>
-        <div class="ct-main"><div class="ct-name">Dr. Elena Rivera</div><div class="ct-role">Therapist · LCSW</div><div class="ct-num">(310) 555-0164</div></div>
-        <div class="ct-btns"><a class="ct-btn call" href="tel:3105550164"><i data-lucide="phone"></i>Call</a><a class="ct-btn text" href="sms:3105550164"><i data-lucide="message-circle"></i>Text</a></div>
+        <div class="ct-main"><div class="ct-name">Dr. Elena Rivera</div><div class="ct-role">Therapist · LCSW</div></div>
+        <div class="ct-btns"><a class="ct-btn email" href="mailto:e.rivera@clinic.example" aria-label="Email Dr. Elena Rivera"><i data-lucide="mail"></i>Email</a></div>
       </div>
       <div class="ct-row">
         <div class="ct-av" style="background:#4FA3A3"><i data-lucide="stethoscope"></i></div>
-        <div class="ct-main"><div class="ct-name">Dr. Sarah Okafor</div><div class="ct-role">Your doctor · MD</div><div class="ct-num">(310) 555-0133</div></div>
-        <div class="ct-btns"><a class="ct-btn call" href="tel:3105550133"><i data-lucide="phone"></i>Call</a><a class="ct-btn text" href="sms:3105550133"><i data-lucide="message-circle"></i>Text</a></div>
+        <div class="ct-main"><div class="ct-name">Dr. Sarah Okafor</div><div class="ct-role">Your doctor · MD</div></div>
+        <div class="ct-btns"><a class="ct-btn email" href="mailto:s.okafor@clinic.example" aria-label="Email Dr. Sarah Okafor"><i data-lucide="mail"></i>Email</a></div>
       </div>
     </div>
   </div>
+
+  <!-- ═══ FIRST-RUN FEATURE TOUR (coach marks; shows once) ═══ -->
 
   <div class="bottom-nav" id="bottomNav">
     <button class="nav-tab active" onclick="goScreen('home')"><span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round" stroke-linecap="round"><path d="M12 2.8 20.2 10.2 20.2 20.2 14 20.2 14 14 10 14 10 20.2 3.8 20.2 3.8 10.2Z"/></svg></span><div class="nav-label">Home</div></button>
@@ -3277,6 +3324,7 @@
       <div>
         <div style="font-size:13px;font-weight:700;color:var(--ink)">Daily Insight</div>
       </div>
+      <button class="ins-audio-btn" type="button" aria-label="Listen to this page" title="Listen to this page" onclick="speakInsight(this)"><i data-lucide="volume-2"></i></button>
     </div>
     <div class="ov-body" style="padding-top:14px">
 
@@ -3303,8 +3351,11 @@
       <div class="ins-card ins-takeaway">
         <div class="home-title ins-tk-title">Key Takeaways</div>
         <p class="ins-tk-p">Today's recovery health score is <b>74</b>. That puts it <b>above average</b>. It has also held steady for the past two weeks. Steady counts for a lot in recovery.</p>
-        <p class="ins-tk-p">Cravings look like the biggest challenge today. Cravings are a normal part of this process, and they don't take away from the progress already made. A short activity is ready on the activities page. This one focuses on stress relief, and it only takes a few minutes. Today could be a good day to fit it in.</p>
-        <p class="ins-tk-p">Now for the big news. <b>47 days</b> in recovery without non-medical opioid use. <b>47 days</b> in a row taking Suboxone. That kind of consistency takes real effort, one day at a time. Nobody gets to 47 days by luck. The same skills that built this streak are the ones that will keep it going. Keep at it. <b>This is what capable looks like.</b></p>
+        <div class="ins-tk-more" id="insTkMore" hidden>
+          <p class="ins-tk-p">Cravings look like the biggest challenge today. Cravings are a normal part of this process, and they don't take away from the progress already made. A short activity is ready on the activities page. This one focuses on stress relief, and it only takes a few minutes. Today could be a good day to fit it in.</p>
+          <p class="ins-tk-p">Now for the big news. <b>47 days</b> in recovery without non-medical opioid use. <b>47 days</b> in a row taking Suboxone. That kind of consistency takes real effort, one day at a time. Nobody gets to 47 days by luck. The same skills that built this streak are the ones that will keep it going. Keep at it. <b>This is what capable looks like.</b></p>
+        </div>
+        <button class="ins-tk-toggle" id="insTkToggle" type="button" onclick="toggleInsTk(this)">Read more <i data-lucide="chevron-down"></i></button>
       </div>
 
       <!-- Mark reviewed -->
@@ -3833,6 +3884,44 @@
 </div><!-- /phone -->
 </div><!-- /patient-view -->
 
-<script src="js/app.js?v=20260806a"></script>
+<!-- ═══ LISTEN TO PAGE (accessibility audio narration) ═══ -->
+<button id="audioBtn" class="audio-btn" type="button" aria-label="Listen to this page" title="Listen to this page" onclick="speakPage()">
+  <i data-lucide="volume-2"></i>
+  <span class="audio-eq" aria-hidden="true"><i></i><i></i><i></i></span>
+</button>
+
+<!-- ═══ CONTEXTUAL HELP POPUP ═══ -->
+<div id="helpPop" class="help-pop" hidden onclick="if(event.target===this)hideHelp()">
+  <div class="help-pop-card">
+    <button class="help-pop-x" type="button" aria-label="Close" onclick="hideHelp()">&times;</button>
+    <div class="help-pop-t" id="helpPopTitle"></div>
+    <div class="help-pop-d" id="helpPopBody"></div>
+  </div>
+</div>
+
+<!-- ═══ FIRST-RUN FEATURE TOUR (spotlight coach marks) ═══ -->
+<div id="appTour" aria-hidden="true">
+  <div class="tour-spot" id="tourSpot"></div>
+  <div class="tour-card" id="tourCard">
+    <button class="tour-x" type="button" aria-label="Skip guide" onclick="tourSkip()">&times;</button>
+    <span class="tour-beak" id="tourBeak"></span>
+    <div class="tour-row">
+      <span class="tour-ic" id="tourIllus"></span>
+      <div class="tour-txt">
+        <div class="tour-title" id="tourTitle"></div>
+        <div class="tour-desc" id="tourText"></div>
+      </div>
+    </div>
+    <div class="tour-foot">
+      <span class="tour-step" id="tourStep"></span>
+      <button class="tour-got" id="tourNext" type="button" onclick="tourNext()">Next</button>
+    </div>
+  </div>
+  <div class="tour-bar">
+    <div class="tour-dots" id="tourDots"></div>
+    <button class="tour-skip" type="button" onclick="tourSkip()">Skip</button>
+  </div>
+</div>
+<script src="js/app.js?v=20260922g"></script>
 </body>
 </html>
