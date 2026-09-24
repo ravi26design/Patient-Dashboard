@@ -1,0 +1,97 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 2340" width="1080" height="2340">
+  <defs>
+    <!-- calm dawn gradient: warm cream easing into soft sage -->
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#F9F4EC"/>
+      <stop offset="0.42" stop-color="#F0F1EC"/>
+      <stop offset="0.78" stop-color="#E4EBE2"/>
+      <stop offset="1" stop-color="#D9E6D9"/>
+    </linearGradient>
+    <!-- warm light behind the mark -->
+    <radialGradient id="glow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#FFFFFF" stop-opacity="0.95"/>
+      <stop offset="0.55" stop-color="#FBF6EC" stop-opacity="0.55"/>
+      <stop offset="1" stop-color="#FBF6EC" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="tile" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FFFFFF"/>
+      <stop offset="1" stop-color="#F4F7F3"/>
+    </linearGradient>
+    <filter id="soft" x="-60%" y="-60%" width="220%" height="220%">
+      <feGaussianBlur stdDeviation="70"/>
+    </filter>
+    <filter id="cardsh" x="-40%" y="-40%" width="180%" height="180%">
+      <feDropShadow dx="0" dy="26" stdDeviation="34" flood-color="#4A5E4C" flood-opacity="0.20"/>
+    </filter>
+  </defs>
+
+  <!-- ground -->
+  <rect width="1080" height="2340" fill="url(#bg)"/>
+
+  <!-- soft colour orbs for warmth & depth -->
+  <g opacity="0.55">
+    <circle cx="150" cy="360" r="240" fill="#E7C79B" filter="url(#soft)" opacity="0.5"/>
+    <circle cx="960" cy="250" r="220" fill="#A9C6A6" filter="url(#soft)" opacity="0.5"/>
+    <circle cx="980" cy="1980" r="300" fill="#C6A6B4" filter="url(#soft)" opacity="0.4"/>
+    <circle cx="120" cy="2060" r="280" fill="#9DBE9E" filter="url(#soft)" opacity="0.45"/>
+  </g>
+
+  <!-- gentle dawn arcs behind the wordmark -->
+  <g opacity="0.5" fill="none" stroke-linecap="round">
+    <path d="M110 1400 Q540 1150 970 1400" stroke="#CFE0CB" stroke-width="6"/>
+    <path d="M180 1470 Q540 1270 900 1470" stroke="#E4D2B0" stroke-width="5" opacity="0.8"/>
+  </g>
+
+  <!-- warm halo behind the logo tile -->
+  <circle cx="540" cy="900" r="430" fill="url(#glow)"/>
+
+  <!-- ======= LOGO TILE ======= -->
+  <g filter="url(#cardsh)">
+    <rect x="380" y="740" width="320" height="320" rx="86" fill="url(#tile)"/>
+  </g>
+
+  <!-- bar-chart mark with a rising figure -->
+  <g>
+    <!-- baseline shadow -->
+    <ellipse cx="540" cy="985" rx="118" ry="10" fill="#5E8B6E" opacity="0.10"/>
+    <!-- coral bar -->
+    <rect x="452" y="882" width="40" height="86" rx="20" fill="#D98C7D"/>
+    <!-- gold bar -->
+    <rect x="520" y="846" width="40" height="122" rx="20" fill="#E0B255"/>
+    <!-- sage bar = body -->
+    <rect x="588" y="838" width="40" height="130" rx="20" fill="#7FA980"/>
+    <!-- rising figure's head atop the sage bar -->
+    <circle cx="608" cy="812" r="26" fill="#5E8B6E"/>
+  </g>
+
+  <!-- ======= WORDMARK ======= -->
+  <text x="540" y="1300" text-anchor="middle"
+        font-family="'Avenir Next','Helvetica Neue',Arial,sans-serif"
+        font-size="118" font-weight="800" letter-spacing="-2">
+    <tspan fill="#C56A5E">Rudra</tspan><tspan fill="#4E7FA8">Health</tspan><tspan fill="#C9962E" font-size="52" dy="-46"> ai</tspan>
+  </text>
+
+  <!-- tagline -->
+  <text x="540" y="1400" text-anchor="middle"
+        font-family="'Avenir Next','Helvetica Neue',Arial,sans-serif"
+        font-size="48" font-style="italic" fill="#5E8B6E" letter-spacing="0.5">your recovery, one day at a time</text>
+
+  <!-- ======= GROWTH ACCENT (sprout) near the base ======= -->
+  <g transform="translate(540 1900)" opacity="0.95">
+    <path d="M0 90 C0 40 0 10 0 -20" stroke="#6E9E80" stroke-width="9" fill="none" stroke-linecap="round"/>
+    <path d="M0 24 C-46 24 -78 -8 -84 -58 C-34 -54 2 -22 0 24 Z" fill="#8FBF92"/>
+    <path d="M0 6 C46 6 82 -24 90 -78 C38 -74 -2 -40 0 6 Z" fill="#A9CFA9"/>
+  </g>
+
+  <!-- loading dots -->
+  <g fill="#7FA980">
+    <circle cx="500" cy="2140" r="9" opacity="0.9"/>
+    <circle cx="540" cy="2140" r="9" opacity="0.55"/>
+    <circle cx="580" cy="2140" r="9" opacity="0.3"/>
+  </g>
+
+  <!-- discreet footer -->
+  <text x="540" y="2250" text-anchor="middle"
+        font-family="'Avenir Next','Helvetica Neue',Arial,sans-serif"
+        font-size="30" font-weight="600" fill="#9AA79A" letter-spacing="3">RUDRA HEALTH AI</text>
+</svg>
