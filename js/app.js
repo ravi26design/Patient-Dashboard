@@ -670,9 +670,10 @@ function reflectToggleOpt(btn,i){
   if(idx>=0){ sel.splice(idx,1); btn.classList.remove('opt-sel'); }
   else{ sel.push(i); btn.classList.add('opt-sel'); }
 }
-function reflectSlider(key,v){
+function reflectSlider(key,v,input){
   var a=reflectAns(); a.sliders=a.sliders||{}; a.sliders[key]=+v;
   var el=document.getElementById('rf-sv-'+key); if(el) el.textContent=v;
+  if(input) input.style.setProperty('--rf-fill', (+v*10)+'%');   /* fill the track up to the thumb */
 }
 /* Voice toggle: switch between typing and the live listening waveform (no mic orb). */
 function reflectToggleVoice(){
@@ -750,7 +751,7 @@ function renderReflect(){
         '<div class="rf-srow-label">'+esc(s.label)+'</div>'+
         '<div id="rf-sv-'+s.key+'" class="rf-srow-num">'+v+'</div>'+
         '<div class="rf-srow-track"><span class="rf-srow-end">0</span>'+
-          '<input type="range" min="0" max="10" value="'+v+'" class="reflect-range" oninput="reflectSlider(\''+s.key+'\',this.value)">'+
+          '<input type="range" min="0" max="10" value="'+v+'" class="reflect-range" style="--rf-fill:'+(+v*10)+'%" oninput="reflectSlider(\''+s.key+'\',this.value,this)">'+
           '<span class="rf-srow-end">10</span></div>'+
         '<div class="rf-srow-ends"><span>'+esc(s.lo)+'</span><span>'+esc(s.hi)+'</span></div>'+
       '</div>';
