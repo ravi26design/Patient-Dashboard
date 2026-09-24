@@ -1498,7 +1498,7 @@ body.is-desktop .brand-img{height:26px}
 .wc-hero img{width:100%;height:auto;display:block}
 /* full illustration image (framed) */
 .wc-hero-img{width:344px;max-width:92%}
-.wc-hero-img img{border-radius:20px;box-shadow:0 16px 40px rgba(58,51,48,.14)}
+.wc-hero-img img{border-radius:20px}
 .wc-title{font-family:var(--font-display);font-size:34px;font-weight:700;
   color:var(--ink);letter-spacing:.4px;line-height:1;margin-bottom:12px}
 .wc-tag{font-family:var(--font-ui);font-style:italic;font-size:16px;font-weight:500;
