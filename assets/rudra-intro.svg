@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 320" width="480" height="320">
+  <defs>
+    <linearGradient id="riBg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FBF4EA"/><stop offset="1" stop-color="#F3F1EA"/>
+    </linearGradient>
+    <radialGradient id="riSun" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#F8E4C4" stop-opacity="0.9"/>
+      <stop offset="1" stop-color="#F8E4C4" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="riSh" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#3A4A3C" flood-opacity="0.14"/>
+    </filter>
+  </defs>
+  <rect width="480" height="320" fill="url(#riBg)"/>
+  <!-- warm dawn glow -->
+  <circle cx="392" cy="70" r="150" fill="url(#riSun)"/>
+  <path d="M330 -20 C420 0 470 70 450 150 C540 120 540 -40 420 -50 Z" fill="#E9EFDF" opacity="0.6"/>
+  <circle cx="66" cy="66" r="66" fill="#F6E4DF" opacity="0.5"/>
+  <!-- plants -->
+  <g fill="#8FBF92" opacity="0.9">
+    <path d="M14 300 C4 260 18 232 40 224 C40 262 34 288 22 302 Z"/>
+    <path d="M40 306 C40 266 56 244 78 240 C72 280 60 300 46 308 Z" fill="#A9CFA9"/>
+  </g>
+  <path d="M462 308 C472 268 458 240 436 234 C436 274 444 298 456 310 Z" fill="#8FBF92" opacity="0.9"/>
+
+  <!-- ===== friendly character (coral hoodie) ===== -->
+  <g>
+    <path d="M78 320 C78 250 108 224 150 224 C192 224 222 250 222 320 Z" fill="#E68C85"/>
+    <path d="M112 250 C112 272 188 272 188 250 L188 300 L112 300 Z" fill="#F0F2EE" opacity="0.35"/>
+    <rect x="136" y="196" width="28" height="34" rx="12" fill="#EBC29E"/>
+    <circle cx="150" cy="164" r="44" fill="#F1CBA9"/>
+    <path d="M108 168 C104 118 150 104 176 120 C198 132 196 158 192 172 C188 150 180 140 168 138 C170 150 164 156 154 156 C150 150 150 146 150 142 C138 150 120 150 112 172 Z" fill="#4A3A2E"/>
+    <circle cx="150" cy="112" r="14" fill="#4A3A2E"/>
+    <circle cx="138" cy="166" r="3.4" fill="#3A2E26"/>
+    <circle cx="164" cy="166" r="3.4" fill="#3A2E26"/>
+    <path d="M144 178 C149 183 155 183 160 178" fill="none" stroke="#B96A5E" stroke-width="3" stroke-linecap="round"/>
+    <circle cx="130" cy="176" r="5" fill="#F0B0A6" opacity="0.6"/>
+    <circle cx="172" cy="176" r="5" fill="#F0B0A6" opacity="0.6"/>
+  </g>
+
+  <!-- ===== companion card ===== -->
+  <g filter="url(#riSh)"><rect x="256" y="118" width="196" height="86" rx="18" fill="#fff"/></g>
+  <!-- avatar with heartbeat -->
+  <circle cx="288" cy="161" r="20" fill="#E3EFE4"/>
+  <path d="M278 161 h4 l2 -6 3 12 3 -8 2 2 h5" fill="none" stroke="#5E8B6E" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="318" y="152" font-family="'Avenir Next','Helvetica Neue',Arial,sans-serif" font-size="13" font-weight="800" fill="#2E3238">Here with you</text>
+  <text x="318" y="169" font-family="'Avenir Next','Helvetica Neue',Arial,sans-serif" font-size="10" fill="#8A8F94">every day · one tap away</text>
+  <!-- online row -->
+  <circle cx="322" cy="186" r="4" fill="#6E9E80"/>
+  <text x="332" y="190" font-family="'Avenir Next','Helvetica Neue',Arial,sans-serif" font-size="9.5" font-weight="700" fill="#6E9E80">A real human, anytime</text>
+
+  <!-- greeting bubble above the character -->
+  <g filter="url(#riSh)">
+    <path d="M64 44 h72 a15 15 0 0 1 15 15 v22 a15 15 0 0 1 -15 15 h-18 l-12 14 -6 -14 h-21 a15 15 0 0 1 -15 -15 v-22 a15 15 0 0 1 15 -15 z" fill="#fff"/>
+  </g>
+  <text x="99" y="79" text-anchor="middle" font-family="'Avenir Next','Helvetica Neue',Arial,sans-serif" font-size="20" font-weight="800" fill="#E58A5B">Hi</text>
+  <path d="M120 60 q6 -6 12 0" fill="none" stroke="#E0B255" stroke-width="3" stroke-linecap="round"/>
+</svg>
