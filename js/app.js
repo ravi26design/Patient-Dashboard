@@ -294,7 +294,7 @@ var selectedPatternItems = ['health'];   /* up to 2 items to compare on the grap
 var currentPatternTf = 'W', patternWeekOffset = 0;
 
 var patternData = {
-  health:   { label:'Recovery Health',  hex:'#C654C3', scale100:true, daily:_gen(84,60,78,42,92,7),  monthly:_gen(12,56,80,42,92,17) },
+  health:   { label:'Recovery Health',  hex:'#455B8A', scale100:true, daily:_gen(84,60,78,42,92,7),  monthly:_gen(12,56,80,42,92,17) },
   urge:     { label:'Urge',             hex:'#D4736A', daily:_gen(84,4.1,2.4,1,5,1),  monthly:_gen(12,4.3,2.2,1,5,11) },
   pain:     { label:'Pain',             hex:'#C9A84C', daily:_gen(84,3.8,2.3,1,5,2),  monthly:_gen(12,4.0,2.1,1,5,12) },
   stress:   { label:'Stressful Events', hex:'#8B7EC8', daily:_gen(84,4.2,2.2,1,5,3),  monthly:_gen(12,4.4,2.0,1,5,13) },
@@ -363,7 +363,7 @@ function drawFixedYAxis(chart, elId, scaleKey, color){
 function renderPatternYAxis(hasHealth, hasFactor){
   if(hasHealth===undefined){ var ks=(selectedPatternItems||[]); hasHealth=ks.indexOf('health')>=0; hasFactor=ks.some(function(k){return k!=='health';}); }
   var left=document.getElementById('pattern-yaxis'), right=document.getElementById('pattern-yaxis-right');
-  if(left){ if(hasHealth){ left.style.display=''; drawFixedYAxis(patternChart,'pattern-yaxis','y','#C654C3'); } else { left.style.display='none'; left.innerHTML=''; } }
+  if(left){ if(hasHealth){ left.style.display=''; drawFixedYAxis(patternChart,'pattern-yaxis','y','#455B8A'); } else { left.style.display='none'; left.innerHTML=''; } }
   if(right){ if(hasFactor){ right.style.display=''; drawFixedYAxis(patternChart,'pattern-yaxis-right','y1','#8a7e76'); } else { right.style.display='none'; right.innerHTML=''; } }
 }
 
