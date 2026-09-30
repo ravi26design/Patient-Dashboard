@@ -755,8 +755,9 @@ body.is-desktop .app-header{display:none}          /* top bar replaces the in-ca
 .dn-foot .dn-user{display:none}                    /* just the avatar on the top bar */
 /* Right cluster: Check-in as an icon-only button, just left of the profile avatar */
 .dn-right{display:flex;align-items:center;gap:10px;flex:1;justify-content:flex-end}
-.dn-checkin{display:flex;align-items:center;justify-content:center;width:38px;height:38px;flex-shrink:0;
+.dn-checkin{position:relative;display:flex;align-items:center;justify-content:center;width:38px;height:38px;flex-shrink:0;
   border-radius:50%;border:1px solid rgba(60,50,45,.10);background:#fff;color:var(--hb-teal-deep);cursor:pointer;transition:background .15s}
+.dn-checkin .notif-badge{width:15px;height:15px;font-size:8px}
 .dn-checkin:hover{background:#F0F3F3}
 .dn-checkin i,.dn-checkin svg{width:19px;height:19px;stroke-width:2}
 
