@@ -2452,43 +2452,76 @@ function mtSaveAdd(){
 /* ═══ Location Questions — a short survey about a place Rudra detected ═══ */
 var LOC_Q = [
   { key:'place', type:'single', q:'Which of the following best describes this place?', options:[
-      {t:'My home'},
-      {t:'Someone else’s home'},
-      {t:'A restaurant, business, public place, or other non-residential place'},
-      {t:'A hotel, vacation rental, shelter, group home, or other temporary residence', end:true},
-      {t:'I do not recognize this location or was just passing by', end:true}
+      {t:'My home', icon:'house'},
+      {t:'Someone else’s home', icon:'users-round'},
+      {t:'A restaurant, business, public place, or other non-residential place', icon:'store'},
+      {t:'A hotel, vacation rental, shelter, group home, or other temporary residence', icon:'bed', end:true},
+      {t:'I do not recognize this location or was just passing by', icon:'footprints', end:true}
   ]},
   { key:'activities', type:'multi', q:'Which of the following best describes what you typically do here?', hint:'Check all that apply.', options:[
-      'Work','Take classes','Religious or spiritual activities','Volunteer or community service',
-      'Exercise or play sports','Visit family or friend(s) at their home','Socialize','Relax','Eat a meal',
-      'Drink a non-alcoholic beverage (e.g., coffee, tea, smoothie)','Drink alcohol',
-      'Shop for food, products, or services','Buy alcohol (for later use; e.g., liquor store)',
-      'Get treatment to manage my recovery (e.g. counseling, therapy, medications)',
-      'Attend an NA/AA or other peer-led group to manage my recovery',
-      'Get general (beyond recovery) mental health care','Get physical health care','None of the above'
+      {t:'Work', icon:'briefcase'},{t:'Take classes', icon:'graduation-cap'},
+      {t:'Religious or spiritual activities', icon:'church'},{t:'Volunteer or community service', icon:'heart-handshake'},
+      {t:'Exercise or play sports', icon:'dumbbell'},{t:'Visit family or friend(s) at their home', icon:'users'},
+      {t:'Socialize', icon:'party-popper'},{t:'Relax', icon:'armchair'},{t:'Eat a meal', icon:'utensils'},
+      {t:'Drink a non-alcoholic beverage (e.g., coffee, tea, smoothie)', icon:'coffee'},{t:'Drink alcohol', icon:'wine'},
+      {t:'Shop for food, products, or services', icon:'shopping-cart'},{t:'Buy alcohol (for later use; e.g., liquor store)', icon:'shopping-bag'},
+      {t:'Get treatment to manage my recovery (e.g. counseling, therapy, medications)', icon:'stethoscope'},
+      {t:'Attend an NA/AA or other peer-led group to manage my recovery', icon:'hand-heart'},
+      {t:'Get general (beyond recovery) mental health care', icon:'brain'},{t:'Get physical health care', icon:'heart-pulse'},
+      {t:'None of the above', icon:'circle-slash'}
   ]},
-  { key:'pleasant',   type:'single', q:'How often are visits here pleasant?',   options:[{t:'Never'},{t:'Rarely'},{t:'Sometimes'},{t:'Often'},{t:'Always'}]},
-  { key:'unpleasant', type:'single', q:'How often are visits here unpleasant?', options:[{t:'Never'},{t:'Rarely'},{t:'Sometimes'},{t:'Often'},{t:'Always'}]},
-  { key:'support',    type:'single', q:'Do visits here support your recovery?', options:[{t:'No'},{t:'Low support'},{t:'Moderate support'},{t:'High support'}]},
-  { key:'risk',       type:'single', q:'Do visits here present any risk to your recovery?', options:[{t:'No'},{t:'Low risk'},{t:'Moderate risk'},{t:'High risk'}]}
+  { key:'pleasant',   type:'single', scale:'good', q:'How often are visits here pleasant?',   options:[{t:'Never'},{t:'Rarely'},{t:'Sometimes'},{t:'Often'},{t:'Always'}]},
+  { key:'unpleasant', type:'single', scale:'bad',  q:'How often are visits here unpleasant?', options:[{t:'Never'},{t:'Rarely'},{t:'Sometimes'},{t:'Often'},{t:'Always'}]},
+  { key:'support',    type:'single', scale:'good', q:'Do visits here support your recovery?', options:[{t:'No'},{t:'Low support'},{t:'Moderate support'},{t:'High support'}]},
+  { key:'risk',       type:'single', scale:'bad',  q:'Do visits here present any risk to your recovery?', options:[{t:'No'},{t:'Low risk'},{t:'Moderate risk'},{t:'High risk'}]}
 ];
+/* ramp color for scale questions — 'good' = neutral→green, 'bad' = neutral→red */
+function _locRampColor(ramp, i, total){
+  var f = total>1 ? i/(total-1) : 0;   /* 0..1 */
+  function mix(a,b){ return Math.round(a+(b-a)*f); }
+  if(ramp==='bad'){ return 'rgb('+mix(150,201)+','+mix(170,70)+','+mix(160,58)+')'; }   /* grey-green → coral/red */
+  return 'rgb('+mix(160,78)+','+mix(175,138)+','+mix(165,103)+')';                        /* muted → sage green */
+}
 var locStep = 0, locAns = {}, locSkip = false;
 function _locOptText(o){ return (typeof o === 'string') ? o : o.t; }
-function initLocSurvey(){ locStep = 0; locAns = {}; locSkip = false; renderLocQ(); }
+function initLocSurvey(){
+  locStep = 0; locAns = {}; locSkip = false;
+  var done=document.getElementById('loc-done'); if(done) done.hidden=true;
+  ['loc-steps','loc-q','loc-opts'].forEach(function(id){ var e=document.getElementById(id); if(e) e.style.display=''; });
+  var nav=document.querySelector('.loc-sheet .loc-nav'); if(nav) nav.style.display='';
+  renderLocQ();
+}
 function renderLocQ(){
   var item = LOC_Q[locStep]; if(!item) return;
   var intro = document.getElementById('loc-intro'); if(intro) intro.style.display = (locStep===0) ? 'block' : 'none';
   var total = locSkip ? 1 : LOC_Q.length;
-  var stepsEl = document.getElementById('loc-steps'); if(stepsEl) stepsEl.textContent = 'Question ' + (locStep+1) + ' of ' + total;
+  var stepsEl = document.getElementById('loc-steps');
+  if(stepsEl){
+    var segs=''; for(var _i=0;_i<total;_i++){ segs+='<span class="loc-prog-seg'+(_i<=locStep?' on':'')+'"></span>'; }
+    stepsEl.innerHTML = '<div class="loc-prog-bar">'+segs+'</div><div class="loc-prog-lbl">Question '+(locStep+1)+' of '+total+'</div>';
+  }
   var qEl = document.getElementById('loc-q'); if(qEl) qEl.textContent = item.q;
   var hintEl = document.getElementById('loc-hint'); if(hintEl){ hintEl.textContent = item.hint || ''; hintEl.style.display = item.hint ? 'block' : 'none'; }
   var sel = locAns[item.key];
   var box = document.getElementById('loc-opts');
   if(box){
+    var nopt = item.options.length;
+    box.classList.toggle('loc-opts-scale', !!item.scale);
     box.innerHTML = item.options.map(function(o, i){
       var t = _locOptText(o);
       var on = (item.type==='multi') ? (Array.isArray(sel) && sel.indexOf(t)>=0) : (sel===t);
+      if(item.scale){
+        var col = _locRampColor(item.scale, i, nopt);
+        var bars=''; for(var b=0;b<nopt;b++){ bars+='<span class="loc-meter-b'+(b<=i?' fill':'')+'" style="'+(b<=i?'background:'+col:'')+'"></span>'; }
+        return '<button class="loc-opt loc-scale-opt'+(on?' sel':'')+'" type="button" onclick="locPick('+i+')" style="--ramp:'+col+'">'+
+               '<span class="loc-meter">'+bars+'</span>'+
+               '<span class="loc-opt-t">'+esc(t)+'</span>'+
+               '<span class="loc-scale-tick"><i data-lucide="check"></i></span>'+
+               '</button>';
+      }
+      var ic = o.icon ? '<span class="loc-opt-ic"><i data-lucide="'+o.icon+'"></i></span>' : '';
       return '<button class="loc-opt'+(on?' sel':'')+(item.type==='multi'?' loc-opt-multi':'')+'" type="button" onclick="locPick('+i+')">'+
+             ic+
              '<span class="loc-opt-t">'+esc(t)+'</span>'+
              (item.type==='multi' ? '<span class="loc-check"><i data-lucide="check"></i></span>' : '')+
              '</button>';
@@ -2527,7 +2560,16 @@ function locNext(){
   locStep++; renderLocQ();
 }
 function locBack(){ if(locStep>0){ locStep--; if(locStep===0) locSkip=false; renderLocQ(); } }
-function locFinish(){ closeOv(); if(typeof showXPPopup==='function') showXPPopup(30, 'Location check-in complete!'); }
+function locFinish(){
+  var done=document.getElementById('loc-done');
+  if(done){
+    ['loc-intro','loc-steps','loc-q','loc-hint','loc-opts'].forEach(function(id){ var e=document.getElementById(id); if(e) e.style.display='none'; });
+    var nav=document.querySelector('.loc-sheet .loc-nav'); if(nav) nav.style.display='none';
+    done.hidden=false;
+    if(window.lucide&&lucide.createIcons) lucide.createIcons();
+  } else { closeOv(); }
+  if(typeof showXPPopup==='function') showXPPopup(30, 'Location check-in complete!');
+}
 function pfTelHref(num){ return 'tel:'+String(num).replace(/[^\d+]/g,''); }
 function callContact(name,num){ try{ window.location.href=pfTelHref(num); }catch(e){} }
 function textContact(name,num){ try{ window.location.href='sms:'+String(num).replace(/[^\d+]/g,''); }catch(e){} }
