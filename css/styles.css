@@ -2786,6 +2786,21 @@ body.is-mobile .lb-row > div:last-child{font-size:13px !important}
 .loc-done-btn{max-width:320px;margin-left:auto;margin-right:auto}
 /* footer nav: Back + Next/Submit in one row (Next fills the rest; full-width when Back is hidden) */
 .loc-nav{position:sticky;bottom:0;display:flex;flex-direction:row;align-items:center;gap:10px;margin-top:16px;padding:12px 0 4px;background:linear-gradient(180deg,rgba(243,241,234,0),var(--app-bg) 28%)}
+/* location-details prompt modal (after Reflect completes) */
+.locprompt-back{position:fixed;inset:0;z-index:1200;display:flex;align-items:center;justify-content:center;padding:24px;background:rgba(40,44,52,.42);backdrop-filter:blur(3px);opacity:0;transition:opacity .22s ease}
+.locprompt-back.on{opacity:1}
+.locprompt-card{width:100%;max-width:340px;background:#fff;border-radius:24px;padding:26px 22px 20px;text-align:center;box-shadow:0 24px 60px -18px rgba(40,44,52,.5);transform:translateY(14px) scale(.97);transition:transform .24s cubic-bezier(.2,.8,.3,1)}
+.locprompt-back.on .locprompt-card{transform:none}
+.locprompt-ic{position:relative;width:62px;height:62px;border-radius:50%;margin:2px auto 16px;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#6DA0CC,#3F6E99);color:#fff;box-shadow:0 12px 26px -10px rgba(63,110,153,.6)}
+.locprompt-ic i,.locprompt-ic svg{width:30px;height:30px;position:relative;z-index:1}
+.locprompt-pulse{position:absolute;inset:0;border-radius:50%;background:rgba(91,146,200,.4);animation:locPulse2 1.9s ease-out infinite}
+@keyframes locPulse2{0%{transform:scale(.7);opacity:.7}100%{transform:scale(1.7);opacity:0}}
+.locprompt-t{font-family:var(--font-display);font-size:19px;font-weight:700;color:var(--ink);margin-bottom:9px}
+.locprompt-d{font-family:var(--font-ui);font-size:13px;color:var(--ink-soft);line-height:1.55;margin-bottom:20px}
+.locprompt-go{width:100%;display:inline-flex;align-items:center;justify-content:center;gap:7px;padding:15px;border:none;border-radius:16px;background:linear-gradient(135deg,#6DA0CC,#3F6E99);color:#fff;font-family:var(--font-ui);font-size:13px;font-weight:700;letter-spacing:1px;text-transform:uppercase;cursor:pointer;box-shadow:0 10px 24px -8px rgba(63,110,153,.5);transition:transform .12s ease}
+.locprompt-go i,.locprompt-go svg{width:16px;height:16px}
+.locprompt-go:active{transform:scale(.98)}
+.locprompt-skip{width:100%;margin-top:8px;padding:12px;border:none;background:none;color:var(--ink-soft);font-family:var(--font-ui);font-size:13px;font-weight:600;cursor:pointer}
 .loc-back{flex:0 0 auto;display:inline-flex;align-items:center;gap:5px;background:#fff;border:1.5px solid rgba(54,59,59,.14);border-radius:16px;color:var(--ink-soft,#6A6F76);font-family:var(--font-ui);font-size:13px;font-weight:700;cursor:pointer;padding:15px 18px}
 .loc-back i,.loc-back svg{width:15px;height:15px}
 .loc-back:active{transform:scale(.96)}

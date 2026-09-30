@@ -797,7 +797,19 @@ function reflectDone(){
   if(time){ time.textContent='Today ✓'; time.style.color='var(--hb-teal)'; }
   updateTodayProgress();
   if(typeof showXPPopup==='function') showXPPopup(30, 'Reflect Complete!');
+  /* nudge the location-details survey once the reward has shown */
+  setTimeout(showLocPrompt, 1500);
 }
+function showLocPrompt(){
+  var m=document.getElementById('locPrompt'); if(!m) return;
+  m.hidden=false; requestAnimationFrame(function(){ m.classList.add('on'); });
+  if(window.lucide && lucide.createIcons) lucide.createIcons();
+}
+function locPromptClose(){
+  var m=document.getElementById('locPrompt'); if(!m) return;
+  m.classList.remove('on'); setTimeout(function(){ m.hidden=true; }, 220);
+}
+function locPromptGo(){ locPromptClose(); openOv('location-checkin'); }
 
 /* ═══════════════════════════════════════════════════════════
    FIND RELIEF — urge surfing / grounding / breathing / game

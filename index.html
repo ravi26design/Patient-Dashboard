@@ -15,7 +15,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
 <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
-<link rel="stylesheet" href="css/styles.css?v=20261001b">
+<link rel="stylesheet" href="css/styles.css?v=20261001c">
 </head>
 <body>
 
@@ -2814,6 +2814,17 @@
     <div class="reflect-footer" id="reflect-footer"></div>
   </div>
 
+  <!-- ═══ LOCATION DETAILS PROMPT (after Reflect completes) ═══ -->
+  <div class="locprompt-back" id="locPrompt" hidden onclick="if(event.target===this)locPromptClose()">
+    <div class="locprompt-card" role="dialog" aria-modal="true" aria-labelledby="locPromptT">
+      <div class="locprompt-ic"><span class="locprompt-pulse"></span><i data-lucide="map-pin"></i></div>
+      <div class="locprompt-t" id="locPromptT">A place worth a closer look</div>
+      <div class="locprompt-d">We noticed you recently spent time at a location. A few quick questions help us tailor your insights and activities to the places you go.</div>
+      <button class="locprompt-go" type="button" onclick="locPromptGo()">Add details <i data-lucide="arrow-right"></i></button>
+      <button class="locprompt-skip" type="button" onclick="locPromptClose()">Not now</button>
+    </div>
+  </div>
+
   <!-- ═══ RELIEF: URGE SURFING ═══ -->
   <div class="overlay" id="ov-relief-surf" style="background:var(--app-bg)">
     <div class="ov-header" style="background:#fff;border-bottom:1px solid rgba(54,59,59,.06)">
@@ -3896,6 +3907,6 @@
     <button class="tour-skip" type="button" onclick="tourSkip()">Skip</button>
   </div>
 </div>
-<script src="js/app.js?v=20261001b"></script>
+<script src="js/app.js?v=20261001c"></script>
 </body>
 </html>
