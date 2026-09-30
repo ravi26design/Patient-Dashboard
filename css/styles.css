@@ -829,15 +829,15 @@ body.is-desktop .screen.active{align-items:stretch}
 body.is-framed{background:#E9EEEC}
 body.is-desktop{background:#EAF0EF}
 
-/* Recovery Today — 4 tiles in a 2×2 grid (added Log Use) */
-.task-grid{grid-template-columns:1fr 1fr}
+/* Recovery Today — 3 tiles filling the full width */
+.task-grid{grid-template-columns:1fr 1fr 1fr}
 .ic-tile.t-slate{background:#C97C5D}
 
 /* Mobile — Recovery Today: all 4 tiles in a 2×2 grid (no horizontal scroll) */
 body.is-mobile .task-grid{
   display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:10px;
+  grid-template-columns:1fr 1fr 1fr;
+  gap:8px;
   margin:0;
   padding:2px 0 0;
   overflow:visible;
@@ -1920,7 +1920,7 @@ body.is-desktop .rj-card{grid-column:1 / -1}
 
 /* Desktop: Recovery Today full-width with all 4 tiles in one row */
 body.is-desktop .rt-section{grid-column:1 / -1}
-body.is-desktop .rt-section .task-grid{grid-template-columns:repeat(4,1fr);gap:14px}
+body.is-desktop .rt-section .task-grid{grid-template-columns:repeat(3,1fr);gap:14px}
 
 /* Desktop: Recovery Treatments full-width */
 body.is-desktop .tx-section{grid-column:1 / -1}

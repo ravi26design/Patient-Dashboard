@@ -161,7 +161,7 @@ function confirmCheckin(card){
 }
 /* Daily ritual progress \u2014 reflects how many of the 3 tasks are done */
 function updateTodayProgress(){
-  var keys=['focus','checkin','schedule','activities'], done=0;
+  var keys=['checkin','schedule','activities'], done=0;
   keys.forEach(function(k){
     var chk=document.getElementById(k+'-check');
     var card=document.getElementById(k+'-card');
