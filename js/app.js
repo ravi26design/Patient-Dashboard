@@ -591,7 +591,9 @@ function renderLogTime(){
 function addLogEntry(){
   if(logState.selDay==null||logState.selPeriod==null) return;
   var dt=new Date(logState.y,logState.m,logState.selDay), p=LOG_PERIODS[logState.selPeriod];
-  logState.entries.unshift({label:LOG_SWD[dt.getDay()]+', '+LOG_SMO[logState.m]+' '+logState.selDay, period:p.label, e:p.e});
+  var noteEl=document.getElementById('log-note'), note=noteEl?noteEl.value.trim():'';
+  logState.entries.unshift({label:LOG_SWD[dt.getDay()]+', '+LOG_SMO[logState.m]+' '+logState.selDay, period:p.label, e:p.e, note:note});
+  if(noteEl) noteEl.value='';
   logState.selPeriod=null; renderLogTime(); renderLogEntries(); updateLogTileState();
 }
 function removeLogEntry(i){ logState.entries.splice(i,1); renderLogEntries(); updateLogTileState(); }
@@ -607,7 +609,7 @@ function renderLogEntries(){
   if(!logState.entries.length){ c.innerHTML='<div class="log-empty-note">No entries logged yet</div>'; return; }
   logState.entries.forEach(function(en,i){
     var d=document.createElement('div'); d.className='log-entry';
-    d.innerHTML='<span class="pe"><i data-lucide="'+en.e+'"></i></span><div style="flex:1"><div style="font-size:13px;font-weight:700;color:var(--ink)">'+en.label+'</div><div style="font-size:11px;color:var(--ink-soft)">'+en.period+'</div></div>';
+    d.innerHTML='<span class="pe"><i data-lucide="'+en.e+'"></i></span><div style="flex:1"><div style="font-size:13px;font-weight:700;color:var(--ink)">'+en.label+'</div><div style="font-size:11px;color:var(--ink-soft)">'+en.period+'</div>'+(en.note?'<div style="font-size:12px;color:var(--ink);margin-top:3px;line-height:1.4">'+esc(en.note)+'</div>':'')+'</div>';
     var x=document.createElement('button'); x.className='log-entry-x'; x.innerHTML='&times;';
     (function(idx){ x.onclick=function(){removeLogEntry(idx);}; })(i);
     d.appendChild(x); c.appendChild(d);
