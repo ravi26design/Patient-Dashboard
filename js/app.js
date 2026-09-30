@@ -629,28 +629,28 @@ var REFLECT_Q=[
     'Hallucinogens (LSD, acid, mushrooms, PCP, special K, etc.)','Opioids (heroin, fentanyl, oxycodone, etc.)','None — I did not use any substances']},
   /* 2 — past 24 hours: craving / risk / stress / pleasant */
   {type:'sliders', q:'Thinking about the past 24 hours…', sliders:[
-    {key:'craving', label:'How strong was your greatest craving to use opioids over the past 24 hours?', lo:'No craving', hi:'Extreme craving'},
-    {key:'risk', label:'How risky was the riskiest situation (people, places, or things that interfere with your recovery) you experienced over the past 24 hours?', lo:'No risk', hi:'Extreme risk'},
-    {key:'stress', label:'How stressful was the biggest hassle or stressful event you experienced over the past 24 hours?', lo:'No stress', hi:'Extreme stress'},
-    {key:'pleasant', label:'How pleasant was the most pleasant or positive event you experienced over the past 24 hours?', lo:'Not at all pleasant', hi:'Extremely pleasant'}
+    {key:'craving', icon:'flame', tint:'#E07A6B', label:'How strong was your greatest craving to use opioids over the past 24 hours?', lo:'No craving', hi:'Extreme craving'},
+    {key:'risk', icon:'alert-triangle', tint:'#E0A94E', label:'How risky was the riskiest situation (people, places, or things that interfere with your recovery) you experienced over the past 24 hours?', lo:'No risk', hi:'Extreme risk'},
+    {key:'stress', icon:'wind', tint:'#5B92CE', label:'How stressful was the biggest hassle or stressful event you experienced over the past 24 hours?', lo:'No stress', hi:'Extreme stress'},
+    {key:'pleasant', icon:'sun', tint:'#E0B255', label:'How pleasant was the most pleasant or positive event you experienced over the past 24 hours?', lo:'Not at all pleasant', hi:'Extremely pleasant'}
   ]},
   /* 3 — emotion strength */
   {type:'sliders', q:'Rate the strength of each of these emotions', sliders:[
-    {key:'dep', label:'Depressed', lo:'Not at all', hi:'Extremely'},
-    {key:'ang', label:'Angry', lo:'Not at all', hi:'Extremely'},
-    {key:'anx', label:'Anxious', lo:'Not at all', hi:'Extremely'},
-    {key:'rel', label:'Relaxed', lo:'Not at all', hi:'Extremely'},
-    {key:'hap', label:'Happy', lo:'Not at all', hi:'Extremely'}
+    {key:'dep', icon:'cloud-rain', tint:'#7C93B0', label:'Depressed', lo:'Not at all', hi:'Extremely'},
+    {key:'ang', icon:'flame', tint:'#E07A6B', label:'Angry', lo:'Not at all', hi:'Extremely'},
+    {key:'anx', icon:'activity', tint:'#E0A94E', label:'Anxious', lo:'Not at all', hi:'Extremely'},
+    {key:'rel', icon:'leaf', tint:'#6FA88A', label:'Relaxed', lo:'Not at all', hi:'Extremely'},
+    {key:'hap', icon:'smile', tint:'#E0B255', label:'Happy', lo:'Not at all', hi:'Extremely'}
   ]},
   /* 4 — body: sleep & pain */
   {type:'sliders', q:'Your body, the past 24 hours', sliders:[
-    {key:'sleep', label:'How well did you sleep over the past 24 hours?', lo:'Very poor', hi:'Excellent'},
-    {key:'pain', label:'How painful was your most intense pain over the past 24 hours?', lo:'No pain', hi:'Worst pain'}
+    {key:'sleep', icon:'moon', tint:'#7C93B0', label:'How well did you sleep over the past 24 hours?', lo:'Very poor', hi:'Excellent'},
+    {key:'pain', icon:'zap', tint:'#E07A6B', label:'How painful was your most intense pain over the past 24 hours?', lo:'No pain', hi:'Worst pain'}
   ]},
   /* next week: motivation & confidence — final page (Finish here) */
   {type:'sliders', q:'Thinking about the next week…', sliders:[
-    {key:'motivation', label:'How motivated are you to avoid using opioids for non-medical reasons within the next week?', lo:'Not motivated', hi:'Extremely motivated'},
-    {key:'confidence', label:'How confident are you in your ability to avoid using opioids for non-medical reasons within the next week?', lo:'Not confident', hi:'Extremely confident'}
+    {key:'motivation', icon:'rocket', tint:'#6FA88A', label:'How motivated are you to avoid using opioids for non-medical reasons within the next week?', lo:'Not motivated', hi:'Extremely motivated'},
+    {key:'confidence', icon:'shield-check', tint:'#5B92CE', label:'How confident are you in your ability to avoid using opioids for non-medical reasons within the next week?', lo:'Not confident', hi:'Extremely confident'}
   ]}
 ];
 var REFLECT_TOTAL=REFLECT_Q.length;   /* 7 */
@@ -759,7 +759,8 @@ function renderReflect(){
     var vals=a.sliders||{};
     inner='<div class="rf-sliders">'+item.sliders.map(function(s){
       var v=vals[s.key]!=null?vals[s.key]:5;
-      return '<div class="rf-card rf-scard">'+
+      return '<div class="rf-card rf-scard'+(s.icon?' rf-scard-ico':'')+'">'+
+        (s.icon?'<div class="rf-scard-ic" style="--rf-tint:'+(s.tint||'#6FA88A')+'"><i data-lucide="'+s.icon+'"></i></div>':'')+
         '<div class="rf-srow-label">'+esc(s.label)+'</div>'+
         '<div id="rf-sv-'+s.key+'" class="rf-srow-num">'+v+'</div>'+
         '<div class="rf-srow-track"><span class="rf-srow-end">0</span>'+

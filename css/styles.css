@@ -1049,6 +1049,11 @@ body.is-desktop #ov-reflect .rf-complete{max-width:460px;margin:0 auto;padding:0
 /* each slider question in its own card */
 .rf-sliders{display:flex;flex-direction:column;gap:12px;margin-top:8px}
 .rf-scard{padding:16px 16px 14px;margin:0}
+/* emotion / factor icon tile — centered above the label */
+.rf-scard-ico{text-align:center}
+.rf-scard-ico .rf-srow-label{text-align:center}
+.rf-scard-ic{width:46px;height:46px;border-radius:14px;margin:2px auto 10px;display:flex;align-items:center;justify-content:center;background:color-mix(in srgb, var(--rf-tint) 16%, #fff);color:var(--rf-tint);box-shadow:0 8px 18px -10px var(--rf-tint)}
+.rf-scard-ic i{width:24px;height:24px}
 .rf-srow-label{font-family:var(--font-ui);font-size:14px;font-weight:600;color:var(--ink);line-height:1.4}
 .rf-srow-num{font-family:var(--font-display);font-size:34px;font-weight:700;color:#7BA47E;line-height:1;text-align:center;margin:8px 0 10px}
 .rf-srow-track{display:flex;align-items:center;gap:11px;margin-top:2px}
@@ -3045,6 +3050,13 @@ body.is-mobile .ins-rec-t{line-height:1.25}
 .rd-note{background:#EEF5F0;box-shadow:none;border:1px solid rgba(78,123,94,.14);margin-bottom:6px}
 .rd-note-h{display:flex;align-items:center;gap:7px;color:var(--hb-teal-deep,#3C6B4E)}
 .rd-note-h i{width:16px;height:16px}
+/* collapsible clinician note — tap header to reveal */
+.rd-collapse{cursor:pointer;margin-bottom:6px}
+.rd-collapse .rd-h{margin-bottom:0}
+.rd-note-x{margin-left:auto;width:18px !important;height:18px !important;transition:transform .22s;flex:none}
+.rd-collapse.open .rd-note-x{transform:rotate(180deg)}
+.rd-collapse .rd-p{max-height:0;overflow:hidden;opacity:0;margin-top:0;transition:max-height .3s ease,opacity .22s,margin-top .22s}
+.rd-collapse.open .rd-p{max-height:340px;opacity:1;margin-top:10px}
 /* quick-guide steps */
 .rd-step{display:flex;gap:14px;align-items:flex-start;padding:14px 0;cursor:pointer;border-top:1px solid rgba(54,59,59,.08)}
 .rd-step:first-of-type{margin-top:4px}
