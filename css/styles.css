@@ -3323,7 +3323,7 @@ body.is-desktop #welcome{background:var(--app-bg)}
 .rh-trend-delta{font-family:var(--font-display);font-size:15px;font-weight:700;color:var(--hb-teal-deep)}
 .rh-trend-lbl{font-family:var(--font-ui);font-size:11px;font-weight:600;letter-spacing:.3px;color:var(--ink-soft)}
 /* Streaks section: row 1 = Recovery Journey box, row 2 = focus stat boxes w/ XP multipliers */
-.streaks-rj{background:linear-gradient(150deg,#90BE88 0%,#7BA875 55%,#6B9C73 100%);border-radius:18px;padding:20px;position:relative;overflow:hidden;box-shadow:0 8px 22px -10px rgba(107,156,115,.4);margin-bottom:12px}
+.streaks-rj{background:linear-gradient(150deg,#8CC0E8 0%,#6DA0CC 55%,#5B92C8 100%);border-radius:18px;padding:20px;position:relative;overflow:hidden;box-shadow:0 8px 22px -10px rgba(91,146,200,.42);margin-bottom:12px}
 .streaks-rj::before{content:'';position:absolute;right:-40px;top:-46px;width:150px;height:150px;border-radius:50%;background:rgba(255,255,255,.1);pointer-events:none}
 .streaks-rj .rj-stat{margin-bottom:14px}
 .streaks-rj .rj-title{font-size:18px;margin-bottom:12px}
