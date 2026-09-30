@@ -2404,7 +2404,7 @@ body.is-desktop #screen-narcan{padding-top:26px}
 .game-new{padding:8px 14px;border-radius:999px;border:none;background:var(--sage);color:#fff;font-family:'Josefin Sans',sans-serif;font-weight:600;font-size:11px;cursor:pointer}
 
 /* urge toolkit */
-.rl-urge-hero{background:linear-gradient(165deg,#84B27F,#4E7B5E);border-radius:20px;padding:26px 18px 24px;text-align:center;margin-bottom:14px}
+.rl-urge-hero{background:linear-gradient(165deg,#82B7E2,#3F6E99);border-radius:20px;padding:26px 18px 24px;text-align:center;margin-bottom:14px}
 .rl-urge-ring{position:relative;width:158px;height:158px;border-radius:50%;border:none;margin:4px auto 18px;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.14);transform:scale(.9);transition:transform .6s ease-in-out}
 .ru-ring{position:absolute;inset:0;width:158px;height:158px;transform:rotate(-90deg)}
 .ru-ring-bg{fill:none;stroke:rgba(255,255,255,.30);stroke-width:3.5}
