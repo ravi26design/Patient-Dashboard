@@ -2707,7 +2707,7 @@ body.is-desktop #ov-privacy > .ov-body, body.is-desktop #ov-privacy > .ov-header
 /* 'Earned' reward card: visible badge floated top-right, text flows full width */
 .lrow-earned{align-items:center}
 .lrow-earned .lrow-t{display:block;-webkit-line-clamp:unset;overflow:visible}
-.lpill-earned{float:none;margin:0;color:#fff;background:linear-gradient(135deg,#7FB08A,#5E8B6E);box-shadow:0 2px 7px -1px rgba(94,139,110,.5)}
+.lpill-earned{float:none;margin:0;color:#fff;background:linear-gradient(135deg,#82B7E2,#5B92C8);box-shadow:0 2px 7px -1px rgba(91,146,200,.5)}
 
 /* ===== Rewards: desktop full-width sections + mobile title/number sizing ===== */
 /* section eyebrows and the leaderboard header span both desktop columns */
