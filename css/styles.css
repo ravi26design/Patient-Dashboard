@@ -2763,6 +2763,7 @@ body.is-mobile .lb-row > div:last-child{font-size:13px !important}
 .loc-nav{display:flex;flex-direction:row;align-items:center;gap:10px;margin-top:16px}
 /* location-details prompt modal (after Reflect completes) */
 .locprompt-back{position:fixed;inset:0;z-index:1200;display:flex;align-items:center;justify-content:center;padding:24px;background:rgba(40,44,52,.42);backdrop-filter:blur(3px);opacity:0;transition:opacity .22s ease}
+.locprompt-back[hidden]{display:none}
 .locprompt-back.on{opacity:1}
 .locprompt-card{width:100%;max-width:340px;background:#fff;border-radius:24px;padding:26px 22px 20px;text-align:center;box-shadow:0 24px 60px -18px rgba(40,44,52,.5);transform:translateY(14px) scale(.97);transition:transform .24s cubic-bezier(.2,.8,.3,1)}
 .locprompt-back.on .locprompt-card{transform:none}
