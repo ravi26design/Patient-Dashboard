@@ -3946,9 +3946,9 @@ body.is-desktop .rc-scope .sr-sheet{max-width:652px;padding-left:32px;padding-ri
 .fr-tab{flex:1;display:inline-flex;align-items:center;justify-content:center;gap:8px;border:none;background:#fff;border-radius:999px;padding:11px 10px;font-family:var(--font-ui);font-size:13.5px;font-weight:700;letter-spacing:.2px;color:var(--ink-soft);cursor:pointer;transition:color .2s ease,background .2s ease,box-shadow .2s ease,transform .12s ease}
 .fr-tab:not(.on):hover{color:var(--ink,#2E3238)}
 .fr-tab:not(.on):active{transform:scale(.97)}
-.fr-tab.on{background:var(--hb-teal-deep,#3F6650);color:#fff;font-weight:800;box-shadow:0 5px 16px -4px rgba(63,102,80,.35),0 1px 2px rgba(60,50,45,.07)}
+.fr-tab.on{background:var(--sage,#6E9E80);color:#fff;font-weight:800;box-shadow:0 5px 16px -4px rgba(110,158,128,.4),0 1px 2px rgba(60,50,45,.07)}
 .fr-tab-n{display:inline-flex;align-items:center;justify-content:center;min-width:22px;height:22px;padding:0 7px;border-radius:999px;font-size:11.5px;font-weight:800;background:rgba(70,80,78,.12);color:var(--ink-soft);transition:.2s}
-.fr-tab.on .fr-tab-n{background:#fff;color:var(--hb-teal-deep,#3F6650)}
+.fr-tab.on .fr-tab-n{background:#fff;color:var(--sage,#6E9E80)}
 .fr-add{display:flex;gap:10px;margin-bottom:16px}
 .fr-add-input{flex:1;min-width:0;background:#fff;border:1.5px solid var(--border);border-radius:14px;padding:12px 14px;font-family:var(--font-ui);font-size:14px;color:var(--ink);outline:none}
 .fr-add-input:focus{border-color:#6DA0CC}
