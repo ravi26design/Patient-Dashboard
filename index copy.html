@@ -15,7 +15,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
 <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
-<link rel="stylesheet" href="css/styles.css?v=20260930q">
+<link rel="stylesheet" href="css/styles.css?v=20260930p">
 </head>
 <body>
 
@@ -501,6 +501,7 @@
           <div class="rh-outof">out of 100</div>
           <div class="rh-badges">
             <div class="rh-pill">Above Average</div>
+            <div class="rh-trend" data-delta="2"><span class="rh-trend-arrow" aria-hidden="true"></span><span class="rh-trend-delta">2</span><span class="rh-trend-lbl">Stable</span></div>
           </div>
           <div class="rh-risk">
             <div class="rh-focus rh-chip">
@@ -548,7 +549,7 @@
                 <div class="ic-tile" style="background:#9A7C28" id="schedule-icon"><i data-lucide="calendar-clock"></i></div>
                 <div class="task-check" style="display:none" id="schedule-check">&#10003;</div>
               </div>
-              <div class="task-name" id="schedule-label">Schedule</div>
+              <div class="task-name" id="schedule-label">Tx Schedule</div>
               <div class="task-time" id="schedule-time">Today</div>
             </div>
             <div class="task" id="activities-card" onclick="confirmActivities(this)">
@@ -1683,9 +1684,12 @@
 
       <div class="fc-scope" id="s-findcoach">
         <h2 style="display:flex;align-items:center;gap:9px">Find someone to talk with<button class="help-i" type="button" style="margin-left:auto" aria-label="About 1:1 Support" onclick="showHelp('find-support')"><i data-lucide="info"></i></button></h2>
+        <p class="lede">Peers are free. Coaches show their cost up front.</p>
+
         <!-- WHO · single choice, icon-led -->
         <div class="seg segico" id="fType">
-          <button class="on" data-val="coach"><i data-lucide="compass"></i>Coach</button>
+          <button class="on" data-val="both"><i data-lucide="users-round"></i>Both</button>
+          <button data-val="coach"><i data-lucide="compass"></i>Coach</button>
           <button data-val="peer"><i data-lucide="handshake"></i>Peer</button>
         </div>
         <div class="typeinfo" id="fTypeExplain"></div>
@@ -1731,6 +1735,27 @@
               <button class="on" data-val="either">Either</button>
               <button data-val="inperson"><i data-lucide="map-pin"></i>In person</button>
               <button data-val="virtual"><i data-lucide="monitor"></i>Virtual</button>
+            </div>
+          </div>
+
+          <div class="frow">
+            <span class="flab"><i data-lucide="target"></i>Focus</span>
+            <div class="fchips" id="fSpec">
+              <button class="chip fchip" data-val="mat"><i data-lucide="pill"></i>MAT</button>
+              <button class="chip fchip" data-val="pain"><i data-lucide="bandage"></i>Pain</button>
+              <button class="chip fchip" data-val="parents"><i data-lucide="baby"></i>Parents</button>
+              <button class="chip fchip" data-val="veterans"><i data-lucide="medal"></i>Veterans</button>
+              <button class="chip fchip" data-val="lgbtq"><i data-lucide="rainbow"></i>LGBTQ+</button>
+              <button class="chip fchip" data-val="trauma"><i data-lucide="heart-crack"></i>Trauma</button>
+              <button class="chip fchip" data-val="spanish"><i data-lucide="languages"></i>Español</button>
+              <button class="chip fchip" data-val="youth"><i data-lucide="sprout"></i>Young</button>
+            </div>
+          </div>
+
+          <div class="frow">
+            <span class="flab"><i data-lucide="clock"></i>When</span>
+            <div class="fchips" id="fAvail">
+              <button class="chip fchip live" id="fAwake" data-val="awake"><span class="livedot"></span>Awake now</button>
             </div>
           </div>
 
@@ -1905,6 +1930,11 @@
             <span class="hub-opt-ic" style="background:#E4EDF5;color:#4E7FA8"><i data-lucide="globe"></i></span>
             <span class="hub-opt-t">All Rooms</span>
             <span class="hub-opt-d">Browse every room</span>
+          </button>
+          <button class="hub-opt is-disabled" type="button" disabled aria-disabled="true">
+            <span class="hub-opt-ic" style="background:#FBF1DC;color:#C9962E"><i data-lucide="sparkles"></i></span>
+            <span class="hub-opt-t">Request a Room</span>
+            <span class="hub-opt-d">Coming soon</span>
           </button>
         </div>
         <!-- hidden mirror kept so existing filter code still works -->
@@ -3302,6 +3332,7 @@
         <div class="rh-outof">out of 100</div>
         <div class="rh-badges">
           <div class="rh-pill">Above Average</div>
+          <div class="rh-trend" data-delta="2"><span class="rh-trend-arrow" aria-hidden="true"></span><span class="rh-trend-delta">2</span><span class="rh-trend-lbl">Stable</span></div>
         </div>
         <div class="rh-risk">
           <div class="rh-focus rh-chip">
@@ -3889,6 +3920,6 @@
     <button class="tour-skip" type="button" onclick="tourSkip()">Skip</button>
   </div>
 </div>
-<script src="js/app.js?v=20260930q"></script>
+<script src="js/app.js?v=20260930p"></script>
 </body>
 </html>
