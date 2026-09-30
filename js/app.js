@@ -332,7 +332,7 @@ function updatePatternChart(){
       responsive:false,
       animation:{duration:450},
       layout:{padding:{left:hasHealth?AXISW:6, right:hasFactor?AXISW:6}},
-      plugins:{legend:{display:multi,position:'top',align:'end',labels:{boxWidth:8,boxHeight:8,usePointStyle:true,pointStyle:'circle',font:{size:9},color:'#6A6F76',padding:10}},tooltip:{callbacks:{label:function(c){return c.dataset.label+': '+c.parsed.y;}}}},
+      plugins:{legend:{display:false},tooltip:{callbacks:{label:function(c){return c.dataset.label+': '+c.parsed.y;}}}},
       scales:{
         y:{position:'left',min:0,max:100,display:true,ticks:{display:false},grid:{drawOnChartArea:hasHealth,color:'rgba(58,51,48,0.05)',drawTicks:false},border:{display:false}},
         y1:{position:'right',min:0,max:5,display:true,ticks:{display:false},grid:{drawOnChartArea:!hasHealth,color:'rgba(58,51,48,0.05)',drawTicks:false},border:{display:false}},
@@ -341,6 +341,9 @@ function updatePatternChart(){
     }
   });
   renderPatternYAxis(hasHealth, hasFactor);
+  var leg=document.getElementById('pattern-legend');
+  if(leg){ leg.innerHTML=keys.map(function(k){ var it=patternData[k];
+    return '<span class="pl-item"><span class="pl-mark" style="color:'+it.hex+'"><span class="pl-line"></span><span class="pl-dot"></span></span><span class="pl-label">'+it.label+'</span></span>'; }).join(''); }
   updateWeekNav('pattern', currentPatternTf, patternWeekOffset, primary.daily);
 }
 
