@@ -3406,20 +3406,20 @@ body.is-mobile .rh-badges .rh-trend{margin:0;width:auto}
 .rh-trend.up .rh-trend-arrow,.rh-trend.up .rh-trend-delta,.rh-badges .rh-trend.up .rh-trend-delta{color:#3C8A56}
 .rh-trend.down .rh-trend-arrow,.rh-trend.down .rh-trend-delta,.rh-badges .rh-trend.down .rh-trend-delta{color:#C4453A}
 .rh-trend.flat .rh-trend-arrow,.rh-trend.flat .rh-trend-delta,.rh-badges .rh-trend.flat .rh-trend-delta{color:var(--ink-soft)}
-.rh-risk{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:16px;width:100%;background:none;border-radius:0;padding:0}
-.rh-risk-left{display:flex;align-items:center;gap:11px;min-width:0}
-.rh-insights{flex:0 0 auto;display:inline-flex;align-items:center;gap:8px;background:#fff;border:1px solid var(--border);border-radius:999px;padding:7px 12px 7px 8px;cursor:pointer;box-shadow:0 2px 8px rgba(60,50,45,.05);transition:transform .12s ease,box-shadow .15s ease}
-.rh-insights:hover{box-shadow:0 4px 12px rgba(60,50,45,.10)}
-.rh-insights:active{transform:scale(.97)}
-.rh-insights-ic{width:28px;height:28px;flex:0 0 auto;border-radius:9px;background:#FBF0D3;color:#B08A2E;display:flex;align-items:center;justify-content:center}
-.rh-insights-ic i,.rh-insights-ic svg{width:16px;height:16px}
-.rh-insights-t{font-family:var(--font-ui);font-size:13px;font-weight:700;color:var(--ink)}
-.rh-insights-xp{font-family:var(--font-ui);font-size:11px;font-weight:800;color:var(--gold-dk,#B08A2E);background:var(--gold-lt,#FBF0D3);border-radius:999px;padding:3px 8px;white-space:nowrap}
-.rh-risk-ic{width:40px;height:40px;flex-shrink:0;border-radius:12px;background:#F7E2DC;color:#C56A5E;display:flex;align-items:center;justify-content:center}
-.rh-risk-ic i,.rh-risk-ic svg{width:20px;height:20px;stroke-width:2}
-.rh-risk-main{text-align:left}
-.rh-risk-eyebrow{font-family:var(--font-ui);font-size:9.5px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;color:var(--ink-soft)}
-.rh-risk-val{font-family:var(--font-display);font-size:16px;font-weight:700;color:var(--ink);margin-top:2px;line-height:1.05}
+/* Today's Focus + Insights: two matching chips, centered */
+.rh-risk{display:flex;align-items:stretch;justify-content:center;gap:12px;margin-top:16px;width:100%;flex-wrap:wrap;background:none;border-radius:0;padding:0}
+.rh-chip{display:inline-flex;align-items:center;gap:10px;background:#fff;border:1px solid var(--border);border-radius:16px;padding:9px 14px 9px 9px;box-shadow:0 2px 8px rgba(60,50,45,.05);text-align:left}
+button.rh-chip{cursor:pointer;transition:transform .12s ease,box-shadow .15s ease}
+button.rh-chip:hover{box-shadow:0 4px 12px rgba(60,50,45,.10)}
+button.rh-chip:active{transform:scale(.97)}
+.rh-chip-ic{width:34px;height:34px;flex:0 0 auto;border-radius:10px;display:flex;align-items:center;justify-content:center}
+.rh-chip-ic i,.rh-chip-ic svg{width:18px;height:18px;stroke-width:2}
+.rh-focus-ic{background:#F7E2DC;color:#C56A5E}
+.rh-insights-ic{background:#FBF0D3;color:#B08A2E}
+.rh-chip-main{display:flex;flex-direction:column;min-width:0;line-height:1.1}
+.rh-chip-eyebrow{font-family:var(--font-ui);font-size:9px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;color:var(--ink-soft)}
+.rh-chip-val{font-family:var(--font-ui);font-size:14px;font-weight:700;color:var(--ink);margin-top:2px}
+.rh-insights-xp{font-family:var(--font-ui);font-size:11px;font-weight:800;color:var(--gold-dk,#B08A2E);background:var(--gold-lt,#FBF0D3);border-radius:999px;padding:3px 8px;white-space:nowrap;margin-left:2px}
 /* Home Recovery Health card taps through to the Daily Insight page */
 .rh-card{cursor:pointer;transition:transform .12s ease}
 .rh-card:active{transform:scale(.994)}
