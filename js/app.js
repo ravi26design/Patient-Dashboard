@@ -979,9 +979,11 @@ function applyRhTrend(){
   var list=document.querySelectorAll('.rh-trend');
   for(var i=0;i<list.length;i++){
     var t=list[i], d=t.querySelector('.rh-trend-delta'); if(!d) continue;
-    var v=parseFloat((d.textContent||'').replace(/[^0-9.\-]/g,'')) || 0;
+    var raw=t.getAttribute('data-delta');
+    var v=(raw!==null?parseFloat(raw):parseFloat((d.textContent||'').replace(/[^0-9.\-]/g,''))) || 0;
     var up=v>0, down=v<0;
     t.classList.toggle('up', up); t.classList.toggle('down', down); t.classList.toggle('flat', !up&&!down);
+    d.textContent = String(Math.abs(v));   /* the arrow shows direction, so show just the magnitude */
     var a=t.querySelector('.rh-trend-arrow');
     if(a) a.innerHTML='<i data-lucide="'+(down?'arrow-down':'arrow-up')+'"></i>';
   }
