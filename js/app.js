@@ -972,6 +972,20 @@ function buildHealthGauge(){
   var num=card.querySelector('.rh-num b');
   if(num){ if(reduce){ num.textContent=val; } else { num.textContent='0'; rhCountUp(num, val, 1200); } }
   var pill=card.querySelector('.rh-pill'); if(pill) pill.textContent = val>=85?'Excellent':val>=70?'Above Average':val>=55?'Good':'Needs Care';
+  applyRhTrend();
+}
+/* Recovery Health trend pill: green up-arrow when the score rose, red down-arrow when it fell */
+function applyRhTrend(){
+  var list=document.querySelectorAll('.rh-trend');
+  for(var i=0;i<list.length;i++){
+    var t=list[i], d=t.querySelector('.rh-trend-delta'); if(!d) continue;
+    var v=parseFloat((d.textContent||'').replace(/[^0-9.\-]/g,'')) || 0;
+    var up=v>0, down=v<0;
+    t.classList.toggle('up', up); t.classList.toggle('down', down); t.classList.toggle('flat', !up&&!down);
+    var a=t.querySelector('.rh-trend-arrow');
+    if(a) a.innerHTML='<i data-lucide="'+(down?'arrow-down':'arrow-up')+'"></i>';
+  }
+  if(window.lucide&&lucide.createIcons) lucide.createIcons();
 }
 /* reusable arc gauge (0–100) with an animated needle — used by the Insights screen */
 function buildArcGauge(elId, val){

@@ -3400,6 +3400,12 @@ body.is-desktop #screen-narcan .sos-lead{display:none}
 .rh-badges .rh-trend .rh-trend-delta{font-family:var(--font-ui);font-size:13px;font-weight:800;letter-spacing:.3px;color:var(--hb-teal-deep)}
 .rh-badges .rh-trend .rh-trend-lbl{font-family:var(--font-ui);font-size:11px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:var(--ink-soft)}
 body.is-mobile .rh-badges .rh-trend{margin:0;width:auto}
+/* trend direction arrow: green up when the score rose, red down when it fell */
+.rh-trend-arrow{display:inline-flex;align-items:center;flex:0 0 auto}
+.rh-trend-arrow i,.rh-trend-arrow svg{width:15px;height:15px;stroke-width:2.8}
+.rh-trend.up .rh-trend-arrow,.rh-trend.up .rh-trend-delta,.rh-badges .rh-trend.up .rh-trend-delta{color:#3C8A56}
+.rh-trend.down .rh-trend-arrow,.rh-trend.down .rh-trend-delta,.rh-badges .rh-trend.down .rh-trend-delta{color:#C4453A}
+.rh-trend.flat .rh-trend-arrow,.rh-trend.flat .rh-trend-delta,.rh-badges .rh-trend.flat .rh-trend-delta{color:var(--ink-soft)}
 .rh-risk{display:inline-flex;align-items:center;justify-content:center;gap:11px;margin-top:16px;background:none;border-radius:0;padding:0}
 .rh-risk-ic{width:40px;height:40px;flex-shrink:0;border-radius:12px;background:#F7E2DC;color:#C56A5E;display:flex;align-items:center;justify-content:center}
 .rh-risk-ic i,.rh-risk-ic svg{width:20px;height:20px;stroke-width:2}
