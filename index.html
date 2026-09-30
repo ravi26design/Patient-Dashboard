@@ -15,7 +15,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
 <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
-<link rel="stylesheet" href="css/styles.css?v=20260922m">
+<link rel="stylesheet" href="css/styles.css?v=20260930a">
 </head>
 <body>
 
@@ -154,6 +154,16 @@
             <button type="button" class="dt-seg-b" data-lang="es" onclick="dtPickLang(this)"><i data-lucide="check" class="dt-seg-ck"></i>Spanish</button>
           </div>
         </div>
+        <div class="dt-field dt-consent" id="dtConsentField">
+          <button class="pv-check" id="pvCheck1" type="button" onclick="pvToggle(this)">
+            <span class="pv-box"><i data-lucide="check"></i></span>
+            <span class="pv-text">I agree to Rudra Health AI's <a href="https://www.rudrahealth.ai/#terms-of-use" target="_blank" rel="noopener" onclick="event.stopPropagation()"><b>Terms of Use</b></a> and <a href="https://www.rudrahealth.ai/#privacy-policy" target="_blank" rel="noopener" onclick="event.stopPropagation()"><b>Privacy Policy</b></a>. I've read how my data is protected under <b>42 CFR Part 2</b> &amp; HIPAA, and that nothing is shared without my consent.</span>
+          </button>
+          <button class="pv-check" id="pvCheck2" type="button" onclick="pvToggle(this)">
+            <span class="pv-box"><i data-lucide="check"></i></span>
+            <span class="pv-text"><b>Permission to contact me</b> - I agree to receive text messages (SMS/WhatsApp) and emails from Rudra (dose &amp; check-in reminders, support). Msg &amp; data rates may apply. <span class="pv-opt">Reply STOP to opt-out of texting. Click unsubscribe to opt-out of email.</span></span>
+          </button>
+        </div>
       </div>
     </div>
     <button class="wc-begin ph-send" type="button" onclick="submitDetails()">Continue <span aria-hidden="true">&rarr;</span></button>
@@ -187,7 +197,7 @@
 </div>
 
 <div id="reliefScreen" class="step-screen" aria-hidden="true">
-  <div class="onb-top"><button class="onb-back" type="button" onclick="onbBack('reliefScreen')" aria-label="Back"><i data-lucide="arrow-left"></i></button><div class="onb-steps"><div class="onb-steps-fill" style="width:33%"></div></div><div class="onb-count">1<span>/3</span></div></div>
+  <div class="onb-top"><button class="onb-back" type="button" onclick="onbBack('reliefScreen')" aria-label="Back"><i data-lucide="arrow-left"></i></button><div class="onb-steps"><div class="onb-steps-fill" style="width:50%"></div></div><div class="onb-count">1<span>/2</span></div></div>
   <div class="onb-inner">
     <h1 class="ph-title">What brings you <em>relief</em>?</h1>
     <p class="ph-sub">Things you enjoy can help an urge pass. I'll keep these one tap away on your Urge button.</p>
@@ -214,7 +224,7 @@
 </div>
 
 <div id="connectCareScreen" class="step-screen" aria-hidden="true">
-  <div class="onb-top"><button class="onb-back" type="button" onclick="onbBack('connectCareScreen')" aria-label="Back"><i data-lucide="arrow-left"></i></button><div class="onb-steps"><div class="onb-steps-fill" style="width:66%"></div></div><div class="onb-count">2<span>/3</span></div></div>
+  <div class="onb-top"><button class="onb-back" type="button" onclick="onbBack('connectCareScreen')" aria-label="Back"><i data-lucide="arrow-left"></i></button><div class="onb-steps"><div class="onb-steps-fill" style="width:100%"></div></div><div class="onb-count">2<span>/2</span></div></div>
   <div class="onb-inner">
     <h1 class="ph-title">Want to connect your care team?</h1>
     <p class="ph-sub">If you're seeing a clinic, Rudra can securely sync your appointments and MOUD plan through your health record. Enter your clinic's name or the code they gave you. You're always in control of what's shared.</p>
@@ -229,23 +239,6 @@
     </div>
     <p class="cc-help"><i data-lucide="shield-check"></i><span>Connecting requires your clinic's name or code. Your records are protected under <b>42 CFR Part 2</b> &amp; HIPAA.</span></p>
     <button class="wc-begin onb-continue" id="connectContinue" type="button" onclick="onbNext('connect')" disabled>Continue <span aria-hidden="true">&rarr;</span></button>
-  </div>
-</div>
-
-<div id="privacyScreen" class="step-screen" aria-hidden="true">
-  <div class="onb-top"><button class="onb-back" type="button" onclick="onbBack('privacyScreen')" aria-label="Back"><i data-lucide="arrow-left"></i></button><div class="onb-steps"><div class="onb-steps-fill" style="width:100%"></div></div><div class="onb-count">3<span>/3</span></div></div>
-  <div class="onb-inner">
-    <h1 class="ph-title">Your privacy, in plain terms.</h1>
-    <p class="ph-sub">Records about substance use disorder get extra federal protection. Here's what you're agreeing to.</p>
-    <button class="pv-check" id="pvCheck1" type="button" onclick="pvToggle(this)">
-      <span class="pv-box"><i data-lucide="check"></i></span>
-      <span class="pv-text">I agree to Rudra Health AI's <a href="https://www.rudrahealth.ai/#terms-of-use" target="_blank" rel="noopener" onclick="event.stopPropagation()"><b>Terms of Use</b></a> and <a href="https://www.rudrahealth.ai/#privacy-policy" target="_blank" rel="noopener" onclick="event.stopPropagation()"><b>Privacy Policy</b></a>. I've read how my data is protected under <b>42 CFR Part 2</b> &amp; HIPAA, and that nothing is shared without my consent.</span>
-    </button>
-    <button class="pv-check" id="pvCheck2" type="button" onclick="pvToggle(this)">
-      <span class="pv-box"><i data-lucide="check"></i></span>
-      <span class="pv-text"><b>Permission to contact me</b> - I agree to receive text messages (SMS/WhatsApp) and emails from Rudra (dose &amp; check-in reminders, support). Msg &amp; data rates may apply. <span class="pv-opt">Reply STOP to opt-out of texting. Click unsubscribe to opt-out of email.</span></span>
-    </button>
-    <button class="wc-begin onb-continue" id="pvContinue" type="button" onclick="onbNext('privacy')" disabled>Agree &amp; continue</button>
   </div>
 </div>
 
@@ -3922,6 +3915,6 @@
     <button class="tour-skip" type="button" onclick="tourSkip()">Skip</button>
   </div>
 </div>
-<script src="js/app.js?v=20260922m"></script>
+<script src="js/app.js?v=20260930a"></script>
 </body>
 </html>

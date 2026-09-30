@@ -2082,7 +2082,13 @@ body.is-desktop .onb-foot{position:absolute;left:16px;right:16px;bottom:22px;mar
   background:rgba(255,255,255,.45);border:1px solid rgba(58,51,48,.08);border-radius:16px;
   padding:15px 16px;margin-bottom:12px;cursor:pointer;transition:background .15s ease,border-color .15s ease}
 .pv-check.on{background:rgba(255,255,255,.72);border-color:var(--sage)}
+.pv-check.err{border-color:#C4453A;background:rgba(196,69,58,.06)}
+.pv-check.err .pv-box{border-color:#C4453A}
 .pv-opt{display:block;margin-top:6px;font-size:12px;color:var(--muted);font-weight:600}
+/* consent block inside the details form */
+.dt-consent{margin-top:2px}
+.dt-consent .pv-check{max-width:none;width:100%;box-sizing:border-box;margin-bottom:10px;background:#fff}
+.dt-consent .pv-check:last-child{margin-bottom:0}
 .pv-box{flex-shrink:0;width:24px;height:24px;border-radius:7px;border:2px solid var(--t4);margin-top:1px;
   display:flex;align-items:center;justify-content:center;color:#fff;transition:all .15s ease}
 .pv-box i,.pv-box svg{width:15px;height:15px;opacity:0;stroke-width:3}

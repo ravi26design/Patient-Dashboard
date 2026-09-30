@@ -1596,8 +1596,16 @@ function submitDetails(){
   var pinp=document.getElementById('phoneInput');
   var pd=((pinp&&pinp.value)||'').replace(/\D/g,'');
   if(pd.length<10){ dtErr('dtPhoneField'); var prow=document.getElementById('phRow'); if(prow){ prow.classList.add('err'); setTimeout(function(){ prow.classList.remove('err'); }, 1200); } if(pinp) pinp.focus(); return; }
+  /* both consents must be agreed (moved here from the old privacy step) */
+  var c1=document.getElementById('pvCheck1'), c2=document.getElementById('pvCheck2');
+  if(!(c1&&c1.classList.contains('on') && c2&&c2.classList.contains('on'))){
+    if(c1&&!c1.classList.contains('on')) c1.classList.add('err');
+    if(c2&&!c2.classList.contains('on')) c2.classList.add('err');
+    var cf=document.getElementById('dtConsentField'); if(cf) cf.scrollIntoView({block:'center',behavior:'smooth'});
+    return;
+  }
   window.__phone=(typeof __cc!=='undefined'&&__cc?__cc.d:'+1')+pd;
-  window.__profile={name:nameVal, username:unameVal, email:emailVal, phone:window.__phone, dob:(window.__dob||null), age:(window.__dob?window.__dob.age:null), lang:(window.__lang||'en')};
+  window.__profile={name:nameVal, username:unameVal, email:emailVal, phone:window.__phone, dob:(window.__dob||null), age:(window.__dob?window.__dob.age:null), lang:(window.__lang||'en'), contactOptIn:true};
   var rn=document.getElementById('rhName'); if(rn) rn.textContent=nameVal.split(' ')[0];   /* greet by first name */
   try{ localStorage.setItem('rh_profile', JSON.stringify(window.__profile)); }catch(e){}
   showOtpScreen();   /* verify the number next; onboarding steps continue after OTP */
@@ -1607,7 +1615,7 @@ function onbShow(id){ var e=document.getElementById(id); if(e){ e.style.display=
 function onbHide(id){ var e=document.getElementById(id); if(!e) return; e.classList.add('hide');
   setTimeout(function(){ e.style.display='none'; e.classList.remove('show','hide'); }, 420); }
 function onbStep(from,to){ onbShow(to); onbHide(from); }
-var ONB_ORDER=['reliefScreen','connectCareScreen','privacyScreen'];   /* onboarding: Relief → clinic → privacy (Triggers moved to the daily check-in) */
+var ONB_ORDER=['reliefScreen','connectCareScreen'];   /* onboarding: Relief → clinic (consent moved to the details step) */
 function onbBack(curId){
   if(window.__ciMode){   /* check-in intro: relief -> triggers -> cancel to home */
     if(curId==='reliefScreen'){ onbStep('reliefScreen','triggersScreen'); ciConfigTriggers(); ciGate(); return; }
@@ -1645,9 +1653,8 @@ function showMoudScreen(){ onbShow('moudScreen'); }
 function hideMoudScreen(){ onbHide('moudScreen'); }
 function selectMoud(opt){ onbSave('moud',opt); onbStep('moudScreen','triggersScreen'); }
 /* steps */
-function pvToggle(el){ el.classList.toggle('on');
-  var c1=document.getElementById('pvCheck1'), c2=document.getElementById('pvCheck2'), btn=document.getElementById('pvContinue');
-  if(btn) btn.disabled=!(c1&&c1.classList.contains('on') && c2&&c2.classList.contains('on')); }
+function pvToggle(el){ el.classList.toggle('on'); el.classList.remove('err');
+  var f=document.getElementById('dtConsentField'); if(f) f.classList.remove('err'); }
 function onbNext(step){
   if(step==='triggers'){
     if(window.__ciMode){
@@ -1668,15 +1675,12 @@ function onbNext(step){
   else if(step==='connect'){ var cn=document.getElementById('clinicName'), cc=document.getElementById('clinicCode');
     var nm=cn&&cn.value.trim(), cd=cc&&cc.value.trim();
     if(!nm && !cd) return;   /* mandatory: need clinic name or code */
-    if(nm) onbSave('clinicName', nm); if(cd) onbSave('clinicCode', cd); onbStep('connectCareScreen','privacyScreen'); }
-  else if(step==='privacy'){
-    var c1=document.getElementById('pvCheck1'), c2=document.getElementById('pvCheck2');
-    if(!(c1&&c1.classList.contains('on') && c2&&c2.classList.contains('on'))) return;
-    onbSave('contactOptIn', true);
+    if(nm) onbSave('clinicName', nm); if(cd) onbSave('clinicCode', cd);
+    /* clinic is the final onboarding step now — finish up (consent already agreed on the details step) */
     var pf=window.__profile||{}; var first=(pf.name||'there').split(' ')[0];
     rhRegisterUser(pf);                 /* remember this number so it skips onboarding next time */
     var dn=document.getElementById('doneName'); if(dn) dn.textContent=first;
-    onbHide('privacyScreen');           /* reveal home behind */
+    onbHide('connectCareScreen');       /* reveal home behind */
     showDoneModal();                    /* confirmation first */
     if(window.__doneTimer) clearTimeout(window.__doneTimer);
     window.__doneTimer=setTimeout(doneThenLocation, 2600);   /* ...then ask for location */
