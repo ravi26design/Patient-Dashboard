@@ -294,7 +294,7 @@ var selectedPatternItems = ['health'];   /* up to 2 items to compare on the grap
 var currentPatternTf = 'W', patternWeekOffset = 0;
 
 var patternData = {
-  health:   { label:'Recovery Health',  hex:'#5E8B6E', daily:_gen(84,2.9,4.0,1,5,7),  monthly:_gen(12,2.7,4.1,1,5,17) },
+  health:   { label:'Recovery Health',  hex:'#5E8B6E', scale100:true, daily:_gen(84,60,78,42,92,7),  monthly:_gen(12,56,80,42,92,17) },
   urge:     { label:'Urge',             hex:'#D4736A', daily:_gen(84,4.1,2.4,1,5,1),  monthly:_gen(12,4.3,2.2,1,5,11) },
   pain:     { label:'Pain',             hex:'#C9A84C', daily:_gen(84,3.8,2.3,1,5,2),  monthly:_gen(12,4.0,2.1,1,5,12) },
   stress:   { label:'Stressful Events', hex:'#8B7EC8', daily:_gen(84,4.2,2.2,1,5,3),  monthly:_gen(12,4.4,2.0,1,5,13) },
@@ -319,9 +319,11 @@ function updatePatternChart(){
   canvas.width=containerW; canvas.height=160;
   canvas.style.width=containerW+'px'; canvas.style.height='160px';
   if(patternChart){patternChart.destroy();patternChart=null;}
+  var hasHealth=keys.indexOf('health')>=0;         /* left axis 0–100 */
+  var hasFactor=keys.some(function(k){return k!=='health';});   /* right axis 0–5 */
   var datasets=keys.map(function(k){
     var it=patternData[k], s=tfSeries(it.daily, it.monthly, currentPatternTf, patternWeekOffset);
-    return {label:it.label,data:s.data,borderColor:it.hex,backgroundColor:multi?'transparent':_lineFill(canvas,it.hex),fill:!multi,tension:0.35,borderWidth:2.5,pointRadius:(s.data.length>14?0:3),pointHoverRadius:5,pointBackgroundColor:'#fff',pointBorderColor:it.hex,pointBorderWidth:2};
+    return {label:it.label,data:s.data,yAxisID:(k==='health'?'y':'y1'),borderColor:it.hex,backgroundColor:multi?'transparent':_lineFill(canvas,it.hex),fill:!multi,tension:0.35,borderWidth:2.5,pointRadius:(s.data.length>14?0:3),pointHoverRadius:5,pointBackgroundColor:'#fff',pointBorderColor:it.hex,pointBorderWidth:2};
   });
   patternChart=new Chart(canvas,{
     type:'line',
@@ -329,31 +331,38 @@ function updatePatternChart(){
     options:{
       responsive:false,
       animation:{duration:450},
-      layout:{padding:{left:AXISW}},
+      layout:{padding:{left:hasHealth?AXISW:6, right:hasFactor?AXISW:6}},
       plugins:{legend:{display:multi,position:'top',align:'end',labels:{boxWidth:8,boxHeight:8,usePointStyle:true,pointStyle:'circle',font:{size:9},color:'#6A6F76',padding:10}},tooltip:{callbacks:{label:function(c){return c.dataset.label+': '+c.parsed.y;}}}},
       scales:{
-        y:{min:1,max:5,ticks:{display:false},grid:{color:'rgba(58,51,48,0.05)',drawTicks:false},border:{display:false}},
+        y:{position:'left',min:0,max:100,display:true,ticks:{display:false},grid:{drawOnChartArea:hasHealth,color:'rgba(58,51,48,0.05)',drawTicks:false},border:{display:false}},
+        y1:{position:'right',min:0,max:5,display:true,ticks:{display:false},grid:{drawOnChartArea:!hasHealth,color:'rgba(58,51,48,0.05)',drawTicks:false},border:{display:false}},
         x:{ticks:{font:{size:8},autoSkip:false,maxRotation:0,color:'#8a7e76'},grid:{display:false}}
       }
     }
   });
-  renderPatternYAxis();
+  renderPatternYAxis(hasHealth, hasFactor);
   updateWeekNav('pattern', currentPatternTf, patternWeekOffset, primary.daily);
 }
 
 /* Draw a chart's y-axis labels in a fixed left strip, aligned to the chart's
    real pixel positions so they stay put while the plot scrolls horizontally. */
-function drawFixedYAxis(chart, elId){
+function drawFixedYAxis(chart, elId, scaleKey, color){
+  scaleKey=scaleKey||'y';
   var yEl=document.getElementById(elId);
-  if(!yEl||!chart||!chart.scales||!chart.scales.y) return;
-  var ys=chart.scales.y, ticks=ys.ticks||[], html='';
+  if(!yEl||!chart||!chart.scales||!chart.scales[scaleKey]) return;
+  var ys=chart.scales[scaleKey], ticks=ys.ticks||[], html='';
   ticks.forEach(function(t){
     var py=Math.round(ys.getPixelForValue(t.value));
-    html+='<span style="top:'+py+'px">'+t.value+'</span>';
+    html+='<span style="top:'+py+'px'+(color?';color:'+color:'')+'">'+t.value+'</span>';
   });
   yEl.innerHTML=html;
 }
-function renderPatternYAxis(){ drawFixedYAxis(patternChart, 'pattern-yaxis'); }
+function renderPatternYAxis(hasHealth, hasFactor){
+  if(hasHealth===undefined){ var ks=(selectedPatternItems||[]); hasHealth=ks.indexOf('health')>=0; hasFactor=ks.some(function(k){return k!=='health';}); }
+  var left=document.getElementById('pattern-yaxis'), right=document.getElementById('pattern-yaxis-right');
+  if(left){ if(hasHealth){ left.style.display=''; drawFixedYAxis(patternChart,'pattern-yaxis','y','#5E8B6E'); } else { left.style.display='none'; left.innerHTML=''; } }
+  if(right){ if(hasFactor){ right.style.display=''; drawFixedYAxis(patternChart,'pattern-yaxis-right','y1','#8a7e76'); } else { right.style.display='none'; right.innerHTML=''; } }
+}
 
 function selectPatternItem(key,btn){
   if(!selectedPatternItems) selectedPatternItems=[];
