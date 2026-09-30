@@ -2738,6 +2738,13 @@ body.is-mobile .lb-row > div:last-child{font-size:13px !important}
 .loc-pin svg{width:100%;height:100%;filter:drop-shadow(0 3px 5px rgba(58,51,48,.3))}
 /* secondary frequent-location pins — smaller than the current-location pin */
 .loc-pin-alt{width:23px;height:23px;opacity:.92}
+/* flagged location — pulsing highlight + time badge */
+.loc-pin-flag{width:36px;height:36px;z-index:4}
+.loc-pin-flag svg{filter:drop-shadow(0 4px 7px rgba(194,84,69,.55))}
+.loc-pulse{position:absolute;left:50%;bottom:0;width:52px;height:52px;transform:translate(-50%,50%);border-radius:50%;background:radial-gradient(circle,rgba(194,84,69,.32),rgba(194,84,69,.14) 60%,transparent 70%);animation:locPulse 1.9s ease-out infinite;pointer-events:none;z-index:-1}
+@keyframes locPulse{0%{transform:translate(-50%,50%) scale(.45);opacity:.85}100%{transform:translate(-50%,50%) scale(1.7);opacity:0}}
+.loc-pin-time{position:absolute;bottom:100%;left:50%;transform:translateX(-50%);margin-bottom:3px;white-space:nowrap;background:#C25445;color:#fff;font-family:var(--font-ui);font-size:9.5px;font-weight:800;letter-spacing:.3px;padding:3px 8px;border-radius:999px;box-shadow:0 3px 9px -2px rgba(194,84,69,.6)}
+.loc-pin-time::after{content:"";position:absolute;top:100%;left:50%;transform:translateX(-50%);border:4px solid transparent;border-top-color:#C25445}
 .loc-q{font-family:var(--font-display);font-size:16px;font-weight:700;color:var(--ink);margin-bottom:12px;line-height:1.3}
 .loc-intro{font-family:var(--font-ui);font-size:12.5px;color:var(--ink-soft);line-height:1.55;margin:0 0 12px}
 .loc-steps{font-family:var(--font-ui);font-size:10.5px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--blue-ink,#3F6E99);margin:0 0 8px}
