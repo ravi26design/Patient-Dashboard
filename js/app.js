@@ -336,7 +336,7 @@ function updatePatternChart(){
       plugins:{legend:{display:false},tooltip:{callbacks:{label:function(c){return c.dataset.label+': '+c.parsed.y;}}}},
       scales:{
         y:{position:'left',min:0,max:100,display:true,ticks:{display:false},grid:{drawOnChartArea:hasHealth,color:'rgba(58,51,48,0.05)',drawTicks:false},border:{display:false}},
-        y1:{position:(hasHealth?'right':'left'),min:1,max:5,display:true,ticks:{display:false},grid:{drawOnChartArea:!hasHealth,color:'rgba(58,51,48,0.05)',drawTicks:false},border:{display:false}},
+        y1:{position:(hasHealth?'right':'left'),min:1,max:5,display:true,ticks:{display:false,stepSize:1},grid:{drawOnChartArea:!hasHealth,color:'rgba(58,51,48,0.05)',drawTicks:false},border:{display:false}},
         x:{ticks:{font:{size:8},autoSkip:false,maxRotation:0,color:'#8a7e76'},grid:{display:false}}
       }
     }
