@@ -43,6 +43,7 @@ function openOv(id){
   if(id==='manage-team' && typeof renderTeam==='function') renderTeam();   /* render the support-team list */
   if(id==='friends' && typeof frRender==='function') frRender();   /* followers & friends list */
   if(id==='settings' && typeof applyLeaderboardPref==='function') applyLeaderboardPref();   /* sync leaderboard toggle */
+  if(id==='privacy'){ if(typeof applyLeaderboardPref==='function') applyLeaderboardPref(); if(typeof applyAnonCommunityPref==='function') applyAnonCommunityPref(); }   /* sync privacy-page toggles */
   if(id==='rooms'){   /* Community is a nav destination — light up its nav tab */
     document.querySelectorAll('.bottom-nav .nav-tab, #dnav .dn-item').forEach(function(t){ t.classList.toggle('active', ((t.getAttribute('onclick')||'').indexOf("'rooms'")>=0)); });
     /* land on the rooms hub (not a specific room) — the in-room back arrow was removed */
@@ -331,11 +332,11 @@ function updatePatternChart(){
     options:{
       responsive:false,
       animation:{duration:450},
-      layout:{padding:{left:hasHealth?AXISW:6, right:hasFactor?AXISW:6}},
+      layout:{padding:{left:AXISW, right:(hasHealth&&hasFactor)?AXISW:6}},
       plugins:{legend:{display:false},tooltip:{callbacks:{label:function(c){return c.dataset.label+': '+c.parsed.y;}}}},
       scales:{
         y:{position:'left',min:0,max:100,display:true,ticks:{display:false},grid:{drawOnChartArea:hasHealth,color:'rgba(58,51,48,0.05)',drawTicks:false},border:{display:false}},
-        y1:{position:'right',min:0,max:5,display:true,ticks:{display:false},grid:{drawOnChartArea:!hasHealth,color:'rgba(58,51,48,0.05)',drawTicks:false},border:{display:false}},
+        y1:{position:(hasHealth?'right':'left'),min:1,max:5,display:true,ticks:{display:false},grid:{drawOnChartArea:!hasHealth,color:'rgba(58,51,48,0.05)',drawTicks:false},border:{display:false}},
         x:{ticks:{font:{size:8},autoSkip:false,maxRotation:0,color:'#8a7e76'},grid:{display:false}}
       }
     }
@@ -363,8 +364,12 @@ function drawFixedYAxis(chart, elId, scaleKey, color){
 function renderPatternYAxis(hasHealth, hasFactor){
   if(hasHealth===undefined){ var ks=(selectedPatternItems||[]); hasHealth=ks.indexOf('health')>=0; hasFactor=ks.some(function(k){return k!=='health';}); }
   var left=document.getElementById('pattern-yaxis'), right=document.getElementById('pattern-yaxis-right');
-  if(left){ if(hasHealth){ left.style.display=''; drawFixedYAxis(patternChart,'pattern-yaxis','y','#455B8A'); } else { left.style.display='none'; left.innerHTML=''; } }
-  if(right){ if(hasFactor){ right.style.display=''; drawFixedYAxis(patternChart,'pattern-yaxis-right','y1','#8a7e76'); } else { right.style.display='none'; right.innerHTML=''; } }
+  if(left){
+    if(hasHealth){ left.style.display=''; drawFixedYAxis(patternChart,'pattern-yaxis','y','#455B8A'); }
+    else if(hasFactor){ left.style.display=''; drawFixedYAxis(patternChart,'pattern-yaxis','y1','#8a7e76'); }   /* factor-only → 1–5 on the LEFT */
+    else { left.style.display='none'; left.innerHTML=''; }
+  }
+  if(right){ if(hasHealth && hasFactor){ right.style.display=''; drawFixedYAxis(patternChart,'pattern-yaxis-right','y1','#8a7e76'); } else { right.style.display='none'; right.innerHTML=''; } }
 }
 
 function selectPatternItem(key,btn){
@@ -1816,7 +1821,7 @@ function applyLeaderboardPref(){
   var h=document.getElementById('lbHead'), c=document.getElementById('lbCard');
   if(h) h.style.display=on?'':'none';
   if(c) c.style.display=on?'':'none';
-  var t=document.getElementById('lbToggle'); if(t) t.classList.toggle('on', on);
+  document.querySelectorAll('#lbToggle, #lbTogglePriv').forEach(function(t){ t.classList.toggle('on', on); });
 }
 function toggleLeaderboardPref(){
   var on=!leaderboardOn();
@@ -1885,6 +1890,19 @@ function speakInsight(btn){
   var ps=document.querySelectorAll('#ov-insights .ins-tk-p');
   for(var i=0;i<ps.length;i++){ var t=(ps[i].textContent||'').trim(); if(t) parts.push(t); }
   if(parts.length===1 && PAGE_NARRATION.insights) parts.push(PAGE_NARRATION.insights);
+  speakText(parts.join(' '), btn);
+}
+/* Read a guided Activity (e.g. Managing Cravings) aloud — title, why, and each step */
+function speakActivity(btn){
+  var parts=[];
+  var t=document.getElementById('act-title'); if(t && t.textContent.trim()) parts.push(t.textContent.trim()+'.');
+  var sub=document.getElementById('act-sub'); if(sub && sub.textContent.trim()) parts.push('Why this helps: '+sub.textContent.trim());
+  var why=document.getElementById('act-why'); if(why && why.textContent.trim()) parts.push(why.textContent.trim());
+  var steps=document.querySelectorAll('#act-steps .act-step');
+  if(steps.length) parts.push('How to do it.');
+  for(var i=0;i<steps.length;i++){ var nm=steps[i].querySelector('.act-step-t'), d=steps[i].querySelector('.act-step-d');
+    var line=(nm?nm.textContent.trim():''); if(d) line+='. '+d.textContent.trim();
+    if(line) parts.push('Step '+(i+1)+'. '+line); }
   speakText(parts.join(' '), btn);
 }
 /* Read the "Request a room" sheet aloud — the intro plus what each field asks for */
@@ -2655,6 +2673,23 @@ var $$ = function(s,r){ return Array.prototype.slice.call((r||document).querySel
 
 var CURRENT_USERNAME = (typeof window.CURRENT_USERNAME === "string" && window.CURRENT_USERNAME) || "you";
 
+/* ── Stay anonymous in discussion groups (Privacy & Data Sharing) ── */
+function anonCommunityOn(){ try{ return localStorage.getItem('rh_anon_community')==='1'; }catch(e){ return false; } }
+function commName(){ return anonCommunityOn() ? 'Anonymous' : CURRENT_USERNAME; }
+function commInitial(){ return (commName().trim()[0]||'A').toUpperCase(); }
+function toggleAnonCommunity(btn){
+  var on=!anonCommunityOn();
+  try{ localStorage.setItem('rh_anon_community', on?'1':'0'); }catch(e){}
+  applyAnonCommunityPref();
+  if(typeof toast==='function') toast(on?'You’ll appear as “Anonymous” in discussion groups.':'Your username will show in discussion groups.');
+}
+function applyAnonCommunityPref(){
+  var on=anonCommunityOn();
+  document.querySelectorAll('#anonCommToggle').forEach(function(t){ t.classList.toggle('on', on); });
+  try{ if(typeof updateCommunityIdentity==='function') updateCommunityIdentity(); }catch(e){}
+  try{ if(typeof renderCommunityFeed==='function') renderCommunityFeed(); }catch(e){}
+}
+
 /* XP table — uses app.js's if it exposes one, otherwise the v22 values */
 var XP = window.XP || { task:15, wellness:25, checkin:75, mood:10, cpost:30, creply:15, creact:5, croom:40 };
 
@@ -2945,13 +2980,14 @@ function positionComposeBar(){
 }
 function updateCommunityIdentity(){
   const nameEl = $("#communityMeName");
-  const initial = (CURRENT_USERNAME.trim()[0]||"Y").toUpperCase();
-  if(nameEl) nameEl.textContent = CURRENT_USERNAME;
+  const disp = commName();
+  const initial = (disp.trim()[0]||"Y").toUpperCase();
+  if(nameEl) nameEl.textContent = disp;
   ["#communityMeAvatar","#communityMeAvatar2"].forEach(sel=>{ const a=$(sel); if(a) a.textContent=initial; });
   // the peer rooms post under the same anonymous handle.
   // guarded: this runs during boot, before PEER_ROOMS is initialised further down.
   try{ renderPeerRooms(); }catch(e){}
-  const prMe = $("#prMeName"); if(prMe) prMe.textContent = CURRENT_USERNAME;
+  const prMe = $("#prMeName"); if(prMe) prMe.textContent = disp;
 }
 const REACTIONS = {
   heart:   {flag:"r_heart",   count:"hearts",  reason:"Sent a heart"},
@@ -2962,7 +2998,7 @@ const REACTIONS = {
 function sendReplyTo(id, text){
   text = (text||"").trim(); if(!text) return false;
   const p = POSTS.find(x=>x.id===id); if(!p) return false;
-  p.replies.push({user:CURRENT_USERNAME, text});
+  p.replies.push({user:commName(), text});
   delete REPLY_DRAFT[id];
   OPEN_REPLIES.add(id);              // keep the thread open after sending
   renderCommunityFeed();
@@ -3154,9 +3190,9 @@ $("#communityPostBtn").addEventListener("click", ()=>{
   const text = ($("#communityText").value||"").trim();
   if(!text){ $("#communityText").focus(); toast('Write something first — even just "here" counts.'); return; }
   const tag = chipVal("communityPostTag","checkin");
-  const initial = (CURRENT_USERNAME.trim()[0]||"y").toUpperCase();
+  const initial = commInitial();
   const newPost = {
-    id: Date.now(), user: CURRENT_USERNAME, badge:null, tint:"blue", avatar: initial,
+    id: Date.now(), user: commName(), badge:null, tint:"blue", avatar: initial,
     channel: tag, time:"Just now", text,
     hearts:0, supports:0, strong:0, pray:0,
     r_heart:false, r_support:false, r_strong:false, r_pray:false,
@@ -3184,7 +3220,7 @@ $("#communityPostBtn").addEventListener("click", ()=>{
   window.__welcomePost = false;
 
   setRoom(tag);
-  toast("Posted anonymously as "+CURRENT_USERNAME+".");
+  toast("Posted anonymously as "+commName()+".");
 });
 
 /* ══════════════ VOICE INPUT ══════════════
@@ -3565,9 +3601,9 @@ function makeMilestonePost({user, avatar, tint, badge, channel, time, days, labe
 // public API: fire when the current user crosses a milestone (opt-in share).
 // Hooked to the real app state: 47 today, next celebration at 60.
 function celebrateMyMilestone(days, label){
-  const initial = (CURRENT_USERNAME.trim()[0]||"Y").toUpperCase();
+  const initial = commInitial();
   const post = makeMilestonePost({
-    user:CURRENT_USERNAME, avatar:initial, tint:"gold", channel:"wins",
+    user:commName(), avatar:initial, tint:"gold", channel:"wins",
     time:"Just now", days, label:label||(days+" days"), mine:true,
     text:"Hit "+days+" days today. Sharing it here because this room saw the hard ones too. 🙏"
   });

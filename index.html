@@ -15,7 +15,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
 <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
-<link rel="stylesheet" href="css/styles.css?v=20261001j">
+<link rel="stylesheet" href="css/styles.css?v=20261001k">
 </head>
 <body>
 
@@ -549,7 +549,7 @@
                 <div class="ic-tile" style="background:#9A7C28" id="schedule-icon"><i data-lucide="calendar-clock"></i></div>
                 <div class="task-check" style="display:none" id="schedule-check">&#10003;</div>
               </div>
-              <div class="task-name" id="schedule-label">Schedule</div>
+              <div class="task-name" id="schedule-label">Tx Schedule</div>
               <div class="task-time" id="schedule-time">Today</div>
             </div>
             <div class="task" id="activities-card" onclick="confirmActivities(this)">
@@ -1201,7 +1201,7 @@
     <div class="ov-header" style="background:#fff;border-bottom:1px solid rgba(54,59,59,.06)">
       <button class="ov-back" style="background:#EEF0F0;color:var(--ink)" onclick="closeOv()">&larr;</button>
       <div>
-        <div style="font-family:var(--font-display);font-size:17px;font-weight:700;color:var(--ink)">Schedule</div>
+        <div style="font-family:var(--font-display);font-size:17px;font-weight:700;color:var(--ink)">Tx Schedule</div>
         <div style="font-family:var(--font-ui);font-size:12px;color:var(--ink-soft)">Your meds, therapy &amp; meetings</div>
       </div>
       <button class="ins-audio-btn" type="button" aria-label="Listen to this page" title="Listen to this page" onclick="speakSchedule(this)"><i data-lucide="volume-2"></i></button>
@@ -1580,6 +1580,11 @@
       <div class="set-card">
         <button class="set-linkrow" type="button" onclick="openManageTeam()"><div class="set-lbl"><div class="set-t">Who can talk to my clinical team</div><div class="set-d">Manage per-person permissions</div></div><span class="set-chev">›</span></button>
       </div>
+      <div class="set-sec">Community &amp; visibility</div>
+      <div class="set-card">
+        <div class="set-row"><div class="set-lbl"><div class="set-t">Stay anonymous in discussion groups</div><div class="set-d">Show your posts as &ldquo;Anonymous&rdquo; instead of your username</div></div><button class="set-toggle" id="anonCommToggle" type="button" onclick="toggleAnonCommunity(this)" aria-label="Toggle"></button></div>
+        <div class="set-row"><div class="set-lbl"><div class="set-t">Show Anonymous Leaderboard</div><div class="set-d">Display the leaderboard section on Rewards</div></div><button class="set-toggle on" id="lbTogglePriv" type="button" onclick="toggleLeaderboardPref(this)" aria-label="Toggle"></button></div>
+      </div>
       <div class="set-sec">How you're protected</div>
       <div class="set-card"><div style="padding:14px 15px">
         <div class="priv-law"><span class="priv-law-ic" style="background:#DDEBD6;color:#5E8B6E"><i data-lucide="shield-check"></i></span><div><b>42 CFR Part 2 &amp; HIPAA.</b> Your substance-use records get extra legal protection. Rudra can't disclose them without your written consent.</div></div>
@@ -1894,7 +1899,28 @@
 
       <!-- help stays pinned to the top-right the whole way down this screen (v19) -->
 
-      <!-- Discussion Rooms · Find your people (now the first card) -->
+      <!-- A safe place, always anonymous · 1:1 peer support (moved to top) -->
+      <div class="hub-card" style="margin-bottom:12px">
+        <div class="hub-card-head">
+          <div class="hub-ic" style="background:#6E9E80"><i data-lucide="shield-check"></i></div>
+          <div class="hub-card-tt"><div class="hub-title">A safe place, always anonymous</div><div class="hub-sub">Support whenever you need it</div></div>
+          <button class="help-i" type="button" aria-label="About anonymous support" onclick="event.stopPropagation();showHelp('safe')"><i data-lucide="info"></i></button>
+        </div>
+        <div class="hub-opts">
+          <button class="hub-opt" type="button" onclick="openOv('find-coach')">
+            <span class="hub-opt-ic" style="background:#E7F0EA;color:#5E8560"><i data-lucide="heart-handshake"></i></span>
+            <span class="hub-opt-t">Want 1:1 support?</span>
+            <span class="hub-opt-d">A peer specialist or coach, privately</span>
+          </button>
+          <button class="hub-opt" type="button" onclick="openOv('na-meetings')">
+            <span class="hub-opt-ic" style="background:#FAE7E2;color:#C56A5E"><i data-lucide="compass"></i></span>
+            <span class="hub-opt-t">Find a Meeting</span>
+            <span class="hub-opt-d">In-person, virtual &amp; hybrid</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Discussion Rooms · Find your people -->
       <div class="hub-card" style="margin-bottom:12px">
         <div class="hub-card-head">
           <div class="hub-ic" style="background:#5B92CE"><i data-lucide="messages-square"></i></div>
@@ -1934,27 +1960,6 @@
         <div class="hub-btns">
           <button class="hub-btn hub-btn-primary" type="button" onclick="openOv('friends')">View</button>
           <button class="hub-btn hub-btn-ghost" type="button" onclick="openOv('friends');setTimeout(function(){var i=document.getElementById('friend-add-input');if(i)i.focus();},260)">+ Add friend</button>
-        </div>
-      </div>
-
-      <!-- A safe place, always anonymous · 1:1 peer support -->
-      <div class="hub-card" style="margin-bottom:12px">
-        <div class="hub-card-head">
-          <div class="hub-ic" style="background:#6E9E80"><i data-lucide="shield-check"></i></div>
-          <div class="hub-card-tt"><div class="hub-title">A safe place, always anonymous</div><div class="hub-sub">Support whenever you need it</div></div>
-          <button class="help-i" type="button" aria-label="About anonymous support" onclick="event.stopPropagation();showHelp('safe')"><i data-lucide="info"></i></button>
-        </div>
-        <div class="hub-opts">
-          <button class="hub-opt" type="button" onclick="openOv('find-coach')">
-            <span class="hub-opt-ic" style="background:#E7F0EA;color:#5E8560"><i data-lucide="heart-handshake"></i></span>
-            <span class="hub-opt-t">Want 1:1 support?</span>
-            <span class="hub-opt-d">A peer specialist or coach, privately</span>
-          </button>
-          <button class="hub-opt" type="button" onclick="openOv('na-meetings')">
-            <span class="hub-opt-ic" style="background:#FAE7E2;color:#C56A5E"><i data-lucide="compass"></i></span>
-            <span class="hub-opt-t">Find a Meeting</span>
-            <span class="hub-opt-d">In-person, virtual &amp; hybrid</span>
-          </button>
         </div>
       </div>
 
@@ -3662,6 +3667,7 @@
       <div>
         <div id="act-title" style="font-family:var(--font-display);font-size:17px;font-weight:700;color:var(--ink)">Activity</div>
       </div>
+      <button class="ins-audio-btn" type="button" aria-label="Listen to this activity" title="Listen to this activity" onclick="speakActivity(this)"><i data-lucide="volume-2"></i></button>
     </div>
     <div class="ov-body" style="padding-top:18px">
 
@@ -3903,6 +3909,6 @@
     <button class="tour-skip" type="button" onclick="tourSkip()">Skip</button>
   </div>
 </div>
-<script src="js/app.js?v=20261001j"></script>
+<script src="js/app.js?v=20261001k"></script>
 </body>
 </html>

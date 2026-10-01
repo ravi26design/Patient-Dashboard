@@ -3454,7 +3454,9 @@ body.is-mobile .rh-badges .rh-trend{margin:0;width:auto}
 .rh-trend.down .rh-trend-arrow,.rh-trend.down .rh-trend-delta,.rh-badges .rh-trend.down .rh-trend-delta{color:#C4453A}
 .rh-trend.flat .rh-trend-arrow,.rh-trend.flat .rh-trend-delta,.rh-badges .rh-trend.flat .rh-trend-delta{color:var(--ink-soft)}
 /* Today's Focus + Insights: two matching chips, centered */
-.rh-risk{display:flex;align-items:stretch;justify-content:center;gap:12px;margin-top:16px;width:100%;flex-wrap:wrap;background:none;border-radius:0;padding:0}
+.rh-risk{display:flex;flex-direction:column;align-items:stretch;gap:10px;margin-top:18px;width:100%;background:none;border-radius:0;padding:0}
+.rh-risk .rh-chip{width:100%;box-sizing:border-box}
+.rh-risk .rh-insights{padding:11px 14px 11px 11px}
 .rh-chip{display:inline-flex;align-items:center;gap:10px;background:#fff;border:1px solid var(--border);border-radius:16px;padding:9px 14px 9px 9px;box-shadow:0 2px 8px rgba(60,50,45,.05);text-align:left}
 button.rh-chip{cursor:pointer;transition:transform .12s ease,box-shadow .15s ease}
 button.rh-chip:hover{box-shadow:0 4px 12px rgba(60,50,45,.10)}
@@ -3466,7 +3468,7 @@ button.rh-chip:active{transform:scale(.97)}
 .rh-chip-main{display:flex;flex-direction:column;min-width:0;line-height:1.1}
 .rh-chip-eyebrow{font-family:var(--font-ui);font-size:9px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;color:var(--ink-soft)}
 .rh-chip-val{font-family:var(--font-ui);font-size:14px;font-weight:700;color:var(--ink);margin-top:2px}
-.rh-insights-xp{font-family:var(--font-ui);font-size:11px;font-weight:800;color:var(--gold-dk,#B08A2E);background:var(--gold-lt,#FBF0D3);border-radius:999px;padding:3px 8px;white-space:nowrap;margin-left:2px}
+.rh-insights-xp{font-family:var(--font-ui);font-size:11px;font-weight:800;color:var(--gold-dk,#B08A2E);background:var(--gold-lt,#FBF0D3);border-radius:999px;padding:3px 8px;white-space:nowrap;margin-left:auto}
 /* Home Recovery Health card taps through to the Daily Insight page */
 .rh-card{cursor:pointer;transition:transform .12s ease}
 .rh-card:active{transform:scale(.994)}
