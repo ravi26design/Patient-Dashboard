@@ -798,9 +798,11 @@ function renderReflect(){
       '<div class="onb-steps"><div class="onb-steps-fill" style="width:'+pct+'%"></div></div>'+
       '<div class="onb-count">'+(n+1)+'<span>/'+total+'</span></div>'+
       '<button class="rf-audio-btn" type="button" aria-label="Listen to the question and options" title="Listen" onclick="speakReflect(this)"><i data-lucide="volume-2"></i></button></div>'+
-    '<h2 class="reflect-q">'+esc(item.q)+'</h2>'+
-    (item.sub?'<div class="reflect-qsub">'+esc(item.sub)+'</div>':'')+
-    inner;
+    '<div class="rf-content">'+
+      '<h2 class="reflect-q">'+esc(item.q)+'</h2>'+
+      (item.sub?'<div class="reflect-qsub">'+esc(item.sub)+'</div>':'')+
+      inner+
+    '</div>';
   if(n===total-1){
     /* only a multi-select final page needs a choice before Finish; sliders are always valid */
     var msel=(item.type==='multi' && !(a.selected&&a.selected.length))?' disabled':'';
