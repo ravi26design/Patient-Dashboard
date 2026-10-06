@@ -628,12 +628,10 @@ function renderLogEntries(){
    design. Step types: 'text' (heading + textarea + voice toggle),
    'multi' (option cards), 'sliders' (group of 0–10 sliders on one page). */
 var REFLECT_Q=[
-  /* drug use multi-select (reuse our substance list + emoji icons) — Page 1 & Page 7 hidden for focus group */
-  {type:'multi', q:'Which of these drugs have you used in the past 24 hours?', lucideIcons:true,
-    icons:['beer','leaf','zap','wind','pill','sparkles','syringe','circle-check'], options:[
-    'Alcohol','Cannabis (marijuana, pot, hash, K2, spice, etc.)','Stimulants (cocaine, meth, speed, ecstasy, molly, Adderall, etc.)',
-    'Inhalants (nitrous, glue, petrol, paint thinner, etc.)','Sedatives or sleeping pills (Valium, Serepax, Rohypnol, etc.)',
-    'Hallucinogens (LSD, acid, mushrooms, PCP, special K, etc.)','Opioids (heroin, fentanyl, oxycodone, etc.)','None — I did not use any substances']},
+  /* 1 — MOUD adherence (single choice) — now the first question */
+  {type:'multi', single:true, q:'Did you take your Suboxone yesterday (Sunday, Oct 4)?', lucideIcons:true,
+    icons:['circle-check','circle-dashed','circle-x'], options:[
+    'Yes, my full dose','Only part of my dose','No, I didn’t take it']},
   /* 2 — past 24 hours: craving / risk / stress / pleasant */
   {type:'sliders', q:'Thinking about the past 24 hours…', sliders:[
     {key:'craving', icon:'flame', tint:'#E07A6B', loE:'😌', hiE:'😖', label:'How strong was your greatest craving to use opioids over the past 24 hours?', lo:'No craving', hi:'Extreme craving'},
@@ -658,7 +656,13 @@ var REFLECT_Q=[
   {type:'sliders', q:'Thinking about the next week…', sliders:[
     {key:'motivation', icon:'rocket', tint:'#6FA88A', loE:'😐', hiE:'🔥', label:'How motivated are you to avoid using opioids for non-medical reasons within the next week?', lo:'Not motivated', hi:'Extremely motivated'},
     {key:'confidence', icon:'shield-check', tint:'#5B92CE', loE:'😟', hiE:'😎', label:'How confident are you in your ability to avoid using opioids for non-medical reasons within the next week?', lo:'Not confident', hi:'Extremely confident'}
-  ]}
+  ]},
+  /* drug use multi-select — now the LAST question */
+  {type:'multi', q:'Which of these drugs have you used in the past 24 hours?', lucideIcons:true,
+    icons:['beer','leaf','zap','wind','pill','sparkles','syringe','circle-check'], options:[
+    'Alcohol','Cannabis (marijuana, pot, hash, K2, spice, etc.)','Stimulants (cocaine, meth, speed, ecstasy, molly, Adderall, etc.)',
+    'Inhalants (nitrous, glue, petrol, paint thinner, etc.)','Sedatives or sleeping pills (Valium, Serepax, Rohypnol, etc.)',
+    'Hallucinogens (LSD, acid, mushrooms, PCP, special K, etc.)','Opioids (heroin, fentanyl, oxycodone, etc.)','None — I did not use any substances']}
 ];
 var REFLECT_TOTAL=REFLECT_Q.length;   /* 7 */
 var reflectStep=0, reflectAnswers={}, reflectVoiceMode=false;
