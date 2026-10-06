@@ -657,12 +657,12 @@ var REFLECT_Q=[
     {key:'motivation', icon:'rocket', tint:'#6FA88A', loE:'😐', hiE:'🔥', label:'How motivated are you to avoid using opioids for non-medical reasons within the next week?', lo:'Not motivated', hi:'Extremely motivated'},
     {key:'confidence', icon:'shield-check', tint:'#5B92CE', loE:'😟', hiE:'😎', label:'How confident are you in your ability to avoid using opioids for non-medical reasons within the next week?', lo:'Not confident', hi:'Extremely confident'}
   ]},
-  /* drug use multi-select — now the LAST question */
-  {type:'multi', q:'Which of these drugs have you used in the past 24 hours?', lucideIcons:true,
-    icons:['beer','leaf','zap','wind','pill','sparkles','syringe','circle-check'], options:[
+  /* drug use multi-select — now the LAST question. "Other" (index 6) reveals a free-text input. */
+  {type:'multi', q:'Which of these drugs have you used in the past 24 hours?', lucideIcons:true, otherIndex:6, otherPlaceholder:'Which one? Enter the name',
+    icons:['beer','leaf','zap','wind','pill','sparkles','circle-ellipsis','circle-check'], options:[
     'Alcohol','Cannabis (marijuana, pot, hash, K2, spice, etc.)','Stimulants (cocaine, meth, speed, ecstasy, molly, Adderall, etc.)',
     'Inhalants (nitrous, glue, petrol, paint thinner, etc.)','Sedatives or sleeping pills (Valium, Serepax, Rohypnol, etc.)',
-    'Hallucinogens (LSD, acid, mushrooms, PCP, special K, etc.)','Opioids (heroin, fentanyl, oxycodone, etc.)','None — I did not use any substances']}
+    'Hallucinogens (LSD, acid, mushrooms, PCP, special K, etc.)','Other','None — I did not use any substances']}
 ];
 var REFLECT_TOTAL=REFLECT_Q.length;   /* 7 */
 var reflectStep=0, reflectAnswers={}, reflectVoiceMode=false;
@@ -692,7 +692,13 @@ function reflectToggleOpt(btn,i){
   var sel=a.selected||(a.selected=[]); var idx=sel.indexOf(i);
   if(idx>=0){ sel.splice(idx,1); btn.classList.remove('opt-sel'); }
   else{ sel.push(i); btn.classList.add('opt-sel'); }
+  if(item.otherIndex!=null){
+    var ow=document.getElementById('rf-other-wrap');
+    if(ow){ var show=sel.indexOf(item.otherIndex)>=0; ow.hidden=!show;
+      if(show){ var inp=document.getElementById('rf-other-input'); if(inp) setTimeout(function(){ inp.focus(); },50); } }
+  }
 }
+function reflectOther(el){ reflectAns().otherText=el.value; }
 function reflectSlider(key,v,input){
   var a=reflectAns(); a.sliders=a.sliders||{}; a.sliders[key]=+v;
   var el=document.getElementById('rf-sv-'+key); if(el) el.textContent=v;
@@ -763,8 +769,14 @@ function renderReflect(){
     var sel=a.selected||[]; var icons=item.icons||[]; var lu=item.lucideIcons;
     inner='<div class="reflect-opts">'+item.options.map(function(o,i){
       var ic=lu?'<i data-lucide="'+(icons[i]||'circle')+'"></i>':(icons[i]||'•');
-      return '<button class="reflect-opt'+(sel.indexOf(i)>=0?' opt-sel':'')+'" onclick="reflectToggleOpt(this,'+i+')">'+
+      var out='<button class="reflect-opt'+(sel.indexOf(i)>=0?' opt-sel':'')+'" onclick="reflectToggleOpt(this,'+i+')">'+
         '<span class="ro-ic">'+ic+'</span><span class="ro-txt">'+esc(o)+'</span></button>';
+      if(item.otherIndex===i){   /* inline input directly below the "Other" option */
+        var showOther=sel.indexOf(item.otherIndex)>=0;
+        out+='<div class="rf-other-wrap" id="rf-other-wrap"'+(showOther?'':' hidden')+'>'+
+          '<input type="text" class="rf-other-input" id="rf-other-input" maxlength="80" placeholder="'+esc(item.otherPlaceholder||'Enter the name')+'" value="'+esc(a.otherText||'')+'" oninput="reflectOther(this)"></div>';
+      }
+      return out;
     }).join('')+'</div>';
   } else if(item.type==='sliders'){
     var vals=a.sliders||{};
