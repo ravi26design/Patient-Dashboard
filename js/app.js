@@ -824,6 +824,12 @@ function reflectDone(){
   try{ localStorage.setItem('rh_reflect_done', _rhToday()); }catch(e){}   /* mark today's reflection done */
   window.__hp2Ready=true;                                                 /* flip Home Page 2 to its ready state */
   if(typeof renderHp2==='function') renderHp2();
+  if(window.__reflectFromHp2){   /* started from Home Page 2 → return there in the ready state */
+    window.__reflectFromHp2=false;
+    if(typeof openOv==='function') openOv('homepage2');   /* openOv resets the demo state… */
+    window.__hp2Ready=true;                               /* …so restore ready and re-render */
+    if(typeof renderHp2==='function') renderHp2();
+  }
   if(typeof showXPPopup==='function') showXPPopup(30, 'Reflect Complete!');
   /* nudge the location-details survey once the reward has shown */
   setTimeout(showLocPrompt, 1500);
@@ -1087,6 +1093,7 @@ function renderHp2(){
   if(window.lucide&&lucide.createIcons) lucide.createIcons();
 }
 function hp2BeginReflection(){
+  window.__reflectFromHp2=true;   /* remember to return to Home Page 2 after the survey */
   /* use the same full-screen check-in intro style as the rest of the app, then into the survey */
   var m=document.getElementById('checkinModal');
   if(m){ m.classList.remove('hide'); m.classList.add('show'); if(window.lucide&&lucide.createIcons) lucide.createIcons(); }
