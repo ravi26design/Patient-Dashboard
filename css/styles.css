@@ -4825,10 +4825,12 @@ body:has(#ov-schedule.active) .audio-btn{display:none}
 .hp2-trend-l{flex:0 0 auto}
 .hp2-trend-lbl{font-family:var(--font-ui);font-size:12px;color:var(--ink-soft)}
 .hp2-trend-val{font-family:var(--font-display);font-size:18px;font-weight:700;color:var(--ink);margin-top:1px}
-.hp2-spark{flex:1;min-width:0;height:46px}
+.hp2-spark{position:relative;flex:1;min-width:0;height:48px;padding-right:6px}
 .hp2-spark svg{width:100%;height:100%;display:block;overflow:visible}
+.hp2-spark-dot{position:absolute;right:6px;top:28%;transform:translate(50%,-50%);width:11px;height:11px;border-radius:50%;
+  background:#5E8B6E;box-shadow:0 0 0 3px #fff,0 2px 6px -1px rgba(94,139,110,.6)}
 /* today's focus */
-.hp2-focus{background:#FBEEEA;border-radius:22px;padding:18px}
+.hp2-focus{background:#fff;border-radius:22px;padding:18px;box-shadow:0 6px 20px -8px rgba(60,50,45,.1),0 1px 3px rgba(60,50,45,.05)}
 .hp2-focus-head{display:flex;align-items:center;gap:12px}
 .hp2-focus-ic{flex:0 0 auto;width:42px;height:42px;border-radius:12px;background:#F7D9D1;color:#C25445;display:flex;align-items:center;justify-content:center}
 .hp2-focus-ic i,.hp2-focus-ic svg{width:21px;height:21px}
