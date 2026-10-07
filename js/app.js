@@ -693,6 +693,7 @@ function reflectToggleOpt(btn,i){
   var sel=a.selected||(a.selected=[]); var idx=sel.indexOf(i);
   if(idx>=0){ sel.splice(idx,1); btn.classList.remove('opt-sel'); }
   else{ sel.push(i); btn.classList.add('opt-sel'); }
+  var fb=document.getElementById('rf-finish'); if(fb) fb.disabled=!sel.length;   /* multi on the final page: enable Finish once something is picked */
   if(item.otherIndex!=null){
     var ow=document.getElementById('rf-other-wrap');
     if(ow){ var show=sel.indexOf(item.otherIndex)>=0; ow.hidden=!show;
