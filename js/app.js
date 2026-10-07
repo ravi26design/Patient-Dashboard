@@ -50,6 +50,7 @@ function openOv(id){
     if(typeof setRoom==='function' && typeof currentRoom==='function' && currentRoom()!=='all') setRoom('all');
   }
   if(id==='location-checkin' && typeof initLocSurvey==='function'){ initLocSurvey(); }  /* start the location questions fresh */
+  if(id==='homepage2' && typeof buildArcGauge==='function'){ buildArcGauge('hp2Gauge', 74); }   /* Home Page 2 gauge */
   try{localStorage.setItem('rh_ov',id);}catch(e){}
 }
 function closeOv(){if(typeof stopPageAudio==='function')stopPageAudio();if(typeof stopBreath==='function')stopBreath();if(typeof stopUrgeBreath==='function')stopUrgeBreath();if(call911Timer){clearInterval(call911Timer);call911Timer=null;}document.querySelectorAll('.overlay').forEach(function(o){o.classList.remove('active');o.style.zoom='';});try{localStorage.removeItem('rh_ov');}catch(e){}}
