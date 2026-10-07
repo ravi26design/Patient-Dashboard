@@ -50,7 +50,7 @@ function openOv(id){
     if(typeof setRoom==='function' && typeof currentRoom==='function' && currentRoom()!=='all') setRoom('all');
   }
   if(id==='location-checkin' && typeof initLocSurvey==='function'){ initLocSurvey(); }  /* start the location questions fresh */
-  if(id==='homepage2' && typeof buildArcGauge==='function'){ buildArcGauge('hp2Gauge', 74); }   /* Home Page 2 gauge */
+  if(id==='homepage2' && typeof renderHp2==='function'){ renderHp2(); }   /* Home Page 2: empty vs. ready state */
   try{localStorage.setItem('rh_ov',id);}catch(e){}
 }
 function closeOv(){if(typeof stopPageAudio==='function')stopPageAudio();if(typeof stopBreath==='function')stopBreath();if(typeof stopUrgeBreath==='function')stopUrgeBreath();if(call911Timer){clearInterval(call911Timer);call911Timer=null;}document.querySelectorAll('.overlay').forEach(function(o){o.classList.remove('active');o.style.zoom='';});try{localStorage.removeItem('rh_ov');}catch(e){}}
@@ -820,6 +820,8 @@ function reflectDone(){
   if(check){ check.style.display='block'; }
   if(time){ time.textContent='Today ✓'; time.style.color='var(--hb-teal)'; }
   updateTodayProgress();
+  try{ localStorage.setItem('rh_reflect_done', _rhToday()); }catch(e){}   /* mark today's reflection done (drives Home Page 2 state) */
+  if(typeof renderHp2==='function') renderHp2();                          /* flip Home Page 2 to its ready state */
   if(typeof showXPPopup==='function') showXPPopup(30, 'Reflect Complete!');
   /* nudge the location-details survey once the reward has shown */
   setTimeout(showLocPrompt, 1500);
@@ -1066,6 +1068,17 @@ function buildArcGauge(elId, val){
 /* daily completion flags — a task counts as "done" only for the current calendar
    day, so streak buttons reset each day and can't be farmed for repeat XP */
 function _rhToday(){ try{ var d=new Date(); return d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate(); }catch(e){ return 'na'; } }
+/* ═══ Home Page 2 — empty (pre-reflection) vs ready (post-reflection) ═══ */
+function hp2Done(){ try{ return localStorage.getItem('rh_reflect_done')===_rhToday(); }catch(e){ return false; } }
+function renderHp2(){
+  var ready=hp2Done();
+  var e=document.getElementById('hp2-empty'), r=document.getElementById('hp2-ready');
+  if(e) e.style.display=ready?'none':'block';
+  if(r) r.style.display=ready?'block':'none';
+  if(ready && typeof buildArcGauge==='function') buildArcGauge('hp2Gauge',74);
+  if(window.lucide&&lucide.createIcons) lucide.createIcons();
+}
+function hp2BeginReflection(){ if(typeof openReflect==='function') openReflect(); }
 function rhDayDone(key){ try{ return localStorage.getItem(key)===_rhToday(); }catch(e){ return false; } }
 function rhSetDayDone(key){ try{ localStorage.setItem(key,_rhToday()); }catch(e){} }
 /* Insights: reflect the "reviewed" state on the bottom button */

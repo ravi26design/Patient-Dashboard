@@ -15,7 +15,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
 <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
-<link rel="stylesheet" href="css/styles.css?v=20261007n">
+<link rel="stylesheet" href="css/styles.css?v=20261007o">
 </head>
 <body>
 
@@ -1575,54 +1575,101 @@
       </div>
     </div>
     <div class="ov-body" style="padding-top:16px">
-      <!-- Recovery Health card -->
-      <div class="hp2-card">
-        <div class="hp2-rh-head">
-          <div>
-            <div class="hp2-rh-title">Recovery Health</div>
-            <div class="hp2-rh-sub">Updated with today's reflection</div>
+      <!-- ═══ EMPTY STATE — before today's Daily Reflection ═══ -->
+      <div id="hp2-empty">
+        <div class="hp2-card">
+          <div class="hp2-rh-head">
+            <div>
+              <div class="hp2-rh-title">Recovery Health</div>
+              <div class="hp2-rh-sub">Not updated yet today</div>
+            </div>
+            <button class="help-i" type="button" aria-label="About Recovery Health" onclick="showHelp('recovery-health')"><i data-lucide="info"></i></button>
           </div>
-          <button class="help-i" type="button" aria-label="About Recovery Health" onclick="showHelp('recovery-health')"><i data-lucide="info"></i></button>
-        </div>
-        <div class="hp2-gauge" id="hp2Gauge"></div>
-        <div class="hp2-score">74</div>
-        <div class="hp2-score-sub">today, out of 100</div>
-        <div class="hp2-pill">Above Average</div>
-        <div class="hp2-divider"></div>
-        <!-- Past 2 weeks trend sparkline -->
-        <div class="hp2-trend">
-          <div class="hp2-trend-l">
-            <div class="hp2-trend-lbl">Past 2 weeks</div>
-            <div class="hp2-trend-val">Steady</div>
-          </div>
-          <div class="hp2-spark">
-            <svg viewBox="0 0 180 46" preserveAspectRatio="none" aria-hidden="true">
-              <defs>
-                <linearGradient id="hp2SparkFill" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0" stop-color="#6E9E80" stop-opacity=".24"/>
-                  <stop offset="1" stop-color="#6E9E80" stop-opacity="0"/>
-                </linearGradient>
-              </defs>
-              <path class="hp2-spark-area" d="M2,28 C18,25 30,23 46,24 C62,25 72,20 90,21 C108,22 118,17 138,18 C154,19 164,14 178,13 L178,46 L2,46 Z" fill="url(#hp2SparkFill)"/>
-              <path class="hp2-spark-line" d="M2,28 C18,25 30,23 46,24 C62,25 72,20 90,21 C108,22 118,17 138,18 C154,19 164,14 178,13" fill="none" stroke="#4E7B5E" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>
+          <div class="hp2-gauge">
+            <svg class="hp2-gauge-empty" viewBox="0 32 300 164" aria-hidden="true">
+              <path d="M38,158 A112,112 0 0 1 262,158" fill="none" stroke="#E4E0D8" stroke-width="22" stroke-linecap="round"/>
+              <circle cx="150" cy="158" r="9" fill="#fff" stroke="#D4CFC6" stroke-width="4"/>
+              <text x="12" y="188" font-size="13" font-weight="600" fill="#9A938B">Low</text>
+              <text x="288" y="188" text-anchor="end" font-size="13" font-weight="600" fill="#9A938B">High</text>
             </svg>
-            <span class="hp2-spark-dot"></span>
           </div>
+          <div class="hp2-empty-score">Today's score isn't ready yet</div>
+          <div class="hp2-empty-score-sub">It updates after your daily reflection</div>
+          <div class="hp2-divider"></div>
+          <div class="hp2-trend">
+            <div class="hp2-trend-l">
+              <div class="hp2-trend-lbl">Past 2 weeks</div>
+              <div class="hp2-trend-val hp2-muted">Not ready yet</div>
+            </div>
+            <div class="hp2-spark hp2-spark-empty">
+              <svg viewBox="0 0 180 46" preserveAspectRatio="none" aria-hidden="true"><line x1="2" y1="23" x2="178" y2="23" stroke="#D7D1C7" stroke-width="2" stroke-dasharray="4 6" stroke-linecap="round"/></svg>
+            </div>
+          </div>
+        </div>
+        <div class="hp2-focus hp2-focus-empty">
+          <div class="hp2-focus-head">
+            <span class="hp2-focus-ic hp2-focus-ic-empty"></span>
+            <div class="hp2-focus-main">
+              <div class="hp2-focus-eyebrow">Today's focus</div>
+              <div class="hp2-focus-val hp2-muted">Not ready yet</div>
+            </div>
+          </div>
+          <p class="hp2-focus-d">Your focus and recovery activity for today show here after your daily reflection.</p>
+          <button class="hp2-focus-btn" type="button" onclick="hp2BeginReflection()">Begin Daily Reflection</button>
         </div>
       </div>
 
-      <!-- Today's focus -->
-      <div class="hp2-focus">
-        <div class="hp2-focus-head">
-          <span class="hp2-focus-ic"><i data-lucide="zap"></i></span>
-          <div class="hp2-focus-main">
-            <div class="hp2-focus-eyebrow">Today's focus</div>
-            <div class="hp2-focus-val">Craving</div>
+      <!-- ═══ READY STATE — after today's Daily Reflection ═══ -->
+      <div id="hp2-ready" style="display:none">
+        <!-- Recovery Health card -->
+        <div class="hp2-card">
+          <div class="hp2-rh-head">
+            <div>
+              <div class="hp2-rh-title">Recovery Health</div>
+              <div class="hp2-rh-sub">Updated with today's reflection</div>
+            </div>
+            <button class="help-i" type="button" aria-label="About Recovery Health" onclick="showHelp('recovery-health')"><i data-lucide="info"></i></button>
+          </div>
+          <div class="hp2-gauge" id="hp2Gauge"></div>
+          <div class="hp2-score">74</div>
+          <div class="hp2-score-sub">today, out of 100</div>
+          <div class="hp2-pill">Above Average</div>
+          <div class="hp2-divider"></div>
+          <!-- Past 2 weeks trend sparkline -->
+          <div class="hp2-trend">
+            <div class="hp2-trend-l">
+              <div class="hp2-trend-lbl">Past 2 weeks</div>
+              <div class="hp2-trend-val">Steady</div>
+            </div>
+            <div class="hp2-spark">
+              <svg viewBox="0 0 180 46" preserveAspectRatio="none" aria-hidden="true">
+                <defs>
+                  <linearGradient id="hp2SparkFill" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0" stop-color="#6E9E80" stop-opacity=".24"/>
+                    <stop offset="1" stop-color="#6E9E80" stop-opacity="0"/>
+                  </linearGradient>
+                </defs>
+                <path class="hp2-spark-area" d="M2,28 C18,25 30,23 46,24 C62,25 72,20 90,21 C108,22 118,17 138,18 C154,19 164,14 178,13 L178,46 L2,46 Z" fill="url(#hp2SparkFill)"/>
+                <path class="hp2-spark-line" d="M2,28 C18,25 30,23 46,24 C62,25 72,20 90,21 C108,22 118,17 138,18 C154,19 164,14 178,13" fill="none" stroke="#4E7B5E" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>
+              </svg>
+              <span class="hp2-spark-dot"></span>
+            </div>
           </div>
         </div>
-        <p class="hp2-focus-d">Cravings look like the biggest challenge today.</p>
-        <button class="hp2-focus-btn" type="button" onclick="openActivity('crave')">Start Managing Cravings</button>
-        <div class="hp2-focus-time">About 4 minutes</div>
+
+        <!-- Today's focus -->
+        <div class="hp2-focus">
+          <div class="hp2-focus-head">
+            <span class="hp2-focus-ic"><i data-lucide="zap"></i></span>
+            <div class="hp2-focus-main">
+              <div class="hp2-focus-eyebrow">Today's focus</div>
+              <div class="hp2-focus-val">Craving</div>
+            </div>
+          </div>
+          <p class="hp2-focus-d">Cravings look like the biggest challenge today.</p>
+          <button class="hp2-focus-btn" type="button" onclick="openActivity('crave')">Start Managing Cravings</button>
+          <div class="hp2-focus-time">About 4 minutes</div>
+        </div>
       </div>
     </div>
   </div>
@@ -3981,6 +4028,6 @@
     <button class="tour-skip" type="button" onclick="tourSkip()">Skip</button>
   </div>
 </div>
-<script src="js/app.js?v=20261007n"></script>
+<script src="js/app.js?v=20261007o"></script>
 </body>
 </html>
