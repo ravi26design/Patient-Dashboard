@@ -15,7 +15,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
 <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
-<link rel="stylesheet" href="css/styles.css?v=20261007b">
+<link rel="stylesheet" href="css/styles.css?v=20261007c">
 </head>
 <body>
 
@@ -274,11 +274,21 @@
       <span class="ci-eyebrow"><i data-lucide="flame"></i> 47-day streak · keep it alive</span>
       <h2 class="ci-title">Great to see you. Ready for today's check-in?</h2>
       <p class="ci-sub">It takes about a minute — and it's the single best thing you can do today to stay on track. You've got this.</p>
+      <div class="ci-week" aria-label="6 of the last 7 days checked in">
+        <span class="cw-dot done"><i data-lucide="check"></i></span>
+        <span class="cw-dot done"><i data-lucide="check"></i></span>
+        <span class="cw-dot done"><i data-lucide="check"></i></span>
+        <span class="cw-dot done"><i data-lucide="check"></i></span>
+        <span class="cw-dot done"><i data-lucide="check"></i></span>
+        <span class="cw-dot done"><i data-lucide="check"></i></span>
+        <span class="cw-dot today"></span>
+        <span class="cw-txt">6 of the last 7 days — today keeps it going</span>
+      </div>
     </div>
     <div class="ci-benefits">
       <div class="ci-benefits-h">When you finish, you get</div>
-      <div class="ci-benefit"><span class="ci-benefit-ic"><i data-lucide="gauge"></i></span><span class="ci-benefit-t">Today's Recovery Health score</span></div>
-      <div class="ci-benefit"><span class="ci-benefit-ic"><i data-lucide="target"></i></span><span class="ci-benefit-t">A recovery activity chosen for you today</span></div>
+      <div class="ci-benefit"><span class="ci-benefit-ic ci-ic-sage"><i data-lucide="gauge"></i></span><span class="ci-benefit-t">Today's Recovery Health score</span></div>
+      <div class="ci-benefit"><span class="ci-benefit-ic ci-ic-blue"><i data-lucide="target"></i></span><span class="ci-benefit-t">A recovery activity chosen for you today</span></div>
       <div class="ci-benefit"><span class="ci-benefit-ic ci-benefit-xp"><i data-lucide="sparkles"></i></span><span class="ci-benefit-t">A <b>+30 XP</b> bonus toward your rewards</span></div>
     </div>
     <div class="ci-actions">
@@ -3904,6 +3914,6 @@
     <button class="tour-skip" type="button" onclick="tourSkip()">Skip</button>
   </div>
 </div>
-<script src="js/app.js?v=20261007b"></script>
+<script src="js/app.js?v=20261007c"></script>
 </body>
 </html>

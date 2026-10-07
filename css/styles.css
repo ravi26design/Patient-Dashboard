@@ -1640,12 +1640,26 @@ body.is-desktop .brand-img{height:26px}
 .ci-title{font-family:var(--font-display);font-size:28px;line-height:1.16;font-weight:700;color:var(--ink);margin:0 0 12px;letter-spacing:-.01em}
 .ci-sub{font-family:var(--font-ui);font-size:15px;line-height:1.55;color:var(--brown);margin:0}
 .ci-sub b{color:var(--ink);font-weight:700}
+/* soft glow behind the hero icon */
+.ci-hero-ic::before{content:"";position:absolute;inset:-18px;border-radius:50%;z-index:-1;
+  background:radial-gradient(circle, rgba(110,158,128,.28), transparent 68%)}
+/* weekly streak tracker */
+.ci-week{display:flex;align-items:center;flex-wrap:wrap;gap:6px;margin-top:18px}
+.cw-dot{width:18px;height:18px;border-radius:50%;flex:0 0 auto;display:flex;align-items:center;justify-content:center}
+.cw-dot.done{background:#6E9E80;color:#fff;box-shadow:0 2px 5px -1px rgba(94,139,110,.5)}
+.cw-dot.done i,.cw-dot.done svg{width:11px;height:11px;stroke-width:3.2}
+.cw-dot.today{background:#fff;border:2px dashed #D8AD63;animation:cwPulse 1.9s ease-in-out infinite}
+@keyframes cwPulse{0%,100%{box-shadow:0 0 0 0 rgba(216,173,99,.45)}50%{box-shadow:0 0 0 5px rgba(216,173,99,0)}}
+.cw-txt{width:100%;font-family:var(--font-ui);font-size:12px;font-weight:600;color:var(--ink-soft);margin-top:4px}
 /* benefits card */
-.ci-benefits{background:#fff;border-radius:20px;padding:18px 18px 8px;box-shadow:0 2px 14px rgba(60,50,45,.06)}
-.ci-benefits-h{font-family:var(--font-ui);font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:12px}
-.ci-benefit{display:flex;align-items:center;gap:13px;padding-bottom:14px}
+.ci-benefits{background:#fff;border-radius:20px;padding:6px 18px;box-shadow:0 6px 20px -6px rgba(60,50,45,.12),0 1px 3px rgba(60,50,45,.05)}
+.ci-benefits-h{font-family:var(--font-ui);font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft);padding:16px 0 4px}
+.ci-benefit{display:flex;align-items:center;gap:13px;padding:14px 0}
+.ci-benefit + .ci-benefit{border-top:1px solid rgba(60,50,45,.07)}
 .ci-benefit-ic{flex:0 0 auto;width:40px;height:40px;border-radius:12px;background:var(--sage-lt,#E7F0EA);color:var(--sage-dk,#4E7B5E);display:flex;align-items:center;justify-content:center}
 .ci-benefit-ic i,.ci-benefit-ic svg{width:21px;height:21px;stroke-width:2}
+.ci-ic-sage{background:#E3EFE6;color:#4E7B5E}
+.ci-ic-blue{background:#E4EDF6;color:#4E7FA8}
 .ci-benefit-xp{background:#FBF0D3;color:var(--gold-dk,#B08A2E)}
 .ci-benefit-t{font-family:var(--font-ui);font-size:14.5px;font-weight:600;color:var(--ink);line-height:1.35}
 .ci-benefit-t b{color:var(--gold-dk,#B08A2E);font-weight:800}
