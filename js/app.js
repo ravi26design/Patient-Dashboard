@@ -1078,7 +1078,12 @@ function renderHp2(){
   if(ready && typeof buildArcGauge==='function') buildArcGauge('hp2Gauge',74);
   if(window.lucide&&lucide.createIcons) lucide.createIcons();
 }
-function hp2BeginReflection(){ if(typeof openReflect==='function') openReflect(); }
+function hp2BeginReflection(){
+  /* use the same full-screen check-in intro style as the rest of the app, then into the survey */
+  var m=document.getElementById('checkinModal');
+  if(m){ m.classList.remove('hide'); m.classList.add('show'); if(window.lucide&&lucide.createIcons) lucide.createIcons(); }
+  else if(typeof openReflect==='function'){ openReflect(); }
+}
 function rhDayDone(key){ try{ return localStorage.getItem(key)===_rhToday(); }catch(e){ return false; } }
 function rhSetDayDone(key){ try{ localStorage.setItem(key,_rhToday()); }catch(e){} }
 /* Insights: reflect the "reviewed" state on the bottom button */
