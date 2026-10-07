@@ -50,7 +50,7 @@ function openOv(id){
     if(typeof setRoom==='function' && typeof currentRoom==='function' && currentRoom()!=='all') setRoom('all');
   }
   if(id==='location-checkin' && typeof initLocSurvey==='function'){ initLocSurvey(); }  /* start the location questions fresh */
-  if(id==='homepage2' && typeof renderHp2==='function'){ renderHp2(); }   /* Home Page 2: empty vs. ready state */
+  if(id==='homepage2'){ window.__hp2Ready=false; window.__hp2Act=false; if(typeof renderHp2==='function') renderHp2(); }   /* Home Page 2 always opens in the empty (no-data) state */
   try{localStorage.setItem('rh_ov',id);}catch(e){}
 }
 function closeOv(){if(typeof stopPageAudio==='function')stopPageAudio();if(typeof stopBreath==='function')stopBreath();if(typeof stopUrgeBreath==='function')stopUrgeBreath();if(call911Timer){clearInterval(call911Timer);call911Timer=null;}document.querySelectorAll('.overlay').forEach(function(o){o.classList.remove('active');o.style.zoom='';});try{localStorage.removeItem('rh_ov');}catch(e){}}
@@ -821,8 +821,9 @@ function reflectDone(){
   if(check){ check.style.display='block'; }
   if(time){ time.textContent='Today ✓'; time.style.color='var(--hb-teal)'; }
   updateTodayProgress();
-  try{ localStorage.setItem('rh_reflect_done', _rhToday()); }catch(e){}   /* mark today's reflection done (drives Home Page 2 state) */
-  if(typeof renderHp2==='function') renderHp2();                          /* flip Home Page 2 to its ready state */
+  try{ localStorage.setItem('rh_reflect_done', _rhToday()); }catch(e){}   /* mark today's reflection done */
+  window.__hp2Ready=true;                                                 /* flip Home Page 2 to its ready state */
+  if(typeof renderHp2==='function') renderHp2();
   if(typeof showXPPopup==='function') showXPPopup(30, 'Reflect Complete!');
   /* nudge the location-details survey once the reward has shown */
   setTimeout(showLocPrompt, 1500);
@@ -1069,8 +1070,8 @@ function buildArcGauge(elId, val){
 /* daily completion flags — a task counts as "done" only for the current calendar
    day, so streak buttons reset each day and can't be farmed for repeat XP */
 function _rhToday(){ try{ var d=new Date(); return d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate(); }catch(e){ return 'na'; } }
-/* ═══ Home Page 2 — empty (pre-reflection) vs ready (post-reflection) ═══ */
-function hp2Done(){ try{ return localStorage.getItem('rh_reflect_done')===_rhToday(); }catch(e){ return false; } }
+/* ═══ Home Page 2 — per-open demo state: always starts empty, then progresses ═══ */
+function hp2Done(){ return !!window.__hp2Ready; }
 function renderHp2(){
   var ready=hp2Done();
   var e=document.getElementById('hp2-empty'), r=document.getElementById('hp2-ready');
@@ -1078,7 +1079,7 @@ function renderHp2(){
   if(r) r.style.display=ready?'block':'none';
   if(ready && typeof buildArcGauge==='function') buildArcGauge('hp2Gauge',74);
   if(ready){   /* focus card: pending vs. activity-done */
-    var ad=(typeof actDone==='function') && actDone('crave');
+    var ad=!!window.__hp2Act;
     var fp=document.getElementById('hp2-focus-pending'), fd=document.getElementById('hp2-focus-done');
     if(fp) fp.style.display=ad?'none':'block';
     if(fd) fd.style.display=ad?'block':'none';
@@ -1354,7 +1355,8 @@ function activityComplete(){
   try{ localStorage.setItem('rh_act_'+id,'1'); }catch(e){}
   actzPaintTiles();
   applyTodayActState();
-  if(typeof renderHp2==='function') renderHp2();   /* flip Home Page 2 focus card to its activity-done state */
+  if(id==='crave') window.__hp2Act=true;            /* flip Home Page 2 focus card to its activity-done state */
+  if(typeof renderHp2==='function') renderHp2();
   closeDetail('activity');
   if(first && typeof showXPPopup==='function') showXPPopup(a.pts, 'Activity Complete!');
 }
