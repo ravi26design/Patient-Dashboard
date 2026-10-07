@@ -1615,30 +1615,37 @@ body.is-desktop .brand-img{height:26px}
 @keyframes dmPulse{0%{transform:translate(-50%,-50%) scale(.6);opacity:.5}70%{opacity:.1}100%{transform:translate(-50%,-50%) scale(2);opacity:0}}
 @keyframes dmBreathe{0%,100%{transform:scale(.93)}50%{transform:scale(1.06)}}
 @media (prefers-reduced-motion:reduce){ .dm-ring{animation:none;opacity:.22} .dm-bloom{animation:none} }
-#checkinModal{position:fixed;inset:0;z-index:9588;display:none;align-items:center;justify-content:center;
-  padding:28px;background:rgba(40,36,33,.45)}
-#checkinModal.show{display:flex;animation:lmFade .3s ease both}
+/* Daily check-in intro — full-screen page (not a popup) */
+#checkinModal{position:fixed;inset:0;z-index:9588;display:none;background:var(--app-bg);overflow-y:auto;-webkit-overflow-scrolling:touch}
+#checkinModal.show{display:block;animation:lmFade .3s ease both}
 #checkinModal.hide{opacity:0;pointer-events:none;transition:opacity .34s ease}
-.ci-card{max-width:360px;padding:30px 26px 22px;text-align:center;animation:lmPop .38s cubic-bezier(.2,.8,.3,1) both}
-.ci-icon{width:84px;height:84px;border-radius:22px;background:#D8AD63;
-  display:flex;align-items:center;justify-content:center;margin:0 auto 18px;box-shadow:0 8px 20px rgba(201,168,76,.3)}
-.ci-icon i{width:30px;height:30px;color:var(--gold-dk);stroke-width:1.9}
-.ci-icon .ci-illus{width:64px;height:64px;display:block}
-.ci-tick{transform-box:fill-box;transform-origin:center;opacity:0;animation:ciTick 3.8s ease-in-out infinite}
-@keyframes ciTick{0%{opacity:0;transform:scale(.3)}10%{opacity:1;transform:scale(1)}78%{opacity:1;transform:scale(1)}88%{opacity:0;transform:scale(.3)}100%{opacity:0}}
-@media (prefers-reduced-motion:reduce){ .ci-tick{animation:none;opacity:1} }
-.ci-title{font-family:var(--font-display);font-size:22px;font-weight:700;color:var(--ink);margin-bottom:10px}
-.ci-sub{font-family:var(--font-ui);font-size:13.5px;line-height:1.6;color:var(--brown);margin-bottom:20px}
+.ci-screen{min-height:100%;box-sizing:border-box;display:flex;flex-direction:column;justify-content:center;gap:22px;
+  max-width:540px;margin:0 auto;padding:40px 22px calc(40px + env(safe-area-inset-bottom));text-align:left;
+  animation:lmPop .4s cubic-bezier(.2,.8,.3,1) both}
+.ci-head{text-align:left}
+.ci-title{font-family:var(--font-display);font-size:30px;line-height:1.15;font-weight:700;color:var(--ink);margin:0 0 12px;letter-spacing:-.01em}
+.ci-sub{font-family:var(--font-ui);font-size:15px;line-height:1.55;color:var(--brown);margin:0}
 .ci-sub b{color:var(--ink);font-weight:700}
-.ci-xp{color:var(--gold-dk);font-weight:700}
-.ci-begin{width:100%;padding:16px;border:none;border-radius:16px;background:linear-gradient(135deg,#6DA0CC,#3F6E99);color:#fff;
+/* benefits card */
+.ci-benefits{background:#fff;border-radius:20px;padding:18px 18px 8px;box-shadow:0 2px 14px rgba(60,50,45,.06)}
+.ci-benefits-h{font-family:var(--font-ui);font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:12px}
+.ci-benefit{display:flex;align-items:center;gap:13px;padding-bottom:14px}
+.ci-benefit-ic{flex:0 0 auto;width:40px;height:40px;border-radius:12px;background:var(--sage-lt,#E7F0EA);color:var(--sage-dk,#4E7B5E);display:flex;align-items:center;justify-content:center}
+.ci-benefit-ic i,.ci-benefit-ic svg{width:21px;height:21px;stroke-width:2}
+.ci-benefit-xp{background:#FBF0D3;color:var(--gold-dk,#B08A2E)}
+.ci-benefit-t{font-family:var(--font-ui);font-size:14.5px;font-weight:600;color:var(--ink);line-height:1.35}
+.ci-benefit-t b{color:var(--gold-dk,#B08A2E);font-weight:800}
+/* actions */
+.ci-actions{margin-top:4px}
+.ci-begin{width:100%;padding:17px;border:none;border-radius:16px;background:linear-gradient(135deg,#6DA0CC,#3F6E99);color:#fff;
   font-family:var(--font-ui);font-size:16px;font-weight:700;cursor:pointer;
   box-shadow:0 10px 24px rgba(87,124,174,.32);transition:transform .12s ease,filter .15s ease}
 .ci-begin:hover{filter:brightness(1.04)}
 .ci-begin:active{transform:scale(.98)}
-.ci-later{width:100%;margin-top:10px;padding:15px;border:1.5px solid #9DB4D6;border-radius:16px;background:transparent;
-  font-family:var(--font-ui);font-size:15px;font-weight:700;color:#456695;cursor:pointer;transition:background .15s ease,transform .12s ease}
-.ci-later:hover{background:rgba(87,124,174,.07)}
+.ci-time{text-align:center;font-family:var(--font-ui);font-size:12.5px;color:var(--ink-soft);margin-top:12px}
+.ci-later{display:block;width:100%;margin-top:6px;padding:12px;border:none;background:transparent;
+  font-family:var(--font-ui);font-size:14.5px;font-weight:700;color:var(--ink-soft);cursor:pointer;transition:color .15s ease}
+.ci-later:hover{color:var(--ink)}
 .ci-later:active{transform:scale(.98)}
 .dm-title{font-family:var(--font-display);font-size:25px;font-weight:700;color:var(--ink);line-height:1.15;margin-bottom:11px}
 .dm-title em{font-style:normal;font-weight:700}
