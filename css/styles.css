@@ -1615,15 +1615,29 @@ body.is-desktop .brand-img{height:26px}
 @keyframes dmPulse{0%{transform:translate(-50%,-50%) scale(.6);opacity:.5}70%{opacity:.1}100%{transform:translate(-50%,-50%) scale(2);opacity:0}}
 @keyframes dmBreathe{0%,100%{transform:scale(.93)}50%{transform:scale(1.06)}}
 @media (prefers-reduced-motion:reduce){ .dm-ring{animation:none;opacity:.22} .dm-bloom{animation:none} }
-/* Daily check-in intro — full-screen page (not a popup) */
-#checkinModal{position:fixed;inset:0;z-index:9588;display:none;background:var(--app-bg);overflow-y:auto;-webkit-overflow-scrolling:touch}
+/* Daily check-in intro — full-screen page (not a popup), framed to encourage completion */
+#checkinModal{position:fixed;inset:0;z-index:9588;display:none;overflow-y:auto;-webkit-overflow-scrolling:touch;
+  background:
+    radial-gradient(120% 60% at 15% 0%, rgba(110,158,128,.16), transparent 55%),
+    radial-gradient(120% 55% at 100% 8%, rgba(216,173,99,.14), transparent 55%),
+    var(--app-bg)}
 #checkinModal.show{display:block;animation:lmFade .3s ease both}
 #checkinModal.hide{opacity:0;pointer-events:none;transition:opacity .34s ease}
 .ci-screen{min-height:100%;box-sizing:border-box;display:flex;flex-direction:column;justify-content:center;gap:22px;
   max-width:540px;margin:0 auto;padding:40px 22px calc(40px + env(safe-area-inset-bottom));text-align:left;
   animation:lmPop .4s cubic-bezier(.2,.8,.3,1) both}
 .ci-head{text-align:left}
-.ci-title{font-family:var(--font-display);font-size:30px;line-height:1.15;font-weight:700;color:var(--ink);margin:0 0 12px;letter-spacing:-.01em}
+/* hero icon tile */
+.ci-hero-ic{position:relative;width:64px;height:64px;border-radius:19px;margin-bottom:16px;display:flex;align-items:center;justify-content:center;
+  background:linear-gradient(145deg,#8FBF92,#5E8B6E);color:#fff;box-shadow:0 12px 26px -10px rgba(94,139,110,.6)}
+.ci-hero-ic > i,.ci-hero-ic > svg{width:30px;height:30px;stroke-width:2}
+.ci-hero-spark{position:absolute;top:-7px;right:-7px;width:26px;height:26px;border-radius:50%;background:#FBF0D3;color:#B08A2E;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 10px -3px rgba(176,138,46,.5)}
+.ci-hero-spark i,.ci-hero-spark svg{width:14px;height:14px}
+/* streak eyebrow */
+.ci-eyebrow{display:inline-flex;align-items:center;gap:6px;background:#FDEFD6;color:#B07B2E;border-radius:999px;padding:6px 12px 6px 10px;
+  font-family:var(--font-ui);font-size:11.5px;font-weight:800;letter-spacing:.02em;margin-bottom:14px}
+.ci-eyebrow i,.ci-eyebrow svg{width:14px;height:14px;color:#E0884B}
+.ci-title{font-family:var(--font-display);font-size:28px;line-height:1.16;font-weight:700;color:var(--ink);margin:0 0 12px;letter-spacing:-.01em}
 .ci-sub{font-family:var(--font-ui);font-size:15px;line-height:1.55;color:var(--brown);margin:0}
 .ci-sub b{color:var(--ink);font-weight:700}
 /* benefits card */

@@ -1766,6 +1766,9 @@ function doneThenLocation(){ if(window.__doneTimer){ clearTimeout(window.__doneT
 }
 function scheduleCheckin(){ if(window.__checkinTimer) clearTimeout(window.__checkinTimer);
   window.__checkinTimer=setTimeout(showCheckinModal, 2000); }   /* every time home is shown, after 2s */
+/* right after login: land on the check-in intro immediately (home sits behind it) */
+function loginShowCheckin(){ if(window.__checkinTimer){ clearTimeout(window.__checkinTimer); window.__checkinTimer=null; }
+  setTimeout(showCheckinModal, 120); }
 function showCheckinModal(){ var m=document.getElementById('checkinModal'); if(!m) return;
   if((document.body.getAttribute('data-screen')||'home')!=='home') return;   /* daily check-in prompt only on the home page */
   if(window.__tourActive) return;                                            /* don't interrupt the first-run tour */
@@ -2256,7 +2259,7 @@ function verifyOtp(){
     hideLoginScreen();             /* if we came from the login screen */
     hideDetailsScreen();           /* reveal the home dashboard behind */
     if(typeof goScreen==='function') goScreen('home');
-    scheduleCheckin();             /* daily check-in prompt 2s after landing on home */
+    loginShowCheckin();            /* land on the daily check-in intro right after login, home behind it */
     return;
   }
   /* new user: details were already collected before OTP → go straight to the onboarding steps */
