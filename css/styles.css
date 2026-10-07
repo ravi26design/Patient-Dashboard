@@ -4841,6 +4841,11 @@ body:has(#ov-schedule.active) .audio-btn{display:none}
 .hp2-focus-btn:hover{filter:brightness(1.05)}
 .hp2-focus-btn:active{transform:scale(.98)}
 .hp2-focus-time{text-align:center;font-family:var(--font-ui);font-size:12.5px;color:var(--ink-soft);margin-top:12px}
+/* activity-done focus card */
+.hp2-focus-ic-done{background:linear-gradient(140deg,#5E8B6E,#3F6650) !important;color:#fff !important}
+.hp2-focus-d b{color:var(--hb-teal-deep,#3F6650);font-weight:800}
+.hp2-focus-btn-outline{background:#fff !important;color:var(--hb-teal-deep,#3F6650) !important;border:1.5px solid rgba(78,123,94,.5) !important;box-shadow:none !important}
+.hp2-focus-btn-outline:hover{background:#F3F8F4 !important;filter:none !important}
 /* Home Page 2 — empty (pre-reflection) state */
 .hp2-gauge-empty{width:100%;max-width:300px;height:auto;display:block;margin:0 auto}
 .hp2-empty-score{font-family:var(--font-display);font-size:23px;font-weight:700;color:var(--ink);text-align:center;line-height:1.2;margin-top:8px}

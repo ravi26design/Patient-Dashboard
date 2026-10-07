@@ -1077,6 +1077,12 @@ function renderHp2(){
   if(e) e.style.display=ready?'none':'block';
   if(r) r.style.display=ready?'block':'none';
   if(ready && typeof buildArcGauge==='function') buildArcGauge('hp2Gauge',74);
+  if(ready){   /* focus card: pending vs. activity-done */
+    var ad=(typeof actDone==='function') && actDone('crave');
+    var fp=document.getElementById('hp2-focus-pending'), fd=document.getElementById('hp2-focus-done');
+    if(fp) fp.style.display=ad?'none':'block';
+    if(fd) fd.style.display=ad?'block':'none';
+  }
   if(window.lucide&&lucide.createIcons) lucide.createIcons();
 }
 function hp2BeginReflection(){
@@ -1348,6 +1354,7 @@ function activityComplete(){
   try{ localStorage.setItem('rh_act_'+id,'1'); }catch(e){}
   actzPaintTiles();
   applyTodayActState();
+  if(typeof renderHp2==='function') renderHp2();   /* flip Home Page 2 focus card to its activity-done state */
   closeDetail('activity');
   if(first && typeof showXPPopup==='function') showXPPopup(a.pts, 'Activity Complete!');
 }
