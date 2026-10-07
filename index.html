@@ -15,7 +15,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
 <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
-<link rel="stylesheet" href="css/styles.css?v=20261007k">
+<link rel="stylesheet" href="css/styles.css?v=20261007l">
 </head>
 <body>
 
@@ -1192,6 +1192,11 @@
           <div class="pf-menu-t">App Help Guide</div>
           <i data-lucide="chevron-right" class="pf-menu-arrow"></i>
         </button>
+        <button class="pf-menu-row" type="button" onclick="openOv('homepage2')">
+          <div class="pf-menu-ic" style="background:#8A6DAF;color:#fff"><i data-lucide="layout-dashboard"></i></div>
+          <div class="pf-menu-t">Home Page 2</div>
+          <i data-lucide="chevron-right" class="pf-menu-arrow"></i>
+        </button>
         <button class="pf-menu-row pf-menu-logout" type="button" onclick="logout()">
           <div class="pf-menu-ic" style="background:#C4453A;color:#fff"><i data-lucide="log-out"></i></div>
           <div class="pf-menu-t">Log out</div>
@@ -1560,6 +1565,24 @@
   </div>
 
   <!-- ═══ PRIVACY & DATA SHARING ═══ -->
+  <!-- ═══ HOME PAGE 2 (new blank screen) ═══ -->
+  <div class="overlay" id="ov-homepage2" style="background:var(--app-bg)">
+    <div class="ov-header" style="background:#fff;border-bottom:1px solid rgba(54,59,59,.06)">
+      <button class="ov-back" style="background:#EEF0F0;color:var(--ink)" onclick="closeOv()">&larr;</button>
+      <div>
+        <div style="font-family:var(--font-display);font-size:17px;font-weight:700;color:var(--ink)">Home Page 2</div>
+        <div style="font-family:var(--font-ui);font-size:12px;color:var(--ink-soft)">A fresh space to build</div>
+      </div>
+    </div>
+    <div class="ov-body" style="padding-top:18px">
+      <div class="hp2-empty">
+        <div class="hp2-empty-ic"><i data-lucide="layout-dashboard"></i></div>
+        <div class="hp2-empty-t">Home Page 2</div>
+        <div class="hp2-empty-d">This screen is ready for your new home design. Tell me what you'd like here and I'll build it out.</div>
+      </div>
+    </div>
+  </div>
+
   <div class="overlay" id="ov-privacy" style="background:var(--app-bg)">
     <div class="ov-header" style="background:#fff;border-bottom:1px solid rgba(54,59,59,.06)">
       <button class="ov-back" style="background:#EEF0F0;color:var(--ink)" onclick="closeOv()">&larr;</button>
@@ -3914,6 +3937,6 @@
     <button class="tour-skip" type="button" onclick="tourSkip()">Skip</button>
   </div>
 </div>
-<script src="js/app.js?v=20261007k"></script>
+<script src="js/app.js?v=20261007l"></script>
 </body>
 </html>
