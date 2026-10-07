@@ -1624,11 +1624,11 @@ body.is-desktop .brand-img{height:26px}
 #checkinModal.show{display:block;animation:lmFade .3s ease both}
 #checkinModal.hide{opacity:0;pointer-events:none;transition:opacity .34s ease}
 .ci-screen{min-height:100%;box-sizing:border-box;display:flex;flex-direction:column;justify-content:center;gap:22px;
-  max-width:540px;margin:0 auto;padding:40px 22px calc(40px + env(safe-area-inset-bottom));text-align:left;
+  max-width:540px;margin:0 auto;padding:40px 22px calc(40px + env(safe-area-inset-bottom));text-align:center;
   animation:lmPop .4s cubic-bezier(.2,.8,.3,1) both}
-.ci-head{text-align:left}
+.ci-head{text-align:center}
 /* hero icon tile */
-.ci-hero-ic{position:relative;width:64px;height:64px;border-radius:19px;margin-bottom:16px;display:flex;align-items:center;justify-content:center;
+.ci-hero-ic{position:relative;width:64px;height:64px;border-radius:19px;margin:0 auto 16px;display:flex;align-items:center;justify-content:center;
   background:linear-gradient(145deg,#8FBF92,#5E8B6E);color:#fff;box-shadow:0 12px 26px -10px rgba(94,139,110,.6)}
 .ci-hero-ic > i,.ci-hero-ic > svg{width:30px;height:30px;stroke-width:2}
 .ci-hero-spark{position:absolute;top:-7px;right:-7px;width:26px;height:26px;border-radius:50%;background:#FBF0D3;color:#B08A2E;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 10px -3px rgba(176,138,46,.5)}
@@ -1644,7 +1644,8 @@ body.is-desktop .brand-img{height:26px}
 .ci-hero-ic::before{content:"";position:absolute;inset:-18px;border-radius:50%;z-index:-1;
   background:radial-gradient(circle, rgba(110,158,128,.28), transparent 68%)}
 /* weekly streak tracker */
-.ci-week{display:flex;align-items:center;flex-wrap:wrap;gap:9px;margin-top:20px}
+.ci-week{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:9px;margin-top:20px}
+.cw-txt{text-align:center}
 .cw-dot{width:28px;height:28px;border-radius:50%;flex:0 0 auto;display:flex;align-items:center;justify-content:center}
 .cw-dot.done{background:#6E9E80;color:#fff;box-shadow:0 3px 7px -2px rgba(94,139,110,.5)}
 .cw-dot.done i,.cw-dot.done svg{width:16px;height:16px;stroke-width:3.2}
@@ -1652,7 +1653,7 @@ body.is-desktop .brand-img{height:26px}
 @keyframes cwPulse{0%,100%{box-shadow:0 0 0 0 rgba(216,173,99,.45)}50%{box-shadow:0 0 0 6px rgba(216,173,99,0)}}
 .cw-txt{width:100%;font-family:var(--font-ui);font-size:13px;font-weight:600;color:var(--ink-soft);margin-top:7px}
 /* benefits card */
-.ci-benefits{background:#fff;border-radius:20px;padding:6px 18px;box-shadow:0 6px 20px -6px rgba(60,50,45,.12),0 1px 3px rgba(60,50,45,.05)}
+.ci-benefits{background:#fff;border-radius:20px;padding:6px 18px;text-align:left;box-shadow:0 6px 20px -6px rgba(60,50,45,.12),0 1px 3px rgba(60,50,45,.05)}
 .ci-benefits-h{font-family:var(--font-ui);font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft);padding:16px 0 4px}
 .ci-benefit{display:flex;align-items:center;gap:13px;padding:14px 0}
 .ci-benefit + .ci-benefit{border-top:1px solid rgba(60,50,45,.07)}
