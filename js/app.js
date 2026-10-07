@@ -1311,10 +1311,10 @@ var ACTS={
 };
 function actDone(id){ try{ return localStorage.getItem('rh_act_'+id)==='1'; }catch(e){ return false; } }
 /* open the guided player for an activity */
-function openActivity(id, forceDone){
+function openActivity(id, forceDone, forceActive){
   var a=ACTS[id]; if(!a) return;
   try{ localStorage.setItem('rh_act_current', id); }catch(e){}
-  var done=!!forceDone || actDone(id);
+  var done = forceActive ? false : (!!forceDone || actDone(id));   /* forceActive: show the active "I did it" CTA regardless of saved state (Home Page 2 demo) */
   function set(el,fn){ var n=document.getElementById(el); if(n) fn(n); }
   set('act-title',function(n){ n.textContent=a.name; });
   set('act-sub',  function(n){ n.textContent=a.sub; });
