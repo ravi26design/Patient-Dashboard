@@ -1634,9 +1634,18 @@ body.is-desktop .brand-img{height:26px}
 .ci-hero-spark{position:absolute;top:-7px;right:-7px;width:26px;height:26px;border-radius:50%;background:#FBF0D3;color:#B08A2E;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 10px -3px rgba(176,138,46,.5)}
 .ci-hero-spark i,.ci-hero-spark svg{width:14px;height:14px}
 /* streak eyebrow */
-.ci-eyebrow{display:inline-flex;align-items:center;gap:6px;background:#FDEFD6;color:#B07B2E;border-radius:999px;padding:6px 12px 6px 10px;
-  font-family:var(--font-ui);font-size:11.5px;font-weight:800;letter-spacing:.02em;margin-bottom:14px}
-.ci-eyebrow i,.ci-eyebrow svg{width:14px;height:14px;color:#E0884B}
+.ci-eyebrow{display:inline-flex;align-items:center;gap:8px;border-radius:999px;padding:5px 15px 5px 5px;margin-bottom:16px;
+  background:linear-gradient(135deg,#FDEFD3,#F8E1B8);border:1px solid rgba(216,173,99,.35);
+  box-shadow:0 6px 16px -8px rgba(216,173,99,.6);font-family:var(--font-ui)}
+.ci-eyebrow-ic{flex:0 0 auto;width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  background:linear-gradient(135deg,#F0A24E,#E0742E);color:#fff;box-shadow:0 3px 8px -2px rgba(224,116,46,.6)}
+.ci-eyebrow-ic i,.ci-eyebrow-ic svg{width:15px;height:15px;stroke-width:2.4;transform-origin:center bottom;animation:ciFlame 1.6s ease-in-out infinite}
+@keyframes ciFlame{0%,100%{transform:scale(1) rotate(-3deg)}50%{transform:scale(1.14) rotate(3deg)}}
+@media (prefers-reduced-motion:reduce){ .ci-eyebrow-ic i,.ci-eyebrow-ic svg{animation:none} }
+.ci-eyebrow-tx{font-size:13px;font-weight:700;color:#8A5E1E;letter-spacing:.01em}
+.ci-eyebrow-tx b{font-family:var(--font-display);font-weight:800;font-size:16px;color:#B06A1E;margin-right:1px}
+.ci-eyebrow-sub{font-size:11px;font-weight:700;color:#B98C45;text-transform:uppercase;letter-spacing:.06em;
+  padding-left:9px;margin-left:2px;border-left:1.5px solid rgba(176,106,30,.28)}
 .ci-title{font-family:var(--font-display);font-size:28px;line-height:1.16;font-weight:700;color:var(--ink);margin:0 0 12px;letter-spacing:-.01em}
 .ci-sub{font-family:var(--font-ui);font-size:15px;line-height:1.55;color:var(--brown);margin:0}
 .ci-sub b{color:var(--ink);font-weight:700}
