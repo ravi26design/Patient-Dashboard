@@ -1694,7 +1694,8 @@ function submitDetails(){
   var unameVal=((uname&&uname.value)||'').trim();
   if(!unameVal){ dtErr('dtUsernameField'); if(uname) uname.focus(); return; }
   var emailVal=((email&&email.value)||'').trim();
-  if(emailVal && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(emailVal)){ dtErr('dtEmailField'); if(email) email.focus(); return; }
+  if(!emailVal){ dtErr('dtEmailField'); if(email) email.focus(); return; }   /* email now required */
+  if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(emailVal)){ dtErr('dtEmailField'); if(email) email.focus(); return; }
   /* validate the mobile number (now collected on this same screen) */
   var pinp=document.getElementById('phoneInput');
   var pd=((pinp&&pinp.value)||'').replace(/\D/g,'');
