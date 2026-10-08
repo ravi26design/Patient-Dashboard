@@ -1600,7 +1600,7 @@ function detailsBack(){
   hideDetailsScreen();
   if(window.__detailsFrom==='login'){
     showLoginScreen();
-    setTimeout(function(){ var i=document.getElementById('loginPhoneInput'); if(i) i.focus(); }, 320);
+    setTimeout(function(){ var i=document.getElementById('loginIdInput'); if(i) i.focus(); }, 320);
   } else {
     var w=document.getElementById('welcome'); if(w){ w.style.display=''; w.classList.remove('hide'); w.classList.add('show'); }
     if(window.__wc && __wc.start) __wc.start();
@@ -1628,7 +1628,7 @@ function startLogin(){
   var w=document.getElementById('welcome');
   if(w){ w.classList.add('hide'); setTimeout(function(){ w.style.display='none'; }, 520); }
   showLoginScreen();
-  setTimeout(function(){ var i=document.getElementById('loginPhoneInput'); if(i) i.focus(); }, 320);
+  setTimeout(function(){ var i=document.getElementById('loginIdInput'); if(i) i.focus(); }, 320);
 }
 function loginBack(){
   hideLoginScreen();
@@ -1636,20 +1636,21 @@ function loginBack(){
   if(window.__wc && __wc.start) __wc.start();
 }
 function loginContinue(){
-  var inp=document.getElementById('loginPhoneInput');
-  var d=((inp&&inp.value)||'').replace(/\D/g,'');
-  if(d.length<10){ var row=document.getElementById('loginPhRow'); if(row){ row.classList.add('err'); setTimeout(function(){ row.classList.remove('err'); },1200); } if(inp) inp.focus(); return; }
-  window.__phone=(typeof __cc!=='undefined'&&__cc?__cc.d:'+1')+d;
-  var existing=rhGetUser(window.__phone);
+  var inp=document.getElementById('loginIdInput');
+  var val=((inp&&inp.value)||'').trim();
+  if(!val){ if(typeof dtErr==='function') dtErr('lgIdField'); if(inp) inp.focus(); return; }
+  var existing=rhFindUser(val);
   if(existing){
-    /* registered → just verify with OTP, then home (verifyOtp routes a known number home) */
+    /* registered (by mobile / email / username) → verify with OTP on the number on file, then home */
+    window.__phone=existing.phone||window.__phone; window.__profile=existing;
     showOtpScreen();   /* login screen stays behind the dimmed OTP sheet */
   } else {
-    /* first time → send them to Register with the number auto-filled */
+    /* not registered → send them to Register (prefill the mobile number if they typed one) */
     window.__detailsFrom='login';
     hideLoginScreen();
     showDetailsScreen();
-    var pf=document.getElementById('phoneInput'); if(pf) pf.value=(inp?inp.value:'');   /* prefill the formatted number */
+    var digits=val.replace(/\D/g,'');
+    if(digits.length>=10 && val.indexOf('@')<0){ var pf=document.getElementById('phoneInput'); if(pf){ pf.value=val; if(typeof fmtPhone==='function') fmtPhone(pf); } }
     setTimeout(function(){ var n=document.getElementById('dtName'); if(n) n.focus(); }, 320);
   }
 }
@@ -1752,6 +1753,14 @@ function onbSave(k,v){ try{ var pf=window.__profile||{}; pf[k]=v; window.__profi
 function rhUsers(){ try{ return JSON.parse(localStorage.getItem('rh_users')||'{}'); }catch(e){ return {}; } }
 function rhRegisterUser(prof){ if(!prof||!prof.phone) return; var u=rhUsers(); u[prof.phone]=prof; try{ localStorage.setItem('rh_users', JSON.stringify(u)); }catch(e){} }
 function rhGetUser(num){ if(!num) return null; var u=rhUsers(); return u[num]||null; }
+/* find a registered user by mobile number, email, or username */
+function rhFindUser(idRaw){
+  var id=(idRaw||'').trim(); if(!id) return null; var u=rhUsers(), k;
+  if(id.indexOf('@')>=0 && /@.+\./.test(id)){ var e=id.toLowerCase(); for(k in u){ if(u[k]&&(u[k].email||'').toLowerCase()===e) return u[k]; } return null; }
+  var digits=id.replace(/\D/g,'');
+  if(digits.length>=10){ for(k in u){ if((k||'').replace(/\D/g,'').indexOf(digits)>=0) return u[k]; } return null; }
+  var un=id.toLowerCase().replace(/^@/,''); for(k in u){ if(u[k]&&(u[k].username||'').toLowerCase().replace(/^@/,'')===un) return u[k]; } return null;
+}
 /* MOUD */
 function showMoudScreen(){ onbShow('moudScreen'); }
 function hideMoudScreen(){ onbHide('moudScreen'); }
