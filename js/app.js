@@ -2272,6 +2272,10 @@ var __otpHideTimer=null;
 function showOtpScreen(){ var o=document.getElementById('otpScreen'); if(!o) return;
   if(__otpHideTimer){ clearTimeout(__otpHideTimer); __otpHideTimer=null; }
   var num=document.getElementById('otpNum'); if(num && window.__phone) num.textContent=window.__phone;
+  /* same code also goes to the email on file (shown only when we have one) */
+  var em=(window.__profile&&window.__profile.email)||'';
+  var ew=document.getElementById('otpEmailWrap'), eel=document.getElementById('otpEmail');
+  if(ew){ if(em){ if(eel) eel.textContent=em; ew.style.display=''; } else { ew.style.display='none'; } }
   var boxes=otpBoxes(); for(var i=0;i<boxes.length;i++) boxes[i].value='';
   genOtp();
   o.style.display=''; o.classList.remove('hide'); o.classList.add('show');   /* reset any leftover state from a prior close */
