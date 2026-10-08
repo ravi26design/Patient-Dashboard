@@ -1083,7 +1083,7 @@ function renderHp2(){
   var e=document.getElementById('hp2-empty'), r=document.getElementById('hp2-ready');
   if(e) e.style.display=ready?'none':'block';
   if(r) r.style.display=ready?'block':'none';
-  if(ready && typeof buildArcGauge==='function') buildArcGauge('hp2Gauge',74);
+  if(typeof buildArcGauge==='function'){ buildArcGauge(ready?'hp2Gauge':'hp2GaugeEmpty', ready?74:0); }
   if(ready){   /* focus card: pending vs. activity-done */
     var ad=!!window.__hp2Act;
     var fp=document.getElementById('hp2-focus-pending'), fd=document.getElementById('hp2-focus-done');

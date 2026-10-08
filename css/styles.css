@@ -4854,4 +4854,5 @@ body:has(#ov-schedule.active) .audio-btn{display:none}
 .hp2-spark-empty{height:40px}
 .hp2-spark-empty svg{height:100%}
 .hp2-focus-empty{background:#fff !important}
-.hp2-focus-ic-empty{background:#E3DFD7 !important}
+.hp2-focus-ic-empty{background:#EEEAE2 !important;color:#A79E90 !important}
+.hp2-focus-ic-empty i,.hp2-focus-ic-empty svg{width:19px;height:19px}

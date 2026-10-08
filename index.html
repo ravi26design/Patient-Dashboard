@@ -15,7 +15,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
 <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
-<link rel="stylesheet" href="css/styles.css?v=20261007v">
+<link rel="stylesheet" href="css/styles.css?v=20261008a">
 </head>
 <body>
 
@@ -1584,16 +1584,9 @@
             </div>
             <button class="help-i" type="button" aria-label="About Recovery Health" onclick="showHelp('recovery-health')"><i data-lucide="info"></i></button>
           </div>
-          <div class="hp2-gauge">
-            <svg class="hp2-gauge-empty" viewBox="0 32 300 164" aria-hidden="true">
-              <path d="M38,158 A112,112 0 0 1 262,158" fill="none" stroke="#E4E0D8" stroke-width="22" stroke-linecap="round"/>
-              <circle cx="150" cy="158" r="9" fill="#fff" stroke="#D4CFC6" stroke-width="4"/>
-              <text x="12" y="188" font-size="13" font-weight="600" fill="#9A938B">Low</text>
-              <text x="288" y="188" text-anchor="end" font-size="13" font-weight="600" fill="#9A938B">High</text>
-            </svg>
-          </div>
-          <div class="hp2-empty-score">Today's score isn't ready yet</div>
-          <div class="hp2-empty-score-sub">It updates after your daily reflection</div>
+          <div class="hp2-gauge" id="hp2GaugeEmpty"></div>
+          <div class="hp2-score">0</div>
+          <div class="hp2-score-sub">out of 100 · updates after your daily reflection</div>
           <div class="hp2-divider"></div>
           <div class="hp2-trend">
             <div class="hp2-trend-l">
@@ -1607,7 +1600,7 @@
         </div>
         <div class="hp2-focus hp2-focus-empty">
           <div class="hp2-focus-head">
-            <span class="hp2-focus-ic hp2-focus-ic-empty"></span>
+            <span class="hp2-focus-ic hp2-focus-ic-empty"><i data-lucide="lock"></i></span>
             <div class="hp2-focus-main">
               <div class="hp2-focus-eyebrow">Today's focus</div>
               <div class="hp2-focus-val hp2-muted">Not ready yet</div>
@@ -1615,6 +1608,7 @@
           </div>
           <p class="hp2-focus-d">Your focus and recovery activity for today show here after your daily reflection.</p>
           <button class="hp2-focus-btn" type="button" onclick="hp2BeginReflection()">Begin Daily Reflection</button>
+          <div class="hp2-focus-time">About 1 minute · unlocks today's score</div>
         </div>
       </div>
 
@@ -4040,6 +4034,6 @@
     <button class="tour-skip" type="button" onclick="tourSkip()">Skip</button>
   </div>
 </div>
-<script src="js/app.js?v=20261007v"></script>
+<script src="js/app.js?v=20261008a"></script>
 </body>
 </html>
