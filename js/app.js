@@ -28,8 +28,9 @@ function goScreen(id){
 function openOv(id){
   if(typeof stopPageAudio==='function')stopPageAudio();
   var el=document.getElementById('ov-'+id);if(!el)return;
-  /* desktop: counter the page zoom so the fixed overlay covers the viewport at native scale */
-  if(document.body.classList.contains('is-desktop') && window.__deskF){ var _vw=window.innerWidth; var _t=Math.min(1.3,(_vw-24)/620); el.style.zoom=_t/window.__deskF; }
+  /* desktop: counter the page zoom so the fixed overlay covers the viewport at native scale.
+     Home Page 2 is excluded — its gauge SVG under the extra (nested) zoom corrupts hit-testing of controls below it. */
+  if(document.body.classList.contains('is-desktop') && window.__deskF && id!=='homepage2'){ var _vw=window.innerWidth; var _t=Math.min(1.3,(_vw-24)/620); el.style.zoom=_t/window.__deskF; }
   else { el.style.zoom=''; }
   el.classList.add('active');
   el.scrollTop=0; var b=el.querySelector('.ov-body'); if(b) b.scrollTop=0;
