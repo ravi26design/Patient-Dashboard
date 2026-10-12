@@ -3111,7 +3111,13 @@ body.is-mobile .ins-rec-t{line-height:1.25}
 /* lead card: centered icon, why-this-helps text, earn pill below */
 .rd-hero-ic{width:62px;height:62px;border-radius:18px;background:#5E8B6E;color:#fff;display:flex;align-items:center;justify-content:center;margin:2px auto 16px;box-shadow:0 10px 24px -12px rgba(78,123,94,.55)}
 .rd-hero-ic i{width:28px;height:28px}
-.rd-earn{display:block;width:max-content;margin:16px auto 2px;font-family:'Josefin Sans',sans-serif;font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--gold-dk);background:var(--gold-lt);padding:8px 18px;border-radius:999px}
+.rd-earn{display:block;width:max-content;margin:18px auto 2px;font-family:'Josefin Sans',sans-serif;font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--gold-dk);background:var(--gold-lt);padding:8px 18px;border-radius:999px}
+/* centered hero lead card */
+.rd-lead{text-align:center;padding:22px 20px 18px}
+.rd-lead .rd-hero-ic{width:66px;height:66px;border-radius:19px;margin:2px auto 14px}
+.rd-lead .rd-hero-ic i,.rd-lead .rd-hero-ic svg{width:30px;height:30px}
+.rd-lead .rd-h{font-family:var(--font-ui);font-size:11px;font-weight:800;letter-spacing:.7px;text-transform:uppercase;color:var(--ink-soft);margin:0 0 7px}
+.rd-lead .rd-p{font-family:var(--font-display);font-size:18px;font-weight:700;color:var(--ink);line-height:1.3;margin:0}
 /* cards */
 .rd-card{background:#fff;border-radius:20px;box-shadow:var(--card-shadow);padding:18px;margin-bottom:14px}
 .rd-h{margin:0 0 10px}
