@@ -4856,5 +4856,4 @@ body.is-desktop #ov-homepage2 > .ov-body{padding-left:calc((100% - 664px) / 2 + 
 .hp2-spark-empty{height:40px}
 .hp2-spark-empty svg{height:100%}
 .hp2-focus-empty{background:#fff !important}
-.hp2-focus-ic-empty{background:#EEEAE2 !important;color:#A79E90 !important}
-.hp2-focus-ic-empty i,.hp2-focus-ic-empty svg{width:19px;height:19px}
+.hp2-focus-ic-empty{background:transparent !important;box-shadow:none !important}
