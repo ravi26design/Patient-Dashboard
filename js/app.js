@@ -1720,7 +1720,7 @@ function onbShow(id){ var e=document.getElementById(id); if(e){ e.style.display=
 function onbHide(id){ var e=document.getElementById(id); if(!e) return; e.classList.add('hide');
   setTimeout(function(){ e.style.display='none'; e.classList.remove('show','hide'); }, 420); }
 function onbStep(from,to){ onbShow(to); onbHide(from); }
-var ONB_ORDER=['reliefScreen','connectCareScreen'];   /* onboarding: Relief → clinic (consent moved to the details step) */
+var ONB_ORDER=['medsScreen','reliefScreen','connectCareScreen'];   /* onboarding: Medications → Relief → clinic (consent moved to the details step) */
 function onbBack(curId){
   if(window.__ciMode){   /* check-in intro: relief -> triggers -> cancel to home */
     if(curId==='reliefScreen'){ onbStep('reliefScreen','triggersScreen'); ciConfigTriggers(); ciGate(); return; }
@@ -1777,6 +1777,7 @@ function onbNext(step){
       setTimeout(function(){ if(typeof openReflect==='function') openReflect(); }, 460);   /* then the check-in */
       return; }
     onbSave('triggers', onbSelected('trigChips')); onbStep('triggersScreen','reliefScreen'); }
+  else if(step==='meds'){ onbSave('meds', onbSelected('medsChips')); onbStep('medsScreen','reliefScreen'); }
   else if(step==='relief'){
     if(window.__ciMode){
       if(onbSelected('reliefChips').length===0) return;                  /* must pick at least one */
@@ -2316,7 +2317,7 @@ function verifyOtp(){
   /* new user: details were already collected before OTP → go straight to the onboarding steps */
   try{ localStorage.setItem('rh_onboarded','1'); if(window.__profile) localStorage.setItem('rh_profile', JSON.stringify(window.__profile)); }catch(e){}
   if(window.__profile) rhRegisterUser(window.__profile);   /* remember the verified number now so a later log-in goes straight to OTP */
-  onbShow('reliefScreen');
+  onbShow('medsScreen');
   hideOtpScreen();
   hideDetailsScreen();
 }

@@ -15,7 +15,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
 <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
-<link rel="stylesheet" href="css/styles.css?v=20261012d">
+<link rel="stylesheet" href="css/styles.css?v=20261012e">
 </head>
 <body>
 
@@ -193,8 +193,28 @@
   </div>
 </div>
 
+<div id="medsScreen" class="step-screen" aria-hidden="true">
+  <div class="onb-top"><button class="onb-back" type="button" onclick="onbBack('medsScreen')" aria-label="Back"><i data-lucide="arrow-left"></i></button><div class="onb-steps"><div class="onb-steps-fill" style="width:33%"></div></div><div class="onb-count">1<span>/3</span></div></div>
+  <div class="onb-inner">
+    <h1 class="ph-title">Which <em>medications</em> are you currently taking?</h1>
+    <p class="ph-sub">This helps us tailor your dose reminders and insights. You can change this anytime.</p>
+    <div class="onb-addrow">
+      <input id="medsInput" class="onb-input" type="text" placeholder="Type a medication…" onkeydown="if(event.key==='Enter'){event.preventDefault();onbAdd('medsChips','medsInput')}">
+      <button class="onb-add" type="button" onclick="onbAdd('medsChips','medsInput')">Add</button>
+    </div>
+    <div class="onb-chips" id="medsChips">
+      <button class="onb-chip" type="button" onclick="onbToggle(this)"><i data-lucide="pill"></i>Suboxone</button>
+      <button class="onb-chip" type="button" onclick="onbToggle(this)"><i data-lucide="pill"></i>Methadone</button>
+      <button class="onb-chip" type="button" onclick="onbToggle(this)"><i data-lucide="circle-ellipsis"></i>Other</button>
+    </div>
+    <div class="onb-foot">
+      <button class="wc-begin onb-continue" type="button" onclick="onbNext('meds')">Continue <span aria-hidden="true">&rarr;</span></button>
+    </div>
+  </div>
+</div>
+
 <div id="reliefScreen" class="step-screen" aria-hidden="true">
-  <div class="onb-top"><button class="onb-back" type="button" onclick="onbBack('reliefScreen')" aria-label="Back"><i data-lucide="arrow-left"></i></button><div class="onb-steps"><div class="onb-steps-fill" style="width:50%"></div></div><div class="onb-count">1<span>/2</span></div></div>
+  <div class="onb-top"><button class="onb-back" type="button" onclick="onbBack('reliefScreen')" aria-label="Back"><i data-lucide="arrow-left"></i></button><div class="onb-steps"><div class="onb-steps-fill" style="width:66%"></div></div><div class="onb-count">2<span>/3</span></div></div>
   <div class="onb-inner">
     <h1 class="ph-title">What brings you <em>relief</em>?</h1>
     <p class="ph-sub">Things you enjoy can help an urge pass. I'll keep these one tap away on your Urge button.</p>
@@ -221,7 +241,7 @@
 </div>
 
 <div id="connectCareScreen" class="step-screen" aria-hidden="true">
-  <div class="onb-top"><button class="onb-back" type="button" onclick="onbBack('connectCareScreen')" aria-label="Back"><i data-lucide="arrow-left"></i></button><div class="onb-steps"><div class="onb-steps-fill" style="width:100%"></div></div><div class="onb-count">2<span>/2</span></div></div>
+  <div class="onb-top"><button class="onb-back" type="button" onclick="onbBack('connectCareScreen')" aria-label="Back"><i data-lucide="arrow-left"></i></button><div class="onb-steps"><div class="onb-steps-fill" style="width:100%"></div></div><div class="onb-count">3<span>/3</span></div></div>
   <div class="onb-inner">
     <h1 class="ph-title">Want to connect your care team?</h1>
     <p class="ph-sub">If you're seeing a clinic, Rudra can securely sync your appointments and MOUD plan through your health record. Enter your clinic's name or the code they gave you. You're always in control of what's shared.</p>
@@ -4031,6 +4051,6 @@
     <button class="tour-skip" type="button" onclick="tourSkip()">Skip</button>
   </div>
 </div>
-<script src="js/app.js?v=20261012d"></script>
+<script src="js/app.js?v=20261012e"></script>
 </body>
 </html>
